@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'RMagick'
+
 require File.dirname(__FILE__) + '/deprecated'
 
 # = Gruff. Graphs.
@@ -471,6 +472,8 @@ module Gruff
          self.format = fileformat
       end
     end
+
+    
 
 protected
 

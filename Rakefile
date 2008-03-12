@@ -11,7 +11,7 @@ Hoe.new('Gruff', Gruff::VERSION) do |p|
   p.summary = "Beautiful graphs for one or multiple datasets."
   p.url = "http://nubyonrails.com/pages/gruff"
   p.clean_globs = ['test/output/*.png']
-  p.changes = p.paragraphs_of('CHANGELOG', 0..1).join("\n\n")
+  p.changes = p.paragraphs_of('History.txt', 0..1).join("\n\n")
   p.remote_rdoc_dir = '' # Release to root
 end
 
