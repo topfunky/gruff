@@ -1,6 +1,6 @@
 == 0.3.0
 
-* ???
+* Fixed bug where pie graphs weren't drawing their label correctly.
 
 == 0.2.9
 
