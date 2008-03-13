@@ -1,3 +1,8 @@
+== 0.3.2
+
+* Include init.rb for use as a Rails plugin.
+
+
 == 0.3.1
 
 * Fixed missing bullet graph bug (experimental, will be in a future release).

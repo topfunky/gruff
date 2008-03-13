@@ -2,13 +2,22 @@
 
 A library for making beautiful graphs.
 
-See samples at http://nubyonrails.com/pages/gruff
+== Samples
 
-See the test suite in test/line_test.rb for examples.
+http://nubyonrails.com/pages/gruff
 
 == Documentation
 
-Most of the documentation is in the Gruff::Base class.
+http://gruff.rubyforge.org
+
+See the test suite in test/line_test.rb for examples.
+
+== Rails Plugin
+
+Gruff is easy to use with Rails.
+
+  gem install gruff
+  cd vendor/plugins && gem unpack gruff
 
 == WARNING
 
