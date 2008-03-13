@@ -1,3 +1,7 @@
+== 0.3.1
+
+* Fixed missing bullet graph bug (experimental, will be in a future release).
+
 == 0.3.0
 
 * Fixed bug where pie graphs weren't drawing their label correctly.

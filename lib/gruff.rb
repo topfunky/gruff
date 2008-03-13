@@ -4,7 +4,6 @@
   base
   area
   bar
-  bullet
   line
   pie
   spider
@@ -24,3 +23,5 @@
 ).each do |filename|
   require File.dirname(__FILE__) + "/gruff/#{filename}"
 end
+
+# TODO bullet
