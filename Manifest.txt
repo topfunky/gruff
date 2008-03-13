@@ -52,6 +52,9 @@ lib/gruff/spider.rb
 lib/gruff/stacked_area.rb
 lib/gruff/stacked_bar.rb
 lib/gruff/stacked_mixin.rb
+rails_generators/gruff/gruff_generator.rb
+rails_generators/gruff/templates/controller.rb
+rails_generators/gruff/templates/functional_test.rb
 test/gruff_test_case.rb
 test/test_accumulator_bar.rb
 test/test_area.rb
