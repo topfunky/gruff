@@ -30,6 +30,7 @@ assets/pc306715.jpg
 assets/plastik/blue.png
 assets/plastik/green.png
 assets/plastik/red.png
+init.rb
 lib/gruff.rb
 lib/gruff/accumulator_bar.rb
 lib/gruff/area.rb
