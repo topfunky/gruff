@@ -18,7 +18,7 @@ require File.dirname(__FILE__) + '/deprecated'
 module Gruff
 
   # This is the version of Gruff you are using.
-  VERSION = '0.3.1'
+  VERSION = '0.3.2'
 
   class Base
 
