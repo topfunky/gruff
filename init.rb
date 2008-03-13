@@ -1,2 +1,0 @@
-# For Rails
-require 'gruff'
