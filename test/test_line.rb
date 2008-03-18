@@ -5,6 +5,27 @@ require File.dirname(__FILE__) + "/gruff_test_case"
 class TestGruffLine < GruffTestCase
 
   # TODO Delete old output files once when starting tests
+
+  def test_should_render_with_transparent_theme
+    g = Gruff::Line.new(400)
+    g.title = "Transparent Background"
+    g.theme = {
+      :colors => ['black', 'grey'],
+      :marker_color => 'grey',
+      :font_color => 'black',
+      :background_colors => 'transparent'
+    }
+    
+    g.labels = {
+      0 => '5/6', 
+      1 => '5/15', 
+      2 => '5/24', 
+      3 => '5/30', 
+    }
+    g.data(:apples, [-1, 0, 4, -4])
+    g.data(:peaches, [10, 8, 6, 3])
+    g.write("test/output/line_transparent.png")
+  end
   
   def test_line_graph_with_themes
     line_graph_with_themes()
@@ -118,21 +139,21 @@ class TestGruffLine < GruffTestCase
     g.write("test/output/line_large.png")
   end
     
-  def test_long_title
-    
-  end
-  
-  def test_add_colors
-    
-  end
-
-  def test_request_too_many_colors
-    
-  end
-
-  def test_add_data
-    
-  end
+  # def test_long_title
+  #   
+  # end
+  # 
+  # def test_add_colors
+  #   
+  # end
+  # 
+  # def test_request_too_many_colors
+  #   
+  # end
+  # 
+  # def test_add_data
+  #   
+  # end
 
   def test_many_datapoints
     g = Gruff::Line.new
@@ -439,7 +460,6 @@ protected
     end
     g.write("test/output/line_theme_37signals_#{size}.png")
   
-
     g = Gruff::Line.new(size)
     g.title = "Multi-Line Graph Test #{size}"
     g.labels = @labels
