@@ -436,6 +436,16 @@ class TestGruffLine < GruffTestCase
     g.write('test/output/line_no_hide.png')
   end
 
+  def test_xy_data
+    g = Gruff::Line.new
+    g.title = "X/Y Dataset"
+    g.dataxy("Apples", [1,3,4,5,6,10], [1, 2, 3, 4, 4, 3])
+    g.dataxy("Bapples", [1,3,4,5,7,9], [1, 1, 2, 2, 3, 3])
+    g.data("Capples", [1, 1, 2, 2, 3, 3])
+    g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}
+    g.write('test/output/data_xy.png')
+  end
+
 protected
 
   # TODO Reset data after each theme
@@ -509,5 +519,5 @@ protected
     g.data(:peaches, [-10, -8, -6, -3])
     g
   end
-  
+
 end
