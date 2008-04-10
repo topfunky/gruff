@@ -38,3 +38,5 @@ Use these instructions:
 http://gweezlebur.com/2008/2/1/so-you-want-to-contribute-to-merb-core-part-1
 
 http://gweezlebur.com/2008/2/9/contributing-to-merb-part-2
+
+== Minor change for testing github post hook
