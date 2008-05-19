@@ -66,9 +66,7 @@ class Gruff::Scatter < Gruff::Base
 
         new_x = @graph_right - (@graph_width - x_value * @graph_width)
         new_y = @graph_top + (@graph_height - data_point * @graph_height)
-        puts data_point
-        puts x_value
-        
+
         # Reset each time to avoid thin-line errors
         @d = @d.stroke data_row[DATA_COLOR_INDEX]
         @d = @d.fill data_row[DATA_COLOR_INDEX]
@@ -81,7 +79,6 @@ class Gruff::Scatter < Gruff::Base
         prev_x = new_x
         prev_y = new_y
       end
-
     end
 
     @d.draw(@base_image)
@@ -149,4 +146,64 @@ protected
     end
   end
   
+  def draw_line_markers
+    # do all of the stuff for the horizontal lines on the y-axis
+    super
+
+    @d = @d.stroke_antialias false
+
+    if @x_axis_increment.nil?
+      # Try to use a number of horizontal lines that will come out even.
+      #
+      # TODO Do the same for larger numbers...100, 75, 50, 25
+      if @marker_count.nil?
+        (3..7).each do |lines|
+          if @x_spread % lines == 0.0
+            @marker_count = lines
+            break
+          end
+        end
+        @marker_count ||= 4
+      end
+      @x_increment = (@x_spread > 0) ? significant(@x_spread / @marker_count) : 1
+    else
+      # TODO Make this work for negative values
+      @maximum_x_value = [@maximum_value.ceil, @x_axis_increment].max
+      @minimum_x_value = @minimum_x_value.floor
+      calculate_spread
+      normalize(true)
+      
+      @marker_count = (@x_spread / @x_axis_increment).to_i
+      @x_increment = @x_axis_increment
+    end
+    @increment_x_scaled = @graph_width.to_f / (@x_spread / @x_increment)
+
+    # Draw vertical line markers and annotate with numbers
+    (0..@marker_count).each do |index|
+      x = @graph_left + @graph_width - index.to_f * @increment_x_scaled
+      
+      @d = @d.stroke(@marker_color)
+      @d = @d.stroke_width 1
+      @d = @d.line(x, @graph_top, x, @graph_bottom)
+
+      unless @hide_line_numbers
+        marker_label = index * @x_increment + @minimum_x_value.to_f
+        y_offset = @graph_bottom + LABEL_MARGIN 
+        x_offset = @graph_left + index.to_f * @increment_x_scaled
+
+        @d.fill = @font_color
+        @d.font = @font if @font
+        @d.stroke('transparent')
+        @d.pointsize = scale_fontsize(@marker_font_size)
+        @d.gravity = NorthGravity
+        
+        @d = @d.annotate_scaled(@base_image, 
+                          1.0, 1.0, 
+                          x_offset, y_offset, 
+                          label(marker_label), @scale)
+      end
+    end
+    
+    @d = @d.stroke_antialias true
+  end
 end # end Gruff::Scatter
