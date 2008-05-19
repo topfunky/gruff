@@ -9,32 +9,40 @@ require File.dirname(__FILE__) + '/base'
 #
 class Gruff::Scatter < Gruff::Base
 
-  # You can manually set a maximum x value instead of having the values
-  # guessed for you.
-  #
-  # Set it after you have given all your data to the graph object.
+  # Maximum X Value. The value will get overwritten by the max in the
+  # datasets.  
   attr_accessor :maximum_x_value
   
-  # You can manually set a minimum x value instead of having the values
-  # guessed for you.
-  #
-  # Set it after you have given all your data to the graph object.
+  # Minimum X Value. The value will get overwritten by the min in the 
+  # datasets.  
   attr_accessor :minimum_x_value
   
-  # used for foring normalization of the data
-  attr_accessor :xy_normalize
+  #~ # Draw a dashed horizontal line at the given y value
+  #~ attr_accessor :baseline_y_value
+	
+  #~ # Color of the horizontal baseline
+  #~ attr_accessor :baseline_y_color
+  
+  #~ # Draw a dashed horizontal line at the given y value
+  #~ attr_accessor :baseline_x_value
+	
+  #~ # Color of the horizontal baseline
+  #~ attr_accessor :baseline_x_color
   
   def initialize(*args)
     super(*args)
     
-    @maximum_x_value = 0
-    @minimum_x_value = 0
-    @xy_normalize = false
+    @maximum_x_value = @minimum_x_value = nil
+    @baseline_x_color = @baseline_y_color = 'red'
+    @baseline_x_value = @baseline_y_value = nil
   end
   
   def draw
     calculate_spread
     @sort = false
+    
+    # TODO: Need to get x-axis labels working 
+    @labels = {}
     
     # Translate our values so that we can use the base methods for drawing
     # the standard chart stuff
@@ -46,16 +54,20 @@ class Gruff::Scatter < Gruff::Base
     # Check to see if more than one datapoint was given. NaN can result otherwise.  
     @x_increment = (@column_count > 1) ? (@graph_width / (@column_count - 1).to_f) : @graph_width
 
-    if (defined?(@norm_baseline)) then
-      level = @graph_top + (@graph_height - @norm_baseline * @graph_height)
-      @d = @d.push
-      @d.stroke_color @baseline_color
-      @d.fill_opacity 0.0
-      @d.stroke_dasharray(10, 20)
-      @d.stroke_width 5
-      @d.line(@graph_left, level, @graph_left + @graph_width, level)
-      @d = @d.pop
-    end
+    #~ if (defined?(@norm_y_baseline)) then
+      #~ level = @graph_top + (@graph_height - @norm_baseline * @graph_height)
+      #~ @d = @d.push
+      #~ @d.stroke_color @baseline_color
+      #~ @d.fill_opacity 0.0
+      #~ @d.stroke_dasharray(10, 20)
+      #~ @d.stroke_width 5
+      #~ @d.line(@graph_left, level, @graph_left + @graph_width, level)
+      #~ @d = @d.pop
+    #~ end
+
+    #~ if (defined?(@norm_x_baseline)) then
+      
+    #~ end
 
     @norm_data.each do |data_row|      
       prev_x = prev_y = nil
@@ -98,6 +110,7 @@ class Gruff::Scatter < Gruff::Base
   #
   def data(name, x_data_points=[], y_data_points=[], color=nil)
     
+    raise ArgumentError, "Data Points contain nil Value!" if x_data_points.include?(nil) || y_data_points.include?(nil)
     raise ArgumentError, "x_data_points is nil!" if x_data_points.empty?
     raise ArgumentError, "y_data_points is nil!" if y_data_points.empty?
     raise ArgumentError, "x_data_points.length != y_data_points.length!" if x_data_points.length != y_data_points.length
@@ -115,7 +128,7 @@ class Gruff::Scatter < Gruff::Base
     
     @maximum_x_value = x_data_points.max > @maximum_x_value ?
                         x_data_points.max : @maximum_x_value
-    @minimum_x_value = x_data_points.min > @minimum_x_value ?
+    @minimum_x_value = x_data_points.min < @minimum_x_value ?
                         x_data_points.min : @minimum_x_value
   end
   
@@ -144,12 +157,15 @@ protected
         @norm_data << norm_data_points
       end
     end
+    #~ @norm_y_baseline = (@baseline_y_value.to_f / @maximum_value.to_f) if @baseline_y_value
+    #~ @norm_x_baseline = (@baseline_x_value.to_f / @maximum_x_value.to_f) if @baseline_x_value
   end
   
   def draw_line_markers
     # do all of the stuff for the horizontal lines on the y-axis
     super
-
+    return if @hide_line_markers
+    
     @d = @d.stroke_antialias false
 
     if @x_axis_increment.nil?
@@ -182,9 +198,11 @@ protected
     (0..@marker_count).each do |index|
       x = @graph_left + @graph_width - index.to_f * @increment_x_scaled
       
-      @d = @d.stroke(@marker_color)
-      @d = @d.stroke_width 1
-      @d = @d.line(x, @graph_top, x, @graph_bottom)
+      # TODO Fix the vertical lines.  Not pretty when they don't match up with top y-axis line
+      # TODO Make the lines start and finish at the very end points of the graph
+      #~ @d = @d.stroke(@marker_color)
+      #~ @d = @d.stroke_width 1
+      #~ @d = @d.line(x, @graph_top, x, @graph_bottom)
 
       unless @hide_line_numbers
         marker_label = index * @x_increment + @minimum_x_value.to_f
