@@ -45,7 +45,7 @@ class Gruff::Scatter < Gruff::Base
     calculate_spread
     @sort = false
     
-    # TODO: Need to get x-axis labels working 
+    # TODO Need to get x-axis labels working. Current behavior will be to not allow.
     @labels = {}
     
     # Translate our values so that we can use the base methods for drawing
@@ -80,7 +80,6 @@ class Gruff::Scatter < Gruff::Base
         x_value = data_row[DATA_VALUES_X_INDEX][index]
         next if data_point.nil? || x_value.nil? 
 
-        #~ new_x = @graph_right - (@graph_width - x_value * @graph_width)
         new_x = getXCoord(x_value, @graph_width, @graph_left)
         new_y = @graph_top + (@graph_height - data_point * @graph_height)
 
@@ -202,7 +201,6 @@ protected
       x = @graph_left + @graph_width - index.to_f * @increment_x_scaled
       
       # TODO Fix the vertical lines.  Not pretty when they don't match up with top y-axis line
-      # TODO Make the lines start and finish at the very end points of the graph
       #~ @d = @d.stroke(@marker_color)
       #~ @d = @d.stroke_width 1
       #~ @d = @d.line(x, @graph_top, x, @graph_bottom)

@@ -6,9 +6,9 @@ class TestGruffScatter < Test::Unit::TestCase
   
   def setup
     @datasets = [
-      [:Chuck, [20,10,5,12,11,6,10,7], [5,10,20,6,9,12,14,8] ],
+      [:Chuck, [20,10,5,12,11,6,10,7], [5,10,19,6,9,1,14,8] ],
       [:Brown, [5,10,20,6,9,12,14,8], [20,10,5,12,11,6,10,7] ],
-      [:Lucy, [19,9,6,11,12,7,11,8], [6,11,18,8,12,8,10,6] ]
+      [:Lucy, [19,9,6,11,12,7,15,8], [6,11,18,8,12,8,10,6] ]
     ]
   end
   
@@ -19,7 +19,7 @@ class TestGruffScatter < Test::Unit::TestCase
     g.write("test/output/scatter_basic.png")
   end
   
-  # Done
+  #~ # Done
   def test_many_datapoints
     g = Gruff::Scatter.new
     g.title = "Many Datapoint Graph Test"
@@ -156,6 +156,7 @@ class TestGruffScatter < Test::Unit::TestCase
     g.write("test/output/scatter_wide_graph_small.png")
   end
   
+  # Done
   def test_negative
     g = setup_pos_neg(800)
     g.write("test/output/scatter_pos_neg.png")
@@ -165,14 +166,15 @@ class TestGruffScatter < Test::Unit::TestCase
     g.write("test/output/scatter_pos_neg_400.png")
   end
 
-  #~ def test_all_negative
-    #~ g = setup_all_neg(800)
-    #~ g.write("test/output/line_all_neg.png")
+  # Done
+  def test_all_negative
+    g = setup_all_neg(800)
+    g.write("test/output/scatter_all_neg.png")
     
-    #~ g = setup_all_neg(400)
-    #~ g.title = 'All Neg Line Test Small'
-    #~ g.write("test/output/line_all_neg_400.png")
-  #~ end
+    g = setup_all_neg(400)
+    g.title = 'All Neg Line Test Small'
+    g.write("test/output/scatter_all_neg_400.png")
+  end
   
   # Done
   def test_no_hide_line_no_labels
@@ -183,6 +185,22 @@ class TestGruffScatter < Test::Unit::TestCase
     end
     g.hide_line_markers = false
     g.write('test/output/scatter_no_hide.png')
+  end
+  
+  def test_no_set_labels
+    g = Gruff::Scatter.new
+    g.title = "Setting Labels Test"
+    g.labels = {
+      0 => 'This', 
+      1 => 'should', 
+      2 => 'not', 
+      3 => 'show', 
+      4 => 'up'
+    }
+    @datasets.each do |data|
+      g.data(data[0], data[1], data[2])
+    end
+    g.write('test/output/scatter_no_labels.png')
   end
   
 protected 
@@ -199,8 +217,16 @@ protected
   def setup_pos_neg(size=800)
     g = Gruff::Scatter.new(size)
     g.title = "Pos/Neg Scatter Graph Test"
-    g.data(:apples, [-1, 0, 4, -4], [0, -1, 3, 4])
+    g.data(:apples, [-1, 0, 4, -4], [-5, -1, 3, 4])
     g.data(:peaches, [10, 8, 6, 3], [-1, 1, 3, 3])
+    return g
+  end
+  
+  def setup_all_neg(size=800)
+    g = Gruff::Scatter.new(size)
+    g.title = "Neg Scatter Graph Test"
+    g.data(:apples, [-1, -1, -4, -4], [-5, -1, -3, -4])
+    g.data(:peaches, [-10, -8, -6, -3], [-1, -1, -3, -3])
     return g
   end
   
