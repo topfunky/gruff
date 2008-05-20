@@ -17,6 +17,9 @@ class Gruff::Scatter < Gruff::Base
   # datasets.  
   attr_accessor :minimum_x_value
   
+  # The number of vertical lines shown for reference
+  attr_accessor :marker_x_count
+  
   #~ # Draw a dashed horizontal line at the given y value
   #~ attr_accessor :baseline_y_value
 	
@@ -35,6 +38,7 @@ class Gruff::Scatter < Gruff::Base
     @maximum_x_value = @minimum_x_value = nil
     @baseline_x_color = @baseline_y_color = 'red'
     @baseline_x_value = @baseline_y_value = nil
+    @marker_x_count = nil
   end
   
   def draw
@@ -76,8 +80,11 @@ class Gruff::Scatter < Gruff::Base
         x_value = data_row[DATA_VALUES_X_INDEX][index]
         next if data_point.nil? || x_value.nil? 
 
-        new_x = @graph_right - (@graph_width - x_value * @graph_width)
+        #~ new_x = @graph_right - (@graph_width - x_value * @graph_width)
+        new_x = getXCoord(x_value, @graph_width, @graph_left)
         new_y = @graph_top + (@graph_height - data_point * @graph_height)
+
+        puts new_x
 
         # Reset each time to avoid thin-line errors
         @d = @d.stroke data_row[DATA_COLOR_INDEX]
@@ -86,7 +93,7 @@ class Gruff::Scatter < Gruff::Base
         @d = @d.stroke_width clip_value_if_greater_than(@columns / (@norm_data.first[1].size * 4), 5.0)
 
         circle_radius = clip_value_if_greater_than(@columns / (@norm_data.first[1].size * 2.5), 5.0)
-        @d = @d.circle(new_x, new_y, new_x - 5, new_y)
+        @d = @d.circle(new_x, new_y, new_x - circle_radius, new_y)
 
         prev_x = new_x
         prev_y = new_y
@@ -169,19 +176,17 @@ protected
     @d = @d.stroke_antialias false
 
     if @x_axis_increment.nil?
-      # Try to use a number of horizontal lines that will come out even.
-      #
       # TODO Do the same for larger numbers...100, 75, 50, 25
-      if @marker_count.nil?
+      if @marker_x_count.nil?
         (3..7).each do |lines|
           if @x_spread % lines == 0.0
-            @marker_count = lines
+            @marker_x_count = lines
             break
           end
         end
-        @marker_count ||= 4
+        @marker_x_count ||= 4
       end
-      @x_increment = (@x_spread > 0) ? significant(@x_spread / @marker_count) : 1
+      @x_increment = (@x_spread > 0) ? significant(@x_spread / @marker_x_count) : 1
     else
       # TODO Make this work for negative values
       @maximum_x_value = [@maximum_value.ceil, @x_axis_increment].max
@@ -195,7 +200,7 @@ protected
     @increment_x_scaled = @graph_width.to_f / (@x_spread / @x_increment)
 
     # Draw vertical line markers and annotate with numbers
-    (0..@marker_count).each do |index|
+    (0..@marker_x_count).each do |index|
       x = @graph_left + @graph_width - index.to_f * @increment_x_scaled
       
       # TODO Fix the vertical lines.  Not pretty when they don't match up with top y-axis line
@@ -207,7 +212,7 @@ protected
       unless @hide_line_numbers
         marker_label = index * @x_increment + @minimum_x_value.to_f
         y_offset = @graph_bottom + LABEL_MARGIN 
-        x_offset = @graph_left + index.to_f * @increment_x_scaled
+        x_offset = getXCoord(index.to_f, @increment_x_scaled, @graph_left)
 
         @d.fill = @font_color
         @d.font = @font if @font
@@ -224,4 +229,11 @@ protected
     
     @d = @d.stroke_antialias true
   end
+  
+private
+  
+  def getXCoord(x_data_point, width, offset) #:nodoc:
+    return(x_data_point * width + offset)
+  end
+  
 end # end Gruff::Scatter
