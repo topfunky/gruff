@@ -84,8 +84,6 @@ class Gruff::Scatter < Gruff::Base
         new_x = getXCoord(x_value, @graph_width, @graph_left)
         new_y = @graph_top + (@graph_height - data_point * @graph_height)
 
-        puts new_x
-
         # Reset each time to avoid thin-line errors
         @d = @d.stroke data_row[DATA_COLOR_INDEX]
         @d = @d.fill data_row[DATA_COLOR_INDEX]
