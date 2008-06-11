@@ -4,6 +4,7 @@
   base
   area
   bar
+  bezier
   line
   pie
   spider
