@@ -716,6 +716,10 @@ protected
       @d = @d.stroke_antialias true
     end
 
+    def sum(arr)
+      arr.inject(0) { |i, m| m + i }
+    end
+
     def center(size)
       (@raw_columns - size) / 2
     end
@@ -739,12 +743,12 @@ protected
         label_width = metrics.width + legend_square_width * 2.7
         label_widths.last.push label_width
         
-        if label_widths.last.sum > (@raw_columns * 0.9)
+        if sum(label_widths.last) > (@raw_columns * 0.9)
           label_widths.push [label_widths.last.pop]
         end
       end
       
-      current_x_offset = center(label_widths.first.sum)
+      current_x_offset = center(sum(label_widths.first))
       current_y_offset =  @hide_title ? 
                           @top_margin + LEGEND_MARGIN : 
                           @top_margin + 
@@ -782,7 +786,7 @@ protected
         label_widths.first.shift
         if label_widths.first.empty?
           label_widths.shift
-          current_x_offset = center(label_widths.first.sum) unless label_widths.empty?
+          current_x_offset = center(sum(label_widths.first)) unless label_widths.empty?
           line_height = [@legend_caps_height, legend_square_width].max + LEGEND_MARGIN
           current_y_offset += line_height
           @graph_top += line_height
@@ -1089,9 +1093,3 @@ module Magick
   end
 
 end # Magick
-
-class Array
-  def sum
-    inject(0) { |i, m| m + i }
-  end
-end # Array
