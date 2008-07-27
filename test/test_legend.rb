@@ -27,45 +27,42 @@ class TestGruffLegend < GruffTestCase
       }      
   end
 
-  ## TODO Fix implementation
+  def full_suite_for(name, type)
+    [800, 400].each do |width|
+      [nil, 4, 16, 30].each do |font_size|
+        g = type.new(width)
+        g.title = "Wrapped Legend Bar Test #{font_size}pts #{width}px"
+        g.labels = @sample_labels
+        0xEFD250.step(0xFF0000, 60) do |num|
+          g.colors << "#%x" % num
+        end
+  
+        @datasets.each do |data|
+          g.data(data[0], data[1])
+        end
+  
+        g.legend_font_size = font_size unless font_size.nil?
+        g.write("test/output/#{name}_wrapped_legend_#{font_size}_#{width}.png")
+      end
+    end
+  end
 
-  # def test_bar_legend_wrap
-  #   [800, 400].each do |width|
-  #     [nil, 4, 16, 30].each do |font_size|
-  #       g = Gruff::Bar.new(width)
-  #       g.title = "Wrapped Legend Bar Test #{font_size}pts #{width}px"
-  #       g.labels = @sample_labels
-  #       0xEFD250.step(0xFF0000, 60) do |num|
-  #         g.colors << "#%x" % num
-  #       end
-  # 
-  #       @datasets.each do |data|
-  #         g.data(data[0], data[1])
-  #       end
-  # 
-  #       g.legend_font_size = font_size unless font_size.nil?
-  #       g.write("test/output/bar_wrapped_legend_#{font_size}_#{width}.png")
-  #     end
-  #   end
-  # end
-  # 
-  # def test_pie_legend_wrap    
-  #   [800, 400].each do |width|
-  #     [nil, 4, 16, 30].each do |font_size|
-  #       g = Gruff::Pie.new(width)
-  #       g.title = "Wrapped Legend Pie Test #{font_size}pts #{width}px"
-  #       g.labels = @sample_labels
-  #       0xEFD250.step(0xFF0000, 60) do |num|
-  #         g.colors << "#%x" % num
-  #       end
-  # 
-  #       @datasets.each do |data|
-  #         g.data(data[0], data[1])
-  #       end
-  # 
-  #       g.legend_font_size = font_size unless font_size.nil?
-  #       g.write("test/output/pie_wrapped_legend_#{font_size}_#{width}.png")
-  #     end
-  #   end
-  # end
+  def test_bar_legend_wrap
+    full_suite_for(:bar, Gruff::Bar)
+  end
+  
+  def test_pie_legend_wrap
+    full_suite_for(:pie, Gruff::Pie)
+  end
+  
+  def test_more_than_two_lines_of_legends
+    @datasets = @datasets + [[:Julie2, [22, 29, 35, 38, 36, 40, 46, 57]],
+                             [:Jane2, [95, 95, 95, 90, 85, 80, 88, 100]],
+                             [:Philip2, [90, 34, 23, 12, 78, 89, 98, 88]],
+                             ["Arthur2", [5, 10, 13, 11, 6, 16, 22, 32]],
+                             ["Vincent2", [5, 10, 13, 11, 6, 16, 22, 32]],
+                             ["Jake2", [5, 10, 13, 11, 6, 16, 22, 32]],
+                             ["Stephen2", [5, 10, 13, 11, 6, 16, 22, 32]]]
+    full_suite_for(:bar2, Gruff::Bar)
+  end
 end
