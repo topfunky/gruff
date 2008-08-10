@@ -941,7 +941,7 @@ protected
     # Sort with largest overall summed value at front of array so it shows up
     # correctly in the drawn graph.
     def sort_norm_data
-      @norm_data.sort! { |a,b| sums(b[1]) <=> sums(a[1]) }
+      @norm_data.sort! { |a,b| sums(b[DATA_VALUES_INDEX]) <=> sums(a[DATA_VALUES_INDEX]) }
     end
 
     def sums(data_set) # :nodoc:
@@ -973,10 +973,10 @@ protected
     def make_stacked # :nodoc:
       stacked_values = Array.new(@column_count, 0)
       @data.each do |value_set|
-        value_set[1].each_with_index do |value, index|
+        value_set[DATA_VALUES_INDEX].each_with_index do |value, index|
           stacked_values[index] += value
         end
-        value_set[1] = stacked_values.dup
+        value_set[DATA_VALUES_INDEX] = stacked_values.dup
       end
     end
 
