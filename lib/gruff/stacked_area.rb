@@ -7,6 +7,7 @@ class Gruff::StackedArea < Gruff::Base
   attr_accessor :last_series_goes_on_bottom
   
   def draw
+    get_maximum_by_stack
     super
 
     return unless @has_data
