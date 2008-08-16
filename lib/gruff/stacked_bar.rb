@@ -24,7 +24,7 @@ class Gruff::StackedBar < Gruff::Base
       @norm_data.each_with_index do |data_row, row_index|
         @d = @d.fill data_row[DATA_COLOR_INDEX]
       
-        data_row[1].each_with_index do |data_point, point_index|
+        data_row[DATA_VALUES_INDEX].each_with_index do |data_point, point_index|
           # Calculate center based on bar_width and current row
           label_center = @graph_left + (@bar_width * point_index) + (@bar_width * spacing_factor / 2.0)
           draw_label(label_center, point_index)

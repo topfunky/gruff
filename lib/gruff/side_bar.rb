@@ -24,7 +24,7 @@ class Gruff::SideBar < Gruff::Base
     @norm_data.each_with_index do |data_row, row_index|
       @d = @d.fill data_row[DATA_COLOR_INDEX]
 
-      data_row[1].each_with_index do |data_point, point_index|
+      data_row[DATA_VALUES_INDEX].each_with_index do |data_point, point_index|
 
         # Using the original calcs from the stacked bar chart
         # to get the difference between

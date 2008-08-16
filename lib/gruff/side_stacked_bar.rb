@@ -31,7 +31,7 @@ class Gruff::SideStackedBar < Gruff::SideBar
     @norm_data.each_with_index do |data_row, row_index|
       @d = @d.fill data_row[DATA_COLOR_INDEX]
 
-      data_row[1].each_with_index do |data_point, point_index|
+      data_row[DATA_VALUES_INDEX].each_with_index do |data_point, point_index|
 
     	  ## using the original calcs from the stacked bar chart to get the difference between
     	  ## part of the bart chart we wish to stack.
@@ -67,7 +67,7 @@ class Gruff::SideStackedBar < Gruff::SideBar
   end
 
   def max(data_point, index)
-    @data.inject(0) {|sum, item| sum + item[1][index]}
+    @data.inject(0) {|sum, item| sum + item[DATA_VALUES_INDEX][index]}
   end
 
 end

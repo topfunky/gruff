@@ -40,14 +40,14 @@ class Gruff::Pie < Gruff::Base
     prev_degrees = @zero_degree
 
     # Use full data since we can easily calculate percentages
-    data = (@sort ? @data.sort{ |a, b| a[DATA_VALUES_INDEX][0] <=> b[DATA_VALUES_INDEX][0] } : @data)
+    data = (@sort ? @data.sort{ |a, b| a[DATA_VALUES_INDEX].first <=> b[DATA_VALUES_INDEX].first } : @data)
     data.each do |data_row|
-      if data_row[DATA_VALUES_INDEX][0] > 0
+      if data_row[DATA_VALUES_INDEX].first > 0
         @d = @d.stroke data_row[DATA_COLOR_INDEX]
         @d = @d.fill 'transparent'
         @d.stroke_width(radius) # stroke width should be equal to radius. we'll draw centered on (radius / 2)
 
-        current_degrees = (data_row[DATA_VALUES_INDEX][0] / total_sum) * 360.0 
+        current_degrees = (data_row[DATA_VALUES_INDEX].first / total_sum) * 360.0 
 
         # ellipse will draw the the stroke centered on the first two parameters offset by the second two.
         # therefore, in order to draw a circle of the proper diameter we must center the stroke at
@@ -63,7 +63,7 @@ class Gruff::Pie < Gruff::Base
         # unless @hide_line_markers then
           # End the string with %% to escape the single %.
           # RMagick must use sprintf with the string and % has special significance.
-          label_string = ((data_row[DATA_VALUES_INDEX][0] / total_sum) *
+          label_string = ((data_row[DATA_VALUES_INDEX].first / total_sum) *
                           100.0).round.to_s + '%%'
           @d = draw_label(center_x,center_y, half_angle,
                           radius + (radius * TEXT_OFFSET_PERCENTAGE),
@@ -109,7 +109,7 @@ private
 
   def sums_for_pie
     total_sum = 0.0
-    @data.collect {|data_row| total_sum += data_row[DATA_VALUES_INDEX][0] }
+    @data.collect {|data_row| total_sum += data_row[DATA_VALUES_INDEX].first }
     total_sum
   end
 

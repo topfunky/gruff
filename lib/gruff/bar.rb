@@ -51,7 +51,7 @@ protected
     # iterate over all normalised data
     @norm_data.each_with_index do |data_row, row_index|
 
-      data_row[1].each_with_index do |data_point, point_index|
+      data_row[DATA_VALUES_INDEX].each_with_index do |data_point, point_index|
         # Use incremented x and scaled y
         # x
         left_x = @graph_left + (@bar_width * (row_index + point_index + ((@data.length - 1) * point_index)))

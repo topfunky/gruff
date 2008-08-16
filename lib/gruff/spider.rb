@@ -101,7 +101,7 @@ private
               center_x + x_offset,
               center_y + y_offset)
             
-      draw_label(center_x, center_y, current_angle, radius, data_row[0].to_s) unless hide_text
+      draw_label(center_x, center_y, current_angle, radius, data_row[DATA_LABEL_INDEX].to_s) unless hide_text
             
       current_angle += additive_angle
     end
@@ -111,8 +111,8 @@ private
     points = []
     current_angle = 0.0
     @data.each do |data_row|
-      points << center_x + normalize_points(data_row[1][0]) * Math.cos(current_angle)
-      points << center_y + normalize_points(data_row[1][0]) * Math.sin(current_angle)
+      points << center_x + normalize_points(data_row[DATA_VALUES_INDEX].first) * Math.cos(current_angle)
+      points << center_y + normalize_points(data_row[DATA_VALUES_INDEX].first) * Math.sin(current_angle)
       current_angle += additive_angle
     end
     
@@ -124,7 +124,7 @@ private
   end
   
   def sums_for_spider
-    @data.inject(0.0) {|sum, data_row| sum += data_row[1][0]}
+    @data.inject(0.0) {|sum, data_row| sum += data_row[DATA_VALUES_INDEX].first}
   end
 
 end
