@@ -114,12 +114,12 @@ class TestGruffBar < GruffTestCase
 
   def test_set_legend_box_size
     g = setup_basic_graph(400)
-    g.title = "Set Legend Box Size"
+    g.title = "Set Small Legend Box Size"
     g.legend_box_size = 10.0
     g.write("test/output/bar_set_legend_box_size_sm.png")
     
     g = setup_basic_graph(400)
-    g.title = "Set Legend Box Size"
+    g.title = "Set Large Legend Box Size"
     g.legend_box_size = 50.0
     g.write("test/output/bar_set_legend_box_size_lg.png")
   end
