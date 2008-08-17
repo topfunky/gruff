@@ -1,7 +1,11 @@
+== 0.3.3
+
+* Legend line wrapping [Mat Schaffer]
+* Stacked area graph fixes [James Coglan]
+
 == 0.3.2
 
 * Include init.rb for use as a Rails plugin.
-
 
 == 0.3.1
 
