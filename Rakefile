@@ -21,6 +21,7 @@ task :verify => :package do
   if system %(ruby -e "require 'pkg/gruff-#{Gruff::VERSION}/lib/gruff'")
     puts "\nThe library files are present"
   end
+  raise "\n*** Gruff::Base::DEBUG must be set to false for releases ***\n\n" if Gruff::Base::DEBUG
 end
 
 task :release => :verify

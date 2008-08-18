@@ -1,3 +1,8 @@
+== 0.3.4
+
+* Reverted DEBUG=true. Will add a check in the release process so this doesn't happen again.
+* Future releases will end in an odd number for development (topfunky-gruff on GitHub) or even for production releases.
+
 == 0.3.3
 
 * Legend line wrapping [Mat Schaffer]

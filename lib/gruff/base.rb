@@ -20,7 +20,7 @@ require File.dirname(__FILE__) + '/deprecated'
 module Gruff
 
   # This is the version of Gruff you are using.
-  VERSION = '0.3.3'
+  VERSION = '0.3.4'
 
   class Base
 
@@ -28,7 +28,7 @@ module Gruff
     include Deprecated
 
     # Draw extra lines showing where the margins and text centers are
-    DEBUG = true
+    DEBUG = false
 
     # Used for navigating the array of data to plot
     DATA_LABEL_INDEX = 0
