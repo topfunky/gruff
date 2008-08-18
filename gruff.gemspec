@@ -1,11 +1,10 @@
-
 Gem::Specification.new do |s|
   s.name = %q{gruff}
-  s.version = "0.3.3"
+  s.version = "0.3.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Geoffrey Grosenbach"]
-  s.date = %q{2008-08-16}
+  s.date = %q{2008-08-18}
   s.description = %q{Beautiful graphs for one or multiple datasets. Can be used on websites or in documents.}
   s.email = %q{boss@topfunky.com}
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README.txt"]
