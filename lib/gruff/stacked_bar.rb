@@ -16,6 +16,7 @@ class Gruff::StackedBar < Gruff::Base
       # Columns sit stacked.
       spacing_factor = 0.9
       @bar_width = @graph_width / @column_count.to_f
+      padding = (@bar_width * (1 - spacing_factor)) / 2
     
       @d = @d.stroke_opacity 0.0
       
@@ -31,7 +32,7 @@ class Gruff::StackedBar < Gruff::Base
 
           next if (data_point == 0)
           # Use incremented x and scaled y
-          left_x = @graph_left + (@bar_width * point_index)
+          left_x = @graph_left + (@bar_width * point_index) + padding
           left_y = @graph_top + (@graph_height -
                                  data_point * @graph_height - 
                                  height[point_index]) + 1

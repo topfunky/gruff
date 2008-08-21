@@ -23,6 +23,7 @@ protected
     # Columns sit side-by-side.
     spacing_factor = 0.9 # space between the bars
     @bar_width = @graph_width / (@column_count * @data.length).to_f
+    padding = (@bar_width * (1 - spacing_factor)) / 2
 
     @d = @d.stroke_opacity 0.0
 
@@ -54,7 +55,7 @@ protected
       data_row[DATA_VALUES_INDEX].each_with_index do |data_point, point_index|
         # Use incremented x and scaled y
         # x
-        left_x = @graph_left + (@bar_width * (row_index + point_index + ((@data.length - 1) * point_index)))
+        left_x = @graph_left + (@bar_width * (row_index + point_index + ((@data.length - 1) * point_index))) + padding
         right_x = left_x + @bar_width * spacing_factor
         # y
         conv = []

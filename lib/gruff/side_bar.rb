@@ -20,6 +20,7 @@ class Gruff::SideBar < Gruff::Base
     @d         = @d.stroke_opacity 0.0
     height     = Array.new(@column_count, 0)
     length     = Array.new(@column_count, @graph_left)
+    padding    = (@bars_width * (1 - spacing_factor)) / 2
 
     @norm_data.each_with_index do |data_row, row_index|
       @d = @d.fill data_row[DATA_COLOR_INDEX]
@@ -34,7 +35,7 @@ class Gruff::SideBar < Gruff::Base
         difference = temp2 - temp1
 
         left_x     = length[point_index] - 1
-        left_y     = @graph_top + (@bars_width * point_index) + (@bar_width * row_index)
+        left_y     = @graph_top + (@bars_width * point_index) + (@bar_width * row_index) + padding
         right_x    = left_x + difference
         right_y    = left_y + @bar_width
 
