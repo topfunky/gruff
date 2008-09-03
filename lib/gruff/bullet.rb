@@ -15,7 +15,7 @@ class Gruff::Bullet < Gruff::Base
     initialize_ivars
 
     reset_themes
-    theme_greyscale
+    self.theme = Themes::GREYSCALE
     @title_font_size = 20
   end
 

@@ -30,7 +30,7 @@ class TestGruffPie < GruffTestCase
   def test_pie_graph_greyscale
     g = Gruff::Pie.new
     g.title = "Greyscale Pie Graph Test"
-    g.theme_greyscale
+    g.theme = Gruff::Themes::GREYSCALE
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
@@ -41,7 +41,7 @@ class TestGruffPie < GruffTestCase
 
   def test_pie_graph_pastel
     g = Gruff::Pie.new
-    g.theme_pastel
+    g.theme = Gruff::Themes::PASTEL
     g.title = "Pastel Pie Graph Test"
     @datasets.each do |data|
       g.data(data[0], data[1])

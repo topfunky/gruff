@@ -454,7 +454,7 @@ protected
     g.title = "Multi-Line Graph Test #{size}"
     g.labels = @labels
     g.baseline_value = 90
-    g.theme_37signals
+    g.theme = Gruff::Themes::THIRTYSEVEN_SIGNALS
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
@@ -464,7 +464,7 @@ protected
     g.title = "Multi-Line Graph Test #{size}"
     g.labels = @labels
     g.baseline_value = 90
-    g.theme_rails_keynote
+    g.theme = Gruff::Themes::RAILS_KEYNOTE
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
@@ -474,7 +474,7 @@ protected
     g.title = "Multi-Line Graph Test #{size}"
     g.labels = @labels
     g.baseline_value = 90
-    g.theme_odeo
+    g.theme = Gruff::Themes::ODEO
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
