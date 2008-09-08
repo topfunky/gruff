@@ -11,6 +11,7 @@ class Gruff::Net < Gruff::Base
     super
     
     @hide_dots = false
+    @hide_line_numbers = true
   end
 
   def draw
@@ -115,16 +116,7 @@ private
     @d.pointsize = scale_fontsize(20)
     @d.stroke = 'transparent'
     @d.font_weight = BoldWeight
-    s = angle.deg2rad / (2*Math::PI)
-    @d.gravity = SouthGravity     if s >= 0.96 or s < 0.04
-    @d.gravity = SouthWestGravity if s >= 0.04 or s < 0.21
-    @d.gravity = WestGravity      if s >= 0.21 or s < 0.29
-    @d.gravity = NorthWestGravity if s >= 0.29 or s < 0.46
-    @d.gravity = NorthGravity     if s >= 0.46 or s < 0.54
-    @d.gravity = NorthEastGravity if s >= 0.54 or s < 0.71
-    @d.gravity = EastGravity      if s >= 0.71 or s < 0.79
-    @d.gravity = SouthEastGravity if s >= 0.79 or s < 0.96
-#     @d.gravity = NorthGravity
+    @d.gravity = CenterGravity
     @d.annotate_scaled(@base_image, 0, 0, x, y, amount, @scale)
   end
 
