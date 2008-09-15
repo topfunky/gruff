@@ -44,7 +44,7 @@ class Gruff::SideBar < Gruff::Base
         @d           = @d.rectangle(left_x, left_y, right_x, right_y)
 
         # Calculate center based on bar_width and current row
-        label_center = @graph_top + (@bars_width * point_index + @bars_width / 2)
+        label_center = @graph_top + (@bars_width * point_index + @bars_width / 2) + padding
         draw_label(label_center, point_index)
       end
 

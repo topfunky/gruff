@@ -27,7 +27,7 @@ class Gruff::StackedBar < Gruff::Base
           @d = @d.fill data_row[DATA_COLOR_INDEX]
           
           # Calculate center based on bar_width and current row
-          label_center = @graph_left + (@bar_width * point_index) + (@bar_width * spacing_factor / 2.0)
+          label_center = @graph_left + (@bar_width * point_index) + (@bar_width * spacing_factor / 2.0) + padding
           draw_label(label_center, point_index)
 
           next if (data_point == 0)
