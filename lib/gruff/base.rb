@@ -674,8 +674,7 @@ module Gruff
       (0..@marker_count).each do |index|
         y = @graph_top + @graph_height - index.to_f * @increment_scaled
 
-        @d = @d.stroke(@marker_color)
-        @d = @d.stroke_width 1
+        @d = @d.fill(@marker_color)
         @d = @d.line(@graph_left, y, @graph_right, y)
 
         marker_label = index * @increment + @minimum_value.to_f
