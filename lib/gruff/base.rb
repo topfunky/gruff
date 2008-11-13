@@ -257,10 +257,16 @@ module Gruff
     # have one more color than the number of datasets you intend to draw. Also
     # aliased as the colors= setter method.
     #
+    # Note that (as with the 'theme' method), you should set up your color
+    # list before you send your data (via the 'data' method).  Calls to the 
+    # 'data' method made prior to this call will use whatever color scheme 
+    # was in place at the time data was called.
+    #
     # Example:
     #  replace_colors ['#cc99cc', '#d9e043', '#34d8a2']
     def replace_colors(color_list=[])
       @colors = color_list
+      @color_index = 0
     end
 
     # You can set a theme manually. Assign a hash to this method before you
@@ -1033,21 +1039,17 @@ module Gruff
       end
     end
 
-    # Uses the next color in your color list.
+    # Returns the next color in your color list.
     def increment_color
-      if @color_index == 0
+      if @color_index < @colors.length
         @color_index += 1
-        return @colors[0]
       else
-        if @color_index < @colors.length
-          @color_index += 1
-          return @colors[@color_index - 1]
-        else
-          # Start over
-          @color_index = 0
-          return @colors[-1]
-        end
+        # Start over
+        @color_index = 0
       end
+      # Return pre-incremented index element. 
+      # If @color_index is 0, -1 yields last element in @colors.
+      return @colors[@color_index - 1]
     end
 
     # Return a formatted string representing a number value that should be
