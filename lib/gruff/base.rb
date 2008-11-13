@@ -451,7 +451,7 @@ module Gruff
         # TODO Doesn't work with stacked bar graphs
         # Original: @maximum_value = larger_than_max?(data_point, index) ? max(data_point, index) : @maximum_value
         @maximum_value = larger_than_max?(data_point) ? data_point : @maximum_value
-        @has_data = true if @maximum_value > 0
+        @has_data = true if @maximum_value >= 0
 
         @minimum_value = less_than_min?(data_point) ? data_point : @minimum_value
         @has_data = true if @minimum_value < 0
