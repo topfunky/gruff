@@ -221,6 +221,35 @@ class TestGruffBar < GruffTestCase
     g.write("test/output/bar_y_increment_#{increment}.png")
   end
 
+  def test_custom_spacing
+    g = Gruff::Bar.new
+    g.spacing_factor = 0
+    g.title = "Zero spacing graff"
+    g.labels = {
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
+    }
+
+    g.data(:apples, [1, 5, 8, 4])
+    g.data(:peaches, [4, 1, 2, 10])
+    g.minimum_value = 0
+    g.maximum_value = 10
+    g.write("test/output/bar_zero_spacing.png")
+  end
+
+  def test_spacing_factor_does_not_accept_values_lt_0_and_gt_1
+    g = Gruff::Bar.new
+
+    assert_raise ArgumentError do
+      g.spacing_factor = 1.01
+    end
+
+    assert_raise ArgumentError do
+      g.spacing_factor = -0.01
+    end
+  end
 
   def test_custom_theme
     g = Gruff::Bar.new
