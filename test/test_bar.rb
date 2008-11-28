@@ -248,6 +248,18 @@ class TestGruffBar < GruffTestCase
     g.minimum_value = 0
     g.write("test/output/bar_themed.png")
   end
+  
+  def test_legend_should_not_overlap
+    g = Gruff::Bar.new(400)
+    g.theme_37signals()
+    g.title = 'My Graph'
+    g.data("Apples Oranges Watermelon Apples Oranges", [1, 2, 3, 4, 4, 3])
+    g.data('Oranges', [4, 8, 7, 9, 8, 9])
+    g.data('Watermelon', [2, 3, 1, 5, 6, 8])
+    g.data('Peaches', [9, 9, 10, 8, 7, 9])
+    g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}
+    g.write("test/output/bar_long_legend_text.png")
+  end
 
   def test_july_enhancements
     g = Gruff::Bar.new(600)
