@@ -6,6 +6,7 @@ class TestMiniBar < GruffTestCase
   def test_simple_bar
     setup_single_dataset
     g = setup_basic_graph(Gruff::Mini::Bar, 200)
+    g.hide_mini_legend = true
     write_test_file g, 'mini_bar.png'
   end
 
