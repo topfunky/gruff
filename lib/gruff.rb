@@ -5,6 +5,7 @@
   area
   bar
   line
+  dot
   pie
   spider
   net
