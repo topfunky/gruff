@@ -18,10 +18,14 @@ class Gruff::Pie < Gruff::Base
   # Can be used to make the pie start cutting slices at the top (-90.0)
   # or at another angle. Default is 0.0, which starts at 3 o'clock.
   attr_accessor :zero_degree
+  # Do not show labels for slices that are less than this percent. Use 0 to always show all labels.
+  # Defaults to 0
+  attr_accessor :hide_labels_less_than
 
   def initialize_ivars
     super
     @zero_degree = 0.0
+    @hide_labels_less_than = 0
   end
 
   def draw
@@ -58,17 +62,15 @@ class Gruff::Pie < Gruff::Base
                   
         half_angle = prev_degrees + ((prev_degrees + current_degrees) - prev_degrees) / 2
         
-        # Following line is commented to allow display of the percentiles
-        # bug appeared between r90 and r92
-        # unless @hide_line_markers then
+        label_val = ((data_row[DATA_VALUES_INDEX].first / total_sum) * 100.0).round
+        unless label_val < @hide_labels_less_than
           # End the string with %% to escape the single %.
           # RMagick must use sprintf with the string and % has special significance.
-          label_string = ((data_row[DATA_VALUES_INDEX].first / total_sum) *
-                          100.0).round.to_s + '%%'
+          label_string = label_val.to_s + '%%'
           @d = draw_label(center_x,center_y, half_angle,
                           radius + (radius * TEXT_OFFSET_PERCENTAGE),
                           label_string)
-        # end
+        end
 
         prev_degrees += current_degrees
       end
