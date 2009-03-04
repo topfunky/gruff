@@ -39,6 +39,7 @@ lib/gruff/bar_conversion.rb
 lib/gruff/base.rb
 lib/gruff/bullet.rb
 lib/gruff/deprecated.rb
+lib/gruff/dot.rb
 lib/gruff/line.rb
 lib/gruff/mini/bar.rb
 lib/gruff/mini/legend.rb
@@ -63,6 +64,7 @@ test/test_area.rb
 test/test_bar.rb
 test/test_base.rb
 test/test_bullet.rb
+test/test_dot.rb
 test/test_legend.rb
 test/test_line.rb
 test/test_mini_bar.rb

@@ -1,6 +1,11 @@
+== 0.3.6
+
+* Fixed manifest to list dot graph [theirishpenguin]
+* Fixed color cycling error [Gunnar Wolf]
+
 == 0.3.5
 
-* ???
+* Added dot graph from Erik Andrejko
 
 == 0.3.4
 
