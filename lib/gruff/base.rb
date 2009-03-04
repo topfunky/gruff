@@ -257,7 +257,8 @@ module Gruff
     # aliased as the colors= setter method.
     #
     # If you specify fewer colors than the number of datasets you intend
-    # to draw, 'increment_color' will cycle through the array as needed.
+    # to draw, 'increment_color' will cycle through the array, reusing
+    # colors as needed.
     #
     # Note that (as with the 'theme' method), you should set up your color
     # list before you send your data (via the 'data' method).  Calls to the
