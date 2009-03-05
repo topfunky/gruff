@@ -147,9 +147,20 @@ class TestGruffLine < GruffTestCase
   #   
   # end
   # 
-  # def test_request_too_many_colors
-  #   
-  # end
+
+  def test_request_too_many_colors
+    g = Gruff::Line.new
+    g.title = "More Sets Than in Color Array"
+#     g.theme = {} # Sets theme with only black and white
+    @datasets.each do |data|
+      g.data(data[0], data[1])
+    end
+    @datasets.each do |data|
+      g.data("#{data[0]}-B", data[1].map {|d| d + 20})
+    end
+    g.write("test/output/line_more_sets_than_colors.png")    
+  end
+  
   # 
   # def test_add_data
   #   
