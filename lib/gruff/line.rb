@@ -71,9 +71,10 @@ class Gruff::Line < Gruff::Base
 
       data_row[DATA_VALUES_INDEX].each_with_index do |data_point, index|
         new_x = @graph_left + (@x_increment * index)
-        next if data_point.nil?
-
+        
         draw_label(new_x, index)
+        
+        next if data_point.nil?
 
         new_y = @graph_top + (@graph_height - data_point * @graph_height)
 
