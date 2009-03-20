@@ -74,7 +74,7 @@ module Gruff
         while calculate_width(scale_fontsize(@legend_font_size), truncated_label) > (@columns - @legend_left_margin - @right_margin) && (truncated_label.length > 1)
           truncated_label = truncated_label[0..truncated_label.length-2]
         end
-        truncated_label + (truncated_label.length < label.to_s.length ? "…" : '')
+        truncated_label + (truncated_label.length < label.to_s.length ? "..." : '')
       end
       
     end
