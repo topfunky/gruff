@@ -637,13 +637,13 @@ module Gruff
 
       unless @y_axis_label.nil?
         # Y Axis, rotated vertically
-        @d.rotation = 90.0
+        @d.rotation = -90.0
         @d.gravity = CenterGravity
         @d = @d.annotate_scaled( @base_image,
                                  1.0, @raw_rows,
                                  @left_margin + @marker_caps_height / 2.0, 0.0,
                                  @y_axis_label, @scale)
-        @d.rotation = -90.0
+        @d.rotation = 90.0
       end
     end
 
