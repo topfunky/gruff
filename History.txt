@@ -2,6 +2,7 @@
 
 * Fixed manifest to list dot graph [theirishpenguin]
 * Fixed color cycling error [Gunnar Wolf]
+* Handle case where a line graph data set only has one value [Ron Colwill]
 
 == 0.3.5
 
