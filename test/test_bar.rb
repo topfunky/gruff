@@ -273,6 +273,28 @@ class TestGruffBar < GruffTestCase
     write_test_file g, 'enhancements.png'
   end
 
+  def test_set_label_stagger_height
+    g = setup_long_labelled_graph
+    g.title = "Staggered labels"
+    g.label_stagger_height = 30
+    g.write("test/output/bar_set_label_stagger_height.png")
+  end
+
+  def test_set_label_max_size_and_label_truncation_style
+    # Absolute trunc
+    g = setup_long_labelled_graph
+    g.title = "Absolute truncation (13 chars)"
+    g.label_max_size = 13
+    g.label_truncation_style = :absolute
+    g.write("test/output/bar_set_absolute_trunc.png")
+    
+    # Trailing Dots trunc
+    g = setup_long_labelled_graph
+    g.title = "Trailing dots truncation (6 chars inc dots)"
+    g.label_max_size = 6
+    g.label_truncation_style = :trailing_dots
+    g.write("test/output/bar_set_trailing_dots_trunc.png")
+  end
 
 protected
 
@@ -291,5 +313,21 @@ protected
     g
   end
   
+  def setup_long_labelled_graph(size=500)
+
+    g = Gruff::Bar.new(size)
+    g.title = 'A Graph for All Seasons'
+    g.labels = {
+      0 => 'January was a cold one',
+      1 => 'February is little better',
+      2 => 'March will bring me hares',
+      3 => 'April and I\'m a fool'
+    }
+
+    @datasets.each do |data|
+      g.data(data[0], data[1])
+    end
+    g
+  end
 end
 

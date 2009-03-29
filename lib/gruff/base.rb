@@ -79,6 +79,19 @@ module Gruff
     # Manually set increment of the horizontal marking lines
     attr_accessor :y_axis_increment
 
+    # Height of staggering between labels (Bar graph only)
+    attr_accessor :label_stagger_height
+
+    # Truncates labels if longer than max specified
+    attr_accessor :label_max_size
+
+    # How truncated labels visually appear if they exceed label_max_size
+    # :absolute - does not show trailing dots to indicate truncation. This is
+    #   the default.
+    # :trailing_dots - shows trailing dots to indicate truncation (note 
+    #   that label_max_size must be greater than 3).
+    attr_accessor :label_truncation_style
+
     # Get or set the list of colors that will be used to draw the bars or lines.
     attr_accessor :colors
 
@@ -223,6 +236,9 @@ module Gruff
       @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = false
       @center_labels_over_point = true
       @has_left_labels = false
+      @label_stagger_height = 0
+      @label_max_size = 0
+      @label_truncation_style = :absolute
 
       @additional_line_values = []
       @additional_line_colors = []
@@ -609,8 +625,9 @@ module Gruff
         (@hide_legend ? LEGEND_MARGIN : @legend_caps_height + LEGEND_MARGIN * 2)
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 :
-        @marker_caps_height + LABEL_MARGIN
-      @graph_bottom = @raw_rows - @graph_bottom_margin - x_axis_label_height
+      @marker_caps_height + LABEL_MARGIN
+      # FIXME: Consider chart types other than bar
+      @graph_bottom = @raw_rows - @graph_bottom_margin - x_axis_label_height - @label_stagger_height
       @graph_height = @graph_bottom - @graph_top
     end
 
@@ -848,6 +865,28 @@ module Gruff
       if !@labels[index].nil? && @labels_seen[index].nil?
         y_offset = @graph_bottom + LABEL_MARGIN
 
+        # TESTME
+        # FIXME: Consider chart types other than bar
+        # TODO: See if index.odd? is the best stragegy
+        y_offset += @label_stagger_height if index.odd?
+
+        label_text = @labels[index]
+
+        # TESTME
+        # FIXME: Consider chart types other than bar
+        if label_text.size > @label_max_size
+
+          if @label_truncation_style == :trailing_dots
+            if @label_max_size > 3
+              # 4 because '...' takes up 3 chars
+              label_text = "#{label_text[0 .. (@label_max_size - 4)]}..."
+            end
+          else # @label_truncation_style is :absolute (default)
+            label_text = label_text[0 .. (@label_max_size - 1)]
+          end
+
+        end
+
         @d.fill = @font_color
         @d.font = @font if @font
         @d.stroke('transparent')
@@ -855,9 +894,9 @@ module Gruff
         @d.pointsize = scale_fontsize(@marker_font_size)
         @d.gravity = NorthGravity
         @d = @d.annotate_scaled(@base_image,
-                                1.0, 1.0,
-                                x_offset, y_offset,
-                                @labels[index], @scale)
+        1.0, 1.0,
+        x_offset, y_offset,
+        label_text, @scale)
         @labels_seen[index] = 1
         debug { @d.line 0.0, y_offset, @raw_columns, y_offset }
       end
