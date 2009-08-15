@@ -132,6 +132,8 @@ class TestGruffLine < GruffTestCase
     g.title = "Very Large Values Line Graph Test"
     g.baseline_value = 50_000
     g.baseline_color = 'green'
+    g.dot_radius = 15
+    g.line_width = 3
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
