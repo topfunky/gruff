@@ -20,6 +20,7 @@ class TestGruffBar < GruffTestCase
   def test_bar_graph
     g = setup_basic_graph
     g.title = "Bar Graph Test"
+    g.title_margin = 100
     g.write("test/output/bar_keynote.png")
         
     g = setup_basic_graph
@@ -36,6 +37,7 @@ class TestGruffBar < GruffTestCase
   def test_bar_graph_set_colors
     g = Gruff::Bar.new
     g.title = "Bar Graph With Manual Colors"
+    g.legend_margin = 50
     g.labels = {
       0 => '5/6', 
       1 => '5/15', 
