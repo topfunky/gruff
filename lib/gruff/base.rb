@@ -41,6 +41,8 @@ module Gruff
     DEFAULT_MARGIN = 20.0
 
     DEFAULT_TARGET_WIDTH = 800
+    
+    THOUSAND_SEPARATOR = ','
 
     # Blank space above the graph
     attr_accessor :top_margin
@@ -1061,17 +1063,19 @@ module Gruff
     # Return a formatted string representing a number value that should be
     # printed as a label.
     def label(value)
-      if (@spread.to_f % @marker_count.to_f == 0) || !@y_axis_increment.nil?
-        return value.to_i.to_s
-      end
-
-      if @spread > 10.0
+      label = if (@spread.to_f % @marker_count.to_f == 0) || !@y_axis_increment.nil?
+        value.to_i.to_s
+      elsif @spread > 10.0
         sprintf("%0i", value)
       elsif @spread >= 3.0
         sprintf("%0.2f", value)
       else
         value.to_s
       end
+      
+      parts = label.split('.')
+      parts[0].gsub!(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{THOUSAND_SEPARATOR}")
+      parts.join('.')
     end
 
     # Returns the height of the capital letter 'X' for the current font and
