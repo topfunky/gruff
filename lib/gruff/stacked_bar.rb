@@ -14,9 +14,9 @@ class Gruff::StackedBar < Gruff::Base
       # Setup spacing.
       #
       # Columns sit stacked.
-      spacing_factor = 0.9
+      @bar_spacing ||= 0.9
       @bar_width = @graph_width / @column_count.to_f
-      padding = (@bar_width * (1 - spacing_factor)) / 2
+      padding = (@bar_width * (1 - @bar_spacing)) / 2
     
       @d = @d.stroke_opacity 0.0
       
@@ -27,7 +27,7 @@ class Gruff::StackedBar < Gruff::Base
           @d = @d.fill data_row[DATA_COLOR_INDEX]
           
           # Calculate center based on bar_width and current row
-          label_center = @graph_left + (@bar_width * point_index) + (@bar_width * spacing_factor / 2.0) + padding
+          label_center = @graph_left + (@bar_width * point_index) + (@bar_width * @bar_spacing / 2.0)
           draw_label(label_center, point_index)
 
           next if (data_point == 0)
@@ -36,7 +36,7 @@ class Gruff::StackedBar < Gruff::Base
           left_y = @graph_top + (@graph_height -
                                  data_point * @graph_height - 
                                  height[point_index]) + 1
-          right_x = left_x + @bar_width * spacing_factor
+          right_x = left_x + @bar_width * @bar_spacing
           right_y = @graph_top + @graph_height - height[point_index] - 1
           
           # update the total height of the current stacked bar

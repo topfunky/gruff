@@ -21,13 +21,13 @@ class Gruff::SideStackedBar < Gruff::SideBar
     # Setup spacing.
     #
     # Columns sit stacked.
-    spacing_factor = 0.9
+    @bar_spacing ||= 0.9
 
     @bar_width = @graph_height / @column_count.to_f
     @d = @d.stroke_opacity 0.0
     height = Array.new(@column_count, 0)
     length = Array.new(@column_count, @graph_left)
-    padding = (@bar_width * (1 - spacing_factor)) / 2
+    padding = (@bar_width * (1 - @bar_spacing)) / 2
 
     @norm_data.each_with_index do |data_row, row_index|
       @d = @d.fill data_row[DATA_COLOR_INDEX]
@@ -45,14 +45,14 @@ class Gruff::SideStackedBar < Gruff::SideBar
     	  left_x = length[point_index] #+ 1
               left_y = @graph_top + (@bar_width * point_index) + padding
     	  right_x = left_x + difference
-              right_y = left_y + @bar_width * spacing_factor
+              right_y = left_y + @bar_width * @bar_spacing
     	  length[point_index] += difference
         height[point_index] += (data_point * @graph_width - 2)
 
         @d = @d.rectangle(left_x, left_y, right_x, right_y)
 
         # Calculate center based on bar_width and current row
-        label_center = @graph_top + (@bar_width * point_index) + (@bar_width * spacing_factor / 2.0) + padding
+        label_center = @graph_top + (@bar_width * point_index) + (@bar_width * @bar_spacing / 2.0)
         draw_label(label_center, point_index)
       end
 

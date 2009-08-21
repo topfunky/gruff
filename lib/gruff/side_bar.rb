@@ -13,14 +13,14 @@ class Gruff::SideBar < Gruff::Base
 
     # Setup spacing.
     #
-    spacing_factor = 0.9
+    @bar_spacing ||= 0.9
 
     @bars_width = @graph_height / @column_count.to_f
-    @bar_width = @bars_width * spacing_factor / @norm_data.size
+    @bar_width = @bars_width * @bar_spacing / @norm_data.size
     @d         = @d.stroke_opacity 0.0
     height     = Array.new(@column_count, 0)
     length     = Array.new(@column_count, @graph_left)
-    padding    = (@bars_width * (1 - spacing_factor)) / 2
+    padding    = (@bars_width * (1 - @bar_spacing)) / 2
 
     @norm_data.each_with_index do |data_row, row_index|
       @d = @d.fill data_row[DATA_COLOR_INDEX]
@@ -44,7 +44,7 @@ class Gruff::SideBar < Gruff::Base
         @d           = @d.rectangle(left_x, left_y, right_x, right_y)
 
         # Calculate center based on bar_width and current row
-        label_center = @graph_top + (@bars_width * point_index + @bars_width / 2) + padding
+        label_center = @graph_top + (@bars_width * point_index + @bars_width / 2)
         draw_label(label_center, point_index)
       end
 

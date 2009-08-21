@@ -37,6 +37,7 @@ class TestGruffBar < GruffTestCase
   def test_thousand_separators
     g = Gruff::Bar.new(600)
     g.title = "Formatted numbers"
+    g.bar_spacing = 0.2
     g.marker_count = 8
     g.data("data", [4025, 1024, 50257, 703672, 1580456])
     g.write("test/output/bar_formatted_numbers.png")
