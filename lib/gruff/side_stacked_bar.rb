@@ -11,6 +11,9 @@ require File.dirname(__FILE__) + '/stacked_mixin'
 class Gruff::SideStackedBar < Gruff::SideBar
   include StackedMixin
 
+  # Spacing factor applied between bars
+  attr_accessor :bar_spacing
+  
   def draw
     @has_left_labels = true
     get_maximum_by_stack

@@ -5,6 +5,9 @@ require File.dirname(__FILE__) + '/base'
 
 class Gruff::SideBar < Gruff::Base
 
+  # Spacing factor applied between bars
+  attr_accessor :bar_spacing
+  
   def draw
     @has_left_labels = true
     super

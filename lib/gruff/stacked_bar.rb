@@ -5,6 +5,9 @@ require File.dirname(__FILE__) + '/stacked_mixin'
 class Gruff::StackedBar < Gruff::Base
     include StackedMixin
 
+    # Spacing factor applied between bars
+    attr_accessor :bar_spacing
+    
     # Draws a bar graph, but multiple sets are stacked on top of each other.
     def draw
       get_maximum_by_stack
