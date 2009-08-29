@@ -25,7 +25,7 @@ class Gruff::Pie < Gruff::Base
   def initialize_ivars
     super
     @zero_degree = 0.0
-    @hide_labels_less_than = 0
+    @hide_labels_less_than = 0.0
   end
 
   def draw
