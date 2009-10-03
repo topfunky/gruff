@@ -132,6 +132,8 @@ class TestGruffLine < GruffTestCase
     g.title = "Very Large Values Line Graph Test"
     g.baseline_value = 50_000
     g.baseline_color = 'green'
+    g.dot_radius = 15
+    g.line_width = 3
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
@@ -147,9 +149,20 @@ class TestGruffLine < GruffTestCase
   #   
   # end
   # 
-  # def test_request_too_many_colors
-  #   
-  # end
+
+  def test_request_too_many_colors
+    g = Gruff::Line.new
+    g.title = "More Sets Than in Color Array"
+#     g.theme = {} # Sets theme with only black and white
+    @datasets.each do |data|
+      g.data(data[0], data[1])
+    end
+    @datasets.each do |data|
+      g.data("#{data[0]}-B", data[1].map {|d| d + 20})
+    end
+    g.write("test/output/line_more_sets_than_colors.png")    
+  end
+  
   # 
   # def test_add_data
   #   
@@ -435,8 +448,38 @@ class TestGruffLine < GruffTestCase
     g.hide_line_markers = false
     g.write('test/output/line_no_hide.png')
   end
+  
 
-protected
+  def test_jruby_error
+    g = Gruff::Line.new
+    g.theme = {
+      :colors => ['#7F0099', '#2F85ED', '#2FED09','#EC962F'],
+      :marker_color => '#aaa',
+      :background_colors => ['#E8E8E8','#B9FD6C']
+    }
+    g.hide_title = true
+
+    g.legend_font_size = 12
+    g.marker_font_size = 16
+    g.hide_dots = false
+    g.label_max_decimals = 1
+
+    g.write('test/output/line_jruby_error.png')
+  end
+
+private
+  
+  def bmi(params={})
+    g = basic_graph()
+
+    g.y_axis_label = 'BMI'
+
+    bmis = [24.3, 23.9, 23.7, 23.7, 23.6, 23.9, 23.6, 23.7, 23.4, 23.4, 23.4, 22.9]
+
+    g.data( 'BMI', bmis )
+    g.hide_legend = true
+    return g
+  end
 
   # TODO Reset data after each theme
   def line_graph_with_themes(size=nil)

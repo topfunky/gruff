@@ -20,7 +20,7 @@ require File.dirname(__FILE__) + '/deprecated'
 module Gruff
 
   # This is the version of Gruff you are using.
-  VERSION = '0.3.5'
+  VERSION = '0.3.6'
 
   class Base
 
@@ -36,9 +36,13 @@ module Gruff
     DATA_COLOR_INDEX = 2
 
     # Space around text elements. Mostly used for vertical spacing
-    LEGEND_MARGIN = TITLE_MARGIN = LABEL_MARGIN = 10.0
+    LEGEND_MARGIN = TITLE_MARGIN = 20.0
+    LABEL_MARGIN = 10.0
+    DEFAULT_MARGIN = 20.0
 
     DEFAULT_TARGET_WIDTH = 800
+    
+    THOUSAND_SEPARATOR = ','
 
     # Blank space above the graph
     attr_accessor :top_margin
@@ -51,6 +55,12 @@ module Gruff
 
     # Blank space to the left of the graph
     attr_accessor :left_margin
+    
+    # Blank space below the title
+    attr_accessor :title_margin
+    
+    # Blank space below the legend
+    attr_accessor :legend_margin
 
     # A hash of names for the individual columns, where the key is the array
     # index for the column this label represents.
@@ -170,8 +180,6 @@ module Gruff
     # Looks for Bitstream Vera as the default font. Expects an environment var
     # of MAGICK_FONT_PATH to be set. (Uses RMagick's default font otherwise.)
     def initialize(target_width=DEFAULT_TARGET_WIDTH)
-      @top_margin = @bottom_margin = @left_margin = @right_margin = 20.0
-
       if not Numeric === target_width
         geometric_width, geometric_height = target_width.split('x')
         @columns = geometric_width.to_f
@@ -215,6 +223,10 @@ module Gruff
       @marker_font_size = 21.0
       @legend_font_size = 20.0
       @title_font_size = 36.0
+      
+      @top_margin = @bottom_margin = @left_margin = @right_margin = DEFAULT_MARGIN
+      @legend_margin = LEGEND_MARGIN
+      @title_margin = TITLE_MARGIN
 
       @legend_box_size = 20.0
 
@@ -253,14 +265,23 @@ module Gruff
       @colors << colorname
     end
 
-    # Replace the entire color list with a new array of colors. You need to
-    # have one more color than the number of datasets you intend to draw. Also
+    # Replace the entire color list with a new array of colors. Also
     # aliased as the colors= setter method.
+    #
+    # If you specify fewer colors than the number of datasets you intend
+    # to draw, 'increment_color' will cycle through the array, reusing
+    # colors as needed.
+    #
+    # Note that (as with the 'theme' method), you should set up your color
+    # list before you send your data (via the 'data' method).  Calls to the
+    # 'data' method made prior to this call will use whatever color scheme
+    # was in place at the time data was called.
     #
     # Example:
     #  replace_colors ['#cc99cc', '#d9e043', '#34d8a2']
     def replace_colors(color_list=[])
       @colors = color_list
+      @color_index = 0
     end
 
     # You can set a theme manually. Assign a hash to this method before you
@@ -382,14 +403,14 @@ module Gruff
     def theme_pastel
       # Colors
       @colors = [
-        '#a9dada', # blue
-        '#aedaa9', # green
-        '#daaea9', # peach
-        '#dadaa9', # yellow
-        '#a9a9da', # dk purple
-        '#daaeda', # purple
-        '#dadada' # grey
-      ]
+                 '#a9dada', # blue
+                 '#aedaa9', # green
+                 '#daaea9', # peach
+                 '#dadaa9', # yellow
+                 '#a9a9da', # dk purple
+                 '#daaeda', # purple
+                 '#dadada' # grey
+                ]
 
       self.theme = {
         :colors => @colors,
@@ -403,13 +424,13 @@ module Gruff
     def theme_greyscale
       # Colors
       @colors = [
-        '#282828', #
-        '#383838', #
-        '#686868', #
-        '#989898', #
-        '#c8c8c8', #
-        '#e8e8e8', #
-      ]
+                 '#282828', #
+                 '#383838', #
+                 '#686868', #
+                 '#989898', #
+                 '#c8c8c8', #
+                 '#e8e8e8', #
+                ]
 
       self.theme = {
         :colors => @colors,
@@ -489,7 +510,7 @@ module Gruff
       debug {
         # Outer margin
         @d.rectangle( @left_margin, @top_margin,
-        @raw_columns - @right_margin, @raw_rows - @bottom_margin)
+                      @raw_columns - @right_margin, @raw_rows - @bottom_margin)
         # Graph area box
         @d.rectangle( @graph_left, @graph_top, @graph_right, @graph_bottom)
       }
@@ -549,58 +570,58 @@ module Gruff
 
     def setup_graph_measurements
       @marker_caps_height = @hide_line_markers ? 0 :
-      calculate_caps_height(@marker_font_size)
+        calculate_caps_height(@marker_font_size)
       @title_caps_height = @hide_title ? 0 :
-      calculate_caps_height(@title_font_size)
+        calculate_caps_height(@title_font_size)
       @legend_caps_height = @hide_legend ? 0 :
-      calculate_caps_height(@legend_font_size)
+        calculate_caps_height(@legend_font_size)
 
       if @hide_line_markers
         (@graph_left,
-        @graph_right_margin,
-        @graph_bottom_margin) = [@left_margin, @right_margin, @bottom_margin]
+         @graph_right_margin,
+         @graph_bottom_margin) = [@left_margin, @right_margin, @bottom_margin]
       else
         longest_left_label_width = 0
         if @has_left_labels
           longest_left_label_width =  calculate_width(@marker_font_size,
-          labels.values.inject('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
+                                                      labels.values.inject('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
         else
           longest_left_label_width = calculate_width(@marker_font_size,
-          label(@maximum_value.to_f))
+                                                     label(@maximum_value.to_f))
         end
 
         # Shift graph if left line numbers are hidden
         line_number_width = @hide_line_numbers && !@has_left_labels ?
         0.0 :
-        (longest_left_label_width + LABEL_MARGIN * 2)
+          (longest_left_label_width + LABEL_MARGIN * 2)
 
         @graph_left = @left_margin +
-        line_number_width +
-        (@y_axis_label.nil? ? 0.0 : @marker_caps_height + LABEL_MARGIN * 2)
+          line_number_width +
+          (@y_axis_label.nil? ? 0.0 : @marker_caps_height + LABEL_MARGIN * 2)
 
         # Make space for half the width of the rightmost column label.
         # Might be greater than the number of columns if between-style bar markers are used.
         last_label = @labels.keys.sort.last.to_i
         extra_room_for_long_label = (last_label >= (@column_count-1) && @center_labels_over_point) ?
         calculate_width(@marker_font_size, @labels[last_label]) / 2.0 :
-        0
+          0
         @graph_right_margin = @right_margin + extra_room_for_long_label
 
         @graph_bottom_margin = @bottom_margin +
-        @marker_caps_height + LABEL_MARGIN
+          @marker_caps_height + LABEL_MARGIN
       end
 
       @graph_right = @raw_columns - @graph_right_margin
       @graph_width = @raw_columns - @graph_left - @graph_right_margin
 
-      # When @hide title, leave a TITLE_MARGIN space for aesthetics.
+      # When @hide title, leave a title_margin space for aesthetics.
       # Same with @hide_legend
       @graph_top = @top_margin +
-      (@hide_title  ? TITLE_MARGIN  : @title_caps_height  + TITLE_MARGIN  * 2) +
-      (@hide_legend ? LEGEND_MARGIN : @legend_caps_height + LEGEND_MARGIN * 2)
+        (@hide_title  ? title_margin  : @title_caps_height  + title_margin ) +
+        (@hide_legend ? legend_margin : @legend_caps_height + legend_margin)
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 :
-      @marker_caps_height + LABEL_MARGIN
+        @marker_caps_height + LABEL_MARGIN
       @graph_bottom = @raw_rows - @graph_bottom_margin - x_axis_label_height
       @graph_height = @graph_bottom - @graph_top
     end
@@ -620,9 +641,9 @@ module Gruff
         @d.pointsize = scale_fontsize(@marker_font_size)
         @d.gravity = NorthGravity
         @d = @d.annotate_scaled( @base_image,
-        @raw_columns, 1.0,
-        0.0, x_axis_label_y_coordinate,
-        @x_axis_label, @scale)
+                                 @raw_columns, 1.0,
+                                 0.0, x_axis_label_y_coordinate,
+                                 @x_axis_label, @scale)
         debug { @d.line 0.0, x_axis_label_y_coordinate, @raw_columns, x_axis_label_y_coordinate }
       end
 
@@ -631,9 +652,9 @@ module Gruff
         @d.rotation = 90.0
         @d.gravity = CenterGravity
         @d = @d.annotate_scaled( @base_image,
-        1.0, @raw_rows,
-        @left_margin + @marker_caps_height / 2.0, 0.0,
-        @y_axis_label, @scale)
+                                 1.0, @raw_rows,
+                                 @left_margin + @marker_caps_height / 2.0, 0.0,
+                                 @y_axis_label, @scale)
         @d.rotation = -90.0
       end
     end
@@ -688,9 +709,9 @@ module Gruff
 
           # Vertically center with 1.0 for the height
           @d = @d.annotate_scaled( @base_image,
-          @graph_left - LABEL_MARGIN, 1.0,
-          0.0, y,
-          label(marker_label), @scale)
+                                   @graph_left - LABEL_MARGIN, 1.0,
+                                   0.0, y,
+                                   label(marker_label), @scale)
         end
       end
 
@@ -764,8 +785,8 @@ module Gruff
 
       current_x_offset = center(sum(label_widths.first))
       current_y_offset =  @hide_title ?
-      @top_margin + LEGEND_MARGIN :
-      @top_margin + TITLE_MARGIN + @title_caps_height + LEGEND_MARGIN
+      @top_margin + title_margin :
+        @top_margin + title_margin + @title_caps_height
 
       @legend_labels.each_with_index do |legend_label, index|
 
@@ -777,17 +798,17 @@ module Gruff
         @d.font_weight = NormalWeight
         @d.gravity = WestGravity
         @d = @d.annotate_scaled( @base_image,
-        @raw_columns, 1.0,
-        current_x_offset + (legend_square_width * 1.7), current_y_offset,
-        legend_label.to_s, @scale)
+                                 @raw_columns, 1.0,
+                                 current_x_offset + (legend_square_width * 1.7), current_y_offset,
+                                 legend_label.to_s, @scale)
 
         # Now draw box with color of this dataset
         @d = @d.stroke('transparent')
         @d = @d.fill @data[index][DATA_COLOR_INDEX]
         @d = @d.rectangle(current_x_offset,
-        current_y_offset - legend_square_width / 2.0,
-        current_x_offset + legend_square_width,
-        current_y_offset + legend_square_width / 2.0)
+                          current_y_offset - legend_square_width / 2.0,
+                          current_x_offset + legend_square_width,
+                          current_y_offset + legend_square_width / 2.0)
 
         @d.pointsize = @legend_font_size
         metrics = @d.get_type_metrics(@base_image, legend_label.to_s)
@@ -800,7 +821,7 @@ module Gruff
 
           label_widths.shift
           current_x_offset = center(sum(label_widths.first)) unless label_widths.empty?
-          line_height = [@legend_caps_height, legend_square_width].max + LEGEND_MARGIN
+          line_height = [@legend_caps_height, legend_square_width].max + legend_margin
           if label_widths.length > 0
             # Wrap to next line and shrink available graph dimensions
             current_y_offset += line_height
@@ -825,9 +846,9 @@ module Gruff
       @d.font_weight = BoldWeight
       @d.gravity = NorthGravity
       @d = @d.annotate_scaled( @base_image,
-      @raw_columns, 1.0,
-      0, @top_margin,
-      @title, @scale)
+                               @raw_columns, 1.0,
+                               0, @top_margin,
+                               @title, @scale)
     end
 
     # Draws column labels below graph, centered over x_offset
@@ -846,9 +867,9 @@ module Gruff
         @d.pointsize = scale_fontsize(@marker_font_size)
         @d.gravity = NorthGravity
         @d = @d.annotate_scaled(@base_image,
-        1.0, 1.0,
-        x_offset, y_offset,
-        @labels[index], @scale)
+                                1.0, 1.0,
+                                x_offset, y_offset,
+                                @labels[index], @scale)
         @labels_seen[index] = 1
         debug { @d.line 0.0, y_offset, @raw_columns, y_offset }
       end
@@ -863,9 +884,9 @@ module Gruff
       @d.pointsize = scale_fontsize(80)
       @d.gravity = CenterGravity
       @d = @d.annotate_scaled( @base_image,
-      @raw_columns, @raw_rows/2.0,
-      0, 10,
-      @no_data_message, @scale)
+                               @raw_columns, @raw_rows/2.0,
+                               0, 10,
+                               @no_data_message, @scale)
     end
 
     # Finds the best background to render based on the provided theme options.
@@ -892,7 +913,7 @@ module Gruff
     # Use with a theme definition method to draw a gradiated background.
     def render_gradiated_background(top_color, bottom_color)
       Image.new(@columns, @rows,
-      GradientFill.new(0, 0, 100, 0, top_color, bottom_color))
+                GradientFill.new(0, 0, 100, 0, top_color, bottom_color))
     end
 
     # Use with a theme to use an image (800x600 original) background.
@@ -1033,37 +1054,28 @@ module Gruff
       end
     end
 
-    # Uses the next color in your color list.
+    # Returns the next color in your color list.
     def increment_color
-      if @color_index == 0
-        @color_index += 1
-        return @colors[0]
-      else
-        if @color_index < @colors.length
-          @color_index += 1
-          return @colors[@color_index - 1]
-        else
-          # Start over
-          @color_index = 0
-          return @colors[-1]
-        end
-      end
+      @color_index = (@color_index + 1) % @colors.length
+      return @colors[@color_index - 1]
     end
 
     # Return a formatted string representing a number value that should be
     # printed as a label.
     def label(value)
-      if (@spread.to_f % @marker_count.to_f == 0) || !@y_axis_increment.nil?
-        return value.to_i.to_s
-      end
-
-      if @spread > 10.0
+      label = if (@spread.to_f % @marker_count.to_f == 0) || !@y_axis_increment.nil?
+        value.to_i.to_s
+      elsif @spread > 10.0
         sprintf("%0i", value)
       elsif @spread >= 3.0
         sprintf("%0.2f", value)
       else
         value.to_s
       end
+      
+      parts = label.split('.')
+      parts[0].gsub!(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{THOUSAND_SEPARATOR}")
+      parts.join('.')
     end
 
     # Returns the height of the capital letter 'X' for the current font and
@@ -1101,9 +1113,9 @@ module Magick
       scaled_height = (height * scale) >= 1 ? (height * scale) : 1
 
       self.annotate( img,
-      scaled_width, scaled_height,
-      x * scale, y * scale,
-      text)
+                     scaled_width, scaled_height,
+                     x * scale, y * scale,
+                     text)
     end
 
   end

@@ -1,13 +1,11 @@
 require File.dirname(__FILE__) + '/base'
 
 ##
-# Graph with individual horizontal bars instead of vertical bars.
+# Graph with dots and labels along a vertical access
+# see: 'Creating More Effective Graphs' by Robbins
 
-class Gruff::SideBar < Gruff::Base
+class Gruff::Dot < Gruff::Base
 
-  # Spacing factor applied between bars
-  attr_accessor :bar_spacing
-  
   def draw
     @has_left_labels = true
     super
@@ -16,38 +14,34 @@ class Gruff::SideBar < Gruff::Base
 
     # Setup spacing.
     #
-    @bar_spacing ||= 0.9
+    spacing_factor = 1.0
 
-    @bars_width = @graph_height / @column_count.to_f
-    @bar_width = @bars_width * @bar_spacing / @norm_data.size
+    @items_width = @graph_height / @column_count.to_f
+    @item_width = @items_width * spacing_factor / @norm_data.size
     @d         = @d.stroke_opacity 0.0
     height     = Array.new(@column_count, 0)
     length     = Array.new(@column_count, @graph_left)
-    padding    = (@bars_width * (1 - @bar_spacing)) / 2
+    padding    = (@items_width * (1 - spacing_factor)) / 2
 
     @norm_data.each_with_index do |data_row, row_index|
-      @d = @d.fill data_row[DATA_COLOR_INDEX]
-
       data_row[DATA_VALUES_INDEX].each_with_index do |data_point, point_index|
 
-        # Using the original calcs from the stacked bar chart
-        # to get the difference between
-        # part of the bart chart we wish to stack.
-        temp1      = @graph_left + (@graph_width - data_point * @graph_width - height[point_index])
-        temp2      = @graph_left + @graph_width - height[point_index]
-        difference = temp2 - temp1
+        x_pos        = @graph_left + (data_point * @graph_width) - (@item_width.to_f/6.0).round
+        y_pos        = @graph_top + (@items_width * point_index) + padding + (@item_width.to_f/2.0).round      
 
-        left_x     = length[point_index] - 1
-        left_y     = @graph_top + (@bars_width * point_index) + (@bar_width * row_index) + padding
-        right_x    = left_x + difference
-        right_y    = left_y + @bar_width
+        if row_index == 0
+          @d           = @d.stroke(@marker_color)
+          @d           = @d.stroke_width 1.0
+          @d           = @d.opacity 0.1
+          @d           = @d.line(@graph_left, y_pos, @graph_left + @graph_width, y_pos)
+        end
 
-        height[point_index] += (data_point * @graph_width)
+        @d           = @d.fill data_row[DATA_COLOR_INDEX]
+        @d           = @d.stroke('transparent')
+        @d           = @d.circle(x_pos, y_pos, x_pos + (@item_width.to_f/3.0).round, y_pos)
 
-        @d           = @d.rectangle(left_x, left_y, right_x, right_y)
-
-        # Calculate center based on bar_width and current row
-        label_center = @graph_top + (@bars_width * point_index + @bars_width / 2)
+        # Calculate center based on item_width and current row
+        label_center = @graph_top + (@items_width * point_index + @items_width / 2) + padding
         draw_label(label_center, point_index)
       end
 
@@ -76,7 +70,7 @@ protected
 
       line_diff    = (@graph_right - @graph_left) / number_of_lines
       x            = @graph_right - (line_diff * index) - 1
-      @d           = @d.line(x, @graph_bottom, x, @graph_top)
+      @d           = @d.line(x, @graph_bottom, x, @graph_bottom + 0.5 * LABEL_MARGIN)
       diff         = index - number_of_lines
       marker_label = diff.abs * increment
 
@@ -116,3 +110,4 @@ protected
   end
 
 end
+

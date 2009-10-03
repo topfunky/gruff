@@ -2,10 +2,14 @@ module Gruff
   module Mini
     module Legend
       
+      attr_accessor :hide_mini_legend
+      
       ##
       # The canvas needs to be bigger so we can put the legend beneath it.
 
       def expand_canvas_for_vertical_legend
+        return if @hide_mini_legend
+        
         @original_rows = @raw_rows
         @rows += @data.length * calculate_caps_height(scale_fontsize(@legend_font_size)) * 1.7
         render_background
@@ -15,7 +19,8 @@ module Gruff
       # Draw the legend beneath the existing graph.
 
       def draw_vertical_legend
-                
+        return if @hide_mini_legend
+        
         @legend_labels = @data.collect {|item| item[Gruff::Base::DATA_LABEL_INDEX] }
         
         legend_square_width = 40.0 # small square with color of this item
@@ -69,7 +74,7 @@ module Gruff
         while calculate_width(scale_fontsize(@legend_font_size), truncated_label) > (@columns - @legend_left_margin - @right_margin) && (truncated_label.length > 1)
           truncated_label = truncated_label[0..truncated_label.length-2]
         end
-        truncated_label + (truncated_label.length < label.to_s.length ? "…" : '')
+        truncated_label + (truncated_label.length < label.to_s.length ? "..." : '')
       end
       
     end
