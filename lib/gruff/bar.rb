@@ -3,11 +3,6 @@ require File.dirname(__FILE__) + '/bar_conversion'
 
 class Gruff::Bar < Gruff::Base
 
-  def initialize_ivars
-    super
-    @spacing_factor = 0.9
-  end
-
   def draw
     # Labels will be centered over the left of the bar if
     # there are more labels than columns. This is basically the same 
@@ -20,17 +15,6 @@ class Gruff::Bar < Gruff::Base
     draw_bars
   end
 
-  # Can be used to adjust the spaces between the bars.
-  # Accepts values between 0.00 and 1.00 where 0.00 means no spacing at all
-  # and 1 means that each bars' width is nearly 0 (so each bar is a simple
-  # line with no x dimension).
-  #
-  # Default value is 0.9.
-  def spacing_factor=(space_percent)
-    raise ArgumentError, "spacing_factor must be between 0.00 and 1.00" unless (space_percent >= 0 and space_percent <= 1)
-    @spacing_factor = (1 - space_percent)
-  end
-
 protected
 
   def draw_bars
@@ -39,7 +23,7 @@ protected
     # Columns sit side-by-side.
     spacing_factor = 0.9 # space between the bars
     @bar_width = @graph_width / (@column_count * @data.length).to_f
-    padding = (@bar_width * (1 - @spacing_factor)) / 2
+    padding = (@bar_width * (1 - spacing_factor)) / 2
 
     @d = @d.stroke_opacity 0.0
 
@@ -72,7 +56,7 @@ protected
         # Use incremented x and scaled y
         # x
         left_x = @graph_left + (@bar_width * (row_index + point_index + ((@data.length - 1) * point_index))) + padding
-        right_x = left_x + @bar_width * @spacing_factor
+        right_x = left_x + @bar_width * spacing_factor
         # y
         conv = []
         conversion.getLeftYRightYscaled( data_point, conv )
