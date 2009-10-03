@@ -6,6 +6,10 @@ class Gruff::Net < Gruff::Base
 
   # Hide parts of the graph to fit more datapoints, or for a different appearance.
   attr_accessor :hide_dots
+  
+  # Dimensions of lines and dots; calculated based on dataset size if left unspecified
+  attr_accessor :line_width
+  attr_accessor :dot_radius
 
   def initialize(*args)
     super
@@ -25,10 +29,12 @@ class Gruff::Net < Gruff::Base
     @center_y = @graph_top + (@graph_height / 2.0) - 10 # Move graph up a bit
 
     @x_increment = @graph_width / (@column_count - 1).to_f
-    circle_radius = clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 2.5), 5.0)
+    circle_radius = dot_radius ||
+      clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 2.5), 5.0)
 
     @d = @d.stroke_opacity 1.0
-    @d = @d.stroke_width clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 4), 5.0)
+    @d = @d.stroke_width line_width ||
+      clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 4), 5.0)
 
     if (defined?(@norm_baseline)) then
       level = @graph_top + (@graph_height - @norm_baseline * @graph_height)

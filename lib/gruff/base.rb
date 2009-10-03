@@ -36,9 +36,13 @@ module Gruff
     DATA_COLOR_INDEX = 2
 
     # Space around text elements. Mostly used for vertical spacing
-    LEGEND_MARGIN = TITLE_MARGIN = LABEL_MARGIN = 10.0
+    LEGEND_MARGIN = TITLE_MARGIN = 20.0
+    LABEL_MARGIN = 10.0
+    DEFAULT_MARGIN = 20.0
 
     DEFAULT_TARGET_WIDTH = 800
+    
+    THOUSAND_SEPARATOR = ','
 
     # Blank space above the graph
     attr_accessor :top_margin
@@ -51,6 +55,12 @@ module Gruff
 
     # Blank space to the left of the graph
     attr_accessor :left_margin
+    
+    # Blank space below the title
+    attr_accessor :title_margin
+    
+    # Blank space below the legend
+    attr_accessor :legend_margin
 
     # A hash of names for the individual columns, where the key is the array
     # index for the column this label represents.
@@ -170,8 +180,6 @@ module Gruff
     # Looks for Bitstream Vera as the default font. Expects an environment var
     # of MAGICK_FONT_PATH to be set. (Uses RMagick's default font otherwise.)
     def initialize(target_width=DEFAULT_TARGET_WIDTH)
-      @top_margin = @bottom_margin = @left_margin = @right_margin = 20.0
-
       if not Numeric === target_width
         geometric_width, geometric_height = target_width.split('x')
         @columns = geometric_width.to_f
@@ -215,6 +223,10 @@ module Gruff
       @marker_font_size = 21.0
       @legend_font_size = 20.0
       @title_font_size = 36.0
+      
+      @top_margin = @bottom_margin = @left_margin = @right_margin = DEFAULT_MARGIN
+      @legend_margin = LEGEND_MARGIN
+      @title_margin = TITLE_MARGIN
 
       @legend_box_size = 20.0
 
@@ -602,11 +614,11 @@ module Gruff
       @graph_right = @raw_columns - @graph_right_margin
       @graph_width = @raw_columns - @graph_left - @graph_right_margin
 
-      # When @hide title, leave a TITLE_MARGIN space for aesthetics.
+      # When @hide title, leave a title_margin space for aesthetics.
       # Same with @hide_legend
       @graph_top = @top_margin +
-        (@hide_title  ? TITLE_MARGIN  : @title_caps_height  + TITLE_MARGIN  * 2) +
-        (@hide_legend ? LEGEND_MARGIN : @legend_caps_height + LEGEND_MARGIN * 2)
+        (@hide_title  ? title_margin  : @title_caps_height  + title_margin ) +
+        (@hide_legend ? legend_margin : @legend_caps_height + legend_margin)
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 :
         @marker_caps_height + LABEL_MARGIN
@@ -773,8 +785,8 @@ module Gruff
 
       current_x_offset = center(sum(label_widths.first))
       current_y_offset =  @hide_title ?
-      @top_margin + LEGEND_MARGIN :
-        @top_margin + TITLE_MARGIN + @title_caps_height + LEGEND_MARGIN
+      @top_margin + title_margin :
+        @top_margin + title_margin + @title_caps_height
 
       @legend_labels.each_with_index do |legend_label, index|
 
@@ -809,7 +821,7 @@ module Gruff
 
           label_widths.shift
           current_x_offset = center(sum(label_widths.first)) unless label_widths.empty?
-          line_height = [@legend_caps_height, legend_square_width].max + LEGEND_MARGIN
+          line_height = [@legend_caps_height, legend_square_width].max + legend_margin
           if label_widths.length > 0
             # Wrap to next line and shrink available graph dimensions
             current_y_offset += line_height
@@ -1051,17 +1063,19 @@ module Gruff
     # Return a formatted string representing a number value that should be
     # printed as a label.
     def label(value)
-      if (@spread.to_f % @marker_count.to_f == 0) || !@y_axis_increment.nil?
-        return value.to_i.to_s
-      end
-
-      if @spread > 10.0
+      label = if (@spread.to_f % @marker_count.to_f == 0) || !@y_axis_increment.nil?
+        value.to_i.to_s
+      elsif @spread > 10.0
         sprintf("%0i", value)
       elsif @spread >= 3.0
         sprintf("%0.2f", value)
       else
         value.to_s
       end
+      
+      parts = label.split('.')
+      parts[0].gsub!(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{THOUSAND_SEPARATOR}")
+      parts.join('.')
     end
 
     # Returns the height of the capital letter 'X' for the current font and

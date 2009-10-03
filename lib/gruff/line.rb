@@ -19,6 +19,10 @@ class Gruff::Line < Gruff::Base
 
   # Color of the baseline
   attr_accessor :baseline_color
+  
+  # Dimensions of lines and dots; calculated based on dataset size if left unspecified
+  attr_accessor :line_width
+  attr_accessor :dot_radius
 
   # Hide parts of the graph to fit more datapoints, or for a different appearance.
   attr_accessor :hide_dots, :hide_lines
@@ -82,10 +86,12 @@ class Gruff::Line < Gruff::Base
         @d = @d.stroke data_row[DATA_COLOR_INDEX]
         @d = @d.fill data_row[DATA_COLOR_INDEX]
         @d = @d.stroke_opacity 1.0
-        @d = @d.stroke_width clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 4), 5.0)
+        @d = @d.stroke_width line_width ||
+          clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 4), 5.0)
 
 
-        circle_radius = clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 2.5), 5.0)
+        circle_radius = dot_radius ||
+          clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 2.5), 5.0)
 
         if !@hide_lines and !prev_x.nil? and !prev_y.nil? then
           @d = @d.line(prev_x, prev_y, new_x, new_y)

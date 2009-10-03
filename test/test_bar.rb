@@ -20,6 +20,7 @@ class TestGruffBar < GruffTestCase
   def test_bar_graph
     g = setup_basic_graph
     g.title = "Bar Graph Test"
+    g.title_margin = 100
     g.write("test/output/bar_keynote.png")
         
     g = setup_basic_graph
@@ -32,10 +33,20 @@ class TestGruffBar < GruffTestCase
     g.theme_odeo
     g.write("test/output/bar_odeo.png")
   end
+  
+  def test_thousand_separators
+    g = Gruff::Bar.new(600)
+    g.title = "Formatted numbers"
+    g.bar_spacing = 0.2
+    g.marker_count = 8
+    g.data("data", [4025, 1024, 50257, 703672, 1580456])
+    g.write("test/output/bar_formatted_numbers.png")
+  end
 
   def test_bar_graph_set_colors
     g = Gruff::Bar.new
     g.title = "Bar Graph With Manual Colors"
+    g.legend_margin = 50
     g.labels = {
       0 => '5/6', 
       1 => '5/15', 
