@@ -37,7 +37,6 @@ class TestGruffBar < GruffTestCase
   def test_thousand_separators
     g = Gruff::Bar.new(600)
     g.title = "Formatted numbers"
-    g.bar_spacing = 0.2
     g.marker_count = 8
     g.data("data", [4025, 1024, 50257, 703672, 1580456])
     g.write("test/output/bar_formatted_numbers.png")
@@ -284,6 +283,22 @@ class TestGruffBar < GruffTestCase
     write_test_file g, 'enhancements.png'
   end
 
+  def test_bar_spacing
+    g = setup_basic_graph
+    g.bar_spacing = 0
+    g.title = "100% spacing between bars"
+    g.write("test/output/bar_spacing_full.png")
+
+    g = setup_basic_graph
+    g.bar_spacing = 0.5
+    g.title = "50% spacing between bars"
+    g.write("test/output/bar_spacing_half.png")
+
+    g = setup_basic_graph
+    g.bar_spacing = 1
+    g.title = "0% spacing between bars"
+    g.write("test/output/bar_spacing_none.png")
+  end
 
 protected
 
