@@ -209,8 +209,8 @@ class TestGruffSpider < GruffTestCase
     end
 
     5.times { |i|
-      g.rotation = 10 + i * 5 # degrees
-      g.write("test/output/spider_rotation_#{g.rotation}_degrees.png")
+      g.rotation = i * 8 # degrees
+      g.write("test/output/spider_rotation.png")
     }
   end
 
