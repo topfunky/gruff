@@ -25,6 +25,7 @@ class Gruff::Spider < Gruff::Base
     super(target_width)
     @max_value = max_value
     @hide_legend = true;
+    @rotation = 0
   end
   
   def draw
@@ -48,7 +49,7 @@ class Gruff::Spider < Gruff::Base
     prev_degrees = 0.0
     additive_angle = (2 * Math::PI)/ @data.size
     
-    current_angle = (rotation || 0.0) * Math::PI / 180.0
+    current_angle = rotation * Math::PI / 180.0
 
     # Draw axes
     draw_axes(center_x, center_y, radius, additive_angle) unless hide_axes    
@@ -89,7 +90,7 @@ private
   def draw_axes(center_x, center_y, radius, additive_angle, line_color = nil)
     return if hide_axes
     
-    current_angle = (rotation || 0.0) * Math::PI / 180.0
+    current_angle = rotation * Math::PI / 180.0
     
     @data.each do |data_row|
       @d.stroke(line_color || data_row[DATA_COLOR_INDEX])
@@ -110,7 +111,7 @@ private
   
   def draw_polygon(center_x, center_y, additive_angle, color = nil)
     points = []
-    current_angle = (rotation || 0.0) * Math::PI / 180.0
+    current_angle = rotation * Math::PI / 180.0
     @data.each do |data_row|
       points << center_x + normalize_points(data_row[DATA_VALUES_INDEX].first) * Math.cos(current_angle)
       points << center_y + normalize_points(data_row[DATA_VALUES_INDEX].first) * Math.sin(current_angle)
