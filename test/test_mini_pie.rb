@@ -7,6 +7,12 @@ class TestMiniPie < GruffTestCase
     g = setup_basic_graph(Gruff::Mini::Pie, 200)
     write_test_file g, 'mini_pie.png'
   end
+  
+  def test_pie_with_legend_right
+    g = setup_basic_graph(Gruff::Mini::Pie, 200)
+    g.legend_position = :right
+    write_test_file g, 'mini_pie_right_legend.png'
+  end
 
   # def test_code_sample    
   #   g = Gruff::Mini::Pie.new(200)

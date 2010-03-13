@@ -2,26 +2,47 @@ module Gruff
   module Mini
     module Legend
       
-      attr_accessor :hide_mini_legend
+      attr_accessor :hide_mini_legend, :legend_position
       
       ##
       # The canvas needs to be bigger so we can put the legend beneath it.
 
       def expand_canvas_for_vertical_legend
         return if @hide_mini_legend
-        
+
+        @legend_labels = @data.collect {|item| item[Gruff::Base::DATA_LABEL_INDEX] }
+
+        legend_height = scale_fontsize(
+                          @data.length * calculate_line_height +
+                          @top_margin + @bottom_margin)
+
         @original_rows = @raw_rows
-        @rows += @data.length * calculate_caps_height(scale_fontsize(@legend_font_size)) * 1.7
+        @original_columns = @raw_columns
+
+        case @legend_position
+          when :right then
+            @rows = [@rows, legend_height].max
+            @columns += calculate_legend_width + @left_margin
+          else
+            @rows += @data.length * calculate_caps_height(scale_fontsize(@legend_font_size)) * 1.7
+        end
         render_background
       end
-      
+
+      def calculate_line_height
+        calculate_caps_height(@legend_font_size) * 1.7
+      end
+
+      def calculate_legend_width
+        width = @legend_labels.map { |label| calculate_width(@legend_font_size, label) }.max
+        scale_fontsize(width + 40*1.7)
+      end
+
       ##
       # Draw the legend beneath the existing graph.
 
       def draw_vertical_legend
         return if @hide_mini_legend
-        
-        @legend_labels = @data.collect {|item| item[Gruff::Base::DATA_LABEL_INDEX] }
         
         legend_square_width = 40.0 # small square with color of this item
         legend_square_margin = 10.0
@@ -32,8 +53,14 @@ module Gruff
         @d.font = @font if @font
         @d.pointsize = @legend_font_size
 
-        current_x_offset = @legend_left_margin
-        current_y_offset = @original_rows + legend_top_margin
+        case @legend_position
+          when :right then
+            current_x_offset = @original_columns + @left_margin
+            current_y_offset = @top_margin + legend_top_margin
+          else
+            current_x_offset = @legend_left_margin
+            current_y_offset = @original_rows + legend_top_margin
+        end
 
         debug { @d.line 0.0, current_y_offset, @raw_columns, current_y_offset }
 
@@ -59,7 +86,7 @@ module Gruff
                             current_x_offset + legend_square_width, 
                             current_y_offset + legend_square_width / 2.0)
           
-          current_y_offset += calculate_caps_height(@legend_font_size) * 1.7
+          current_y_offset += calculate_line_height
         end
         @color_index = 0
       end
