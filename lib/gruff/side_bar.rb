@@ -13,17 +13,22 @@ class Gruff::SideBar < Gruff::Base
     super
 
     return unless @has_data
+    draw_bars
+  end
 
+protected
+
+  def draw_bars
     # Setup spacing.
     #
     @bar_spacing ||= 0.9
 
     @bars_width = @graph_height / @column_count.to_f
-    @bar_width = @bars_width * @bar_spacing / @norm_data.size
+    @bar_width = @bars_width / @norm_data.size
     @d         = @d.stroke_opacity 0.0
     height     = Array.new(@column_count, 0)
     length     = Array.new(@column_count, @graph_left)
-    padding    = (@bars_width * (1 - @bar_spacing)) / 2
+    padding    = (@bar_width * (1 - @bar_spacing)) / 2
 
     @norm_data.each_with_index do |data_row, row_index|
       @d = @d.fill data_row[DATA_COLOR_INDEX]
@@ -40,7 +45,7 @@ class Gruff::SideBar < Gruff::Base
         left_x     = length[point_index] - 1
         left_y     = @graph_top + (@bars_width * point_index) + (@bar_width * row_index) + padding
         right_x    = left_x + difference
-        right_y    = left_y + @bar_width
+        right_y    = left_y + @bar_width * @bar_spacing
 
         height[point_index] += (data_point * @graph_width)
 
@@ -55,8 +60,6 @@ class Gruff::SideBar < Gruff::Base
 
     @d.draw(@base_image)
   end
-
-protected
 
   # Instead of base class version, draws vertical background lines and label
   def draw_line_markers
