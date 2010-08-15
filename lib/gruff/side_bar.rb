@@ -71,14 +71,14 @@ protected
     number_of_lines = 5
 
     # TODO Round maximum marker value to a round number like 100, 0.1, 0.5, etc.
-    increment = significant(@maximum_value.to_f / number_of_lines)
+    increment = significant(@spread.to_f / number_of_lines)
     (0..number_of_lines).each do |index|
 
       line_diff    = (@graph_right - @graph_left) / number_of_lines
       x            = @graph_right - (line_diff * index) - 1
       @d           = @d.line(x, @graph_bottom, x, @graph_top)
       diff         = index - number_of_lines
-      marker_label = diff.abs * increment
+      marker_label = diff.abs * increment + @minimum_value
 
       unless @hide_line_numbers
         @d.fill      = @font_color

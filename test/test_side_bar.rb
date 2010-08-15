@@ -24,6 +24,20 @@ class TestGruffSideBar < GruffTestCase
     g.title = "0% spacing between bars"
     g.write("test/output/side_bar_spacing_none.png")
   end
+  
+  def test_x_axis_range
+    g = Gruff::SideBar.new('400x300')
+    g.title = 'Should run from 8 to 32'
+    g.hide_line_numbers = false
+    g.theme_37signals
+    g.data("Grapes", [8])
+    g.data("Apples", [24])
+    g.data("Oranges", [32])
+    g.data("Watermelon", [8])
+    g.data("Peaches", [12])
+    g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}
+    g.write("test/output/side_bar_data_range.png")
+  end
 
 end
 

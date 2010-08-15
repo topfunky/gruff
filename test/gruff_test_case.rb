@@ -1,6 +1,8 @@
 $:.unshift(File.dirname(__FILE__) + "/../lib/")
 # require 'rubygems'
 
+RMAGICK_BYPASS_VERSION_TEST = true
+
 require 'test/unit'
 require 'gruff'
 require 'fileutils'
