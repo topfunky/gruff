@@ -290,7 +290,7 @@ module Gruff
     #  graph.theme = {
     #    :colors => %w(orange purple green white red),
     #    :marker_color => 'blue',
-    #    :background_colors => %w(black grey)
+    #    :background_colors => %w(black grey,:top_bottom)
     #  }
     #
     # :background_image => 'squirrel.png' is also possible.
@@ -911,9 +911,18 @@ module Gruff
     end
 
     # Use with a theme definition method to draw a gradiated background.
-    def render_gradiated_background(top_color, bottom_color)
-      Image.new(@columns, @rows,
-                GradientFill.new(0, 0, 100, 0, top_color, bottom_color))
+    def render_gradiated_background(top_color, bottom_color,direct=:top_bottom)
+      case direct
+      when :bottom_top
+        gradient_fill = GradientFill.new(100, 0, 0, 0, top_color, bottom_color)
+      when :left_right
+        gradient_fill = GradientFill.new(0, 0, 0, 100, top_color, bottom_color)
+      when :right_left
+        gradient_fill = GradientFill.new(0,100,0,0,top_color,bottom_color)
+      else
+        gradient_fill = GradientFill.new(0, 0, 100, 0, top_color, bottom_color)
+      end
+      Image.new(@columns, @rows,gradient_fill)
     end
 
     # Use with a theme to use an image (800x600 original) background.
