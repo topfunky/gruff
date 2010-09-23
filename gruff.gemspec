@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.1}
   s.summary = %q{Beautiful graphs for one or multiple datasets.}
   s.test_files = ["test/test_accumulator_bar.rb", "test/test_area.rb", "test/test_bar.rb", "test/test_base.rb", "test/test_bullet.rb", "test/test_dot.rb", "test/test_legend.rb", "test/test_line.rb", "test/test_mini_bar.rb", "test/test_mini_pie.rb", "test/test_mini_side_bar.rb", "test/test_net.rb", "test/test_photo.rb", "test/test_pie.rb", "test/test_scene.rb", "test/test_side_bar.rb", "test/test_sidestacked_bar.rb", "test/test_spider.rb", "test/test_stacked_area.rb", "test/test_stacked_bar.rb"]
+  s.add_dependency(%q<rmagick>, [">= 2.12.2"])
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
