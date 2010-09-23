@@ -462,7 +462,6 @@ class TestGruffLine < GruffTestCase
     g.legend_font_size = 12
     g.marker_font_size = 16
     g.hide_dots = false
-    g.label_max_decimals = 1
 
     g.write('test/output/line_jruby_error.png')
   end
