@@ -34,6 +34,7 @@ module Gruff
     DATA_LABEL_INDEX = 0
     DATA_VALUES_INDEX = 1
     DATA_COLOR_INDEX = 2
+    ORIG_VALUES_INDEX = 3 #Only for normalized data
 
     # Space around text elements. Mostly used for vertical spacing
     LEGEND_MARGIN = TITLE_MARGIN = 20.0
@@ -170,6 +171,10 @@ module Gruff
     #
     # Will be scaled down if graph is smaller than 800px wide.
     attr_accessor :legend_box_size
+    
+    # Output the values for the bars on a bar graph
+    # Default is false
+    attr_accessor :show_labels_for_bar_values
 
     # If one numerical argument is given, the graph is drawn at 4/3 ratio
     # according to the given width (800 results in 800x600, 400 gives 400x300,
@@ -232,7 +237,7 @@ module Gruff
 
       @no_data_message = "No Data"
 
-      @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = false
+      @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = @show_labels_for_bar_values = false
       @center_labels_over_point = true
       @has_left_labels = false
 
@@ -555,7 +560,7 @@ module Gruff
               norm_data_points << ((data_point.to_f - @minimum_value.to_f ) / @spread)
             end
           end
-          @norm_data << [data_row[DATA_LABEL_INDEX], norm_data_points, data_row[DATA_COLOR_INDEX]]
+          @norm_data << [data_row[DATA_LABEL_INDEX], norm_data_points, data_row[DATA_COLOR_INDEX], data_row[DATA_VALUES_INDEX]]
         end
       end
     end
@@ -873,6 +878,26 @@ module Gruff
         @labels_seen[index] = 1
         debug { @d.line 0.0, y_offset, @raw_columns, y_offset }
       end
+    end
+    
+    # Draws the data value over the data point in bar graphs
+    def draw_value_label(x_offset, y_offset, data_point)
+      return if @hide_line_markers
+
+      #y_offset = @graph_bottom + LABEL_MARGIN
+
+      @d.fill = @font_color
+      @d.font = @font if @font
+      @d.stroke('transparent')
+      @d.font_weight = NormalWeight
+      @d.pointsize = scale_fontsize(@marker_font_size)
+      @d.gravity = NorthGravity
+      @d = @d.annotate_scaled(@base_image,
+                              1.0, 1.0,
+                              x_offset, y_offset,
+                              data_point.to_s, @scale)
+                              
+      debug { @d.line 0.0, y_offset, @raw_columns, y_offset }
     end
 
     # Shows an error message because you have no data.
