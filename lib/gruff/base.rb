@@ -1,5 +1,5 @@
 require 'rubygems'
-require 'RMagick'
+require 'rmagick'
 
 require File.dirname(__FILE__) + '/deprecated'
 
@@ -175,7 +175,11 @@ module Gruff
     # Output the values for the bars on a bar graph
     # Default is false
     attr_accessor :show_labels_for_bar_values
-
+    
+    # Set the number output format for labels using sprintf
+    # Default is "%.2f"
+    attr_accessor :label_formatting
+    
     # If one numerical argument is given, the graph is drawn at 4/3 ratio
     # according to the given width (800 results in 800x600, 400 gives 400x300,
     # etc.).
@@ -1148,3 +1152,10 @@ module Magick
   end
 
 end # Magick
+
+class String
+  #Taken from http://codesnippets.joyent.com/posts/show/330
+  def commify(delimiter=",")
+    return self.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{delimiter}")
+  end
+end
