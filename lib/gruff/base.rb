@@ -601,7 +601,7 @@ module Gruff
           end
           @marker_count ||= 4
         end
-        @increment = (@spread > 0) ? significant(@spread / @marker_count) : 1
+        @increment = (@spread > 0 && @marker_count > 0) ? significant(@spread / @marker_count) : 1
       else
         # TODO Make this work for negative values
         @maximum_value = [@maximum_value.ceil, @y_axis_increment].max
