@@ -826,8 +826,8 @@ module Gruff
     end
 
     # Draws the data value over the data point in bar graphs
-    def draw_value_label(x_offset, y_offset, data_point)
-      return if @hide_line_markers
+    def draw_value_label(x_offset, y_offset, data_point, bar_value=false)
+      return if @hide_line_markers && !bar_value
 
       #y_offset = @graph_bottom + LABEL_MARGIN
 
