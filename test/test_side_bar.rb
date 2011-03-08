@@ -38,6 +38,20 @@ class TestGruffSideBar < GruffTestCase
     g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}
     g.write("test/output/side_bar_data_range.png")
   end
+  
+  def test_bar_labels
+    g = Gruff::SideBar.new('400x300')
+    g.title = 'Should show labels for each bar'
+    g.font = "/Library/Fonts/Verdana.ttf"
+    g.data("Grapes", [8])
+    g.data("Apples", [24])
+    g.data("Oranges", [32])
+    g.data("Watermelon", [8])
+    g.data("Peaches", [12])
+    g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}
+    g.show_labels_for_bar_values = true
+    g.write("test/output/side_bar_labels.png")
+  end
 
 end
 
