@@ -180,6 +180,9 @@ module Gruff
     # Default is "%.2f"
     attr_accessor :label_formatting
     
+    # With Side Bars use the data label for the marker value to the left of the bar
+    # Default is false
+    attr_accessor :use_data_label
     # If one numerical argument is given, the graph is drawn at 4/3 ratio
     # according to the given width (800 results in 800x600, 400 gives 400x300,
     # etc.).
