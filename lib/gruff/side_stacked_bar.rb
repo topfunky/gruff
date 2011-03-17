@@ -33,7 +33,10 @@ class Gruff::SideStackedBar < Gruff::SideBar
     height = Array.new(@column_count, 0)
     length = Array.new(@column_count, @graph_left)
     padding = (@bar_width * (1 - @bar_spacing)) / 2
-
+    if @show_labels_for_bar_values
+      label_values = Array.new
+      0.upto(@column_count-1) {|i| label_values[i] = {:value => 0, :right_x => 0}}
+    end
     @norm_data.each_with_index do |data_row, row_index|
       data_row[DATA_VALUES_INDEX].each_with_index do |data_point, point_index|
 
@@ -53,7 +56,12 @@ class Gruff::SideStackedBar < Gruff::SideBar
               right_y = left_y + @bar_width * @bar_spacing
     	  length[point_index] += difference
         height[point_index] += (data_point * @graph_width - 2)
-
+        
+        if @show_labels_for_bar_values
+          label_values[point_index][:value] += @norm_data[row_index][3][point_index]
+          label_values[point_index][:right_x] = right_x
+        end
+                
         @d = @d.rectangle(left_x, left_y, right_x, right_y)
 
         # Calculate center based on bar_width and current row
@@ -62,7 +70,13 @@ class Gruff::SideStackedBar < Gruff::SideBar
       end
 
     end
-
+    if @show_labels_for_bar_values
+      label_values.each_with_index do |data, i|
+        val = (@label_formatting || "%.2f") % data[:value]
+        draw_value_label(data[:right_x]+40, (@graph_top + (((i+1) * @bar_width) - (@bar_width / 2)))-12, val.commify, true)
+      end
+    end
+    
     @d.draw(@base_image)    
   end
 
