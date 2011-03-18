@@ -76,7 +76,6 @@ class TestGruffSideStackedBar < GruffTestCase
   def test_bar_labels
      g = Gruff::SideStackedBar.new
      g.title = "Stacked Bar Long Label"
-     g.font = "/Library/Fonts/Verdana.ttf"
      g.labels = {
        0 => 'September', 
        1 => 'Oct', 

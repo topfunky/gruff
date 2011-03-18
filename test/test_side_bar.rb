@@ -42,7 +42,6 @@ class TestGruffSideBar < GruffTestCase
   def test_bar_labels
     g = Gruff::SideBar.new('400x300')
     g.title = 'Should show labels for each bar'
-    g.font = "/Library/Fonts/Verdana.ttf"
     g.data("Grapes", [8])
     g.data("Apples", [24])
     g.data("Oranges", [32])
