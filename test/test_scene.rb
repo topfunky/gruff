@@ -51,7 +51,7 @@ class TestGruffScene < GruffTestCase
 
   def test_layer
     l = LayerStub.new(File.expand_path("../assets/city_scene", File.dirname(__FILE__)), "clouds")
-    assert_equal %w(cloudy.png partly_cloudy.png stormy.png), l.filenames
+    assert_equal %w(cloudy.png partly_cloudy.png stormy.png), l.filenames.sort
     
     l = LayerStub.new(File.expand_path("../assets/city_scene", File.dirname(__FILE__)), "grass")
     assert_equal 'default.png', l.selected_filename
