@@ -133,7 +133,7 @@ class Gruff::Layer
   def initialize(base_dir, folder_name)
     @base_dir = base_dir.to_s
     @name = folder_name.to_s
-    @filenames = Dir.open(File.join(base_dir, folder_name)).entries.select { |file| file =~ /^[^.]+\.png$/ }
+    @filenames = Dir.open(File.join(base_dir, folder_name)).entries.select { |file| file =~ /^[^.]+\.png$/ }.sort
     @selected_filename = select_default
   end
   
