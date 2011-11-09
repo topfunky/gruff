@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'RMagick'
+require 'bigdecimal'
 
 require File.dirname(__FILE__) + '/deprecated'
 
@@ -41,7 +42,7 @@ module Gruff
     DEFAULT_MARGIN = 20.0
 
     DEFAULT_TARGET_WIDTH = 800
-    
+
     THOUSAND_SEPARATOR = ','
 
     # Blank space above the graph
@@ -55,10 +56,10 @@ module Gruff
 
     # Blank space to the left of the graph
     attr_accessor :left_margin
-    
+
     # Blank space below the title
     attr_accessor :title_margin
-    
+
     # Blank space below the legend
     attr_accessor :legend_margin
 
@@ -223,7 +224,7 @@ module Gruff
       @marker_font_size = 21.0
       @legend_font_size = 20.0
       @title_font_size = 36.0
-      
+
       @top_margin = @bottom_margin = @left_margin = @right_margin = DEFAULT_MARGIN
       @legend_margin = LEGEND_MARGIN
       @title_margin = TITLE_MARGIN
@@ -698,7 +699,8 @@ module Gruff
         @d = @d.fill(@marker_color)
         @d = @d.line(@graph_left, y, @graph_right, y)
 
-        marker_label = index * @increment + @minimum_value.to_f
+        marker_label = (BigDecimal(index.to_s) * BigDecimal(@increment.to_s) +
+                        BigDecimal(@minimum_value.to_s)).to_f
 
         unless @hide_line_numbers
           @d.fill = @font_color
@@ -1072,7 +1074,7 @@ module Gruff
       else
         value.to_s
       end
-      
+
       parts = label.split('.')
       parts[0].gsub!(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{THOUSAND_SEPARATOR}")
       parts.join('.')

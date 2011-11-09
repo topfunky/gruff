@@ -15,28 +15,28 @@ class TestGruffLine < GruffTestCase
       :font_color => 'black',
       :background_colors => 'transparent'
     }
-    
+
     g.labels = {
-      0 => '5/6', 
-      1 => '5/15', 
-      2 => '5/24', 
-      3 => '5/30', 
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
     }
     g.data(:apples, [-1, 0, 4, -4])
     g.data(:peaches, [10, 8, 6, 3])
     g.write("test/output/line_transparent.png")
   end
-  
+
   def test_line_graph_with_themes
     line_graph_with_themes()
     line_graph_with_themes(400)
   end
-  
+
   def test_one_value
     g = Gruff::Line.new
     g.title = "One Value"
     g.labels = {
-      0 => '1', 
+      0 => '1',
       1 => '2'
     }
     g.data('one', 1)
@@ -48,7 +48,7 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new
     g.title = "One Value in an Array"
     g.labels = {
-      0 => '1', 
+      0 => '1',
       1 => '2'
     }
     g.data('one', [1])
@@ -76,8 +76,8 @@ class TestGruffLine < GruffTestCase
   #   g.write("test/output/line_crash_fix_test.png")
   # end
 
-  
-  def test_line_small_values    
+
+  def test_line_small_values
     @datasets = [
       [:small, [0.1, 0.14356, 0.0, 0.5674839, 0.456]],
       [:small2, [0.2, 0.3, 0.1, 0.05, 0.9]]
@@ -119,8 +119,8 @@ class TestGruffLine < GruffTestCase
     g.write("test/output/line_small_small_zero.png")
   end
 
-    
-  def test_line_large_values    
+
+  def test_line_large_values
     @datasets = [
       [:large, [100_005, 35_000, 28_000, 27_000]],
       [:large2, [35_000, 28_000, 27_000, 100_005]],
@@ -140,15 +140,15 @@ class TestGruffLine < GruffTestCase
 
     g.write("test/output/line_large.png")
   end
-    
+
   # def test_long_title
-  #   
+  #
   # end
-  # 
+  #
   # def test_add_colors
-  #   
+  #
   # end
-  # 
+  #
 
   def test_request_too_many_colors
     g = Gruff::Line.new
@@ -160,22 +160,22 @@ class TestGruffLine < GruffTestCase
     @datasets.each do |data|
       g.data("#{data[0]}-B", data[1].map {|d| d + 20})
     end
-    g.write("test/output/line_more_sets_than_colors.png")    
+    g.write("test/output/line_more_sets_than_colors.png")
   end
-  
-  # 
+
+  #
   # def test_add_data
-  #   
+  #
   # end
 
   def test_many_datapoints
     g = Gruff::Line.new
     g.title = "Many Multi-Line Graph Test"
     g.labels = {
-      0 => 'June', 
-      10 => 'July', 
-      30 => 'August', 
-      50 => 'September', 
+      0 => 'June',
+      10 => 'July',
+      30 => 'August',
+      50 => 'September',
     }
     g.data('many points', (0..50).collect {|i| rand(100) })
     g.x_axis_label = "Months"
@@ -192,7 +192,7 @@ class TestGruffLine < GruffTestCase
     g.title = "Similar High End Values Test"
     g.data('similar points', @dataset )
     g.write("test/output/line_similar_high_end_values.png")
-    
+
     g = Gruff::Line.new
     g.title = "Similar High End Values With Floor"
     g.data('similar points', @dataset )
@@ -205,11 +205,11 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new(400)
     g.title = "Many Values Line Test 400px"
     g.labels = {
-      0 => '5/6', 
-      10 => '5/15', 
-      20 => '5/24', 
-      30 => '5/30', 
-      40 => '6/4', 
+      0 => '5/6',
+      10 => '5/15',
+      20 => '5/24',
+      30 => '5/30',
+      40 => '6/4',
       50 => '6/16'
     }
     %w{jimmy jane philip arthur julie bert}.each do |student_name|
@@ -224,11 +224,11 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new(300)
     g.title = "Tiny Test 300px"
     g.labels = {
-      0 => '5/6', 
-      10 => '5/15', 
-      20 => '5/24', 
-      30 => '5/30', 
-      40 => '6/4', 
+      0 => '5/6',
+      10 => '5/15',
+      20 => '5/24',
+      30 => '5/30',
+      40 => '6/4',
       50 => '6/16'
     }
     %w{jimmy jane philip arthur julie bert}.each do |student_name|
@@ -244,7 +244,7 @@ class TestGruffLine < GruffTestCase
     g.title = "No Data"
     # Default theme
     g.write("test/output/line_no_data.png")
-    
+
     g = Gruff::Line.new(400)
     g.title = "No Data Title"
     g.no_data_message = 'There is no data'
@@ -259,7 +259,7 @@ class TestGruffLine < GruffTestCase
     g.data(:gus, [0,0,0,0])
 
     # Default theme
-    g.write("test/output/line_no_data_other.png")    
+    g.write("test/output/line_no_data_other.png")
   end
 
 
@@ -279,7 +279,7 @@ class TestGruffLine < GruffTestCase
     end
 
     # Default theme
-    g.write("test/output/line_some_nil_points.png")    
+    g.write("test/output/line_some_nil_points.png")
   end
 
   def test_no_title
@@ -296,7 +296,7 @@ class TestGruffLine < GruffTestCase
     g = setup_basic_graph(400)
     g.title = "No Line Markers"
     g.hide_line_markers = true
-    g.write("test/output/line_no_line_markers.png")    
+    g.write("test/output/line_no_line_markers.png")
   end
 
   def test_no_legend
@@ -312,14 +312,14 @@ class TestGruffLine < GruffTestCase
     g.hide_line_markers = true
     g.hide_legend = true
     g.hide_title = true
-    g.write("test/output/line_nothing_but_the_graph.png")    
+    g.write("test/output/line_nothing_but_the_graph.png")
   end
 
   def test_baseline_larger_than_data
     g = setup_basic_graph(400)
     g.title = "Baseline Larger Than Data"
     g.baseline_value = 150
-    g.write("test/output/line_large_baseline.png")    
+    g.write("test/output/line_large_baseline.png")
   end
 
 
@@ -327,20 +327,20 @@ class TestGruffLine < GruffTestCase
     g = setup_basic_graph(400)
     g.title = "Hide Dots"
     g.hide_dots = true
-    g.write("test/output/line_hide_dots.png")    
+    g.write("test/output/line_hide_dots.png")
   end
 
   def test_hide_lines
     g = setup_basic_graph(400)
     g.title = "Hide Lines"
     g.hide_lines = true
-    g.write("test/output/line_hide_lines.png")    
+    g.write("test/output/line_hide_lines.png")
   end
 
   def test_wide_graph
     g = setup_basic_graph('800x400')
     g.title = "Wide Graph"
-    g.write("test/output/line_wide_graph.png")    
+    g.write("test/output/line_wide_graph.png")
 
     g = setup_basic_graph('400x200')
     g.title = "Wide Graph Small"
@@ -350,7 +350,7 @@ class TestGruffLine < GruffTestCase
   def test_negative
     g = setup_pos_neg(800)
     g.write("test/output/line_pos_neg.png")
-    
+
     g = setup_pos_neg(400)
     g.title = 'Pos/Neg Line Test Small'
     g.write("test/output/line_pos_neg_400.png")
@@ -359,13 +359,13 @@ class TestGruffLine < GruffTestCase
   def test_all_negative
     g = setup_all_neg(800)
     g.write("test/output/line_all_neg.png")
-    
+
     g = setup_all_neg(400)
     g.title = 'All Neg Line Test Small'
     g.write("test/output/line_all_neg_400.png")
   end
 
-  def test_many_numbers    
+  def test_many_numbers
     g = Gruff::Line.new('400x170')
     g.title = "Line Test, Many Numbers"
 
@@ -419,7 +419,7 @@ class TestGruffLine < GruffTestCase
       { :date => '23'},
       { :date => '24'},
       { :date => '25'},
-      { :date => '26'},     
+      { :date => '26'},
       { :date => '27',
          :wpm => 37,
          :errors => 3,
@@ -448,7 +448,6 @@ class TestGruffLine < GruffTestCase
     g.hide_line_markers = false
     g.write('test/output/line_no_hide.png')
   end
-  
 
   def test_jruby_error
     g = Gruff::Line.new
@@ -462,13 +461,30 @@ class TestGruffLine < GruffTestCase
     g.legend_font_size = 12
     g.marker_font_size = 16
     g.hide_dots = false
-    g.label_max_decimals = 1
 
     g.write('test/output/line_jruby_error.png')
   end
 
+  def test_marker_label_accuracy
+    g = Gruff::Line.new
+    g.title = "Marker label accuracy"
+    g.labels = {
+      0 => '1',
+      1 => '2',
+      2 => '3',
+      3 => '4',
+      4 => '5'
+    }
+    g.data('first',  [0.5, 0.51, 0.52, 0.53, 0.54])
+    g.data('second', [0.6, 0.61, 0.62, 0.63, 0.64])
+    g.data('third',  [0.7, 0.71, 0.72, 0.73, 0.74])
+
+    g.write("test/output/line_marker_label_accuracy.png")
+  end
+
+
 private
-  
+
   def bmi(params={})
     g = basic_graph()
 
@@ -492,7 +508,7 @@ private
     end
     # Default theme
     g.write("test/output/line_theme_keynote_#{size}.png")
-  
+
     g = Gruff::Line.new(size)
     g.title = "Multi-Line Graph Test #{size}"
     g.labels = @labels
@@ -502,7 +518,7 @@ private
       g.data(data[0], data[1])
     end
     g.write("test/output/line_theme_37signals_#{size}.png")
-  
+
     g = Gruff::Line.new(size)
     g.title = "Multi-Line Graph Test #{size}"
     g.labels = @labels
@@ -512,7 +528,7 @@ private
       g.data(data[0], data[1])
     end
     g.write("test/output/line_theme_rails_keynote_#{size}.png")
-  
+
     g = Gruff::Line.new(size)
     g.title = "Multi-Line Graph Test #{size}"
     g.labels = @labels
@@ -528,10 +544,10 @@ private
     g = Gruff::Line.new(size)
     g.title = "Pos/Neg Line Graph Test"
     g.labels = {
-      0 => '5/6', 
-      1 => '5/15', 
-      2 => '5/24', 
-      3 => '5/30', 
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
     }
     g.data(:apples, [-1, 0, 4, -4])
     g.data(:peaches, [10, 8, 6, 3])
@@ -543,14 +559,14 @@ private
     g = Gruff::Line.new(size)
     g.title = "All Neg Line Graph Test"
     g.labels = {
-      0 => '5/6', 
-      1 => '5/15', 
-      2 => '5/24', 
-      3 => '5/30', 
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
     }
     g.data(:apples, [-1, -5, -20, -4])
     g.data(:peaches, [-10, -8, -6, -3])
     g
   end
-  
+
 end
