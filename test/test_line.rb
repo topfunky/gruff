@@ -482,6 +482,17 @@ class TestGruffLine < GruffTestCase
     g.write("test/output/line_marker_label_accuracy.png")
   end
 
+  def test_y_axis_increment
+    g = Gruff::Line.new
+    g.title = "y axis increment"
+
+    g.data('data',  [1,2,3])
+
+    g.y_axis_increment = 1
+
+    g.write("test/output/line_y_axis_increment.png")
+  end
+
 
 private
 

@@ -109,9 +109,9 @@ class Gruff::Line < Gruff::Base
     @d.draw(@base_image)
   end
 
-  def normalize
+  def normalize(force=false)
     @maximum_value = [@maximum_value.to_f, @baseline_value.to_f].max
-    super
+    super(force)
     @norm_baseline = (@baseline_value.to_f / @maximum_value.to_f) if @baseline_value
   end
 
