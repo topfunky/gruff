@@ -699,8 +699,8 @@ module Gruff
         @d = @d.fill(@marker_color)
         @d = @d.line(@graph_left, y, @graph_right, y)
 
-        marker_label = (BigDecimal(index.to_s) * BigDecimal(@increment.to_s) +
-                        BigDecimal(@minimum_value.to_s)).to_f
+        marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) +
+                       BigDecimal(@minimum_value.to_s)
 
         unless @hide_line_numbers
           @d.fill = @font_color
@@ -979,9 +979,10 @@ module Gruff
       data_point
     end
 
-    def significant(inc) # :nodoc:
-      return 1.0 if inc == 0 # Keep from going into infinite loop
-      factor = 1.0
+    def significant(i) # :nodoc:
+      return 1.0 if i == 0 # Keep from going into infinite loop
+      inc = BigDecimal(i.to_s)
+      factor = BigDecimal('1.0')
       while (inc < 10)
         inc *= 10
         factor /= 10
