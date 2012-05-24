@@ -7,7 +7,7 @@ class Gruff::Bar < Gruff::Base
   attr_accessor :bar_spacing
   
   def draw
-    # Labels will be centered over the left of the bar if
+    # Labels will be centered over the left of the bars if
     # there are more labels than columns. This is basically the same 
     # as where it would be for a line graph.
     @center_labels_over_point = (@labels.keys.length > @column_count ? true : false)
@@ -69,11 +69,13 @@ protected
         @d = @d.rectangle(left_x, conv[0], right_x, conv[1])
 
         # Calculate center based on bar_width and current row
+        # If center_labels_over_point is true, center the label over the left
+        # of all bars for this data point. (similar to a line graph)
+        # Otherwise, center it over the middle.
         label_center = @graph_left + 
                       (@data.length * @bar_width * point_index) + 
-                      (@data.length * @bar_width / 2.0)
-        # Subtract half a bar width to center left if requested
-        draw_label(label_center - (@center_labels_over_point ? @bar_width / 2.0 : 0.0), point_index)
+                      (@center_labels_over_point ? 0.0 : @data.length * @bar_width / 2.0)
+        draw_label(label_center, point_index)
       end
 
     end
