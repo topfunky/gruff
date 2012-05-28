@@ -71,6 +71,18 @@ module Gruff
     # Example: 0 => 2005, 3 => 2006, 5 => 2007, 7 => 2008
     attr_accessor :labels
 
+    # Set to a positive number to word-wrap the bottom labels to fit in the
+    # width calculated by multiplying the factor with the width for each data
+    # point.
+    #
+    # Example: set to 0.9 to wrap the labels and use only 90% of the available
+    # width and make 10% of spacing between the labels.
+    #
+    # If not set (default), or set to 0 or negative, bottom labels are displayed
+    # in one line without wrapping. So the labels could overlap with each other
+    # if they are too long.
+    attr_accessor :labels_width_factor
+
     # Used internally for spacing.
     #
     # By default, labels are centered over the point they represent.
@@ -215,6 +227,7 @@ module Gruff
       @labels_seen = Hash.new
       @sort = true
       @title = nil
+      @labels_width_factor = nil
 
       @scale = @columns / @raw_columns
 
@@ -600,16 +613,49 @@ module Gruff
           line_number_width +
           (@y_axis_label.nil? ? 0.0 : @marker_caps_height + LABEL_MARGIN * 2)
 
-        # Make space for half the width of the rightmost column label.
-        # Might be greater than the number of columns if between-style bar markers are used.
-        last_label = @labels.keys.sort.last.to_i
-        extra_room_for_long_label = (last_label >= (@column_count-1) && @center_labels_over_point) ?
-        calculate_width(@marker_font_size, @labels[last_label]) / 2.0 :
-          0
-        @graph_right_margin = @right_margin + extra_room_for_long_label
+        if @labels_width_factor && @labels_width_factor > 0
+          # Calculate the width available for each label and adjust left/right margins accordingly
+          if @center_labels_over_point
+            graph_column_count = [@column_count, 2].max
+            # calculate a tentative label_width
+            label_width = (@raw_columns - @left_margin - @right_margin) / graph_column_count * @labels_width_factor
+            half_label_width = label_width / 2.0
 
-        @graph_bottom_margin = @bottom_margin +
-          @marker_caps_height + LABEL_MARGIN
+            # Adjust the graph_left to make space for the leftmost label
+            extra_room_for_first_label = @labels[0].to_s.strip.empty? ? 0.0 : calculate_width(@marker_font_size, @labels[0]) / 2.0
+            extra_room_for_first_label = [half_label_width, extra_room_for_first_label].min
+            @graph_left = [@graph_left, @left_margin + extra_room_for_first_label].max
+
+            # Calculate the graph_right_margin and make space for the rightmost label
+            # Label key might be greater than the number of columns if between-style bar markers are used.
+            last_label = @labels.keys.sort.last.to_i
+            extra_room_for_last_label = last_label >= (graph_column_count-1) ?
+              calculate_width(@marker_font_size, @labels[last_label]) / 2.0 : 0
+            extra_room_for_last_label = [half_label_width, extra_room_for_last_label].min
+            @graph_right_margin = @right_margin + extra_room_for_last_label
+
+            # Calculate the new label_width after the adjustment
+            label_width_adjusted = (@raw_columns - @graph_left - @graph_right_margin) / graph_column_count * @labels_width_factor
+            # Use the smaller one to avoid potential label overlapping after the adjustment
+            label_width = label_width_adjusted if label_width_adjusted < label_width
+          else
+            @graph_right_margin = @right_margin
+            label_width = (@raw_columns - @graph_left - @graph_right_margin) / @column_count * @labels_width_factor
+          end
+          # Word-wrap the labels and calculate the graph_bottom_margin accordingly
+          @graph_bottom_margin = @bottom_margin + wrap_labels_and_calculate_height(label_width) + LABEL_MARGIN
+        else
+          # Make space for half the width of the rightmost column label.
+          # Might be greater than the number of columns if between-style bar markers are used.
+          last_label = @labels.keys.sort.last.to_i
+          extra_room_for_long_label = (last_label >= (@column_count-1) && @center_labels_over_point) ?
+          calculate_width(@marker_font_size, @labels[last_label]) / 2.0 :
+            0
+          @graph_right_margin = @right_margin + extra_room_for_long_label
+
+          @graph_bottom_margin = @bottom_margin +
+            @marker_caps_height + LABEL_MARGIN
+        end
       end
 
       @graph_right = @raw_columns - @graph_right_margin
@@ -633,7 +679,7 @@ module Gruff
         # X Axis
         # Centered vertically and horizontally by setting the
         # height to 1.0 and the width to the width of the graph.
-        x_axis_label_y_coordinate = @graph_bottom + LABEL_MARGIN * 2 + @marker_caps_height
+        x_axis_label_y_coordinate = @raw_rows - @bottom_margin - @marker_caps_height
 
         # TODO Center between graph area
         @d.fill = @font_color
@@ -1100,6 +1146,52 @@ module Gruff
       @d.pointsize = font_size
       @d.font = font if font
       @d.get_type_metrics(@base_image, text.to_s).width
+    end
+
+
+    # Word-wrap (by adding line-breaks) the labels within the given width and
+    # return the maximum height of the labels
+    #
+    # Not scaled since it deals with dimensions that the regular
+    # scaling will handle.
+    def wrap_labels_and_calculate_height(line_width)
+      @d.pointsize = @marker_font_size
+      @d.font = font if font
+      blank_space_width = @d.get_type_metrics(@base_image, ' ').width
+
+      @labels.map { |key, text|
+        new_text = text.split(/\n/).inject('') { |acc_text, line|
+          # add back line-breaks between the lines
+          acc_text << '\n' unless acc_text.empty?
+
+          space_left = line_width
+          first_word_in_line = true
+          line.split(/\s/).each do |word|
+            unless word.empty?
+              tm = @d.get_type_metrics(@base_image, word)
+              # if there is no enough space for the word and a potential blank space before it
+              if tm.width > space_left || (!first_word_in_line && tm.width + blank_space_width > space_left)
+                # put the word in a new line
+                acc_text << '\n' unless first_word_in_line
+                acc_text << word
+                space_left = line_width - tm.width
+              else
+                # put the word in the current line
+                unless first_word_in_line
+                  acc_text << ' '
+                  space_left -= blank_space_width
+                end
+                space_left -= tm.width
+                acc_text << word
+              end
+              first_word_in_line = false
+            end
+          end
+          acc_text
+        }
+        @labels[key] = new_text.empty? ? ' ' : new_text
+        @d.get_multiline_type_metrics(@base_image, @labels[key]).height
+      }.max || 0.0
     end
 
   end # Gruff::Base

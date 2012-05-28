@@ -313,6 +313,19 @@ class TestGruffBar < GruffTestCase
     g.write("test/output/bar_center_labels_over_point.png")
   end
 
+  def test_bar_labels_wrapping
+    g = setup_basic_graph
+    g.labels_width_factor = 0.8
+    g.labels = {
+        0 => 'United States',
+        1 => 'Northern Ireland',
+        2 => 'United Arab Emirates',
+        3 => "PRC\nPeople's Republic of China",
+      }
+    g.title = "Labels Wrapping"
+    g.write("test/output/bar_labels_wrapping.png")
+  end
+
 protected
 
   def setup_basic_graph(size=800)
