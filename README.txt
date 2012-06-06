@@ -1,3 +1,6 @@
+== MAIN FIX
+  Zero Division Problem
+
 == Gruff Graphs
 
 A library for making beautiful graphs.
