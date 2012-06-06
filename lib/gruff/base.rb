@@ -1066,7 +1066,7 @@ module Gruff
     # Return a formatted string representing a number value that should be
     # printed as a label.
     def label(value)
-      label = if (@spread.to_f % @marker_count.to_f == 0) || !@y_axis_increment.nil?
+      label = if (@spread.to_f % (@marker_count.to_f==0 ? 1 : @marker_count.to_f) == 0) || !@y_axis_increment.nil?
         value.to_i.to_s
       elsif @spread > 10.0
         sprintf("%0i", value)
