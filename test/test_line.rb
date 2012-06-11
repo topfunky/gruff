@@ -482,6 +482,67 @@ class TestGruffLine < GruffTestCase
     g.write("test/output/line_marker_label_accuracy.png")
   end
 
+  def test_labels_wrap
+    g = Gruff::Line.new
+    g.title = "Line Labels Wrap"
+    g.labels_width_factor = 0.9
+    g.labels = {
+        0 => 'United States',
+        1 => 'Northern Ireland',
+        2 => 'United Arab Emirates',
+        3 => "PRC\nPeople's Republic of China",
+      }
+    g.data :Jimmy, [25, 36, 86, 39]
+    g.write("test/output/line_labels_wrap.png")
+  end
+
+  def test_labels_wrap_without_first_last
+    g = Gruff::Line.new
+    g.title = "Line Labels Wrap Without First/Last"
+    g.labels_width_factor = 1
+    g.labels = {
+        1 => 'Northern Ireland',
+        2 => 'United Arab Emirates',
+      }
+    g.data :Jimmy, [25, 36, 86, 39]
+    g.write("test/output/line_labels_wrap_without.png")
+  end
+
+  def test_labels_wrap_small_first_last_labels
+    g = Gruff::Line.new
+    g.title = "Line Labels Wrap Small First/Last"
+    g.labels_width_factor = 1
+    g.labels = {
+        0 => 'US',
+        1 => 'Northern Ireland',
+        2 => 'United Arab Emirates',
+        3 => "PRC",
+      }
+    g.data :Jimmy, [25, 36, 86, 39]
+    g.write("test/output/line_labels_wrap_small.png")
+  end
+
+  def test_labels_wrap_single_column
+    g = Gruff::Line.new
+    g.title = "Line Labels Wrap Single Column"
+    g.labels_width_factor = 1
+    g.labels = {
+        0 => 'US',
+      }
+    g.data :Jimmy, [25]
+    g.write("test/output/line_labels_wrap_single.png")
+  end
+
+  def test_labels_wrap_single_column_long_label
+    g = Gruff::Line.new
+    g.title = "Line Labels Wrap Single Long Label"
+    g.labels_width_factor = 1
+    g.labels = {
+        0 => 'A Very Long Label To Be Shown When There Is Just One Column',
+      }
+    g.data :Jimmy, [25]
+    g.write("test/output/line_labels_wrap_single_long.png")
+  end
 
 private
 

@@ -10,6 +10,8 @@ class Gruff::SideBar < Gruff::Base
   
   def draw
     @has_left_labels = true
+    # currently label word-wrapping is only supported on X axis.
+    @labels_width_factor = nil
     super
 
     return unless @has_data

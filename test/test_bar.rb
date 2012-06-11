@@ -300,6 +300,32 @@ class TestGruffBar < GruffTestCase
     g.write("test/output/bar_spacing_none.png")
   end
 
+  def test_bar_center_labels_over_point
+    g = setup_basic_graph
+    g.title = "Bar Center Labels Over Point"
+    g.labels = {
+      0 => '1 Jan',
+      1 => '1 Apr',
+      2 => '1 Jul',
+      3 => '1 Oct',
+      4 => '31 Dec', # an extra label appended to the right
+    }
+    g.write("test/output/bar_center_labels_over_point.png")
+  end
+
+  def test_bar_labels_wrapping
+    g = setup_basic_graph
+    g.labels_width_factor = 0.8
+    g.labels = {
+        0 => 'United States',
+        1 => 'Northern Ireland',
+        2 => 'United Arab Emirates',
+        3 => "PRC\nPeople's Republic of China",
+      }
+    g.title = "Labels Wrapping"
+    g.write("test/output/bar_labels_wrapping.png")
+  end
+
 protected
 
   def setup_basic_graph(size=800)
