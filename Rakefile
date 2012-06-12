@@ -3,16 +3,16 @@ require 'hoe'
 $:.unshift(File.dirname(__FILE__) + "/lib")
 require 'gruff'
 
-Hoe.new('Gruff', Gruff::VERSION) do |p|
-  p.name = "gruff"
-  p.author = "Geoffrey Grosenbach"
-  p.description = "Beautiful graphs for one or multiple datasets. Can be used on websites or in documents."
-  p.email = 'boss@topfunky.com'
-  p.summary = "Beautiful graphs for one or multiple datasets."
-  p.url = "http://nubyonrails.com/pages/gruff"
-  p.clean_globs = ['test/output/*.png']
-  p.changes = p.paragraphs_of('History.txt', 0..1).join("\n\n")
-  p.remote_rdoc_dir = '' # Release to root
+Hoe.spec('Gruff') do
+  self.name = "gruff"
+  self.author = "Geoffrey Grosenbach"
+  self.description = "Beautiful graphs for one or multiple datasets. Can be used on websites or in documents."
+  self.email = 'boss@topfunky.com'
+  self.summary = "Beautiful graphs for one or multiple datasets."
+  self.url = "http://nubyonrails.com/pages/gruff"
+  self.clean_globs = ['test/output/*.png']
+  self.changes = self.paragraphs_of('History.txt', 0..1).join("\n\n")
+  self.remote_rdoc_dir = '' # Release to root
 end
 
 desc "Simple require on packaged files to make sure they are all there"
