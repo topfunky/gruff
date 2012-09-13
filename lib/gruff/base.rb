@@ -139,6 +139,7 @@ module Gruff
 
     # The color of the auxiliary lines
     attr_accessor :marker_color
+    attr_accessor :marker_shadow_color
 
     # The number of horizontal lines shown for reference
     attr_accessor :marker_count
@@ -305,6 +306,7 @@ module Gruff
         :colors => ['black', 'white'],
         :additional_line_colors => [],
         :marker_color => 'white',
+        :marker_shadow_color => nil,
         :font_color => 'black',
         :background_colors => nil,
         :background_image => nil
@@ -313,6 +315,7 @@ module Gruff
 
       @colors = @theme_options[:colors]
       @marker_color = @theme_options[:marker_color]
+      @marker_shadow_color = @theme_options[:marker_shadow_color]
       @font_color = @theme_options[:font_color] || @marker_color
       @additional_line_colors = @theme_options[:additional_line_colors]
 
@@ -698,6 +701,11 @@ module Gruff
 
         @d = @d.fill(@marker_color)
         @d = @d.line(@graph_left, y, @graph_right, y)
+        #If the user specified a marker shadow color, draw a shadow just below it
+        if not @marker_shadow_color.nil? 
+          @d = @d.fill(@marker_shadow_color)
+          @d = @d.line(@graph_left, y + 1, @graph_right, y + 1)
+        end
 
         marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) +
                        BigDecimal(@minimum_value.to_s)
