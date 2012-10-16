@@ -7,12 +7,13 @@ require "gruff/version"
   area
   bar
   bezier
-  line
+  bullet
   dot
-  pie
-  spider
+  line
   net
+  pie
   scatter
+  spider
   stacked_area
   stacked_bar
   side_stacked_bar
@@ -28,5 +29,3 @@ require "gruff/version"
 ).each do |filename|
   require File.dirname(__FILE__) + "/gruff/#{filename}"
 end
-
-# TODO bullet

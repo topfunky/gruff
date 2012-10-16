@@ -1,5 +1,6 @@
 require File.dirname(__FILE__) + '/base'
 
+# http://en.wikipedia.org/wiki/Bullet_graph
 class Gruff::Bullet < Gruff::Base
 
   def initialize(target_width="400x40")

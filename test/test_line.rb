@@ -456,7 +456,7 @@ class TestGruffLine < GruffTestCase
     g.dataxy("Bapples", [1,3,4,5,7,9], [1, 1, 2, 2, 3, 3])
     g.data("Capples", [1, 1, 2, 2, 3, 3])
     g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}
-    g.write('test/output/data_xy.png')
+    g.write('test/output/line_xy.png')
   end
 
   def test_xy_data_pairs
@@ -468,7 +468,7 @@ class TestGruffLine < GruffTestCase
     g.dataxy("Dapples", [[1,1],[2,3],[5,8],[13,21]])
     g.dataxy("Eapples", [[1,1],[2,3],[5,8],[13,21],[13,8],[5,3],[2,1],[1,1]])
     g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}
-    g.write('test/output/data_xy_pairs.png')
+    g.write('test/output/line_xy_pairs.png')
   end
 
   def test_jruby_error
