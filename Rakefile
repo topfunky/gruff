@@ -1,15 +1,17 @@
-require 'fileutils'
+require "rubygems"
+require "bundler/gem_tasks"
+require 'rake/testtask'
+
 require 'rake/clean'
 $:.unshift(File.dirname(__FILE__) + "/lib")
-require 'gruff/version'
 
 CLEAN << ['pkg', 'test/output/*']
 
-desc "Build the gem"
-task :gem do
-  sh 'gem build gruff.gemspec'
-  FileUtils.mkdir_p 'pkg'
-  FileUtils.mv "gruff-#{Gruff::VERSION}.gem", 'pkg/'
+desc "Run tests"
+task :default => :test
+
+Rake::TestTask.new do |t|
+ t.libs << 'test'
 end
 
 namespace :test do
@@ -28,9 +30,9 @@ end
 #  rake pie
 #
 # To run the +test/test_pie+ and +test/test_mini_pie+ files.
-rule '' do |t|
-  # Rake::Task["clean"].invoke
-  Dir["test/test_*#{t.name}*.rb"].each do |filename|
-    system "ruby #{filename}"
-  end
-end
+#rule '' do |t|
+#  # Rake::Task["clean"].invoke
+#  Dir["test/test_*#{t.name}*.rb"].each do |filename|
+#    system "ruby #{filename}"
+#  end
+#end

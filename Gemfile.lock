@@ -1,0 +1,14 @@
+PATH
+  remote: .
+  specs:
+    gruff (0.3.7)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+
+PLATFORMS
+  java
+
+DEPENDENCIES
+  gruff!
