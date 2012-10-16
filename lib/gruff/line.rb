@@ -83,10 +83,14 @@ class Gruff::Line < Gruff::Base
   #   g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}  #labels
  
   def dataxy(name, x_data_points=[], y_data_points=[], color=nil)
-    
     raise ArgumentError, "x_data_points is nil!" if x_data_points.length == 0
+
+    if x_data_points.all?{|p| p.size == 2}
+      x_data_points, y_data_points = x_data_points.map{|p| p[0]}, x_data_points.map{|p| p[1]}
+    end
+
     raise ArgumentError, "x_data_points.length != y_data_points.length!" if x_data_points.length != y_data_points.length
-    
+
     #call the existing data routine for the y data.
     self.data(name, y_data_points, color)
     
