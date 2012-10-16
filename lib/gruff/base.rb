@@ -1094,6 +1094,7 @@ module Gruff
     # Not scaled since it deals with dimensions that the regular
     # scaling will handle.
     def calculate_width(font_size, text)
+      return 0 if text.nil?
       @d.pointsize = font_size
       @d.font = @font if @font
       @d.get_type_metrics(@base_image, text.to_s).width
