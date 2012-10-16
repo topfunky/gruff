@@ -6,6 +6,7 @@ require "gruff/version"
   base
   area
   bar
+  bezier
   line
   dot
   pie
