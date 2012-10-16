@@ -465,6 +465,8 @@ class TestGruffLine < GruffTestCase
     g.dataxy("Apples", [[1,1], [3,2],[4,3],[5,4],[6,4],[10,3]])
     g.dataxy("Bapples", [[1,1],[3,1],[4,2],[5,2],[7,3],[9,3]])
     g.data("Capples", [1, 1, 2, 2, 3, 3])
+    g.dataxy("Dapples", [[1,1],[2,3],[5,8],[13,21]])
+    g.dataxy("Eapples", [[1,1],[2,3],[5,8],[13,21],[13,8],[5,3],[2,1],[1,1]])
     g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}
     g.write('test/output/data_xy_pairs.png')
   end

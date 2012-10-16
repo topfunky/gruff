@@ -97,7 +97,7 @@ class Gruff::Line < Gruff::Base
     x_data_points = Array(x_data_points) # make sure it's an array
     #append the x data to the last entry that was just added in the @data member
     lastElem = @data.length()-1
-    @data[lastElem] << x_data_points
+    @data[lastElem][DATA_VALUES_X_INDEX] = x_data_points
     
     # Update the global min/max values for the x data
     x_data_points.each_with_index do |x_data_point, index|
@@ -123,7 +123,7 @@ class Gruff::Line < Gruff::Base
     
     # Check to see if more than one datapoint was given. NaN can result otherwise.  
     @x_increment = (@column_count > 1) ? (@graph_width / (@column_count - 1).to_f) : @graph_width
-    
+
     #normalize the x data if it is specified
     @data.each_with_index do |data_row, index|
       norm_x_data_points = []
@@ -135,7 +135,7 @@ class Gruff::Line < Gruff::Base
        @norm_data[index] << norm_x_data_points
       end
     end
-    
+
     if (defined?(@norm_baseline)) then
       level = @graph_top + (@graph_height - @norm_baseline * @graph_height)
       @d = @d.push
@@ -147,24 +147,22 @@ class Gruff::Line < Gruff::Base
       @d = @d.pop
     end
 
-    @norm_data.each_with_index do |data_row, dr_index|      
+    @norm_data.each_with_index do |data_row, dr_index|
       prev_x = prev_y = nil
 
       @one_point = contains_one_point_only?(data_row)
 
       data_row[DATA_VALUES_INDEX].each_with_index do |data_point, index|
+        next if data_point.nil?
+
         x_data = data_row[DATA_VALUES_X_INDEX]
         if (x_data == nil)
           #use the old method: equally spaced points along the x-axis
           new_x = @graph_left + (@x_increment * index)  
         else
-          x_data_row = data_row[DATA_VALUES_X_INDEX]
-          x_data_point = x_data_row[index]
-          new_x = getXCoord(x_data_point, @graph_width, @graph_left)
+          new_x = getXCoord(x_data[index], @graph_width, @graph_left)
         end
         
-        next if data_point.nil?
-
         draw_label(new_x, index)
 
         new_y = @graph_top + (@graph_height - data_point * @graph_height)
@@ -203,6 +201,10 @@ class Gruff::Line < Gruff::Base
     @norm_baseline = (@baseline_value.to_f / @maximum_value.to_f) if @baseline_value
   end
   
+  def sort_norm_data
+    super unless @data.any?{|d| d[DATA_VALUES_X_INDEX]}
+  end
+
   def getXCoord(x_data_point, width, offset)
     return(x_data_point * width + offset)
   end
@@ -215,10 +217,9 @@ class Gruff::Line < Gruff::Base
         if one_point
           # more than one point, bail
           return false
-        else
-          # there is at least one data point
-          return true
         end
+        # there is at least one data point
+        one_point = true
       end
     end
     return one_point
