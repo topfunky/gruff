@@ -31,6 +31,7 @@ module Gruff
     DATA_LABEL_INDEX = 0
     DATA_VALUES_INDEX = 1
     DATA_COLOR_INDEX = 2
+    DATA_VALUES_X_INDEX = 3
 
     # Space around text elements. Mostly used for vertical spacing
     LEGEND_MARGIN = TITLE_MARGIN = 20.0
