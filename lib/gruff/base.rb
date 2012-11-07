@@ -131,6 +131,9 @@ module Gruff
     # Will be scaled down if graph is smaller than 800px wide.
     attr_accessor :legend_font_size
 
+    # Display legend under the graph
+    attr_accessor :legend_at_bottom
+
     # The font size of the labels around the graph
     attr_accessor :marker_font_size
 
@@ -230,7 +233,7 @@ module Gruff
 
       @no_data_message = "No Data"
 
-      @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = false
+      @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = @legend_at_bottom = false
       @center_labels_over_point = true
       @has_left_labels = false
 
@@ -614,9 +617,9 @@ module Gruff
 
       # When @hide title, leave a title_margin space for aesthetics.
       # Same with @hide_legend
-      @graph_top = @top_margin +
+      @graph_top = @legend_at_bottom ? @top_margin : (@top_margin +
         (@hide_title  ? title_margin  : @title_caps_height  + title_margin ) +
-        (@hide_legend ? legend_margin : @legend_caps_height + legend_margin)
+        (@hide_legend ? legend_margin : @legend_caps_height + legend_margin))
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 :
         @marker_caps_height + LABEL_MARGIN
@@ -783,9 +786,9 @@ module Gruff
       end
 
       current_x_offset = center(sum(label_widths.first))
-      current_y_offset =  @hide_title ?
+      current_y_offset =  @legend_at_bottom ? @graph_height + title_margin : (@hide_title ?
       @top_margin + title_margin :
-        @top_margin + title_margin + @title_caps_height
+        @top_margin + title_margin + @title_caps_height)
 
       @legend_labels.each_with_index do |legend_label, index|
 
