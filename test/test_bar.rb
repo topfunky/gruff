@@ -25,12 +25,12 @@ class TestGruffBar < GruffTestCase
         
     g = setup_basic_graph
     g.title = "Visual Multi-Line Bar Graph Test"
-    g.theme_rails_keynote
+    g.theme = Gruff::Themes::RAILS_KEYNOTE
     g.write("test/output/bar_rails_keynote.png")
     
     g = setup_basic_graph
     g.title = "Visual Multi-Line Bar Graph Test"
-    g.theme_odeo
+    g.theme = Gruff::Themes::ODEO
     g.write("test/output/bar_odeo.png")
   end
   

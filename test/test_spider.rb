@@ -106,7 +106,7 @@ class TestGruffSpider < GruffTestCase
      g.data(data[0], data[1])
     end
 
-    g.theme_37signals
+    g.theme = Gruff::Themes::THIRTYSEVEN_SIGNALS
 
     # Default theme
     g.write("test/output/spider_37signals.png")

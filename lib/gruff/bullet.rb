@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/base'
+require 'gruff/themes'
 
 # http://en.wikipedia.org/wiki/Bullet_graph
 class Gruff::Bullet < Gruff::Base
@@ -16,7 +17,7 @@ class Gruff::Bullet < Gruff::Base
     initialize_ivars
 
     reset_themes
-    theme_greyscale
+    self.theme = Gruff::Themes::GREYSCALE
     @title_font_size = 20
   end
 
