@@ -1,6 +1,5 @@
 /.idea/
 /pkg/
 .DS_Store
-/test/output
 .bundle
 .yardoc
