@@ -5,6 +5,7 @@ class TestGruffAccumulatorBar < GruffTestCase
   # TODO Delete old output files once when starting tests
 
   def setup
+    super
     @datasets = [
       (1..20).to_a.map { rand(10) }
     ]

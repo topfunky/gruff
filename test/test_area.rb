@@ -5,6 +5,7 @@ require File.dirname(__FILE__) + "/gruff_test_case"
 class TestGruffArea < GruffTestCase
 
   def setup
+    super
     @datasets = [
       [:Jimmy, [25, 36, 86, 39, 25, 31, 79, 88]],
       [:Charles, [80, 54, 67, 54, 68, 70, 90, 95]],
@@ -22,8 +23,7 @@ class TestGruffArea < GruffTestCase
         5 => '6/12', 
         6 => '6/21', 
         7 => '6/28', 
-      }      
-
+      }
   end
   
   def test_area_graph

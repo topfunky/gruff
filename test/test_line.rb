@@ -3,9 +3,6 @@
 require File.dirname(__FILE__) + "/gruff_test_case"
 
 class TestGruffLine < GruffTestCase
-
-  # TODO Delete old output files once when starting tests
-
   def test_should_render_with_transparent_theme
     g = Gruff::Line.new(400)
     g.title = "Transparent Background"

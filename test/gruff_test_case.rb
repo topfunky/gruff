@@ -10,10 +10,12 @@ require 'fileutils'
 
 TEST_OUTPUT_DIR = File.dirname(__FILE__) + "/output"
 FileUtils.mkdir_p(TEST_OUTPUT_DIR)
+FileUtils.rm_f Dir[TEST_OUTPUT_DIR + '/*']
 
 class GruffTestCase < Test::Unit::TestCase
 
   def setup
+    srand 42
     @datasets = [
       [:Jimmy, [25, 36, 86, 39, 25, 31, 79, 88]],
       [:Charles, [80, 54, 67, 54, 68, 70, 90, 95]],
@@ -82,7 +84,15 @@ protected
   end
 
   def write_test_file(graph, filename)
-    graph.write([TEST_OUTPUT_DIR, filename].join("/"))
+    testfilename = [TEST_OUTPUT_DIR, filename].join("/")
+    basefilename = filename.split('.')[0..-2].join('.')
+    extension = filename.slice(/\..*$/)
+    counter = 0
+    while File.exists? testfilename
+      counter += 1
+      testfilename = [TEST_OUTPUT_DIR, basefilename].join("/") + "-#{counter}#{extension}"
+    end
+    graph.write(testfilename)
   end
 
   ##

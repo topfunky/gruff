@@ -7,6 +7,7 @@ class TestGruffBar < GruffTestCase
   # TODO Delete old output files once when starting tests
 
   def setup
+    super
     @datasets = [
       [:Jimmy, [25, 36, 86, 39]],
       [:Charles, [80, 54, 67, 54]],
