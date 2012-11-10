@@ -834,7 +834,7 @@ module Gruff
     def render_background
       case @theme_options[:background_colors]
       when Array
-        @base_image = render_gradiated_background(*@theme_options[:background_colors], @theme_options[:background_direction])
+        @base_image = render_gradiated_background(@theme_options[:background_colors][0], @theme_options[:background_colors][1], @theme_options[:background_direction])
       when String
         @base_image = render_solid_background(@theme_options[:background_colors])
       else
