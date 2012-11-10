@@ -8,7 +8,7 @@ require 'gruff'
 require 'fileutils'
 # require 'test_timer'
 
-TEST_OUTPUT_DIR = File.dirname(__FILE__) + "/output"
+TEST_OUTPUT_DIR = File.dirname(__FILE__) + "/output#{'_java' if RUBY_PLATFORM == 'java'}"
 FileUtils.mkdir_p(TEST_OUTPUT_DIR)
 FileUtils.rm_f Dir[TEST_OUTPUT_DIR + '/*']
 
