@@ -111,11 +111,11 @@ http://www.rubydoc.info/github/topfunky/gruff/frames
 
 ## Contributing
 
-== Source
+### Source
 
 The source for this project is now kept at GitHub:
 
-http://github.com/topfunky/gruff/tree/master
+http://github.com/topfunky/gruff
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
