@@ -106,7 +106,7 @@ In progress!
 
 ## Documentation
 
-http://gruff.rubyforge.org
+http://www.rubydoc.info/github/topfunky/gruff/frames
 
 
 ## Contributing
