@@ -92,7 +92,7 @@ private
     x_offset = center_x # + 15.0 # The label points need to be tweaked slightly
     y_offset = center_y  # This one doesn't though
     radius_offset = (radius + r_offset)
-    ellipse_factor = radius_offset * 0.15
+    ellipse_factor = radius_offset * TEXT_OFFSET_PERCENTAGE
     x = x_offset + ((radius_offset + ellipse_factor) * Math.cos(angle.deg2rad))
     y = y_offset + (radius_offset * Math.sin(angle.deg2rad))
     
