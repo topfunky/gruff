@@ -47,6 +47,18 @@ You can find older examples here:  http://nubyonrails.com/pages/gruff
 
 ![Bar chart](https://raw.github.com/topfunky/gruff/master/test/output/bar_rails_keynote.png)
 
+### Bezier chart
+
+In progress!
+
+![Bezier chart](https://raw.github.com/topfunky/gruff/master/test/output/bezier_3.png)
+
+### Bullet chart
+
+In progress!
+
+![Bullet chart](https://raw.github.com/topfunky/gruff/master/test/output/bullet_greyscale.png)
+
 
 ## Documentation
 
