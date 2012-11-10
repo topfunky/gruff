@@ -59,6 +59,14 @@ In progress!
 
 ![Bullet chart](https://raw.github.com/topfunky/gruff/master/test/output/bullet_greyscale.png)
 
+### Dot chart
+
+![Dot chart](https://raw.github.com/topfunky/gruff/master/test/output/dot_keynote.png)
+
+### Line chart
+
+![Line chart](https://raw.github.com/topfunky/gruff/master/test/output/line_theme_rails_keynote_.png)
+
 
 ## Documentation
 
