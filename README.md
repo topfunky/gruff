@@ -35,9 +35,9 @@ directory along with their resulting charts in the
 
 You can find older examples here:  http://nubyonrails.com/pages/gruff
 
-### Accumulated bar chart
+### Accumulator bar chart
 
-![Accumulated bar chart](https://raw.github.com/topfunky/gruff/master/test/output/accum_bar.png)
+![Accumulator bar chart](https://raw.github.com/topfunky/gruff/master/test/output/accum_bar.png)
 
 ### Area chart
 
@@ -66,6 +66,42 @@ In progress!
 ### Line chart
 
 ![Line chart](https://raw.github.com/topfunky/gruff/master/test/output/line_theme_rails_keynote_.png)
+
+### LineXY chart
+
+![LineXY chart](https://raw.github.com/topfunky/gruff/master/test/output/line_xy.png)
+
+### Net chart
+
+![Net chart](https://raw.github.com/topfunky/gruff/master/test/output/net_wide_graph.png)
+
+### Pie chart
+
+![Pie chart](https://raw.github.com/topfunky/gruff/master/test/output/pie_pastel.png)
+
+### Scatter chart
+
+![Scatter chart](https://raw.github.com/topfunky/gruff/master/test/output/scatter_basic.png)
+
+### Side bar chart
+
+![Side bar chart](https://raw.github.com/topfunky/gruff/master/test/output/side_bar.png)
+
+### Side stacked bar chart
+
+![Side stacked bar chart](https://raw.github.com/topfunky/gruff/master/test/output/side_stacked_bar_keynote.png)
+
+### Spider chart
+
+![Spider chart](https://raw.github.com/topfunky/gruff/master/test/output/spider_37signals.png)
+
+### Stacked area chart
+
+![Stacked area chart](https://raw.github.com/topfunky/gruff/master/test/output/stacked_area_keynote.png)
+
+### Stacked bar chart
+
+![Stacked bar chart](https://raw.github.com/topfunky/gruff/master/test/output/stacked_bar_keynote.png)
 
 
 ## Documentation
