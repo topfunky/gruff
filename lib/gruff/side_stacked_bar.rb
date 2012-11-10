@@ -54,8 +54,14 @@ class Gruff::SideStackedBar < Gruff::SideBar
     	  length[point_index] += difference
         height[point_index] += (data_point * @graph_width - 2)
 
-        @d = @d.rectangle(left_x, left_y, right_x, right_y)
-
+        # if a data point is 0 it can result in weird really thing lines
+        # that shouldn't even be there being drawn on top of the existing
+        # bar - this is bad
+        if data_point != 0
+          @d = @d.rectangle(left_x, left_y, right_x, right_y)
+          # Calculate center based on bar_width and current row
+        end
+        # we still need to draw the labels
         # Calculate center based on bar_width and current row
         label_center = @graph_top + (@bar_width * point_index) + (@bar_width * @bar_spacing / 2.0)
         draw_label(label_center, point_index)

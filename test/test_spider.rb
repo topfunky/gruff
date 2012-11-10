@@ -201,6 +201,16 @@ class TestGruffSpider < GruffTestCase
     g.write("test/output/spider_lots_of_data_normal_names.png")
   end
   
+  def test_rotation
+    g = Gruff::Spider.new(20)
+    g.title = "Rotation"
+    @datasets.each do |data|
+      g.data(data[0], data[1])
+    end
+
+    g.rotation = 45 # degrees
+    g.write("test/output/spider_rotation.png")
+  end
 
 protected
 
