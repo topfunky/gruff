@@ -26,13 +26,32 @@ Or install it yourself as:
 
 See the test suite in test/line_test.rb for examples.
 
-## Samples
 
-http://nubyonrails.com/pages/gruff
+## Examples
+
+You can find many examples in the [test](https://github.com/topfunky/gruff/tree/master/test)
+directory along with their resulting charts in the
+[output](https://github.com/topfunky/gruff/tree/master/test/output) directory.
+
+You can find older examples here:  http://nubyonrails.com/pages/gruff
+
+### Accumulated bar chart
+
+![Accumulated bar chart](https://raw.github.com/topfunky/gruff/master/test/output/accum_bar.png)
+
+### Area chart
+
+![Area chart](https://raw.github.com/topfunky/gruff/master/test/output/area_keynote.png)
+
+### Bar chart
+
+![Bar chart](https://raw.github.com/topfunky/gruff/master/test/output/bar_rails_keynote.png)
+
 
 ## Documentation
 
 http://gruff.rubyforge.org
+
 
 ## Contributing
 
