@@ -444,7 +444,6 @@ class TestGruffBar < GruffTestCase
     g.write("test/output/bar_set_trailing_dots_trunc.png")
   end
 
-  
   def test_bar_value_labels
     g = setup_basic_graph
     g.show_labels_for_bar_values = true

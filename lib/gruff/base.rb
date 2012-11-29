@@ -827,6 +827,26 @@ module Gruff
         debug { @d.line 0.0, y_offset, @raw_columns, y_offset }
       end
     end
+    
+    # Draws the data value over the data point in bar graphs
+    def draw_value_label(x_offset, y_offset, data_point, bar_value=false)
+      return if @hide_line_markers && !bar_value
+
+      #y_offset = @graph_bottom + LABEL_MARGIN
+
+      @d.fill = @font_color
+      @d.font = @font if @font
+      @d.stroke('transparent')
+      @d.font_weight = NormalWeight
+      @d.pointsize = scale_fontsize(@marker_font_size)
+      @d.gravity = NorthGravity
+      @d = @d.annotate_scaled(@base_image,
+                              1.0, 1.0,
+                              x_offset, y_offset,
+                              data_point.to_s, @scale)
+                              
+      debug { @d.line 0.0, y_offset, @raw_columns, y_offset }
+    end
 
     # Draws the data value over the data point in bar graphs
     def draw_value_label(x_offset, y_offset, data_point, bar_value=false)
