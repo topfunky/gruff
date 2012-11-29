@@ -88,8 +88,13 @@ protected
         label_center = @graph_left + 
                       (@data.length * @bar_width * point_index) + 
                       (@data.length * @bar_width / 2.0)
+
         # Subtract half a bar width to center left if requested
         draw_label(label_center - (@center_labels_over_point ? @bar_width / 2.0 : 0.0), point_index)
+        if @show_labels_for_bar_values
+          val = (@label_formatting || "%.2f") % @norm_data[row_index][3][point_index] 
+          draw_value_label(left_x + (right_x - left_x)/2, conv[0]-30, val.commify, true)
+        end
       end
 
     end

@@ -57,8 +57,18 @@ protected
         @d           = @d.rectangle(left_x, left_y, right_x, right_y)
 
         # Calculate center based on bar_width and current row
-        label_center = @graph_top + (@bars_width * point_index + @bars_width / 2)
-        draw_label(label_center, point_index)
+       
+        if @use_data_label
+          label_center = @graph_top + (@bar_width * (row_index+point_index) + @bar_width / 2)
+          draw_label(label_center, row_index, @norm_data[row_index][DATA_LABEL_INDEX])
+        else
+          label_center = @graph_top + (@bars_width * point_index + @bars_width / 2)
+          draw_label(label_center, point_index)
+        end
+        if @show_labels_for_bar_values
+          val = (@label_formatting || "%.2f") % @norm_data[row_index][3][point_index]
+          draw_value_label(right_x+40, (@graph_top + (((row_index+point_index+1) * @bar_width) - (@bar_width / 2)))-12, val.commify, true)
+        end
       end
 
     end
@@ -76,7 +86,8 @@ protected
     # Draw horizontal line markers and annotate with numbers
     @d = @d.stroke(@marker_color)
     @d = @d.stroke_width 1
-    number_of_lines = 5
+    number_of_lines = @marker_count || 5
+    number_of_lines = 1 if number_of_lines == 0
 
     # TODO Round maximum marker value to a round number like 100, 0.1, 0.5, etc.
     increment = significant(@spread.to_f / number_of_lines)
@@ -107,8 +118,9 @@ protected
   ##
   # Draw on the Y axis instead of the X
 
-  def draw_label(y_offset, index)
+  def draw_label(y_offset, index, label=nil)
     if !@labels[index].nil? && @labels_seen[index].nil?
+      lbl = (@use_data_label) ? label : @labels[index]
       @d.fill             = @font_color
       @d.font             = @font if @font
       @d.stroke           = 'transparent'
@@ -118,7 +130,7 @@ protected
       @d                  = @d.annotate_scaled(@base_image,
                               1, 1,
                               -@graph_left + LABEL_MARGIN * 2.0, y_offset,
-                              @labels[index], @scale)
+                              lbl, @scale)
       @labels_seen[index] = 1
     end
   end

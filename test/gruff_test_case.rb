@@ -124,6 +124,7 @@ protected
     g = klass.new(size)
     g.title = "My Bar Graph"
     g.labels = @labels
+    g.font = "/Library/Fonts/Verdana.ttf"
 
 
     @datasets.each do |data|

@@ -72,6 +72,22 @@ class TestGruffSideStackedBar < GruffTestCase
     end
     g.write "test/output/side_stacked_bar_long_label.png"
   end
+  
+  def test_bar_labels
+     g = Gruff::SideStackedBar.new
+     g.title = "Stacked Bar Long Label"
+     g.labels = {
+       0 => 'September', 
+       1 => 'Oct', 
+       2 => 'Nov', 
+       3 => 'Dec', 
+     }
+     @datasets.each do |data|
+       g.data(data[0], data[1])
+     end
+     g.show_labels_for_bar_values = true
+     g.write "test/output/side_stacked_bar_labels.png"
+   end
 
 protected
 
