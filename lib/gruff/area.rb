@@ -21,19 +21,8 @@ class Gruff::Area < Gruff::Base
         new_x = @graph_left + (@x_increment * index)
         new_y = @graph_top + (@graph_height - data_point * @graph_height)
 
-        if prev_x > 0 and prev_y > 0 then
-          poly_points << new_x
-          poly_points << new_y
-          
-          #@d = @d.polyline(prev_x, prev_y, new_x, new_y)
-        else
-          poly_points << @graph_left
-          poly_points << @graph_bottom - 1
-          poly_points << new_x
-          poly_points << new_y
-          
-          #@d = @d.polyline(@graph_left, @graph_bottom, new_x, new_y)
-        end
+        poly_points << new_x
+        poly_points << new_y
 
         draw_label(new_x, index)
 
