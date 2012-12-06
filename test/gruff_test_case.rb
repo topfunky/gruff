@@ -12,6 +12,22 @@ TEST_OUTPUT_DIR = File.dirname(__FILE__) + "/output#{'_java' if RUBY_PLATFORM ==
 FileUtils.mkdir_p(TEST_OUTPUT_DIR)
 FileUtils.rm_f Dir[TEST_OUTPUT_DIR + '/*']
 
+class Gruff::Base
+  alias :write_org :write
+
+  def write(filename="graph.png")
+    basefilename = File.basename(filename).split('.')[0..-2].join('.')
+    extension = filename.slice(/\..*$/)
+    testfilename = File.join(TEST_OUTPUT_DIR, basefilename) + extension
+    counter = 0
+    while File.exists? testfilename
+      counter += 1
+      testfilename = Fie.join(TEST_OUTPUT_DIR, basefilename) + "-#{counter}#{extension}"
+    end
+    write_org(testfilename)
+  end
+end
+
 class GruffTestCase < Test::Unit::TestCase
 
   def setup
