@@ -487,7 +487,11 @@ module Gruff
               norm_data_points << ((data_point.to_f - @minimum_value.to_f) / @spread)
             end
           end
-          @norm_data << [data_row[DATA_LABEL_INDEX], norm_data_points, data_row[DATA_COLOR_INDEX], data_row[DATA_VALUES_INDEX]]
+          if @show_labels_for_bar_values
+            @norm_data << [data_row[DATA_LABEL_INDEX], norm_data_points, data_row[DATA_COLOR_INDEX], data_row[DATA_VALUES_INDEX]]
+          else
+            @norm_data << [data_row[DATA_LABEL_INDEX], norm_data_points, data_row[DATA_COLOR_INDEX]]
+          end
         end
       end
     end
