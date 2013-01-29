@@ -30,4 +30,5 @@ Gem::Specification.new do |s|
   # s.specification_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
   # s.add_development_dependency(%q<hoe>, [">= 1.8.2"])
   # s.add_dependency(%q<rmagick>, [">= 2.12.2"])
+  s.license = "MIT"
 end
