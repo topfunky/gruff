@@ -1,12 +1,10 @@
 $:.unshift(File.dirname(__FILE__) + "/../lib/")
-# require 'rubygems'
 
 RMAGICK_BYPASS_VERSION_TEST = true
 
 require 'test/unit'
 require 'gruff'
 require 'fileutils'
-# require 'test_timer'
 
 TEST_OUTPUT_DIR = File.dirname(__FILE__) + "/output#{'_java' if RUBY_PLATFORM == 'java'}"
 FileUtils.mkdir_p(TEST_OUTPUT_DIR)
@@ -20,9 +18,9 @@ class Gruff::Base
     extension = filename.slice(/\.[^\.]*$/)
     testfilename = File.join(TEST_OUTPUT_DIR, basefilename) + extension
     counter = 0
-    while File.exists? testfilename
+    while File.exists?(testfilename)
       counter += 1
-      testfilename = Fie.join(TEST_OUTPUT_DIR, basefilename) + "-#{counter}#{extension}"
+      testfilename = File.join(TEST_OUTPUT_DIR, basefilename) + "-#{counter}#{extension}"
     end
     write_org(testfilename)
   end

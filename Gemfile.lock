@@ -1,12 +1,13 @@
 PATH
   remote: .
   specs:
-    gruff (0.3.7)
+    gruff (0.3.8.rc1)
 
 GEM
   remote: https://rubygems.org/
   specs:
     rake (0.9.2.2)
+    rmagick (2.13.2)
     rmagick4j (0.3.7)
 
 PLATFORMS

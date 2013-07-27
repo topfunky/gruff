@@ -1,5 +1,7 @@
 # Gruff Graphs
 
+[![Build Status](https://travis-ci.org/topfunky/gruff.png?branch=master)](https://travis-ci.org/topfunky/gruff)
+
 A library for making beautiful graphs.
 
 ## WARNING
