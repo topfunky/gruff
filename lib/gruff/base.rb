@@ -517,7 +517,6 @@ module Gruff
             @graph_right_margin,
             @graph_bottom_margin) = [@left_margin, @right_margin, @bottom_margin]
       else
-        longest_left_label_width = 0
         if @has_left_labels
           longest_left_label_width = calculate_width(@marker_font_size,
                                                      labels.values.inject('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
@@ -1073,7 +1072,11 @@ module Gruff
                   sprintf('%0.3f', value)
                 elsif increment >= 0.001 || (increment * 10000) == (increment * 10000).to_i.to_f
                   sprintf('%0.4f', value)
+                else
+                  value.to_s
                 end
+              elsif (@spread.to_f % (@marker_count.to_f==0 ? 1 : @marker_count.to_f) == 0) || !@y_axis_increment.nil?
+                                value.to_i.to_s
               elsif @spread > 10.0
                 sprintf('%0i', value)
               elsif @spread >= 3.0
