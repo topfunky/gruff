@@ -1,4 +1,3 @@
-
 require File.dirname(__FILE__) + '/base'
 
 ##
@@ -41,7 +40,7 @@ class Gruff::Line < Gruff::Base
   # 
   # The preferred way is to call hide_dots or hide_lines instead.
   def initialize(*args)
-    raise ArgumentError, "Wrong number of arguments" if args.length > 2
+    raise ArgumentError, 'Wrong number of arguments' if args.length > 2
     if args.empty? or ((not Numeric === args.first) && (not String === args.first)) then
       super()
     else
@@ -83,21 +82,21 @@ class Gruff::Line < Gruff::Base
   #   g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}  #labels
  
   def dataxy(name, x_data_points=[], y_data_points=[], color=nil)
-    raise ArgumentError, "x_data_points is nil!" if x_data_points.length == 0
+    raise ArgumentError, 'x_data_points is nil!' if x_data_points.length == 0
 
     if x_data_points.all?{|p| p.size == 2}
       x_data_points, y_data_points = x_data_points.map{|p| p[0]}, x_data_points.map{|p| p[1]}
     end
 
-    raise ArgumentError, "x_data_points.length != y_data_points.length!" if x_data_points.length != y_data_points.length
+    raise ArgumentError, 'x_data_points.length != y_data_points.length!' if x_data_points.length != y_data_points.length
 
     #call the existing data routine for the y data.
     self.data(name, y_data_points, color)
     
     x_data_points = Array(x_data_points) # make sure it's an array
     #append the x data to the last entry that was just added in the @data member
-    lastElem = @data.length()-1
-    @data[lastElem][DATA_VALUES_X_INDEX] = x_data_points
+    last_elem = @data.length()-1
+    @data[last_elem][DATA_VALUES_X_INDEX] = x_data_points
     
     # Update the global min/max values for the x data
     x_data_points.each_with_index do |x_data_point, index|
@@ -127,7 +126,7 @@ class Gruff::Line < Gruff::Base
     #normalize the x data if it is specified
     @data.each_with_index do |data_row, index|
       norm_x_data_points = []
-      if (data_row[DATA_VALUES_X_INDEX] != nil)
+      if data_row[DATA_VALUES_X_INDEX] != nil
         data_row[DATA_VALUES_X_INDEX].each do |x_data_point|
           norm_x_data_points << ( (x_data_point.to_f - @minimum_x_value.to_f ) /
            (@maximum_x_value.to_f - @minimum_x_value.to_f) )
@@ -136,7 +135,7 @@ class Gruff::Line < Gruff::Base
       end
     end
 
-    if (defined?(@norm_baseline)) then
+    if defined?(@norm_baseline)
       level = @graph_top + (@graph_height - @norm_baseline * @graph_height)
       @d = @d.push
       @d.stroke_color @baseline_color
@@ -156,11 +155,11 @@ class Gruff::Line < Gruff::Base
         next if data_point.nil?
 
         x_data = data_row[DATA_VALUES_X_INDEX]
-        if (x_data == nil)
+        if x_data == nil
           #use the old method: equally spaced points along the x-axis
           new_x = @graph_left + (@x_increment * index)  
         else
-          new_x = getXCoord(x_data[index], @graph_width, @graph_left)
+          new_x = get_x_coord(x_data[index], @graph_width, @graph_left)
         end
         
         draw_label(new_x, index)
@@ -205,15 +204,15 @@ class Gruff::Line < Gruff::Base
     super unless @data.any?{|d| d[DATA_VALUES_X_INDEX]}
   end
 
-  def getXCoord(x_data_point, width, offset)
-    return(x_data_point * width + offset)
+  def get_x_coord(x_data_point, width, offset)
+    x_data_point * width + offset
   end
 
   def contains_one_point_only?(data_row)
     # Spin through data to determine if there is just one_value present.
     one_point = false
     data_row[DATA_VALUES_INDEX].each do |data_point|
-      if !data_point.nil?
+      unless data_point.nil?
         if one_point
           # more than one point, bail
           return false
@@ -222,7 +221,7 @@ class Gruff::Line < Gruff::Base
         one_point = true
       end
     end
-    return one_point
+    one_point
   end
 
 end

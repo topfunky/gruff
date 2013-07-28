@@ -82,13 +82,11 @@ class Gruff::Scatter < Gruff::Base
     #~ end
 
     @norm_data.each do |data_row|      
-      prev_x = prev_y = nil
-
       data_row[DATA_VALUES_INDEX].each_with_index do |data_point, index|
         x_value = data_row[DATA_VALUES_X_INDEX][index]
         next if data_point.nil? || x_value.nil? 
 
-        new_x = getXCoord(x_value, @graph_width, @graph_left)
+        new_x = get_x_coord(x_value, @graph_width, @graph_left)
         new_y = @graph_top + (@graph_height - data_point * @graph_height)
 
         # Reset each time to avoid thin-line errors
@@ -99,9 +97,6 @@ class Gruff::Scatter < Gruff::Base
 
         circle_radius = clip_value_if_greater_than(@columns / (@norm_data.first[1].size * 2.5), 5.0)
         @d = @d.circle(new_x, new_y, new_x - circle_radius, new_y)
-
-        prev_x = new_x
-        prev_y = new_y
       end
     end
 
@@ -147,17 +142,17 @@ class Gruff::Scatter < Gruff::Base
   #
   def data(name, x_data_points=[], y_data_points=[], color=nil)
     
-    raise ArgumentError, "Data Points contain nil Value!" if x_data_points.include?(nil) || y_data_points.include?(nil)
-    raise ArgumentError, "x_data_points is empty!" if x_data_points.empty?
-    raise ArgumentError, "y_data_points is empty!" if y_data_points.empty?
-    raise ArgumentError, "x_data_points.length != y_data_points.length!" if x_data_points.length != y_data_points.length
+    raise ArgumentError, 'Data Points contain nil Value!' if x_data_points.include?(nil) || y_data_points.include?(nil)
+    raise ArgumentError, 'x_data_points is empty!' if x_data_points.empty?
+    raise ArgumentError, 'y_data_points is empty!' if y_data_points.empty?
+    raise ArgumentError, 'x_data_points.length != y_data_points.length!' if x_data_points.length != y_data_points.length
     
     # Call the existing data routine for the y axis data
     super(name, y_data_points, color)
     
     #append the x data to the last entry that was just added in the @data member
-    lastElem = @data.length()-1
-    @data[lastElem] << x_data_points
+    last_elem = @data.length()-1
+    @data[last_elem] << x_data_points
     
     if @maximum_x_value.nil? && @minimum_x_value.nil?
       @maximum_x_value = @minimum_x_value = x_data_points.first
@@ -231,17 +226,17 @@ protected
 
     # Draw vertical line markers and annotate with numbers
     (0..@marker_x_count).each do |index|
-      x = @graph_left + @graph_width - index.to_f * @increment_x_scaled
-      
+
       # TODO Fix the vertical lines.  Not pretty when they don't match up with top y-axis line
-      #~ @d = @d.stroke(@marker_color)
-      #~ @d = @d.stroke_width 1
-      #~ @d = @d.line(x, @graph_top, x, @graph_bottom)
+      # x = @graph_left + @graph_width - index.to_f * @increment_x_scaled
+      # @d = @d.stroke(@marker_color)
+      # @d = @d.stroke_width 1
+      # @d = @d.line(x, @graph_top, x, @graph_bottom)
 
       unless @hide_line_numbers
         marker_label = index * @x_increment + @minimum_x_value.to_f
         y_offset = @graph_bottom + LABEL_MARGIN 
-        x_offset = getXCoord(index.to_f, @increment_x_scaled, @graph_left)
+        x_offset = get_x_coord(index.to_f, @increment_x_scaled, @graph_left)
 
         @d.fill = @font_color
         @d.font = @font if @font
@@ -252,7 +247,7 @@ protected
         @d = @d.annotate_scaled(@base_image, 
                           1.0, 1.0, 
                           x_offset, y_offset, 
-                          label(marker_label), @scale)
+                          label(marker_label, @x_increment), @scale)
       end
     end
     
@@ -261,8 +256,8 @@ protected
   
 private
   
-  def getXCoord(x_data_point, width, offset) #:nodoc:
-    return(x_data_point * width + offset)
+  def get_x_coord(x_data_point, width, offset) #:nodoc:
+    x_data_point * width + offset
   end
   
 end # end Gruff::Scatter

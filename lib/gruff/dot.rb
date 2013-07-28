@@ -19,8 +19,6 @@ class Gruff::Dot < Gruff::Base
     @items_width = @graph_height / @column_count.to_f
     @item_width = @items_width * spacing_factor / @norm_data.size
     @d         = @d.stroke_opacity 0.0
-    height     = Array.new(@column_count, 0)
-    length     = Array.new(@column_count, @graph_left)
     padding    = (@items_width * (1 - spacing_factor)) / 2
 
     @norm_data.each_with_index do |data_row, row_index|
@@ -54,7 +52,6 @@ protected
 
   # Instead of base class version, draws vertical background lines and label
   def draw_line_markers
-
     return if @hide_line_markers
 
     @d = @d.stroke_antialias false
@@ -67,7 +64,6 @@ protected
     # TODO Round maximum marker value to a round number like 100, 0.1, 0.5, etc.
     increment = significant(@maximum_value.to_f / number_of_lines)
     (0..number_of_lines).each do |index|
-
       line_diff    = (@graph_right - @graph_left) / number_of_lines
       x            = @graph_right - (line_diff * index) - 1
       @d           = @d.line(x, @graph_bottom, x, @graph_bottom + 0.5 * LABEL_MARGIN)
@@ -84,7 +80,7 @@ protected
         @d           = @d.annotate_scaled( @base_image,
                           0, 0, # Width of box to draw text in
                           x, @graph_bottom + (LABEL_MARGIN * 2.0), # Coordinates of text
-                          marker_label.to_s, @scale)
+                          label(marker_label, increment), @scale)
       end # unless
       @d = @d.stroke_antialias true
     end

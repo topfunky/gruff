@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-require File.dirname(__FILE__) + "/gruff_test_case"
+require File.dirname(__FILE__) + '/gruff_test_case'
 
 class TestGruffDot < GruffTestCase
 
@@ -19,13 +19,13 @@ class TestGruffDot < GruffTestCase
 
   def test_dot_graph
     g = setup_basic_graph
-    g.title = "Dot Graph Test"
-    g.write("test/output/dot_keynote.png")
+    g.title = 'Dot Graph Test'
+    g.write('test/output/dot_keynote.png')
   end
 
   def test_dot_graph_set_colors
     g = Gruff::Dot.new
-    g.title = "Dot Graph With Manual Colors"
+    g.title = 'Dot Graph With Manual Colors'
     g.labels = {
       0 => '5/6', 
       1 => '5/15', 
@@ -38,12 +38,12 @@ class TestGruffDot < GruffTestCase
 
     g.minimum_value = 0
         
-    g.write("test/output/dot_manual_colors.png")
+    g.write('test/output/dot_manual_colors.png')
   end
 
   def test_dot_graph_small
     g = Gruff::Dot.new(400)
-    g.title = "Visual Multi-Line Dot Graph Test"
+    g.title = 'Visual Multi-Line Dot Graph Test'
     g.labels = {
       0 => '5/6', 
       1 => '5/15', 
@@ -54,7 +54,7 @@ class TestGruffDot < GruffTestCase
       g.data(data[0], data[1])
     end
 
-    g.write("test/output/dot_keynote_small.png")
+    g.write('test/output/dot_keynote_small.png')
   end
 
   # Somewhat worthless test. Should an error be thrown?
@@ -68,98 +68,98 @@ class TestGruffDot < GruffTestCase
 
   def test_no_line_markers
     g = setup_basic_graph(400)
-    g.title = "No Line Markers"
+    g.title = 'No Line Markers'
     g.hide_line_markers = true
-    g.write("test/output/dot_no_line_markers.png")    
+    g.write('test/output/dot_no_line_markers.png')
   end
 
   def test_no_legend
     g = setup_basic_graph(400)
-    g.title = "No Legend"
+    g.title = 'No Legend'
     g.hide_legend = true
-    g.write("test/output/dot_no_legend.png")    
+    g.write('test/output/dot_no_legend.png')
   end
 
   def test_no_title
     g = setup_basic_graph(400)
-    g.title = "No Title"
+    g.title = 'No Title'
     g.hide_title = true
-    g.write("test/output/dot_no_title.png")    
+    g.write('test/output/dot_no_title.png')
   end
   
   def test_no_title_or_legend
     g = setup_basic_graph(400)
-    g.title = "No Title or Legend"
+    g.title = 'No Title or Legend'
     g.hide_legend = true
     g.hide_title = true
-    g.write("test/output/dot_no_title_or_legend.png")    
+    g.write('test/output/dot_no_title_or_legend.png')
   end
 
   def test_set_marker_count
     g = setup_basic_graph(400)
-    g.title = "Set marker"
+    g.title = 'Set marker'
     g.marker_count = 10
-    g.write("test/output/dot_set_marker.png")
+    g.write('test/output/dot_set_marker.png')
   end
 
   def test_set_legend_box_size
     g = setup_basic_graph(400)
-    g.title = "Set Small Legend Box Size"
+    g.title = 'Set Small Legend Box Size'
     g.legend_box_size = 10.0
-    g.write("test/output/dot_set_legend_box_size_sm.png")
+    g.write('test/output/dot_set_legend_box_size_sm.png')
     
     g = setup_basic_graph(400)
-    g.title = "Set Large Legend Box Size"
+    g.title = 'Set Large Legend Box Size'
     g.legend_box_size = 50.0
-    g.write("test/output/dot_set_legend_box_size_lg.png")
+    g.write('test/output/dot_set_legend_box_size_lg.png')
   end
 
   def test_x_y_labels
     g = setup_basic_graph(400)
-    g.title = "X Y Labels"
+    g.title = 'X Y Labels'
     g.x_axis_label = 'Score (%)'
-    g.y_axis_label = "Students"
-    g.write("test/output/dot_x_y_labels.png")    
+    g.y_axis_label = 'Students'
+    g.write('test/output/dot_x_y_labels.png')
   end
 
   def test_wide_graph
     g = setup_basic_graph('800x400')
-    g.title = "Wide Graph"
-    g.write("test/output/dot_wide_graph.png")    
+    g.title = 'Wide Graph'
+    g.write('test/output/dot_wide_graph.png')
 
     g = setup_basic_graph('400x200')
-    g.title = "Wide Graph Small"
-    g.write("test/output/dot_wide_graph_small.png")
+    g.title = 'Wide Graph Small'
+    g.write('test/output/dot_wide_graph_small.png')
   end
 
 
   def test_tall_graph
     g = setup_basic_graph('400x600')
-    g.title = "Tall Graph"
-    g.write("test/output/dot_tall_graph.png")
+    g.title = 'Tall Graph'
+    g.write('test/output/dot_tall_graph.png')
 
     g = setup_basic_graph('200x400')
-    g.title = "Tall Graph Small"
-    g.write("test/output/dot_tall_graph_small.png")
+    g.title = 'Tall Graph Small'
+    g.write('test/output/dot_tall_graph_small.png')
   end
 
 
   def test_one_value
     g = Gruff::Dot.new
-    g.title = "One Value Graph Test"
+    g.title = 'One Value Graph Test'
     g.labels = {
       0 => '1', 
       1 => '2'
     }
     g.data('one', [1,1])
 
-    g.write("test/output/dot_one_value.png")
+    g.write('test/output/dot_one_value.png')
   end
 
 
   def test_negative
     g = Gruff::Dot.new
-    g.title = "Pos/Neg Dot Graph Test"
+    g.title = 'Pos/Neg Dot Graph Test'
     g.labels = {
       0 => '5/6', 
       1 => '5/15', 
@@ -169,13 +169,13 @@ class TestGruffDot < GruffTestCase
     g.data(:apples, [-1, 0, 4, -4])
     g.data(:peaches, [10, 8, 6, 3])
 
-    g.write("test/output/dot_pos_neg.png")
+    g.write('test/output/dot_pos_neg.png')
   end
 
 
   def test_nearly_zero
     g = Gruff::Dot.new
-    g.title = "Nearly Zero Graph"
+    g.title = 'Nearly Zero Graph'
     g.labels = {
       0 => '5/6', 
       1 => '5/15', 
@@ -186,7 +186,7 @@ class TestGruffDot < GruffTestCase
     g.data(:peaches, [4, 3, 2, 1])
     g.minimum_value = 0
     g.maximum_value = 10
-    g.write("test/output/dot_nearly_zero_max_10.png")
+    g.write('test/output/dot_nearly_zero_max_10.png')
   end
 
   def test_y_axis_increment
@@ -214,7 +214,7 @@ class TestGruffDot < GruffTestCase
 
   def test_custom_theme
     g = Gruff::Dot.new
-    g.title = "Custom Theme"
+    g.title = 'Custom Theme'
     g.font = File.expand_path('CREABBRG.TTF', ENV['MAGICK_FONT_PATH'])
     g.title_font_size = 60
     g.legend_font_size = 32
@@ -223,7 +223,7 @@ class TestGruffDot < GruffTestCase
       :colors => %w(#efd250 #666699 #e5573f #9595e2),
       :marker_color => 'white',
       :font_color => 'blue',
-      :background_image => "assets/pc306715.jpg"
+      :background_image => 'assets/pc306715.jpg'
     }
     g.labels = {
       0 => '5/6', 
@@ -236,13 +236,13 @@ class TestGruffDot < GruffTestCase
     g.data(:portland, [3, 1, 7, 3])
     g.data(:victoria, [4, 3, 5, 7])
     g.minimum_value = 0
-    g.write("test/output/dot_themed.png")
+    g.write('test/output/dot_themed.png')
   end
 
   def test_july_enhancements
     g = Gruff::Dot.new(600)
     g.hide_legend = true
-    g.title = "Full speed ahead"
+    g.title = 'Full speed ahead'
     g.labels = (0..10).inject({}) { |memo, i| memo.merge({ i => (i*10).to_s}) }
     g.data(:apples, (0..9).map { rand(20)/10.0 })
     g.y_axis_increment = 1.0
@@ -256,7 +256,7 @@ protected
 
   def setup_basic_graph(size=800)
     g = Gruff::Dot.new(size)
-    g.title = "My Dot Graph"
+    g.title = 'My Dot Graph'
     g.labels = {
       0 => '5/6', 
       1 => '5/15', 

@@ -189,11 +189,11 @@ module Gruff
     # Output the values for the bars on a bar graph
     # Default is false
     attr_accessor :show_labels_for_bar_values
-    
+
     # Set the number output format for labels using sprintf
     # Default is "%.2f"
     attr_accessor :label_formatting
-    
+
     # With Side Bars use the data label for the marker value to the left of the bar
     # Default is false
     attr_accessor :use_data_label
@@ -206,13 +206,13 @@ module Gruff
     # Looks for Bitstream Vera as the default font. Expects an environment var
     # of MAGICK_FONT_PATH to be set. (Uses RMagick's default font otherwise.)
     def initialize(target_width=DEFAULT_TARGET_WIDTH)
-      if not Numeric === target_width
+      if Numeric === target_width
+        @columns = target_width.to_f
+        @rows = target_width.to_f * 0.75
+      else
         geometric_width, geometric_height = target_width.split('x')
         @columns = geometric_width.to_f
         @rows = geometric_height.to_f
-      else
-        @columns = target_width.to_f
-        @rows = target_width.to_f * 0.75
       end
 
       initialize_ivars
@@ -256,7 +256,7 @@ module Gruff
 
       @legend_box_size = 20.0
 
-      @no_data_message = "No Data"
+      @no_data_message = 'No Data'
 
       @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = @legend_at_bottom = @show_labels_for_bar_values = false
       @center_labels_over_point = true
@@ -330,7 +330,7 @@ module Gruff
       reset_themes()
 
       defaults = {
-          :colors => ['black', 'white'],
+          :colors => %w(black white),
           :additional_line_colors => [],
           :marker_color => 'white',
           :marker_shadow_color => nil,
@@ -416,7 +416,7 @@ module Gruff
     #
     # Example:
     #   write('graphs/my_pretty_graph.png')
-    def write(filename="graph.png")
+    def write(filename='graph.png')
       draw()
       @base_image.write(filename)
     end
@@ -424,7 +424,7 @@ module Gruff
     # Return the graph as a rendered binary blob.
     def to_blob(fileformat='PNG')
       draw()
-      return @base_image.to_blob do
+      @base_image.to_blob do
         self.format = fileformat
       end
     end
@@ -456,17 +456,17 @@ module Gruff
     def setup_drawing
       # Maybe should be done in one of the following functions for more granularity.
       unless @has_data
-        draw_no_data()
+        draw_no_data
         return
       end
 
-      normalize()
-      setup_graph_measurements()
+      normalize
+      setup_graph_measurements
       sort_norm_data() if @sort # Sort norm_data with avg largest values set first (for display)
 
-      draw_legend()
-      draw_line_markers()
-      draw_axis_labels()
+      draw_legend
+      draw_line_markers
+      draw_axis_labels
       draw_title
     end
 
@@ -523,7 +523,7 @@ module Gruff
                                                      labels.values.inject('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
         else
           longest_left_label_width = calculate_width(@marker_font_size,
-                                                     label(@maximum_value.to_f))
+                                                     label(@maximum_value.to_f, @increment))
         end
 
         # Shift graph if left line numbers are hidden
@@ -635,7 +635,7 @@ module Gruff
         @d = @d.fill(@marker_color)
         @d = @d.line(@graph_left, y, @graph_right, y)
         #If the user specified a marker shadow color, draw a shadow just below it
-        if not @marker_shadow_color.nil? 
+        unless @marker_shadow_color.nil?
           @d = @d.fill(@marker_shadow_color)
           @d = @d.line(@graph_left, y + 1, @graph_right, y + 1)
         end
@@ -654,7 +654,7 @@ module Gruff
           @d = @d.annotate_scaled(@base_image,
                                   @graph_left - LABEL_MARGIN, 1.0,
                                   0.0, y,
-                                  label(marker_label), @scale)
+                                  label(marker_label, @increment), @scale)
         end
       end
 
@@ -839,26 +839,6 @@ module Gruff
         debug { @d.line 0.0, y_offset, @raw_columns, y_offset }
       end
     end
-    
-    # Draws the data value over the data point in bar graphs
-    def draw_value_label(x_offset, y_offset, data_point, bar_value=false)
-      return if @hide_line_markers && !bar_value
-
-      #y_offset = @graph_bottom + LABEL_MARGIN
-
-      @d.fill = @font_color
-      @d.font = @font if @font
-      @d.stroke('transparent')
-      @d.font_weight = NormalWeight
-      @d.pointsize = scale_fontsize(@marker_font_size)
-      @d.gravity = NorthGravity
-      @d = @d.annotate_scaled(@base_image,
-                              1.0, 1.0,
-                              x_offset, y_offset,
-                              data_point.to_s, @scale)
-                              
-      debug { @d.line 0.0, y_offset, @raw_columns, y_offset }
-    end
 
     # Draws the data value over the data point in bar graphs
     def draw_value_label(x_offset, y_offset, data_point, bar_value=false)
@@ -999,18 +979,18 @@ module Gruff
       return 1.0 if i == 0 # Keep from going into infinite loop
       inc = BigDecimal(i.to_s)
       factor = BigDecimal('1.0')
-      while (inc < 10)
+      while inc < 10
         inc *= 10
         factor /= 10
       end
 
-      while (inc > 100)
+      while inc > 100
         inc /= 10
         factor *= 10
       end
 
       res = inc.floor * factor
-      if (res.to_i.to_f == res)
+      if res.to_i.to_f == res
         res.to_i
       else
         res
@@ -1081,13 +1061,23 @@ module Gruff
 
     # Return a formatted string representing a number value that should be
     # printed as a label.
-    def label(value)
-      label = if (@spread.to_f % (@marker_count.to_f==0 ? 1 : @marker_count.to_f) == 0) || !@y_axis_increment.nil?
-                value.to_i.to_s
+    def label(value, increment)
+      label = if increment
+                if increment >= 10 || (increment * 1) == (increment * 1).to_i.to_f
+                  sprintf('%0i', value)
+                elsif increment >= 1.0 || (increment * 10) == (increment * 10).to_i.to_f
+                  sprintf('%0.1f', value)
+                elsif increment >= 0.1 || (increment * 100) == (increment * 100).to_i.to_f
+                  sprintf('%0.2f', value)
+                elsif increment >= 0.01 || (increment * 1000) == (increment * 1000).to_i.to_f
+                  sprintf('%0.3f', value)
+                elsif increment >= 0.001 || (increment * 10000) == (increment * 10000).to_i.to_f
+                  sprintf('%0.4f', value)
+                end
               elsif @spread > 10.0
-                sprintf("%0i", value)
+                sprintf('%0i', value)
               elsif @spread >= 3.0
-                sprintf("%0.2f", value)
+                sprintf('%0.2f', value)
               else
                 value.to_s
               end
