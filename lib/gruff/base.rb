@@ -170,9 +170,13 @@ module Gruff
     # the graph object.
     attr_accessor :maximum_value
 
-    # Set to true if you want the data sets sorted with largest avg
-    # values drawn first.
+    # Set to true if you want the data sets sorted with largest avg values drawn
+    # first.
     attr_accessor :sort
+
+    # Set to true if you want the data sets drawn with largest avg values drawn
+    # first.  This does not affect the legend.
+    attr_accessor :sorted_drawing
 
     # Experimental
     attr_accessor :additional_line_values
