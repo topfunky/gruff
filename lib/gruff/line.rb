@@ -48,7 +48,6 @@ class Gruff::Line < Gruff::Base
     end
 
     @hide_dots = @hide_lines = false
-    @sorted_drawing = true
     @baseline_color = 'red'
     @baseline_value = nil
     @maximum_x_value = nil
