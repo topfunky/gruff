@@ -8,6 +8,8 @@ CLEAN << %w(pkg test/output/*)
 desc 'Run tests'
 task :default => :test
 
+task :gem => :build
+
 Rake::TestTask.new do |t|
  t.libs << 'test'
 end
