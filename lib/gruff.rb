@@ -1,4 +1,4 @@
-require "gruff/version"
+require 'gruff/version'
 
 # Extra full path added to fix loading errors on some installations.
 
@@ -28,5 +28,5 @@ require "gruff/version"
   mini/pie
   mini/side_bar
 ).each do |filename|
-  require File.dirname(__FILE__) + "/gruff/#{filename}"
+  require "gruff/#{filename}"
 end
