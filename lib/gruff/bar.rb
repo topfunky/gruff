@@ -30,7 +30,7 @@ class Gruff::Bar < Gruff::Base
   #
   # Default value is 0.9.
   def spacing_factor=(space_percent)
-    raise ArgumentError, "spacing_factor must be between 0.00 and 1.00" unless (space_percent >= 0 and space_percent <= 1)
+    raise ArgumentError, 'spacing_factor must be between 0.00 and 1.00' unless (space_percent >= 0 and space_percent <= 1)
     @spacing_factor = (1 - space_percent)
   end
 
@@ -78,7 +78,7 @@ protected
         right_x = left_x + @bar_width * @bar_spacing
         # y
         conv = []
-        conversion.getLeftYRightYscaled( data_point, conv )
+        conversion.get_left_y_right_y_scaled( data_point, conv )
 
         # create new bar
         @d = @d.fill data_row[DATA_COLOR_INDEX]
@@ -92,7 +92,7 @@ protected
         # Subtract half a bar width to center left if requested
         draw_label(label_center - (@center_labels_over_point ? @bar_width / 2.0 : 0.0), point_index)
         if @show_labels_for_bar_values
-          val = (@label_formatting || "%.2f") % @norm_data[row_index][3][point_index] 
+          val = (@label_formatting || '%.2f') % @norm_data[row_index][3][point_index]
           draw_value_label(left_x + (right_x - left_x)/2, conv[0]-30, val.commify, true)
         end
       end

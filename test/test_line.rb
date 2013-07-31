@@ -24,6 +24,16 @@ class TestGruffLine < GruffTestCase
     g.write('test/output/line_transparent.png')
   end
 
+  def test_very_small
+    g = Gruff::Line.new(200)
+    g.title = 'Very Small Line Chart 200px'
+    g.labels = @labels
+    @datasets.each do |data|
+      g.data(data[0], data[1])
+    end
+    g.write('test/output/line_very_small.png')
+  end
+
   def test_line_graph_with_themes
     line_graph_with_themes()
     line_graph_with_themes(400)
@@ -85,14 +95,14 @@ class TestGruffLine < GruffTestCase
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    g.write('test/output/line_small.png')
+    g.write('test/output/line_small_values.png')
 
     g = Gruff::Line.new(400)
     g.title = 'Small Values Line Graph Test 400px'
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    g.write('test/output/line_small_small.png')
+    g.write('test/output/line_small_values_small.png')
   end
 
   def test_line_starts_with_zero
@@ -537,18 +547,6 @@ class TestGruffLine < GruffTestCase
   end
 
   private
-
-  def bmi(params={})
-    g = basic_graph()
-
-    g.y_axis_label = 'BMI'
-
-    bmis = [24.3, 23.9, 23.7, 23.7, 23.6, 23.9, 23.6, 23.7, 23.4, 23.4, 23.4, 22.9]
-
-    g.data('BMI', bmis)
-    g.hide_legend = true
-    g
-  end
 
   # TODO Reset data after each theme
   def line_graph_with_themes(size=nil)
