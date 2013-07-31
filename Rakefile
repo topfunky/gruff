@@ -20,17 +20,3 @@ namespace :test do
     end
   end
 end
-
-##
-# Catch unmatched tasks and run them as a unit test.
-# Makes it possible to do
-#
-#  rake pie
-#
-# To run the +test/test_pie+ and +test/test_mini_pie+ files.
-#rule '' do |t|
-#  # Rake::Task["clean"].invoke
-#  Dir["test/test_*#{t.name}*.rb"].each do |filename|
-#    system "ruby #{filename}"
-#  end
-#end

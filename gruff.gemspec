@@ -23,9 +23,14 @@ Gem::Specification.new do |s|
   s.summary = %q{Beautiful graphs for one or multiple datasets.}
   # s.test_files = ["test/test_accumulator_bar.rb", "test/test_area.rb", "test/test_bar.rb", "test/test_base.rb", "test/test_bullet.rb", "test/test_dot.rb", "test/test_legend.rb", "test/test_line.rb", "test/test_mini_bar.rb", "test/test_mini_pie.rb", "test/test_mini_side_bar.rb", "test/test_net.rb", "test/test_photo.rb", "test/test_pie.rb", "test/test_scene.rb", "test/test_side_bar.rb", "test/test_sidestacked_bar.rb", "test/test_spider.rb", "test/test_stacked_area.rb", "test/test_stacked_bar.rb"]
   s.test_files = s.files.grep(%r{^(test|spec|features)/})
-  s.executables = s.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  s.executables = s.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   s.specification_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
-  # s.add_dependency(%q<rmagick>, [">= 2.12.2"])
+  if defined? JRUBY_VERSION
+    s.platform = 'java'
+    s.add_dependency 'rmagick4j'
+  else
+    s.add_dependency 'rmagick'
+  end
   s.add_development_dependency('rake')
   s.license = 'MIT'
 end
