@@ -10,11 +10,11 @@ module Gruff
         '#D1695E',  # red
         '#8A6EAF',  # purple
         '#EFAA43',  # orange
-        'white'  
+        'white'
       ],
       :marker_color => 'white',
       :font_color => 'white',
-      :background_colors => ['black', '#4a465a']
+      :background_colors => %w(black #4a465a)
     }
 
     # A color scheme plucked from the colors on the popular usability blog.
@@ -30,7 +30,7 @@ module Gruff
       ],
       :marker_color => 'black',
       :font_color => 'black',
-      :background_colors => ['#d1edf5', 'white']
+      :background_colors => %w(#d1edf5 white)
     }
 
     # A color scheme from the colors used on the 2005 Rails keynote
@@ -47,7 +47,7 @@ module Gruff
       ],
       :marker_color => 'white',
       :font_color => 'white',
-      :background_colors => ['#0083a3', '#0083a3']
+      :background_colors => %w(#0083a3 #0083a3)
     }
 
     # A color scheme similar to that used on the popular podcast site.
@@ -63,7 +63,7 @@ module Gruff
       ],
       :marker_color => 'white',
       :font_color => 'white',
-      :background_colors => ['#ff47a4', '#ff1f81']
+      :background_colors => %w(#ff47a4 #ff1f81)
     }
 
     # A pastel theme

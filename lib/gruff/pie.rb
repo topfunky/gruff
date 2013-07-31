@@ -37,7 +37,6 @@ class Gruff::Pie < Gruff::Base
 
     diameter = @graph_height
     radius = ([@graph_width, @graph_height].min / 2.0) * 0.8
-    top_x = @graph_left + (@graph_width - diameter) / 2.0
     center_x = @graph_left + (@graph_width / 2.0)
     center_y = @graph_top + (@graph_height / 2.0) - 10 # Move graph up a bit
     total_sum = sums_for_pie()
@@ -64,9 +63,8 @@ class Gruff::Pie < Gruff::Base
         
         label_val = ((data_row[DATA_VALUES_INDEX].first / total_sum) * 100.0).round
         unless label_val < @hide_labels_less_than
-          # End the string with %% to escape the single %.
           # RMagick must use sprintf with the string and % has special significance.
-          label_string = label_val.to_s + '%%'
+          label_string = label_val.to_s + '%'
           @d = draw_label(center_x,center_y, half_angle,
                           radius + (radius * TEXT_OFFSET_PERCENTAGE),
                           label_string)

@@ -2,6 +2,10 @@
 require File.dirname(__FILE__) + '/base'
 
 class Gruff::Area < Gruff::Base
+  def initialize(*)
+    super
+    @sorted_drawing = true
+  end
 
   def draw
     super

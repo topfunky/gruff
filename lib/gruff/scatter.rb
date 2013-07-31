@@ -48,19 +48,20 @@ class Gruff::Scatter < Gruff::Base
     @baseline_x_value = @baseline_y_value = nil
     @marker_x_count = nil
   end
-  
-  def draw
-    calculate_spread
-    @sort = false
-    
+
+  def setup_drawing
     # TODO Need to get x-axis labels working. Current behavior will be to not allow.
     @labels = {}
-    
+
+    super
+
     # Translate our values so that we can use the base methods for drawing
     # the standard chart stuff
     @column_count = @x_spread
+  end
 
-    super 
+  def draw
+    super
     return unless @has_data
 
     # Check to see if more than one datapoint was given. NaN can result otherwise.  

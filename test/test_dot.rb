@@ -20,7 +20,7 @@ class TestGruffDot < GruffTestCase
   def test_dot_graph
     g = setup_basic_graph
     g.title = 'Dot Graph Test'
-    g.write('test/output/dot_keynote.png')
+    g.write('test/output/dot.png')
   end
 
   def test_dot_graph_set_colors
@@ -42,19 +42,9 @@ class TestGruffDot < GruffTestCase
   end
 
   def test_dot_graph_small
-    g = Gruff::Dot.new(400)
+    g = setup_basic_graph(400)
     g.title = 'Visual Multi-Line Dot Graph Test'
-    g.labels = {
-      0 => '5/6', 
-      1 => '5/15', 
-      2 => '5/24', 
-      3 => '5/30', 
-    }
-    @datasets.each do |data|
-      g.data(data[0], data[1])
-    end
-
-    g.write('test/output/dot_keynote_small.png')
+    g.write('test/output/dot_small.png')
   end
 
   # Somewhat worthless test. Should an error be thrown?

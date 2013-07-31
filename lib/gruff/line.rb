@@ -15,17 +15,17 @@ class Gruff::Line < Gruff::Base
 
   # Draw a dashed line at the given value
   attr_accessor :baseline_value
-	
+
   # Color of the baseline
   attr_accessor :baseline_color
-  
+
   # Dimensions of lines and dots; calculated based on dataset size if left unspecified
   attr_accessor :line_width
   attr_accessor :dot_radius
 
   # Hide parts of the graph to fit more datapoints, or for a different appearance.
   attr_accessor :hide_dots, :hide_lines
-  
+
   #accessors for support of xy data
   attr_accessor :minimum_x_value
   attr_accessor :maximum_x_value
@@ -46,14 +46,15 @@ class Gruff::Line < Gruff::Base
     else
       super args.shift
     end
-    
+
     @hide_dots = @hide_lines = false
+    @sorted_drawing = true
     @baseline_color = 'red'
     @baseline_value = nil
     @maximum_x_value = nil
     @minimum_x_value = nil
   end
-  
+
   # This method allows one to plot a dataset with both X and Y data.
   #
   # Parameters are as follows:
@@ -80,60 +81,47 @@ class Gruff::Line < Gruff::Base
   #   #labels will be drawn at the x locations of the 1st dataset that you 
   #   #passed in.  In this example the lables are drawn at x locations 1,4,6
   #   g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}  #labels
- 
+
   def dataxy(name, x_data_points=[], y_data_points=[], color=nil)
     raise ArgumentError, 'x_data_points is nil!' if x_data_points.length == 0
 
-    if x_data_points.all?{|p| p.size == 2}
-      x_data_points, y_data_points = x_data_points.map{|p| p[0]}, x_data_points.map{|p| p[1]}
+    if x_data_points.all? { |p| p.is_a?(Array) && p.size == 2 }
+      x_data_points, y_data_points = x_data_points.map { |p| p[0] }, x_data_points.map { |p| p[1] }
     end
 
     raise ArgumentError, 'x_data_points.length != y_data_points.length!' if x_data_points.length != y_data_points.length
 
-    #call the existing data routine for the y data.
+    # call the existing data routine for the y data.
     self.data(name, y_data_points, color)
-    
+
     x_data_points = Array(x_data_points) # make sure it's an array
-    #append the x data to the last entry that was just added in the @data member
-    last_elem = @data.length()-1
-    @data[last_elem][DATA_VALUES_X_INDEX] = x_data_points
-    
+    # append the x data to the last entry that was just added in the @data member
+    @data.last[DATA_VALUES_X_INDEX] = x_data_points
+
     # Update the global min/max values for the x data
-    x_data_points.each_with_index do |x_data_point, index|
+    x_data_points.each do |x_data_point|
       next if x_data_point.nil?
-      
+
       # Setup max/min so spread starts at the low end of the data points
       if @maximum_x_value.nil? && @minimum_x_value.nil?
         @maximum_x_value = @minimum_x_value = x_data_point
       end
-      
-      @maximum_x_value = (x_data_point >  @maximum_x_value) ? 
-      x_data_point : @maximum_x_value
-      @minimum_x_value = (x_data_point < @minimum_x_value) ? 
-      x_data_point : @minimum_x_value
+
+      @maximum_x_value = (x_data_point > @maximum_x_value) ?
+          x_data_point : @maximum_x_value
+      @minimum_x_value = (x_data_point < @minimum_x_value) ?
+          x_data_point : @minimum_x_value
     end
-    
+
   end
 
   def draw
     super
 
     return unless @has_data
-    
+
     # Check to see if more than one datapoint was given. NaN can result otherwise.  
     @x_increment = (@column_count > 1) ? (@graph_width / (@column_count - 1).to_f) : @graph_width
-
-    #normalize the x data if it is specified
-    @data.each_with_index do |data_row, index|
-      norm_x_data_points = []
-      if data_row[DATA_VALUES_X_INDEX] != nil
-        data_row[DATA_VALUES_X_INDEX].each do |x_data_point|
-          norm_x_data_points << ( (x_data_point.to_f - @minimum_x_value.to_f ) /
-           (@maximum_x_value.to_f - @minimum_x_value.to_f) )
-       end
-       @norm_data[index] << norm_x_data_points
-      end
-    end
 
     if defined?(@norm_baseline)
       level = @graph_top + (@graph_height - @norm_baseline * @graph_height)
@@ -146,7 +134,7 @@ class Gruff::Line < Gruff::Base
       @d = @d.pop
     end
 
-    @norm_data.each_with_index do |data_row, dr_index|
+    @norm_data.each do |data_row|
       prev_x = prev_y = nil
 
       @one_point = contains_one_point_only?(data_row)
@@ -157,12 +145,14 @@ class Gruff::Line < Gruff::Base
         x_data = data_row[DATA_VALUES_X_INDEX]
         if x_data == nil
           #use the old method: equally spaced points along the x-axis
-          new_x = @graph_left + (@x_increment * index)  
+          new_x = @graph_left + (@x_increment * index)
+          draw_label(new_x, index)
         else
           new_x = get_x_coord(x_data[index], @graph_width, @graph_left)
+          @labels.each do |label_pos, _|
+            draw_label(@graph_left + ((label_pos - @minimum_x_value) * @graph_width) / (@maximum_x_value - @minimum_x_value), label_pos)
+          end
         end
-        
-        draw_label(new_x, index)
 
         new_y = @graph_top + (@graph_height - data_point * @graph_height)
 
@@ -171,13 +161,13 @@ class Gruff::Line < Gruff::Base
         @d = @d.fill data_row[DATA_COLOR_INDEX]
         @d = @d.stroke_opacity 1.0
         @d = @d.stroke_width line_width ||
-          clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 4), 5.0)
+                                 clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 4), 5.0)
 
 
         circle_radius = dot_radius ||
-          clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 2.5), 5.0)
+            clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 2.5), 5.0)
 
-        if !@hide_lines and !prev_x.nil? and !prev_y.nil? then          
+        if !@hide_lines and !prev_x.nil? and !prev_y.nil? then
           @d = @d.line(prev_x, prev_y, new_x, new_y)
         elsif @one_point
           # Show a circle if there's just one_point
@@ -194,14 +184,34 @@ class Gruff::Line < Gruff::Base
     @d.draw(@base_image)
   end
 
+  def setup_data
+    if @baseline_value
+      @maximum_value = [@maximum_value.to_f, @baseline_value.to_f].max
+      @minimum_value = [@minimum_value.to_f, @baseline_value.to_f].min
+    end
+    super
+  end
+
   def normalize(force=false)
-    @maximum_value = [@maximum_value.to_f, @baseline_value.to_f].max
     super(force)
     @norm_baseline = (@baseline_value.to_f / @maximum_value.to_f) if @baseline_value
+
+    #normalize the x data if it is specified
+    @data.each_with_index do |data_row, index|
+      norm_x_data_points = []
+      if data_row[DATA_VALUES_X_INDEX] != nil
+        data_row[DATA_VALUES_X_INDEX].each do |x_data_point|
+          norm_x_data_points << ((x_data_point.to_f - @minimum_x_value.to_f) /
+              (@maximum_x_value.to_f - @minimum_x_value.to_f))
+        end
+        @norm_data[index] << norm_x_data_points
+      end
+    end
+
   end
-  
+
   def sort_norm_data
-    super unless @data.any?{|d| d[DATA_VALUES_X_INDEX]}
+    super unless @data.any? { |d| d[DATA_VALUES_X_INDEX] }
   end
 
   def get_x_coord(x_data_point, width, offset)

@@ -170,8 +170,8 @@ module Gruff
     # the graph object.
     attr_accessor :maximum_value
 
-    # Set to false if you don't want the data to be sorted with largest avg
-    # values at the back.
+    # Set to true if you want the data sets sorted with largest avg
+    # values drawn first.
     attr_accessor :sort
 
     # Experimental
@@ -238,7 +238,7 @@ module Gruff
       @data = Array.new
       @labels = Hash.new
       @labels_seen = Hash.new
-      @sort = true
+      @sort = false
       @title = nil
 
       @scale = @columns / @raw_columns
@@ -327,7 +327,7 @@ module Gruff
     # (Or hopefully something better looking than that.)
     #
     def theme=(options)
-      reset_themes()
+      reset_themes
 
       defaults = {
           :colors => %w(black white),
@@ -389,7 +389,7 @@ module Gruff
     #   data("Bart S.", [95, 45, 78, 89, 88, 76], '#ffcc00')
     def data(name, data_points=[], color=nil)
       data_points = Array(data_points) # make sure it's an array
-      @data << [name, data_points, (color || increment_color)]
+      @data << [name, data_points, color]
                                        # Set column count if this is larger than previous counts
       @column_count = (data_points.length > @column_count) ? data_points.length : @column_count
 
@@ -417,13 +417,13 @@ module Gruff
     # Example:
     #   write('graphs/my_pretty_graph.png')
     def write(filename='graph.png')
-      draw()
+      draw
       @base_image.write(filename)
     end
 
     # Return the graph as a rendered binary blob.
     def to_blob(fileformat='PNG')
-      draw()
+      draw
       @base_image.to_blob do
         self.format = fileformat
       end
@@ -436,7 +436,13 @@ module Gruff
     #
     # Subclasses should start by calling super() for this method.
     def draw
-      make_stacked if @stacked
+      # Maybe should be done in one of the following functions for more granularity.
+      unless @has_data
+        draw_no_data
+        return
+      end
+
+      setup_data
       setup_drawing
 
       debug {
@@ -446,23 +452,6 @@ module Gruff
         # Graph area box
         @d.rectangle(@graph_left, @graph_top, @graph_right, @graph_bottom)
       }
-    end
-
-    # Calculates size of drawable area and draws the decorations.
-    #
-    # * line markers
-    # * legend
-    # * title
-    def setup_drawing
-      # Maybe should be done in one of the following functions for more granularity.
-      unless @has_data
-        draw_no_data
-        return
-      end
-
-      normalize
-      setup_graph_measurements
-      sort_norm_data() if @sort # Sort norm_data with avg largest values set first (for display)
 
       draw_legend
       draw_line_markers
@@ -470,13 +459,34 @@ module Gruff
       draw_title
     end
 
+    # Perform data manipulation before calculating chart measurements
+    def setup_data # :nodoc:
+      if @y_axis_increment && !@hide_line_markers
+        @maximum_value = [@y_axis_increment, @maximum_value, (@maximum_value.to_f / @y_axis_increment).round * @y_axis_increment].max
+        @minimum_value = [@minimum_value, (@minimum_value.to_f / @y_axis_increment).round * @y_axis_increment].min
+      end
+      make_stacked if @stacked
+    end
+
+    # Calculates size of drawable area and generates normalized data.
+    #
+    # * line markers
+    # * legend
+    # * title
+    def setup_drawing
+      calculate_spread
+      sort_data if @sort # Sort data with avg largest values set first (for display)
+      set_colors
+      normalize
+      setup_graph_measurements
+      sort_norm_data if @sorted_drawing # Sort norm_data with avg largest values set first (for display)
+    end
+
     # Make copy of data with values scaled between 0-100
     def normalize(force=false)
       if @norm_data.nil? || force
         @norm_data = []
         return unless @has_data
-
-        calculate_spread
 
         @data.each do |data_row|
           norm_data_points = []
@@ -617,11 +627,6 @@ module Gruff
         @increment = (@spread > 0 && @marker_count > 0) ? significant(@spread / @marker_count) : 1
       else
         # TODO Make this work for negative values
-        @maximum_value = [@maximum_value.ceil, @y_axis_increment].max
-        @minimum_value = @minimum_value.floor
-        calculate_spread
-        normalize(true)
-
         @marker_count = (@spread / @y_axis_increment).to_i
         @increment = @y_axis_increment
       end
@@ -812,7 +817,6 @@ module Gruff
         # TESTME
         # FIXME: Consider chart types other than bar
         if label_text.size > @label_max_size
-
           if @label_truncation_style == :trailing_dots
             if @label_max_size > 3
               # 4 because '...' takes up 3 chars
@@ -824,16 +828,18 @@ module Gruff
 
         end
 
-        @d.fill = @font_color
-        @d.font = @font if @font
-        @d.stroke('transparent')
-        @d.font_weight = NormalWeight
-        @d.pointsize = scale_fontsize(@marker_font_size)
-        @d.gravity = NorthGravity
-        @d = @d.annotate_scaled(@base_image,
-                                1.0, 1.0,
-                                x_offset, y_offset,
-                                label_text, @scale)
+        if x_offset >= @graph_left && x_offset <= @graph_right
+          @d.fill = @font_color
+          @d.font = @font if @font
+          @d.stroke('transparent')
+          @d.font_weight = NormalWeight
+          @d.pointsize = scale_fontsize(@marker_font_size)
+          @d.gravity = NorthGravity
+          @d = @d.annotate_scaled(@base_image,
+                                  1.0, 1.0,
+                                  x_offset, y_offset,
+                                  label_text, @scale)
+        end
         @labels_seen[index] = 1
         debug { @d.line 0.0, y_offset, @raw_columns, y_offset }
       end
@@ -996,16 +1002,21 @@ module Gruff
       end
     end
 
+    # Sort with largest overall summed value at front of array.
+    def sort_data
+      @data = @data.sort_by { |a| -a[DATA_VALUES_INDEX].inject(0) { |sum, num| sum + num.to_f } }
+    end
+
+    # Set the color for each data set unless it was gived in the data(...) call.
+    def set_colors
+      @data.each { |a| a[DATA_COLOR_INDEX] ||= increment_color }
+    end
+
     # Sort with largest overall summed value at front of array so it shows up
     # correctly in the drawn graph.
     def sort_norm_data
-      @norm_data.sort! { |a, b| sums(b[DATA_VALUES_INDEX]) <=> sums(a[DATA_VALUES_INDEX]) }
-    end
-
-    def sums(data_set) # :nodoc:
-      total_sum = 0
-      data_set.collect { |num| total_sum += num.to_f }
-      total_sum
+      @norm_data =
+          @norm_data.sort_by { |a| -a[DATA_VALUES_INDEX].inject(0) { |sum, num| sum + num.to_f } }
     end
 
     # Used by StackedBar and child classes.
@@ -1076,7 +1087,7 @@ module Gruff
                   value.to_s
                 end
               elsif (@spread.to_f % (@marker_count.to_f==0 ? 1 : @marker_count.to_f) == 0) || !@y_axis_increment.nil?
-                                value.to_i.to_s
+                value.to_i.to_s
               elsif @spread > 10.0
                 sprintf('%0i', value)
               elsif @spread >= 3.0
@@ -1131,7 +1142,7 @@ module Magick
       self.annotate(img,
                     scaled_width, scaled_height,
                     x * scale, y * scale,
-                    text)
+                    text.gsub('%', '%%'))
     end
 
   end

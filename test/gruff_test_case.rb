@@ -10,6 +10,11 @@ TEST_OUTPUT_DIR = File.dirname(__FILE__) + "/output#{'_java' if RUBY_PLATFORM ==
 FileUtils.mkdir_p(TEST_OUTPUT_DIR)
 FileUtils.rm_f Dir[TEST_OUTPUT_DIR + '/*']
 
+if ENV['RM_INFO'] && RUBY_VERSION =~ /^(1\.9|2\.0)\./
+  require 'minitest/reporters'
+  MiniTest::Reporters.use!
+end
+
 class Gruff::Base
   alias :write_org :write
 

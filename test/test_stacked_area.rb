@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-require File.dirname(__FILE__) + "/gruff_test_case"
+require File.dirname(__FILE__) + '/gruff_test_case'
 
 class TestGruffStackedArea < GruffTestCase
 
@@ -20,7 +20,7 @@ class TestGruffStackedArea < GruffTestCase
 
   def test_area_graph
     g = Gruff::StackedArea.new
-    g.title = "Visual Stacked Area Graph Test"
+    g.title = 'Visual Stacked Area Graph Test'
     g.labels = {
       0 => '5/6', 
       1 => '5/15', 
@@ -30,13 +30,13 @@ class TestGruffStackedArea < GruffTestCase
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    g.write "test/output/stacked_area_keynote.png"
+    g.write 'test/output/stacked_area_keynote.png'
   end
 
 
   def test_area_graph_small
     g = Gruff::StackedArea.new(400)
-    g.title = "Visual Stacked Area Graph Test"
+    g.title = 'Visual Stacked Area Graph Test'
     g.labels = {
       0 => '5/6', 
       1 => '5/15', 
@@ -46,7 +46,7 @@ class TestGruffStackedArea < GruffTestCase
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    g.write "test/output/stacked_area_keynote_small.png"
+    g.write 'test/output/stacked_area_keynote_small.png'
   end
   
 end

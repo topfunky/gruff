@@ -6,7 +6,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    rake (0.9.2.2)
+    rake (10.1.0)
     rmagick (2.13.2)
     rmagick4j (0.3.7)
 

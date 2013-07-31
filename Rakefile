@@ -1,13 +1,11 @@
-require "rubygems"
-require "bundler/gem_tasks"
+require 'rubygems'
+require 'bundler/gem_tasks'
 require 'rake/testtask'
-
 require 'rake/clean'
-$:.unshift(File.dirname(__FILE__) + "/lib")
 
-CLEAN << ['pkg', 'test/output/*']
+CLEAN << %w(pkg test/output/*)
 
-desc "Run tests"
+desc 'Run tests'
 task :default => :test
 
 Rake::TestTask.new do |t|
@@ -15,7 +13,7 @@ Rake::TestTask.new do |t|
 end
 
 namespace :test do
-  desc "Run mini tests"
+  desc 'Run mini tests'
   task :mini => :clean do
     Dir['test/test_mini*'].each do |file|
       system "ruby #{file}"

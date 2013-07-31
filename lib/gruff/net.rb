@@ -1,4 +1,3 @@
-
 require File.dirname(__FILE__) + '/base'
 
 # Experimental!!! See also the Spider graph.
@@ -6,20 +5,20 @@ class Gruff::Net < Gruff::Base
 
   # Hide parts of the graph to fit more datapoints, or for a different appearance.
   attr_accessor :hide_dots
-  
+
   # Dimensions of lines and dots; calculated based on dataset size if left unspecified
   attr_accessor :line_width
   attr_accessor :dot_radius
 
   def initialize(*args)
     super
-    
+
     @hide_dots = false
     @hide_line_numbers = true
+    @sorted_drawing = true
   end
 
   def draw
-
     super
 
     return unless @has_data
@@ -30,13 +29,13 @@ class Gruff::Net < Gruff::Base
 
     @x_increment = @graph_width / (@column_count - 1).to_f
     circle_radius = dot_radius ||
-      clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 2.5), 5.0)
+        clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 2.5), 5.0)
 
     @d = @d.stroke_opacity 1.0
     @d = @d.stroke_width line_width ||
-      clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 4), 5.0)
+                             clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 4), 5.0)
 
-    if (defined?(@norm_baseline)) then
+    if defined?(@norm_baseline)
       level = @graph_top + (@graph_height - @norm_baseline * @graph_height)
       @d = @d.push
       @d.stroke_color @baseline_color
@@ -48,7 +47,6 @@ class Gruff::Net < Gruff::Base
     end
 
     @norm_data.each do |data_row|
-      prev_x = prev_y = nil
       @d = @d.stroke data_row[DATA_COLOR_INDEX]
       @d = @d.fill data_row[DATA_COLOR_INDEX]
 
@@ -107,7 +105,7 @@ class Gruff::Net < Gruff::Base
     end
   end
 
-private
+  private
 
   def draw_label(center_x, center_y, angle, radius, amount)
     r_offset = 1.1

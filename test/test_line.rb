@@ -7,17 +7,17 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new(400)
     g.title = 'Transparent Background'
     g.theme = {
-      :colors => %w(black grey),
-      :marker_color => 'grey',
-      :font_color => 'black',
-      :background_colors => 'transparent'
+        :colors => %w(black grey),
+        :marker_color => 'grey',
+        :font_color => 'black',
+        :background_colors => 'transparent'
     }
 
     g.labels = {
-      0 => '5/6',
-      1 => '5/15',
-      2 => '5/24',
-      3 => '5/30',
+        0 => '5/6',
+        1 => '5/15',
+        2 => '5/24',
+        3 => '5/30',
     }
     g.data(:apples, [-1, 0, 4, -4])
     g.data(:peaches, [10, 8, 6, 3])
@@ -33,8 +33,8 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new
     g.title = 'One Value'
     g.labels = {
-      0 => '1',
-      1 => '2'
+        0 => '1',
+        1 => '2'
     }
     g.data('one', 1)
 
@@ -45,8 +45,8 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new
     g.title = 'One Value in an Array'
     g.labels = {
-      0 => '1',
-      1 => '2'
+        0 => '1',
+        1 => '2'
     }
     g.data('one', [1])
 
@@ -57,7 +57,7 @@ class TestGruffLine < GruffTestCase
   def test_should_not_hang_with_0_0_100
     g = Gruff::Line.new(320)
     g.title = 'Hang Value Graph Test'
-    g.data('test', [0,0,100])
+    g.data('test', [0, 0, 100])
 
     g.write('test/output/line_hang_value.png')
   end
@@ -76,9 +76,9 @@ class TestGruffLine < GruffTestCase
 
   def test_line_small_values
     @datasets = [
-      [:small, [0.1, 0.14356, 0.0, 0.5674839, 0.456]],
-      [:small2, [0.2, 0.3, 0.1, 0.05, 0.9]]
-      ]
+        [:small, [0.1, 0.14356, 0.0, 0.5674839, 0.456]],
+        [:small2, [0.2, 0.3, 0.1, 0.05, 0.9]]
+    ]
 
     g = Gruff::Line.new
     g.title = 'Small Values Line Graph Test'
@@ -97,9 +97,9 @@ class TestGruffLine < GruffTestCase
 
   def test_line_starts_with_zero
     @datasets = [
-      [:first0, [0, 5, 10, 8, 18]],
-      [:normal, [1, 2, 3, 4, 5]]
-      ]
+        [:first0, [0, 5, 10, 8, 18]],
+        [:normal, [1, 2, 3, 4, 5]]
+    ]
 
     g = Gruff::Line.new
     g.title = 'Small Values Line Graph Test'
@@ -119,11 +119,11 @@ class TestGruffLine < GruffTestCase
 
   def test_line_large_values
     @datasets = [
-      [:large, [100_005, 35_000, 28_000, 27_000]],
-      [:large2, [35_000, 28_000, 27_000, 100_005]],
-      [:large3, [28_000, 27_000, 100_005, 35_000]],
-      [:large4, [1_238, 39_092, 27_938, 48_876]]
-      ]
+        [:large, [100_005, 35_000, 28_000, 27_000]],
+        [:large2, [35_000, 28_000, 27_000, 100_005]],
+        [:large3, [28_000, 27_000, 100_005, 35_000]],
+        [:large4, [1_238, 39_092, 27_938, 48_876]]
+    ]
 
     g = Gruff::Line.new
     g.title = 'Very Large Values Line Graph Test'
@@ -155,7 +155,7 @@ class TestGruffLine < GruffTestCase
       g.data(data[0], data[1])
     end
     @datasets.each do |data|
-      g.data("#{data[0]}-B", data[1].map {|d| d + 20})
+      g.data("#{data[0]}-B", data[1].map { |d| d + 20 })
     end
     g.write('test/output/line_more_sets_than_colors.png')
   end
@@ -169,12 +169,12 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new
     g.title = 'Many Multi-Line Graph Test'
     g.labels = {
-      0 => 'June',
-      10 => 'July',
-      30 => 'August',
-      50 => 'September',
+        0 => 'June',
+        10 => 'July',
+        30 => 'August',
+        50 => 'September',
     }
-    g.data('many points', (0..50).collect {|i| rand(100) })
+    g.data('many points', (0..50).collect { |i| rand(100) })
     g.x_axis_label = 'Months'
 
     # Default theme
@@ -183,16 +183,16 @@ class TestGruffLine < GruffTestCase
 
 
   def test_similar_high_end_values
-    @dataset = %w(29.43 29.459 29.498 29.53 29.548 29.589 29.619 29.66 29.689 29.849 29.878 29.74 29.769 29.79 29.808 29.828).collect {|i| i.to_f}
+    @dataset = %w(29.43 29.459 29.498 29.53 29.548 29.589 29.619 29.66 29.689 29.849 29.878 29.74 29.769 29.79 29.808 29.828).collect { |i| i.to_f }
 
     g = Gruff::Line.new
     g.title = 'Similar High End Values Test'
-    g.data('similar points', @dataset )
+    g.data('similar points', @dataset)
     g.write('test/output/line_similar_high_end_values.png')
 
     g = Gruff::Line.new
     g.title = 'Similar High End Values With Floor'
-    g.data('similar points', @dataset )
+    g.data('similar points', @dataset)
     g.minimum_value = 0
     g.y_axis_label = 'Barometric Pressure'
     g.write('test/output/line_similar_high_end_values_with_floor.png')
@@ -202,12 +202,12 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new(400)
     g.title = 'Many Values Line Test 400px'
     g.labels = {
-      0 => '5/6',
-      10 => '5/15',
-      20 => '5/24',
-      30 => '5/30',
-      40 => '6/4',
-      50 => '6/16'
+        0 => '5/6',
+        10 => '5/15',
+        20 => '5/24',
+        30 => '5/30',
+        40 => '6/4',
+        50 => '6/16'
     }
     %w{jimmy jane philip arthur julie bert}.each do |student_name|
       g.data(student_name, (0..50).collect { |i| rand 100 })
@@ -221,12 +221,12 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new(300)
     g.title = 'Tiny Test 300px'
     g.labels = {
-      0 => '5/6',
-      10 => '5/15',
-      20 => '5/24',
-      30 => '5/30',
-      40 => '6/4',
-      50 => '6/16'
+        0 => '5/6',
+        10 => '5/15',
+        20 => '5/24',
+        30 => '5/30',
+        40 => '6/4',
+        50 => '6/16'
     }
     %w{jimmy jane philip arthur julie bert}.each do |student_name|
       g.data(student_name, (0..50).collect { |i| rand 100 })
@@ -253,7 +253,7 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new(400)
     g.title = 'All Zeros'
 
-    g.data(:gus, [0,0,0,0])
+    g.data(:gus, [0, 0, 0, 0])
 
     # Default theme
     g.write('test/output/line_no_data_other.png')
@@ -265,11 +265,11 @@ class TestGruffLine < GruffTestCase
     g.title = 'Some Nil Points'
 
     @datasets = [
-      [:data1, [1, 2, 3, nil, 3, 5, 6]],
-      [:data2, [5, nil, nil, nil, nil, nil, 5]],
-      [:data3, [4, nil, 2, 1, 0]],
-      [:data4, [nil, nil, 3, 1, 2]]
-      ]
+        [:data1, [1, 2, 3, nil, 3, 5, 6]],
+        [:data2, [5, nil, nil, nil, nil, nil, 5]],
+        [:data3, [4, nil, 2, 1, 0]],
+        [:data4, [nil, nil, 3, 1, 2]]
+    ]
 
     @datasets.each do |data|
       g.data(*data)
@@ -355,9 +355,18 @@ class TestGruffLine < GruffTestCase
 
   def test_all_negative
     g = setup_all_neg(800)
+    g.maximum_value = 0
     g.write('test/output/line_all_neg.png')
+  end
 
+  def test_all_negative_no_max_value
+    g = setup_all_neg(800)
+    g.write('test/output/line_all_neg_no_max.png')
+  end
+
+  def test_all_negative_400
     g = setup_all_neg(400)
+    g.maximum_value = 0
     g.title = 'All Neg Line Test Small'
     g.write('test/output/line_all_neg_400.png')
   end
@@ -367,64 +376,64 @@ class TestGruffLine < GruffTestCase
     g.title = 'Line Test, Many Numbers'
 
     data = [
-      { :date => '01',
-        :wpm => 0,
-        :errors => 0,
-        :accuracy => 0 },
-      { :date => '02',
-        :wpm => 10,
-        :errors => 2,
-        :accuracy => 80 },
-      { :date => '03',
-        :wpm => 15,
-        :errors => 0,
-        :accuracy => 100 },
-      { :date => '04',
-        :wpm => 16,
-        :errors => 2,
-        :accuracy => 87 },
-      { :date => '05',
-          :wpm => nil,
-          :errors => nil,
-          :accuracy => nil },
-      { :date => '06',
-        :wpm => 18,
-        :errors => 1,
-        :accuracy => 94 },
-      { :date => '07'},
-      { :date => '08' },
-      { :date => '09',
+        {:date => '01',
+         :wpm => 0,
+         :errors => 0,
+         :accuracy => 0},
+        {:date => '02',
+         :wpm => 10,
+         :errors => 2,
+         :accuracy => 80},
+        {:date => '03',
+         :wpm => 15,
+         :errors => 0,
+         :accuracy => 100},
+        {:date => '04',
+         :wpm => 16,
+         :errors => 2,
+         :accuracy => 87},
+        {:date => '05',
+         :wpm => nil,
+         :errors => nil,
+         :accuracy => nil},
+        {:date => '06',
+         :wpm => 18,
+         :errors => 1,
+         :accuracy => 94},
+        {:date => '07'},
+        {:date => '08'},
+        {:date => '09',
          :wpm => 21,
          :errors => 1,
-         :accuracy => 95 },
-      { :date => '10'},
-      { :date => '11'},
-      { :date => '12'},
-      { :date => '13'},
-      { :date => '14'},
-      { :date => '15'},
-      { :date => '16'},
-      { :date => '17'},
-      { :date => '18'},
-      { :date => '19',
+         :accuracy => 95},
+        {:date => '10'},
+        {:date => '11'},
+        {:date => '12'},
+        {:date => '13'},
+        {:date => '14'},
+        {:date => '15'},
+        {:date => '16'},
+        {:date => '17'},
+        {:date => '18'},
+        {:date => '19',
          :wpm => 28,
          :errors => 5,
-         :accuracy => 82 },
-      { :date => '20'},
-      { :date => '21'},
-      { :date => '22'},
-      { :date => '23'},
-      { :date => '24'},
-      { :date => '25'},
-      { :date => '26'},
-      { :date => '27',
+         :accuracy => 82},
+        {:date => '20'},
+        {:date => '21'},
+        {:date => '22'},
+        {:date => '23'},
+        {:date => '24'},
+        {:date => '25'},
+        {:date => '26'},
+        {:date => '27',
          :wpm => 37,
          :errors => 3,
-         :accuracy => 92 },
+         :accuracy => 92},
     ]
 
     [:wpm, :errors, :accuracy].each do |field|
-      g.data(field.to_s, data.collect {|d| d[field] })
+      g.data(field.to_s, data.collect { |d| d[field] })
     end
 
     labels = Hash.new
@@ -449,31 +458,31 @@ class TestGruffLine < GruffTestCase
   def test_xy_data
     g = Gruff::Line.new
     g.title = 'X/Y Dataset'
-    g.dataxy('Apples', [1,3,4,5,6,10], [1, 2, 3, 4, 4, 3])
-    g.dataxy('Bapples', [1,3,4,5,7,9], [1, 1, 2, 2, 3, 3])
-    g.data('Capples', [1, 1, 2, 2, 3, 3])
-    g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}
+    g.dataxy('Apples',  [1, 3, 4, 5, 6, 10], [1, 2, 3, 4, 4, 3])
+    g.dataxy('Bapples', [1, 3, 4, 5, 7,  9], [1, 1, 2, 2, 3, 3])
+    g.data('Capples',   [1, 1, 2, 2, 3,  3])
+    g.labels = {0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006', 8 => '2007', 10 => '2008'}
     g.write('test/output/line_xy.png')
   end
 
   def test_xy_data_pairs
     g = Gruff::Line.new
     g.title = 'X/Y Dataset Pairs'
-    g.dataxy('Apples', [[1,1], [3,2],[4,3],[5,4],[6,4],[10,3]])
-    g.dataxy('Bapples', [[1,1],[3,1],[4,2],[5,2],[7,3],[9,3]])
+    g.dataxy('Apples', [[1, 1], [3, 2], [4, 3], [5, 4], [6, 4], [10, 3]])
+    g.dataxy('Bapples', [[1, 1], [3, 1], [4, 2], [5, 2], [7, 3], [9, 3]])
     g.data('Capples', [1, 1, 2, 2, 3, 3])
-    g.dataxy('Dapples', [[1,1],[2,3],[5,8],[13,21]])
-    g.dataxy('Eapples', [[1,1],[2,3],[5,8],[13,21],[13,8],[5,3],[2,1],[1,1]])
-    g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}
+    g.dataxy('Dapples', [[1, 1], [2, 3], [5, 8], [13, 21]])
+    g.dataxy('Eapples', [[1, 1], [2, 3], [5, 8], [13, 21], [13, 8], [5, 3], [2, 1], [1, 1]])
+    g.labels = {0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006', 8 => '2007', 10 => '2008', 12 => '2009'}
     g.write('test/output/line_xy_pairs.png')
   end
 
   def test_jruby_error
     g = Gruff::Line.new
     g.theme = {
-      :colors => %w(#7F0099 #2F85ED #2FED09 #EC962F),
-      :marker_color => '#aaa',
-      :background_colors => %w(#E8E8E8 #B9FD6C)
+        :colors => %w(#7F0099 #2F85ED #2FED09 #EC962F),
+        :marker_color => '#aaa',
+        :background_colors => %w(#E8E8E8 #B9FD6C)
     }
     g.hide_title = true
 
@@ -488,15 +497,15 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new
     g.title = 'Marker label accuracy'
     g.labels = {
-      0 => '1',
-      1 => '2',
-      2 => '3',
-      3 => '4',
-      4 => '5'
+        0 => '1',
+        1 => '2',
+        2 => '3',
+        3 => '4',
+        4 => '5'
     }
-    g.data('first',  [0.5, 0.51, 0.52, 0.53, 0.54])
+    g.data('first', [0.5, 0.51, 0.52, 0.53, 0.54])
     g.data('second', [0.6, 0.61, 0.62, 0.63, 0.64])
-    g.data('third',  [0.7, 0.71, 0.72, 0.73, 0.74])
+    g.data('third', [0.7, 0.71, 0.72, 0.73, 0.74])
 
     g.write('test/output/line_marker_label_accuracy.png')
   end
@@ -505,7 +514,7 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new
     g.title = 'y axis increment'
 
-    g.data('data',  [1,2,3])
+    g.data('data', [1, 2, 3])
 
     g.y_axis_increment = 1
 
@@ -513,7 +522,7 @@ class TestGruffLine < GruffTestCase
   end
 
 
-private
+  private
 
   def bmi(params={})
     g = basic_graph()
@@ -522,7 +531,7 @@ private
 
     bmis = [24.3, 23.9, 23.7, 23.7, 23.6, 23.9, 23.6, 23.7, 23.4, 23.4, 23.4, 22.9]
 
-    g.data( 'BMI', bmis )
+    g.data('BMI', bmis)
     g.hide_legend = true
     g
   end
@@ -574,10 +583,10 @@ private
     g = Gruff::Line.new(size)
     g.title = 'Pos/Neg Line Graph Test'
     g.labels = {
-      0 => '5/6',
-      1 => '5/15',
-      2 => '5/24',
-      3 => '5/30',
+        0 => '5/6',
+        1 => '5/15',
+        2 => '5/24',
+        3 => '5/30',
     }
     g.data(:apples, [-1, 0, 4, -4])
     g.data(:peaches, [10, 8, 6, 3])
@@ -589,14 +598,14 @@ private
     g = Gruff::Line.new(size)
     g.title = 'All Neg Line Graph Test'
     g.labels = {
-      0 => '5/6',
-      1 => '5/15',
-      2 => '5/24',
-      3 => '5/30',
+        0 => '5/6',
+        1 => '5/15',
+        2 => '5/24',
+        3 => '5/30',
     }
     g.data(:apples, [-1, -5, -20, -4])
     g.data(:peaches, [-10, -8, -6, -3])
     g
   end
-  
+
 end

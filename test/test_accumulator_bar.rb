@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + "/gruff_test_case"
+require File.dirname(__FILE__) + '/gruff_test_case'
 
 class TestGruffAccumulatorBar < GruffTestCase
 
@@ -13,7 +13,7 @@ class TestGruffAccumulatorBar < GruffTestCase
 
   def test_accumulator
     g = Gruff::AccumulatorBar.new 500
-    g.title = "Your Savings"
+    g.title = 'Your Savings'
     g.hide_legend = true
 
     # g.font = File.expand_path(File.dirname(__FILE__) + "/../assets/fonts/ATMA____.TTF")
@@ -21,10 +21,10 @@ class TestGruffAccumulatorBar < GruffTestCase
     g.marker_font_size = 18
     
     g.theme = {
-      :colors => ['#aedaa9', '#12a702'], # 3077a9 blue, aedaa9 light green
+      :colors => ['#aedaa9', '#12a702'],
       :marker_color => '#dddddd',
       :font_color => 'black',      
-      :background_colors => "white"
+      :background_colors => 'white'
       # :background_image => File.expand_path(File.dirname(__FILE__) + "/../assets/backgrounds/43things.png")
     }
 
@@ -36,7 +36,7 @@ class TestGruffAccumulatorBar < GruffTestCase
     g.maximum_value = 1000
     g.minimum_value = 0
 
-    g.write("test/output/accum_bar.png")
+    g.write('test/output/accum_bar.png')
   end
 
   def test_too_many_args
@@ -44,7 +44,7 @@ class TestGruffAccumulatorBar < GruffTestCase
       g = Gruff::AccumulatorBar.new
       g.data 'First', [1,1,1]
       g.data 'Too Many', [1,1,1]
-      g.write("test/output/_SHOULD_NOT_ACTUALLY_BE_WRITTEN.png")
+      g.write('test/output/_SHOULD_NOT_ACTUALLY_BE_WRITTEN.png')
     }
   end
 
