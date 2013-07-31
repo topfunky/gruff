@@ -10,9 +10,7 @@ task :default => :test
 
 task :gem => :build
 
-Rake::TestTask.new do |t|
- t.libs << 'test'
-end
+Rake::TestTask.new
 
 namespace :test do
   desc 'Run mini tests'
