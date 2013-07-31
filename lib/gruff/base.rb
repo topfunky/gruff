@@ -1137,15 +1137,17 @@ module Magick
                     text.gsub('%', '%%'))
     end
 
-    # FIXME(uwe):  We should NOT need to implement this method.
-    #              Remove this method as soon as RMagick4J Issue #16 is fixed.
-    #              https://github.com/Serabe/RMagick4J/issues/16
-    def fill=(fill)
-      fill = {:white => '#FFFFFF'}[fill.to_sym] || fill
-      @draw.fill = Magick4J.ColorDatabase.query_default(fill)
-      self
+    if defined? JRUBY_VERSION
+      # FIXME(uwe):  We should NOT need to implement this method.
+      #              Remove this method as soon as RMagick4J Issue #16 is fixed.
+      #              https://github.com/Serabe/RMagick4J/issues/16
+      def fill=(fill)
+        fill = {:white => '#FFFFFF'}[fill.to_sym] || fill
+        @draw.fill = Magick4J.ColorDatabase.query_default(fill)
+        self
+      end
+      # EMXIF
     end
-    # EMXIF
 
   end
 
