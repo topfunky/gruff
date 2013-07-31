@@ -33,6 +33,7 @@ class Gruff::Dot < Gruff::Base
           @d = @d.stroke_opacity 0.1
           @d = @d.fill_opacity 0.1
           @d = @d.line(@graph_left, y_pos, @graph_left + @graph_width, y_pos)
+          @d = @d.fill_opacity 1
         end
 
         @d = @d.fill data_row[DATA_COLOR_INDEX]
