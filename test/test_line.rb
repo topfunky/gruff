@@ -458,9 +458,9 @@ class TestGruffLine < GruffTestCase
   def test_xy_data
     g = Gruff::Line.new
     g.title = 'X/Y Dataset'
-    g.dataxy('Apples',  [1, 3, 4, 5, 6, 10], [1, 2, 3, 4, 4, 3])
-    g.dataxy('Bapples', [1, 3, 4, 5, 7,  9], [1, 1, 2, 2, 3, 3])
-    g.data('Capples',   [1, 1, 2, 2, 3,  3])
+    g.dataxy('Apples', [1, 3, 4, 5, 6, 10], [1, 2, 3, 4, 4, 3])
+    g.dataxy('Bapples', [1, 3, 4, 5, 7, 9], [1, 1, 2, 2, 3, 3])
+    g.data('Capples', [1, 1, 2, 2, 3, 3])
     g.labels = {0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006', 8 => '2007', 10 => '2008'}
     g.write('test/output/line_xy.png')
   end
@@ -521,6 +521,20 @@ class TestGruffLine < GruffTestCase
     g.write('test/output/line_y_axis_increment.png')
   end
 
+  def test_baseline
+    g = Gruff::Line.new
+    g.title = 'Line Chart with Baseline = 5'
+
+    g.data('Apples', [3, 2, 3, 4, 4, 3])
+    g.data('Oranges', [4, 8, 7, 9, 8, 9])
+    g.data('Watermelon', [2, 3, 4, 5, 6, 8])
+    g.data('Peaches', [9, 9, 10, 8, 7, 9])
+
+    g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}
+    g.baseline_value = 5
+
+    g.write('line_baseline.png')
+  end
 
   private
 

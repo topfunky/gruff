@@ -194,7 +194,7 @@ class Gruff::Line < Gruff::Base
 
   def normalize(force=false)
     super(force)
-    @norm_baseline = (@baseline_value.to_f / @maximum_value.to_f) if @baseline_value
+    @norm_baseline = ((@baseline_value.to_f - @minimum_value) / @spread.to_f) if @baseline_value
 
     #normalize the x data if it is specified
     @data.each_with_index do |data_row, index|
