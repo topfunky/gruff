@@ -398,7 +398,7 @@ module Gruff
       @column_count = (data_points.length > @column_count) ? data_points.length : @column_count
 
       # Pre-normalize
-      data_points.each_with_index do |data_point, index|
+      data_points.each do |data_point|
         next if data_point.nil?
 
         # Setup max/min so spread starts at the low end of the data points
@@ -956,9 +956,7 @@ module Gruff
 
     # Return a comparable fontsize for the current graph.
     def scale_fontsize(value)
-      new_fontsize = value * @scale
-      # return new_fontsize < 10.0 ? 10.0 : new_fontsize
-      return new_fontsize
+      value * @scale
     end
 
     def clip_value_if_greater_than(value, max_value) # :nodoc:
@@ -966,22 +964,12 @@ module Gruff
     end
 
     # Overridden by subclasses such as stacked bar.
-    def larger_than_max?(data_point, index=0) # :nodoc:
+    def larger_than_max?(data_point) # :nodoc:
       data_point > @maximum_value
     end
 
-    def less_than_min?(data_point, index=0) # :nodoc:
+    def less_than_min?(data_point) # :nodoc:
       data_point < @minimum_value
-    end
-
-    # Overridden by subclasses that need it.
-    def max(data_point, index) # :nodoc:
-      data_point
-    end
-
-    # Overridden by subclasses that need it.
-    def min(data_point, index) # :nodoc:
-      data_point
     end
 
     def significant(i) # :nodoc:
@@ -1070,7 +1058,7 @@ module Gruff
     # Returns the next color in your color list.
     def increment_color
       @color_index = (@color_index + 1) % @colors.length
-      return @colors[@color_index - 1]
+      @colors[@color_index - 1]
     end
 
     # Return a formatted string representing a number value that should be
@@ -1155,7 +1143,7 @@ end # Magick
 
 class String
   #Taken from http://codesnippets.joyent.com/posts/show/330
-  def commify(delimiter=",")
-    return self.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{delimiter}")
+  def commify(delimiter=',')
+    self.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{delimiter}")
   end
 end
