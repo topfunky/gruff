@@ -63,7 +63,7 @@ In progress!
 
 ### Dot chart
 
-![Dot chart](https://raw.github.com/topfunky/gruff/master/test/output/dot_keynote.png)
+![Dot chart](https://raw.github.com/topfunky/gruff/master/test/output/dot.png)
 
 ### Line chart
 
