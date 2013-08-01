@@ -641,6 +641,14 @@ module Gruff
         y = @graph_top + @graph_height - index.to_f * @increment_scaled
 
         @d = @d.fill(@marker_color)
+
+        # FIXME(uwe): Workaround for Issue #66
+        #             https://github.com/topfunky/gruff/issues/66
+        #             https://github.com/rmagick/rmagick/issues/82
+        #             Remove if the issue gets fixed.
+        y += 0.001 unless defined?(JRUBY_VERSION)
+        # EMXIF
+
         @d = @d.line(@graph_left, y, @graph_right, y)
         #If the user specified a marker shadow color, draw a shadow just below it
         unless @marker_shadow_color.nil?
