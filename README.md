@@ -39,7 +39,7 @@ g.data :Julie, [22, 29, 35, 38, 36, 40, 46, 57]
 g.data :Jane, [95, 95, 95, 90, 85, 80, 88, 100]
 g.data :Philip, [90, 34, 23, 12, 78, 89, 98, 88]
 g.data :Arthur, [5, 10, 13, 11, 6, 16, 22, 32]
-g.write('test/output/line_chart.png')
+g.write('exciting.png')
 ```
 
 ## Examples
