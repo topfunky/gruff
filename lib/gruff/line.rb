@@ -41,7 +41,7 @@ class Gruff::Line < Gruff::Base
   # The preferred way is to call hide_dots or hide_lines instead.
   def initialize(*args)
     raise ArgumentError, 'Wrong number of arguments' if args.length > 2
-    if args.empty? or ((not Numeric === args.first) && (not String === args.first)) then
+    if args.empty? || ((not Numeric === args.first) && (not String === args.first))
       super()
     else
       super args.shift
@@ -62,7 +62,13 @@ class Gruff::Line < Gruff::Base
   #   y_data_points: an array containing the y data points for the graph
   #   color: hex number indicating the line color as an RGB triplet
   #
-  #  Notes: 
+  #   or
+  #
+  #   name: string, the title of the dataset
+  #   xy_data_points: an array containing both x and y data points for the graph
+  #   color: hex number indicating the line color as an RGB triplet
+  #
+  #  Notes:
   #   -if (x_data_points.length != y_data_points.length) an error is 
   #     returned.
   #   -if the color argument is nil, the next color from the default theme will
@@ -75,12 +81,13 @@ class Gruff::Line < Gruff::Base
   #   g.title = "X/Y Dataset"
   #   g.dataxy("Apples", [1,3,4,5,6,10], [1, 2, 3, 4, 4, 3])
   #   g.dataxy("Bapples", [1,3,4,5,7,9], [1, 1, 2, 2, 3, 3])
+  #   g.dataxy("Capples", [[1,1],[2,3],[3,4],[4,5],[5,7],[6,9])
   #   #you can still use the old data method too if you want:
   #   g.data("Capples", [1, 1, 2, 2, 3, 3])  
-  #   #labels will be drawn at the x locations of the 1st dataset that you 
-  #   #passed in.  In this example the lables are drawn at x locations 1,4,6
-  #   g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}  #labels
-
+  #   #labels will be drawn at the x locations of the keys passed in.
+  #   In this example the lables are drawn at x positions 2, 4, and 6:
+  #   g.labels = {0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006'}
+  #   The 0 => '2003' label will be ignored since it is outside the chart range.
   def dataxy(name, x_data_points=[], y_data_points=[], color=nil)
     raise ArgumentError, 'x_data_points is nil!' if x_data_points.length == 0
 
@@ -139,8 +146,10 @@ class Gruff::Line < Gruff::Base
       @one_point = contains_one_point_only?(data_row)
 
       data_row[DATA_VALUES_INDEX].each_with_index do |data_point, index|
-        next if data_point.nil?
-
+        unless data_point
+          prev_x = prev_y = nil
+          next
+        end
         x_data = data_row[DATA_VALUES_X_INDEX]
         if x_data == nil
           #use the old method: equally spaced points along the x-axis
@@ -162,11 +171,10 @@ class Gruff::Line < Gruff::Base
         @d = @d.stroke_width line_width ||
                                  clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 4), 5.0)
 
-
         circle_radius = dot_radius ||
             clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 2.5), 5.0)
 
-        if !@hide_lines and !prev_x.nil? and !prev_y.nil? then
+        if !@hide_lines && !prev_x.nil? && !prev_y.nil?
           @d = @d.line(prev_x, prev_y, new_x, new_y)
         elsif @one_point
           # Show a circle if there's just one_point
@@ -174,10 +182,8 @@ class Gruff::Line < Gruff::Base
         end
         @d = @d.circle(new_x, new_y, new_x - circle_radius, new_y) unless @hide_dots
 
-        prev_x = new_x
-        prev_y = new_y
+        prev_x, prev_y = new_x, new_y
       end
-
     end
 
     @d.draw(@base_image)

@@ -276,7 +276,7 @@ class TestGruffLine < GruffTestCase
 
     @datasets = [
         [:data1, [1, 2, 3, nil, 3, 5, 6]],
-        [:data2, [5, nil, nil, nil, nil, nil, 5]],
+        [:data2, [5, nil, nil, 5, nil, nil, 5]],
         [:data3, [4, nil, 2, 1, 0]],
         [:data4, [nil, nil, 3, 1, 2]]
     ]
@@ -408,10 +408,7 @@ class TestGruffLine < GruffTestCase
          :wpm => 16,
          :errors => 2,
          :accuracy => 87},
-        {:date => '05',
-         :wpm => nil,
-         :errors => nil,
-         :accuracy => nil},
+        {:date => '05'},
         {:date => '06',
          :wpm => 18,
          :errors => 1,
@@ -449,12 +446,12 @@ class TestGruffLine < GruffTestCase
     ]
 
     [:wpm, :errors, :accuracy].each do |field|
-      g.data(field.to_s, data.collect { |d| d[field] })
+      g.dataxy(field, data.map.with_index { |d, i| [i + 1, d[field]] if d[field] }.compact)
     end
 
     labels = Hash.new
     data.each_with_index do |d, i|
-      labels[i] = d[:date]
+      labels[i + 1] = d[:date] if d.size > 1
     end
     g.labels = labels
 
