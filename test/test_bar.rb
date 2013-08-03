@@ -21,7 +21,6 @@ class TestGruffBar < GruffTestCase
   def test_bar_graph
     g = setup_basic_graph
     g.title = 'Bar Graph Test'
-    g.title_margin = 100
     g.write('test/output/bar_keynote.png')
 
     g = setup_basic_graph
@@ -33,6 +32,13 @@ class TestGruffBar < GruffTestCase
     g.title = 'Visual Multi-Line Bar Graph Test'
     g.theme = Gruff::Themes::ODEO
     g.write('test/output/bar_odeo.png')
+  end
+
+  def test_title_margin
+    g = setup_basic_graph
+    g.title = 'Bar Graph with Title Margin = 100'
+    g.title_margin = 100
+    g.write('test/output/bar_title_margin.png')
   end
 
   def test_thousand_separators
@@ -456,6 +462,12 @@ class TestGruffBar < GruffTestCase
     g.write('test/output/bar_zero_marker_count.png')
   end
   
+  def test_zero_marker_shadow
+    g = setup_basic_graph
+    g.marker_shadow_color = '#888888'
+    g.write('test/output/bar_marker_shadow.png')
+  end
+
   protected
 
   def setup_basic_graph(size=800)
