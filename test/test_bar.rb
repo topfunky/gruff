@@ -20,7 +20,7 @@ class TestGruffBar < GruffTestCase
 
   def test_bar_graph
     g = setup_basic_graph
-    g.title = 'Bar Graph Test'
+    g.title = 'Bar Chart'
     g.write('test/output/bar_keynote.png')
 
     g = setup_basic_graph
@@ -464,6 +464,7 @@ class TestGruffBar < GruffTestCase
   
   def test_zero_marker_shadow
     g = setup_basic_graph
+    g.title = 'Bar Chart with Marker Shadow'
     g.marker_shadow_color = '#888888'
     g.write('test/output/bar_marker_shadow.png')
   end
