@@ -322,13 +322,19 @@ class TestGruffLine < GruffTestCase
     g.write('test/output/line_nothing_but_the_graph.png')
   end
 
+  def test_legend_below_the_chart
+    g = setup_basic_graph(400)
+    g.title = 'Legend below the chart'
+    g.legend_at_bottom = true
+    g.write('test/output/line_legend_at_bottom.png')
+  end
+
   def test_baseline_larger_than_data
     g = setup_basic_graph(400)
     g.title = 'Baseline Larger Than Data'
     g.baseline_value = 150
     g.write('test/output/line_large_baseline.png')
   end
-
 
   def test_hide_dots
     g = setup_basic_graph(400)

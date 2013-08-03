@@ -141,10 +141,10 @@ module Gruff
     # Optionally set the size of the font. Based on an 800x600px graph.
     # Default is 20.
     #
-    # Will be scaled down if graph is smaller than 800px wide.
+    # Will be scaled down if the graph is smaller than 800px wide.
     attr_accessor :legend_font_size
 
-    # Display legend under the graph
+    # Display the legend under the graph
     attr_accessor :legend_at_bottom
 
     # The font size of the labels around the graph
