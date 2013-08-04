@@ -446,7 +446,7 @@ class TestGruffLine < GruffTestCase
     ]
 
     [:wpm, :errors, :accuracy].each do |field|
-      g.dataxy(field, data.map.with_index { |d, i| [i + 1, d[field]] if d[field] }.compact)
+      g.dataxy(field, data.each_with_index.map { |d, i| [i + 1, d[field]] if d[field] }.compact)
     end
 
     labels = Hash.new
