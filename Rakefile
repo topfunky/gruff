@@ -21,6 +21,7 @@ namespace :test do
   end
 end
 
+desc 'Generate release docs for a given milestone'
 task :release_docs do
   raise "\n    This task requires Ruby 1.9 or newer to parse JSON as YAML.\n\n" if RUBY_VERSION == '1.8.7'
   categories, grouped_issues, milestone, milestone_description, milestone_name = get_github_issues
@@ -146,7 +147,6 @@ task :stats do
   puts "\nTotal: #{total}\n\n"
 end
 
-desc 'Generate release docs for a given milestone'
 
 def get_github_issues
   puts 'GitHub login:'
