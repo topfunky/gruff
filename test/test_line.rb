@@ -534,6 +534,29 @@ class TestGruffLine < GruffTestCase
     g.write('test/output/line_y_axis_increment.png')
   end
 
+  def test_multiple_reference_lines
+
+    g = Gruff::Line.new
+    g.title = 'Line Chart with Multiple Reference Lines'
+
+    g.data('Apples', [3, 2, 3, 4, 4, 3])
+    g.data('Oranges', [4, 8, 7, 9, 8, 9])
+    g.data('Watermelon', [2, 3, 4, 5, 6, 8])
+    g.data('Peaches', [9, 9, 10, 8, 7, 9])
+
+    g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}
+
+    g.reference_line_default_width = 1
+
+    g.reference_lines[:baseline]  = { :value => 5 }
+    g.reference_lines[:lots]      = { :value => 9 }
+    g.reference_lines[:little]    = { :value => 3 }
+    g.reference_lines[:horiz_one] = { :index => 1, :color => 'green' }
+    g.reference_lines[:horiz_two] = { :index => 3, :color => 'green' }
+
+    g.write('line_reference_lines.png')
+  end
+
   def test_baseline
     g = Gruff::Line.new
     g.title = 'Line Chart with Baseline = 5'
