@@ -13,11 +13,10 @@ require File.dirname(__FILE__) + '/base'
 
 class Gruff::Line < Gruff::Base
 
-  # Draw a dashed line at the given value
-  attr_accessor :baseline_value
-
-  # Color of the baseline
-  attr_accessor :baseline_color
+  # Allow for reference lines ( which are like baseline ... just allowing for more & on both axes )
+  attr_accessor :reference_lines
+  attr_accessor :reference_line_default_color
+  attr_accessor :reference_line_default_width
 
   # Dimensions of lines and dots; calculated based on dataset size if left unspecified
   attr_accessor :line_width
@@ -29,6 +28,34 @@ class Gruff::Line < Gruff::Base
   #accessors for support of xy data
   attr_accessor :minimum_x_value
   attr_accessor :maximum_x_value
+
+  # Get the value if somebody has defined it.
+  def baseline_value
+    if( @reference_lines.key?( :baseline ) )
+      @reference_lines[:baseline][:value]
+    else
+      nil
+    end
+  end
+
+  # Set a value for a baseline reference line..
+  def baseline_value=( new_value )
+    @reference_lines[:baseline] ||= Hash.new
+    @reference_lines[:baseline][:value] = new_value
+  end
+
+  def baseline_color
+    if( @reference_lines.key?( :baseline ) )
+      @reference_lines[:baseline][:color]
+    else
+      nil
+    end
+  end
+
+  def baseline_color=( new_value )
+    @reference_lines[:baseline] ||= Hash.new
+    @reference_lines[:baseline][:color] = new_value
+  end
 
   # Call with target pixel width of graph (800, 400, 300), and/or 'false' to omit lines (points only).
   #
@@ -47,9 +74,11 @@ class Gruff::Line < Gruff::Base
       super args.shift
     end
 
+    @reference_lines = Hash.new
+    @reference_line_default_color = 'red'
+    @reference_line_default_width = 5
+
     @hide_dots = @hide_lines = false
-    @baseline_color = 'red'
-    @baseline_value = nil
     @maximum_x_value = nil
     @minimum_x_value = nil
   end
@@ -81,7 +110,7 @@ class Gruff::Line < Gruff::Base
   #   g.title = "X/Y Dataset"
   #   g.dataxy("Apples", [1,3,4,5,6,10], [1, 2, 3, 4, 4, 3])
   #   g.dataxy("Bapples", [1,3,4,5,7,9], [1, 1, 2, 2, 3, 3])
-  #   g.dataxy("Capples", [[1,1],[2,3],[3,4],[4,5],[5,7],[6,9])
+  #   g.dataxy("Capples", [[1,1],[2,3],[3,4],[4,5],[5,7],[6,9]])
   #   #you can still use the old data method too if you want:
   #   g.data("Capples", [1, 1, 2, 2, 3, 3])  
   #   #labels will be drawn at the x locations of the keys passed in.
@@ -121,6 +150,26 @@ class Gruff::Line < Gruff::Base
 
   end
 
+  def draw_reference_line( reference_line, left, right, top, bottom )
+    @d = @d.push
+    @d.stroke_color ( reference_line[:color] || @reference_line_default_color )
+    @d.fill_opacity 0.0
+    @d.stroke_dasharray(10, 20)
+    @d.stroke_width ( reference_line[:width] || @reference_line_default_width )
+    @d.line( left, top, right, bottom )
+    @d = @d.pop
+  end
+
+  def draw_horizontal_reference_line( reference_line )
+    level = @graph_top + (@graph_height - reference_line[:norm_value] * @graph_height)
+    draw_reference_line( reference_line, @graph_left, @graph_left + graph_width, level, level )
+  end
+
+  def draw_vertical_reference_line( reference_line )
+    index = @graph_left + ( @x_increment * reference_line[:index] )
+    draw_reference_line( reference_line, index, index, @graph_top, @graph_top + graph_height )
+  end
+
   def draw
     super
 
@@ -129,15 +178,9 @@ class Gruff::Line < Gruff::Base
     # Check to see if more than one datapoint was given. NaN can result otherwise.  
     @x_increment = (@column_count > 1) ? (@graph_width / (@column_count - 1).to_f) : @graph_width
 
-    if defined?(@norm_baseline)
-      level = @graph_top + (@graph_height - @norm_baseline * @graph_height)
-      @d = @d.push
-      @d.stroke_color @baseline_color
-      @d.fill_opacity 0.0
-      @d.stroke_dasharray(10, 20)
-      @d.stroke_width 5
-      @d.line(@graph_left, level, @graph_left + @graph_width, level)
-      @d = @d.pop
+    @reference_lines.each_value do |curr_reference_line|
+      draw_horizontal_reference_line( curr_reference_line ) if curr_reference_line.key?( :norm_value )
+      draw_vertical_reference_line( curr_reference_line ) if curr_reference_line.key?( :index )
     end
 
     @norm_data.each do |data_row|
@@ -190,16 +233,35 @@ class Gruff::Line < Gruff::Base
   end
 
   def setup_data
-    if @baseline_value
-      @maximum_value = [@maximum_value.to_f, @baseline_value.to_f].max
-      @minimum_value = [@minimum_value.to_f, @baseline_value.to_f].min
+
+    # Deal with horizontal reference line values that exceed the existing minimum & maximum values.
+    possible_maximums = [ @maximum_value.to_f ]
+    possible_minimums = [ @minimum_value.to_f ]
+
+    @reference_lines.each_value do |curr_reference_line|
+      if( curr_reference_line.key?( :value ) )
+        possible_maximums << curr_reference_line[:value].to_f
+        possible_minimums << curr_reference_line[:value].to_f
+      end
     end
+
+    @maximum_value = possible_maximums.max
+    @minimum_value = possible_minimums.min
+
     super
   end
 
   def normalize(force=false)
     super(force)
-    @norm_baseline = ((@baseline_value.to_f - @minimum_value) / @spread.to_f) if @baseline_value
+
+    @reference_lines.each_value do |curr_reference_line|
+
+      # We only care about horizontal markers ... for normalization. 
+      # Vertical markers won't have a :value, they will have an :index
+
+      curr_reference_line[:norm_value] = ( ( curr_reference_line[:value].to_f - @minimum_value ) / @spread.to_f ) if( curr_reference_line.key?( :value ) )
+
+    end
 
     #normalize the x data if it is specified
     @data.each_with_index do |data_row, index|
