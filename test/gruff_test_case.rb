@@ -32,7 +32,6 @@ class Gruff::Base
 end
 
 class GruffTestCase < Test::Unit::TestCase
-
   def setup
     srand 42
     @datasets = [
@@ -54,6 +53,10 @@ class GruffTestCase < Test::Unit::TestCase
         6 => '6/21',
         7 => '6/28',
     }
+  end
+
+  def teardown
+    GC.start # Dispose rmagick image data.
   end
 
   def setup_single_dataset
