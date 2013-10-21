@@ -572,6 +572,12 @@ class TestGruffLine < GruffTestCase
     g.write('line_baseline.png')
   end
 
+  def test_webp
+    g = setup_basic_graph('800x400')
+    g.title = 'Line Chart WEBP'
+    g.write('line_webp.webp')
+  end
+
   private
 
   # TODO Reset data after each theme
