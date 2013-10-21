@@ -31,7 +31,7 @@ class Gruff::Line < Gruff::Base
 
   # Get the value if somebody has defined it.
   def baseline_value
-    if( @reference_lines.key?( :baseline ) )
+    if (@reference_lines.key?(:baseline))
       @reference_lines[:baseline][:value]
     else
       nil
@@ -39,20 +39,20 @@ class Gruff::Line < Gruff::Base
   end
 
   # Set a value for a baseline reference line..
-  def baseline_value=( new_value )
+  def baseline_value=(new_value)
     @reference_lines[:baseline] ||= Hash.new
     @reference_lines[:baseline][:value] = new_value
   end
 
   def baseline_color
-    if( @reference_lines.key?( :baseline ) )
+    if (@reference_lines.key?(:baseline))
       @reference_lines[:baseline][:color]
     else
       nil
     end
   end
 
-  def baseline_color=( new_value )
+  def baseline_color=(new_value)
     @reference_lines[:baseline] ||= Hash.new
     @reference_lines[:baseline][:color] = new_value
   end
@@ -150,24 +150,24 @@ class Gruff::Line < Gruff::Base
 
   end
 
-  def draw_reference_line( reference_line, left, right, top, bottom )
+  def draw_reference_line(reference_line, left, right, top, bottom)
     @d = @d.push
-    @d.stroke_color ( reference_line[:color] || @reference_line_default_color )
+    @d.stroke_color(reference_line[:color] || @reference_line_default_color)
     @d.fill_opacity 0.0
     @d.stroke_dasharray(10, 20)
-    @d.stroke_width ( reference_line[:width] || @reference_line_default_width )
-    @d.line( left, top, right, bottom )
+    @d.stroke_width(reference_line[:width] || @reference_line_default_width)
+    @d.line(left, top, right, bottom)
     @d = @d.pop
   end
 
-  def draw_horizontal_reference_line( reference_line )
+  def draw_horizontal_reference_line(reference_line)
     level = @graph_top + (@graph_height - reference_line[:norm_value] * @graph_height)
-    draw_reference_line( reference_line, @graph_left, @graph_left + graph_width, level, level )
+    draw_reference_line(reference_line, @graph_left, @graph_left + @graph_width, level, level)
   end
 
-  def draw_vertical_reference_line( reference_line )
-    index = @graph_left + ( @x_increment * reference_line[:index] )
-    draw_reference_line( reference_line, index, index, @graph_top, @graph_top + graph_height )
+  def draw_vertical_reference_line(reference_line)
+    index = @graph_left + (@x_increment * reference_line[:index])
+    draw_reference_line(reference_line, index, index, @graph_top, @graph_top + graph_height)
   end
 
   def draw
@@ -179,8 +179,8 @@ class Gruff::Line < Gruff::Base
     @x_increment = (@column_count > 1) ? (@graph_width / (@column_count - 1).to_f) : @graph_width
 
     @reference_lines.each_value do |curr_reference_line|
-      draw_horizontal_reference_line( curr_reference_line ) if curr_reference_line.key?( :norm_value )
-      draw_vertical_reference_line( curr_reference_line ) if curr_reference_line.key?( :index )
+      draw_horizontal_reference_line(curr_reference_line) if curr_reference_line.key?(:norm_value)
+      draw_vertical_reference_line(curr_reference_line) if curr_reference_line.key?(:index)
     end
 
     @norm_data.each do |data_row|
@@ -235,11 +235,11 @@ class Gruff::Line < Gruff::Base
   def setup_data
 
     # Deal with horizontal reference line values that exceed the existing minimum & maximum values.
-    possible_maximums = [ @maximum_value.to_f ]
-    possible_minimums = [ @minimum_value.to_f ]
+    possible_maximums = [@maximum_value.to_f]
+    possible_minimums = [@minimum_value.to_f]
 
     @reference_lines.each_value do |curr_reference_line|
-      if( curr_reference_line.key?( :value ) )
+      if (curr_reference_line.key?(:value))
         possible_maximums << curr_reference_line[:value].to_f
         possible_minimums << curr_reference_line[:value].to_f
       end
@@ -259,7 +259,7 @@ class Gruff::Line < Gruff::Base
       # We only care about horizontal markers ... for normalization. 
       # Vertical markers won't have a :value, they will have an :index
 
-      curr_reference_line[:norm_value] = ( ( curr_reference_line[:value].to_f - @minimum_value ) / @spread.to_f ) if( curr_reference_line.key?( :value ) )
+      curr_reference_line[:norm_value] = ((curr_reference_line[:value].to_f - @minimum_value) / @spread.to_f) if (curr_reference_line.key?(:value))
 
     end
 
