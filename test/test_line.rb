@@ -577,7 +577,7 @@ class TestGruffLine < GruffTestCase
     g.title = 'Line Chart WEBP'
     g.write('line_webp.webp')
   rescue Magick::ImageMagickError
-    assert_equal 'no encode delegate for this image format', $!.message
+    assert_match /no encode delegate for this image format .*\.webp/, $!.message
   end
 
   private
