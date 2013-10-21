@@ -55,10 +55,6 @@ class GruffTestCase < Test::Unit::TestCase
     }
   end
 
-  def teardown
-    GC.start # Dispose rmagick image data.
-  end
-
   def setup_single_dataset
     @datasets = [
         [:Jimmy, [25, 36, 86]]
