@@ -11,13 +11,9 @@ Gem::Specification.new do |s|
   s.date = Date.today.to_s
   s.description = %q{Beautiful graphs for one or multiple datasets. Can be used on websites or in documents.}
   s.email = %q{boss@topfunky.com}
-  # s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README.txt"]
   s.files = `git ls-files`.split($/).reject{|f| f =~ /^test#{File::ALT_SEPARATOR || File::SEPARATOR}output/}
-  # s.has_rdoc = true
   s.homepage = %q{https://github.com/topfunky/gruff}
-  # s.rdoc_options = ["--main", "README.txt"]
   s.require_paths = %w(lib)
-  # s.rubyforge_project = %q{gruff}
   s.summary = %q{Beautiful graphs for one or multiple datasets.}
   s.test_files = s.files.grep(%r{^(test|spec|features)/})
   s.executables = s.files.grep(%r{^bin/}).map { |f| File.basename(f) }
