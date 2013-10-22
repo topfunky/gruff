@@ -4,11 +4,9 @@ The Gruff team is pleased to announce the release of Gruff 0.5.0.
 
 New in version 0.5.0:
 
-We have added a couple of cosmetic changes:
-
-* Multiple marker lines both vertically and horizontally
-* Multi-line titles, or no title at all if you want more space for the
-chart.
+We have added a couple of cosmetic changes:  Multiple marker lines both
+vertically and horizontally, and multi-line titles, or no title at all if
+you want more space for the chart.
 
 Features:
 
