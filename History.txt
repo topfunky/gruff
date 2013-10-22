@@ -1,3 +1,26 @@
+== 0.5.0
+
+We have added a couple of cosmetic changes:
+
+* Multiple marker lines both vertically and horizontally
+* Multi-line titles, or no title at all if you want more space for the
+chart.
+
+Features:
+
+* Issue #86 Added support for multiple references lines along both axes to
+  Line Graph
+* Issue #89 Allow multiline and empty titles
+
+Documentation:
+
+* Issue #61 Remove the "BETA Software" warning in the README.
+
+Pull requests:
+
+* Issue #90 Added missing parenthesis in base.rb
+
+
 == 0.4.0
 
 All old branches and pull requests have been merged or deleted.  Over 40
