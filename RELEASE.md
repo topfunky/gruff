@@ -1,30 +1,19 @@
-Subject: [ANN] Gruff 0.5.0 released!
+Subject: [ANN] Gruff 0.5.1 released!
 
-The Gruff team is pleased to announce the release of Gruff 0.5.0.
+The Gruff team is pleased to announce the release of Gruff 0.5.1.
 
-New in version 0.5.0:
+New in version 0.5.1:
 
-We have added a couple of cosmetic changes:  Multiple marker lines both
-vertically and horizontally, and multi-line titles, or no title at all if
-you want more space for the chart.
+Skip packaging the test images.  This reduces the gem from 20MB+ to
+300KB+.
 
-Features:
+Bugfixes:
 
-* Issue #86 Added support for multiple references lines along both axes to
-  Line Graph
-* Issue #89 Allow multiline and empty titles
-    
-Documentation:
-
-* Issue #61 Remove the "BETA Software" warning in the README.
-    
-Pull requests:
-
-* Issue #90 Added missing parenthesis in base.rb
+* Issue #92 Reduce the gem size by not shipping the test images.
     
 You can find a complete list of issues here:
 
-* https://github.com/topfunky/gruff/issues?state=closed&milestone=4
+* https://github.com/topfunky/gruff/issues?state=closed&milestone=7
 
 
 Installation:

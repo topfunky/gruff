@@ -1,3 +1,13 @@
+== 0.5.1
+
+Skip packaging the test images.  This reduces the gem from 20MB+ to
+300KB+.
+
+Bugfixes:
+
+* Issue #92 Reduce the gem size by not shipping the test images.
+
+
 == 0.5.0
 
 We have added a couple of cosmetic changes:  Multiple marker lines both
