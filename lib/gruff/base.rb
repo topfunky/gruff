@@ -521,8 +521,8 @@ module Gruff
     def setup_graph_measurements
       @marker_caps_height = @hide_line_markers ? 0 :
           calculate_caps_height(@marker_font_size)
-      @title_caps_height = @hide_title ? 0 :
-          calculate_caps_height(@title_font_size)
+      @title_caps_height = (@hide_title || @title.nil? ? 0 :
+          calculate_caps_height(@title_font_size) * @title.lines.to_a.size
       @legend_caps_height = @hide_legend ? 0 :
           calculate_caps_height(@legend_font_size)
 
