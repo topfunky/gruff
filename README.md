@@ -5,12 +5,6 @@
 
 A library for making beautiful graphs.
 
-## WARNING
-
-This is beta-quality software. It works well according to our tests,
-but the API may change and other features will be added.
-We are working to make Gruff production quality software.
-
 ## Installation
 
 Add this line to your application's Gemfile:
