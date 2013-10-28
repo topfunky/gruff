@@ -82,6 +82,11 @@ module Gruff
     # A label for the left side of the graph
     attr_accessor :y_axis_label
 
+    # units for the y-axis labels
+    #
+    # Example: if you set it to '%', the labels will look like "25%"
+    attr_accessor :y_axis_unit
+
     # attr_accessor :x_axis_increment
 
     # Manually set increment of the horizontal marking lines
@@ -275,6 +280,7 @@ module Gruff
 
       @x_axis_label = @y_axis_label = nil
       @y_axis_increment = nil
+      @y_axis_unit = nil
       @stacked = nil
       @norm_data = nil
     end
@@ -1098,7 +1104,7 @@ module Gruff
 
       parts = label.split('.')
       parts[0].gsub!(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{THOUSAND_SEPARATOR}")
-      parts.join('.')
+      parts.join('.') + @y_axis_unit.to_s
     end
 
     # Returns the height of the capital letter 'X' for the current font and
