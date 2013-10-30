@@ -18,6 +18,9 @@ class Gruff::Line < Gruff::Base
   attr_accessor :reference_line_default_color
   attr_accessor :reference_line_default_width
 
+  # Allow for vertical marker lines
+  attr_accessor :show_verical_markers
+
   # Dimensions of lines and dots; calculated based on dataset size if left unspecified
   attr_accessor :line_width
   attr_accessor :dot_radius
@@ -181,6 +184,28 @@ class Gruff::Line < Gruff::Base
     @reference_lines.each_value do |curr_reference_line|
       draw_horizontal_reference_line(curr_reference_line) if curr_reference_line.key?(:norm_value)
       draw_vertical_reference_line(curr_reference_line) if curr_reference_line.key?(:index)
+    end
+
+    if (@show_verical_markers)
+      (0..@column_count).each do |column|
+        x = @graph_left + @graph_width - column.to_f * @x_increment
+
+        @d = @d.fill(@marker_color)
+
+        # FIXME(uwe): Workaround for Issue #66
+        #             https://github.com/topfunky/gruff/issues/66
+        #             https://github.com/rmagick/rmagick/issues/82
+        #             Remove if the issue gets fixed.
+        x += 0.001 unless defined?(JRUBY_VERSION)
+        # EMXIF
+
+        @d = @d.line(x, @graph_bottom, x, @graph_top)
+        #If the user specified a marker shadow color, draw a shadow just below it
+        unless @marker_shadow_color.nil?
+          @d = @d.fill(@marker_shadow_color)
+          @d = @d.line(x + 1, @graph_bottom, x + 1, @graph_top)
+        end
+      end
     end
 
     @norm_data.each do |data_row|
