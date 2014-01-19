@@ -5,6 +5,6 @@ gemspec
 
 group :test do
   if RUBY_VERSION =~ /^1\.9\./ || RUBY_VERSION =~ /^2\.0\./
-    gem 'minitest-reporters'
+    gem 'minitest-reporters', '<1.0.0'
   end
 end
