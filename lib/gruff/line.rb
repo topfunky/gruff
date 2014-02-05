@@ -255,7 +255,6 @@ class Gruff::Line < Gruff::Base
         end
 
         unless @hide_dots
-          # @d = @d.circle(new_x, new_y, new_x - circle_radius, new_y)
           @d = DotRenderers.renderer(@dot_style).render(@d, new_x, new_y, circle_radius)
         end
 
