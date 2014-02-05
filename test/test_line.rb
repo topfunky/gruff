@@ -192,6 +192,23 @@ class TestGruffLine < GruffTestCase
   end
 
 
+  def test_dot_style_square
+    g = Gruff::Line.new
+    g.title = 'Square points'
+    g.labels = {
+        0 => 'June',
+        10 => 'July',
+        30 => 'August',
+        50 => 'September',
+    }
+    g.dot_style = 'square'
+    g.data('many points', (0..50).collect { |i| rand(100) })
+    g.x_axis_label = 'Months'
+
+    # Default theme
+    g.write('test/output/line_dot_style_square.png')
+  end
+
   def test_similar_high_end_values
     @dataset = %w(29.43 29.459 29.498 29.53 29.548 29.589 29.619 29.66 29.689 29.849 29.878 29.74 29.769 29.79 29.808 29.828).collect { |i| i.to_f }
 

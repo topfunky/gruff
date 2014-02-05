@@ -25,6 +25,9 @@ class Gruff::Line < Gruff::Base
   attr_accessor :line_width
   attr_accessor :dot_radius
 
+  # default is a circle, other options include square
+  attr_accessor :dot_style
+
   # Hide parts of the graph to fit more datapoints, or for a different appearance.
   attr_accessor :hide_dots, :hide_lines
 
@@ -67,7 +70,7 @@ class Gruff::Line < Gruff::Base
   #  g = Gruff::Line.new(400, false) # 400px wide, no lines (for backwards compatibility)
   #
   #  g = Gruff::Line.new(false) # Defaults to 800px wide, no lines (for backwards compatibility)
-  # 
+  #
   # The preferred way is to call hide_dots or hide_lines instead.
   def initialize(*args)
     raise ArgumentError, 'Wrong number of arguments' if args.length > 2
@@ -84,6 +87,8 @@ class Gruff::Line < Gruff::Base
     @hide_dots = @hide_lines = false
     @maximum_x_value = nil
     @minimum_x_value = nil
+
+    @dot_style = 'circle'
   end
 
   # This method allows one to plot a dataset with both X and Y data.
@@ -101,7 +106,7 @@ class Gruff::Line < Gruff::Base
   #   color: hex number indicating the line color as an RGB triplet
   #
   #  Notes:
-  #   -if (x_data_points.length != y_data_points.length) an error is 
+  #   -if (x_data_points.length != y_data_points.length) an error is
   #     returned.
   #   -if the color argument is nil, the next color from the default theme will
   #     be used.
@@ -115,7 +120,7 @@ class Gruff::Line < Gruff::Base
   #   g.dataxy("Bapples", [1,3,4,5,7,9], [1, 1, 2, 2, 3, 3])
   #   g.dataxy("Capples", [[1,1],[2,3],[3,4],[4,5],[5,7],[6,9]])
   #   #you can still use the old data method too if you want:
-  #   g.data("Capples", [1, 1, 2, 2, 3, 3])  
+  #   g.data("Capples", [1, 1, 2, 2, 3, 3])
   #   #labels will be drawn at the x locations of the keys passed in.
   #   In this example the lables are drawn at x positions 2, 4, and 6:
   #   g.labels = {0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006'}
@@ -178,7 +183,7 @@ class Gruff::Line < Gruff::Base
 
     return unless @has_data
 
-    # Check to see if more than one datapoint was given. NaN can result otherwise.  
+    # Check to see if more than one datapoint was given. NaN can result otherwise.
     @x_increment = (@column_count > 1) ? (@graph_width / (@column_count - 1).to_f) : @graph_width
 
     @reference_lines.each_value do |curr_reference_line|
@@ -246,9 +251,13 @@ class Gruff::Line < Gruff::Base
           @d = @d.line(prev_x, prev_y, new_x, new_y)
         elsif @one_point
           # Show a circle if there's just one_point
-          @d = @d.circle(new_x, new_y, new_x - circle_radius, new_y)
+          @d = DotRenderers.renderer(@dot_style).render(@d, new_x, new_y, circle_radius)
         end
-        @d = @d.circle(new_x, new_y, new_x - circle_radius, new_y) unless @hide_dots
+
+        unless @hide_dots
+          # @d = @d.circle(new_x, new_y, new_x - circle_radius, new_y)
+          @d = DotRenderers.renderer(@dot_style).render(@d, new_x, new_y, circle_radius)
+        end
 
         prev_x, prev_y = new_x, new_y
       end
@@ -281,7 +290,7 @@ class Gruff::Line < Gruff::Base
 
     @reference_lines.each_value do |curr_reference_line|
 
-      # We only care about horizontal markers ... for normalization. 
+      # We only care about horizontal markers ... for normalization.
       # Vertical markers won't have a :value, they will have an :index
 
       curr_reference_line[:norm_value] = ((curr_reference_line[:value].to_f - @minimum_value) / @spread.to_f) if (curr_reference_line.key?(:value))
@@ -326,4 +335,30 @@ class Gruff::Line < Gruff::Base
     one_point
   end
 
+  module DotRenderers
+    class Circle
+      def render(d, new_x, new_y, circle_radius)
+        d.circle(new_x, new_y, new_x - circle_radius, new_y)
+      end
+    end
+
+    class Square
+      def render(d, new_x, new_y, circle_radius)
+        offset = (circle_radius * 0.8).to_i
+        corner_1 = new_x - offset
+        corner_2 = new_y - offset
+        corner_3 = new_x + offset
+        corner_4 = new_y + offset
+        d.rectangle(corner_1, corner_2, corner_3, corner_4)
+      end
+    end
+
+    def self.renderer(style)
+      if style == 'square'
+        Square.new
+      else
+        Circle.new
+      end
+    end
+  end
 end
