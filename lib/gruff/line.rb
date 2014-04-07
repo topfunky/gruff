@@ -32,6 +32,10 @@ class Gruff::Line < Gruff::Base
   attr_accessor :minimum_x_value
   attr_accessor :maximum_x_value
 
+  # Draw line over nil values in data instead of having an empty space between dots.
+  # Default: false
+  attr_accessor :draw_line_over_nil
+
   # Get the value if somebody has defined it.
   def baseline_value
     if (@reference_lines.key?(:baseline))
@@ -84,6 +88,8 @@ class Gruff::Line < Gruff::Base
     @hide_dots = @hide_lines = false
     @maximum_x_value = nil
     @minimum_x_value = nil
+
+    @draw_line_over_nil = false
   end
 
   # This method allows one to plot a dataset with both X and Y data.
@@ -215,7 +221,9 @@ class Gruff::Line < Gruff::Base
 
       data_row[DATA_VALUES_INDEX].each_with_index do |data_point, index|
         unless data_point
-          prev_x = prev_y = nil
+          unless @draw_line_over_nil
+            prev_x = prev_y = nil
+          end
           next
         end
         x_data = data_row[DATA_VALUES_X_INDEX]
