@@ -6,11 +6,18 @@ require File.dirname(__FILE__) + '/base'
 # the top bar shows the new value being added to the array.
 
 class Gruff::AccumulatorBar < Gruff::StackedBar
+  attr_accessor :accumulator_label
+
+  def initialize(*)
+    super
+    @accumulator_label = 'Accumulator'
+  end
+
   def draw
     raise(Gruff::IncorrectNumberOfDatasetsException) unless @data.length == 1
 
     accum_array = @data.first[DATA_VALUES_INDEX][0..-2].inject([0]) { |a, v| a << a.last + v}
-    data 'Accumulator', accum_array
+    data @accumulator_label, accum_array
     set_colors
     @data.reverse!
     super
