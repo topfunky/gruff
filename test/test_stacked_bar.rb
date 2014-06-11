@@ -48,5 +48,21 @@ class TestGruffStackedBar < GruffTestCase
     end
     g.write "test/output/stacked_bar_keynote_small.png"
   end
+
+  def test_bar_graph_segment_spacing
+    g = Gruff::StackedBar.new
+    g.title = "Visual Stacked Bar Graph Test"
+    g.segment_spacing = 0
+    g.labels = {
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
+    }
+    @datasets.each do |data|
+      g.data(data[0], data[1])
+    end
+    g.write "test/output/stacked_bar_keynote_no_space.png"
+  end
   
 end
