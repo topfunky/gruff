@@ -111,8 +111,8 @@ class Gruff::Net < Gruff::Base
     r_offset = 1.1
     x_offset = center_x # + 15 # The label points need to be tweaked slightly
     y_offset = center_y # + 0  # This one doesn't though
-    x = x_offset + (radius * r_offset * Math.sin(angle.deg2rad))
-    y = y_offset - (radius * r_offset * Math.cos(angle.deg2rad))
+    x = x_offset + (radius * r_offset * Math.sin(deg2rad(angle)))
+    y = y_offset - (radius * r_offset * Math.cos(deg2rad(angle)))
 
     # Draw label
     @d.fill = @marker_color
@@ -125,14 +125,3 @@ class Gruff::Net < Gruff::Base
   end
 
 end
-
-# # This method is already in Float
-# class Float
-#   # Used for degree => radian conversions
-#   def deg2rad
-#     self * (Math::PI/180.0)
-#   end
-# end
-
-
-
