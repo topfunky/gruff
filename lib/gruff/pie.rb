@@ -21,11 +21,15 @@ class Gruff::Pie < Gruff::Base
   # Do not show labels for slices that are less than this percent. Use 0 to always show all labels.
   # Defaults to 0
   attr_accessor :hide_labels_less_than
+  # Affect the distance between the percentages and the pie chart
+  # Defaults to 0.15
+  attr_accessor :percentage_distance_from_chart
 
   def initialize_ivars
     super
     @zero_degree = 0.0
     @hide_labels_less_than = 0.0
+    @percentage_distance_from_chart = TEXT_OFFSET_PERCENTAGE
   end
 
   def draw
@@ -66,7 +70,7 @@ class Gruff::Pie < Gruff::Base
           # RMagick must use sprintf with the string and % has special significance.
           label_string = label_val.to_s + '%'
           @d = draw_label(center_x,center_y, half_angle,
-                          radius + (radius * TEXT_OFFSET_PERCENTAGE),
+                          radius + (radius * @percentage_distance_from_chart),
                           label_string)
         end
 
@@ -87,12 +91,12 @@ private
   def draw_label(center_x, center_y, angle, radius, amount)
     # TODO Don't use so many hard-coded numbers
     r_offset = 20.0      # The distance out from the center of the pie to get point
-    x_offset = center_x # + 15.0 # The label points need to be tweaked slightly
+    x_offset = center_x  # + 15.0 # The label points need to be tweaked slightly
     y_offset = center_y  # This one doesn't though
     radius_offset = (radius + r_offset)
-    ellipse_factor = radius_offset * TEXT_OFFSET_PERCENTAGE
-    x = x_offset + ((radius_offset + ellipse_factor) * Math.cos(angle.deg2rad))
-    y = y_offset + (radius_offset * Math.sin(angle.deg2rad))
+    ellipse_factor = radius_offset * @percentage_distance_from_chart
+    x = x_offset + ((radius_offset + ellipse_factor) * Math.cos(deg2rad(angle)))
+    y = y_offset + (radius_offset * Math.sin(deg2rad(angle)))
     
     # Draw label
     @d.fill = @font_color
@@ -114,11 +118,3 @@ private
   end
 
 end
-
-class Float
-  # Used for degree => radian conversions
-  def deg2rad
-    self * (Math::PI/180.0)
-  end
-end
-

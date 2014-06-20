@@ -1123,6 +1123,11 @@ module Gruff
       @d.get_type_metrics(@base_image, text.to_s).width
     end
 
+    # Used for degree => radian conversions
+    def deg2rad(angle)
+      angle * (Math::PI/180.0)
+    end
+
   end # Gruff::Base
 
   class IncorrectNumberOfDatasetsException < StandardError;
