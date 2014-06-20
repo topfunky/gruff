@@ -13,7 +13,7 @@ require File.dirname(__FILE__) + '/base'
 
 class Gruff::Pie < Gruff::Base
 
-  TEXT_OFFSET_PERCENTAGE = 0.15
+  DEFAULT_TEXT_OFFSET_PERCENTAGE = 0.15
 
   # Can be used to make the pie start cutting slices at the top (-90.0)
   # or at another angle. Default is 0.0, which starts at 3 o'clock.
@@ -21,11 +21,15 @@ class Gruff::Pie < Gruff::Base
   # Do not show labels for slices that are less than this percent. Use 0 to always show all labels.
   # Defaults to 0
   attr_accessor :hide_labels_less_than
+  # Affect the distance between the percentages and the pie chart
+  # Defaults to 0.15
+  attr_accessor :text_offset_percentage
 
   def initialize_ivars
     super
     @zero_degree = 0.0
     @hide_labels_less_than = 0.0
+    @text_offset_percentage = DEFAULT_TEXT_OFFSET_PERCENTAGE
   end
 
   def draw
@@ -66,7 +70,7 @@ class Gruff::Pie < Gruff::Base
           # RMagick must use sprintf with the string and % has special significance.
           label_string = label_val.to_s + '%'
           @d = draw_label(center_x,center_y, half_angle,
-                          radius + (radius * TEXT_OFFSET_PERCENTAGE),
+                          radius + (radius * @text_offset_percentage),
                           label_string)
         end
 
@@ -87,10 +91,10 @@ private
   def draw_label(center_x, center_y, angle, radius, amount)
     # TODO Don't use so many hard-coded numbers
     r_offset = 20.0      # The distance out from the center of the pie to get point
-    x_offset = center_x # + 15.0 # The label points need to be tweaked slightly
+    x_offset = center_x  # + 15.0 # The label points need to be tweaked slightly
     y_offset = center_y  # This one doesn't though
     radius_offset = (radius + r_offset)
-    ellipse_factor = radius_offset * TEXT_OFFSET_PERCENTAGE
+    ellipse_factor = radius_offset * @text_offset_percentage
     x = x_offset + ((radius_offset + ellipse_factor) * Math.cos(deg2rad(angle)))
     y = y_offset + (radius_offset * Math.sin(deg2rad(angle)))
     

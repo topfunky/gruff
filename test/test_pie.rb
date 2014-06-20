@@ -139,7 +139,14 @@ class TestGruffPie < GruffTestCase
     
     write_test_file g, "pie_simple.png"
   end
-  
+
+   def test_pie_with_adjusted_text_offset_percentage
+    g = setup_basic_graph
+    g.title = "Adjusted Text Offset Percentage"
+    g.text_offset_percentage = 0.03
+    g.write "test/output/pie_adjusted_text_offset_percentage.png"
+  end
+
 protected
 
   def setup_basic_graph(size=800)
