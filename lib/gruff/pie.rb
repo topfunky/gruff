@@ -91,8 +91,8 @@ private
     y_offset = center_y  # This one doesn't though
     radius_offset = (radius + r_offset)
     ellipse_factor = radius_offset * TEXT_OFFSET_PERCENTAGE
-    x = x_offset + ((radius_offset + ellipse_factor) * Math.cos(angle.deg2rad))
-    y = y_offset + (radius_offset * Math.sin(angle.deg2rad))
+    x = x_offset + ((radius_offset + ellipse_factor) * Math.cos(deg2rad(angle)))
+    y = y_offset + (radius_offset * Math.sin(deg2rad(angle)))
     
     # Draw label
     @d.fill = @font_color
@@ -114,11 +114,3 @@ private
   end
 
 end
-
-class Float
-  # Used for degree => radian conversions
-  def deg2rad
-    self * (Math::PI/180.0)
-  end
-end
-
