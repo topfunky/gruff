@@ -24,17 +24,20 @@ class Gruff::Pie < Gruff::Base
   # Affect the distance between the percentages and the pie chart
   # Defaults to 0.15
   attr_accessor :text_offset_percentage
+  # Callback to change label text
+  attr_accessor :label_formatter
 
   def initialize_ivars
     super
     @zero_degree = 0.0
     @hide_labels_less_than = 0.0
     @text_offset_percentage = DEFAULT_TEXT_OFFSET_PERCENTAGE
+    @label_formatter = nil
   end
 
   def draw
     @hide_line_markers = true
-    
+
     super
 
     return unless @has_data
@@ -54,21 +57,25 @@ class Gruff::Pie < Gruff::Base
         @d = @d.fill 'transparent'
         @d.stroke_width(radius) # stroke width should be equal to radius. we'll draw centered on (radius / 2)
 
-        current_degrees = (data_row[DATA_VALUES_INDEX].first / total_sum) * 360.0 
+        current_degrees = (data_row[DATA_VALUES_INDEX].first / total_sum) * 360.0
 
         # ellipse will draw the the stroke centered on the first two parameters offset by the second two.
         # therefore, in order to draw a circle of the proper diameter we must center the stroke at
         # half the radius for both x and y
-        @d = @d.ellipse(center_x, center_y, 
+        @d = @d.ellipse(center_x, center_y,
                   radius / 2.0, radius / 2.0,
                   prev_degrees, prev_degrees + current_degrees + 0.5) # <= +0.5 'fudge factor' gets rid of the ugly gaps
-                  
+
         half_angle = prev_degrees + ((prev_degrees + current_degrees) - prev_degrees) / 2
-        
+
         label_val = ((data_row[DATA_VALUES_INDEX].first / total_sum) * 100.0).round
         unless label_val < @hide_labels_less_than
-          # RMagick must use sprintf with the string and % has special significance.
-          label_string = label_val.to_s + '%'
+          if @label_formatter
+            label_string = @label_formatter.call(data_row)
+          else
+            # RMagick must use sprintf with the string and % has special significance.
+            label_string = label_val.to_s + '%'
+          end
           @d = draw_label(center_x,center_y, half_angle,
                           radius + (radius * @text_offset_percentage),
                           label_string)
@@ -79,14 +86,14 @@ class Gruff::Pie < Gruff::Base
     end
 
     # TODO debug a circle where the text is drawn...
-    
+
     @d.draw(@base_image)
   end
 
 private
 
   ##
-  # Labels are drawn around a slightly wider ellipse to give room for 
+  # Labels are drawn around a slightly wider ellipse to give room for
   # labels on the left and right.
   def draw_label(center_x, center_y, angle, radius, amount)
     # TODO Don't use so many hard-coded numbers
@@ -97,7 +104,7 @@ private
     ellipse_factor = radius_offset * @text_offset_percentage
     x = x_offset + ((radius_offset + ellipse_factor) * Math.cos(deg2rad(angle)))
     y = y_offset + (radius_offset * Math.sin(deg2rad(angle)))
-    
+
     # Draw label
     @d.fill = @font_color
     @d.font = @font if @font
@@ -105,9 +112,9 @@ private
     @d.stroke = 'transparent'
     @d.font_weight = BoldWeight
     @d.gravity = CenterGravity
-    @d.annotate_scaled( @base_image, 
+    @d.annotate_scaled( @base_image,
                       0, 0,
-                      x, y, 
+                      x, y,
                       amount, @scale)
   end
 
