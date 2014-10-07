@@ -7,6 +7,7 @@ class Gruff::SideBar < Gruff::Base
 
   # Spacing factor applied between bars
   attr_accessor :bar_spacing
+  attr_accessor :draw_bottom_line
 
   def draw
     @has_left_labels = true
@@ -14,6 +15,8 @@ class Gruff::SideBar < Gruff::Base
 
     return unless @has_data
     draw_bars
+
+    draw_bottom_line if @draw_bottom_line
   end
 
   protected
@@ -135,4 +138,11 @@ class Gruff::SideBar < Gruff::Base
     end
   end
 
+  def draw_bottom_line
+    @d = @d.stroke(@marker_color)
+    @d = @d.stroke_width 1
+    @d = @d.line(@graph_left, @graph_bottom, @graph_right, @graph_bottom)
+
+    @d.draw(@base_image)
+  end
 end
