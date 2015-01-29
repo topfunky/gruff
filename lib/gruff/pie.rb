@@ -12,9 +12,6 @@ require File.dirname(__FILE__) + '/base'
 # To control where the pie chart starts creating slices, use #zero_degree.
 
 class Gruff::Pie < Gruff::Base
-
-  DEFAULT_TEXT_OFFSET_PERCENTAGE = 0.15
-
   # Can be used to make the pie start cutting slices at the top (-90.0)
   # or at another angle. Default is 0.0, which starts at 3 o'clock.
   attr_accessor :zero_degree
@@ -31,7 +28,7 @@ class Gruff::Pie < Gruff::Base
     super
     @zero_degree = 0.0
     @hide_labels_less_than = 0.0
-    @text_offset_percentage = DEFAULT_TEXT_OFFSET_PERCENTAGE
+    @text_offset_percentage = 1.0
     @label_formatter = nil
   end
 
@@ -70,14 +67,14 @@ class Gruff::Pie < Gruff::Base
 
         label_val = ((data_row[DATA_VALUES_INDEX].first / total_sum) * 100.0).round
         unless label_val < @hide_labels_less_than
+          # RMagick must use sprintf with the string and % has special significance.
           if @label_formatter
-            label_string = @label_formatter.call(data_row)
+             label_string = @label_formatter.call(data_row)
           else
-            # RMagick must use sprintf with the string and % has special significance.
-            label_string = label_val.to_s + '%'
-          end
+             label_string = label_val.to_s + '%'
+             end
           @d = draw_label(center_x,center_y, half_angle,
-                          radius + (radius * @text_offset_percentage),
+                          radius,
                           label_string)
         end
 
@@ -95,15 +92,16 @@ private
   ##
   # Labels are drawn around a slightly wider ellipse to give room for
   # labels on the left and right.
-  def draw_label(center_x, center_y, angle, radius, amount)
+  def draw_label(center_x, center_y, angle, radius, label_text)
     # TODO Don't use so many hard-coded numbers
-    r_offset = 20.0      # The distance out from the center of the pie to get point
+    r_offset = radius/10.0  # The distance out from the center of the pie to get point
     x_offset = center_x  # + 15.0 # The label points need to be tweaked slightly
     y_offset = center_y  # This one doesn't though
     radius_offset = (radius + r_offset)
     ellipse_factor = radius_offset * @text_offset_percentage
-    x = x_offset + ((radius_offset + ellipse_factor) * Math.cos(deg2rad(angle)))
-    y = y_offset + (radius_offset * Math.sin(deg2rad(angle)))
+    arad = angle.deg2rad
+    x = x_offset + ((radius_offset + ellipse_factor) * Math.cos(arad))
+    y = y_offset + (1.2 * radius_offset * Math.sin(arad))
 
     # Draw label
     @d.fill = @font_color
@@ -112,10 +110,7 @@ private
     @d.stroke = 'transparent'
     @d.font_weight = BoldWeight
     @d.gravity = CenterGravity
-    @d.annotate_scaled( @base_image,
-                      0, 0,
-                      x, y,
-                      amount, @scale)
+    @d.annotate_scaled( @base_image, 0, 0, x, y, label_text, @scale)
   end
 
   def sums_for_pie
@@ -125,3 +120,11 @@ private
   end
 
 end
+
+class Float
+  # Used for degree => radian conversions
+  def deg2rad
+    self * (Math::PI/180.0)
+  end
+end
+
