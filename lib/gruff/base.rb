@@ -82,7 +82,8 @@ module Gruff
     # A label for the left side of the graph
     attr_accessor :y_axis_label
 
-    # attr_accessor :x_axis_increment
+    # Manually set increment of the vertical marking lines
+    attr_accessor :x_axis_increment
 
     # Manually set increment of the horizontal marking lines
     attr_accessor :y_axis_increment
