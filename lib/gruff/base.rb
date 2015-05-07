@@ -119,6 +119,9 @@ module Gruff
 
     # Same as font but for the title.
     attr_reader :title_font
+    
+    # Specifies whether to draw the title bolded or not.
+    attr_accessor :bold_title
 
     attr_accessor :font_color
 
@@ -252,6 +255,7 @@ module Gruff
 
       vera_font_path = File.expand_path('Vera.ttf', ENV['MAGICK_FONT_PATH'])
       @font = File.exists?(vera_font_path) ? vera_font_path : nil
+      @bold_title = true
 
       @marker_font_size = 21.0
       @legend_font_size = 20.0
@@ -810,7 +814,7 @@ module Gruff
       @d.font = @title_font || @font if @title_font || @font
       @d.stroke('transparent')
       @d.pointsize = scale_fontsize(@title_font_size)
-      @d.font_weight = BoldWeight
+      @d.font_weight = if @bold_title then BoldWeight else NormalWeight end
       @d.gravity = NorthGravity
       @d = @d.annotate_scaled(@base_image,
                               @raw_columns, 1.0,
