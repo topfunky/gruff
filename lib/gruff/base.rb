@@ -117,6 +117,9 @@ module Gruff
     # a reader here.
     attr_reader :font
 
+    # Same as font but for the title.
+    attr_reader :title_font
+
     attr_accessor :font_color
 
     # Prevent drawing of line markers
@@ -288,6 +291,11 @@ module Gruff
     def font=(font_path)
       @font = font_path
       @d.font = @font
+    end
+
+    # Sets the title font to the font at +font_path+
+    def title_font=(font_path)
+      @title_font = font_path
     end
 
     # Add a color to the list of available colors for lines.
@@ -799,7 +807,7 @@ module Gruff
       return if (@hide_title || @title.nil?)
 
       @d.fill = @font_color
-      @d.font = @font if @font
+      @d.font = @title_font || @font if @title_font || @font
       @d.stroke('transparent')
       @d.pointsize = scale_fontsize(@title_font_size)
       @d.font_weight = BoldWeight
