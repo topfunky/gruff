@@ -24,12 +24,15 @@ class Gruff::Pie < Gruff::Base
   # Affect the distance between the percentages and the pie chart
   # Defaults to 0.15
   attr_accessor :text_offset_percentage
+  ## Use values instead of percentages
+  attr_accessor :show_values_as_labels
 
   def initialize_ivars
     super
     @zero_degree = 0.0
     @hide_labels_less_than = 0.0
     @text_offset_percentage = DEFAULT_TEXT_OFFSET_PERCENTAGE
+    @show_values_as_labels = false
   end
 
   def draw
@@ -68,7 +71,7 @@ class Gruff::Pie < Gruff::Base
         label_val = ((data_row[DATA_VALUES_INDEX].first / total_sum) * 100.0).round
         unless label_val < @hide_labels_less_than
           # RMagick must use sprintf with the string and % has special significance.
-          label_string = label_val.to_s + '%'
+          label_string = @show_values_as_labels ? data_row[DATA_VALUES_INDEX].first.to_s : label_val.to_s + '%'
           @d = draw_label(center_x,center_y, half_angle,
                           radius + (radius * @text_offset_percentage),
                           label_string)
