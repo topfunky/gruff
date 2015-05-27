@@ -1,5 +1,5 @@
 require 'rubygems'
-require 'RMagick'
+require 'rmagick'
 require 'bigdecimal'
 
 require File.dirname(__FILE__) + '/deprecated'
