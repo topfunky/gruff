@@ -8,6 +8,7 @@ rvm:
   - "2.2"
   - jruby-18mode
   - jruby-19mode
+  - jruby-20mode
   - jruby-head
   - rbx
   - rbx-2
