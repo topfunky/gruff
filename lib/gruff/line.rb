@@ -214,10 +214,6 @@ class Gruff::Line < Gruff::Base
       @one_point = contains_one_point_only?(data_row)
 
       data_row[DATA_VALUES_INDEX].each_with_index do |data_point, index|
-        unless data_point
-          prev_x = prev_y = nil
-          next
-        end
         x_data = data_row[DATA_VALUES_X_INDEX]
         if x_data == nil
           #use the old method: equally spaced points along the x-axis
@@ -228,6 +224,10 @@ class Gruff::Line < Gruff::Base
           @labels.each do |label_pos, _|
             draw_label(@graph_left + ((label_pos - @minimum_x_value) * @graph_width) / (@maximum_x_value - @minimum_x_value), label_pos)
           end
+        end
+        unless data_point # we can't draw a line for a null data point, we can still label the axis though
+          prev_x = prev_y = nil
+          next
         end
 
         new_y = @graph_top + (@graph_height - data_point * @graph_height)
