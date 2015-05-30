@@ -18,8 +18,8 @@ class Gruff::Bezier < Gruff::Base
         new_y = @graph_top + (@graph_height - data_point * @graph_height)
 
         if index == 0 && RUBY_PLATFORM != 'java'
-          poly_points << @graph_left
-          poly_points << @graph_bottom - 1
+          poly_points << new_x
+          poly_points << new_y
         end
 
         poly_points << new_x
