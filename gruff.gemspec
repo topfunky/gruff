@@ -25,5 +25,6 @@ Gem::Specification.new do |s|
     s.add_dependency 'rmagick', ">= 2.13.4"
   end
   s.add_development_dependency('rake')
+  s.add_development_dependency('test-unit')
   s.license = 'MIT'
 end
