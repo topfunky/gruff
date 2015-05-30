@@ -20,9 +20,9 @@ Gem::Specification.new do |s|
   s.specification_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
   if defined? JRUBY_VERSION
     s.platform = 'java'
-    s.add_dependency 'rmagick4j', ">= 0.3.9"
+    s.add_dependency 'rmagick4j', '>= 0.3.9'
   else
-    s.add_dependency 'rmagick', ">= 2.13.4"
+    s.add_dependency 'rmagick', '>= 2.13.4'
   end
   s.add_development_dependency('rake')
   s.add_development_dependency('test-unit')
