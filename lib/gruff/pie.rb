@@ -36,6 +36,10 @@ class Gruff::Pie < Gruff::Base
     @show_values_as_labels = false
   end
 
+  def zero_degree
+    @zero_degree ||= 0.0
+  end
+
   def hide_labels_less_than
     @hide_labels_less_than ||= 0.0
   end
@@ -98,13 +102,13 @@ class Gruff::Pie < Gruff::Base
   end
 
   def update_chart_degrees_with(degrees)
-    @zero_degree = chart_degrees + degrees
+    @chart_degrees = chart_degrees + degrees
   end
 
   # Spatial Value-Related Methods
 
   def chart_degrees
-    @zero_degree ||= 0.0
+    @chart_degrees ||= zero_degree
   end
 
   def graph_height
