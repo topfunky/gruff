@@ -82,7 +82,7 @@ class Gruff::Pie < Gruff::Base
 
   def slices
     @slices ||= begin
-      slices = @data.map { |data| PieSlice.new(data, options) }
+      slices = @data.map { |data| slice_class.new(data, options) }
 
       slices.sort_by(&:value) if @sort
 
@@ -103,6 +103,10 @@ class Gruff::Pie < Gruff::Base
 
   def update_chart_degrees_with(degrees)
     @chart_degrees = chart_degrees + degrees
+  end
+
+  def slice_class
+    PieSlice
   end
 
   # Spatial Value-Related Methods
