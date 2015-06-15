@@ -19,7 +19,7 @@ class Gruff::Line < Gruff::Base
   attr_accessor :reference_line_default_width
 
   # Allow for vertical marker lines
-  attr_accessor :show_verical_markers
+  attr_accessor :show_vertical_markers
 
   # Dimensions of lines and dots; calculated based on dataset size if left unspecified
   attr_accessor :line_width
@@ -170,7 +170,7 @@ class Gruff::Line < Gruff::Base
 
   def draw_vertical_reference_line(reference_line)
     index = @graph_left + (@x_increment * reference_line[:index])
-    draw_reference_line(reference_line, index, index, @graph_top, @graph_top + graph_height)
+    draw_reference_line(reference_line, index, index, @graph_top, @graph_top + @graph_height)
   end
 
   def draw
@@ -186,7 +186,7 @@ class Gruff::Line < Gruff::Base
       draw_vertical_reference_line(curr_reference_line) if curr_reference_line.key?(:index)
     end
 
-    if (@show_verical_markers)
+    if (@show_vertical_markers)
       (0..@column_count).each do |column|
         x = @graph_left + @graph_width - column.to_f * @x_increment
 
@@ -214,10 +214,6 @@ class Gruff::Line < Gruff::Base
       @one_point = contains_one_point_only?(data_row)
 
       data_row[DATA_VALUES_INDEX].each_with_index do |data_point, index|
-        unless data_point
-          prev_x = prev_y = nil
-          next
-        end
         x_data = data_row[DATA_VALUES_X_INDEX]
         if x_data == nil
           #use the old method: equally spaced points along the x-axis
@@ -228,6 +224,10 @@ class Gruff::Line < Gruff::Base
           @labels.each do |label_pos, _|
             draw_label(@graph_left + ((label_pos - @minimum_x_value) * @graph_width) / (@maximum_x_value - @minimum_x_value), label_pos)
           end
+        end
+        unless data_point # we can't draw a line for a null data point, we can still label the axis though
+          prev_x = prev_y = nil
+          next
         end
 
         new_y = @graph_top + (@graph_height - data_point * @graph_height)

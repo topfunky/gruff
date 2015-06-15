@@ -25,7 +25,7 @@ class TestGruffScatter < Test::Unit::TestCase
     g.title = 'Many Datapoint Graph Test'
     y_values = (0..50).map { rand(100) }
     x_values = (0..50).map { rand(100) }
-    g.data('many points', y_values, x_values)
+    g.data('many points', x_values, y_values)
 
     # Default theme
     g.write('test/output/scatter_many.png')

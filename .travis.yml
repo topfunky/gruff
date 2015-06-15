@@ -1,15 +1,17 @@
 language: ruby
-notifications:
-  email:
-    - uwe@kubosch.no
+sudo: false
 rvm:
   - "1.8.7"
   - "1.9.3"
   - "2.0.0"
-  - "2.1.0"
-  - jruby-18mode # JRuby in 1.8 mode
-  - jruby-19mode # JRuby in 1.9 mode
-  - jruby-20mode # JRuby in 2.0 mode
-  - jruby-head # JRuby in 2.1 mode
+  - "2.1"
+  - "2.2"
+  - jruby-18mode
+  - jruby-19mode
+  - jruby-20mode
+  - jruby-head
   - rbx
   - rbx-2
+notifications:
+  email:
+    - uwe@kubosch.no

@@ -140,11 +140,23 @@ class TestGruffPie < GruffTestCase
     write_test_file g, "pie_simple.png"
   end
 
-   def test_pie_with_adjusted_text_offset_percentage
+  def test_pie_with_adjusted_text_offset_percentage
     g = setup_basic_graph
     g.title = "Adjusted Text Offset Percentage"
     g.text_offset_percentage = 0.03
     g.write "test/output/pie_adjusted_text_offset_percentage.png"
+  end
+
+  def test_subclassed_pie_with_custom_labels
+    CustomLabeledPie.new(800).tap do |graph|
+      graph.title = "Subclassed Pie with Custom Lables"
+
+      @datasets.map { |set| set << set.join(': ') }.each do |data|
+        graph.data(data[0], data[1], :label => data[2])
+      end
+
+      graph.write 'test/output/pie_subclass_custom_labels.png'
+    end
   end
 
 protected
@@ -157,5 +169,25 @@ protected
     end
     return g
   end
-  
+
+  # Example Gruff::Pie Subclass demonstrating custom labels
+  class CustomLabeledPie < Gruff::Pie
+    def data(name, data_points = [], options = {})
+      super(name, data_points, options[:color])
+
+      @data.each { |data_array| data_array << options[:label] }
+    end
+
+    private
+
+    def slice_class
+      CustomLabeledSlice
+    end
+
+    class CustomLabeledSlice < ::Gruff::Pie::PieSlice
+      def label
+        data_array[3] || super
+      end
+    end
+  end
 end

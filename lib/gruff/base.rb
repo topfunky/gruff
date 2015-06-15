@@ -1,5 +1,5 @@
 require 'rubygems'
-require 'RMagick'
+require 'rmagick'
 require 'bigdecimal'
 
 require File.dirname(__FILE__) + '/deprecated'
@@ -116,6 +116,12 @@ module Gruff
     # The font= method below fulfills the role of the writer, so we only need
     # a reader here.
     attr_reader :font
+
+    # Same as font but for the title.
+    attr_reader :title_font
+    
+    # Specifies whether to draw the title bolded or not.
+    attr_accessor :bold_title
 
     attr_accessor :font_color
 
@@ -249,6 +255,7 @@ module Gruff
 
       vera_font_path = File.expand_path('Vera.ttf', ENV['MAGICK_FONT_PATH'])
       @font = File.exists?(vera_font_path) ? vera_font_path : nil
+      @bold_title = true
 
       @marker_font_size = 21.0
       @legend_font_size = 20.0
@@ -288,6 +295,11 @@ module Gruff
     def font=(font_path)
       @font = font_path
       @d.font = @font
+    end
+
+    # Sets the title font to the font at +font_path+
+    def title_font=(font_path)
+      @title_font = font_path
     end
 
     # Add a color to the list of available colors for lines.
@@ -799,10 +811,10 @@ module Gruff
       return if (@hide_title || @title.nil?)
 
       @d.fill = @font_color
-      @d.font = @font if @font
+      @d.font = @title_font || @font if @title_font || @font
       @d.stroke('transparent')
       @d.pointsize = scale_fontsize(@title_font_size)
-      @d.font_weight = BoldWeight
+      @d.font_weight = if @bold_title then BoldWeight else NormalWeight end
       @d.gravity = NorthGravity
       @d = @d.annotate_scaled(@base_image,
                               @raw_columns, 1.0,
