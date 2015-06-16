@@ -30,6 +30,9 @@ class Gruff::Pie < Gruff::Base
   ## Use values instead of percentages
   attr_accessor :show_values_as_labels
 
+# User function to set label text
+  attr_accessor :label_formatter
+
   def initialize_ivars
     super
 
@@ -53,7 +56,8 @@ class Gruff::Pie < Gruff::Base
       :zero_degree            => zero_degree,
       :hide_labels_less_than  => hide_labels_less_than,
       :text_offset_percentage => text_offset_percentage,
-      :show_values_as_labels  => show_values_as_labels
+      :show_values_as_labels  => show_values_as_labels,
+      :label_formatter        => @label_formatter
     }
   end
 
@@ -171,8 +175,13 @@ class Gruff::Pie < Gruff::Base
 
   def label_coordinates_for(slice)
     angle = chart_degrees + slice.degrees / 2
-
-    [x_label_coordinate(angle), y_label_coordinate(angle)]
+    x_coord = x_label_coordinate(angle)
+    x_adj = 0
+    if slice.label.size>3
+      x_adj = slice.label.size*5   # This should use font metrics to compute actual width, but close enough for now
+      x_adj = -x_adj if angle > 90.0 && angle<270 # (Math::PI/2.0)
+    end  
+    [x_coord+x_adj, y_label_coordinate(angle)]
   end
 
   def x_label_coordinate(angle)
@@ -265,7 +274,11 @@ class Gruff::Pie < Gruff::Base
     end
 
     def label
-      options[:show_values_as_labels] ? value.to_s : "#{percentage}%"
+      if options[:label_formatter]
+        options[:label_formatter].call(data_array)
+      else
+        options[:show_values_as_labels] ? value.to_s : "#{percentage}%"
+      end
     end
   end
 end
