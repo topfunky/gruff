@@ -231,6 +231,23 @@ module Gruff
       self.theme = Themes::KEYNOTE
     end
 
+    # Change the size of the image by a given factor
+    #
+    # Note that the factor is applied to the width and height so
+    #
+    #     g.resize(2)
+    #
+    # will result in a new image four times the size of the original
+    def resize(factor)
+      @columns *= factor
+      @rows *= factor
+      @scale = @columns / @raw_columns
+
+      @d = Draw.new
+      @d = @d.scale(@scale, @scale)
+      render_background
+    end
+
     # Set instance variables for this object.
     #
     # Subclasses can override this, call super, then set values separately.

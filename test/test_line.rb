@@ -580,6 +580,18 @@ class TestGruffLine < GruffTestCase
     assert_match /no encode delegate for this image format .*\.webp/, $!.message
   end
 
+  def test_resize_graph
+    g = setup_basic_graph('800x400')
+    g.title = 'Resize Graph'
+    g.write('test/output/line_resize_graph.png')
+
+    g.resize(0.5)
+    g.write('test/output/line_resize_graph_small.png')
+
+    g.resize(4)
+    g.write('test/output/line_resize_graph_large.png')
+  end
+
   private
 
   # TODO Reset data after each theme
