@@ -353,7 +353,7 @@ class Gruff::Line < Gruff::Base
     end
 
     def self.renderer(style)
-      if style == 'square'
+      if style.to_s == 'square'
         Square.new
       else
         Circle.new

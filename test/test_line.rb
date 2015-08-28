@@ -201,7 +201,7 @@ class TestGruffLine < GruffTestCase
         30 => 'August',
         50 => 'September',
     }
-    g.dot_style = 'square'
+    g.dot_style = :square
     g.data('many points', (0..50).collect { |i| rand(100) })
     g.x_axis_label = 'Months'
 
