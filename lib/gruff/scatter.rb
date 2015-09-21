@@ -36,6 +36,10 @@ class Gruff::Scatter < Gruff::Base
   # Attributes to allow customising the size of the points
   attr_accessor :circle_radius
   attr_accessor :stroke_width
+
+  # Allow disabling the significant rounding when labeling the X axis
+  # This is useful when working with a small range of high values (for example, a date range of months, while seconds as units)
+  attr_accessor :disable_significant_rounding_x_axis
   
   
   # Gruff::Scatter takes the same parameters as the Gruff::Line graph
@@ -216,7 +220,10 @@ protected
         end
         @marker_x_count ||= 4
       end
-      @x_increment = (@x_spread > 0) ? significant(@x_spread / @marker_x_count) : 1
+      @x_increment = (@x_spread > 0) ? (@x_spread / @marker_x_count) : 1
+      unless @disable_significant_rounding_x_axis
+        @x_increment = significant(@x_increment)
+      end
     else
       # TODO Make this work for negative values
       @maximum_x_value = [@maximum_value.ceil, @x_axis_increment].max
