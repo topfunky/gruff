@@ -40,6 +40,9 @@ class Gruff::Scatter < Gruff::Base
   # Allow disabling the significant rounding when labeling the X axis
   # This is useful when working with a small range of high values (for example, a date range of months, while seconds as units)
   attr_accessor :disable_significant_rounding_x_axis
+
+  # Allow enabling vertical lines. When you have a lot of data, they can work great
+  attr_accessor :enable_vertical_line_markers
   
   
   # Gruff::Scatter takes the same parameters as the Gruff::Line graph
@@ -239,11 +242,13 @@ protected
     # Draw vertical line markers and annotate with numbers
     (0..@marker_x_count).each do |index|
 
-      # TODO Fix the vertical lines.  Not pretty when they don't match up with top y-axis line
-      # x = @graph_left + @graph_width - index.to_f * @increment_x_scaled
-      # @d = @d.stroke(@marker_color)
-      # @d = @d.stroke_width 1
-      # @d = @d.line(x, @graph_top, x, @graph_bottom)
+      # TODO Fix the vertical lines, and enable them by default. Not pretty when they don't match up with top y-axis line
+      if @enable_vertical_line_markers
+        x = @graph_left + @graph_width - index.to_f * @increment_x_scaled
+        @d = @d.stroke(@marker_color)
+        @d = @d.stroke_width 1
+        @d = @d.line(x, @graph_top, x, @graph_bottom)
+      end
 
       unless @hide_line_numbers
         marker_label = index * @x_increment + @minimum_x_value.to_f
