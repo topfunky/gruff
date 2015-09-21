@@ -44,7 +44,8 @@ class Gruff::Scatter < Gruff::Base
   # Allow enabling vertical lines. When you have a lot of data, they can work great
   attr_accessor :enable_vertical_line_markers
 
-  # Allow using vertical labels in the X axis
+  # Allow using vertical labels in the X axis (and setting the label margin)
+  attr_accessor :x_label_margin
   attr_accessor :use_vertical_x_labels
 
   # Allow passing lambdas to format labels
@@ -259,7 +260,7 @@ protected
 
       unless @hide_line_numbers
         marker_label = index * @x_increment + @minimum_x_value.to_f
-        y_offset = @graph_bottom + LABEL_MARGIN 
+        y_offset = @graph_bottom + (@x_label_margin || LABEL_MARGIN)
         x_offset = get_x_coord(index.to_f, @increment_x_scaled, @graph_left)
 
         @d.fill = @font_color

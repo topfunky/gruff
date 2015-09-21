@@ -31,6 +31,42 @@ class TestGruffScatter < Test::Unit::TestCase
     g.write('test/output/scatter_many.png')
   end
 
+  def test_custom_label_format
+    g = Gruff::Scatter.new('1000x500')
+    g.top_margin = 0
+    g.hide_legend = true
+    g.hide_title = true
+    g.marker_font_size = 10
+    g.theme = {
+      :colors => ['#12a702', '#aedaa9'],
+      :marker_color => '#dddddd',
+      :font_color => 'black',
+      :background_colors => 'white'
+    }
+
+    # Points style
+    g.circle_radius = 1
+    g.stroke_width = 0.01
+
+    # Axis labels
+    g.x_label_margin = 40
+    g.bottom_margin = 60
+    g.disable_significant_rounding_x_axis = true
+    g.use_vertical_x_labels = true
+    g.enable_vertical_line_markers = true
+    g.marker_x_count = 50 # One label every 2 days
+    g.x_axis_label_format = lambda do |value|
+      DateTime.strptime(value.to_i.to_s,'%s').strftime('%d.%m.%Y')
+    end
+    g.y_axis_increment = 1
+
+    # Fake data (100 days, random times of day between 5 and 16)
+    y_values = (0..100).map { 5 + rand(12) }
+    x_values = (0..100).map { |i| Date.today.to_time.to_i + i*3600*24 }
+    g.data('many points', x_values, y_values)
+    g.write('test/output/scatter_custom_label_format.png')
+  end
+
   # Done
   def test_no_data
     g = Gruff::Scatter.new(400)
