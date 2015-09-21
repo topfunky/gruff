@@ -46,6 +46,10 @@ class Gruff::Scatter < Gruff::Base
 
   # Allow using vertical labels in the X axis
   attr_accessor :use_vertical_x_labels
+
+  # Allow passing lambdas to format labels
+  attr_accessor :y_axis_label_format
+  attr_accessor :x_axis_label_format
   
   
   # Gruff::Scatter takes the same parameters as the Gruff::Line graph
@@ -267,12 +271,29 @@ protected
         @d = @d.annotate_scaled(@base_image, 
                           1.0, 1.0, 
                           x_offset, y_offset, 
-                          label(marker_label, @x_increment), @scale)
+                          vertical_label(marker_label, @x_increment), @scale)
         @d.rotation = 90.0 if @use_vertical_x_labels
       end
     end
     
     @d = @d.stroke_antialias true
+  end
+
+
+  def label(value, increment)
+    if @y_axis_label_format
+      @y_axis_label_format.call(value)
+    else
+      super
+    end
+  end
+
+  def vertical_label(value, increment)
+    if @x_axis_label_format
+      @x_axis_label_format.call(value)
+    else
+      label(value, increment)
+    end
   end
   
 private
