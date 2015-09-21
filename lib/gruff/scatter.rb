@@ -43,6 +43,9 @@ class Gruff::Scatter < Gruff::Base
 
   # Allow enabling vertical lines. When you have a lot of data, they can work great
   attr_accessor :enable_vertical_line_markers
+
+  # Allow using vertical labels in the X axis
+  attr_accessor :use_vertical_x_labels
   
   
   # Gruff::Scatter takes the same parameters as the Gruff::Line graph
@@ -260,11 +263,12 @@ protected
         @d.stroke('transparent')
         @d.pointsize = scale_fontsize(@marker_font_size)
         @d.gravity = NorthGravity
-        
+        @d.rotation = -90.0 if @use_vertical_x_labels
         @d = @d.annotate_scaled(@base_image, 
                           1.0, 1.0, 
                           x_offset, y_offset, 
                           label(marker_label, @x_increment), @scale)
+        @d.rotation = 90.0 if @use_vertical_x_labels
       end
     end
     
