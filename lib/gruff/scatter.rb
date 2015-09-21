@@ -32,6 +32,10 @@ class Gruff::Scatter < Gruff::Base
 	
   #~ # Color of the horizontal baseline
   #~ attr_accessor :baseline_x_color
+
+  # Attributes to allow customising the size of the points
+  attr_accessor :circle_radius
+  attr_accessor :stroke_width
   
   
   # Gruff::Scatter takes the same parameters as the Gruff::Line graph
@@ -94,9 +98,9 @@ class Gruff::Scatter < Gruff::Base
         @d = @d.stroke data_row[DATA_COLOR_INDEX]
         @d = @d.fill data_row[DATA_COLOR_INDEX]
         @d = @d.stroke_opacity 1.0
-        @d = @d.stroke_width clip_value_if_greater_than(@columns / (@norm_data.first[1].size * 4), 5.0)
+        @d = @d.stroke_width @stroke_width || clip_value_if_greater_than(@columns / (@norm_data.first[1].size * 4), 5.0)
 
-        circle_radius = clip_value_if_greater_than(@columns / (@norm_data.first[1].size * 2.5), 5.0)
+        circle_radius = @circle_radius || clip_value_if_greater_than(@columns / (@norm_data.first[1].size * 2.5), 5.0)
         @d = @d.circle(new_x, new_y, new_x - circle_radius, new_y)
       end
     end
