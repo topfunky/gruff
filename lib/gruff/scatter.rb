@@ -32,6 +32,25 @@ class Gruff::Scatter < Gruff::Base
 	
   #~ # Color of the horizontal baseline
   #~ attr_accessor :baseline_x_color
+
+  # Attributes to allow customising the size of the points
+  attr_accessor :circle_radius
+  attr_accessor :stroke_width
+
+  # Allow disabling the significant rounding when labeling the X axis
+  # This is useful when working with a small range of high values (for example, a date range of months, while seconds as units)
+  attr_accessor :disable_significant_rounding_x_axis
+
+  # Allow enabling vertical lines. When you have a lot of data, they can work great
+  attr_accessor :enable_vertical_line_markers
+
+  # Allow using vertical labels in the X axis (and setting the label margin)
+  attr_accessor :x_label_margin
+  attr_accessor :use_vertical_x_labels
+
+  # Allow passing lambdas to format labels
+  attr_accessor :y_axis_label_format
+  attr_accessor :x_axis_label_format
   
   
   # Gruff::Scatter takes the same parameters as the Gruff::Line graph
@@ -94,9 +113,9 @@ class Gruff::Scatter < Gruff::Base
         @d = @d.stroke data_row[DATA_COLOR_INDEX]
         @d = @d.fill data_row[DATA_COLOR_INDEX]
         @d = @d.stroke_opacity 1.0
-        @d = @d.stroke_width clip_value_if_greater_than(@columns / (@norm_data.first[1].size * 4), 5.0)
+        @d = @d.stroke_width @stroke_width || clip_value_if_greater_than(@columns / (@norm_data.first[1].size * 4), 5.0)
 
-        circle_radius = clip_value_if_greater_than(@columns / (@norm_data.first[1].size * 2.5), 5.0)
+        circle_radius = @circle_radius || clip_value_if_greater_than(@columns / (@norm_data.first[1].size * 2.5), 5.0)
         @d = @d.circle(new_x, new_y, new_x - circle_radius, new_y)
       end
     end
@@ -212,7 +231,10 @@ protected
         end
         @marker_x_count ||= 4
       end
-      @x_increment = (@x_spread > 0) ? significant(@x_spread / @marker_x_count) : 1
+      @x_increment = (@x_spread > 0) ? (@x_spread / @marker_x_count) : 1
+      unless @disable_significant_rounding_x_axis
+        @x_increment = significant(@x_increment)
+      end
     else
       # TODO Make this work for negative values
       @maximum_x_value = [@maximum_value.ceil, @x_axis_increment].max
@@ -228,15 +250,17 @@ protected
     # Draw vertical line markers and annotate with numbers
     (0..@marker_x_count).each do |index|
 
-      # TODO Fix the vertical lines.  Not pretty when they don't match up with top y-axis line
-      # x = @graph_left + @graph_width - index.to_f * @increment_x_scaled
-      # @d = @d.stroke(@marker_color)
-      # @d = @d.stroke_width 1
-      # @d = @d.line(x, @graph_top, x, @graph_bottom)
+      # TODO Fix the vertical lines, and enable them by default. Not pretty when they don't match up with top y-axis line
+      if @enable_vertical_line_markers
+        x = @graph_left + @graph_width - index.to_f * @increment_x_scaled
+        @d = @d.stroke(@marker_color)
+        @d = @d.stroke_width 1
+        @d = @d.line(x, @graph_top, x, @graph_bottom)
+      end
 
       unless @hide_line_numbers
         marker_label = index * @x_increment + @minimum_x_value.to_f
-        y_offset = @graph_bottom + LABEL_MARGIN 
+        y_offset = @graph_bottom + (@x_label_margin || LABEL_MARGIN)
         x_offset = get_x_coord(index.to_f, @increment_x_scaled, @graph_left)
 
         @d.fill = @font_color
@@ -244,15 +268,33 @@ protected
         @d.stroke('transparent')
         @d.pointsize = scale_fontsize(@marker_font_size)
         @d.gravity = NorthGravity
-        
+        @d.rotation = -90.0 if @use_vertical_x_labels
         @d = @d.annotate_scaled(@base_image, 
                           1.0, 1.0, 
                           x_offset, y_offset, 
-                          label(marker_label, @x_increment), @scale)
+                          vertical_label(marker_label, @x_increment), @scale)
+        @d.rotation = 90.0 if @use_vertical_x_labels
       end
     end
     
     @d = @d.stroke_antialias true
+  end
+
+
+  def label(value, increment)
+    if @y_axis_label_format
+      @y_axis_label_format.call(value)
+    else
+      super
+    end
+  end
+
+  def vertical_label(value, increment)
+    if @x_axis_label_format
+      @x_axis_label_format.call(value)
+    else
+      label(value, increment)
+    end
   end
   
 private
