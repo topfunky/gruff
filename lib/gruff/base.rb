@@ -836,7 +836,7 @@ module Gruff
         # TODO: See if index.odd? is the best stragegy
         y_offset += @label_stagger_height if index.odd?
 
-        label_text = @labels[index]
+        label_text = labels[index].to_s
 
         # TESTME
         # FIXME: Consider chart types other than bar
