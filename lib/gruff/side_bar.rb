@@ -70,7 +70,6 @@ class Gruff::SideBar < Gruff::Base
           draw_value_label(right_x+40, (@graph_top + (((row_index+point_index+1) * @bar_width) - (@bar_width / 2)))-12, val.commify, true)
         end
       end
-
     end
 
     @d.draw(@base_image)
@@ -86,18 +85,44 @@ class Gruff::SideBar < Gruff::Base
     # Draw horizontal line markers and annotate with numbers
     @d = @d.stroke(@marker_color)
     @d = @d.stroke_width 1
-    number_of_lines = @marker_count || 5
-    number_of_lines = 1 if number_of_lines == 0
 
     # TODO Round maximum marker value to a round number like 100, 0.1, 0.5, etc.
-    increment = significant(@spread.to_f / number_of_lines)
-    (0..number_of_lines).each do |index|
+    if @x_axis_increment.nil?
+      # Try to use a number of horizontal lines that will come out even.
+      #
+      # TODO Do the same for larger numbers...100, 75, 50, 25
+      if @marker_count.nil?
+        (3..7).each do |lines|
+          if @spread % lines == 0.0
+            @marker_count = lines
+            break
+          end
+        end
+        @marker_count ||= 5
+      end
 
-      line_diff = (@graph_right - @graph_left) / number_of_lines
-      x = @graph_right - (line_diff * index) - 1
+      #Don't do any rounding here
+      @increment = (@spread > 0 && @marker_count > 0) ? @spread / @marker_count : 1
+    else
+      # TODO Make this work for negative values
+      @marker_count = (@spread / @x_axis_increment).to_i
+      @increment = @x_axis_increment
+    end
+    @increment_scaled = @graph_width.to_f / (@spread / @increment)
+
+    (0..@marker_count).each do |index|
+
+      #Instead of calulating the position and trying to fit the label to that position, generate the label first and work
+      #backwards to find the proper location for the marker based on the label's number. The reason we do it this way
+      #is so that we can account for the behaviour of the label() function (defined in base.rb) that can change the actual
+      #value of the label in a way that would cause our markers to no longer be truthful to their positions relative to the graph.
+      marker = BigDecimal((index - @marker_count).abs.to_s) * BigDecimal(@increment.to_s) + BigDecimal(@minimum_value.to_s)
+      marker_label = label(marker, @increment)
+      marker_normalized = BigDecimal(marker_label)
+      marker_percentage = (marker_normalized - BigDecimal(@minimum_value.to_s)) / BigDecimal(@spread.to_s)
+
+      x = (@graph_width * marker_percentage) + @graph_left
       @d = @d.line(x, @graph_bottom, x, @graph_top)
-      diff = index - number_of_lines
-      marker_label = diff.abs * increment + @minimum_value
 
       unless @hide_line_numbers
         @d.fill = @font_color
@@ -134,5 +159,4 @@ class Gruff::SideBar < Gruff::Base
       @labels_seen[index] = 1
     end
   end
-
 end

@@ -82,7 +82,8 @@ module Gruff
     # A label for the left side of the graph
     attr_accessor :y_axis_label
 
-    # attr_accessor :x_axis_increment
+    # Manually set increment of the vertical marking lines
+    attr_accessor :x_axis_increment
 
     # Manually set increment of the horizontal marking lines
     attr_accessor :y_axis_increment
@@ -1130,6 +1131,8 @@ module Gruff
     # scaling will handle.
     def calculate_width(font_size, text)
       return 0 if text.nil?
+      return 0 if text === ''
+      return 0 if not text
       @d.pointsize = font_size
       @d.font = @font if @font
       @d.get_type_metrics(@base_image, text.to_s).width
