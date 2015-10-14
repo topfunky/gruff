@@ -68,6 +68,209 @@ class TestGruffBar < GruffTestCase
     g.write('test/output/bar_manual_colors.png')
   end
 
+  def test_bar_grouped_spacing_two_groups_two_bars
+    g = Gruff::Bar.new
+    g.title = '2 X 2'
+    g.legend_margin = 50
+    g.labels = {
+        0 => '5/6',
+        1 => '5/15'
+    }
+    g.grouped_spacing = true
+    g.data(:Art, [0, 5], '#990000')
+    g.data(:Philosophy, [10, 3], '#009900')
+
+    g.minimum_value = 0
+
+    g.write('test/output/bar_grouped_spacing_2X2.png')
+  end
+
+  def test_bar_grouped_spacing_two_groups_seven_bars
+    g = Gruff::Bar.new
+    g.title = '2 X 7'
+    g.legend_margin = 50
+    g.labels = {
+        0 => '5/6',
+        1 => '5/15'
+    }
+    g.grouped_spacing = true
+    g.data(:Art, [0, 5], '#990000')
+    g.data(:Philosophy, [10, 3], '#009900')
+    g.data(:Science, [2, 15], '#990099')
+    g.data(:Math, [2, 12], '#000099')
+    g.data(:Language, [2, 12], '#ff000a')
+    g.data(:PE, [8, 14], '#00aa99')
+    g.data(:Elect, [5, 15], '#ff00a0')
+
+    g.minimum_value = 0
+
+    g.write('test/output/bar_grouped_spacing_2X7.png')
+  end
+
+  def test_bar_grouped_spacing_three_groups_three_bars
+    g = Gruff::Bar.new
+    g.title = '3 X 3'
+    g.legend_margin = 50
+    g.labels = {
+        0 => '5/6',
+        1 => '5/15',
+        2 => '5/24'
+    }
+    g.grouped_spacing = true
+    g.data(:Art, [0, 5, 8], '#990000')
+    g.data(:Philosophy, [10, 3, 2], '#009900')
+    g.data(:Science, [2, 15, 8], '#990099')
+
+    g.minimum_value = 0
+
+    g.write('test/output/bar_grouped_spacing_3X3.png')
+  end
+
+  def test_bar_grouped_spacing_three_groups_five_bars
+    g = Gruff::Bar.new
+    g.title = '3 X 5'
+    g.legend_margin = 50
+    g.labels = {
+        0 => '5/6',
+        1 => '5/15',
+        2 => '5/24',
+        3 => '5/30',
+        4 => '6/6'
+    }
+    g.grouped_spacing = true
+    g.data(:Art, [0, 5, 8, 3, 3], '#990000')
+    g.data(:Philosophy, [10, 3, 2, 10, 10], '#009900')
+    g.data(:Science, [2, 15, 8, 11, 7], '#990099')
+    g.data(:Math, [2, 12, 7, 13, 9], '#000099')
+    g.data(:Language, [2, 12, 7, 13, 9], '#ff00aa')
+
+
+    g.minimum_value = 0
+
+    g.write('test/output/bar_grouped_spacing_3X5.png')
+  end
+
+  def test_bar_grouped_spacing_four_groups_five_bars
+    g = Gruff::Bar.new
+    g.title = '4 X 5'
+    g.legend_margin = 50
+    g.labels = {
+        0 => '5/6',
+        1 => '5/15',
+        2 => '5/24',
+        3 => '5/30'
+    }
+    g.grouped_spacing = true
+    g.data(:Art, [0, 5, 8, 3], '#990000')
+    g.data(:Philosophy, [10, 3, 2, 10], '#009900')
+    g.data(:Science, [2, 15, 8, 11], '#990099')
+    g.data(:Math, [2, 12, 7, 13], '#000099')
+    g.data(:Language, [2, 12, 7, 13], '#ff00aa')
+
+
+    g.minimum_value = 0
+
+    g.write('test/output/bar_grouped_spacing_4X5.png')
+  end
+
+  def test_bar_grouped_spacing_five_groups_five_bars
+    g = Gruff::Bar.new
+    g.title = '5 X 5'
+    g.legend_margin = 50
+    g.labels = {
+        0 => '5/6',
+        1 => '5/15',
+        2 => '5/24',
+        3 => '5/30',
+        4 => '6/8'
+    }
+    g.grouped_spacing = true
+    g.data(:Art, [0, 5, 8, 3, 3], '#990000')
+    g.data(:Philosophy, [10, 3, 2, 10, 10], '#009900')
+    g.data(:Science, [2, 15, 8, 11, 7], '#990099')
+    g.data(:Math, [2, 12, 7, 13, 9], '#000099')
+    g.data(:Language, [2, 12, 7, 13, 9], '#ff00aa')
+
+
+    g.minimum_value = 0
+
+    g.write('test/output/bar_grouped_spacing_5X5.png')
+  end
+
+  def test_bar_grouped_spacing_six_groups_five_bars
+    g = Gruff::Bar.new
+    g.title = '6 X 5'
+    g.legend_margin = 50
+    g.labels = {
+        0 => '5/6',
+        1 => '5/15',
+        2 => '5/24',
+        3 => '5/30',
+        4 => '6/8',
+        5 => '6/14'
+    }
+    g.grouped_spacing = true
+    g.data(:Art, [0, 5, 8, 3, 3, 2], '#990000')
+    g.data(:Philosophy, [10, 3, 2, 10, 10, 10], '#009900')
+    g.data(:Science, [2, 15, 8, 11, 7, 3], '#990099')
+    g.data(:Math, [2, 12, 7, 13, 9, 18], '#000099')
+    g.data(:Language, [2, 12, 7, 13, 9, 18], '#ff00aa')
+
+
+    g.minimum_value = 0
+
+    g.write('test/output/bar_grouped_spacing_6X5.png')
+  end
+
+  def test_bar_grouped_spacing_seven_groups_two_bars
+    g = Gruff::Bar.new
+    g.title = '7 X 2'
+    g.legend_margin = 50
+    g.labels = {
+        0 => '1/15',
+        1 => '2/15',
+        2 => '3/15',
+        3 => '4/15',
+        4 => '5/15',
+        5 => '6/15',
+        6 => '7/15'
+    }
+    g.grouped_spacing = true
+    g.data(:Art, [0, 5, 8, 3, 8, 9, 12], '#990000')
+    g.data(:Philosophy, [10, 3, 2, 10, 12, 6, 20], '#009900')
+
+    g.minimum_value = 0
+
+    g.write('test/output/bar_grouped_spacing_7X2.png')
+  end
+
+  def test_bar_grouped_spacing_seven_groups_seven_bars
+    g = Gruff::Bar.new
+    g.title = '7 X 7'
+    g.legend_margin = 50
+    g.labels = {
+        0 => '5/6',
+        1 => '5/15',
+        2 => '3/15',
+        3 => '4/15',
+        4 => '5/15',
+        5 => '6/15',
+        6 => '7/15'
+    }
+    g.grouped_spacing = true
+    g.data(:Art, [0, 5, 3, 5, 1, 12, 8], '#990000')
+    g.data(:Philosophy, [10, 3, 12, 2, 3, 8, 16], '#009900')
+    g.data(:Science, [2, 15, 12, 13, 10, 11, 11], '#990099')
+    g.data(:Math, [2, 12, 14, 15, 2, 3, 4], '#000099')
+    g.data(:Language, [2, 12, 4, 5, 6, 1, 2], '#ff000a')
+    g.data(:PE, [8, 14, 0, 12, 4, 3, 2], '#00aa99')
+    g.data(:Elect, [5, 15, 12, 4, 1, 1, 17], '#ff00a0')
+
+    g.minimum_value = 0
+
+    g.write('test/output/bar_grouped_spacing_7X7.png')
+  end
+
   def test_bar_graph_small
     g = Gruff::Bar.new(400)
     g.title = 'Visual Multi-Line Bar Graph Test'
@@ -455,13 +658,13 @@ class TestGruffBar < GruffTestCase
     g.show_labels_for_bar_values = true
     g.write('test/output/bar_value_labels.png')
   end
-  
+
   def test_zero_marker_count
     g = setup_basic_graph
     g.marker_count = 0
     g.write('test/output/bar_zero_marker_count.png')
   end
-  
+
   def test_zero_marker_shadow
     g = setup_basic_graph
     g.title = 'Bar Chart with Marker Shadow'
@@ -502,4 +705,3 @@ class TestGruffBar < GruffTestCase
     g
   end
 end
-

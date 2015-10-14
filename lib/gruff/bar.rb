@@ -5,6 +5,8 @@ class Gruff::Bar < Gruff::Base
 
   # Spacing factor applied between bars
   attr_accessor :bar_spacing
+  # Spacing Exists between Groups
+  attr_accessor :grouped_spacing
 
   def initialize(*args)
     super
@@ -13,10 +15,10 @@ class Gruff::Bar < Gruff::Base
 
   def draw
     # Labels will be centered over the left of the bar if
-    # there are more labels than columns. This is basically the same 
+    # there are more labels than columns. This is basically the same
     # as where it would be for a line graph.
     @center_labels_over_point = (@labels.keys.length > @column_count ? true : false)
-    
+
     super
     return unless @has_data
 
@@ -34,6 +36,7 @@ class Gruff::Bar < Gruff::Base
     @spacing_factor = (1 - space_percent)
   end
 
+
 protected
 
   def draw_bars
@@ -41,6 +44,7 @@ protected
     #
     # Columns sit side-by-side.
     @bar_spacing ||= @spacing_factor # space between the bars
+    @grouped_spacing || false # space bars into individual groups
     @bar_width = @graph_width / (@column_count * @data.length).to_f
     padding = (@bar_width * (1 - @bar_spacing)) / 2
 
@@ -69,13 +73,30 @@ protected
     end
 
     # iterate over all normalised data
-    @norm_data.each_with_index do |data_row, row_index|
 
+    @norm_data.each_with_index do |data_row, row_index|
+      group_padding = 0
       data_row[DATA_VALUES_INDEX].each_with_index do |data_point, point_index|
+
         # Use incremented x and scaled y
         # x
         left_x = @graph_left + (@bar_width * (row_index + point_index + ((@data.length - 1) * point_index))) + padding
         right_x = left_x + @bar_width * @bar_spacing
+
+        # ====================== Start of Grouping Experimental ==========================
+        if @grouped_spacing
+          number_of_bars = @norm_data.size * data_row.size
+          spacing_needed = (@bar_width + (50 / number_of_bars))
+          # Shrinking bars to add spacing for groups
+          @group_bar_width = @bar_width - (spacing_needed / @norm_data.size)
+          # Just changed to support group_bar_width
+          left_x = @graph_left + ((@group_bar_width) * (row_index + point_index + ((@data.length - 1) * point_index))) + padding
+          left_x += group_padding
+          right_x = left_x + (@group_bar_width)
+          group_padding += @group_bar_width * ( (data_row.size/(@norm_data.size))+1.5)
+        end
+        # ===================== End ========================
+
         # y
         conv = []
         conversion.get_left_y_right_y_scaled( data_point, conv )
@@ -85,9 +106,22 @@ protected
         @d = @d.rectangle(left_x, conv[0], right_x, conv[1])
 
         # Calculate center based on bar_width and current row
-        label_center = @graph_left + 
-                      (@data.length * @bar_width * point_index) + 
+        label_center = @graph_left +
+                      (@data.length * @bar_width * point_index) +
                       (@data.length * @bar_width / 2.0)
+        # Calculate center based on original bar width with minor changes
+        if @grouped_spacing
+          if data_row.size > @norm_data.size
+            label_center = @graph_left +
+                          (@data.length * (@bar_width * 0.92) * point_index) +
+                          (@data.length * (@bar_width) / 2.0)
+          else
+            label_center = @graph_left +
+                        (@data.length * (@bar_width * 0.99) * point_index) +
+                        (@data.length * (@bar_width) / 2.0)
+          end
+        end
+
 
         # Subtract half a bar width to center left if requested
         draw_label(label_center - (@center_labels_over_point ? @bar_width / 2.0 : 0.0), point_index)
