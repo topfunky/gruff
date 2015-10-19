@@ -414,8 +414,12 @@ module Gruff
         next if data_point.nil?
 
         # Setup max/min so spread starts at the low end of the data points
-        if @maximum_value.nil? && @minimum_value.nil?
-          @maximum_value = @minimum_value = data_point
+        if @maximum_value.nil?
+          @maximum_value = data_point
+        end
+
+        if @minimum_value.nil?
+          @minimum_value = data_point
         end
 
         # TODO Doesn't work with stacked bar graphs
