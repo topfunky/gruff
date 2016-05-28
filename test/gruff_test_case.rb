@@ -2,7 +2,6 @@ $:.unshift(File.dirname(__FILE__) + '/../lib/')
 
 RMAGICK_BYPASS_VERSION_TEST = true
 
-require 'test/unit'
 require 'gruff'
 require 'fileutils'
 
@@ -10,10 +9,9 @@ TEST_OUTPUT_DIR = File.dirname(__FILE__) + "/output#{'_java' if RUBY_PLATFORM ==
 FileUtils.mkdir_p(TEST_OUTPUT_DIR)
 FileUtils.rm_f Dir[TEST_OUTPUT_DIR + '/*']
 
-if ENV['RM_INFO'] && RUBY_VERSION =~ /^(1\.9|2\.0)\./
-  require 'minitest/reporters'
-  MiniTest::Reporters.use!
-end
+require 'minitest/autorun'
+require 'minitest/reporters'
+Minitest::Reporters.use!
 
 class Gruff::Base
   alias :write_org :write
@@ -23,7 +21,7 @@ class Gruff::Base
     extension = filename.slice(/\.[^\.]*$/)
     testfilename = File.join(TEST_OUTPUT_DIR, basefilename) + extension
     counter = 0
-    while File.exists?(testfilename)
+    while File.exist?(testfilename)
       counter += 1
       testfilename = File.join(TEST_OUTPUT_DIR, basefilename) + "-#{counter}#{extension}"
     end
@@ -31,7 +29,7 @@ class Gruff::Base
   end
 end
 
-class GruffTestCase < Test::Unit::TestCase
+class GruffTestCase < Minitest::Test
   def setup
     srand 42
     @datasets = [
@@ -106,7 +104,7 @@ class GruffTestCase < Test::Unit::TestCase
     basefilename = filename.split('.')[0..-2].join('.')
     extension = filename.slice(/\..*$/)
     counter = 0
-    while File.exists? testfilename
+    while File.exist? testfilename
       counter += 1
       testfilename = [TEST_OUTPUT_DIR, basefilename].join('/') + "-#{counter}#{extension}"
     end

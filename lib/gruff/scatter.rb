@@ -59,13 +59,21 @@ class Gruff::Scatter < Gruff::Base
   #
   # g = Gruff::Scatter.new
   #
-  def initialize(*args)
-    super(*args)
-    
-    @maximum_x_value = @minimum_x_value = nil
+  def initialize(*)
+    super
+
     @baseline_x_color = @baseline_y_color = 'red'
     @baseline_x_value = @baseline_y_value = nil
+    @circle_radius = nil
+    @disable_significant_rounding_x_axis = false
+    @enable_vertical_line_markers = false
     @marker_x_count = nil
+    @maximum_x_value = @minimum_x_value = nil
+    @stroke_width = nil
+    @use_vertical_x_labels = false
+    @x_axis_label_format = nil
+    @x_label_margin = nil
+    @y_axis_label_format = nil
   end
 
   def setup_drawing
@@ -192,7 +200,7 @@ protected
     @x_spread = @x_spread > 0 ? @x_spread : 1
   end
   
-  def normalize(force=@xy_normalize)
+  def normalize(force=nil)
     if @norm_data.nil? || force 
       @norm_data = []
       return unless @has_data

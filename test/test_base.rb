@@ -28,6 +28,6 @@ class TestGruffBase < GruffTestCase
 
     g.minimum_value = 0
 
-    g.write('test/output/bar_manual_colors.png')
+    g.write('test/output/bar_object_labels.png')
   end
 end

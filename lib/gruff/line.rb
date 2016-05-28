@@ -89,6 +89,8 @@ class Gruff::Line < Gruff::Base
     @minimum_x_value = nil
 
     @dot_style = 'circle'
+
+    @show_vertical_markers = false
   end
 
   # This method allows one to plot a dataset with both X and Y data.

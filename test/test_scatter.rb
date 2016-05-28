@@ -2,7 +2,7 @@
 
 require File.dirname(__FILE__) + '/gruff_test_case'
 
-class TestGruffScatter < Test::Unit::TestCase
+class TestGruffScatter < Minitest::Test
 
   def setup
     @datasets = [
@@ -101,7 +101,7 @@ class TestGruffScatter < Test::Unit::TestCase
     ]
 
     @datasets.each do |data|
-      assert_raise ArgumentError do
+      assert_raises ArgumentError do
         g.data(*data)
       end
     end
@@ -118,7 +118,7 @@ class TestGruffScatter < Test::Unit::TestCase
     ]
 
     @datasets.each do |data|
-      assert_raise ArgumentError do
+      assert_raises ArgumentError do
         g.data(*data)
       end
     end
@@ -134,7 +134,7 @@ class TestGruffScatter < Test::Unit::TestCase
     ]
 
     @datasets.each do |data|
-      assert_raise ArgumentError do
+      assert_raises ArgumentError do
         g.data(*data)
       end
     end
