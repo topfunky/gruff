@@ -26,6 +26,6 @@ Gem::Specification.new do |s|
   else
     s.add_dependency 'rmagick', '>= 2.13.4'
   end
-  s.add_development_dependency('rake', '<11')
-  s.add_development_dependency('minitest-reporters', '<1')
+  s.add_development_dependency('rake')
+  s.add_development_dependency('minitest-reporters')
 end
