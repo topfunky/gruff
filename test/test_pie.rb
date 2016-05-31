@@ -127,7 +127,8 @@ class TestGruffPie < GruffTestCase
 
   
   def test_tiny_simple_pie
-    @datasets = (1..5).map {|n| ['Auto', [rand(100)]]}
+    r = Random.new(297427)
+    @datasets = (1..5).map {|n| ['Auto', [r.rand(100)]]}
 
     g = setup_basic_graph 200
     g.hide_legend = true
