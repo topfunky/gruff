@@ -3,7 +3,7 @@ require 'bundler/gem_tasks'
 require 'rake/testtask'
 require 'rake/clean'
 
-CLEAN << %w(pkg test/output/*)
+CLEAN.concat %w(pkg test/output/*)
 
 desc 'Run tests'
 task :default => :test
