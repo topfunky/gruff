@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.test_files = s.files.grep(%r{^(test|spec|features)/})
   s.executables = s.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   s.specification_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
+  s.required_ruby_version = '>= 1.9.3'
 
   if defined? JRUBY_VERSION
     s.platform = 'java'
