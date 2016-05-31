@@ -1,7 +1,7 @@
 # Gruff Graphs
 
-[![Build Status](https://travis-ci.org/topfunky/gruff.png?branch=master)](https://travis-ci.org/topfunky/gruff)
-[![Gem Version](https://badge.fury.io/rb/gruff.png)](http://badge.fury.io/rb/gruff)
+[![Build Status](https://travis-ci.org/topfunky/gruff.svg?branch=master)](https://travis-ci.org/topfunky/gruff)
+[![Gem Version](https://badge.fury.io/rb/gruff.svg)](https://badge.fury.io/rb/gruff)
 
 A library for making beautiful graphs.
 
@@ -117,6 +117,10 @@ In progress!
 
 http://www.rubydoc.info/github/topfunky/gruff/frames
 
+## Supported Ruby Versions
+
+We aim to support all Ruby implementations supporting Ruby language level 1.9.3
+or later.  Currently we are running CI for MRI, JRuby, and Rubinius.
 
 ## Contributing
 

@@ -82,7 +82,8 @@ module Gruff
     # A label for the left side of the graph
     attr_accessor :y_axis_label
 
-    # attr_accessor :x_axis_increment
+    # Manually set increment of the vertical marking lines
+    attr_accessor :x_axis_increment
 
     # Manually set increment of the horizontal marking lines
     attr_accessor :y_axis_increment
@@ -118,7 +119,7 @@ module Gruff
     attr_reader :font
 
     # Same as font but for the title.
-    attr_reader :title_font
+    attr_accessor :title_font
     
     # Specifies whether to draw the title bolded or not.
     attr_accessor :bold_title
@@ -242,19 +243,23 @@ module Gruff
       @raw_columns = 800.0
       @raw_rows = 800.0 * (@rows/@columns)
       @column_count = 0
+      @data = Array.new
       @marker_count = nil
       @maximum_value = @minimum_value = nil
       @has_data = false
-      @data = Array.new
+      @increment = nil
       @labels = Hash.new
+      @label_formatting = nil
       @labels_seen = Hash.new
       @sort = false
+      @sorted_drawing = false
       @title = nil
+      @title_font = nil
 
       @scale = @columns / @raw_columns
 
       vera_font_path = File.expand_path('Vera.ttf', ENV['MAGICK_FONT_PATH'])
-      @font = File.exists?(vera_font_path) ? vera_font_path : nil
+      @font = File.exist?(vera_font_path) ? vera_font_path : nil
       @bold_title = true
 
       @marker_font_size = 21.0
@@ -280,6 +285,8 @@ module Gruff
       @additional_line_colors = []
       @theme_options = {}
 
+      @use_data_label = false
+      @x_axis_increment = nil
       @x_axis_label = @y_axis_label = nil
       @y_axis_increment = nil
       @stacked = nil
@@ -295,11 +302,6 @@ module Gruff
     def font=(font_path)
       @font = font_path
       @d.font = @font
-    end
-
-    # Sets the title font to the font at +font_path+
-    def title_font=(font_path)
-      @title_font = font_path
     end
 
     # Add a color to the list of available colors for lines.

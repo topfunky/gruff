@@ -259,11 +259,11 @@ class TestGruffBar < GruffTestCase
   def test_spacing_factor_does_not_accept_values_lt_0_and_gt_1
     g = Gruff::Bar.new
 
-    assert_raise ArgumentError do
+    assert_raises ArgumentError do
       g.spacing_factor = 1.01
     end
 
-    assert_raise ArgumentError do
+    assert_raises ArgumentError do
       g.spacing_factor = -0.01
     end
   end

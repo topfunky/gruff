@@ -24,7 +24,7 @@ class Gruff::Spider < Gruff::Base
   def initialize(max_value, target_width = 800)
     super(target_width)
     @max_value = max_value
-    @hide_legend = true;
+    @hide_legend = true
     @rotation = 0
   end
   
@@ -36,20 +36,14 @@ class Gruff::Spider < Gruff::Base
     return unless @has_data
 
     # Setup basic positioning
-    diameter = @graph_height
     radius = @graph_height / 2.0
-    top_x = @graph_left + (@graph_width - diameter) / 2.0
     center_x = @graph_left + (@graph_width / 2.0)
     center_y = @graph_top + (@graph_height / 2.0) - 25 # Move graph up a bit
 
     @unit_length = radius / @max_value
         
-    total_sum = sums_for_spider
-    prev_degrees = 0.0
     additive_angle = (2 * Math::PI)/ @data.size
     
-    current_angle = rotation * Math::PI / 180.0
-
     # Draw axes
     draw_axes(center_x, center_y, radius, additive_angle) unless hide_axes    
 
@@ -125,7 +119,7 @@ private
   end
 
   def sums_for_spider
-    @data.inject(0.0) {|sum, data_row| sum += data_row[DATA_VALUES_INDEX].first}
+    @data.inject(0.0) {|sum, data_row| sum + data_row[DATA_VALUES_INDEX].first}
   end
 
 end

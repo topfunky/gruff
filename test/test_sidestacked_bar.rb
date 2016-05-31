@@ -87,7 +87,7 @@ class TestGruffSideStackedBar < GruffTestCase
      end
      g.show_labels_for_bar_values = true
      g.write "test/output/side_stacked_bar_labels.png"
-   end
+  end
 
 protected
 

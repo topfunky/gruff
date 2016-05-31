@@ -4,6 +4,12 @@ module Gruff
 
       attr_accessor :hide_mini_legend, :legend_position
 
+      def initialize(*)
+        @hide_mini_legend = false
+        @legend_position = nil
+        super
+      end
+
       ##
       # The canvas needs to be bigger so we can put the legend beneath it.
 
@@ -45,7 +51,6 @@ module Gruff
         return if @hide_mini_legend
 
         legend_square_width = 40.0 # small square with color of this item
-        legend_square_margin = 10.0
         @legend_left_margin = 100.0
         legend_top_margin = 40.0
 

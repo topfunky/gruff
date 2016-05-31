@@ -238,7 +238,7 @@ class TestGruffDot < GruffTestCase
     g.y_axis_increment = 1.0
     g.x_axis_label = 'Score (%)'
     g.y_axis_label = 'Students'
-    write_test_file g, 'enhancements.png'
+    write_test_file g, 'enhancements_dot.png'
   end
 
 
