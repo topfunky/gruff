@@ -987,10 +987,12 @@ module Gruff
 
     # Overridden by subclasses such as stacked bar.
     def larger_than_max?(data_point) # :nodoc:
+      return true if @maximum_value.nil?   # avoid comparing a number with nil
       data_point > @maximum_value
     end
 
     def less_than_min?(data_point) # :nodoc:
+      return true if @minimum_value.nil?   # avoid comparing a number with nil
       data_point < @minimum_value
     end
 
@@ -1050,7 +1052,7 @@ module Gruff
       max_hash.keys.each do |key|
         @maximum_value = max_hash[key] if max_hash[key] > @maximum_value
       end
-      @minimum_value = 0
+      @minimum_value = 0   # This is causing that the line 419 does not evaluate to true hence, causing the bug.
     end
 
     def make_stacked # :nodoc:
