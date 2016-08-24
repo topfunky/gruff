@@ -120,7 +120,7 @@ module Gruff
 
     # Same as font but for the title.
     attr_accessor :title_font
-    
+
     # Specifies whether to draw the title bolded or not.
     attr_accessor :bold_title
 
@@ -156,6 +156,9 @@ module Gruff
 
     # The font size of the labels around the graph
     attr_accessor :marker_font_size
+
+    # The font size of the column labels
+    attr_accessor :x_marker_font_size
 
     # The color of the auxiliary lines
     attr_accessor :marker_color
@@ -859,7 +862,7 @@ module Gruff
           @d.font = @font if @font
           @d.stroke('transparent')
           @d.font_weight = NormalWeight
-          @d.pointsize = scale_fontsize(@marker_font_size)
+          @d.pointsize = x_marker_font_size || scale_fontsize(@marker_font_size)
           @d.gravity = NorthGravity
           @d = @d.annotate_scaled(@base_image,
                                   1.0, 1.0,
