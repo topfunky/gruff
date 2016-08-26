@@ -33,10 +33,16 @@ class Gruff::Line < Gruff::Base
 
   # Hide parts of the graph to fit more datapoints, or for a different appearance.
   attr_accessor :hide_dots, :hide_lines
+  attr_accessor :dots_on # [false, false, true] => Display only third dot
 
   #accessors for support of xy data
   attr_accessor :minimum_x_value
   attr_accessor :maximum_x_value
+
+  #accessors for support of xy data
+  attr_accessor :draw_area_layer
+  attr_accessor :area_color
+  attr_accessor :area_opacity
 
   # Get the value if somebody has defined it.
   def baseline_value
@@ -167,7 +173,7 @@ class Gruff::Line < Gruff::Base
     @d = @d.push
     @d.stroke_color(reference_line[:color] || @reference_line_default_color)
     @d.fill_opacity 0.0
-    @d.stroke_dasharray(10, 20)
+    @d.stroke_dasharray(15, 10)
     @d.stroke_width(reference_line[:width] || @reference_line_default_width)
     @d.line(left, top, right, bottom)
     @d = @d.pop
@@ -181,6 +187,43 @@ class Gruff::Line < Gruff::Base
   def draw_vertical_reference_line(reference_line)
     index = @graph_left + (@x_increment * reference_line[:index])
     draw_reference_line(reference_line, index, index, @graph_top, @graph_top + @graph_height)
+  end
+
+  def draw_area(data_row)
+    return unless @has_data
+
+    @x_increment = @graph_width / (@column_count - 1).to_f
+    @d = @d.stroke 'transparent'
+
+    poly_points = Array.new
+    prev_x = prev_y = 0.0
+    @d = @d.fill(@area_color || data_row[DATA_COLOR_INDEX])
+
+    @d.fill_opacity @area_opacity || 0.0
+
+    data_row[DATA_VALUES_INDEX].each_with_index do |data_point, index|
+      return unless data_point
+
+      # Use incremented x and scaled y
+      new_x = @graph_left + (@x_increment * index)
+      new_y = @graph_top + (@graph_height - data_point * @graph_height)
+
+      poly_points << new_x
+      poly_points << new_y
+
+      draw_label(new_x, index)
+
+      prev_x = new_x
+      prev_y = new_y
+    end
+
+    # Add closing points, draw polygon
+    poly_points << @graph_right
+    poly_points << @graph_bottom - 1
+    poly_points << @graph_left
+    poly_points << @graph_bottom - 1
+
+    @d = @d.polyline(*poly_points)
   end
 
   def draw
@@ -223,6 +266,8 @@ class Gruff::Line < Gruff::Base
 
       @one_point = contains_one_point_only?(data_row)
 
+      draw_area(data_row) if @draw_area_layer
+
       data_row[DATA_VALUES_INDEX].each_with_index do |data_point, index|
         x_data = data_row[DATA_VALUES_X_INDEX]
         if x_data == nil
@@ -259,8 +304,22 @@ class Gruff::Line < Gruff::Base
           @d = DotRenderers.renderer(@dot_style).render(@d, new_x, new_y, circle_radius)
         end
 
-        unless @hide_dots
-          @d = DotRenderers.renderer(@dot_style).render(@d, new_x, new_y, circle_radius)
+        if @hide_dots
+          draw_this_dot = @dots_on.try(:[], index)
+        else
+          draw_this_dot = true
+        end
+
+        if draw_this_dot
+          if draw_this_dot.is_a? Array
+            dot_fill_color, dot_stroke_color = draw_this_dot[0], draw_this_dot[1]
+          else
+            dot_fill_color, dot_stroke_color = data_row[DATA_COLOR_INDEX], data_row[DATA_COLOR_INDEX]
+          end
+
+          dot_stroke_width = line_width || clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 4), 5.0)
+
+          @d = DotRenderers.renderer(@dot_style).render(@d, new_x, new_y, circle_radius, dot_fill_color, dot_stroke_color, dot_stroke_width)
         end
 
         prev_x, prev_y = new_x, new_y
@@ -341,13 +400,19 @@ class Gruff::Line < Gruff::Base
 
   module DotRenderers
     class Circle
-      def render(d, new_x, new_y, circle_radius)
+      def render(d, new_x, new_y, circle_radius, fill_color=nil, stroke_color=nil, stroke_width=nil)
+        if stroke_width
+          d.fill fill_color
+          d.stroke_width stroke_width
+          d.stroke_color stroke_color
+          puts "#{stroke_width} #{stroke_color} #{fill_color}"
+        end
         d.circle(new_x, new_y, new_x - circle_radius, new_y)
       end
     end
 
     class Square
-      def render(d, new_x, new_y, circle_radius)
+      def render(d, new_x, new_y, circle_radius, fill_color=nil, stroke_color=nil, stroke_width=nil)
         offset = (circle_radius * 0.8).to_i
         corner_1 = new_x - offset
         corner_2 = new_y - offset
@@ -358,7 +423,8 @@ class Gruff::Line < Gruff::Base
     end
 
     def self.renderer(style)
-      if style.to_s == 'square'
+      case style.to_s
+      when 'square'
         Square.new
       else
         Circle.new
