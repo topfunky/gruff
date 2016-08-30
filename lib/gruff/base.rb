@@ -444,6 +444,7 @@ module Gruff
       draw
       @base_image.to_blob do
         self.format = fileformat
+        yield self if block_given?
       end
     end
 
