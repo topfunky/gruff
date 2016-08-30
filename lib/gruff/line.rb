@@ -17,6 +17,7 @@ class Gruff::Line < Gruff::Base
   attr_accessor :reference_lines
   attr_accessor :reference_line_default_color
   attr_accessor :reference_line_default_width
+  attr_accessor :reference_line_dash_format # dash style like so (default: [10, 20])
 
   # Allow for vertical marker lines
   attr_accessor :show_vertical_markers
@@ -173,7 +174,7 @@ class Gruff::Line < Gruff::Base
     @d = @d.push
     @d.stroke_color(reference_line[:color] || @reference_line_default_color)
     @d.fill_opacity 0.0
-    @d.stroke_dasharray(15, 10)
+    @d.stroke_dasharray( @reference_line_dash_format || [10, 20] )
     @d.stroke_width(reference_line[:width] || @reference_line_default_width)
     @d.line(left, top, right, bottom)
     @d = @d.pop
