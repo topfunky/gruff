@@ -174,7 +174,11 @@ class Gruff::Line < Gruff::Base
     @d = @d.push
     @d.stroke_color(reference_line[:color] || @reference_line_default_color)
     @d.fill_opacity 0.0
-    @d.stroke_dasharray( @reference_line_dash_format || [10, 20] )
+    if @reference_line_dash_format
+      @d.stroke_dasharray( *@reference_line_dash_format )
+    else
+      @d.stroke_dasharray( 10, 20 )
+    end
     @d.stroke_width(reference_line[:width] || @reference_line_default_width)
     @d.line(left, top, right, bottom)
     @d = @d.pop
