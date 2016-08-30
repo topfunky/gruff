@@ -295,7 +295,9 @@ class Gruff::Line < Gruff::Base
         # Reset each time to avoid thin-line errors
         @d = @d.stroke data_row[DATA_COLOR_INDEX]
         @d = @d.fill data_row[DATA_COLOR_INDEX]
-        @d = @d.stroke_opacity line_stroke_opacity || 1.0 # transparent if not set
+        @d = @d.stroke_opacity(line_stroke_opacity) || 1.0
+        @d = @d.stroke_linecap('round')
+        @d = @d.stroke_linejoin('round')
         @d = @d.stroke_width line_width ||
                                  clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 4), 5.0)
 
