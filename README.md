@@ -19,6 +19,11 @@ Or install it yourself as:
 
     $ gem install gruff
 
+You may need to install ```ghostscript``` before you can use gruff.
+
+    $ brew install ghostscript # OS X / macOS
+    $ apt-get install ghostscript # debian based Linux distro
+
 ## Usage
 
 ```Ruby
@@ -41,8 +46,6 @@ g.write('exciting.png')
 You can find many examples in the [test](https://github.com/topfunky/gruff/tree/master/test)
 directory along with their resulting charts in the
 [output](https://github.com/topfunky/gruff/tree/master/test/output) directory.
-
-You can find older examples here:  http://nubyonrails.com/pages/gruff
 
 ### Accumulator bar chart
 

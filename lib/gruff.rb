@@ -13,6 +13,7 @@ require 'gruff/version'
   line
   net
   pie
+  photo_bar
   scatter
   spider
   stacked_area
