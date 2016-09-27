@@ -120,7 +120,7 @@ module Gruff
 
     # Same as font but for the title.
     attr_accessor :title_font
-    
+
     # Specifies whether to draw the title bolded or not.
     attr_accessor :bold_title
 
@@ -187,6 +187,8 @@ module Gruff
 
     # Experimental
     attr_accessor :additional_line_values
+    attr_accessor :additional_line_labels
+    attr_accessor :additional_line_colors
 
     # Experimental
     attr_accessor :stacked
@@ -282,6 +284,7 @@ module Gruff
       @label_truncation_style = :absolute
 
       @additional_line_values = []
+      @additional_line_labels = []
       @additional_line_colors = []
       @theme_options = {}
 
@@ -653,7 +656,6 @@ module Gruff
       # Draw horizontal line markers and annotate with numbers
       (0..@marker_count).each do |index|
         y = @graph_top + @graph_height - index.to_f * @increment_scaled
-
         @d = @d.fill(@marker_color)
 
         # FIXME(uwe): Workaround for Issue #66
@@ -688,28 +690,37 @@ module Gruff
         end
       end
 
-      # # Submitted by a contibutor...the utility escapes me
-      # i = 0
-      # @additional_line_values.each do |value|
-      #   @increment_scaled = @graph_height.to_f / (@maximum_value.to_f / value)
-      #
-      #   y = @graph_top + @graph_height - @increment_scaled
-      #
-      #   @d = @d.stroke(@additional_line_colors[i])
-      #   @d = @d.line(@graph_left, y, @graph_right, y)
-      #
-      #
-      #   @d.fill = @additional_line_colors[i]
-      #   @d.font = @font if @font
-      #   @d.stroke('transparent')
-      #   @d.pointsize = scale_fontsize(@marker_font_size)
-      #   @d.gravity = EastGravity
-      #   @d = @d.annotate_scaled( @base_image,
-      #                     100, 20,
-      #                     -10, y - (@marker_font_size/2.0),
-      #                     "", @scale)
-      #   i += 1
-      # end
+      # draw additional lines for e.g. scatterplot percentiles
+      i = 0
+      @additional_line_values.each do |value|
+        # draw lines only if they are in the visible spectrum of the diagram
+        if @maximum_value >  value && value > @minimum_value
+          coord = value - @minimum_value
+
+          if @increment > 1
+            position = @graph_height.to_f / (@maximum_value.to_f / coord)
+            y = @graph_top + @graph_height - position
+          else
+            y = @graph_top + @graph_height - coord.to_f * @increment_scaled
+          end
+
+          @d = @d.stroke(@additional_line_colors[i])
+          @d = @d.line(@graph_left, y, @graph_right, y)
+
+
+          @d.fill = @additional_line_colors[i]
+          @d.font = @font if @font
+          @d.stroke('transparent')
+          @d.pointsize = scale_fontsize(@marker_font_size)
+          @d.gravity = EastGravity
+          @d = @d.annotate_scaled( @base_image,
+                           100, 20,
+                           -10, y - (@marker_font_size/2.0),
+                           @additional_line_labels[i], @scale)
+          i += 1
+        end
+      end
+      # end draw additional lines
 
       @d = @d.stroke_antialias true
     end
