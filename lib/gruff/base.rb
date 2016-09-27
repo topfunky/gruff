@@ -693,11 +693,13 @@ module Gruff
       # draw additional lines for e.g. scatterplot percentiles
       i = 0
       @additional_line_values.each do |value|
-        # draw lines only if they are in the visible spectrum of the diagra
+        # draw lines only if they are in the visible spectrum of the diagram
         if @maximum_value >  value && value > @minimum_value
           coord = value - @minimum_value
 
-          y = @graph_top + @graph_height - coord.to_f * @increment_scaled
+          @increment_scaled = @graph_height.to_f / (@maximum_value.to_f / coord)
+          y = @graph_top + @graph_height - @increment_scaled
+
           @d = @d.stroke(@additional_line_colors[i])
           @d = @d.line(@graph_left, y, @graph_right, y)
 
