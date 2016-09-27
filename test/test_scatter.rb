@@ -59,7 +59,9 @@ class TestGruffScatter < Minitest::Test
       DateTime.strptime(value.to_i.to_s,'%s').strftime('%d.%m.%Y')
     end
     g.y_axis_increment = 1
-
+    g.additional_line_values = Array[7, 14, 14.5]
+    g.additional_line_labels = Array['50%', '85%', '95%']
+    g.additional_line_colors = Array['#ff6600', '#f66230', '#ff0000']
     # Fake data (100 days, random times of day between 5 and 16)
     r = Random.new(269155)
     y_values = (0..100).map { 5 + r.rand(12) }
