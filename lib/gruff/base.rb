@@ -697,8 +697,12 @@ module Gruff
         if @maximum_value >  value && value > @minimum_value
           coord = value - @minimum_value
 
-          @increment_scaled = @graph_height.to_f / (@maximum_value.to_f / coord)
-          y = @graph_top + @graph_height - @increment_scaled
+          if @increment > 1
+            position = @graph_height.to_f / (@maximum_value.to_f / coord)
+            y = @graph_top + @graph_height - position
+          else
+            y = @graph_top + @graph_height - coord.to_f * @increment_scaled
+          end
 
           @d = @d.stroke(@additional_line_colors[i])
           @d = @d.line(@graph_left, y, @graph_right, y)
