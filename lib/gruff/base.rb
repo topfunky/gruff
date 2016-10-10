@@ -106,6 +106,10 @@ module Gruff
     # The large title of the graph displayed at the top
     attr_accessor :title
 
+    # The tiny little text to show in the bottom right of the graph
+    attr_accessor :footer
+    attr_accessor :hide_footer
+
     # Font used for titles, labels, etc. Works best if you provide the full
     # path to the TTF font file.  RMagick must be built with the Freetype
     # libraries for this to work properly.
@@ -269,7 +273,7 @@ module Gruff
 
       @no_data_message = 'No Data'
 
-      @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = @legend_at_bottom = @show_labels_for_bar_values = false
+      @hide_line_markers = @hide_footer = @hide_legend = @hide_title = @hide_line_numbers = @legend_at_bottom = @show_labels_for_bar_values = false
       @center_labels_over_point = true
       @has_left_labels = false
       @label_stagger_height = 0
@@ -477,6 +481,7 @@ module Gruff
       draw_line_markers
       draw_axis_labels
       draw_title
+      draw_footer
     end
 
     # Perform data manipulation before calculating chart measurements
@@ -824,6 +829,31 @@ module Gruff
                               @raw_columns, 1.0,
                               0, @top_margin,
                               @title, @scale)
+    end
+
+    # Draws a footer on the graph.
+    # TODO: allow the font size to be set
+    # TODO: allow to set lower left or lower right corner
+    def draw_footer
+      return if (@hide_footer || @footer.nil?)
+
+      @d.fill = @font_color
+      @d.font = @font if @font
+      @d.pointsize = @legend_font_size
+      @d.stroke('transparent')
+      @d.pointsize = scale_fontsize(@marker_font_size) / 3
+      @d.gravity = NorthGravity
+
+      x_offset = @graph_right - 10.0
+      # y_offset = @graph_bottom + LABEL_MARGIN + @label_stagger_height
+      # y_offset = @raw_rows - 100.0
+      y_offset = @raw_rows  - 30.0
+
+      @d = @d.annotate_scaled(@base_image,
+                              1.0, 1.0,
+                              x_offset, y_offset,
+                              @footer, @scale)
+
     end
 
     # Draws column labels below graph, centered over x_offset
