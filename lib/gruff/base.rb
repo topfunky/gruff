@@ -164,6 +164,9 @@ module Gruff
     # The number of horizontal lines shown for reference
     attr_accessor :marker_count
 
+    # The format for the marker number
+    attr_accessor :marker_format
+
     # You can manually set a minimum value instead of having the values
     # guessed for you.
     #
@@ -208,6 +211,12 @@ module Gruff
     # With Side Bars use the data label for the marker value to the left of the bar
     # Default is false
     attr_accessor :use_data_label
+
+    # Data for the secondary y axis
+    # a hash inclues:
+    #
+    attr_reader :secondary_y_axis
+
     # If one numerical argument is given, the graph is drawn at 4/3 ratio
     # according to the given width (800 results in 800x600, 400 gives 400x300,
     # etc.).
@@ -245,6 +254,7 @@ module Gruff
       @column_count = 0
       @data = Array.new
       @marker_count = nil
+      @marker_format = nil
       @maximum_value = @minimum_value = nil
       @has_data = false
       @increment = nil
@@ -291,6 +301,8 @@ module Gruff
       @y_axis_increment = nil
       @stacked = nil
       @norm_data = nil
+
+      @secondary_y_axis = nil
     end
 
     # Sets the top, bottom, left and right margins to +margin+.
@@ -389,6 +401,33 @@ module Gruff
 
     def theme_greyscale
       self.theme = Themes::GREYSCALE
+    end
+
+    def secondary_y_axis=(options)
+      if options.nil? || options.class != Hash
+        @secondary_y_axis = nil
+        return
+      end
+      def_opts = {
+        label: nil,
+        label_color: 'black',
+        label_font: nil,
+        line_color: 'black',
+        shadow_color: nil,
+        font_size: 21,
+        maximum_value: nil,
+        minimum_value: nil,
+        count: nil,
+        increment: nil,
+        format: nil,
+        stroke_dash: nil,
+        stroke_opacity: 1,
+        skip_lines: nil,
+        m_increment: nil,
+        m_spread: 1
+      }
+
+      @secondary_y_axis = def_opts.merge options
     end
 
     # Parameters are an array where the first element is the name of the dataset
@@ -527,6 +566,11 @@ module Gruff
     def calculate_spread # :nodoc:
       @spread = @maximum_value.to_f - @minimum_value.to_f
       @spread = @spread > 0 ? @spread : 1
+
+      unless @secondary_y_axis.nil?
+        @secondary_y_axis[:m_spread] = @secondary_y_axis[:maximum_value].to_f - @secondary_y_axis[:minimum_value].to_f
+        @secondary_y_axis[:m_spread] = @secondary_y_axis[:m_spread] > 0 ? @secondary_y_axis[:m_spread] : 1
+      end
     end
 
     ##
@@ -550,13 +594,29 @@ module Gruff
                                                      labels.values.inject('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
         else
           longest_left_label_width = calculate_width(@marker_font_size,
-                                                     label(@maximum_value.to_f, @increment))
+                                                     label(@maximum_value.to_f, @increment, @marker_format))
+        end
+
+        if @secondary_y_axis.nil?
+          longest_right_label_width = 0
+        else
+          if !@secondary_y_axis[:label].nil?
+            longest_right_label_width = calculate_width(@secondary_y_axis[:font_size],
+                                                     labels.values.inject('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
+          else
+            longest_right_label_width = calculate_width(@secondary_y_axis[:font_size],
+                                                     label(@secondary_y_axis[:maximum_value].to_f, @secondary_y_axis[:m_increment], @secondary_y_axis[:format]))
+          end
         end
 
         # Shift graph if left line numbers are hidden
         line_number_width = @hide_line_numbers && !@has_left_labels ?
             0.0 :
             (longest_left_label_width + LABEL_MARGIN * 2)
+
+        rline_number_width = @hide_line_numbers && @secondary_y_axis.nil? ?
+            0.0 :
+            (longest_right_label_width + LABEL_MARGIN * 2)
 
         @graph_left = @left_margin +
             line_number_width +
@@ -568,7 +628,7 @@ module Gruff
         extra_room_for_long_label = (last_label >= (@column_count-1) && @center_labels_over_point) ?
             calculate_width(@marker_font_size, @labels[last_label]) / 2.0 :
             0
-        @graph_right_margin = @right_margin + extra_room_for_long_label
+        @graph_right_margin = @right_margin + extra_room_for_long_label + rline_number_width
 
         @graph_bottom_margin = @bottom_margin +
             @marker_caps_height + LABEL_MARGIN
@@ -684,7 +744,77 @@ module Gruff
           @d = @d.annotate_scaled(@base_image,
                                   @graph_left - LABEL_MARGIN, 1.0,
                                   0.0, y,
-                                  label(marker_label, @increment), @scale)
+                                  label(marker_label, @increment, @marker_format), @scale)
+        end
+      end
+
+      unless @secondary_y_axis.nil?
+        if @secondary_y_axis[:increment].nil?
+          # Try to use a number of horizontal lines that will come out even.
+          #
+          # TODO Do the same for larger numbers...100, 75, 50, 25
+          if @secondary_y_axis[:count].nil?
+            (3..7).each do |lines|
+              if @secondary_y_axis[:m_spread] % lines == 0.0
+                @secondary_y_axis[:count] = lines
+                break
+              end
+            end
+            @secondary_y_axis[:count] ||= 4
+          end
+          @secondary_y_axis[:m_increment] = (@secondary_y_axis[:m_spread] > 0 && @secondary_y_axis[:count] > 0) ? significant(@secondary_y_axis[:m_spread] / @secondary_y_axis[:count]) : 1
+        else
+          # TODO Make this work for negative values
+          @secondary_y_axis[:count] = (@secondary_y_axis[:m_spread] / @secondary_y_axis[:increment]).to_i
+          @secondary_y_axis[:m_increment] = @secondary_y_axis[:increment]
+        end
+        increment_scaled = @graph_height.to_f / (@secondary_y_axis[:m_spread] / @secondary_y_axis[:m_increment])
+
+        # Draw horizontal line markers and annotate with numbers
+        (0..@secondary_y_axis[:count]).each do |index|
+          y = @graph_top + @graph_height - index.to_f * increment_scaled
+
+          if @secondary_y_axis[:skip_lines].nil? || !@secondary_y_axis[:skip_lines].include?(index)
+            if @secondary_y_axis[:stroke_dash].nil?
+              @d = @d.fill(@secondary_y_axis[:line_color])
+            else
+              @d = @d.fill('transparent').stroke(@secondary_y_axis[:line_color]).stroke_dasharray *@secondary_y_axis[:stroke_dash]
+            end
+            @d.stroke_opacity @secondary_y_axis[:stroke_opacity]
+
+            # FIXME(uwe): Workaround for Issue #66
+            #             https://github.com/topfunky/gruff/issues/66
+            #             https://github.com/rmagick/rmagick/issues/82
+            #             Remove if the issue gets fixed.
+            y += 0.001 unless defined?(JRUBY_VERSION)
+            # EMXIF
+
+            @d = @d.line(@graph_left, y, @graph_right, y)
+            @d.stroke_dasharray
+            @d.stroke_opacity 1
+
+            #If the user specified a marker shadow color, draw a shadow just below it
+            unless @secondary_y_axis[:shadow_color].nil?
+              @d = @d.fill(@secondary_y_axis[:shadow_color])
+              @d = @d.line(@graph_left, y + 1, @graph_right, y + 1)
+            end
+          end
+
+          marker_label = BigDecimal(index.to_s) * BigDecimal(@secondary_y_axis[:m_increment].to_s) +
+              BigDecimal(@secondary_y_axis[:minimum_value].to_s)
+
+          unless @hide_line_numbers
+            @d.fill = @secondary_y_axis[:label_color]
+            @d.font = @secondary_y_axis[:label_font] if @secondary_y_axis[:label_font]
+            @d.stroke('transparent')
+            @d.pointsize = scale_fontsize(@secondary_y_axis[:font_size])
+            @d.gravity = WestGravity
+            # Vertically center with 1.0 for the height
+            @d = @d.annotate_scaled(@base_image,
+                                    1.0, 1.0,
+                                    @graph_right + LABEL_MARGIN, y,
+                                    label(marker_label, @secondary_y_axis[:m_increment], @secondary_y_axis[:format]), @scale)
+          end
         end
       end
 
@@ -1085,7 +1215,7 @@ module Gruff
 
     # Return a formatted string representing a number value that should be
     # printed as a label.
-    def label(value, increment)
+    def label(value, increment, format = nil)
       label = if increment
                 if increment >= 10 || (increment * 1) == (increment * 1).to_i.to_f
                   sprintf('%0i', value)
@@ -1110,6 +1240,9 @@ module Gruff
                 value.to_s
               end
 
+      unless format.nil?
+        label = sprintf format, label
+      end
       parts = label.split('.')
       parts[0].gsub!(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{THOUSAND_SEPARATOR}")
       parts.join('.')

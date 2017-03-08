@@ -1,3 +1,7 @@
+(new features)
+- format string for marker label
+- add secondary y axis
+
 # Gruff Graphs
 
 [![Build Status](https://travis-ci.org/topfunky/gruff.svg?branch=master)](https://travis-ci.org/topfunky/gruff)

@@ -97,7 +97,7 @@ class Gruff::Dot < Gruff::Base
         @d = @d.annotate_scaled(@base_image,
                                 0, 0, # Width of box to draw text in
                                 x, @graph_bottom + (LABEL_MARGIN * 2.0), # Coordinates of text
-                                label(marker_label, increment), @scale)
+                                label(marker_label, increment, @marker_format), @scale)
       end # unless
       @d = @d.stroke_antialias true
     end
