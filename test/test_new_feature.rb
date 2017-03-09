@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-require_relative 'gruff_test_case'
+require File.dirname(__FILE__) + '/gruff_test_case'
 
 class TestNewFeature < GruffTestCase
 
@@ -18,7 +18,7 @@ class TestNewFeature < GruffTestCase
     ]
   end
 
-  def test_bar_formatted_marker_label
+  def test_bar_formatted_marker
     g = setup_basic_bar_graph
     g.title = 'Bar Chart (marker %)'
     g.marker_format = '%.0f%%'
@@ -28,20 +28,35 @@ class TestNewFeature < GruffTestCase
   def test_bar_secondary_y_axis
     g = setup_basic_bar_graph
     g.title = 'Bar Chart (right Y)'
-    g.secondary_y_axis = {
-        label: nil,
-        label_color: 'yellow',
-        label_font: nil,
-        line_color: 'grey',
-        font_size: 21,
-        maximum_value: 100,
-        minimum_value: 0,
-        format: '%.0f%%',
-        stroke_dash: [3, 5],
-        stroke_opacity: 0.4,
-        skip_lines: [0, 5],
-        count: 5
-      }
+    g.right_y_axis = Gruff::Axis.new
+    g.right_y_axis.label = 'the perc'
+    g.right_y_axis.label_color = 'yellow'
+    g.right_y_axis.line_color = 'grey'
+    g.right_y_axis.maximum_value = 100
+    g.right_y_axis.minimum_value = 0
+    g.right_y_axis.format = '%.0f%%'
+    g.right_y_axis.skip_lines = [0, 5]
+    g.right_y_axis.count = 5
+    g.right_y_axis.stroke_dash = [3, 5]
+    g.right_y_axis.stroke_opacity = 0.4
+    g.write('test/output/bar_with_secondary_y.png')
+  end
+
+  def test_bar_secondary_y_axis_label
+    g = setup_basic_bar_graph
+    g.title = 'Bar Chart (right Y label)'
+    g.y_axis_label = "left side"
+    g.right_y_axis = Gruff::Axis.new
+    g.right_y_axis.label = 'the perc'
+    g.right_y_axis.label_color = 'yellow'
+    g.right_y_axis.line_color = 'grey'
+    g.right_y_axis.maximum_value = 100
+    g.right_y_axis.minimum_value = 0
+    g.right_y_axis.format = '%.0f%%'
+    g.right_y_axis.skip_lines = [0, 5]
+    g.right_y_axis.count = 5
+    g.right_y_axis.stroke_dash = [3, 5]
+    g.right_y_axis.stroke_opacity = 0.4
     g.write('test/output/bar_with_secondary_y.png')
   end
 
@@ -56,22 +71,30 @@ class TestNewFeature < GruffTestCase
   def test_line_secondary_y_axis
     g = setup_basic_line_graph(800)
     g.title = 'Line Chart (right Y)'
-    g.secondary_y_axis = {
-        label: nil,
-        label_color: 'yellow',
-        label_font: nil,
-        line_color: 'grey',
-        font_size: 21,
-        maximum_value: 100,
-        minimum_value: 0,
-        format: '%.0f%%',
-        stroke_dash: [3, 5],
-        stroke_opacity: 0.4,
-        skip_lines: [0, 5],
-        count: 5
-      }
-
+    g.right_y_axis = Gruff::Axis.new
+    g.right_y_axis.label = 'the perc'
+    g.right_y_axis.label_color = 'yellow'
+    g.right_y_axis.line_color = 'grey'
+    g.right_y_axis.maximum_value = 100
+    g.right_y_axis.minimum_value = 0
+    g.right_y_axis.format = '%.0f%%'
+    g.right_y_axis.skip_lines = [0, 5]
+    g.right_y_axis.count = 5
+    g.right_y_axis.stroke_dash = [3, 5]
+    g.right_y_axis.stroke_opacity = 0.4
     g.write('test/output/line_with_secondary_y.png')
+  end
+
+  def test_legend_box_vary_sizes
+    g = setup_basic_line_graph(800)
+    g.title = 'Legend box vary sizes'
+
+    g.legend_box_sizes = [
+        { width: 40, height: 10 },
+        { height: 10 },
+        { width: 5 }
+    ]
+    g.write('test/output/line_legend_vary_box_size.png')
   end
 
   protected

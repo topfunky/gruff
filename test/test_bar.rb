@@ -469,6 +469,13 @@ class TestGruffBar < GruffTestCase
     g.write('test/output/bar_marker_shadow.png')
   end
 
+  def test_bar_graph_with_spacing
+    g = setup_basic_graph
+    g.title = 'Bar Chart (50% for column space)'
+    g.data_column_spacing = 0.5
+    g.write('test/output/bar_keynote_50perc_space.png')
+  end
+
   protected
 
   def setup_basic_graph(size=800)

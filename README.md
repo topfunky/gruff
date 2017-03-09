@@ -1,6 +1,12 @@
 (new features)
 - format string for marker label
 - add secondary y axis
+- add property to specify space between data column (not bars)
+- add composite chart of bar and line
+- `bar n line` chart can use reference lines from line chart
+
+(fixes)
+- legend at bottom
 
 # Gruff Graphs
 
