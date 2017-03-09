@@ -98,7 +98,6 @@ class TestBarAndLine < GruffTestCase
   def test_basic_bar_n_line_right_y_ref_lines
     g = Gruff::BarNLine.new(800)
     g.title = 'Bar and Line (right Y, ref lines)'
-    g.legend_at_bottom = true
     g.labels = {
         0 => '5/6',
         1 => '5/15',
