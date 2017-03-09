@@ -33,7 +33,7 @@ class Gruff::BarNLine < Gruff::Bar
   def right_y_axis=(axis)
     super
 
-    # pre_normalize if !@right_y_axis.nil? && count_rows(:secondary) > 0
+    pre_normalize if !@right_y_axis.nil? && count_rows(:secondary) > 0
   end
 
   # Get the value if somebody has defined it.

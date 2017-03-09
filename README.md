@@ -8,6 +8,8 @@
 (fixes)
 - legend at bottom
 
+v0.7.1b: fix pre normalize for secondary y axis
+
 # Gruff Graphs
 
 [![Build Status](https://travis-ci.org/topfunky/gruff.svg?branch=master)](https://travis-ci.org/topfunky/gruff)
