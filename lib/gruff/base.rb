@@ -105,7 +105,8 @@ module Gruff
     attr_accessor :colors
 
     # The large title of the graph displayed at the top
-    attr_accessor :title
+    # Only a reader because we have a title= method below.
+    attr_reader :title
 
     # Font used for titles, labels, etc. Works best if you provide the full
     # path to the TTF font file.  RMagick must be built with the Freetype
@@ -303,6 +304,33 @@ module Gruff
       @font = font_path
       @d.font = @font
     end
+
+    # Set title. In order to avoid having titles be too wide for the graph to fit, add linebreaks.
+    def title=(title)
+      # If font is not defined, we can't do anything. Just set the title and return.
+      if !@title_font && !@font
+        @title = title
+	return
+      end
+      max_title_width = @columns - @left_margin - @right_margin
+      title_width = calculate_title_width(@title_font_size, title)
+      title_height = calculate_caps_height(@title_font_size)
+      if (title_width < max_title_width)
+        @title = title
+        return
+      end
+
+      # title doesn't fit into the graph, we need to enter newlines.
+      amount_of_newlines = title_width / max_title_width
+      words = title.split(' ')
+      partlength = words.length / amount_of_newlines.to_f
+      for i in (1...partlength)
+        words.insert((partlength * i).to_i, '\n')
+      end
+      @title_margin += title_height * amount_of_newlines.to_i
+      @title = words.join(' ')
+    end
+
 
     # Add a color to the list of available colors for lines.
     #
@@ -1136,6 +1164,18 @@ module Gruff
       @d.font = @font if @font
       @d.get_type_metrics(@base_image, text.to_s).width
     end
+
+    def calculate_title_width(font_size, text)
+      return 0 if text.nil?
+      @d.pointsize = font_size
+      if @title_font
+        @d.font = @title_font
+      else
+	@d.font = @font
+      end
+      @d.get_type_metrics(@base_image, text.to_s).width
+    end
+
 
     # Used for degree => radian conversions
     def deg2rad(angle)
