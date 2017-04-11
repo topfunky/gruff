@@ -832,7 +832,6 @@ module Gruff
     # TODO Allow WestGravity as an option
     def draw_label(x_offset, index)
       return if @hide_line_markers
-      raise self.inspect
 
       if !@labels[index].nil? && @labels_seen[index].nil?
         y_offset = @graph_bottom + LABEL_MARGIN
