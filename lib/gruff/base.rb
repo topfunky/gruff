@@ -85,6 +85,12 @@ module Gruff
     # Manually set increment of the vertical marking lines
     attr_accessor :x_axis_increment
 
+    # Rotate x axis label
+    attr_accessor :x_axis_rotate
+
+    # Legend offset from left
+    attr_accessor :legend_x_offset
+
     # Manually set increment of the horizontal marking lines
     attr_accessor :y_axis_increment
 
@@ -120,7 +126,7 @@ module Gruff
 
     # Same as font but for the title.
     attr_accessor :title_font
-    
+
     # Specifies whether to draw the title bolded or not.
     attr_accessor :bold_title
 
@@ -738,7 +744,6 @@ module Gruff
       return if @hide_legend
 
       @legend_labels = @data.collect { |item| item[DATA_LABEL_INDEX] }
-
       legend_square_width = @legend_box_size # small square with color of this item
 
       # May fix legend drawing problem at small sizes
@@ -756,13 +761,12 @@ module Gruff
         end
       end
 
-      current_x_offset = center(sum(label_widths.first))
+      current_x_offset = legend_x_offset.nil? ? center(sum(label_widths.first)) : legend_x_offset
       current_y_offset = @legend_at_bottom ? @graph_height + title_margin : (@hide_title ?
           @top_margin + title_margin :
           @top_margin + title_margin + @title_caps_height)
 
       @legend_labels.each_with_index do |legend_label, index|
-
         # Draw label
         @d.fill = @font_color
         @d.font = @font if @font
@@ -793,7 +797,10 @@ module Gruff
           debug { @d.line 0.0, current_y_offset, @raw_columns, current_y_offset }
 
           label_widths.shift
-          current_x_offset = center(sum(label_widths.first)) unless label_widths.empty?
+          unless label_widths.empty?
+            current_x_offset = legend_x_offset.nil? ? center(sum(label_widths.first)) : legend_x_offset
+          end
+
           line_height = [@legend_caps_height, legend_square_width].max + legend_margin
           if label_widths.length > 0
             # Wrap to next line and shrink available graph dimensions
@@ -860,11 +867,13 @@ module Gruff
           @d.stroke('transparent')
           @d.font_weight = NormalWeight
           @d.pointsize = scale_fontsize(@marker_font_size)
-          @d.gravity = NorthGravity
+          @d.gravity = x_axis_rotate.nil? ? NorthGravity : NorthWestGravity
+          @d.rotation = x_axis_rotate unless x_axis_rotate.nil?
           @d = @d.annotate_scaled(@base_image,
                                   1.0, 1.0,
                                   x_offset, y_offset,
                                   label_text, @scale)
+          @d.rotation = -1 * x_axis_rotate unless x_axis_rotate.nil?
         end
         @labels_seen[index] = 1
         debug { @d.line 0.0, y_offset, @raw_columns, y_offset }
