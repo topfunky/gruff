@@ -85,6 +85,9 @@ module Gruff
     # Manually set increment of the vertical marking lines
     attr_accessor :x_axis_increment
 
+    # Rotate x axis label
+    attr_accessor :x_axis_rotate
+
     # Manually set increment of the horizontal marking lines
     attr_accessor :y_axis_increment
 
@@ -120,7 +123,7 @@ module Gruff
 
     # Same as font but for the title.
     attr_accessor :title_font
-    
+
     # Specifies whether to draw the title bolded or not.
     attr_accessor :bold_title
 
@@ -829,6 +832,7 @@ module Gruff
     # TODO Allow WestGravity as an option
     def draw_label(x_offset, index)
       return if @hide_line_markers
+      raise self.inspect
 
       if !@labels[index].nil? && @labels_seen[index].nil?
         y_offset = @graph_bottom + LABEL_MARGIN
@@ -860,11 +864,13 @@ module Gruff
           @d.stroke('transparent')
           @d.font_weight = NormalWeight
           @d.pointsize = scale_fontsize(@marker_font_size)
-          @d.gravity = NorthGravity
+          @d.gravity = x_axis_rotate.nil? ? NorthGravity : NorthWestGravity
+          @d.rotation = x_axis_rotate unless x_axis_rotate.nil?
           @d = @d.annotate_scaled(@base_image,
                                   1.0, 1.0,
                                   x_offset, y_offset,
                                   label_text, @scale)
+          @d.rotation = -1 * x_axis_rotate unless x_axis_rotate.nil?
         end
         @labels_seen[index] = 1
         debug { @d.line 0.0, y_offset, @raw_columns, y_offset }
