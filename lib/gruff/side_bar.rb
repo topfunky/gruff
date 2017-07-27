@@ -99,17 +99,23 @@ class Gruff::SideBar < Gruff::Base
       diff = index - number_of_lines
       marker_label = diff.abs * increment + @minimum_value
 
+      if @x_axis_on_top
+        y = @graph_top - @marker_caps_height - LABEL_MARGIN
+      else
+        y = @graph_bottom + LABEL_MARGIN
+      end
+
       unless @hide_line_numbers
         @d.fill = @font_color
         @d.font = @font if @font
         @d.stroke = 'transparent'
         @d.pointsize = scale_fontsize(@marker_font_size)
-        @d.gravity = CenterGravity
+        @d.gravity = NorthGravity
         # TODO Center text over line
         @d = @d.annotate_scaled(@base_image,
                                 0, 0, # Width of box to draw text in
-                                x, @graph_bottom + (LABEL_MARGIN * 2.0), # Coordinates of text
-                                marker_label.to_s, @scale)
+                                x, y, # Coordinates of text
+                                label(marker_label.to_s, nil, @marker_format), @scale)
       end # unless
       @d = @d.stroke_antialias true
     end

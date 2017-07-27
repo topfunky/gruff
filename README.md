@@ -11,6 +11,10 @@
 
 v0.7.1b: fix pre normalize for secondary y axis
 
+v0.7.2:
+- add `x_axis_on_top`, if true, x axis markers will be drawn on top instead of bottom
+- fix `marker_format` not working for `side bar` chart
+
 # Gruff Graphs
 
 [![Build Status](https://travis-ci.org/topfunky/gruff.svg?branch=master)](https://travis-ci.org/topfunky/gruff)

@@ -225,6 +225,9 @@ module Gruff
     # Data for the secondary y axis
     attr_reader :right_y_axis
 
+    # flag to draw x-axis on top instead of bottom, default: false
+    attr_accessor :x_axis_on_top
+
     # If one numerical argument is given, the graph is drawn at 4/3 ratio
     # according to the given width (800 results in 800x600, 400 gives 400x300,
     # etc.).
@@ -312,6 +315,7 @@ module Gruff
       @norm_data = nil
 
       @right_y_axis = nil
+      @x_axis_on_top = false
     end
 
     # Sets the top, bottom, left and right margins to +margin+.
@@ -588,6 +592,8 @@ module Gruff
             @graph_right_margin,
             @graph_bottom_margin) = [@left_margin, @right_margin, @bottom_margin]
       else
+        graph_top_margin = 0
+
         if @has_left_labels
           longest_left_label_width = calculate_width(@marker_font_size,
                                                      labels.values.inject('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
@@ -629,8 +635,12 @@ module Gruff
             0
         @graph_right_margin = @right_margin + extra_room_for_long_label + rline_number_width + (!@right_y_axis.nil? && !@right_y_axis.label.nil? ? @marker_caps_height : 0.0)
 
-        @graph_bottom_margin = @bottom_margin +
-            @marker_caps_height + LABEL_MARGIN
+        @graph_bottom_margin = @bottom_margin
+        if @x_axis_on_top
+          graph_top_margin = @marker_caps_height + LABEL_MARGIN
+        else
+          @graph_bottom_margin += @marker_caps_height + LABEL_MARGIN
+        end
       end
 
       @graph_right = @raw_columns - @graph_right_margin
@@ -650,7 +660,13 @@ module Gruff
       x_axis_label_height = @x_axis_label.nil? ? 0.0 :
           @marker_caps_height + LABEL_MARGIN
       # FIXME: Consider chart types other than bar
-      @graph_bottom += @raw_rows - @graph_bottom_margin - x_axis_label_height - @label_stagger_height
+      if @x_axis_on_top
+        puts x_axis_label_height
+        @graph_top += graph_top_margin + x_axis_label_height
+      else
+        @graph_bottom -= x_axis_label_height
+      end
+      @graph_bottom += @raw_rows - @graph_bottom_margin - @label_stagger_height
       @graph_height = @graph_bottom - @graph_top
     end
 
@@ -660,7 +676,11 @@ module Gruff
         # X Axis
         # Centered vertically and horizontally by setting the
         # height to 1.0 and the width to the width of the graph.
-        x_axis_label_y_coordinate = @graph_bottom + LABEL_MARGIN * 2 + @marker_caps_height
+        if @x_axis_on_top
+          x_axis_label_y_coordinate = @graph_top
+        else
+          x_axis_label_y_coordinate = @graph_bottom + LABEL_MARGIN * 2 + @marker_caps_height
+        end
 
         # TODO Center between graph area
         @d.fill = @font_color
@@ -909,7 +929,11 @@ module Gruff
       current_x_offset = center(sum(label_widths.first))
       # x_axis_label_y_coordinate = @graph_bottom + LABEL_MARGIN * 2 + @marker_caps_height
       if @legend_at_bottom
-        current_y_offset = @graph_bottom + LABEL_MARGIN * 2 + @marker_caps_height + @legend_caps_height
+        if @x_axis_on_top
+          current_y_offset = @graph_bottom + LABEL_MARGIN * 2 + @legend_caps_height
+        else
+          current_y_offset = @graph_bottom + LABEL_MARGIN * 2 + @marker_caps_height + @legend_caps_height
+        end
       else
         current_y_offset = @legend_at_bottom ? @graph_height + title_margin : (@hide_title ?
           @top_margin + title_margin :
@@ -993,7 +1017,11 @@ module Gruff
       return if @hide_line_markers
 
       if !@labels[index].nil? && @labels_seen[index].nil?
-        y_offset = @graph_bottom + LABEL_MARGIN
+        if @x_axis_on_top
+          y_offset = @graph_top - @marker_caps_height - LABEL_MARGIN
+        else
+          y_offset = @graph_bottom + LABEL_MARGIN
+        end
 
         # TESTME
         # FIXME: Consider chart types other than bar
