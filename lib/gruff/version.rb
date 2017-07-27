@@ -1,3 +1,3 @@
 module Gruff
-  VERSION = '0.7.1.dev'
+  VERSION = '0.7.2'
 end

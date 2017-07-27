@@ -32,6 +32,11 @@ module Gruff
     DATA_VALUES_INDEX = 1
     DATA_COLOR_INDEX = 2
     DATA_VALUES_X_INDEX = 3
+    DATA_ROLE_INDEX = 4
+
+    # role of the data
+    ROLE_PRIMARY = :primary
+    ROLE_SECONDARY = :secondary
 
     # Space around text elements. Mostly used for vertical spacing
     LEGEND_MARGIN = TITLE_MARGIN = 20.0
@@ -164,6 +169,9 @@ module Gruff
     # The number of horizontal lines shown for reference
     attr_accessor :marker_count
 
+    # The format for the marker number
+    attr_accessor :marker_format
+
     # You can manually set a minimum value instead of having the values
     # guessed for you.
     #
@@ -197,6 +205,11 @@ module Gruff
     # Will be scaled down if graph is smaller than 800px wide.
     attr_accessor :legend_box_size
 
+    # Array of hash with with/height for colored box of each item in legend
+    # if the number of items in this array is lesser than the actual legend count
+    #    legend_box_size will be used
+    attr_reader :legend_box_sizes
+
     # Output the values for the bars on a bar graph
     # Default is false
     attr_accessor :show_labels_for_bar_values
@@ -208,6 +221,13 @@ module Gruff
     # With Side Bars use the data label for the marker value to the left of the bar
     # Default is false
     attr_accessor :use_data_label
+
+    # Data for the secondary y axis
+    attr_reader :right_y_axis
+
+    # flag to draw x-axis on top instead of bottom, default: false
+    attr_accessor :x_axis_on_top
+
     # If one numerical argument is given, the graph is drawn at 4/3 ratio
     # according to the given width (800 results in 800x600, 400 gives 400x300,
     # etc.).
@@ -245,6 +265,7 @@ module Gruff
       @column_count = 0
       @data = Array.new
       @marker_count = nil
+      @marker_format = nil
       @maximum_value = @minimum_value = nil
       @has_data = false
       @increment = nil
@@ -271,6 +292,7 @@ module Gruff
       @title_margin = TITLE_MARGIN
 
       @legend_box_size = 20.0
+      @legend_box_sizes = []
 
       @no_data_message = 'No Data'
 
@@ -291,6 +313,9 @@ module Gruff
       @y_axis_increment = nil
       @stacked = nil
       @norm_data = nil
+
+      @right_y_axis = nil
+      @x_axis_on_top = false
     end
 
     # Sets the top, bottom, left and right margins to +margin+.
@@ -391,6 +416,21 @@ module Gruff
       self.theme = Themes::GREYSCALE
     end
 
+    def right_y_axis=(axis)
+      if axis.nil? || axis.class != Gruff::Axis
+        @right_y_axis = nil
+        return
+      end
+      @right_y_axis = axis
+    end
+
+    def legend_box_sizes=(array)
+      if array.nil? || array.class != Array
+        @legend_box_sizes = []
+        return
+      end
+      @legend_box_sizes = array.map { |item| { width: 20, height: 20 }.merge item }
+    end
     # Parameters are an array where the first element is the name of the dataset
     # and the value is an array of values to plot.
     #
@@ -408,7 +448,9 @@ module Gruff
     def data(name, data_points=[], color=nil)
       data_points = Array(data_points) # make sure it's an array
       @data << [name, data_points, color]
-                                       # Set column count if this is larger than previous counts
+      @data.last[DATA_ROLE_INDEX] = ROLE_PRIMARY
+
+      # Set column count if this is larger than previous counts
       @column_count = (data_points.length > @column_count) ? data_points.length : @column_count
 
       # Pre-normalize
@@ -516,9 +558,9 @@ module Gruff
             end
           end
           if @show_labels_for_bar_values
-            @norm_data << [data_row[DATA_LABEL_INDEX], norm_data_points, data_row[DATA_COLOR_INDEX], data_row[DATA_VALUES_INDEX]]
+            @norm_data << [data_row[DATA_LABEL_INDEX], norm_data_points, data_row[DATA_COLOR_INDEX], data_row[DATA_VALUES_INDEX], data_row[DATA_ROLE_INDEX]]
           else
-            @norm_data << [data_row[DATA_LABEL_INDEX], norm_data_points, data_row[DATA_COLOR_INDEX]]
+            @norm_data << [data_row[DATA_LABEL_INDEX], norm_data_points, data_row[DATA_COLOR_INDEX], nil, data_row[DATA_ROLE_INDEX]]
           end
         end
       end
@@ -527,6 +569,11 @@ module Gruff
     def calculate_spread # :nodoc:
       @spread = @maximum_value.to_f - @minimum_value.to_f
       @spread = @spread > 0 ? @spread : 1
+
+      unless @right_y_axis.nil?
+        @right_y_axis.m_spread = @right_y_axis.maximum_value.to_f - @right_y_axis.minimum_value.to_f
+        @right_y_axis.m_spread = @right_y_axis.m_spread > 0 ? @right_y_axis.m_spread : 1
+      end
     end
 
     ##
@@ -545,18 +592,36 @@ module Gruff
             @graph_right_margin,
             @graph_bottom_margin) = [@left_margin, @right_margin, @bottom_margin]
       else
+        graph_top_margin = 0
+
         if @has_left_labels
           longest_left_label_width = calculate_width(@marker_font_size,
                                                      labels.values.inject('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
         else
           longest_left_label_width = calculate_width(@marker_font_size,
-                                                     label(@maximum_value.to_f, @increment))
+                                                     label(@maximum_value.to_f, @increment, @marker_format))
+        end
+
+        if @right_y_axis.nil?
+          longest_right_label_width = 0
+        else
+          if !@right_y_axis.label.nil?
+            longest_right_label_width = calculate_width(@right_y_axis.font_size,
+                                                     labels.values.inject('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
+          else
+            longest_right_label_width = calculate_width(@right_y_axis.font_size,
+                                                     label(@right_y_axis.maximum_value.to_f, @right_y_axis.m_increment, @right_y_axis.format))
+          end
         end
 
         # Shift graph if left line numbers are hidden
         line_number_width = @hide_line_numbers && !@has_left_labels ?
             0.0 :
             (longest_left_label_width + LABEL_MARGIN * 2)
+
+        rline_number_width = @hide_line_numbers && @right_y_axis.nil? ?
+            0.0 :
+            (longest_right_label_width + LABEL_MARGIN * 2)
 
         @graph_left = @left_margin +
             line_number_width +
@@ -568,25 +633,40 @@ module Gruff
         extra_room_for_long_label = (last_label >= (@column_count-1) && @center_labels_over_point) ?
             calculate_width(@marker_font_size, @labels[last_label]) / 2.0 :
             0
-        @graph_right_margin = @right_margin + extra_room_for_long_label
+        @graph_right_margin = @right_margin + extra_room_for_long_label + rline_number_width + (!@right_y_axis.nil? && !@right_y_axis.label.nil? ? @marker_caps_height : 0.0)
 
-        @graph_bottom_margin = @bottom_margin +
-            @marker_caps_height + LABEL_MARGIN
+        @graph_bottom_margin = @bottom_margin
+        if @x_axis_on_top
+          graph_top_margin = @marker_caps_height + LABEL_MARGIN
+        else
+          @graph_bottom_margin += @marker_caps_height + LABEL_MARGIN
+        end
       end
 
       @graph_right = @raw_columns - @graph_right_margin
+      @right_y_axis.m_offset = @graph_right + rline_number_width unless @right_y_axis.nil?
       @graph_width = @raw_columns - @graph_left - @graph_right_margin
 
+      @graph_bottom = 0
       # When @hide title, leave a title_margin space for aesthetics.
       # Same with @hide_legend
-      @graph_top = @legend_at_bottom ? @top_margin : (@top_margin +
-          (@hide_title ? title_margin : @title_caps_height + title_margin) +
-          (@hide_legend ? legend_margin : @legend_caps_height + legend_margin))
+      @graph_top = @top_margin + (@hide_title ? title_margin : @title_caps_height + title_margin)
+      if @legend_at_bottom
+        @graph_bottom -= (@hide_legend ? legend_margin : @legend_caps_height + legend_margin)
+      else
+        @graph_top += (@hide_legend ? legend_margin : @legend_caps_height + legend_margin)
+      end
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 :
           @marker_caps_height + LABEL_MARGIN
       # FIXME: Consider chart types other than bar
-      @graph_bottom = @raw_rows - @graph_bottom_margin - x_axis_label_height - @label_stagger_height
+      if @x_axis_on_top
+        puts x_axis_label_height
+        @graph_top += graph_top_margin + x_axis_label_height
+      else
+        @graph_bottom -= x_axis_label_height
+      end
+      @graph_bottom += @raw_rows - @graph_bottom_margin - @label_stagger_height
       @graph_height = @graph_bottom - @graph_top
     end
 
@@ -596,7 +676,11 @@ module Gruff
         # X Axis
         # Centered vertically and horizontally by setting the
         # height to 1.0 and the width to the width of the graph.
-        x_axis_label_y_coordinate = @graph_bottom + LABEL_MARGIN * 2 + @marker_caps_height
+        if @x_axis_on_top
+          x_axis_label_y_coordinate = @graph_top
+        else
+          x_axis_label_y_coordinate = @graph_bottom + LABEL_MARGIN * 2 + @marker_caps_height
+        end
 
         # TODO Center between graph area
         @d.fill = @font_color
@@ -620,6 +704,17 @@ module Gruff
                                 @left_margin + @marker_caps_height / 2.0, 0.0,
                                 @y_axis_label, @scale)
         @d.rotation = 90.0
+      end
+
+      if !@right_y_axis.nil? && !@right_y_axis.label.nil?
+        # right Y Axis, rotated vertically
+        @d.rotation = 90.0
+        @d.gravity = CenterGravity
+        @d = @d.annotate_scaled(@base_image,
+                                1.0, @raw_rows,
+                                @right_y_axis.m_offset + @marker_caps_height / 2.0, 0.0,
+                                @right_y_axis.label, @scale)
+        @d.rotation = -90.0
       end
     end
 
@@ -684,7 +779,77 @@ module Gruff
           @d = @d.annotate_scaled(@base_image,
                                   @graph_left - LABEL_MARGIN, 1.0,
                                   0.0, y,
-                                  label(marker_label, @increment), @scale)
+                                  label(marker_label, @increment, @marker_format), @scale)
+        end
+      end
+
+      unless @right_y_axis.nil?
+        if @right_y_axis.increment.nil?
+          # Try to use a number of horizontal lines that will come out even.
+          #
+          # TODO Do the same for larger numbers...100, 75, 50, 25
+          if @right_y_axis.count.nil?
+            (3..7).each do |lines|
+              if @right_y_axis.m_spread % lines == 0.0
+                @right_y_axis.count = lines
+                break
+              end
+            end
+            @right_y_axis.count ||= 4
+          end
+          @right_y_axis.m_increment = (@right_y_axis.m_spread > 0 && @right_y_axis.count > 0) ? significant(@right_y_axis.m_spread / @right_y_axis.count) : 1
+        else
+          # TODO Make this work for negative values
+          @right_y_axis.count = (@right_y_axis.m_spread / @right_y_axis.increment).to_i
+          @right_y_axis.m_increment = @right_y_axis.increment
+        end
+        increment_scaled = @graph_height.to_f / (@right_y_axis.m_spread / @right_y_axis.m_increment)
+
+        # Draw horizontal line markers and annotate with numbers
+        (0..@right_y_axis.count).each do |index|
+          y = @graph_top + @graph_height - index.to_f * increment_scaled
+
+          if @right_y_axis.skip_lines.nil? || !@right_y_axis.skip_lines.include?(index)
+            if @right_y_axis.stroke_dash.nil?
+              @d = @d.fill(@right_y_axis.line_color)
+            else
+              @d = @d.fill('transparent').stroke(@right_y_axis.line_color).stroke_dasharray *@right_y_axis.stroke_dash
+            end
+            @d.stroke_opacity @right_y_axis.stroke_opacity
+
+            # FIXME(uwe): Workaround for Issue #66
+            #             https://github.com/topfunky/gruff/issues/66
+            #             https://github.com/rmagick/rmagick/issues/82
+            #             Remove if the issue gets fixed.
+            y += 0.001 unless defined?(JRUBY_VERSION)
+            # EMXIF
+
+            @d = @d.line(@graph_left, y, @graph_right, y)
+            @d.stroke_dasharray
+            @d.stroke_opacity 1
+
+            #If the user specified a marker shadow color, draw a shadow just below it
+            unless @right_y_axis.shadow_color.nil?
+              @d = @d.fill(@right_y_axis.shadow_color)
+              @d = @d.line(@graph_left, y + 1, @graph_right, y + 1)
+            end
+          end
+
+          marker_label = BigDecimal(index.to_s) * BigDecimal(@right_y_axis.m_increment.to_s) +
+              BigDecimal(@right_y_axis.minimum_value.to_s)
+
+          unless @hide_line_numbers
+            @d.fill = @right_y_axis.label_color
+            @d.font = @right_y_axis.label_font if @right_y_axis.label_font
+            @d.stroke('transparent')
+            @d.pointsize = scale_fontsize(@right_y_axis.font_size)
+            @d.gravity = WestGravity
+            # Vertically center with 1.0 for the height
+            @d = @d.annotate_scaled(@base_image,
+                                    1.0, 1.0,
+                                    @graph_right + LABEL_MARGIN, y,
+                                    label(marker_label, @right_y_axis.m_increment, @right_y_axis.format), @scale)
+          end
         end
       end
 
@@ -746,9 +911,14 @@ module Gruff
       @d.pointsize = @legend_font_size
 
       label_widths = [[]] # Used to calculate line wrap
-      @legend_labels.each do |label|
+      @legend_labels.each_with_index do |label, index|
+        if index < @legend_box_sizes.length
+          wd = @legend_box_sizes[index][:width]
+        else
+          wd = legend_square_width
+        end
         metrics = @d.get_type_metrics(@base_image, label.to_s)
-        label_width = metrics.width + legend_square_width * 2.7
+        label_width = metrics.width + wd * 2.7
         label_widths.last.push label_width
 
         if sum(label_widths.last) > (@raw_columns * 0.9)
@@ -757,11 +927,27 @@ module Gruff
       end
 
       current_x_offset = center(sum(label_widths.first))
-      current_y_offset = @legend_at_bottom ? @graph_height + title_margin : (@hide_title ?
+      # x_axis_label_y_coordinate = @graph_bottom + LABEL_MARGIN * 2 + @marker_caps_height
+      if @legend_at_bottom
+        if @x_axis_on_top
+          current_y_offset = @graph_bottom + LABEL_MARGIN * 2 + @legend_caps_height
+        else
+          current_y_offset = @graph_bottom + LABEL_MARGIN * 2 + @marker_caps_height + @legend_caps_height
+        end
+      else
+        current_y_offset = @legend_at_bottom ? @graph_height + title_margin : (@hide_title ?
           @top_margin + title_margin :
           @top_margin + title_margin + @title_caps_height)
+      end
 
       @legend_labels.each_with_index do |legend_label, index|
+        if index < @legend_box_sizes.length
+          wd = @legend_box_sizes[index][:width]
+          he = @legend_box_sizes[index][:height]
+        else
+          wd = legend_square_width
+          he = legend_square_width
+        end
 
         # Draw label
         @d.fill = @font_color
@@ -772,20 +958,20 @@ module Gruff
         @d.gravity = WestGravity
         @d = @d.annotate_scaled(@base_image,
                                 @raw_columns, 1.0,
-                                current_x_offset + (legend_square_width * 1.7), current_y_offset,
+                                current_x_offset + (wd * 1.7), current_y_offset,
                                 legend_label.to_s, @scale)
 
         # Now draw box with color of this dataset
         @d = @d.stroke('transparent')
         @d = @d.fill @data[index][DATA_COLOR_INDEX]
         @d = @d.rectangle(current_x_offset,
-                          current_y_offset - legend_square_width / 2.0,
-                          current_x_offset + legend_square_width,
-                          current_y_offset + legend_square_width / 2.0)
+                          current_y_offset - he / 2.0,
+                          current_x_offset + wd,
+                          current_y_offset + he / 2.0)
 
         @d.pointsize = @legend_font_size
         metrics = @d.get_type_metrics(@base_image, legend_label.to_s)
-        current_string_offset = metrics.width + (legend_square_width * 2.7)
+        current_string_offset = metrics.width + (wd * 2.7)
 
         # Handle wrapping
         label_widths.first.shift
@@ -794,7 +980,7 @@ module Gruff
 
           label_widths.shift
           current_x_offset = center(sum(label_widths.first)) unless label_widths.empty?
-          line_height = [@legend_caps_height, legend_square_width].max + legend_margin
+          line_height = [@legend_caps_height, wd].max + legend_margin
           if label_widths.length > 0
             # Wrap to next line and shrink available graph dimensions
             current_y_offset += line_height
@@ -831,7 +1017,11 @@ module Gruff
       return if @hide_line_markers
 
       if !@labels[index].nil? && @labels_seen[index].nil?
-        y_offset = @graph_bottom + LABEL_MARGIN
+        if @x_axis_on_top
+          y_offset = @graph_top - @marker_caps_height - LABEL_MARGIN
+        else
+          y_offset = @graph_bottom + LABEL_MARGIN
+        end
 
         # TESTME
         # FIXME: Consider chart types other than bar
@@ -1085,7 +1275,7 @@ module Gruff
 
     # Return a formatted string representing a number value that should be
     # printed as a label.
-    def label(value, increment)
+    def label(value, increment, format = nil)
       label = if increment
                 if increment >= 10 || (increment * 1) == (increment * 1).to_i.to_f
                   sprintf('%0i', value)
@@ -1110,6 +1300,9 @@ module Gruff
                 value.to_s
               end
 
+      unless format.nil?
+        label = sprintf format, label
+      end
       parts = label.split('.')
       parts[0].gsub!(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{THOUSAND_SEPARATOR}")
       parts.join('.')
