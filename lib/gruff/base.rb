@@ -524,6 +524,7 @@ module Gruff
       sort_data if @sort # Sort data with avg largest values set first (for display)
       set_colors
       normalize
+      setup_increments
       setup_graph_measurements
       sort_norm_data if @sorted_drawing # Sort norm_data with avg largest values set first (for display)
     end
@@ -577,8 +578,7 @@ module Gruff
           longest_left_label_width = calculate_width(@marker_font_size,
                                                      labels.values.inject('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
         else
-          longest_left_label_width = calculate_width(@marker_font_size,
-                                                     label(@maximum_value.to_f, @increment))
+          longest_left_label_width = calculate_width(@marker_font_size, label(@maximum_value.to_f, @increment))
         end
 
         # Shift graph if left line numbers are hidden
@@ -651,16 +651,13 @@ module Gruff
       end
     end
 
-    # Draws horizontal background lines and labels
-    def draw_line_markers
-      return if @hide_line_markers
-
-      @d = @d.stroke_antialias false
-
+    # Calculate the `@marker_count` and set the `@increment`.
+    # Must be done during the drawing step before `setup_graph_measurements`, so 
+    # that the `setup_graph_measurements` method can use it.
+    private def setup_increments
       if @y_axis_increment.nil?
         # Try to use a number of horizontal lines that will come out even.
         #
-        # TODO Do the same for larger numbers...100, 75, 50, 25
         if @marker_count.nil?
           (3..7).each do |lines|
             if @spread % lines == 0.0
@@ -670,12 +667,21 @@ module Gruff
           end
           @marker_count ||= 4
         end
+	# the increment is either 1 or the significant portion of the spread-to-markers ratio.
         @increment = (@spread > 0 && @marker_count > 0) ? significant(@spread / @marker_count) : 1
       else
         # TODO Make this work for negative values
         @marker_count = (@spread / @y_axis_increment).to_i
         @increment = @y_axis_increment
       end
+    end
+
+    # Draws horizontal background lines and labels
+    def draw_line_markers
+      return if @hide_line_markers
+
+      @d = @d.stroke_antialias false
+
       @increment_scaled = @graph_height.to_f / (@spread / @increment)
 
       # Draw horizontal line markers and annotate with numbers
