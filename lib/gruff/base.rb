@@ -105,7 +105,8 @@ module Gruff
     attr_accessor :colors
 
     # The large title of the graph displayed at the top
-    attr_accessor :title
+    # Only a reader because we have a title= method below.
+    attr_reader :title
 
     # Font used for titles, labels, etc. Works best if you provide the full
     # path to the TTF font file.  RMagick must be built with the Freetype
@@ -304,6 +305,33 @@ module Gruff
       @d.font = @font
     end
 
+    # Set title. In order to avoid having titles be too wide for the graph to fit, add linebreaks.
+    def title=(title)
+      # If font is not defined, we can't do anything. Just set the title and return.
+      if !@title_font && !@font
+        @title = title
+	return
+      end
+      max_title_width = @columns - @left_margin - @right_margin
+      title_width = calculate_title_width(@title_font_size, title)
+      title_height = calculate_caps_height(@title_font_size)
+      if (title_width < max_title_width)
+        @title = title
+        return
+      end
+
+      # title doesn't fit into the graph, we need to enter newlines.
+      amount_of_newlines = title_width / max_title_width
+      words = title.split(' ')
+      partlength = words.length / amount_of_newlines.to_f
+      for i in (1...partlength)
+        words.insert((partlength * i).to_i, '\n')
+      end
+      @title_margin += title_height * amount_of_newlines.to_i
+      @title = words.join(' ')
+    end
+
+
     # Add a color to the list of available colors for lines.
     #
     # Example:
@@ -496,6 +524,7 @@ module Gruff
       sort_data if @sort # Sort data with avg largest values set first (for display)
       set_colors
       normalize
+      setup_increments
       setup_graph_measurements
       sort_norm_data if @sorted_drawing # Sort norm_data with avg largest values set first (for display)
     end
@@ -549,8 +578,7 @@ module Gruff
           longest_left_label_width = calculate_width(@marker_font_size,
                                                      labels.values.inject('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
         else
-          longest_left_label_width = calculate_width(@marker_font_size,
-                                                     label(@maximum_value.to_f, @increment))
+          longest_left_label_width = calculate_width(@marker_font_size, label(@maximum_value.to_f, @increment))
         end
 
         # Shift graph if left line numbers are hidden
@@ -623,16 +651,13 @@ module Gruff
       end
     end
 
-    # Draws horizontal background lines and labels
-    def draw_line_markers
-      return if @hide_line_markers
-
-      @d = @d.stroke_antialias false
-
+    # Calculate the `@marker_count` and set the `@increment`.
+    # Must be done during the drawing step before `setup_graph_measurements`, so 
+    # that the `setup_graph_measurements` method can use it.
+    private def setup_increments
       if @y_axis_increment.nil?
         # Try to use a number of horizontal lines that will come out even.
         #
-        # TODO Do the same for larger numbers...100, 75, 50, 25
         if @marker_count.nil?
           (3..7).each do |lines|
             if @spread % lines == 0.0
@@ -642,12 +667,21 @@ module Gruff
           end
           @marker_count ||= 4
         end
+	# the increment is either 1 or the significant portion of the spread-to-markers ratio.
         @increment = (@spread > 0 && @marker_count > 0) ? significant(@spread / @marker_count) : 1
       else
         # TODO Make this work for negative values
         @marker_count = (@spread / @y_axis_increment).to_i
         @increment = @y_axis_increment
       end
+    end
+
+    # Draws horizontal background lines and labels
+    def draw_line_markers
+      return if @hide_line_markers
+
+      @d = @d.stroke_antialias false
+
       @increment_scaled = @graph_height.to_f / (@spread / @increment)
 
       # Draw horizontal line markers and annotate with numbers
@@ -1136,6 +1170,18 @@ module Gruff
       @d.font = @font if @font
       @d.get_type_metrics(@base_image, text.to_s).width
     end
+
+    def calculate_title_width(font_size, text)
+      return 0 if text.nil?
+      @d.pointsize = font_size
+      if @title_font
+        @d.font = @title_font
+      else
+	@d.font = @font
+      end
+      @d.get_type_metrics(@base_image, text.to_s).width
+    end
+
 
     # Used for degree => radian conversions
     def deg2rad(angle)
