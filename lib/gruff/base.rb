@@ -120,7 +120,7 @@ module Gruff
 
     # Same as font but for the title.
     attr_accessor :title_font
-    
+
     # Specifies whether to draw the title bolded or not.
     attr_accessor :bold_title
 
@@ -617,7 +617,7 @@ module Gruff
         @d.gravity = CenterGravity
         @d = @d.annotate_scaled(@base_image,
                                 1.0, @raw_rows,
-                                @left_margin + @marker_caps_height / 2.0, 0.0,
+                                10.0, 0.0,
                                 @y_axis_label, @scale)
         @d.rotation = 90.0
       end
@@ -670,8 +670,13 @@ module Gruff
           @d = @d.line(@graph_left, y + 1, @graph_right, y + 1)
         end
 
-        marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) +
-            BigDecimal(@minimum_value.to_s)
+        # marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) +
+        #     BigDecimal(@minimum_value.to_s)
+        marker_labels = { 0 => "Did not bother me",
+                          1 => "Bothered me a little",
+                          2 => "Bothered me",
+                          3 => "Bothered me a lot" }
+        marker_label = marker_labels[index]
 
         unless @hide_line_numbers
           @d.fill = @font_color
@@ -1086,6 +1091,7 @@ module Gruff
     # Return a formatted string representing a number value that should be
     # printed as a label.
     def label(value, increment)
+      return value if value.is_a?(String)
       label = if increment
                 if increment >= 10 || (increment * 1) == (increment * 1).to_i.to_f
                   sprintf('%0i', value)
