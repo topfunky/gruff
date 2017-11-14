@@ -19,6 +19,15 @@ Or install it yourself as:
 
     $ gem install gruff
 
+## Dependencies
+
+Relies on Imagemagick
+
+Ubuntu:
+
+    sudo apt install libmagickcore-dev libmagickwand-dev
+
+
 ## Usage
 
 ```Ruby
