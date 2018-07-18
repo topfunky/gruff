@@ -8,6 +8,9 @@ class Gruff::SideBar < Gruff::Base
   # Spacing factor applied between bars
   attr_accessor :bar_spacing
 
+  # Spacing factor applied between a group of bars belonging to the same label
+  attr_accessor :label_bar_group_spacing
+
   def draw
     @has_left_labels = true
     super
@@ -22,6 +25,7 @@ class Gruff::SideBar < Gruff::Base
     # Setup spacing.
     #
     @bar_spacing ||= 0.9
+    @label_bar_group_spacing ||= 1
 
     @bars_width = @graph_height / @column_count.to_f
     @bar_width = @bars_width / @norm_data.size
@@ -29,6 +33,7 @@ class Gruff::SideBar < Gruff::Base
     height = Array.new(@column_count, 0)
     length = Array.new(@column_count, @graph_left)
     padding = (@bar_width * (1 - @bar_spacing)) / 2
+    group_padding = (@bar_width * (1 - @label_bar_group_spacing)) / 2
 
     # if we're a side stacked bar then we don't need to draw ourself at all
     # because sometimes (due to different heights/min/max) you can actually
@@ -37,6 +42,7 @@ class Gruff::SideBar < Gruff::Base
 
     @norm_data.each_with_index do |data_row, row_index|
       @d = @d.fill data_row[DATA_COLOR_INDEX]
+
 
       data_row[DATA_VALUES_INDEX].each_with_index do |data_point, point_index|
 
@@ -48,9 +54,10 @@ class Gruff::SideBar < Gruff::Base
         difference = temp2 - temp1
 
         left_x = length[point_index] - 1
-        left_y = @graph_top + (@bars_width * point_index) + (@bar_width * row_index) + padding
+        left_y = @graph_top + (@bars_width * point_index) + (@bar_width * row_index * @label_bar_group_spacing) + padding + group_padding
+
         right_x = left_x + difference
-        right_y = left_y + @bar_width * @bar_spacing
+        right_y = left_y + @bar_width * @bar_spacing * @label_bar_group_spacing
 
         height[point_index] += (data_point * @graph_width)
 
@@ -62,7 +69,7 @@ class Gruff::SideBar < Gruff::Base
           label_center = @graph_top + (@bar_width * (row_index+point_index) + @bar_width / 2)
           draw_label(label_center, row_index, @norm_data[row_index][DATA_LABEL_INDEX])
         else
-          label_center = @graph_top + (@bars_width * point_index + @bars_width / 2)
+          label_center = @graph_top + (@bars_width * point_index + @bars_width / 2 - group_padding)
           draw_label(label_center, point_index)
         end
         if @show_labels_for_bar_values
