@@ -5,6 +5,9 @@
 
 A library for making beautiful graphs.
 
+Built on top of [rmagick](https://github.com/rmagick/rmagick); see its web page
+for a list of the system-level prerequisities (ImageMagick etc) and how to install them.
+
 ## Installation
 
 Add this line to your application's Gemfile:
