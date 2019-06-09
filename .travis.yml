@@ -9,8 +9,6 @@ rvm:
   - jruby-9.0.5.0
   - jruby-9.1.2.0
   - jruby-head
-  - rbx
-  - rbx-2
 before_install:
   - gem query -i -n ^bundler$ > /dev/null || gem install --no-ri --no-rdoc bundler
 notifications:
