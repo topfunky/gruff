@@ -23,9 +23,9 @@ Gem::Specification.new do |s|
 
   if defined? JRUBY_VERSION
     s.platform = 'java'
-    s.add_dependency 'rmagick4j', '~> 0.3', '>= 0.3.9'
+    s.add_dependency 'rmagick4j'
   else
-    s.add_dependency 'rmagick', '~> 2.13', '>= 2.13.4'
+    s.add_dependency 'rmagick'
   end
   s.add_development_dependency('rake')
   s.add_development_dependency('minitest-reporters')
