@@ -135,3 +135,7 @@ http://github.com/topfunky/gruff
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+### Issue triage [![Open Source Helpers](https://www.codetriage.com/topfunky/gruff/badges/users.svg)](https://www.codetriage.com/topfunky/gruff)
+
+You can contribute by triaging issues which may include reproducing bug reports or asking for vital information, such as version numbers or reproduction instructions. If you would like to start triaging issues, one easy way to get started is to [subscribe to gruff on CodeTriage](https://www.codetriage.com/topfunky/gruff).
