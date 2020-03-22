@@ -1,18 +1,16 @@
 language: ruby
 sudo: false
 rvm:
-  - "1.9.3"
-  - "2.0.0"
-  - "2.1"
-  - "2.2"
-  - "2.3.1"
+  - 2.3
+  - 2.4
+  - 2.5
+  - 2.6
   - jruby-1.7.25
   - jruby-9.0.5.0
   - jruby-9.1.2.0
   - jruby-head
-  - rbx
-  - rbx-2
 before_install:
+  - sudo apt update && sudo apt install -y gsfonts ghostscript
   - gem query -i -n ^bundler$ > /dev/null || gem install --no-ri --no-rdoc bundler
 notifications:
   email:

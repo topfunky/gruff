@@ -19,13 +19,14 @@ Gem::Specification.new do |s|
   s.test_files = s.files.grep(%r{^(test|spec|features)/})
   s.executables = s.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   s.specification_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
-  s.required_ruby_version = ['>= 1.9.3', '< 3']
 
   if defined? JRUBY_VERSION
     s.platform = 'java'
-    s.add_dependency 'rmagick4j', '~> 0.3', '>= 0.3.9'
+    s.add_dependency 'rmagick4j'
+    s.required_ruby_version = ['>= 1.9.3', '< 3']
   else
-    s.add_dependency 'rmagick', '~> 2.13', '>= 2.13.4'
+    s.add_dependency 'rmagick'
+    s.required_ruby_version = ['>= 2.3', '< 3']
   end
   s.add_development_dependency('rake')
   s.add_development_dependency('minitest-reporters')
