@@ -10,6 +10,7 @@ rvm:
   - jruby-9.1.2.0
   - jruby-head
 before_install:
+  - sudo apt update && sudo apt install -y gsfonts ghostscript
   - gem query -i -n ^bundler$ > /dev/null || gem install --no-ri --no-rdoc bundler
 notifications:
   email:
