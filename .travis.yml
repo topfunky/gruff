@@ -5,9 +5,10 @@ rvm:
   - 2.4
   - 2.5
   - 2.6
-  - jruby-1.7.25
+  - 2.7
+  - jruby-1.7.26
   - jruby-9.0.5.0
-  - jruby-9.1.2.0
+  - jruby-9.1.9.0
   - jruby-head
 before_install:
   - sudo apt update && sudo apt install -y gsfonts ghostscript
