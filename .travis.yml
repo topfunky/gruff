@@ -1,5 +1,7 @@
 language: ruby
 sudo: false
+cache: bundler
+
 rvm:
   - 2.3
   - 2.4
@@ -10,15 +12,18 @@ rvm:
   - jruby-9.0.5.0
   - jruby-9.1.9.0
   - jruby-head
-before_install:
-  - sudo apt update && sudo apt install -y gsfonts ghostscript
-  - gem query -i -n ^bundler$ > /dev/null || gem install --no-ri --no-rdoc bundler
 
 jobs:
   include:
     - name: 'Lint'
       rvm: 2.3
       script: bundle exec rubocop
+
+addons:
+  apt:
+    packages:
+      - gsfonts
+      - ghostscript
 
 notifications:
   email:
