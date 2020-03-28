@@ -47,7 +47,6 @@ class Gruff::PhotoBar < Gruff::Base
     @bar_width = @norm_data[0][DATA_COLOR_INDEX].columns
 
     @norm_data.each_with_index do |data_row, row_index|
-
       data_row[DATA_VALUES_INDEX].each_with_index do |data_point, point_index|
         data_point = 0 if data_point.nil?
         # Use incremented x and scaled y
@@ -69,7 +68,6 @@ class Gruff::PhotoBar < Gruff::Base
         label_center = @graph_left + (@data.length * @bar_width * point_index) + (@data.length * @bar_width / 2.0)
         draw_label(label_center, point_index)
       end
-
     end
 
     @d.draw(@base_image)

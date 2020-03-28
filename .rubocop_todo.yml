@@ -117,26 +117,6 @@ Layout/EmptyLineAfterMagicComment:
   Exclude:
     - 'gruff.gemspec'
 
-# Offense count: 21
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, no_empty_lines
-Layout/EmptyLinesAroundBlockBody:
-  Exclude:
-    - 'lib/gruff/area.rb'
-    - 'lib/gruff/bar.rb'
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/dot.rb'
-    - 'lib/gruff/line.rb'
-    - 'lib/gruff/mini/legend.rb'
-    - 'lib/gruff/net.rb'
-    - 'lib/gruff/photo_bar.rb'
-    - 'lib/gruff/scatter.rb'
-    - 'lib/gruff/side_bar.rb'
-    - 'lib/gruff/side_stacked_bar.rb'
-    - 'lib/gruff/stacked_area.rb'
-    - 'lib/gruff/stacked_bar.rb'
-
 # Offense count: 82
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

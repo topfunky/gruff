@@ -39,7 +39,6 @@ class Gruff::SideBar < Gruff::Base
       @d = @d.fill data_row[DATA_COLOR_INDEX]
 
       data_row[DATA_VALUES_INDEX].each_with_index do |data_point, point_index|
-
         # Using the original calcs from the stacked bar chart
         # to get the difference between
         # part of the bart chart we wish to stack.
@@ -70,7 +69,6 @@ class Gruff::SideBar < Gruff::Base
           draw_value_label(right_x+40, (@graph_top + (((row_index+point_index+1) * @bar_width) - (@bar_width / 2)))-12, val.commify, true)
         end
       end
-
     end
 
     @d.draw(@base_image)
@@ -91,7 +89,6 @@ class Gruff::SideBar < Gruff::Base
     # TODO Round maximum marker value to a round number like 100, 0.1, 0.5, etc.
     increment = significant(@spread.to_f / number_of_lines)
     (0..number_of_lines).each do |index|
-
       line_diff = (@graph_right - @graph_left) / number_of_lines
       x = @graph_right - (line_diff * index) - 1
       @d = @d.line(x, @graph_bottom, x, @graph_top)

@@ -39,7 +39,6 @@ class Gruff::SideStackedBar < Gruff::SideBar
     end
     @norm_data.each_with_index do |data_row, row_index|
       data_row[DATA_VALUES_INDEX].each_with_index do |data_point, point_index|
-
         ## using the original calcs from the stacked bar chart to get the difference between
         ## part of the bart chart we wish to stack.
         temp1 = @graph_left + (@graph_width -
@@ -74,7 +73,6 @@ class Gruff::SideStackedBar < Gruff::SideBar
         label_center = @graph_top + (@bar_width * point_index) + (@bar_width * @bar_spacing / 2.0)
         draw_label(label_center, point_index)
       end
-
     end
     if @show_labels_for_bar_values
       label_values.each_with_index do |data, i|

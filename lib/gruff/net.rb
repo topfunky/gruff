@@ -69,7 +69,6 @@ class Gruff::Net < Gruff::Base
 
         @d = @d.circle(start_x, start_y, start_x - circle_radius, start_y) unless @hide_dots
       end
-
     end
 
     @d.draw(@base_image)

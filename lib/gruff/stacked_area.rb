@@ -36,7 +36,6 @@ class Gruff::StackedArea < Gruff::Base
         data_points << new_y
 
         draw_label(new_x, index)
-
       end
 
       if prev_data_points
@@ -57,7 +56,6 @@ class Gruff::StackedArea < Gruff::Base
         poly_points << data_points[1]
       end
       @d = @d.polyline(*poly_points)
-
     end
 
     @d.draw(@base_image)
