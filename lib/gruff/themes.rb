@@ -99,4 +99,3 @@ module Gruff
 
   end
 end
-

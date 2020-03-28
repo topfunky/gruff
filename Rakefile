@@ -215,4 +215,3 @@ end
 def wrap(string, indent = 0)
   string.scan(/\S.{0,72}\S(?=\s|$)|\S+/).join("\n" + ' ' * indent)
 end
-
