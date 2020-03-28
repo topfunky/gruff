@@ -3,4 +3,5 @@ inherit_from: .rubocop_todo.yml
 AllCops:
     EnabledByDefault: true
     Exclude:
+        - 'vendor/bundle/**/*'
         - 'rails_generators/gruff/**/*'
