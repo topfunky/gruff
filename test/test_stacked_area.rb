@@ -15,7 +15,6 @@ class TestGruffStackedArea < GruffTestCase
         1 => '5/15',
         2 => '5/24'
       }
-
   end
 
   def test_area_graph

@@ -157,7 +157,6 @@ class Gruff::Line < Gruff::Base
       @minimum_x_value = (x_data_point < @minimum_x_value) ?
           x_data_point : @minimum_x_value
     end
-
   end
 
   def draw_reference_line(reference_line, left, right, top, bottom)
@@ -268,7 +267,6 @@ class Gruff::Line < Gruff::Base
   end
 
   def setup_data
-
     # Deal with horizontal reference line values that exceed the existing minimum & maximum values.
     possible_maximums = [@maximum_value.to_f]
     possible_minimums = [@minimum_value.to_f]
@@ -309,7 +307,6 @@ class Gruff::Line < Gruff::Base
         @norm_data[index] << norm_x_data_points
       end
     end
-
   end
 
   def sort_norm_data

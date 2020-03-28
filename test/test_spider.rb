@@ -120,7 +120,6 @@ class TestGruffSpider < GruffTestCase
      g.data(data[0], data[1])
     end
     g.write("test/output/spider_no_axes.png")
-
   end
 
   def test_no_print

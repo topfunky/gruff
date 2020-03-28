@@ -144,19 +144,6 @@ Layout/EmptyLinesAroundBlockBody:
 Layout/EmptyLinesAroundClassBody:
   Enabled: false
 
-# Offense count: 10
-# Cop supports --auto-correct.
-Layout/EmptyLinesAroundMethodBody:
-  Exclude:
-    - 'lib/gruff/line.rb'
-    - 'lib/gruff/scatter.rb'
-    - 'lib/gruff/side_bar.rb'
-    - 'test/test_line.rb'
-    - 'test/test_sidestacked_bar.rb'
-    - 'test/test_spider.rb'
-    - 'test/test_stacked_area.rb'
-    - 'test/test_stacked_bar.rb'
-
 # Offense count: 15
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
