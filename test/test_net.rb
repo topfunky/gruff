@@ -69,7 +69,6 @@ class TestGruffNet < GruffTestCase
     g.write("test/output/net_small_small_zero.png")
   end
 
-
   def test_net_large_values
     @datasets = [
       [:large, [100_005, 35_000, 28_000, 27_000]],
@@ -101,7 +100,6 @@ class TestGruffNet < GruffTestCase
     # Default theme
     g.write("test/output/net_many.png")
   end
-
 
   def test_similar_high_end_values
     g = Gruff::Net.new
@@ -161,7 +159,6 @@ class TestGruffNet < GruffTestCase
     g.no_data_message = 'There is no data'
     g.write("test/output/net_no_data_msg.png")
   end
-
 
   def test_all_zeros
     g = Gruff::Net.new(400)

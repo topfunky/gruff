@@ -22,7 +22,6 @@ class TestGruffScene < GruffTestCase
     g.write "test/output/scene_stormy_night.png"
   end
 
-
   def test_not_hazy
     g = setup_scene
     g.weather = "cloudy"
@@ -39,7 +38,6 @@ class TestGruffScene < GruffTestCase
     g.write "test/output/scene_partly_cloudy_day.png"
   end
 
-
   def test_stormy_day
     g = setup_scene
     g.weather = "stormy"
@@ -47,7 +45,6 @@ class TestGruffScene < GruffTestCase
     g.time = Time.mktime(2006, 7, 4, 8, 00)
     g.write "test/output/scene_stormy_day.png"
   end
-
 
   def test_layer
     l = LayerStub.new(File.expand_path("../assets/city_scene", File.dirname(__FILE__)), "clouds")

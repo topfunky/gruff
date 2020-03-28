@@ -92,7 +92,6 @@ class TestGruffBar < GruffTestCase
   #   g.write "test/output/bar_nil_font.png"
   # end
 
-
   def test_no_line_markers
     g = setup_basic_graph(400)
     g.title = 'No Line Markers'
@@ -159,7 +158,6 @@ class TestGruffBar < GruffTestCase
     g.write('test/output/bar_wide_graph_small.png')
   end
 
-
   def test_tall_graph
     g = setup_basic_graph('400x600')
     g.title = 'Tall Graph'
@@ -169,7 +167,6 @@ class TestGruffBar < GruffTestCase
     g.title = 'Tall Graph Small'
     g.write('test/output/bar_tall_graph_small.png')
   end
-
 
   def test_one_value
     g = Gruff::Bar.new
@@ -182,7 +179,6 @@ class TestGruffBar < GruffTestCase
 
     g.write('test/output/bar_one_value.png')
   end
-
 
   def test_negative
     g = Gruff::Bar.new
@@ -198,7 +194,6 @@ class TestGruffBar < GruffTestCase
 
     g.write('test/output/bar_pos_neg.png')
   end
-
 
   def test_nearly_zero
     g = Gruff::Bar.new

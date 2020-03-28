@@ -75,7 +75,6 @@ class Gruff::PhotoBar < Gruff::Base
     @d.draw(@base_image)
   end
 
-
   # Return the chosen theme or the default
   def theme
     @theme || 'plastik'

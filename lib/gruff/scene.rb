@@ -105,7 +105,6 @@ private
 
 end
 
-
 class Gruff::Group
 
   include Observable
@@ -124,7 +123,6 @@ class Gruff::Group
   end
 
 end
-
 
 class Gruff::Layer
 

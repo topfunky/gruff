@@ -147,7 +147,6 @@ task :stats do
   puts "\nTotal: #{total}\n\n"
 end
 
-
 def get_github_issues
   puts 'GitHub login:'
   begin

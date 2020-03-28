@@ -42,5 +42,4 @@ class Gruff::Bezier < Gruff::Base
     @d.draw(@base_image)
   end
 
-
 end

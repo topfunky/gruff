@@ -51,7 +51,6 @@ class TestGruffPie < GruffTestCase
     g.write("test/output/pie_pastel.png")
   end
 
-
   def test_pie_graph_small
     g = Gruff::Pie.new(400)
     g.title = "Visual Pie Graph Test Small"
@@ -95,7 +94,6 @@ class TestGruffPie < GruffTestCase
     g.write("test/output/pie_zero.png")
   end
 
-
   def test_pie_graph_one_val
     g = Gruff::Pie.new
     g.title = "Pie Graph One Val"
@@ -105,7 +103,6 @@ class TestGruffPie < GruffTestCase
 
     g.write("test/output/pie_one_val.png")
   end
-
 
   def test_wide
     g = setup_basic_graph('800x400')
@@ -124,7 +121,6 @@ class TestGruffPie < GruffTestCase
     g.legend_font_size = 10
     g.write("test/output/pie_legend_small.png")
   end
-
 
   def test_tiny_simple_pie
     r = Random.new(297427)
