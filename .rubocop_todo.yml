@@ -417,13 +417,6 @@ Layout/SpaceInsideRangeLiteral:
   Exclude:
     - 'lib/gruff/base.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: IndentationWidth.
-Layout/Tab:
-  Exclude:
-    - 'lib/gruff/bar_conversion.rb'
-
 # Offense count: 1
 Lint/AmbiguousBlockAssociation:
   Exclude:
