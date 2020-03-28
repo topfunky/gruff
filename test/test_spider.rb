@@ -103,7 +103,7 @@ class TestGruffSpider < GruffTestCase
     g = Gruff::Spider.new(20)
     g.title = "Spider Graph Test"
     @datasets.each do |data|
-     g.data(data[0], data[1])
+      g.data(data[0], data[1])
     end
 
     g.theme = Gruff::Themes::THIRTYSEVEN_SIGNALS
@@ -117,7 +117,7 @@ class TestGruffSpider < GruffTestCase
     g.title = "Look ma, no axes"
     g.hide_axes = true
     @datasets.each do |data|
-     g.data(data[0], data[1])
+      g.data(data[0], data[1])
     end
     g.write("test/output/spider_no_axes.png")
   end
