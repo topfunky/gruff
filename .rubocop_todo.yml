@@ -301,17 +301,6 @@ Layout/MultilineOperationIndentation:
     - 'lib/gruff/line.rb'
     - 'lib/gruff/net.rb'
 
-# Offense count: 13
-# Cop supports --auto-correct.
-Layout/SpaceAfterComma:
-  Exclude:
-    - 'Rakefile'
-    - 'test/test_accumulator_bar.rb'
-    - 'test/test_bezier.rb'
-    - 'test/test_dot.rb'
-    - 'test/test_net.rb'
-    - 'test/test_scatter.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyleInsidePipes.

@@ -25,7 +25,7 @@ class TestBezier < GruffTestCase
 
   def test_bezier_3
     g = Gruff::Bezier.new
-    g.data 'Series 3', [100,300,200,250]
+    g.data 'Series 3', [100, 300, 200, 250]
     g.minimum_value = 0
     g.write("test/output/bezier_3.png")
   end
