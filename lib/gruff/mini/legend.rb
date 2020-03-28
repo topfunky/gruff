@@ -70,7 +70,6 @@ module Gruff
         debug { @d.line 0.0, current_y_offset, @raw_columns, current_y_offset }
 
         @legend_labels.each_with_index do |legend_label, index|
-
           # Draw label
           @d.fill = @font_color
           @d.font = @font if @font

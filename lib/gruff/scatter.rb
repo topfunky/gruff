@@ -255,7 +255,6 @@ protected
 
     # Draw vertical line markers and annotate with numbers
     (0..@marker_x_count).each do |index|
-
       # TODO Fix the vertical lines, and enable them by default. Not pretty when they don't match up with top y-axis line
       if @enable_vertical_line_markers
         x = @graph_left + @graph_width - index.to_f * @increment_x_scaled

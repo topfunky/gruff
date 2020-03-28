@@ -50,9 +50,7 @@ class Gruff::StackedBar < Gruff::Base
         height[point_index] += (data_point * @graph_height )
 
         @d = @d.rectangle(left_x, left_y, right_x, right_y)
-
       end
-
     end
 
     @d.draw(@base_image)

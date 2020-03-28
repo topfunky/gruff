@@ -288,12 +288,10 @@ class Gruff::Line < Gruff::Base
     super(force)
 
     @reference_lines.each_value do |curr_reference_line|
-
       # We only care about horizontal markers ... for normalization.
       # Vertical markers won't have a :value, they will have an :index
 
       curr_reference_line[:norm_value] = ((curr_reference_line[:value].to_f - @minimum_value) / @spread.to_f) if (curr_reference_line.key?(:value))
-
     end
 
     #normalize the x data if it is specified

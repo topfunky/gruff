@@ -41,7 +41,6 @@ class Gruff::Area < Gruff::Base
       poly_points << @graph_bottom - 1
 
       @d = @d.polyline(*poly_points)
-
     end
 
     @d.draw(@base_image)

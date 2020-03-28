@@ -761,7 +761,6 @@ module Gruff
           @top_margin + title_margin + @title_caps_height)
 
       @legend_labels.each_with_index do |legend_label, index|
-
         # Draw label
         @d.fill = @font_color
         @d.font = @font if @font
