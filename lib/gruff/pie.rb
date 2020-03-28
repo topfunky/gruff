@@ -163,7 +163,7 @@ class Gruff::Pie < Gruff::Base
 
   def process_label_for(slice)
     if slice.percentage >= hide_labels_less_than
-      x, y  = label_coordinates_for slice
+      x, y = label_coordinates_for slice
 
       @d = draw_label(x, y, slice.label)
     end

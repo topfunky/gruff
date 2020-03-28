@@ -69,7 +69,7 @@ class Gruff::Bullet < Gruff::Base
     [:high, :low].each_with_index do |indicator, index|
       next unless @options.has_key?(indicator)
       @d = @d.fill @colors[index + 1]
-      indicator_width_x  = @graph_left + @graph_width * (@options[indicator] / @maximum_value)
+      indicator_width_x = @graph_left + @graph_width * (@options[indicator] / @maximum_value)
       @d = @d.rectangle(@graph_left, 0, indicator_width_x, @graph_height)
     end
 
