@@ -13,7 +13,7 @@ module Gruff::Base::StackedMixin
         max_hash[i] += data_point.to_f
       end
     end
-  
+
     # @maximum_value = 0
     max_hash.keys.each do |key|
       @maximum_value = max_hash[key] if max_hash[key] > @maximum_value

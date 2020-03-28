@@ -3,10 +3,10 @@
 #
 #	This class perfoms the y coordinats conversion for the bar class.
 #
-#	There are three cases: 
+#	There are three cases:
 #
 #   1. Bars all go from zero in positive direction
-#		2. Bars all go from zero to negative direction	
+#		2. Bars all go from zero to negative direction
 #		3. Bars either go from zero to positive or from zero to negative
 #
 class Gruff::BarConversion

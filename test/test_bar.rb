@@ -455,13 +455,13 @@ class TestGruffBar < GruffTestCase
     g.show_labels_for_bar_values = true
     g.write('test/output/bar_value_labels.png')
   end
-  
+
   def test_zero_marker_count
     g = setup_basic_graph
     g.marker_count = 0
     g.write('test/output/bar_zero_marker_count.png')
   end
-  
+
   def test_zero_marker_shadow
     g = setup_basic_graph
     g.title = 'Bar Chart with Marker Shadow'

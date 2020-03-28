@@ -5,13 +5,13 @@ require File.dirname(__FILE__) + '/base'
 #
 # Submitted by Kevin Clark http://glu.ttono.us/
 class Gruff::Spider < Gruff::Base
-  
+
   # Hide all text
   attr_reader :hide_text
   attr_accessor :hide_axes
   attr_reader :transparent_background
   attr_accessor :rotation
-  
+
   def transparent_background=(value)
     @transparent_background = value
     @base_image = render_transparent_background if value
@@ -27,10 +27,10 @@ class Gruff::Spider < Gruff::Base
     @hide_legend = true
     @rotation = 0
   end
-  
+
   def draw
     @hide_line_markers = true
-    
+
     super
 
     return unless @has_data
@@ -41,11 +41,11 @@ class Gruff::Spider < Gruff::Base
     center_y = @graph_top + (@graph_height / 2.0) - 25 # Move graph up a bit
 
     @unit_length = radius / @max_value
-        
+
     additive_angle = (2 * Math::PI)/ @data.size
-    
+
     # Draw axes
-    draw_axes(center_x, center_y, radius, additive_angle) unless hide_axes    
+    draw_axes(center_x, center_y, radius, additive_angle) unless hide_axes
 
     # Draw polygon
     draw_polygon(center_x, center_y, additive_angle)
@@ -73,9 +73,9 @@ private
     @d.stroke = 'transparent'
     @d.font_weight = BoldWeight
     @d.gravity = CenterGravity
-    @d.annotate_scaled( @base_image, 
+    @d.annotate_scaled( @base_image,
                       0, 0,
-                      x, y, 
+                      x, y,
                       amount, @scale)
   end
 

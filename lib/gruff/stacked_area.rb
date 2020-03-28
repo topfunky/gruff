@@ -5,7 +5,7 @@ require File.dirname(__FILE__) + '/stacked_mixin'
 class Gruff::StackedArea < Gruff::Base
   include StackedMixin
   attr_accessor :last_series_goes_on_bottom
-  
+
   def draw
     get_maximum_by_stack
     super
@@ -22,7 +22,7 @@ class Gruff::StackedArea < Gruff::Base
     @norm_data.send(iterator) do |data_row|
       prev_data_points = data_points
       data_points = Array.new
-        
+
       @d = @d.fill data_row[DATA_COLOR_INDEX]
 
       data_row[DATA_VALUES_INDEX].each_with_index do |data_point, index|
@@ -31,10 +31,10 @@ class Gruff::StackedArea < Gruff::Base
         new_y = @graph_top + (@graph_height - data_point * @graph_height - height[index])
 
         height[index] += (data_point * @graph_height)
-        
+
         data_points << new_x
         data_points << new_y
-          
+
         draw_label(new_x, index)
 
       end
@@ -42,19 +42,19 @@ class Gruff::StackedArea < Gruff::Base
       if prev_data_points
         poly_points = data_points.dup
         (prev_data_points.length/2 - 1).downto(0) do |i|
-          poly_points << prev_data_points[2*i] 
+          poly_points << prev_data_points[2*i]
           poly_points << prev_data_points[2*i+1]
         end
-        poly_points << data_points[0] 
-        poly_points << data_points[1] 
+        poly_points << data_points[0]
+        poly_points << data_points[1]
       else
         poly_points = data_points.dup
         poly_points << @graph_right
         poly_points << @graph_bottom - 1
         poly_points << @graph_left
         poly_points << @graph_bottom - 1
-        poly_points << data_points[0] 
-        poly_points << data_points[1] 
+        poly_points << data_points[0]
+        poly_points << data_points[1]
       end
       @d = @d.polyline(*poly_points)
 
@@ -62,6 +62,6 @@ class Gruff::StackedArea < Gruff::Base
 
     @d.draw(@base_image)
   end
-   
- 
+
+
 end

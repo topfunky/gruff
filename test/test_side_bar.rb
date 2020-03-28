@@ -5,7 +5,7 @@ class TestGruffSideBar < GruffTestCase
 
   def test_bar_graph
     g = setup_basic_graph(Gruff::SideBar, 800)
-    write_test_file g, 'side_bar.png'    
+    write_test_file g, 'side_bar.png'
   end
 
   def test_bar_spacing
@@ -24,7 +24,7 @@ class TestGruffSideBar < GruffTestCase
     g.title = "0% spacing between bars"
     g.write("test/output/side_bar_spacing_none.png")
   end
-  
+
   def test_x_axis_range
     g = Gruff::SideBar.new('400x300')
     g.title = 'Should run from 8 to 32'
@@ -38,7 +38,7 @@ class TestGruffSideBar < GruffTestCase
     g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}
     g.write("test/output/side_bar_data_range.png")
   end
-  
+
   def test_bar_labels
     g = Gruff::SideBar.new('400x300')
     g.title = 'Should show labels for each bar'
