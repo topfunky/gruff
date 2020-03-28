@@ -164,7 +164,7 @@ class TestGruffNet < GruffTestCase
     g = Gruff::Net.new(400)
     g.title = "All Zeros"
 
-    g.data(:gus, [0,0,0,0])
+    g.data(:gus, [0, 0, 0, 0])
 
     # Default theme
     g.write("test/output/net_no_data_other.png")

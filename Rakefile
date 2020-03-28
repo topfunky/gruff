@@ -39,7 +39,7 @@ New in version #{milestone_name}:
 
 #{(categories.keys & grouped_issues.keys).map do |cat|
     "#{cat}:\n
-#{grouped_issues[cat].map { |i| wrap(%Q{* Issue ##{i['number']} #{i['title']}},2) }.join("\n")}
+#{grouped_issues[cat].map { |i| wrap(%Q{* Issue ##{i['number']} #{i['title']}}, 2) }.join("\n")}
     "
   end.join("\n")}
 You can find a complete list of issues here:

@@ -138,7 +138,7 @@ class TestGruffDot < GruffTestCase
       0 => '1',
       1 => '2'
     }
-    g.data('one', [1,1])
+    g.data('one', [1, 1])
 
     g.write('test/output/dot_one_value.png')
   end
