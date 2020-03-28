@@ -53,4 +53,3 @@ class TestGruffSideBar < GruffTestCase
   end
 
 end
-

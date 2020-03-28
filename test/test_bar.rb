@@ -502,4 +502,3 @@ class TestGruffBar < GruffTestCase
     g
   end
 end
-

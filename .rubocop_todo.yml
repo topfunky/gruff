@@ -480,20 +480,6 @@ Layout/Tab:
     - 'lib/gruff/bar_conversion.rb'
     - 'lib/gruff/side_stacked_bar.rb'
 
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: final_newline, final_blank_line
-Layout/TrailingEmptyLines:
-  Exclude:
-    - 'Rakefile'
-    - 'lib/gruff/photo_bar.rb'
-    - 'lib/gruff/themes.rb'
-    - 'test/test_bar.rb'
-    - 'test/test_dot.rb'
-    - 'test/test_side_bar.rb'
-    - 'test/test_sidestacked_bar.rb'
-
 # Offense count: 1
 Lint/AmbiguousBlockAssociation:
   Exclude:
