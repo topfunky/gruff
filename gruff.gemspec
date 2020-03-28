@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   else
     s.add_dependency 'rmagick'
     s.required_ruby_version = ['>= 2.3', '< 3']
+    s.add_development_dependency 'rubocop', '~> 0.80.1'
   end
   s.add_development_dependency('rake')
   s.add_development_dependency('minitest-reporters')

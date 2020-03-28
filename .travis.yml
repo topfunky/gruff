@@ -13,6 +13,13 @@ rvm:
 before_install:
   - sudo apt update && sudo apt install -y gsfonts ghostscript
   - gem query -i -n ^bundler$ > /dev/null || gem install --no-ri --no-rdoc bundler
+
+jobs:
+  include:
+    - name: 'Lint'
+      rvm: 2.3
+      script: bundle exec rubocop
+
 notifications:
   email:
     - uwe@kubosch.no
