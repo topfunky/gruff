@@ -45,8 +45,6 @@ You can find many examples in the [test](https://github.com/topfunky/gruff/tree/
 directory along with their resulting charts in the
 [output](https://github.com/topfunky/gruff/tree/master/test/output) directory.
 
-You can find older examples here:  http://nubyonrails.com/pages/gruff
-
 ### Accumulator bar chart
 
 ![Accumulator bar chart](https://raw.github.com/topfunky/gruff/master/test/output/accum_bar.png)
