@@ -138,15 +138,6 @@ Layout/EmptyLinesAroundModuleBody:
     - 'lib/gruff/mini/side_bar.rb'
     - 'lib/gruff/themes.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment, AllowBeforeTrailingComments, ForceEqualSignAlignment.
-Layout/ExtraSpacing:
-  Exclude:
-    - 'lib/gruff/bullet.rb'
-    - 'lib/gruff/pie.rb'
-    - 'lib/gruff/spider.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.

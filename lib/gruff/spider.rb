@@ -60,7 +60,7 @@ private
   end
 
   def draw_label(center_x, center_y, angle, radius, amount)
-    r_offset = 50      # The distance out from the center of the pie to get point
+    r_offset = 50            # The distance out from the center of the pie to get point
     x_offset = center_x      # The label points need to be tweaked slightly
     y_offset = center_y + 0  # This one doesn't though
     x = x_offset + ((radius + r_offset) * Math.cos(angle))
