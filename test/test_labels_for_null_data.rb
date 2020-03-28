@@ -20,7 +20,7 @@ class TestLabelsForNullData < GruffTestCase
     g.labels = @labels
     g.data('data', @dataset)
     g.minimum_value = 0
-    
+
     g.write("test/output/TestLabelsForNullData.png")
   end
 

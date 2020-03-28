@@ -3,17 +3,17 @@ require File.dirname(__FILE__) + '/side_bar'
 require File.dirname(__FILE__) + '/stacked_mixin'
 
 ##
-# New gruff graph type added to enable sideways stacking bar charts 
+# New gruff graph type added to enable sideways stacking bar charts
 # (basically looks like a x/y flip of a standard stacking bar chart)
 #
-# alun.eyre@googlemail.com 
+# alun.eyre@googlemail.com
 
 class Gruff::SideStackedBar < Gruff::SideBar
   include StackedMixin
 
   # Spacing factor applied between bars
   attr_accessor :bar_spacing
-  
+
   def draw
     @has_left_labels = true
     get_maximum_by_stack
@@ -43,7 +43,7 @@ class Gruff::SideStackedBar < Gruff::SideBar
     	  ## using the original calcs from the stacked bar chart to get the difference between
     	  ## part of the bart chart we wish to stack.
     	  temp1 = @graph_left + (@graph_width -
-                                    data_point * @graph_width - 
+                                    data_point * @graph_width -
                                     height[point_index]) + 1
     	  temp2 = @graph_left + @graph_width - height[point_index] - 1
     	  difference = temp2 - temp1
@@ -56,12 +56,12 @@ class Gruff::SideStackedBar < Gruff::SideBar
               right_y = left_y + @bar_width * @bar_spacing
     	  length[point_index] += difference
         height[point_index] += (data_point * @graph_width - 2)
-        
+
         if @show_labels_for_bar_values
           label_values[point_index][:value] += @norm_data[row_index][3][point_index]
           label_values[point_index][:right_x] = right_x
         end
-                
+
         # if a data point is 0 it can result in weird really thing lines
         # that shouldn't even be there being drawn on top of the existing
         # bar - this is bad
@@ -82,8 +82,8 @@ class Gruff::SideStackedBar < Gruff::SideBar
         draw_value_label(data[:right_x]+40, (@graph_top + (((i+1) * @bar_width) - (@bar_width / 2)))-12, val.commify, true)
       end
     end
-    
-    @d.draw(@base_image)    
+
+    @d.draw(@base_image)
   end
 
   def larger_than_max?(data_point, index=0)

@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/base'
 
 ##
 # A scene is a non-linear graph that assembles layers together to tell a story.
-# Layers are folders with appropriately named files (see below). You can group 
+# Layers are folders with appropriately named files (see below). You can group
 # layers and control them together or just set their values individually.
 #
 # Examples:
@@ -13,7 +13,7 @@ require File.dirname(__FILE__) + '/base'
 # * A traffic map that shows red lines on streets that are crowded and green on free-flowing ones.
 #
 # Usage:
-# 
+#
 #  g = Gruff::Scene.new("500x100", "path/to/city_scene_directory")
 #
 #  # Define order of layers, back to front
@@ -40,7 +40,7 @@ require File.dirname(__FILE__) + '/base'
 # * If there is a file named 'default.png', it will be used unless other input values are set for the corresponding layer.
 
 class Gruff::Scene < Gruff::Base
-    
+
   # An array listing the foldernames that will be rendered, from back to front.
   #
   #  g.layers = %w(sky clouds buildings street people)
@@ -50,7 +50,7 @@ class Gruff::Scene < Gruff::Base
   def initialize(target_width, base_dir)
     @base_dir = base_dir
     @groups = {}
-    @layers = []    
+    @layers = []
     super target_width
   end
 
@@ -102,7 +102,7 @@ private
       end
     end
   end
-  
+
 end
 
 
@@ -117,31 +117,31 @@ class Gruff::Group
       layer.observe self
     end
   end
-  
+
   def send_updates(value)
     changed
     notify_observers value
   end
-  
+
 end
 
 
 class Gruff::Layer
-  
+
   attr_reader :name
-  
+
   def initialize(base_dir, folder_name)
     @base_dir = base_dir.to_s
     @name = folder_name.to_s
     @filenames = Dir.open(File.join(base_dir, folder_name)).entries.select { |file| file =~ /^[^.]+\.png$/ }.sort
     @selected_filename = select_default
   end
-  
+
   # Register this layer so it receives updates from the group
   def observe(obj)
     obj.add_observer self
   end
-  
+
   # Choose the appropriate filename for this layer, based on the input
   def update(value)
     @selected_filename =  case value.to_s
@@ -179,7 +179,7 @@ private
   def select_numeric(value)
     file_exists_or_blank value.to_s.gsub('-', '_')
   end
-  
+
   def select_time(value)
     times = @filenames.map { |filename| filename.gsub('.png', '') }
     times.each_with_index do |time, index|
@@ -189,12 +189,12 @@ private
     end
     return "#{times.last}.png"
   end
-  
+
   # Match "partly cloudy" to "partly_cloudy.png"
   def select_string(value)
     file_exists_or_blank value.to_s.gsub(' ', '_')
   end
-  
+
   def select_default
     @filenames.include?("default.png") ? "default.png" : ''
   end
@@ -205,5 +205,5 @@ private
   def file_exists_or_blank(filename)
     @filenames.include?("#{filename}.png") ? "#{filename}.png" : select_default
   end
-  
+
 end

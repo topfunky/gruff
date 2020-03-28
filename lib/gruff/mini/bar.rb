@@ -8,10 +8,10 @@ module Gruff
     class Bar < Gruff::Bar
 
       include Gruff::Mini::Legend
-      
+
       def initialize_ivars
         super
-        
+
         @hide_legend = true
         @hide_title = true
         @hide_line_numbers = true
@@ -32,6 +32,6 @@ module Gruff
       end
 
     end
-  
+
   end
 end

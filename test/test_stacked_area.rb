@@ -11,10 +11,10 @@ class TestGruffStackedArea < GruffTestCase
       [:Julie, [22, 29, 35, 38]],
       ]
     @sample_labels = {
-        0 => '5/6', 
-        1 => '5/15', 
+        0 => '5/6',
+        1 => '5/15',
         2 => '5/24'
-      }      
+      }
 
   end
 
@@ -22,10 +22,10 @@ class TestGruffStackedArea < GruffTestCase
     g = Gruff::StackedArea.new
     g.title = 'Visual Stacked Area Graph Test'
     g.labels = {
-      0 => '5/6', 
-      1 => '5/15', 
-      2 => '5/24', 
-      3 => '5/30', 
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
     }
     @datasets.each do |data|
       g.data(data[0], data[1])
@@ -38,15 +38,15 @@ class TestGruffStackedArea < GruffTestCase
     g = Gruff::StackedArea.new(400)
     g.title = 'Visual Stacked Area Graph Test'
     g.labels = {
-      0 => '5/6', 
-      1 => '5/15', 
-      2 => '5/24', 
-      3 => '5/30', 
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
     }
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
     g.write 'test/output/stacked_area_keynote_small.png'
   end
-  
+
 end

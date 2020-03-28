@@ -27,17 +27,17 @@ class TestGruffDot < GruffTestCase
     g = Gruff::Dot.new
     g.title = 'Dot Graph With Manual Colors'
     g.labels = {
-      0 => '5/6', 
-      1 => '5/15', 
-      2 => '5/24', 
-      3 => '5/30', 
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
     }
     g.data(:Art, [0, 5, 8, 15], '#990000')
     g.data(:Philosophy, [10, 3, 2, 8], '#009900')
     g.data(:Science, [2, 15, 8, 11], '#990099')
 
     g.minimum_value = 0
-        
+
     g.write('test/output/dot_manual_colors.png')
   end
 
@@ -76,7 +76,7 @@ class TestGruffDot < GruffTestCase
     g.hide_title = true
     g.write('test/output/dot_no_title.png')
   end
-  
+
   def test_no_title_or_legend
     g = setup_basic_graph(400)
     g.title = 'No Title or Legend'
@@ -97,7 +97,7 @@ class TestGruffDot < GruffTestCase
     g.title = 'Set Small Legend Box Size'
     g.legend_box_size = 10.0
     g.write('test/output/dot_set_legend_box_size_sm.png')
-    
+
     g = setup_basic_graph(400)
     g.title = 'Set Large Legend Box Size'
     g.legend_box_size = 50.0
@@ -138,7 +138,7 @@ class TestGruffDot < GruffTestCase
     g = Gruff::Dot.new
     g.title = 'One Value Graph Test'
     g.labels = {
-      0 => '1', 
+      0 => '1',
       1 => '2'
     }
     g.data('one', [1,1])
@@ -151,10 +151,10 @@ class TestGruffDot < GruffTestCase
     g = Gruff::Dot.new
     g.title = 'Pos/Neg Dot Graph Test'
     g.labels = {
-      0 => '5/6', 
-      1 => '5/15', 
-      2 => '5/24', 
-      3 => '5/30', 
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
     }
     g.data(:apples, [-1, 0, 4, -4])
     g.data(:peaches, [10, 8, 6, 3])
@@ -167,10 +167,10 @@ class TestGruffDot < GruffTestCase
     g = Gruff::Dot.new
     g.title = 'Nearly Zero Graph'
     g.labels = {
-      0 => '5/6', 
-      1 => '5/15', 
-      2 => '5/24', 
-      3 => '5/30', 
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
     }
     g.data(:apples, [1, 2, 3, 4])
     g.data(:peaches, [4, 3, 2, 1])
@@ -190,10 +190,10 @@ class TestGruffDot < GruffTestCase
     g = Gruff::Dot.new
     g.title = "Y Axis Set to #{increment}"
     g.labels = {
-      0 => '5/6', 
-      1 => '5/15', 
-      2 => '5/24', 
-      3 => '5/30', 
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
     }
     g.y_axis_increment = increment
     g.data(:apples, [1, 0.2, 0.5, 0.7])
@@ -216,10 +216,10 @@ class TestGruffDot < GruffTestCase
       :background_image => 'assets/pc306715.jpg'
     }
     g.labels = {
-      0 => '5/6', 
-      1 => '5/15', 
-      2 => '5/24', 
-      3 => '5/30', 
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
     }
     g.data(:vancouver, [1, 2, 3, 4])
     g.data(:seattle, [2, 4, 6, 8])
@@ -248,16 +248,16 @@ protected
     g = Gruff::Dot.new(size)
     g.title = 'My Dot Graph'
     g.labels = {
-      0 => '5/6', 
-      1 => '5/15', 
-      2 => '5/24', 
-      3 => '5/30', 
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
     }
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
     g
   end
-  
+
 end
 

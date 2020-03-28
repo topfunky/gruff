@@ -15,7 +15,7 @@ class TestGruffPie < GruffTestCase
       ["Zero", [0]],
       ]
   end
-  
+
   def test_pie_graph
     g = Gruff::Pie.new
     g.title = "Visual Pie Graph Test"
@@ -66,7 +66,7 @@ class TestGruffPie < GruffTestCase
   def test_pie_graph_nearly_equal
     g = Gruff::Pie.new
     g.title = "Pie Graph Nearly Equal"
-    
+
     g.data(:Blake, [41])
     g.data(:Aaron, [42])
 #    g.data(:Grouch, [40])
@@ -78,7 +78,7 @@ class TestGruffPie < GruffTestCase
   def test_pie_graph_equal
     g = Gruff::Pie.new
     g.title = "Pie Graph Equal"
-        
+
     g.data(:Bert, [41])
     g.data(:Adam, [41])
 
@@ -88,7 +88,7 @@ class TestGruffPie < GruffTestCase
   def test_pie_graph_zero
     g = Gruff::Pie.new
     g.title = "Pie Graph One Zero"
-        
+
     g.data(:Bert, [0])
     g.data(:Adam, [1])
 
@@ -99,7 +99,7 @@ class TestGruffPie < GruffTestCase
   def test_pie_graph_one_val
     g = Gruff::Pie.new
     g.title = "Pie Graph One Val"
-        
+
     g.data(:Bert, 53)
     g.data(:Adam, 29)
 
@@ -118,14 +118,14 @@ class TestGruffPie < GruffTestCase
     g.title = "Pie With Small Legend"
     g.legend_font_size = 10
     g.write("test/output/pie_legend.png")
-    
+
     g = setup_basic_graph(400)
     g.title = "Small Pie With Small Legend"
     g.legend_font_size = 10
     g.write("test/output/pie_legend_small.png")
   end
 
-  
+
   def test_tiny_simple_pie
     r = Random.new(297427)
     @datasets = (1..5).map {|n| ['Auto', [r.rand(100)]]}
@@ -134,10 +134,10 @@ class TestGruffPie < GruffTestCase
     g.hide_legend = true
     g.hide_title = true
     g.hide_line_numbers = true
-  
+
     g.marker_font_size = 40.0
     g.minimum_value = 0.0
-    
+
     write_test_file g, "pie_simple.png"
   end
 

@@ -52,10 +52,10 @@ class TestGruffScene < GruffTestCase
   def test_layer
     l = LayerStub.new(File.expand_path("../assets/city_scene", File.dirname(__FILE__)), "clouds")
     assert_equal %w(cloudy.png partly_cloudy.png stormy.png), l.filenames.sort
-    
+
     l = LayerStub.new(File.expand_path("../assets/city_scene", File.dirname(__FILE__)), "grass")
     assert_equal 'default.png', l.selected_filename
-    
+
     l = LayerStub.new(File.expand_path("../assets/city_scene", File.dirname(__FILE__)), "sky")
     l.update Time.mktime(2006, 7, 4, 12, 35) # 12:35, July 4, 2006
     assert_equal '1200.png', l.selected_filename
@@ -79,7 +79,7 @@ class TestGruffScene < GruffTestCase
     l = LayerStub.new(File.expand_path("../assets/city_scene", File.dirname(__FILE__)), "sky")
     l.update Time.mktime(2006, 7, 4, 4, 00) # 04:00, July 4, 2006
     assert_equal '0400.png', l.selected_filename
-    
+
     # TODO Need number_sample folder
     # l = LayerStub.new(File.expand_path("../assets/city_scene", File.dirname(__FILE__)), "number_sample")
     # assert_equal %w(1.png 2.png default.png), l.filenames
@@ -94,7 +94,7 @@ private
     g.layers = %w(background haze sky clouds)
     g.weather_group = %w(clouds)
     g.time_group = %w(background sky)
-    g    
+    g
   end
 
 end

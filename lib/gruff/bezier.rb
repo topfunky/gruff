@@ -27,7 +27,7 @@ class Gruff::Bezier < Gruff::Base
 
         draw_label(new_x, index)
       end
-   
+
       @d = @d.fill_opacity 0.0
       @d = @d.stroke data_row[DATA_COLOR_INDEX]
       @d = @d.stroke_width clip_value_if_greater_than(@columns / (@norm_data.first[1].size * 4), 5.0)
@@ -41,6 +41,6 @@ class Gruff::Bezier < Gruff::Base
 
     @d.draw(@base_image)
   end
-   
+
 
 end

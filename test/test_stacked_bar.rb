@@ -11,10 +11,10 @@ class TestGruffStackedBar < GruffTestCase
       [:Julie, [22, 29, 35, 38]],
       ]
     @sample_labels = {
-        0 => '5/6', 
-        1 => '5/15', 
+        0 => '5/6',
+        1 => '5/15',
         2 => '5/24'
-      }      
+      }
 
   end
 
@@ -22,10 +22,10 @@ class TestGruffStackedBar < GruffTestCase
     g = Gruff::StackedBar.new
     g.title = "Visual Stacked Bar Graph Test"
     g.labels = {
-      0 => '5/6', 
-      1 => '5/15', 
-      2 => '5/24', 
-      3 => '5/30', 
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
     }
     @datasets.each do |data|
       g.data(data[0], data[1])
@@ -38,10 +38,10 @@ class TestGruffStackedBar < GruffTestCase
     g = Gruff::StackedBar.new(400)
     g.title = "Visual Stacked Bar Graph Test"
     g.labels = {
-      0 => '5/6', 
-      1 => '5/15', 
-      2 => '5/24', 
-      3 => '5/30', 
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
     }
     @datasets.each do |data|
       g.data(data[0], data[1])
@@ -64,5 +64,5 @@ class TestGruffStackedBar < GruffTestCase
     end
     g.write "test/output/stacked_bar_keynote_no_space.png"
   end
-  
+
 end

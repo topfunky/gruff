@@ -14,10 +14,10 @@ class TestGruffSideStackedBar < GruffTestCase
       #["Arthur", [5, 10, 13, 11, 6, 16, 22, 32]],
       ]
     @sample_labels = {
-        0 => '5/6', 
-        1 => '5/15', 
+        0 => '5/6',
+        1 => '5/15',
         2 => '5/24'
-      }      
+      }
 
   end
 
@@ -25,10 +25,10 @@ class TestGruffSideStackedBar < GruffTestCase
     g = Gruff::SideStackedBar.new
     g.title = "Visual Stacked Bar Graph Test"
     g.labels = {
-      0 => '5/6', 
-      1 => '5/15', 
-      2 => '5/24', 
-      3 => '5/30', 
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
     }
     @datasets.each do |data|
       g.data(data[0], data[1])
@@ -41,10 +41,10 @@ class TestGruffSideStackedBar < GruffTestCase
     g = Gruff::SideStackedBar.new(400)
     g.title = "Visual Stacked Bar Graph Test"
     g.labels = {
-      0 => '5/6', 
-      1 => '5/15', 
-      2 => '5/24', 
-      3 => '5/30', 
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
     }
     @datasets.each do |data|
       g.data(data[0], data[1])
@@ -62,25 +62,25 @@ class TestGruffSideStackedBar < GruffTestCase
     g = Gruff::SideStackedBar.new
     g.title = "Stacked Bar Long Label"
     g.labels = {
-      0 => 'September', 
-      1 => 'Oct', 
-      2 => 'Nov', 
-      3 => 'Dec', 
+      0 => 'September',
+      1 => 'Oct',
+      2 => 'Nov',
+      3 => 'Dec',
     }
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
     g.write "test/output/side_stacked_bar_long_label.png"
   end
-  
+
   def test_bar_labels
      g = Gruff::SideStackedBar.new
      g.title = "Stacked Bar Long Label"
      g.labels = {
-       0 => 'September', 
-       1 => 'Oct', 
-       2 => 'Nov', 
-       3 => 'Dec', 
+       0 => 'September',
+       1 => 'Oct',
+       2 => 'Nov',
+       3 => 'Dec',
      }
      @datasets.each do |data|
        g.data(data[0], data[1])

@@ -46,6 +46,6 @@ class Gruff::Area < Gruff::Base
 
     @d.draw(@base_image)
   end
-   
- 
+
+
 end
