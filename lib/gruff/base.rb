@@ -447,7 +447,6 @@ module Gruff
       end
     end
 
-
     protected
 
     # Overridden by subclasses to do the actual plotting of the graph.

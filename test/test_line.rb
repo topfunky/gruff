@@ -63,7 +63,6 @@ class TestGruffLine < GruffTestCase
     g.write('test/output/line_one_value_array.png')
   end
 
-
   def test_should_not_hang_with_0_0_100
     g = Gruff::Line.new(320)
     g.title = 'Hang Value Graph Test'
@@ -82,7 +81,6 @@ class TestGruffLine < GruffTestCase
   #   g.data "shi", [0]
   #   g.write("test/output/line_crash_fix_test.png")
   # end
-
 
   def test_line_small_values
     @datasets = [
@@ -125,7 +123,6 @@ class TestGruffLine < GruffTestCase
     end
     g.write('test/output/line_small_small_zero.png')
   end
-
 
   def test_line_large_values
     @datasets = [
@@ -190,7 +187,6 @@ class TestGruffLine < GruffTestCase
     # Default theme
     g.write('test/output/line_many.png')
   end
-
 
   def test_dot_style_square
     g = Gruff::Line.new
@@ -275,7 +271,6 @@ class TestGruffLine < GruffTestCase
     g.write('test/output/line_no_data_msg.png')
   end
 
-
   def test_all_zeros
     g = Gruff::Line.new(400)
     g.title = 'All Zeros'
@@ -285,7 +280,6 @@ class TestGruffLine < GruffTestCase
     # Default theme
     g.write('test/output/line_no_data_other.png')
   end
-
 
   def test_some_nil_points
     g = Gruff::Line.new
@@ -655,7 +649,6 @@ class TestGruffLine < GruffTestCase
     g.data(:peaches, [10, 8, 6, 3])
     g
   end
-
 
   def setup_all_neg(size=800)
     g = Gruff::Line.new(size)

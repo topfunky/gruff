@@ -55,7 +55,6 @@ class TestGruffDot < GruffTestCase
   #   g.write "test/output/dot_nil_font.png"
   # end
 
-
   def test_no_line_markers
     g = setup_basic_graph(400)
     g.title = 'No Line Markers'
@@ -122,7 +121,6 @@ class TestGruffDot < GruffTestCase
     g.write('test/output/dot_wide_graph_small.png')
   end
 
-
   def test_tall_graph
     g = setup_basic_graph('400x600')
     g.title = 'Tall Graph'
@@ -132,7 +130,6 @@ class TestGruffDot < GruffTestCase
     g.title = 'Tall Graph Small'
     g.write('test/output/dot_tall_graph_small.png')
   end
-
 
   def test_one_value
     g = Gruff::Dot.new
@@ -145,7 +142,6 @@ class TestGruffDot < GruffTestCase
 
     g.write('test/output/dot_one_value.png')
   end
-
 
   def test_negative
     g = Gruff::Dot.new
@@ -161,7 +157,6 @@ class TestGruffDot < GruffTestCase
 
     g.write('test/output/dot_pos_neg.png')
   end
-
 
   def test_nearly_zero
     g = Gruff::Dot.new
@@ -201,7 +196,6 @@ class TestGruffDot < GruffTestCase
     g.write("test/output/dot_y_increment_#{increment}.png")
   end
 
-
   def test_custom_theme
     g = Gruff::Dot.new
     g.title = 'Custom Theme'
@@ -240,7 +234,6 @@ class TestGruffDot < GruffTestCase
     g.y_axis_label = 'Students'
     write_test_file g, 'enhancements_dot.png'
   end
-
 
 protected
 

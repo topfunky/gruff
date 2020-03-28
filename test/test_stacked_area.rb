@@ -33,7 +33,6 @@ class TestGruffStackedArea < GruffTestCase
     g.write 'test/output/stacked_area_keynote.png'
   end
 
-
   def test_area_graph_small
     g = Gruff::StackedArea.new(400)
     g.title = 'Visual Stacked Area Graph Test'

@@ -75,11 +75,9 @@ class Gruff::Net < Gruff::Base
     @d.draw(@base_image)
   end
 
-
   # the lines connecting in the center, with the first line vertical
   def draw_line_markers
     return if @hide_line_markers
-
 
     # have to do this here (AGAIN)... see draw() in this class
     # because this funtion is called before the @radius, @center_x and @center_y are set
@@ -87,17 +85,14 @@ class Gruff::Net < Gruff::Base
     @center_x = @graph_left + (@graph_width / 2.0)
     @center_y = @graph_top + (@graph_height / 2.0) - 10 # Move graph up a bit
 
-
     # Draw horizontal line markers and annotate with numbers
     @d = @d.stroke(@marker_color)
     @d = @d.stroke_width 1
-
 
     (0..@column_count-1).each do |index|
       rad_pos = index * Math::PI * 2 / @column_count
 
       @d = @d.line(@center_x, @center_y, @center_x + Math::sin(rad_pos) * @radius, @center_y - Math::cos(rad_pos) * @radius)
-
 
       marker_label = labels[index] ? labels[index].to_s : '000'
 

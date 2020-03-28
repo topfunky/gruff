@@ -33,7 +33,6 @@ class TestGruffStackedBar < GruffTestCase
     g.write "test/output/stacked_bar_keynote.png"
   end
 
-
   def test_bar_graph_small
     g = Gruff::StackedBar.new(400)
     g.title = "Visual Stacked Bar Graph Test"

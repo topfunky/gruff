@@ -52,7 +52,6 @@ class Gruff::Scatter < Gruff::Base
   attr_accessor :y_axis_label_format
   attr_accessor :x_axis_label_format
 
-
   # Gruff::Scatter takes the same parameters as the Gruff::Line graph
   #
   # ==== Example
@@ -287,7 +286,6 @@ protected
 
     @d = @d.stroke_antialias true
   end
-
 
   def label(value, increment)
     if @y_axis_label_format

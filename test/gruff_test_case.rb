@@ -142,7 +142,6 @@ class GruffTestCase < Minitest::Test
     g.labels = @labels
     g.font = '/Library/Fonts/Verdana.ttf'
 
-
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
