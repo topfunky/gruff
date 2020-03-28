@@ -168,7 +168,6 @@ class Gruff::Scatter < Gruff::Base
   # g.data('bitter_melon', [3,5,6], [6,7,8], '#000000')
   #
   def data(name, x_data_points=[], y_data_points=[], color=nil)
-
     raise ArgumentError, 'Data Points contain nil Value!' if x_data_points.include?(nil) || y_data_points.include?(nil)
     raise ArgumentError, 'x_data_points is empty!' if x_data_points.empty?
     raise ArgumentError, 'y_data_points is empty!' if y_data_points.empty?

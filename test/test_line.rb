@@ -546,7 +546,6 @@ class TestGruffLine < GruffTestCase
   end
 
   def test_multiple_reference_lines
-
     g = Gruff::Line.new
     g.title = 'Line Chart with Multiple Reference Lines'
 
