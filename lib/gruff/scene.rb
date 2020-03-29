@@ -1,4 +1,3 @@
-
 require "observer"
 require File.dirname(__FILE__) + '/base'
 

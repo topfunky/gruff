@@ -1,4 +1,3 @@
-
 module Gruff::Base::StackedMixin
   # Used by StackedBar and child classes.
   #
