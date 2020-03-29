@@ -218,20 +218,6 @@ Layout/LeadingCommentSpace:
     - 'test/test_scatter.rb'
     - 'test/test_sidestacked_bar.rb'
 
-# Offense count: 9
-# Cop supports --auto-correct.
-Layout/LeadingEmptyLines:
-  Exclude:
-    - 'lib/gruff/area.rb'
-    - 'lib/gruff/deprecated.rb'
-    - 'lib/gruff/scene.rb'
-    - 'lib/gruff/spider.rb'
-    - 'lib/gruff/stacked_area.rb'
-    - 'lib/gruff/stacked_bar.rb'
-    - 'lib/gruff/stacked_mixin.rb'
-    - 'test/test_mini_bar.rb'
-    - 'test/test_side_bar.rb'
-
 # Offense count: 24
 # Cop supports --auto-correct.
 Layout/MultilineArrayLineBreaks:

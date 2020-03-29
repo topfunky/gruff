@@ -1,4 +1,3 @@
-
 require File.dirname(__FILE__) + '/base'
 
 # Experimental!!! See also the Net graph.

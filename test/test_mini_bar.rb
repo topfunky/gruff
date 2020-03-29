@@ -1,4 +1,3 @@
-
 require File.expand_path('../gruff_test_case', __FILE__)
 
 class TestMiniBar < GruffTestCase
