@@ -21,6 +21,13 @@ Gemspec/OrderedDependencies:
   Exclude:
     - 'gruff.gemspec'
 
+# Offense count: 1
+# Configuration parameters: Include.
+# Include: **/*.gemspec
+Gemspec/RequiredRubyVersion:
+  Exclude:
+    - 'gruff.gemspec'
+
 # Offense count: 14
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.
