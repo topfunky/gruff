@@ -23,10 +23,10 @@ Gem::Specification.new do |s|
   if defined? JRUBY_VERSION
     s.platform = 'java'
     s.add_dependency 'rmagick4j'
-    s.required_ruby_version = ['>= 1.9.3', '< 3']
+    s.required_ruby_version = '>= 1.9.3'
   else
     s.add_dependency 'rmagick'
-    s.required_ruby_version = ['>= 2.3', '< 3']
+    s.required_ruby_version = '>= 2.3'
     s.add_development_dependency 'rubocop', '~> 0.80.1'
   end
   s.add_development_dependency('rake')
