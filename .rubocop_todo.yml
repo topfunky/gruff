@@ -7,13 +7,6 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # Offense count: 1
-# Configuration parameters: Include.
-# Include: **/*.gemspec
-Gemspec/DuplicatedAssignment:
-  Exclude:
-    - 'gruff.gemspec'
-
-# Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: TreatCommentsAsGroupSeparators, Include.
 # Include: **/*.gemspec
