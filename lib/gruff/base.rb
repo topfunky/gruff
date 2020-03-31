@@ -348,13 +348,13 @@ module Gruff
       reset_themes
 
       defaults = {
-          :colors => %w(black white),
-          :additional_line_colors => [],
-          :marker_color => 'white',
-          :marker_shadow_color => nil,
-          :font_color => 'black',
-          :background_colors => nil,
-          :background_image => nil
+        :colors => %w(black white),
+        :additional_line_colors => [],
+        :marker_color => 'white',
+        :marker_shadow_color => nil,
+        :font_color => 'black',
+        :background_colors => nil,
+        :background_image => nil
       }
       @theme_options = defaults.merge options
 

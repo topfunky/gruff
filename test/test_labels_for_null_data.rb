@@ -6,11 +6,11 @@ class TestLabelsForNullData < GruffTestCase
     @dataset = [nil, 1, 2, 1, nil]
 
     @labels = {
-        0 => '1',
-        1 => '2',
-        2 => '3',
-        3 => '4',
-        4 => '5'
+      0 => '1',
+      1 => '2',
+      2 => '3',
+      3 => '4',
+      4 => '5'
     }
   end
 

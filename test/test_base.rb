@@ -6,14 +6,14 @@ class TestGruffBase < GruffTestCase
 
   def setup
     @sample_numeric_labels = {
-        0 => 6,
-        1 => 15,
-        2 => 24,
-        3 => 30,
-        4 => 4,
-        5 => 12,
-        6 => 21,
-        7 => 28,
+      0 => 6,
+      1 => 15,
+      2 => 24,
+      3 => 30,
+      4 => 4,
+      5 => 12,
+      6 => 21,
+      7 => 28,
     }
   end
 

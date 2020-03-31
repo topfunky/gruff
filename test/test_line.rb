@@ -7,17 +7,17 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new(400)
     g.title = 'Transparent Background'
     g.theme = {
-        :colors => %w(black grey),
-        :marker_color => 'grey',
-        :font_color => 'black',
-        :background_colors => 'transparent'
+      :colors => %w(black grey),
+      :marker_color => 'grey',
+      :font_color => 'black',
+      :background_colors => 'transparent'
     }
 
     g.labels = {
-        0 => '5/6',
-        1 => '5/15',
-        2 => '5/24',
-        3 => '5/30',
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
     }
     g.data(:apples, [-1, 0, 4, -4])
     g.data(:peaches, [10, 8, 6, 3])
@@ -43,8 +43,8 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new
     g.title = 'One Value'
     g.labels = {
-        0 => '1',
-        1 => '2'
+      0 => '1',
+      1 => '2'
     }
     g.data('one', 1)
 
@@ -55,8 +55,8 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new
     g.title = 'One Value in an Array'
     g.labels = {
-        0 => '1',
-        1 => '2'
+      0 => '1',
+      1 => '2'
     }
     g.data('one', [1])
 
@@ -176,10 +176,10 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new
     g.title = 'Many Multi-Line Graph Test'
     g.labels = {
-        0 => 'June',
-        10 => 'July',
-        30 => 'August',
-        50 => 'September',
+      0 => 'June',
+      10 => 'July',
+      30 => 'August',
+      50 => 'September',
     }
     g.data('many points', (0..50).collect { |i| rand(100) })
     g.x_axis_label = 'Months'
@@ -192,10 +192,10 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new
     g.title = 'Square points'
     g.labels = {
-        0 => 'June',
-        10 => 'July',
-        30 => 'August',
-        50 => 'September',
+      0 => 'June',
+      10 => 'July',
+      30 => 'August',
+      50 => 'September',
     }
     g.dot_style = :square
     g.data('many points', (0..50).collect { |i| rand(100) })
@@ -225,12 +225,12 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new(400)
     g.title = 'Many Values Line Test 400px'
     g.labels = {
-        0 => '5/6',
-        10 => '5/15',
-        20 => '5/24',
-        30 => '5/30',
-        40 => '6/4',
-        50 => '6/16'
+      0 => '5/6',
+      10 => '5/15',
+      20 => '5/24',
+      30 => '5/30',
+      40 => '6/4',
+      50 => '6/16'
     }
     %w{jimmy jane philip arthur julie bert}.each do |student_name|
       g.data(student_name, (0..50).collect { |i| rand 100 })
@@ -244,12 +244,12 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new(300)
     g.title = 'Tiny Test 300px'
     g.labels = {
-        0 => '5/6',
-        10 => '5/15',
-        20 => '5/24',
-        30 => '5/30',
-        40 => '6/4',
-        50 => '6/16'
+      0 => '5/6',
+      10 => '5/15',
+      20 => '5/24',
+      30 => '5/30',
+      40 => '6/4',
+      50 => '6/16'
     }
     %w{jimmy jane philip arthur julie bert}.each do |student_name|
       g.data(student_name, (0..50).collect { |i| rand 100 })
@@ -504,9 +504,9 @@ class TestGruffLine < GruffTestCase
   def test_jruby_error
     g = Gruff::Line.new
     g.theme = {
-        :colors => %w(#7F0099 #2F85ED #2FED09 #EC962F),
-        :marker_color => '#aaa',
-        :background_colors => %w(#E8E8E8 #B9FD6C)
+      :colors => %w(#7F0099 #2F85ED #2FED09 #EC962F),
+      :marker_color => '#aaa',
+      :background_colors => %w(#E8E8E8 #B9FD6C)
     }
     g.hide_title = true
 
@@ -521,11 +521,11 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new
     g.title = 'Marker label accuracy'
     g.labels = {
-        0 => '1',
-        1 => '2',
-        2 => '3',
-        3 => '4',
-        4 => '5'
+      0 => '1',
+      1 => '2',
+      2 => '3',
+      3 => '4',
+      4 => '5'
     }
     g.data('first', [0.5, 0.51, 0.52, 0.53, 0.54])
     g.data('second', [0.6, 0.61, 0.62, 0.63, 0.64])
@@ -639,10 +639,10 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new(size)
     g.title = 'Pos/Neg Line Graph Test'
     g.labels = {
-        0 => '5/6',
-        1 => '5/15',
-        2 => '5/24',
-        3 => '5/30',
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
     }
     g.data(:apples, [-1, 0, 4, -4])
     g.data(:peaches, [10, 8, 6, 3])
@@ -653,10 +653,10 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new(size)
     g.title = 'All Neg Line Graph Test'
     g.labels = {
-        0 => '5/6',
-        1 => '5/15',
-        2 => '5/24',
-        3 => '5/30',
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
     }
     g.data(:apples, [-1, -5, -20, -4])
     g.data(:peaches, [-10, -8, -6, -3])
