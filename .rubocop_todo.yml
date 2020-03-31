@@ -825,12 +825,6 @@ Style/MissingRespondToMissing:
   Exclude:
     - 'lib/gruff/scene.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/MultilineIfThen:
-  Exclude:
-    - 'lib/gruff/bar.rb'
-
 # Offense count: 13
 Style/MultilineTernaryOperator:
   Exclude:
