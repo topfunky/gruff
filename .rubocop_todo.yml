@@ -919,12 +919,6 @@ Style/NumericPredicate:
     - 'lib/gruff/side_bar.rb'
     - 'lib/gruff/stacked_bar.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/OneLineConditional:
-  Exclude:
-    - 'lib/gruff/base.rb'
-
 # Offense count: 2
 # Configuration parameters: SuspiciousParamNames.
 # SuspiciousParamNames: options, opts, args, params, parameters
