@@ -52,12 +52,12 @@ protected
     conversion.graph_top = @graph_top
 
     # Set up the right mode [1,2,3] see BarConversion for further explanation
-    if @minimum_value >= 0 then
+    if @minimum_value >= 0
       # all bars go from zero to positiv
       conversion.mode = 1
     else
       # all bars go from 0 to negativ
-      if @maximum_value <= 0 then
+      if @maximum_value <= 0
         conversion.mode = 2
       else
         # bars either go from zero to negativ or to positiv
