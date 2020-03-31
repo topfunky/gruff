@@ -131,7 +131,8 @@ class Gruff::Line < Gruff::Base
     raise ArgumentError, 'x_data_points is nil!' if x_data_points.length == 0
 
     if x_data_points.all? { |p| p.is_a?(Array) && p.size == 2 }
-      x_data_points, y_data_points = x_data_points.map { |p| p[0] }, x_data_points.map { |p| p[1] }
+      y_data_points = x_data_points.map { |p| p[1] }
+      x_data_points = x_data_points.map { |p| p[0] }
     end
 
     raise ArgumentError, 'x_data_points.length != y_data_points.length!' if x_data_points.length != y_data_points.length
@@ -259,7 +260,8 @@ class Gruff::Line < Gruff::Base
           @d = DotRenderers.renderer(@dot_style).render(@d, new_x, new_y, circle_radius)
         end
 
-        prev_x, prev_y = new_x, new_y
+        prev_x = new_x
+        prev_y = new_y
       end
     end
 

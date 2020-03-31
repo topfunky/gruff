@@ -540,9 +540,9 @@ module Gruff
           calculate_caps_height(@legend_font_size)
 
       if @hide_line_markers
-        (@graph_left,
-            @graph_right_margin,
-            @graph_bottom_margin) = [@left_margin, @right_margin, @bottom_margin]
+        @graph_left = @left_margin
+        @graph_right_margin = @right_margin
+        @graph_bottom_margin = @bottom_margin
       else
         if @has_left_labels
           longest_left_label_width = calculate_width(@marker_font_size,
