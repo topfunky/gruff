@@ -118,7 +118,7 @@ private
   end
 
   def sums_for_spider
-    @data.inject(0.0) {|sum, data_row| sum + data_row[DATA_VALUES_INDEX].first}
+    @data.inject(0.0) { |sum, data_row| sum + data_row[DATA_VALUES_INDEX].first }
   end
 
 end

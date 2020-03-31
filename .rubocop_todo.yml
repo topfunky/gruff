@@ -271,24 +271,6 @@ Layout/SpaceAroundEqualsInParameterDefault:
 Layout/SpaceAroundOperators:
   Enabled: false
 
-# Offense count: 20
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces, SpaceBeforeBlockParameters.
-# SupportedStyles: space, no_space
-# SupportedStylesForEmptyBraces: space, no_space
-Layout/SpaceInsideBlockBraces:
-  Exclude:
-    - 'Rakefile'
-    - 'gruff.gemspec'
-    - 'lib/gruff/accumulator_bar.rb'
-    - 'lib/gruff/mini/legend.rb'
-    - 'lib/gruff/side_stacked_bar.rb'
-    - 'lib/gruff/spider.rb'
-    - 'test/test_accumulator_bar.rb'
-    - 'test/test_area.rb'
-    - 'test/test_net.rb'
-    - 'test/test_pie.rb'
-
 # Offense count: 79
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces.

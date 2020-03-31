@@ -16,7 +16,7 @@ module Gruff
       def expand_canvas_for_vertical_legend
         return if @hide_mini_legend
 
-        @legend_labels = @data.collect {|item| item[Gruff::Base::DATA_LABEL_INDEX] }
+        @legend_labels = @data.collect { |item| item[Gruff::Base::DATA_LABEL_INDEX] }
 
         legend_height = scale_fontsize(
                                        @data.length * calculate_line_height +
