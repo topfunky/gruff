@@ -49,13 +49,6 @@ Layout/ArgumentAlignment:
     - 'lib/gruff/scatter.rb'
     - 'lib/gruff/spider.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: IndentationWidth.
-Layout/AssignmentIndentation:
-  Exclude:
-    - 'lib/gruff/base.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyleAlignWith.

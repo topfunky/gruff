@@ -1028,7 +1028,7 @@ module Gruff
     # correctly in the drawn graph.
     def sort_norm_data
       @norm_data =
-          @norm_data.sort_by { |a| -a[DATA_VALUES_INDEX].inject(0) { |sum, num| sum + num.to_f } }
+        @norm_data.sort_by { |a| -a[DATA_VALUES_INDEX].inject(0) { |sum, num| sum + num.to_f } }
     end
 
     # Used by StackedBar and child classes.
