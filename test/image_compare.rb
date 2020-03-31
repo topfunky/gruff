@@ -37,7 +37,8 @@ class ImageCompare
       return false
     end
 
-    x, y = diff.map { |xy| xy[0] }, diff.map { |xy| xy[1] }
+    x = diff.map { |xy| xy[0] }
+    y = diff.map { |xy| xy[1] }
     (1..2).each do |i|
       images.each do |image|
         image.rect(x.min - i, y.min - i, x.max + i, y.max + i, ChunkyPNG::Color.rgb(255, 0, 0))

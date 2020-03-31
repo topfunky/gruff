@@ -117,7 +117,8 @@ class GruffTestCase < Minitest::Test
   #   setup_basic_graph Gruff::Pie, 400
   #
   def setup_basic_graph(*args)
-    klass, size = Gruff::Bar, 400
+    klass = Gruff::Bar
+    size = 400
     # Allow args to be klass, size or just klass or just size.
     #
     # TODO Refactor
@@ -134,7 +135,8 @@ class GruffTestCase < Minitest::Test
         klass = args[0]
       end
     when 2
-      klass, size = args[0], args[1]
+      klass = args[0]
+      size = args[1]
     end
 
     g = klass.new(size)

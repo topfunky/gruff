@@ -921,15 +921,6 @@ Style/OptionHash:
     - 'lib/gruff/bullet.rb'
     - 'test/test_pie.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-Style/ParallelAssignment:
-  Exclude:
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/line.rb'
-    - 'test/gruff_test_case.rb'
-    - 'test/image_compare.rb'
-
 # Offense count: 8
 # Cop supports --auto-correct.
 # Configuration parameters: AllowSafeAssignment, AllowInMultilineConditions.
