@@ -9,7 +9,7 @@ class TestGruffStackedArea < GruffTestCase
       [:Jimmy, [25, 36, 86, 39]],
       [:Charles, [80, 54, 67, 54]],
       [:Julie, [22, 29, 35, 38]],
-      ]
+    ]
     @sample_labels = {
       0 => '5/6',
       1 => '5/15',
