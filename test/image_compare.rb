@@ -10,7 +10,7 @@ class ImageCompare
     org_file_name = "#{name}_0.png~"
     new_file_name = "#{name}_1.png~"
 
-    return nil unless File.exists? old_file_name
+    return nil unless File.exist? old_file_name
     images = [
       ChunkyPNG::Image.from_file(old_file_name),
       ChunkyPNG::Image.from_file(file_name),
@@ -32,8 +32,8 @@ class ImageCompare
     end
 
     if diff.empty?
-      File.delete(org_file_name) if File.exists? org_file_name
-      File.delete(new_file_name) if File.exists? new_file_name
+      File.delete(org_file_name) if File.exist? org_file_name
+      File.delete(new_file_name) if File.exist? new_file_name
       return false
     end
 
