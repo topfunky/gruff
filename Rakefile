@@ -107,7 +107,8 @@ task :stats do
         counts_per_month[date.year][date.month] += count
         total += count
       end
-      print '.'; STDOUT.flush
+      print '.'
+      STDOUT.flush
     end
     puts
   end
@@ -155,8 +156,11 @@ def get_github_issues
     user = ask('login   : ') { |q| q.echo = true }
     pass = ask('password: ') { |q| q.echo = '*' }
   rescue Exception
-    print 'user name: '; user = STDIN.gets.chomp
-    print ' password: '; pass = STDIN.gets.chomp
+    print 'user name: '
+    user = STDIN.gets.chomp
+
+    print ' password: '
+    pass = STDIN.gets.chomp
   end
   require 'uri'
   require 'net/http'
@@ -179,7 +183,8 @@ def get_github_issues
   if defined? ask
     milestone = ask('milestone: ', Integer) { |q| q.echo = true }
   else
-    print 'milestone: '; milestone = STDIN.gets.chomp
+    print 'milestone: '
+    milestone = STDIN.gets.chomp
   end
 
   uri = URI("#{base_uri}/issues?milestone=#{milestone}&state=closed&per_page=1000")
