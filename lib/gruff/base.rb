@@ -814,7 +814,7 @@ module Gruff
       @d.font = @title_font || @font if @title_font || @font
       @d.stroke('transparent')
       @d.pointsize = scale_fontsize(@title_font_size)
-      @d.font_weight = if @bold_title then BoldWeight else NormalWeight end
+      @d.font_weight = @bold_title ? BoldWeight : NormalWeight
       @d.gravity = NorthGravity
       @d = @d.annotate_scaled(@base_image,
                               @raw_columns, 1.0,
