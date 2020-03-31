@@ -77,7 +77,7 @@ protected
         right_x = left_x + @bar_width * @bar_spacing
         # y
         conv = []
-        conversion.get_left_y_right_y_scaled( data_point, conv )
+        conversion.get_left_y_right_y_scaled(data_point, conv)
 
         # create new bar
         @d = @d.fill data_row[DATA_COLOR_INDEX]

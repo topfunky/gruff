@@ -87,7 +87,7 @@ class TestGruffScene < GruffTestCase
 private
 
   def setup_scene
-    g = Gruff::Scene.new("500x100", File.expand_path("../assets/city_scene", File.dirname(__FILE__)) )
+    g = Gruff::Scene.new("500x100", File.expand_path("../assets/city_scene", File.dirname(__FILE__)))
     g.layers = %w(background haze sky clouds)
     g.weather_group = %w(clouds)
     g.time_group = %w(background sky)

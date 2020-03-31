@@ -72,7 +72,7 @@ private
     @d.stroke = 'transparent'
     @d.font_weight = BoldWeight
     @d.gravity = CenterGravity
-    @d.annotate_scaled( @base_image,
+    @d.annotate_scaled(@base_image,
                       0, 0,
                       x, y,
                       amount, @scale)
