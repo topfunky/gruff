@@ -35,7 +35,7 @@ class Gruff::SideStackedBar < Gruff::SideBar
     padding = (@bar_width * (1 - @bar_spacing)) / 2
     if @show_labels_for_bar_values
       label_values = Array.new
-      0.upto(@column_count-1) {|i| label_values[i] = {:value => 0, :right_x => 0}}
+      0.upto(@column_count-1) { |i| label_values[i] = {:value => 0, :right_x => 0} }
     end
     @norm_data.each_with_index do |data_row, row_index|
       data_row[DATA_VALUES_INDEX].each_with_index do |data_point, point_index|
@@ -89,7 +89,7 @@ class Gruff::SideStackedBar < Gruff::SideBar
   end
 
   def max(data_point, index)
-    @data.inject(0) {|sum, item| sum + item[DATA_VALUES_INDEX][index]}
+    @data.inject(0) { |sum, item| sum + item[DATA_VALUES_INDEX][index] }
   end
 
 end

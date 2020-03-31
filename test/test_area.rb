@@ -69,7 +69,7 @@ class TestGruffArea < GruffTestCase
       30 => 'August',
       50 => 'September',
     }
-    g.data('many points', (0..50).collect {|i| rand(100) })
+    g.data('many points', (0..50).collect { |i| rand(100) })
 
     # Default theme
     g.write("test/output/area_many.png")
