@@ -77,10 +77,10 @@ module Gruff
           @d.stroke = 'transparent'
           @d.font_weight = Magick::NormalWeight
           @d.gravity = Magick::WestGravity
-          @d = @d.annotate_scaled( @base_image,
-                                   @raw_columns, 1.0,
-                                   current_x_offset + (legend_square_width * 1.7), current_y_offset,
-                                   truncate_legend_label(legend_label), @scale)
+          @d = @d.annotate_scaled(@base_image,
+                                  @raw_columns, 1.0,
+                                  current_x_offset + (legend_square_width * 1.7), current_y_offset,
+                                  truncate_legend_label(legend_label), @scale)
 
           # Now draw box with color of this dataset
           @d = @d.stroke 'transparent'

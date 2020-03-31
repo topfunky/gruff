@@ -313,19 +313,6 @@ Layout/SpaceInsideHashLiteralBraces:
     - 'test/test_line.rb'
     - 'test/test_side_bar.rb'
 
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: space, no_space
-Layout/SpaceInsideParens:
-  Exclude:
-    - 'lib/gruff/bar.rb'
-    - 'lib/gruff/mini/legend.rb'
-    - 'lib/gruff/spider.rb'
-    - 'lib/gruff/stacked_bar.rb'
-    - 'test/test_net.rb'
-    - 'test/test_scene.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Layout/SpaceInsideRangeLiteral:
