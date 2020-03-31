@@ -727,13 +727,6 @@ Style/GuardClause:
     - 'lib/gruff/scatter.rb'
     - 'lib/gruff/side_bar.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/HashEachMethods:
-  Exclude:
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/stacked_mixin.rb'
-
 # Offense count: 141
 # Cop supports --auto-correct.
 # Configuration parameters: UseHashRocketsWithSymbolValues, PreferHashRocketsForNonAlnumEndingSymbols.
