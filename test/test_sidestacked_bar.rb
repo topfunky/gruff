@@ -12,7 +12,7 @@ class TestGruffSideStackedBar < GruffTestCase
       #[:Jane, [95, 95, 95, 90, 85, 80, 88, 100]],
       #[:Philip, [90, 34, 23, 12, 78, 89, 98, 88]],
       #["Arthur", [5, 10, 13, 11, 6, 16, 22, 32]],
-      ]
+    ]
     @sample_labels = {
       0 => '5/6',
       1 => '5/15',

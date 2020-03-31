@@ -146,13 +146,6 @@ Layout/FirstArgumentIndentation:
   Exclude:
     - 'lib/gruff/mini/legend.rb'
 
-# Offense count: 31
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: special_inside_parentheses, consistent, align_brackets
-Layout/FirstArrayElementIndentation:
-  Enabled: false
-
 # Offense count: 5
 # Cop supports --auto-correct.
 Layout/FirstArrayElementLineBreak:

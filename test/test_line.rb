@@ -84,8 +84,8 @@ class TestGruffLine < GruffTestCase
 
   def test_line_small_values
     @datasets = [
-        [:small, [0.1, 0.14356, 0.0, 0.5674839, 0.456]],
-        [:small2, [0.2, 0.3, 0.1, 0.05, 0.9]]
+      [:small, [0.1, 0.14356, 0.0, 0.5674839, 0.456]],
+      [:small2, [0.2, 0.3, 0.1, 0.05, 0.9]]
     ]
 
     g = Gruff::Line.new
@@ -105,8 +105,8 @@ class TestGruffLine < GruffTestCase
 
   def test_line_starts_with_zero
     @datasets = [
-        [:first0, [0, 5, 10, 8, 18]],
-        [:normal, [1, 2, 3, 4, 5]]
+      [:first0, [0, 5, 10, 8, 18]],
+      [:normal, [1, 2, 3, 4, 5]]
     ]
 
     g = Gruff::Line.new
@@ -126,10 +126,10 @@ class TestGruffLine < GruffTestCase
 
   def test_line_large_values
     @datasets = [
-        [:large, [100_005, 35_000, 28_000, 27_000]],
-        [:large2, [35_000, 28_000, 27_000, 100_005]],
-        [:large3, [28_000, 27_000, 100_005, 35_000]],
-        [:large4, [1_238, 39_092, 27_938, 48_876]]
+      [:large, [100_005, 35_000, 28_000, 27_000]],
+      [:large2, [35_000, 28_000, 27_000, 100_005]],
+      [:large3, [28_000, 27_000, 100_005, 35_000]],
+      [:large4, [1_238, 39_092, 27_938, 48_876]]
     ]
 
     g = Gruff::Line.new
@@ -286,10 +286,10 @@ class TestGruffLine < GruffTestCase
     g.title = 'Some Nil Points'
 
     @datasets = [
-        [:data1, [1, 2, 3, nil, 3, 5, 6]],
-        [:data2, [5, nil, nil, 5, nil, nil, 5]],
-        [:data3, [4, nil, 2, 1, 0]],
-        [:data4, [nil, nil, 3, 1, 2]]
+      [:data1, [1, 2, 3, nil, 3, 5, 6]],
+      [:data2, [5, nil, nil, 5, nil, nil, 5]],
+      [:data3, [4, nil, 2, 1, 0]],
+      [:data4, [nil, nil, 3, 1, 2]]
     ]
 
     @datasets.each do |data|
@@ -403,57 +403,57 @@ class TestGruffLine < GruffTestCase
     g.title = 'Line Test, Many Numbers'
 
     data = [
-        {:date => '01',
-         :wpm => 0,
-         :errors => 0,
-         :accuracy => 0},
-        {:date => '02',
-         :wpm => 10,
-         :errors => 2,
-         :accuracy => 80},
-        {:date => '03',
-         :wpm => 15,
-         :errors => 0,
-         :accuracy => 100},
-        {:date => '04',
-         :wpm => 16,
-         :errors => 2,
-         :accuracy => 87},
-        {:date => '05'},
-        {:date => '06',
-         :wpm => 18,
-         :errors => 1,
-         :accuracy => 94},
-        {:date => '07'},
-        {:date => '08'},
-        {:date => '09',
-         :wpm => 21,
-         :errors => 1,
-         :accuracy => 95},
-        {:date => '10'},
-        {:date => '11'},
-        {:date => '12'},
-        {:date => '13'},
-        {:date => '14'},
-        {:date => '15'},
-        {:date => '16'},
-        {:date => '17'},
-        {:date => '18'},
-        {:date => '19',
-         :wpm => 28,
-         :errors => 5,
-         :accuracy => 82},
-        {:date => '20'},
-        {:date => '21'},
-        {:date => '22'},
-        {:date => '23'},
-        {:date => '24'},
-        {:date => '25'},
-        {:date => '26'},
-        {:date => '27',
-         :wpm => 37,
-         :errors => 3,
-         :accuracy => 92},
+      {:date => '01',
+       :wpm => 0,
+       :errors => 0,
+       :accuracy => 0},
+      {:date => '02',
+       :wpm => 10,
+       :errors => 2,
+       :accuracy => 80},
+      {:date => '03',
+       :wpm => 15,
+       :errors => 0,
+       :accuracy => 100},
+      {:date => '04',
+       :wpm => 16,
+       :errors => 2,
+       :accuracy => 87},
+      {:date => '05'},
+      {:date => '06',
+       :wpm => 18,
+       :errors => 1,
+       :accuracy => 94},
+      {:date => '07'},
+      {:date => '08'},
+      {:date => '09',
+       :wpm => 21,
+       :errors => 1,
+       :accuracy => 95},
+      {:date => '10'},
+      {:date => '11'},
+      {:date => '12'},
+      {:date => '13'},
+      {:date => '14'},
+      {:date => '15'},
+      {:date => '16'},
+      {:date => '17'},
+      {:date => '18'},
+      {:date => '19',
+       :wpm => 28,
+       :errors => 5,
+       :accuracy => 82},
+      {:date => '20'},
+      {:date => '21'},
+      {:date => '22'},
+      {:date => '23'},
+      {:date => '24'},
+      {:date => '25'},
+      {:date => '26'},
+      {:date => '27',
+       :wpm => 37,
+       :errors => 3,
+       :accuracy => 92},
     ]
 
     [:wpm, :errors, :accuracy].each do |field|

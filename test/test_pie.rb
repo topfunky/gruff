@@ -13,7 +13,7 @@ class TestGruffPie < GruffTestCase
       [:Bill, [90]],
       ["Frank", [5]],
       ["Zero", [0]],
-      ]
+    ]
   end
 
   def test_pie_graph

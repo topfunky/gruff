@@ -6,9 +6,9 @@ class TestGruffScatter < Minitest::Test
 
   def setup
     @datasets = [
-        [:Chuck, [20, 10, 5, 12, 11, 6, 10, 7], [5, 10, 19, 6, 9, 1, 14, 8]],
-        [:Brown, [5, 10, 20, 6, 9, 12, 14, 8], [20, 10, 5, 12, 11, 6, 10, 7]],
-        [:Lucy, [19, 9, 6, 11, 12, 7, 15, 8], [6, 11, 18, 8, 12, 8, 10, 6]]
+      [:Chuck, [20, 10, 5, 12, 11, 6, 10, 7], [5, 10, 19, 6, 9, 1, 14, 8]],
+      [:Brown, [5, 10, 20, 6, 9, 12, 14, 8], [20, 10, 5, 12, 11, 6, 10, 7]],
+      [:Lucy, [19, 9, 6, 11, 12, 7, 15, 8], [6, 11, 18, 8, 12, 8, 10, 6]]
     ]
   end
 
@@ -98,7 +98,7 @@ class TestGruffScatter < Minitest::Test
     g.title = 'Some Nil Points'
 
     @datasets = [
-        [:data1, [1, 2, 3, nil, 3, 5, 6], [5, nil, nil, nil, nil, 5, 7]]
+      [:data1, [1, 2, 3, nil, 3, 5, 6], [5, nil, nil, nil, nil, 5, 7]]
     ]
 
     @datasets.each do |data|
@@ -114,8 +114,8 @@ class TestGruffScatter < Minitest::Test
     g.title = 'Unequal number of X and Y values'
 
     @datasets = [
-        [:data1, [1, 2, 3], [1, 2]],
-        [:data2, [1, 2, 3, 4, 5], [1, 2, 3, 4, 5, 6]],
+      [:data1, [1, 2, 3], [1, 2]],
+      [:data2, [1, 2, 3, 4, 5], [1, 2, 3, 4, 5, 6]],
     ]
 
     @datasets.each do |data|
@@ -131,7 +131,7 @@ class TestGruffScatter < Minitest::Test
     g.title = 'Missing Axis Values'
 
     @datasets = [
-        [:data1, [1, 2, 3, 4, 5]]
+      [:data1, [1, 2, 3, 4, 5]]
     ]
 
     @datasets.each do |data|

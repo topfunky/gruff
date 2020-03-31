@@ -13,7 +13,7 @@ class TestGruffNet < GruffTestCase
       [:Jane, [95, 95, 95, 90, 85, 80, 88, 100]],
       [:Philip, [90, 34, 23, 12, 78, 89, 98, 88]],
       ["Arthur", [5, 10, 13, 11, 6, 16, 22, 32]],
-      ]
+    ]
 
     @sample_labels = {
       0 => '5/6',
@@ -31,7 +31,7 @@ class TestGruffNet < GruffTestCase
     @datasets = [
       [:small, [0.1, 0.14356, 0.0, 0.5674839, 0.456]],
       [:small2, [0.2, 0.3, 0.1, 0.05, 0.9]]
-      ]
+    ]
 
     g = Gruff::Net.new
     g.title = "Small Values Net Graph Test"
@@ -52,7 +52,7 @@ class TestGruffNet < GruffTestCase
     @datasets = [
       [:first0, [0, 5, 10, 8, 18]],
       [:normal, [1, 2, 3, 4, 5]]
-      ]
+    ]
 
     g = Gruff::Net.new
     g.title = "Small Values Net Graph Test"
@@ -75,7 +75,7 @@ class TestGruffNet < GruffTestCase
       [:large2, [35_000, 28_000, 27_000, 100_005]],
       [:large3, [28_000, 27_000, 100_005, 35_000]],
       [:large4, [1_238, 39_092, 27_938, 48_876]]
-      ]
+    ]
 
     g = Gruff::Net.new
     g.title = "Very Large Values Net Graph Test"

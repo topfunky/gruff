@@ -33,12 +33,12 @@ class GruffTestCase < Minitest::Test
   def setup
     srand 42
     @datasets = [
-        [:Jimmy, [25, 36, 86, 39, 25, 31, 79, 88]],
-        [:Charles, [80, 54, 67, 54, 68, 70, 90, 95]],
-        [:Julie, [22, 29, 35, 38, 36, 40, 46, 57]],
-        [:Jane, [95, 95, 95, 90, 85, 80, 88, 100]],
-        [:Philip, [90, 34, 23, 12, 78, 89, 98, 88]],
-        [:Arthur, [5, 10, 13, 11, 6, 16, 22, 32]],
+      [:Jimmy, [25, 36, 86, 39, 25, 31, 79, 88]],
+      [:Charles, [80, 54, 67, 54, 68, 70, 90, 95]],
+      [:Julie, [22, 29, 35, 38, 36, 40, 46, 57]],
+      [:Jane, [95, 95, 95, 90, 85, 80, 88, 100]],
+      [:Philip, [90, 34, 23, 12, 78, 89, 98, 88]],
+      [:Arthur, [5, 10, 13, 11, 6, 16, 22, 32]],
     ]
 
     @labels = {
@@ -55,7 +55,7 @@ class GruffTestCase < Minitest::Test
 
   def setup_single_dataset
     @datasets = [
-        [:Jimmy, [25, 36, 86]]
+      [:Jimmy, [25, 36, 86]]
     ]
 
     @labels = {
@@ -67,9 +67,9 @@ class GruffTestCase < Minitest::Test
 
   def setup_wide_dataset
     @datasets = [
-        ['Auto', 25],
-        ['Food', 5],
-        ['Entertainment', 15]
+      ['Auto', 25],
+      ['Food', 5],
+      ['Entertainment', 15]
     ]
 
     @labels = {0 => 'This Month'}

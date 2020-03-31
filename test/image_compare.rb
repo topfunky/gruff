@@ -12,8 +12,8 @@ class ImageCompare
 
     return nil unless File.exists? old_file_name
     images = [
-        ChunkyPNG::Image.from_file(old_file_name),
-        ChunkyPNG::Image.from_file(file_name),
+      ChunkyPNG::Image.from_file(old_file_name),
+      ChunkyPNG::Image.from_file(file_name),
     ]
 
     sizes = images.map(&:width).uniq + images.map(&:height).uniq
