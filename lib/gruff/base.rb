@@ -1142,7 +1142,7 @@ module Gruff
 
   end # Gruff::Base
 
-  class IncorrectNumberOfDatasetsException < StandardError;
+  class IncorrectNumberOfDatasetsException < StandardError
   end
 
 end # Gruff

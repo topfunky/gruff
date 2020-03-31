@@ -428,7 +428,7 @@ Metrics/AbcSize:
 # Configuration parameters: CountComments, ExcludedMethods.
 # ExcludedMethods: refine
 Metrics/BlockLength:
-  Max: 66
+  Max: 67
 
 # Offense count: 1
 # Configuration parameters: CountBlocks.
@@ -1050,14 +1050,6 @@ Style/ReturnNil:
 Style/SelfAssignment:
   Exclude:
     - 'test/test_legend.rb'
-
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: AllowAsExpressionSeparator.
-Style/Semicolon:
-  Exclude:
-    - 'Rakefile'
-    - 'lib/gruff/base.rb'
 
 # Offense count: 1
 Style/Send:
