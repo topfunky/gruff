@@ -189,7 +189,7 @@ def get_github_issues
   issues = YAML.load(res.body).sort_by { |i| i['number'] }
   milestone_name = issues[0] ? issues[0]['milestone']['title'] : "No issues for milestone #{milestone}"
   milestone_description = issues[0] ? issues[0]['milestone']['description'] : "No issues for milestone #{milestone}"
-  milestone_description = milestone_description.split("\r\n").map {|l|wrap l}.join("\r\n")
+  milestone_description = milestone_description.split("\r\n").map {|l| wrap l}.join("\r\n")
   categories = {
     'Features' => 'feature', 'Bugfixes' => 'bug', 'Support' => 'support',
     'Documentation' => 'documentation', 'Pull requests' => nil,

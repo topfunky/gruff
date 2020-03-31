@@ -257,14 +257,6 @@ Layout/MultilineOperationIndentation:
     - 'lib/gruff/line.rb'
     - 'lib/gruff/net.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleInsidePipes.
-# SupportedStylesInsidePipes: space, no_space
-Layout/SpaceAroundBlockParameters:
-  Exclude:
-    - 'Rakefile'
-
 # Offense count: 37
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
