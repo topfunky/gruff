@@ -42,14 +42,14 @@ class GruffTestCase < Minitest::Test
     ]
 
     @labels = {
-        0 => '5/6',
-        1 => '5/15',
-        2 => '5/24',
-        3 => '5/30',
-        4 => '6/4',
-        5 => '6/12',
-        6 => '6/21',
-        7 => '6/28',
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30',
+      4 => '6/4',
+      5 => '6/12',
+      6 => '6/21',
+      7 => '6/28',
     }
   end
 
@@ -59,9 +59,9 @@ class GruffTestCase < Minitest::Test
     ]
 
     @labels = {
-        0 => 'You',
-        1 => 'Average',
-        2 => 'Lifetime'
+      0 => 'You',
+      1 => 'Average',
+      2 => 'Lifetime'
     }
   end
 

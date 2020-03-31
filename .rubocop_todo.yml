@@ -162,13 +162,6 @@ Layout/FirstArrayElementLineBreak:
     - 'test/test_legend.rb'
     - 'test/test_spider.rb'
 
-# Offense count: 51
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: special_inside_parentheses, consistent, align_braces
-Layout/FirstHashElementIndentation:
-  Enabled: false
-
 # Offense count: 8
 # Cop supports --auto-correct.
 Layout/FirstHashElementLineBreak:

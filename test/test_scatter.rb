@@ -228,11 +228,11 @@ class TestGruffScatter < Minitest::Test
     g = Gruff::Scatter.new
     g.title = 'Setting Labels Test'
     g.labels = {
-        0 => 'This',
-        1 => 'should',
-        2 => 'not',
-        3 => 'show',
-        4 => 'up'
+      0 => 'This',
+      1 => 'should',
+      2 => 'not',
+      3 => 'show',
+      4 => 'up'
     }
     @datasets.each do |data|
       g.data(data[0], data[1], data[2])

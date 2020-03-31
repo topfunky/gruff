@@ -191,9 +191,9 @@ def get_github_issues
   milestone_description = issues[0] ? issues[0]['milestone']['description'] : "No issues for milestone #{milestone}"
   milestone_description = milestone_description.split("\r\n").map {|l|wrap l}.join("\r\n")
   categories = {
-      'Features' => 'feature', 'Bugfixes' => 'bug', 'Support' => 'support',
-      'Documentation' => 'documentation', 'Pull requests' => nil,
-      'Internal' => 'internal', 'Rejected' => 'rejected', 'Other' => nil
+    'Features' => 'feature', 'Bugfixes' => 'bug', 'Support' => 'support',
+    'Documentation' => 'documentation', 'Pull requests' => nil,
+    'Internal' => 'internal', 'Rejected' => 'rejected', 'Other' => nil
   }
   grouped_issues = issues.group_by do |i|
     labels = i['labels'].map { |l| l['name'] }

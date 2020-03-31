@@ -8,11 +8,11 @@ class TestMiniSideBar < GruffTestCase
         [:Jimmy, [25, 36, 86, 39]]
       ]
     @labels = {
-        0 => 'Auto',
-        1 => 'Entertainment',
-        2 => 'Food',
-        3 => 'Bus'
-      }
+      0 => 'Auto',
+      1 => 'Entertainment',
+      2 => 'Food',
+      3 => 'Bus'
+    }
 
     g = setup_basic_graph(Gruff::Mini::SideBar, 200)
     write_test_file g, 'mini_side_bar.png'

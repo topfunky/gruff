@@ -11,10 +11,10 @@ class TestGruffStackedBar < GruffTestCase
       [:Julie, [22, 29, 35, 38]],
       ]
     @sample_labels = {
-        0 => '5/6',
-        1 => '5/15',
-        2 => '5/24'
-      }
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24'
+    }
   end
 
   def test_bar_graph
