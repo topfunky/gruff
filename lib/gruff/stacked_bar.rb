@@ -37,6 +37,7 @@ class Gruff::StackedBar < Gruff::Base
         draw_label(label_center, point_index)
 
         next if data_point == 0
+
         # Use incremented x and scaled y
         left_x = @graph_left + (@bar_width * point_index) + padding
         left_y = @graph_top + (@graph_height -

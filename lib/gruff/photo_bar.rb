@@ -88,6 +88,7 @@ protected
 
     Dir.open(theme_dir).each do |file|
       next unless /\.png$/.match(file)
+
       color_list << Image.read("#{theme_dir}/#{file}").first
     end
     @colors = color_list

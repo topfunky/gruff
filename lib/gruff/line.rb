@@ -74,6 +74,7 @@ class Gruff::Line < Gruff::Base
   # The preferred way is to call hide_dots or hide_lines instead.
   def initialize(*args)
     raise ArgumentError, 'Wrong number of arguments' if args.length > 2
+
     if args.empty? || ((not Numeric === args.first) && (not String === args.first))
       super()
     else
@@ -326,6 +327,7 @@ class Gruff::Line < Gruff::Base
           # more than one point, bail
           return false
         end
+
         # there is at least one data point
         one_point = true
       end
