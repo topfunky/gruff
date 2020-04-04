@@ -16,7 +16,7 @@ class Gruff::SideBar < Gruff::Base
     draw_bars
   end
 
-  protected
+protected
 
   def draw_bars
     # Setup spacing.

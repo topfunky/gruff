@@ -99,7 +99,7 @@ class Gruff::Net < Gruff::Base
     end
   end
 
-  private
+private
 
   def draw_label(center_x, center_y, angle, radius, amount)
     r_offset = 1.1

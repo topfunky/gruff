@@ -79,7 +79,7 @@ class GruffTestCase < Minitest::Test
     assert true
   end
 
-  protected
+protected
 
   # Generate graphs at several sizes.
   #

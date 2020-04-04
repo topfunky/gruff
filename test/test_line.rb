@@ -590,7 +590,7 @@ class TestGruffLine < GruffTestCase
     # assert_match(/no encode delegate for this image format .*\.webp/, $!.message)
   end
 
-  private
+private
 
   # TODO Reset data after each theme
   def line_graph_with_themes(size=nil)
