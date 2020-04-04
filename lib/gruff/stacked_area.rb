@@ -39,9 +39,9 @@ class Gruff::StackedArea < Gruff::Base
 
       if prev_data_points
         poly_points = data_points.dup
-        (prev_data_points.length/2 - 1).downto(0) do |i|
-          poly_points << prev_data_points[2*i]
-          poly_points << prev_data_points[2*i+1]
+        (prev_data_points.length / 2 - 1).downto(0) do |i|
+          poly_points << prev_data_points[2 * i]
+          poly_points << prev_data_points[2 * i + 1]
         end
         poly_points << data_points[0]
         poly_points << data_points[1]

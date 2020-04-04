@@ -88,7 +88,7 @@ class Gruff::Net < Gruff::Base
     @d = @d.stroke(@marker_color)
     @d = @d.stroke_width 1
 
-    (0..@column_count-1).each do |index|
+    (0..@column_count - 1).each do |index|
       rad_pos = index * Math::PI * 2 / @column_count
 
       @d = @d.line(@center_x, @center_y, @center_x + Math::sin(rad_pos) * @radius, @center_y - Math::cos(rad_pos) * @radius)

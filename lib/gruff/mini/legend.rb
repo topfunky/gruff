@@ -41,7 +41,7 @@ module Gruff
 
       def calculate_legend_width
         width = @legend_labels.map { |label| calculate_width(@legend_font_size, label) }.max
-        scale_fontsize(width + 40*1.7)
+        scale_fontsize(width + 40 * 1.7)
       end
 
       ##
@@ -103,7 +103,7 @@ module Gruff
       def truncate_legend_label(label)
         truncated_label = label.to_s
         while calculate_width(scale_fontsize(@legend_font_size), truncated_label) > (@columns - @legend_left_margin - @right_margin) && (truncated_label.length > 1)
-          truncated_label = truncated_label[0..truncated_label.length-2]
+          truncated_label = truncated_label[0..truncated_label.length - 2]
         end
         truncated_label + (truncated_label.length < label.to_s.length ? "..." : '')
       end

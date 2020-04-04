@@ -241,7 +241,7 @@ module Gruff
     def initialize_ivars
       # Internal for calculations
       @raw_columns = 800.0
-      @raw_rows = 800.0 * (@rows/@columns)
+      @raw_rows = 800.0 * (@rows / @columns)
       @column_count = 0
       @data = Array.new
       @marker_count = nil
@@ -564,7 +564,7 @@ module Gruff
         # Make space for half the width of the rightmost column label.
         # Might be greater than the number of columns if between-style bar markers are used.
         last_label = @labels.keys.sort.last.to_i
-        extra_room_for_long_label = (last_label >= (@column_count-1) && @center_labels_over_point) ?
+        extra_room_for_long_label = (last_label >= (@column_count - 1) && @center_labels_over_point) ?
             calculate_width(@marker_font_size, @labels[last_label]) / 2.0 :
             0
         @graph_right_margin = @right_margin + extra_room_for_long_label
@@ -898,7 +898,7 @@ module Gruff
       @d.pointsize = scale_fontsize(80)
       @d.gravity = CenterGravity
       @d = @d.annotate_scaled(@base_image,
-                              @raw_columns, @raw_rows/2.0,
+                              @raw_columns, @raw_rows / 2.0,
                               0, 10,
                               @no_data_message, @scale)
     end
@@ -1098,7 +1098,7 @@ module Gruff
                 else
                   value.to_s
                 end
-              elsif (@spread.to_f % (@marker_count.to_f==0 ? 1 : @marker_count.to_f) == 0) || !@y_axis_increment.nil?
+              elsif (@spread.to_f % (@marker_count.to_f == 0 ? 1 : @marker_count.to_f) == 0) || !@y_axis_increment.nil?
                 value.to_i.to_s
               elsif @spread > 10.0
                 sprintf('%0i', value)
@@ -1137,7 +1137,7 @@ module Gruff
 
     # Used for degree => radian conversions
     def deg2rad(angle)
-      angle * (Math::PI/180.0)
+      angle * (Math::PI / 180.0)
     end
 
   end # Gruff::Base

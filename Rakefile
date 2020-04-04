@@ -131,14 +131,14 @@ task :stats do
   years = counts_per_month.keys
   puts '    ' + years.map { |year| '%-12s' % year }.join
   (0..20).each do |l|
-    print (l % 10 == 0) ? '%4d' % ((20-l) * 100) : '    '
+    print (l % 10 == 0) ? '%4d' % ((20 - l) * 100) : '    '
     years.each do |year|
       (1..12).each do |month|
         count = counts_per_month[year][month]
         if [year, month] == [Date.today.year, Date.today.month]
           count *= (Date.new(Date.today.year, Date.today.month, -1).day.to_f / Date.today.day).to_i
         end
-        print count > ((20-l) * 100) ? '*' : ' '
+        print count > ((20 - l) * 100) ? '*' : ' '
       end
     end
     puts
