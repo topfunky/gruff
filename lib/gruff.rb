@@ -2,7 +2,7 @@ require 'gruff/version'
 
 # Extra full path added to fix loading errors on some installations.
 
-%w(
+%w[
   themes
   base
   area
@@ -27,6 +27,6 @@ require 'gruff/version'
   mini/bar
   mini/pie
   mini/side_bar
-).each do |filename|
+].each do |filename|
   require "gruff/#{filename}"
 end

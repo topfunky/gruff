@@ -204,7 +204,7 @@ class TestGruffDot < GruffTestCase
     g.legend_font_size = 32
     g.marker_font_size = 32
     g.theme = {
-      colors: %w(#efd250 #666699 #e5573f #9595e2),
+      colors: %w[#efd250 #666699 #e5573f #9595e2],
       marker_color: 'white',
       font_color: 'blue',
       background_image: 'assets/pc306715.jpg'

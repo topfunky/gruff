@@ -271,7 +271,7 @@ class TestGruffBar < GruffTestCase
     g.legend_font_size = 32
     g.marker_font_size = 32
     g.theme = {
-      colors: %w(#efd250 #666699 #e5573f #9595e2),
+      colors: %w[#efd250 #666699 #e5573f #9595e2],
       marker_color: 'white',
       font_color: 'blue',
       background_image: 'assets/pc306715.jpg'
@@ -294,7 +294,7 @@ class TestGruffBar < GruffTestCase
     g = Gruff::Bar.new
     g.title = 'Background gradient top to bottom'
     g.theme = {
-      background_colors: %w(#ff0000 #00ff00),
+      background_colors: %w[#ff0000 #00ff00],
       background_direction: :top_bottom,
     }
     g.labels = @labels
@@ -309,7 +309,7 @@ class TestGruffBar < GruffTestCase
     g = Gruff::Bar.new
     g.title = 'Background gradient top to bottom'
     g.theme = {
-      background_colors: %w(#ff0000 #00ff00),
+      background_colors: %w[#ff0000 #00ff00],
       background_direction: :bottom_top,
     }
     g.labels = @labels
@@ -324,7 +324,7 @@ class TestGruffBar < GruffTestCase
     g = Gruff::Bar.new
     g.title = 'Background gradient left to right'
     g.theme = {
-      background_colors: %w(#ff0000 #00ff00),
+      background_colors: %w[#ff0000 #00ff00],
       background_direction: :left_right,
     }
     g.labels = @labels
@@ -339,7 +339,7 @@ class TestGruffBar < GruffTestCase
     g = Gruff::Bar.new
     g.title = 'Background gradient right to left'
     g.theme = {
-      background_colors: %w(#ff0000 #00ff00),
+      background_colors: %w[#ff0000 #00ff00],
       background_direction: :right_left,
     }
     g.labels = @labels
@@ -354,7 +354,7 @@ class TestGruffBar < GruffTestCase
     g = Gruff::Bar.new
     g.title = 'Background gradient top left to bottom right'
     g.theme = {
-      background_colors: %w(#ff0000 #00ff00),
+      background_colors: %w[#ff0000 #00ff00],
       background_direction: :topleft_bottomright,
     }
     g.labels = @labels
@@ -370,7 +370,7 @@ class TestGruffBar < GruffTestCase
     g.title = 'Background gradient top right to bottom left'
     g.title_font_size = 30
     g.theme = {
-      background_colors: %w(#ff0000 #00ff00),
+      background_colors: %w[#ff0000 #00ff00],
       background_direction: :topright_bottomleft,
     }
     g.labels = @labels

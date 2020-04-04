@@ -48,7 +48,7 @@ class TestGruffScene < GruffTestCase
 
   def test_layer
     l = LayerStub.new(File.expand_path("../assets/city_scene", File.dirname(__FILE__)), "clouds")
-    assert_equal %w(cloudy.png partly_cloudy.png stormy.png), l.filenames.sort
+    assert_equal %w[cloudy.png partly_cloudy.png stormy.png], l.filenames.sort
 
     l = LayerStub.new(File.expand_path("../assets/city_scene", File.dirname(__FILE__)), "grass")
     assert_equal 'default.png', l.selected_filename
@@ -88,9 +88,9 @@ private
 
   def setup_scene
     g = Gruff::Scene.new("500x100", File.expand_path("../assets/city_scene", File.dirname(__FILE__)))
-    g.layers = %w(background haze sky clouds)
-    g.weather_group = %w(clouds)
-    g.time_group = %w(background sky)
+    g.layers = %w[background haze sky clouds]
+    g.weather_group = %w[clouds]
+    g.time_group = %w[background sky]
     g
   end
 

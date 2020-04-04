@@ -348,7 +348,7 @@ module Gruff
       reset_themes
 
       defaults = {
-        colors: %w(black white),
+        colors: %w[black white],
         additional_line_colors: [],
         marker_color: 'white',
         marker_shadow_color: nil,
