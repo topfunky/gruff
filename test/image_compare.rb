@@ -11,6 +11,7 @@ class ImageCompare
     new_file_name = "#{name}_1.png~"
 
     return nil unless File.exist? old_file_name
+
     images = [
       ChunkyPNG::Image.from_file(old_file_name),
       ChunkyPNG::Image.from_file(file_name),

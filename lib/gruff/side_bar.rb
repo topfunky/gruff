@@ -13,6 +13,7 @@ class Gruff::SideBar < Gruff::Base
     super
 
     return unless @has_data
+
     draw_bars
   end
 

@@ -162,6 +162,7 @@ class Gruff::Layer
     unless @selected_filename.nil? || @selected_filename.empty?
       return File.join(@base_dir, @name, @selected_filename)
     end
+
     ''
   end
 

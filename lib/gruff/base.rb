@@ -994,6 +994,7 @@ module Gruff
 
     def significant(i) # :nodoc:
       return 1.0 if i == 0 # Keep from going into infinite loop
+
       inc = BigDecimal(i.to_s)
       factor = BigDecimal('1.0')
       while inc < 10
@@ -1130,6 +1131,7 @@ module Gruff
     # scaling will handle.
     def calculate_width(font_size, text)
       return 0 if text.nil?
+
       @d.pointsize = font_size
       @d.font = @font if @font
       @d.get_type_metrics(@base_image, text.to_s).width
