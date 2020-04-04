@@ -174,9 +174,20 @@ class TestGruffSpider < GruffTestCase
 
   def test_lots_of_data
     g = Gruff::Spider.new(10)
-    @datasets = [[:a, [1]], [:b, [5]], [:c, [3]], [:d, [9]], [:e, [4]],
-                 [:f, [7]], [:g, [0]], [:h, [4]], [:i, [6]], [:j, [0]],
-                 [:k, [4]], [:l, [8]]]
+    @datasets = [
+      [:a, [1]],
+      [:b, [5]],
+      [:c, [3]],
+      [:d, [9]],
+      [:e, [4]],
+      [:f, [7]],
+      [:g, [0]],
+      [:h, [4]],
+      [:i, [6]],
+      [:j, [0]],
+      [:k, [4]],
+      [:l, [8]]
+    ]
 
     @datasets.each do |data|
       g.data(data[0], data[1])
@@ -188,9 +199,20 @@ class TestGruffSpider < GruffTestCase
 
   def test_lots_of_data_with_large_names
     g = Gruff::Spider.new(10)
-    @datasets = [[:anteaters, [1]], [:bulls, [5]], [:cats, [3]], [:dogs, [9]], [:elephants, [4]],
-                 [:frogs, [7]], [:giraffes, [0]], [:hamsters, [4]], [:iguanas, [6]],
-                 [:jaguar, [0]], [:kangaroo, [4]], [:locust, [8]]]
+    @datasets = [
+      [:anteaters, [1]],
+      [:bulls, [5]],
+      [:cats, [3]],
+      [:dogs, [9]],
+      [:elephants, [4]],
+      [:frogs, [7]],
+      [:giraffes, [0]],
+      [:hamsters, [4]],
+      [:iguanas, [6]],
+      [:jaguar, [0]],
+      [:kangaroo, [4]],
+      [:locust, [8]]
+    ]
 
     @datasets.each do |data|
       g.data(data[0], data[1])
