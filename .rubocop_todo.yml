@@ -150,12 +150,6 @@ Layout/MultilineOperationIndentation:
     - 'lib/gruff/line.rb'
     - 'lib/gruff/net.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Layout/SpaceInsideRangeLiteral:
-  Exclude:
-    - 'lib/gruff/base.rb'
-
 # Offense count: 1
 Lint/AmbiguousBlockAssociation:
   Exclude:

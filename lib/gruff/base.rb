@@ -844,10 +844,10 @@ module Gruff
           if @label_truncation_style == :trailing_dots
             if @label_max_size > 3
               # 4 because '...' takes up 3 chars
-              label_text = "#{label_text[0 .. (@label_max_size - 4)]}..."
+              label_text = "#{label_text[0..(@label_max_size - 4)]}..."
             end
           else # @label_truncation_style is :absolute (default)
-            label_text = label_text[0 .. (@label_max_size - 1)]
+            label_text = label_text[0..(@label_max_size - 1)]
           end
 
         end
