@@ -63,13 +63,6 @@ Layout/CommentIndentation:
     - 'test/test_sidestacked_bar.rb'
     - 'test/test_spider.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: AllowBorderComment, AllowMarginComment.
-Layout/EmptyComment:
-  Exclude:
-    - 'lib/gruff/themes.rb'
-
 # Offense count: 12
 # Cop supports --auto-correct.
 Layout/EmptyLineAfterGuardClause:
