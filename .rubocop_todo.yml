@@ -824,12 +824,6 @@ Style/ReturnNil:
     - 'test/image_compare.rb'
 
 # Offense count: 1
-# Cop supports --auto-correct.
-Style/SelfAssignment:
-  Exclude:
-    - 'test/test_legend.rb'
-
-# Offense count: 1
 Style/Send:
   Exclude:
     - 'lib/gruff/stacked_area.rb'
