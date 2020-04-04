@@ -323,12 +323,6 @@ Lint/SuppressedException:
     - 'test/test_line.rb'
 
 # Offense count: 1
-# Cop supports --auto-correct.
-Lint/UnifiedInteger:
-  Exclude:
-    - 'test/gruff_test_case.rb'
-
-# Offense count: 1
 Lint/UnreachableCode:
   Exclude:
     - 'lib/gruff/photo_bar.rb'
