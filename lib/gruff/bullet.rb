@@ -103,7 +103,7 @@ class Gruff::Bullet < Gruff::Base
       *[
         @base_image,
         1.0, 1.0,
-        @font_height/2, @font_height/2,
+        @font_height / 2, @font_height / 2,
         @title,
         @scale
       ]

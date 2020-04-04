@@ -63,7 +63,7 @@ class TestGruffScatter < Minitest::Test
     # Fake data (100 days, random times of day between 5 and 16)
     r = Random.new(269155)
     y_values = (0..100).map { 5 + r.rand(12) }
-    x_values = (0..100).map { |i| Date.today.strftime('%s').to_i + i*3600*24 }
+    x_values = (0..100).map { |i| Date.today.strftime('%s').to_i + i * 3600 * 24 }
     g.data('many points', x_values, y_values)
     g.write('test/output/scatter_custom_label_format.png')
   end

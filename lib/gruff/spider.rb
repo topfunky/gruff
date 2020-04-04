@@ -41,7 +41,7 @@ class Gruff::Spider < Gruff::Base
 
     @unit_length = radius / @max_value
 
-    additive_angle = (2 * Math::PI)/ @data.size
+    additive_angle = (2 * Math::PI) / @data.size
 
     # Draw axes
     draw_axes(center_x, center_y, radius, additive_angle) unless hide_axes

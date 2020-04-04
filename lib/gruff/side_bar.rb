@@ -58,7 +58,7 @@ protected
         # Calculate center based on bar_width and current row
 
         if @use_data_label
-          label_center = @graph_top + (@bar_width * (row_index+point_index) + @bar_width / 2)
+          label_center = @graph_top + (@bar_width * (row_index + point_index) + @bar_width / 2)
           draw_label(label_center, row_index, @norm_data[row_index][DATA_LABEL_INDEX])
         else
           label_center = @graph_top + (@bars_width * point_index + @bars_width / 2)
@@ -66,7 +66,7 @@ protected
         end
         if @show_labels_for_bar_values
           val = (@label_formatting || '%.2f') % @norm_data[row_index][3][point_index]
-          draw_value_label(right_x+40, (@graph_top + (((row_index+point_index+1) * @bar_width) - (@bar_width / 2)))-12, val.commify, true)
+          draw_value_label(right_x + 40, (@graph_top + (((row_index + point_index + 1) * @bar_width) - (@bar_width / 2))) - 12, val.commify, true)
         end
       end
     end
