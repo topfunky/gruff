@@ -808,7 +808,7 @@ module Gruff
 
     # Draws a title on the graph.
     def draw_title
-      return if (@hide_title || @title.nil?)
+      return if @hide_title || @title.nil?
 
       @d.fill = @font_color
       @d.font = @title_font || @font if @title_font || @font

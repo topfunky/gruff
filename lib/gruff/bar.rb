@@ -30,7 +30,7 @@ class Gruff::Bar < Gruff::Base
   #
   # Default value is 0.9.
   def spacing_factor=(space_percent)
-    raise ArgumentError, 'spacing_factor must be between 0.00 and 1.00' unless (space_percent >= 0 and space_percent <= 1)
+    raise ArgumentError, 'spacing_factor must be between 0.00 and 1.00' unless space_percent >= 0 and space_percent <= 1
     @spacing_factor = (1 - space_percent)
   end
 
