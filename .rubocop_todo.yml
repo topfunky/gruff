@@ -21,15 +21,6 @@ Gemspec/RequiredRubyVersion:
   Exclude:
     - 'gruff.gemspec'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: with_first_argument, with_fixed_indentation
-Layout/ArgumentAlignment:
-  Exclude:
-    - 'lib/gruff/scatter.rb'
-    - 'lib/gruff/spider.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: Categories, ExpectedOrder.

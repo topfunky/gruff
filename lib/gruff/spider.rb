@@ -73,9 +73,9 @@ private
     @d.font_weight = BoldWeight
     @d.gravity = CenterGravity
     @d.annotate_scaled(@base_image,
-                      0, 0,
-                      x, y,
-                      amount, @scale)
+                       0, 0,
+                       x, y,
+                       amount, @scale)
   end
 
   def draw_axes(center_x, center_y, radius, additive_angle, line_color = nil)
