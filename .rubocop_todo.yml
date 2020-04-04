@@ -135,12 +135,6 @@ Layout/MultilineAssignmentLayout:
     - 'lib/gruff/scene.rb'
     - 'test/test_scatter.rb'
 
-# Offense count: 5
-# Cop supports --auto-correct.
-Layout/MultilineHashKeyLineBreaks:
-  Exclude:
-    - 'Rakefile'
-
 # Offense count: 50
 # Cop supports --auto-correct.
 Layout/MultilineMethodArgumentLineBreaks:
