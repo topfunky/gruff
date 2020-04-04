@@ -9,5 +9,8 @@ AllCops:
 Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
 
+Layout/MultilineAssignmentLayout:
+  EnforcedStyle: same_line
+
 Style/HashSyntax:
   EnforcedStyle: ruby19_no_mixed_keys

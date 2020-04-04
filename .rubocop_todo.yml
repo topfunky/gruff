@@ -120,21 +120,6 @@ Layout/LeadingCommentSpace:
     - 'test/test_scatter.rb'
     - 'test/test_sidestacked_bar.rb'
 
-# Offense count: 17
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedTypes: block, case, class, if, kwbegin, module
-# SupportedStyles: same_line, new_line
-Layout/MultilineAssignmentLayout:
-  Exclude:
-    - 'Rakefile'
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/line.rb'
-    - 'lib/gruff/pie.rb'
-    - 'lib/gruff/scatter.rb'
-    - 'lib/gruff/scene.rb'
-    - 'test/test_scatter.rb'
-
 # Offense count: 50
 # Cop supports --auto-correct.
 Layout/MultilineMethodArgumentLineBreaks:
