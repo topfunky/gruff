@@ -3,11 +3,15 @@ require File.dirname(__FILE__) + "/gruff_test_case"
 class TestBezier < GruffTestCase
 
   def setup
-    @data_args = [75, 100, {
-      target: 80,
-      low: 50,
-      high: 90
-    }]
+    @data_args = [
+      75,
+      100,
+      {
+        target: 80,
+        low: 50,
+        high: 90
+      }
+    ]
   end
 
   def test_bezier

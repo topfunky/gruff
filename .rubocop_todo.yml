@@ -129,14 +129,6 @@ Layout/LeadingCommentSpace:
     - 'test/test_scatter.rb'
     - 'test/test_sidestacked_bar.rb'
 
-# Offense count: 22
-# Cop supports --auto-correct.
-Layout/MultilineArrayLineBreaks:
-  Exclude:
-    - 'test/test_bezier.rb'
-    - 'test/test_bullet.rb'
-    - 'test/test_spider.rb'
-
 # Offense count: 17
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
