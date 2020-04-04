@@ -84,7 +84,7 @@ protected
     @d.draw(@base_image)
   end
 
-  def larger_than_max?(data_point, index=0)
+  def larger_than_max?(data_point, index = 0)
     max(data_point, index) > @maximum_value
   end
 

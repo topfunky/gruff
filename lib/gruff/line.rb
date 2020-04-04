@@ -127,7 +127,7 @@ class Gruff::Line < Gruff::Base
   #   In this example the lables are drawn at x positions 2, 4, and 6:
   #   g.labels = {0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006'}
   #   The 0 => '2003' label will be ignored since it is outside the chart range.
-  def dataxy(name, x_data_points=[], y_data_points=[], color=nil)
+  def dataxy(name, x_data_points = [], y_data_points = [], color = nil)
     raise ArgumentError, 'x_data_points is nil!' if x_data_points.length == 0
 
     if x_data_points.all? { |p| p.is_a?(Array) && p.size == 2 }
@@ -286,7 +286,7 @@ class Gruff::Line < Gruff::Base
     super
   end
 
-  def normalize(force=false)
+  def normalize(force = false)
     super(force)
 
     @reference_lines.each_value do |curr_reference_line|

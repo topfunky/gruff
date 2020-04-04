@@ -213,7 +213,7 @@ class TestGruffSpider < GruffTestCase
 
 protected
 
-  def setup_basic_graph(size=800, max = 20)
+  def setup_basic_graph(size = 800, max = 20)
     g = Gruff::Spider.new(max, size)
     g.title = "My Graph Title"
     @datasets.each do |data|

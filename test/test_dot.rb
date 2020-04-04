@@ -237,7 +237,7 @@ class TestGruffDot < GruffTestCase
 
 protected
 
-  def setup_basic_graph(size=800)
+  def setup_basic_graph(size = 800)
     g = Gruff::Dot.new(size)
     g.title = 'My Dot Graph'
     g.labels = {

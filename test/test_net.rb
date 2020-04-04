@@ -215,7 +215,7 @@ class TestGruffNet < GruffTestCase
 
 protected
 
-  def setup_basic_graph(size=800)
+  def setup_basic_graph(size = 800)
     g = Gruff::Net.new(size)
     g.title = "My Graph Title"
     g.labels = @sample_labels

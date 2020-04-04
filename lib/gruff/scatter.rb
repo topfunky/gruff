@@ -167,7 +167,7 @@ class Gruff::Scatter < Gruff::Base
   # g.data('oranges', [1,1,1], [2,3,4])
   # g.data('bitter_melon', [3,5,6], [6,7,8], '#000000')
   #
-  def data(name, x_data_points=[], y_data_points=[], color=nil)
+  def data(name, x_data_points = [], y_data_points = [], color = nil)
     raise ArgumentError, 'Data Points contain nil Value!' if x_data_points.include?(nil) || y_data_points.include?(nil)
     raise ArgumentError, 'x_data_points is empty!' if x_data_points.empty?
     raise ArgumentError, 'y_data_points is empty!' if y_data_points.empty?
@@ -198,7 +198,7 @@ protected
     @x_spread = @x_spread > 0 ? @x_spread : 1
   end
 
-  def normalize(force=nil)
+  def normalize(force = nil)
     if @norm_data.nil? || force
       @norm_data = []
       return unless @has_data

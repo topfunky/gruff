@@ -114,7 +114,7 @@ protected
   ##
   # Draw on the Y axis instead of the X
 
-  def draw_label(y_offset, index, label=nil)
+  def draw_label(y_offset, index, label = nil)
     if !@labels[index].nil? && @labels_seen[index].nil?
       lbl = (@use_data_label) ? label : @labels[index]
       @d.fill = @font_color
