@@ -15,7 +15,7 @@ class Gruff::Bar < Gruff::Base
     # Labels will be centered over the left of the bar if
     # there are more labels than columns. This is basically the same
     # as where it would be for a line graph.
-    @center_labels_over_point = (@labels.keys.length > @column_count ? true : false)
+    @center_labels_over_point = (@labels.keys.length > @column_count)
 
     super
     return unless @has_data

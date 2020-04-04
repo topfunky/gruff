@@ -765,12 +765,6 @@ Style/PreferredHashMethods:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Style/RedundantConditional:
-  Exclude:
-    - 'lib/gruff/bar.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 Style/RedundantParentheses:
   Exclude:
     - 'lib/gruff/side_bar.rb'
