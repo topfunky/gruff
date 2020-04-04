@@ -56,13 +56,16 @@ class TestGruffLegend < GruffTestCase
   end
 
   def test_more_than_two_lines_of_legends
-    @datasets = @datasets + [[:Julie2, [22, 29, 35, 38, 36, 40, 46, 57]],
-                             [:Jane2, [95, 95, 95, 90, 85, 80, 88, 100]],
-                             [:Philip2, [90, 34, 23, 12, 78, 89, 98, 88]],
-                             [:Arthur2, [5, 10, 13, 11, 6, 16, 22, 32]],
-                             [:Vincent2, [5, 10, 13, 11, 6, 16, 22, 32]],
-                             [:Jake2, [5, 10, 13, 11, 6, 16, 22, 32]],
-                             [:Stephen2, [5, 10, 13, 11, 6, 16, 22, 32]]]
+    data = [
+      [:Julie2, [22, 29, 35, 38, 36, 40, 46, 57]],
+      [:Jane2, [95, 95, 95, 90, 85, 80, 88, 100]],
+      [:Philip2, [90, 34, 23, 12, 78, 89, 98, 88]],
+      [:Arthur2, [5, 10, 13, 11, 6, 16, 22, 32]],
+      [:Vincent2, [5, 10, 13, 11, 6, 16, 22, 32]],
+      [:Jake2, [5, 10, 13, 11, 6, 16, 22, 32]],
+      [:Stephen2, [5, 10, 13, 11, 6, 16, 22, 32]]
+    ]
+    @datasets = @datasets + data
     full_suite_for(:bar2, Gruff::Bar)
   end
 end
