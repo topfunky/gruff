@@ -275,9 +275,9 @@ protected
         @d.gravity = NorthGravity
         @d.rotation = -90.0 if @use_vertical_x_labels
         @d = @d.annotate_scaled(@base_image,
-                          1.0, 1.0,
-                          x_offset, y_offset,
-                          vertical_label(marker_label, @x_increment), @scale)
+                                1.0, 1.0,
+                                x_offset, y_offset,
+                                vertical_label(marker_label, @x_increment), @scale)
         @d.rotation = 90.0 if @use_vertical_x_labels
       end
     end
