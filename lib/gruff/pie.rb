@@ -50,10 +50,10 @@ class Gruff::Pie < Gruff::Base
 
   def options
     {
-      :zero_degree            => zero_degree,
-      :hide_labels_less_than  => hide_labels_less_than,
-      :text_offset_percentage => text_offset_percentage,
-      :show_values_as_labels  => show_values_as_labels
+      zero_degree: zero_degree,
+      hide_labels_less_than: hide_labels_less_than,
+      text_offset_percentage: text_offset_percentage,
+      show_values_as_labels: show_values_as_labels
     }
   end
 

@@ -348,13 +348,13 @@ module Gruff
       reset_themes
 
       defaults = {
-        :colors => %w(black white),
-        :additional_line_colors => [],
-        :marker_color => 'white',
-        :marker_shadow_color => nil,
-        :font_color => 'black',
-        :background_colors => nil,
-        :background_image => nil
+        colors: %w(black white),
+        additional_line_colors: [],
+        marker_color: 'white',
+        marker_shadow_color: nil,
+        font_color: 'black',
+        background_colors: nil,
+        background_image: nil
       }
       @theme_options = defaults.merge options
 
@@ -1167,7 +1167,7 @@ module Magick
       #              Remove this method as soon as RMagick4J Issue #16 is fixed.
       #              https://github.com/Serabe/RMagick4J/issues/16
       def fill=(fill)
-        fill = {:white => '#FFFFFF'}[fill.to_sym] || fill
+        fill = {white: '#FFFFFF'}[fill.to_sym] || fill
         @draw.fill = Magick4J.ColorDatabase.query_default(fill)
         self
       end

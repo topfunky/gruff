@@ -149,7 +149,7 @@ class TestGruffPie < GruffTestCase
       graph.title = "Subclassed Pie with Custom Lables"
 
       @datasets.map { |set| set << set.join(': ') }.each do |data|
-        graph.data(data[0], data[1], :label => data[2])
+        graph.data(data[0], data[1], label: data[2])
       end
 
       graph.write 'test/output/pie_subclass_custom_labels.png'
