@@ -24,7 +24,3 @@ addons:
     packages:
       - gsfonts
       - ghostscript
-
-notifications:
-  email:
-    - uwe@kubosch.no
