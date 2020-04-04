@@ -86,7 +86,7 @@ class TestGruffArea < GruffTestCase
       40 => '6/4',
       50 => '6/16'
     }
-    %w{jimmy jane philip arthur julie bert}.each do |student_name|
+    %w[jimmy jane philip arthur julie bert].each do |student_name|
       g.data(student_name, (0..50).collect { |i| rand 100 })
     end
 
@@ -105,7 +105,7 @@ class TestGruffArea < GruffTestCase
       40 => '6/4',
       50 => '6/16'
     }
-    %w{jimmy jane philip arthur julie bert}.each do |student_name|
+    %w[jimmy jane philip arthur julie bert].each do |student_name|
       g.data(student_name, (0..50).collect { |i| rand 100 })
     end
 

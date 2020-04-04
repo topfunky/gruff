@@ -7,7 +7,7 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new(400)
     g.title = 'Transparent Background'
     g.theme = {
-      colors: %w(black grey),
+      colors: %w[black grey],
       marker_color: 'grey',
       font_color: 'black',
       background_colors: 'transparent'
@@ -206,7 +206,7 @@ class TestGruffLine < GruffTestCase
   end
 
   def test_similar_high_end_values
-    @dataset = %w(29.43 29.459 29.498 29.53 29.548 29.589 29.619 29.66 29.689 29.849 29.878 29.74 29.769 29.79 29.808 29.828).collect { |i| i.to_f }
+    @dataset = %w[29.43 29.459 29.498 29.53 29.548 29.589 29.619 29.66 29.689 29.849 29.878 29.74 29.769 29.79 29.808 29.828].collect { |i| i.to_f }
 
     g = Gruff::Line.new
     g.title = 'Similar High End Values Test'
@@ -232,7 +232,7 @@ class TestGruffLine < GruffTestCase
       40 => '6/4',
       50 => '6/16'
     }
-    %w{jimmy jane philip arthur julie bert}.each do |student_name|
+    %w[jimmy jane philip arthur julie bert].each do |student_name|
       g.data(student_name, (0..50).collect { |i| rand 100 })
     end
 
@@ -251,7 +251,7 @@ class TestGruffLine < GruffTestCase
       40 => '6/4',
       50 => '6/16'
     }
-    %w{jimmy jane philip arthur julie bert}.each do |student_name|
+    %w[jimmy jane philip arthur julie bert].each do |student_name|
       g.data(student_name, (0..50).collect { |i| rand 100 })
     end
 
@@ -520,9 +520,9 @@ class TestGruffLine < GruffTestCase
   def test_jruby_error
     g = Gruff::Line.new
     g.theme = {
-      colors: %w(#7F0099 #2F85ED #2FED09 #EC962F),
+      colors: %w[#7F0099 #2F85ED #2FED09 #EC962F],
       marker_color: '#aaa',
-      background_colors: %w(#E8E8E8 #B9FD6C)
+      background_colors: %w[#E8E8E8 #B9FD6C]
     }
     g.hide_title = true
 

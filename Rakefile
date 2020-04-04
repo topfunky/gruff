@@ -3,7 +3,7 @@ require 'bundler/gem_tasks'
 require 'rake/testtask'
 require 'rake/clean'
 
-CLEAN.concat %w(pkg test/output/*)
+CLEAN.concat %w[pkg test/output/*]
 
 desc 'Run tests'
 task default: :test
@@ -40,7 +40,7 @@ New in version #{milestone_name}:
 
 #{(categories.keys & grouped_issues.keys).map do |cat|
     "#{cat}:\n
-#{grouped_issues[cat].map { |i| wrap(%Q{* Issue ##{i['number']} #{i['title']}}, 2) }.join("\n")}
+#{grouped_issues[cat].map { |i| wrap(%Q(* Issue ##{i['number']} #{i['title']}), 2) }.join("\n")}
     "
   end.join("\n")}
 You can find a complete list of issues here:
@@ -90,7 +90,7 @@ task :stats do
   counts_per_month = Hash.new { |h, k| h[k] = Hash.new { |mh, mk| mh[mk] = 0 } }
   total = 0
 
-  %w{gruff}.each do |gem|
+  %w[gruff].each do |gem|
     versions_uri = URI("#{base_uri}/versions/#{gem}.yaml")
     req = Net::HTTP::Get.new(versions_uri.request_uri)
     res = https.start { |http| http.request(req) }
