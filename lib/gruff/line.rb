@@ -37,7 +37,7 @@ class Gruff::Line < Gruff::Base
 
   # Get the value if somebody has defined it.
   def baseline_value
-    if (@reference_lines.key?(:baseline))
+    if @reference_lines.key?(:baseline)
       @reference_lines[:baseline][:value]
     else
       nil
@@ -51,7 +51,7 @@ class Gruff::Line < Gruff::Base
   end
 
   def baseline_color
-    if (@reference_lines.key?(:baseline))
+    if @reference_lines.key?(:baseline)
       @reference_lines[:baseline][:color]
     else
       nil
@@ -193,7 +193,7 @@ class Gruff::Line < Gruff::Base
       draw_vertical_reference_line(curr_reference_line) if curr_reference_line.key?(:index)
     end
 
-    if (@show_vertical_markers)
+    if @show_vertical_markers
       (0..@column_count).each do |column|
         x = @graph_left + @graph_width - column.to_f * @x_increment
 
@@ -274,7 +274,7 @@ class Gruff::Line < Gruff::Base
     possible_minimums = [@minimum_value.to_f]
 
     @reference_lines.each_value do |curr_reference_line|
-      if (curr_reference_line.key?(:value))
+      if curr_reference_line.key?(:value)
         possible_maximums << curr_reference_line[:value].to_f
         possible_minimums << curr_reference_line[:value].to_f
       end
@@ -293,7 +293,7 @@ class Gruff::Line < Gruff::Base
       # We only care about horizontal markers ... for normalization.
       # Vertical markers won't have a :value, they will have an :index
 
-      curr_reference_line[:norm_value] = ((curr_reference_line[:value].to_f - @minimum_value) / @spread.to_f) if (curr_reference_line.key?(:value))
+      curr_reference_line[:norm_value] = ((curr_reference_line[:value].to_f - @minimum_value) / @spread.to_f) if curr_reference_line.key?(:value)
     end
 
     #normalize the x data if it is specified

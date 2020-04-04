@@ -830,16 +830,6 @@ Style/OptionHash:
     - 'lib/gruff/bullet.rb'
     - 'test/test_pie.rb'
 
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: AllowSafeAssignment, AllowInMultilineConditions.
-Style/ParenthesesAroundCondition:
-  Exclude:
-    - 'lib/gruff/bar.rb'
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/line.rb'
-    - 'lib/gruff/stacked_bar.rb'
-
 # Offense count: 38
 # Cop supports --auto-correct.
 # Configuration parameters: PreferredDelimiters.
