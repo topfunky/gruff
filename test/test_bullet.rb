@@ -4,9 +4,9 @@ class TestGruffBullet < GruffTestCase
 
   def setup
     @data_args = [75, 100, {
-      :target => 80,
-      :low => 50,
-      :high => 90
+      target: 80,
+      low: 50,
+      high: 90
     }]
   end
 

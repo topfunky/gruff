@@ -651,13 +651,6 @@ Style/GuardClause:
     - 'lib/gruff/scatter.rb'
     - 'lib/gruff/side_bar.rb'
 
-# Offense count: 141
-# Cop supports --auto-correct.
-# Configuration parameters: UseHashRocketsWithSymbolValues, PreferHashRocketsForNonAlnumEndingSymbols.
-# SupportedStyles: ruby19, hash_rockets, no_mixed_keys, ruby19_no_mixed_keys
-Style/HashSyntax:
-  EnforcedStyle: hash_rockets
-
 # Offense count: 8
 Style/IdenticalConditionalBranches:
   Exclude:

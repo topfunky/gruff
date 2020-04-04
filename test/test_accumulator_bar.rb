@@ -21,10 +21,10 @@ class TestGruffAccumulatorBar < GruffTestCase
     g.marker_font_size = 18
 
     g.theme = {
-      :colors => ['#aedaa9', '#12a702'],
-      :marker_color => '#dddddd',
-      :font_color => 'black',
-      :background_colors => 'white'
+      colors: ['#aedaa9', '#12a702'],
+      marker_color: '#dddddd',
+      font_color: 'black',
+      background_colors: 'white'
       # :background_image => File.expand_path(File.dirname(__FILE__) + "/../assets/backgrounds/43things.png")
     }
 

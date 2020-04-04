@@ -6,15 +6,15 @@ require 'rake/clean'
 CLEAN.concat %w(pkg test/output/*)
 
 desc 'Run tests'
-task :default => :test
+task default: :test
 
-task :gem => :build
+task gem: :build
 
 Rake::TestTask.new
 
 namespace :test do
   desc 'Run mini tests'
-  task :mini => :clean do
+  task mini: :clean do
     Dir['test/test_mini*'].each do |file|
       system "ruby #{file}"
     end

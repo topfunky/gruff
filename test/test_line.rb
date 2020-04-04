@@ -7,10 +7,10 @@ class TestGruffLine < GruffTestCase
     g = Gruff::Line.new(400)
     g.title = 'Transparent Background'
     g.theme = {
-      :colors => %w(black grey),
-      :marker_color => 'grey',
-      :font_color => 'black',
-      :background_colors => 'transparent'
+      colors: %w(black grey),
+      marker_color: 'grey',
+      font_color: 'black',
+      background_colors: 'transparent'
     }
 
     g.labels = {
@@ -403,57 +403,57 @@ class TestGruffLine < GruffTestCase
     g.title = 'Line Test, Many Numbers'
 
     data = [
-      {:date => '01',
-       :wpm => 0,
-       :errors => 0,
-       :accuracy => 0},
-      {:date => '02',
-       :wpm => 10,
-       :errors => 2,
-       :accuracy => 80},
-      {:date => '03',
-       :wpm => 15,
-       :errors => 0,
-       :accuracy => 100},
-      {:date => '04',
-       :wpm => 16,
-       :errors => 2,
-       :accuracy => 87},
-      {:date => '05'},
-      {:date => '06',
-       :wpm => 18,
-       :errors => 1,
-       :accuracy => 94},
-      {:date => '07'},
-      {:date => '08'},
-      {:date => '09',
-       :wpm => 21,
-       :errors => 1,
-       :accuracy => 95},
-      {:date => '10'},
-      {:date => '11'},
-      {:date => '12'},
-      {:date => '13'},
-      {:date => '14'},
-      {:date => '15'},
-      {:date => '16'},
-      {:date => '17'},
-      {:date => '18'},
-      {:date => '19',
-       :wpm => 28,
-       :errors => 5,
-       :accuracy => 82},
-      {:date => '20'},
-      {:date => '21'},
-      {:date => '22'},
-      {:date => '23'},
-      {:date => '24'},
-      {:date => '25'},
-      {:date => '26'},
-      {:date => '27',
-       :wpm => 37,
-       :errors => 3,
-       :accuracy => 92},
+      {date: '01',
+       wpm: 0,
+       errors: 0,
+       accuracy: 0},
+      {date: '02',
+       wpm: 10,
+       errors: 2,
+       accuracy: 80},
+      {date: '03',
+       wpm: 15,
+       errors: 0,
+       accuracy: 100},
+      {date: '04',
+       wpm: 16,
+       errors: 2,
+       accuracy: 87},
+      {date: '05'},
+      {date: '06',
+       wpm: 18,
+       errors: 1,
+       accuracy: 94},
+      {date: '07'},
+      {date: '08'},
+      {date: '09',
+       wpm: 21,
+       errors: 1,
+       accuracy: 95},
+      {date: '10'},
+      {date: '11'},
+      {date: '12'},
+      {date: '13'},
+      {date: '14'},
+      {date: '15'},
+      {date: '16'},
+      {date: '17'},
+      {date: '18'},
+      {date: '19',
+       wpm: 28,
+       errors: 5,
+       accuracy: 82},
+      {date: '20'},
+      {date: '21'},
+      {date: '22'},
+      {date: '23'},
+      {date: '24'},
+      {date: '25'},
+      {date: '26'},
+      {date: '27',
+       wpm: 37,
+       errors: 3,
+       accuracy: 92},
     ]
 
     [:wpm, :errors, :accuracy].each do |field|
@@ -504,9 +504,9 @@ class TestGruffLine < GruffTestCase
   def test_jruby_error
     g = Gruff::Line.new
     g.theme = {
-      :colors => %w(#7F0099 #2F85ED #2FED09 #EC962F),
-      :marker_color => '#aaa',
-      :background_colors => %w(#E8E8E8 #B9FD6C)
+      colors: %w(#7F0099 #2F85ED #2FED09 #EC962F),
+      marker_color: '#aaa',
+      background_colors: %w(#E8E8E8 #B9FD6C)
     }
     g.hide_title = true
 
@@ -558,11 +558,11 @@ class TestGruffLine < GruffTestCase
 
     g.reference_line_default_width = 1
 
-    g.reference_lines[:baseline]  = { :value => 5 }
-    g.reference_lines[:lots]      = { :value => 9 }
-    g.reference_lines[:little]    = { :value => 3 }
-    g.reference_lines[:horiz_one] = { :index => 1, :color => 'green' }
-    g.reference_lines[:horiz_two] = { :index => 3, :color => 'green' }
+    g.reference_lines[:baseline]  = { value: 5 }
+    g.reference_lines[:lots]      = { value: 9 }
+    g.reference_lines[:little]    = { value: 3 }
+    g.reference_lines[:horiz_one] = { index: 1, color: 'green' }
+    g.reference_lines[:horiz_two] = { index: 3, color: 'green' }
 
     g.write('line_reference_lines.png')
   end
