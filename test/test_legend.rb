@@ -65,7 +65,7 @@ class TestGruffLegend < GruffTestCase
       [:Jake2, [5, 10, 13, 11, 6, 16, 22, 32]],
       [:Stephen2, [5, 10, 13, 11, 6, 16, 22, 32]]
     ]
-    @datasets = @datasets + data
+    @datasets += data
     full_suite_for(:bar2, Gruff::Bar)
   end
 end
