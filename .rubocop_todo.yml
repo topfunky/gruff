@@ -32,14 +32,6 @@ Layout/ArgumentAlignment:
 
 # Offense count: 2
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleAlignWith.
-# SupportedStylesAlignWith: either, start_of_block, start_of_line
-Layout/BlockAlignment:
-  Exclude:
-    - 'lib/gruff/scatter.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
 # Configuration parameters: Categories, ExpectedOrder.
 # ExpectedOrder: module_inclusion, constants, public_class_methods, initializer, public_methods, protected_methods, private_methods
 Layout/ClassStructure:
