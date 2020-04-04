@@ -55,7 +55,7 @@ class Gruff::Scene < Gruff::Base
 
   def draw
     # Join all the custom paths and filter out the empty ones
-    image_paths = @layers.map { |layer| layer.path }.select { |path| !path.empty? }
+    image_paths = @layers.map { |layer| layer.path }.reject { |path| path.empty? }
     images = Magick::ImageList.new(*image_paths)
     @base_image = images.flatten_images
   end
