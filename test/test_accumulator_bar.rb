@@ -31,7 +31,7 @@ class TestGruffAccumulatorBar < GruffTestCase
     # Attempt at negative numbers
     # g.data 'Savings', (1..20).to_a.map { rand(10) * (rand(2) > 0 ? 1 : -1) }
     g.data 'Savings', (1..12).to_a.map { rand(100) }
-    g.labels = (0..11).to_a.inject({}) { |memo, index| {index => '12-26'}.merge(memo) }
+    g.labels = (0..11).to_a.inject({}) { |memo, index| { index => '12-26' }.merge(memo) }
 
     g.maximum_value = 1000
     g.minimum_value = 0

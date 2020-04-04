@@ -403,57 +403,73 @@ class TestGruffLine < GruffTestCase
     g.title = 'Line Test, Many Numbers'
 
     data = [
-      {date: '01',
-       wpm: 0,
-       errors: 0,
-       accuracy: 0},
-      {date: '02',
-       wpm: 10,
-       errors: 2,
-       accuracy: 80},
-      {date: '03',
-       wpm: 15,
-       errors: 0,
-       accuracy: 100},
-      {date: '04',
-       wpm: 16,
-       errors: 2,
-       accuracy: 87},
-      {date: '05'},
-      {date: '06',
-       wpm: 18,
-       errors: 1,
-       accuracy: 94},
-      {date: '07'},
-      {date: '08'},
-      {date: '09',
-       wpm: 21,
-       errors: 1,
-       accuracy: 95},
-      {date: '10'},
-      {date: '11'},
-      {date: '12'},
-      {date: '13'},
-      {date: '14'},
-      {date: '15'},
-      {date: '16'},
-      {date: '17'},
-      {date: '18'},
-      {date: '19',
-       wpm: 28,
-       errors: 5,
-       accuracy: 82},
-      {date: '20'},
-      {date: '21'},
-      {date: '22'},
-      {date: '23'},
-      {date: '24'},
-      {date: '25'},
-      {date: '26'},
-      {date: '27',
-       wpm: 37,
-       errors: 3,
-       accuracy: 92},
+      {
+        date: '01',
+        wpm: 0,
+        errors: 0,
+        accuracy: 0
+      },
+      {
+        date: '02',
+        wpm: 10,
+        errors: 2,
+        accuracy: 80
+      },
+      {
+        date: '03',
+        wpm: 15,
+        errors: 0,
+        accuracy: 100
+      },
+      {
+        date: '04',
+        wpm: 16,
+        errors: 2,
+        accuracy: 87
+      },
+      { date: '05' },
+      {
+        date: '06',
+        wpm: 18,
+        errors: 1,
+        accuracy: 94
+      },
+      { date: '07' },
+      { date: '08' },
+      {
+        date: '09',
+        wpm: 21,
+        errors: 1,
+        accuracy: 95
+      },
+      { date: '10' },
+      { date: '11' },
+      { date: '12' },
+      { date: '13' },
+      { date: '14' },
+      { date: '15' },
+      { date: '16' },
+      { date: '17' },
+      { date: '18' },
+      {
+        date: '19',
+        wpm: 28,
+        errors: 5,
+        accuracy: 82
+      },
+      { date: '20' },
+      { date: '21' },
+      { date: '22' },
+      { date: '23' },
+      { date: '24' },
+      { date: '25' },
+      { date: '26' },
+      {
+        date: '27',
+        wpm: 37,
+        errors: 3,
+        accuracy: 92
+      },
     ]
 
     [:wpm, :errors, :accuracy].each do |field|
@@ -485,7 +501,7 @@ class TestGruffLine < GruffTestCase
     g.dataxy('Apples', [1, 3, 4, 5, 6, 10], [1, 2, 3, 4, 4, 3])
     g.dataxy('Bapples', [1, 3, 4, 5, 7, 9], [1, 1, 2, 2, 3, 3])
     g.data('Capples', [1, 1, 2, 2, 3, 3])
-    g.labels = {0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006', 8 => '2007', 10 => '2008'}
+    g.labels = { 0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006', 8 => '2007', 10 => '2008' }
     g.write('test/output/line_xy.png')
   end
 
@@ -497,7 +513,7 @@ class TestGruffLine < GruffTestCase
     g.data('Capples', [1, 1, 2, 2, 3, 3])
     g.dataxy('Dapples', [[1, 1], [2, 2], [5, 6], [13, 13], [15, nil], [2, 17], [3, nil], [3, 17], [13, nil], [3, 18], [5, nil], [2, 18]])
     g.dataxy('Eapples', [[1, 1], [2, 3], [5, 8], [13, 21], [13, 8], [5, 3], [2, 1], [1, 1]])
-    g.labels = {0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006', 8 => '2007', 10 => '2008', 12 => '2009'}
+    g.labels = { 0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006', 8 => '2007', 10 => '2008', 12 => '2009' }
     g.write('test/output/line_xy_pairs.png')
   end
 
@@ -554,7 +570,7 @@ class TestGruffLine < GruffTestCase
     g.data('Watermelon', [2, 3, 4, 5, 6, 8])
     g.data('Peaches', [9, 9, 10, 8, 7, 9])
 
-    g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}
+    g.labels = { 0 => '2003', 2 => '2004', 4 => '2005' }
 
     g.reference_line_default_width = 1
 
@@ -576,7 +592,7 @@ class TestGruffLine < GruffTestCase
     g.data('Watermelon', [2, 3, 4, 5, 6, 8])
     g.data('Peaches', [9, 9, 10, 8, 7, 9])
 
-    g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}
+    g.labels = { 0 => '2003', 2 => '2004', 4 => '2005' }
     g.baseline_value = 5
 
     g.write('line_baseline.png')

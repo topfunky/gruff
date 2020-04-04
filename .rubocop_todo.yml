@@ -223,22 +223,6 @@ Layout/MultilineOperationIndentation:
     - 'lib/gruff/line.rb'
     - 'lib/gruff/net.rb'
 
-# Offense count: 79
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces.
-# SupportedStyles: space, no_space, compact
-# SupportedStylesForEmptyBraces: space, no_space
-Layout/SpaceInsideHashLiteralBraces:
-  Exclude:
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/side_stacked_bar.rb'
-    - 'test/gruff_test_case.rb'
-    - 'test/test_accumulator_bar.rb'
-    - 'test/test_bar.rb'
-    - 'test/test_dot.rb'
-    - 'test/test_line.rb'
-    - 'test/test_side_bar.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Layout/SpaceInsideRangeLiteral:
@@ -363,7 +347,7 @@ Metrics/CyclomaticComplexity:
 # Offense count: 131
 # Configuration parameters: CountComments, ExcludedMethods.
 Metrics/MethodLength:
-  Max: 64
+  Max: 80
 
 # Offense count: 1
 # Configuration parameters: CountKeywordArgs.
