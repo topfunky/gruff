@@ -20,7 +20,7 @@ class Gruff::SideStackedBar < Gruff::SideBar
     super
   end
 
-  protected
+protected
 
   def draw_bars
     # Setup spacing.

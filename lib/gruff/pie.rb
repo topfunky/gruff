@@ -78,7 +78,7 @@ class Gruff::Pie < Gruff::Base
     trigger_final_draw
   end
 
-  private
+private
 
   def slices
     @slices ||= begin

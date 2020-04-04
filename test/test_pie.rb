@@ -175,7 +175,7 @@ protected
       @data.each { |data_array| data_array << options[:label] }
     end
 
-    private
+  private
 
     def slice_class
       CustomLabeledSlice

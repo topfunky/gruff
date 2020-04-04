@@ -447,7 +447,7 @@ module Gruff
       end
     end
 
-    protected
+  protected
 
     # Overridden by subclasses to do the actual plotting of the graph.
     #
@@ -1061,7 +1061,7 @@ module Gruff
       end
     end
 
-    private
+  private
 
     # Takes a block and draws it if DEBUG is true.
     #

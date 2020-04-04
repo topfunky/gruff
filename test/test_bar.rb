@@ -464,7 +464,7 @@ class TestGruffBar < GruffTestCase
     g.write('test/output/bar_marker_shadow.png')
   end
 
-  protected
+protected
 
   def setup_basic_graph(size=800)
     g = Gruff::Bar.new(size)

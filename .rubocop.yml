@@ -5,3 +5,6 @@ AllCops:
     Exclude:
         - 'vendor/bundle/**/*'
         - 'rails_generators/gruff/**/*'
+
+Layout/AccessModifierIndentation:
+  EnforcedStyle: outdent

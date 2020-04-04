@@ -240,7 +240,7 @@ class TestGruffScatter < Minitest::Test
     g.write('test/output/scatter_no_labels.png')
   end
 
-  protected
+protected
 
   def setup_basic_graph(size=800)
     g = Gruff::Scatter.new(size)

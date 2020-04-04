@@ -47,7 +47,7 @@ class Gruff::Dot < Gruff::Base
     @d.draw(@base_image)
   end
 
-  protected
+protected
 
   # Instead of base class version, draws vertical background lines and label
   def draw_line_markers
