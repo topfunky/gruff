@@ -79,6 +79,10 @@ class GruffTestCase < Minitest::Test
     assert true
   end
 
+  def fixtures_dir
+    File.join(File.dirname(__FILE__), 'fixtures')
+  end
+
 protected
 
   # Generate graphs at several sizes.
@@ -142,7 +146,7 @@ protected
     g = klass.new(size)
     g.title = 'My Bar Graph'
     g.labels = @labels
-    g.font = '/Library/Fonts/Verdana.ttf'
+    g.font = File.join(fixtures_dir, 'Roboto-Light.ttf')
 
     @datasets.each do |data|
       g.data(data[0], data[1])

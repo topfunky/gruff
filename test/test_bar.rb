@@ -266,7 +266,7 @@ class TestGruffBar < GruffTestCase
   def test_custom_theme
     g = Gruff::Bar.new
     g.title = 'Custom Theme'
-    g.font = File.expand_path('CREABBRG.TTF', ENV['MAGICK_FONT_PATH'])
+    g.font = File.join(fixtures_dir, 'ComicNeue-Regular.ttf')
     g.title_font_size = 60
     g.legend_font_size = 32
     g.marker_font_size = 32
