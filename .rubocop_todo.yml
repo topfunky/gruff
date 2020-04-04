@@ -280,12 +280,6 @@ Lint/ParenthesesAsGroupedExpression:
     - 'Rakefile'
 
 # Offense count: 1
-# Cop supports --auto-correct.
-Lint/RedundantSplatExpansion:
-  Exclude:
-    - 'lib/gruff/bullet.rb'
-
-# Offense count: 1
 Lint/RescueException:
   Exclude:
     - 'Rakefile'
