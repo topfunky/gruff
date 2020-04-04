@@ -158,7 +158,7 @@ class TestGruffPie < GruffTestCase
 
 protected
 
-  def setup_basic_graph(size=800)
+  def setup_basic_graph(size = 800)
     g = Gruff::Pie.new(size)
     g.title = "My Graph Title"
     @datasets.each do |data|

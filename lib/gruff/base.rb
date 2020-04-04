@@ -216,7 +216,7 @@ module Gruff
     #
     # Looks for Bitstream Vera as the default font. Expects an environment var
     # of MAGICK_FONT_PATH to be set. (Uses RMagick's default font otherwise.)
-    def initialize(target_width=DEFAULT_TARGET_WIDTH)
+    def initialize(target_width = DEFAULT_TARGET_WIDTH)
       if Numeric === target_width
         @columns = target_width.to_f
         @rows = target_width.to_f * 0.75
@@ -326,7 +326,7 @@ module Gruff
     #
     # Example:
     #  replace_colors ['#cc99cc', '#d9e043', '#34d8a2']
-    def replace_colors(color_list=[])
+    def replace_colors(color_list = [])
       @colors = color_list
       @color_index = 0
     end
@@ -405,7 +405,7 @@ module Gruff
     #
     # Example:
     #   data("Bart S.", [95, 45, 78, 89, 88, 76], '#ffcc00')
-    def data(name, data_points=[], color=nil)
+    def data(name, data_points = [], color = nil)
       data_points = Array(data_points) # make sure it's an array
       @data << [name, data_points, color]
                                        # Set column count if this is larger than previous counts
@@ -434,13 +434,13 @@ module Gruff
     #
     # Example:
     #   write('graphs/my_pretty_graph.png')
-    def write(filename='graph.png')
+    def write(filename = 'graph.png')
       draw
       @base_image.write(filename)
     end
 
     # Return the graph as a rendered binary blob.
-    def to_blob(fileformat='PNG')
+    def to_blob(fileformat = 'PNG')
       draw
       @base_image.to_blob do
         self.format = fileformat
@@ -500,7 +500,7 @@ module Gruff
     end
 
     # Make copy of data with values scaled between 0-100
-    def normalize(force=false)
+    def normalize(force = false)
       if @norm_data.nil? || force
         @norm_data = []
         return unless @has_data
@@ -870,7 +870,7 @@ module Gruff
     end
 
     # Draws the data value over the data point in bar graphs
-    def draw_value_label(x_offset, y_offset, data_point, bar_value=false)
+    def draw_value_label(x_offset, y_offset, data_point, bar_value = false)
       return if @hide_line_markers && !bar_value
 
       #y_offset = @graph_bottom + LABEL_MARGIN
@@ -1180,7 +1180,7 @@ end # Magick
 
 class String
   #Taken from http://codesnippets.joyent.com/posts/show/330
-  def commify(delimiter=',')
+  def commify(delimiter = ',')
     self.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{delimiter}")
   end
 end

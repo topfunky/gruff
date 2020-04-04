@@ -16,7 +16,7 @@ Minitest::Reporters.use!
 class Gruff::Base
   alias :write_org :write
 
-  def write(filename='graph.png')
+  def write(filename = 'graph.png')
     basefilename = File.basename(filename).split('.')[0..-2].join('.')
     extension = filename.slice(/\.[^\.]*$/)
     testfilename = File.join(TEST_OUTPUT_DIR, basefilename) + extension
@@ -89,7 +89,7 @@ protected
   #     g.data('students', [1, 2, 3, 4])
   #   end
   #
-  def graph_sized(filename, sizes=['', 400])
+  def graph_sized(filename, sizes = ['', 400])
     class_name = self.class.name.gsub(/^TestGruff/, '')
     Array(sizes).each do |size|
       g = instance_eval("Gruff::#{class_name}.new #{size}")

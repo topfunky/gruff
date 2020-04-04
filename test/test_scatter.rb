@@ -242,7 +242,7 @@ class TestGruffScatter < Minitest::Test
 
 protected
 
-  def setup_basic_graph(size=800)
+  def setup_basic_graph(size = 800)
     g = Gruff::Scatter.new(size)
     g.title = 'Rad Graph'
     @datasets.each do |data|
@@ -251,7 +251,7 @@ protected
     g
   end
 
-  def setup_pos_neg(size=800)
+  def setup_pos_neg(size = 800)
     g = Gruff::Scatter.new(size)
     g.title = 'Pos/Neg Scatter Graph Test'
     g.data(:apples, [-1, 0, 4, -4], [-5, -1, 3, 4])
@@ -259,7 +259,7 @@ protected
     g
   end
 
-  def setup_all_neg(size=800)
+  def setup_all_neg(size = 800)
     g = Gruff::Scatter.new(size)
     g.title = 'Neg Scatter Graph Test'
     g.data(:apples, [-1, -1, -4, -4], [-5, -1, -3, -4])

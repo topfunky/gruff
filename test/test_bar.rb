@@ -466,7 +466,7 @@ class TestGruffBar < GruffTestCase
 
 protected
 
-  def setup_basic_graph(size=800)
+  def setup_basic_graph(size = 800)
     g = Gruff::Bar.new(size)
     g.title = 'My Bar Graph'
     g.labels = {
@@ -481,7 +481,7 @@ protected
     g
   end
 
-  def setup_long_labelled_graph(size=500)
+  def setup_long_labelled_graph(size = 500)
     g = Gruff::Bar.new(size)
     g.title = 'A Graph for All Seasons'
     g.labels = {

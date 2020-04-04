@@ -231,13 +231,6 @@ Layout/MultilineOperationIndentation:
     - 'lib/gruff/line.rb'
     - 'lib/gruff/net.rb'
 
-# Offense count: 37
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: space, no_space
-Layout/SpaceAroundEqualsInParameterDefault:
-  Enabled: false
-
 # Offense count: 49
 # Cop supports --auto-correct.
 # Configuration parameters: AllowForAlignment, EnforcedStyleForExponentOperator.

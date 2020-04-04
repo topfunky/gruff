@@ -4,7 +4,7 @@ require 'gruff/themes'
 # http://en.wikipedia.org/wiki/Bullet_graph
 class Gruff::Bullet < Gruff::Base
 
-  def initialize(target_width="400x40")
+  def initialize(target_width = "400x40")
     if not Numeric === target_width
       geometric_width, geometric_height = target_width.split('x')
       @columns = geometric_width.to_f
@@ -21,7 +21,7 @@ class Gruff::Bullet < Gruff::Base
     @title_font_size = 20
   end
 
-  def data(value, maximum_value, options={})
+  def data(value, maximum_value, options = {})
     @value = value.to_f
     @maximum_value = maximum_value.to_f
     @options = options

@@ -593,7 +593,7 @@ class TestGruffLine < GruffTestCase
 private
 
   # TODO Reset data after each theme
-  def line_graph_with_themes(size=nil)
+  def line_graph_with_themes(size = nil)
     g = Gruff::Line.new(size)
     g.title = "Multi-Line Graph Test #{size}"
     g.labels = @labels
@@ -635,7 +635,7 @@ private
     g.write("test/output/line_theme_odeo_#{size}.png")
   end
 
-  def setup_pos_neg(size=800)
+  def setup_pos_neg(size = 800)
     g = Gruff::Line.new(size)
     g.title = 'Pos/Neg Line Graph Test'
     g.labels = {
@@ -649,7 +649,7 @@ private
     g
   end
 
-  def setup_all_neg(size=800)
+  def setup_all_neg(size = 800)
     g = Gruff::Line.new(size)
     g.title = 'All Neg Line Graph Test'
     g.labels = {
