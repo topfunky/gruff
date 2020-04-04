@@ -72,7 +72,7 @@ class GruffTestCase < Minitest::Test
       ['Entertainment', 15]
     ]
 
-    @labels = {0 => 'This Month'}
+    @labels = { 0 => 'This Month' }
   end
 
   def test_dummy

@@ -389,7 +389,7 @@ class TestGruffBar < GruffTestCase
     g.data('Oranges', [4, 8, 7, 9, 8, 9])
     g.data('Watermelon', [2, 3, 1, 5, 6, 8])
     g.data('Peaches', [9, 9, 10, 8, 7, 9])
-    g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}
+    g.labels = { 0 => '2003', 2 => '2004', 4 => '2005' }
     g.write('test/output/bar_long_legend_text.png')
   end
 
@@ -397,7 +397,7 @@ class TestGruffBar < GruffTestCase
     g = Gruff::Bar.new(600)
     g.hide_legend = true
     g.title = 'Full speed ahead'
-    g.labels = (0..10).inject({}) { |memo, i| memo.merge({i => (i * 10).to_s}) }
+    g.labels = (0..10).inject({}) { |memo, i| memo.merge({ i => (i * 10).to_s }) }
     g.data(:apples, (0..9).map { rand(20) / 10.0 })
     g.y_axis_increment = 1.0
     g.x_axis_label = 'Score (%)'

@@ -34,7 +34,7 @@ class TestGruffSideBar < GruffTestCase
     g.data("Oranges", [32])
     g.data("Watermelon", [8])
     g.data("Peaches", [12])
-    g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}
+    g.labels = { 0 => '2003', 2 => '2004', 4 => '2005' }
     g.write("test/output/side_bar_data_range.png")
   end
 
@@ -46,7 +46,7 @@ class TestGruffSideBar < GruffTestCase
     g.data("Oranges", [32])
     g.data("Watermelon", [8])
     g.data("Peaches", [12])
-    g.labels = {0 => '2003', 2 => '2004', 4 => '2005'}
+    g.labels = { 0 => '2003', 2 => '2004', 4 => '2005' }
     g.show_labels_for_bar_values = true
     g.write("test/output/side_bar_labels.png")
   end
