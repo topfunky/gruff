@@ -125,7 +125,7 @@ protected
     case args.length
     when 1
       case args[0]
-      when Fixnum
+      when Integer
         size = args[0]
         klass = eval("Gruff::#{self.class.name.gsub(/^TestGruff/, '')}")
       when String
