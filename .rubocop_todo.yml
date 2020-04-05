@@ -245,7 +245,7 @@ Metrics/BlockNesting:
 # Offense count: 12
 # Configuration parameters: CountComments.
 Metrics/ClassLength:
-  Max: 662
+  Max: 664
 
 # Offense count: 17
 # Configuration parameters: IgnoredMethods.

@@ -1010,6 +1010,8 @@ module Gruff
       res = inc.floor * factor
       if res.to_i.to_f == res
         res.to_i
+      elsif res.to_f == res
+        res.to_f
       else
         res
       end
