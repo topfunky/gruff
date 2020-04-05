@@ -1,4 +1,11 @@
-== 0.5.1
+# Change Log
+
+## 0.8.0
+
+* Remove version restriction in RMagick (#186)
+* Remove the upper limit (< Ruby 3.0) from the required Ruby version (#207)
+
+## 0.5.1
 
 Skip packaging the test images.  This reduces the gem from 20MB+ to
 300KB+.
@@ -8,7 +15,7 @@ Bugfixes:
 * Issue #92 Reduce the gem size by not shipping the test images.
 
 
-== 0.5.0
+## 0.5.0
 
 We have added a couple of cosmetic changes:  Multiple marker lines both
 vertically and horizontally, and multi-line titles, or no title at all if
@@ -29,7 +36,7 @@ Pull requests:
 * Issue #90 Added missing parenthesis in base.rb
 
 
-== 0.4.0
+## 0.4.0
 
 All old branches and pull requests have been merged or deleted.  Over 40
 issues have been resolved!  Ruby 2.0 compatibility has been confirmed.
@@ -101,55 +108,55 @@ Internal:
 * Issue #80 Remove the .rmvrc file from the project
 
 
-== 0.3.7
+## 0.3.7
 
 * ???
 
-== 0.3.6
+## 0.3.6
 
 * Fixed manifest to list dot graph [theirishpenguin]
 * Fixed color cycling error [Gunnar Wolf]
 * Handle case where a line graph data set only has one value [Ron Colwill]
 
-== 0.3.5
+## 0.3.5
 
 * Added dot graph from Erik Andrejko
 
-== 0.3.4
+## 0.3.4
 
 * Reverted DEBUG=true. Will add a check in the release process so this doesn't happen again.
 * Future releases will end in an odd number for development (topfunky-gruff on GitHub) or even for production releases.
 
-== 0.3.3
+## 0.3.3
 
 * Legend line wrapping [Mat Schaffer]
 * Stacked area graph fixes [James Coglan]
 
-== 0.3.2
+## 0.3.2
 
 * Include init.rb for use as a Rails plugin.
 
-== 0.3.1
+## 0.3.1
 
 * Fixed missing bullet graph bug (experimental, will be in a future release).
 
-== 0.3.0
+## 0.3.0
 
 * Fixed bug where pie graphs weren't drawing their label correctly.
 
-== 0.2.9
+## 0.2.9
 
 * Patch to make SideBar accurate instead of stacked [Marik]
 * Will be extracting net, pie, stacked, and side-stacked to separate gem
   in next release.
 
-== 0.2.8
+## 0.2.8
 
 * New accumulator bar graph (experimental)
 * Better mini graphs
 * Bug fixes
 
-== 0.2.7
+## 0.2.7
 
 * Regenerated Manifest.txt
 * Added scene sample to package
@@ -158,27 +165,27 @@ Internal:
 * Increased size of numbers in Gruff::Mini::Pie
 * Added legend_box_size accessor
 
-== 0.2.6
+## 0.2.6
 
 * Fixed missing side_bar.rb in Manifest.txt
 
-== 0.2.5
+## 0.2.5
 
 * New mini graph types (Experimental)
 * Marker lines can be different color than text labels
 * Theme definition cleanup
 
-== 0.2.4
+## 0.2.4
 
 * Added option to hide line numbers
 * Fixed code that was causing warnings
 
-== 0.2.3
+## 0.2.3
 
 * Cleaned up measurements so the graph expands to fill the available space
 * Added x-axis and y-axis label options
 
-== 0.1.2
+## 0.1.2
 
 * minimum_value and maximum_value can be set after data() to manually scale the graph
 * Fixed infinite loop bug when values are all equal
@@ -187,17 +194,17 @@ Internal:
 * Initial refactoring of tests
 * A host of other bug fixes
 
-== 0.0.8
+## 0.0.8
 
 * NEW Sidestacked Bar Graphs. [Alun Eyre]
 * baseline_value larger than data will now show correctly. [Mike Perham]
 * hide_dots and hide_lines are now options for line graphs.
 
-== 0.0.6
+## 0.0.6
 
 * Fixed hang when no data is passed.
 
-== 0.0.4
+## 0.0.4
 
 * Added bar graphs
 * Added area graphs
@@ -207,18 +214,18 @@ Internal:
 * Added initial line marker rounding to significant digits (Christian Winkler)
 * Line graphs line width is scaled with number of points being drawn (Christian Winkler)
 
-== 0.0.3
+## 0.0.3
 
 * Added option to draw line graphs without the lines (points only), thanks to Eric Hodel
 * Removed font-minimum check so graphs look better at 300px width
 
-== 0.0.2
+## 0.0.2
 
 * Fixed to_blob (thanks to Carlos Villela)
 * Added bar graphs (initial functionality...will be enhanced)
 * Removed rendered test output from gem
 
-== 0.0.1
+## 0.0.1
 
 * Initial release.
 * Line graphs only. Other graph styles coming soon.
