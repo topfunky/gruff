@@ -16,7 +16,6 @@ class Gruff::Area < Gruff::Base
 
     @norm_data.each do |data_row|
       poly_points = Array.new
-      prev_x = prev_y = 0.0
       @d = @d.fill data_row[DATA_COLOR_INDEX]
 
       data_row[DATA_VALUES_INDEX].each_with_index do |data_point, index|
@@ -28,9 +27,6 @@ class Gruff::Area < Gruff::Base
         poly_points << new_y
 
         draw_label(new_x, index)
-
-        prev_x = new_x
-        prev_y = new_y
       end
 
       # Add closing points, draw polygon
