@@ -492,6 +492,7 @@ module Gruff
     # * title
     def setup_drawing
       calculate_spread
+      calculate_increment
       sort_data if @sort # Sort data with avg largest values set first (for display)
       set_colors
       normalize
@@ -628,25 +629,6 @@ module Gruff
 
       @d = @d.stroke_antialias false
 
-      if @y_axis_increment.nil?
-        # Try to use a number of horizontal lines that will come out even.
-        #
-        # TODO Do the same for larger numbers...100, 75, 50, 25
-        if @marker_count.nil?
-          (3..7).each do |lines|
-            if @spread % lines == 0.0
-              @marker_count = lines
-              break
-            end
-          end
-          @marker_count ||= 4
-        end
-        @increment = (@spread > 0 && @marker_count > 0) ? significant(@spread / @marker_count) : 1
-      else
-        # TODO Make this work for negative values
-        @marker_count = (@spread / @y_axis_increment).to_i
-        @increment = @y_axis_increment
-      end
       @increment_scaled = @graph_height.to_f / (@spread / @increment)
 
       # Draw horizontal line markers and annotate with numbers
@@ -1137,6 +1119,28 @@ module Gruff
       @d.pointsize = font_size
       @d.font = @font if @font
       @d.get_type_metrics(@base_image, text.to_s).width
+    end
+
+    def calculate_increment
+      if @y_axis_increment.nil?
+        # Try to use a number of horizontal lines that will come out even.
+        #
+        # TODO Do the same for larger numbers...100, 75, 50, 25
+        if @marker_count.nil?
+          (3..7).each do |lines|
+            if @spread % lines == 0.0
+              @marker_count = lines
+              break
+            end
+          end
+          @marker_count ||= 4
+        end
+        @increment = (@spread > 0 && @marker_count > 0) ? significant(@spread / @marker_count) : 1
+      else
+        # TODO Make this work for negative values
+        @marker_count = (@spread / @y_axis_increment).to_i
+        @increment = @y_axis_increment
+      end
     end
 
     # Used for degree => radian conversions
