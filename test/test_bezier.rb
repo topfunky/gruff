@@ -34,4 +34,20 @@ class TestBezier < GruffTestCase
     g.write("test/output/bezier_3.png")
   end
 
+  def test_bezier_4
+    # issue 87
+    g = Gruff::Bezier.new
+    g.data(
+      'test',
+      [
+        0.00233034904691358,
+        0.0024406001456790108,
+        0.008512412911111114,
+        0.03504837642469136,
+        0.3403206903185184,
+        2.9516386719456804
+      ]
+    )
+    g.write("test/output/bezier_4.png")
+  end
 end
