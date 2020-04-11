@@ -21,7 +21,7 @@ class Gruff::Net < Gruff::Base
   def draw
     super
 
-    return unless @has_data
+    return unless data_given?
 
     @radius = @graph_height / 2.0
     @center_x = @graph_left + (@graph_width / 2.0)

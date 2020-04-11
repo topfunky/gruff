@@ -12,7 +12,7 @@ class Gruff::SideBar < Gruff::Base
     @has_left_labels = true
     super
 
-    return unless @has_data
+    return unless data_given?
 
     draw_bars
   end

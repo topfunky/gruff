@@ -97,10 +97,6 @@ private
     @hide_line_markers = true
   end
 
-  def data_given?
-    @has_data
-  end
-
   def update_chart_degrees_with(degrees)
     @chart_degrees = chart_degrees + degrees
   end

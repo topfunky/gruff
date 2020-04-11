@@ -32,7 +32,7 @@ class Gruff::Spider < Gruff::Base
 
     super
 
-    return unless @has_data
+    return unless data_given?
 
     # Setup basic positioning
     radius = @graph_height / 2.0
