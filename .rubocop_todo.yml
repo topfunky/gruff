@@ -70,14 +70,6 @@ Layout/EmptyLinesAroundModuleBody:
     - 'lib/gruff/mini/side_bar.rb'
     - 'lib/gruff/themes.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: consistent, consistent_relative_to_receiver, special_for_inner_method_call, special_for_inner_method_call_in_parentheses
-Layout/FirstArgumentIndentation:
-  Exclude:
-    - 'lib/gruff/mini/legend.rb'
-
 # Offense count: 22
 # Cop supports --auto-correct.
 Layout/FirstMethodArgumentLineBreak:
