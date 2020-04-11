@@ -30,4 +30,28 @@ class TestGruffBase < GruffTestCase
 
     g.write('test/output/bar_object_labels.png')
   end
+
+  def test_minimum
+    g = Gruff::Bar.new
+    g.minimum_value = 0
+    g.data :hora, [6, 0, 0, 0, 0, 2, 8]
+
+    g = Gruff::Bar.new
+    g.data :hora, [6, 0, 0, 0, 0, 2, 8]
+    g.minimum_value = 0
+
+    pass
+  end
+
+  def test_maximum
+    g = Gruff::Bar.new
+    g.maximum_value = 0
+    g.data :hora, [6, 0, 0, 0, 0, 2, 8]
+
+    g = Gruff::Bar.new
+    g.data :hora, [6, 0, 0, 0, 0, 2, 8]
+    g.maximum_value = 0
+
+    pass
+  end
 end
