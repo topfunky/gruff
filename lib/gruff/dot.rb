@@ -10,7 +10,7 @@ class Gruff::Dot < Gruff::Base
     @has_left_labels = true
     super
 
-    return unless @has_data
+    return unless data_given?
 
     # Setup spacing.
     #

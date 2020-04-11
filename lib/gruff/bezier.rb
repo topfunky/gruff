@@ -4,7 +4,7 @@ class Gruff::Bezier < Gruff::Base
   def draw
     super
 
-    return unless @has_data
+    return unless data_given?
 
     @x_increment = @graph_width / (@column_count - 1).to_f
 

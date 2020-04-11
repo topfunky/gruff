@@ -31,6 +31,27 @@ class TestGruffBase < GruffTestCase
     g.write('test/output/bar_object_labels.png')
   end
 
+  def test_data_given
+    graph = Gruff::Bar.new
+    refute(graph.__send__(:data_given?))
+
+    graph = Gruff::Bar.new
+    graph.data :foo, [1, 2, 3]
+    assert(graph.__send__(:data_given?))
+
+    graph = Gruff::Bar.new
+    graph.data :foo, [1, 2, 3]
+    graph.minimum_value = 10
+    graph.maximum_value = -10
+    refute(graph.__send__(:data_given?))
+
+    graph = Gruff::Bar.new
+    graph.data :foo, [1, 2, 3]
+    graph.minimum_value = 0
+    graph.maximum_value = 5
+    assert(graph.__send__(:data_given?))
+  end
+
   def test_minimum
     g = Gruff::Bar.new
     g.minimum_value = 0

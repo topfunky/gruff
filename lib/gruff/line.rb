@@ -184,7 +184,7 @@ class Gruff::Line < Gruff::Base
   def draw
     super
 
-    return unless @has_data
+    return unless data_given?
 
     # Check to see if more than one datapoint was given. NaN can result otherwise.
     @x_increment = (@column_count > 1) ? (@graph_width / (@column_count - 1).to_f) : @graph_width

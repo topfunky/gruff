@@ -18,7 +18,7 @@ class Gruff::Bar < Gruff::Base
     @center_labels_over_point = (@labels.keys.length > @column_count)
 
     super
-    return unless @has_data
+    return unless data_given?
 
     draw_bars
   end

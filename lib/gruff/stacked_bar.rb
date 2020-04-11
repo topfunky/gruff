@@ -14,7 +14,7 @@ class Gruff::StackedBar < Gruff::Base
   def draw
     get_maximum_by_stack
     super
-    return unless @has_data
+    return unless data_given?
 
     # Setup spacing.
     #

@@ -25,7 +25,7 @@ class Gruff::PhotoBar < Gruff::Base
 
   def draw
     super
-    return unless @has_data
+    return unless data_given?
 
     return # TODO Remove for further development
 

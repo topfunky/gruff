@@ -246,7 +246,6 @@ module Gruff
       @data = Array.new
       @marker_count = nil
       @maximum_value = @minimum_value = nil
-      @has_data = false
       @increment = nil
       @labels = Hash.new
       @label_formatting = nil
@@ -422,10 +421,7 @@ module Gruff
         # TODO Doesn't work with stacked bar graphs
         # Original: @maximum_value = larger_than_max?(data_point, index) ? max(data_point, index) : @maximum_value
         @maximum_value = larger_than_max?(data_point) ? data_point : @maximum_value
-        @has_data = true if @maximum_value >= 0
-
         @minimum_value = less_than_min?(data_point) ? data_point : @minimum_value
-        @has_data = true if @minimum_value < 0
       end
     end
 
@@ -453,7 +449,7 @@ module Gruff
     # Subclasses should start by calling super() for this method.
     def draw
       # Maybe should be done in one of the following functions for more granularity.
-      unless @has_data
+      unless data_given?
         draw_no_data
         return
       end
@@ -499,11 +495,23 @@ module Gruff
       sort_norm_data if @sorted_drawing # Sort norm_data with avg largest values set first (for display)
     end
 
+    def data_given?
+      @data_given ||= begin
+        if @data.empty?
+          false
+        else
+          points = @data.map { |data| data[DATA_VALUES_INDEX] }.flatten.compact
+          min, max = points.minmax
+          @minimum_value <= min || @maximum_value >= max
+        end
+      end
+    end
+
     # Make copy of data with values scaled between 0-100
     def normalize(force = false)
       if @norm_data.nil? || force
         @norm_data = []
-        return unless @has_data
+        return unless data_given?
 
         @data.each do |data_row|
           norm_data_points = []

@@ -9,7 +9,7 @@ class Gruff::StackedArea < Gruff::Base
     get_maximum_by_stack
     super
 
-    return unless @has_data
+    return unless data_given?
 
     @x_increment = @graph_width / (@column_count - 1).to_f
     @d = @d.stroke 'transparent'
