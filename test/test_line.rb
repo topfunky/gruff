@@ -164,6 +164,22 @@ class TestGruffLine < GruffTestCase
     @datasets.each do |data|
       g.data("#{data[0]}-B", data[1].map { |d| d + 20 })
     end
+    g.replace_colors(
+      %w[
+        #0779e4
+        #4cbbb9
+        #77d8d8
+        #2c003e
+        #ffa372
+        #ffbd69
+        #85a392
+        #efa8e4
+        #5a3f11
+        #2b580c
+        #323232
+        #bae5e5
+      ]
+    )
     g.write('test/output/line_more_sets_than_colors.png')
   end
 

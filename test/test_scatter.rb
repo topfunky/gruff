@@ -22,6 +22,7 @@ class TestGruffScatter < Minitest::Test
 
   #~ # Done
   def test_many_datapoints
+    srand 135
     g = Gruff::Scatter.new
     g.title = 'Many Datapoint Graph Test'
     y_values = (0..50).map { rand(100) }
@@ -62,6 +63,7 @@ class TestGruffScatter < Minitest::Test
     g.y_axis_increment = 1
 
     # Fake data (100 days, random times of day between 5 and 16)
+    srand 872
     r = Random.new(269155)
     y_values = (0..100).map { 5 + r.rand(12) }
     x_values = (0..100).map { |i| Date.today.strftime('%s').to_i + i * 3600 * 24 }

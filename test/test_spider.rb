@@ -192,6 +192,22 @@ class TestGruffSpider < GruffTestCase
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
+    g.replace_colors(
+      %w[
+        #0779e4
+        #4cbbb9
+        #77d8d8
+        #2c003e
+        #ffa372
+        #ffbd69
+        #85a392
+        #efa8e4
+        #5a3f11
+        #2b580c
+        #323232
+        #bae5e5
+      ]
+    )
 
     g.title = "Sample Data"
     g.write("test/output/spider_lots_of_data.png")
@@ -217,6 +233,22 @@ class TestGruffSpider < GruffTestCase
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
+    g.replace_colors(
+      %w[
+        #0779e4
+        #4cbbb9
+        #77d8d8
+        #2c003e
+        #ffa372
+        #ffbd69
+        #85a392
+        #efa8e4
+        #5a3f11
+        #2b580c
+        #323232
+        #bae5e5
+      ]
+    )
 
     g.title = "Zoo Inventory"
     g.write("test/output/spider_lots_of_data_normal_names.png")
