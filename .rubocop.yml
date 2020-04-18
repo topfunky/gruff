@@ -14,3 +14,6 @@ Layout/MultilineAssignmentLayout:
 
 Style/HashSyntax:
   EnforcedStyle: ruby19_no_mixed_keys
+
+Style/StructInheritance:
+  Enabled: false

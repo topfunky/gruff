@@ -226,6 +226,8 @@ module Gruff
         @rows = geometric_height.to_f
       end
 
+      @data_class = Gruff::Store::BaseData
+
       initialize_ivars
 
       reset_themes
@@ -406,7 +408,7 @@ module Gruff
     #   data("Bart S.", [95, 45, 78, 89, 88, 76], '#ffcc00')
     def data(name, data_points = [], color = nil)
       data_points = Array(data_points) # make sure it's an array
-      @data << [name, data_points, color]
+      @data << @data_class.new(name, data_points, color)
                                        # Set column count if this is larger than previous counts
       @column_count = (data_points.length > @column_count) ? data_points.length : @column_count
 
