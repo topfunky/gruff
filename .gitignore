@@ -1,6 +1,7 @@
 *~
 /.idea/
 /pkg/
+/vendor/
 .DS_Store
 .bundle
 .yardoc
