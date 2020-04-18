@@ -227,7 +227,7 @@ class TestGruffDot < GruffTestCase
     g = Gruff::Dot.new(600)
     g.hide_legend = true
     g.title = 'Full speed ahead'
-    g.labels = (0..10).inject({}) { |memo, i| memo.merge({ i => (i * 10).to_s }) }
+    g.labels = (0..10).reduce({}) { |memo, i| memo.merge({ i => (i * 10).to_s }) }
     g.data(:apples, [1.7, 0.8, 0.1, 1.9, 1.4, 0.6, 1.1, 0.7, 1.4, 0.2])
     g.y_axis_increment = 1.0
     g.x_axis_label = 'Score (%)'
