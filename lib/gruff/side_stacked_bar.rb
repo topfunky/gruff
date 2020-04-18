@@ -38,7 +38,7 @@ protected
       0.upto(@column_count - 1) { |i| label_values[i] = { value: 0, right_x: 0 } }
     end
     @norm_data.each_with_index do |data_row, row_index|
-      data_row[DATA_VALUES_INDEX].each_with_index do |data_point, point_index|
+      data_row.points.each_with_index do |data_point, point_index|
         ## using the original calcs from the stacked bar chart to get the difference between
         ## part of the bart chart we wish to stack.
         temp1 = @graph_left + (@graph_width -
@@ -47,7 +47,7 @@ protected
         temp2 = @graph_left + @graph_width - height[point_index] - 1
         difference = temp2 - temp1
 
-        @d = @d.fill data_row[DATA_COLOR_INDEX]
+        @d = @d.fill data_row.color
 
         left_x = length[point_index] #+ 1
         left_y = @graph_top + (@bar_width * point_index) + padding
@@ -57,7 +57,7 @@ protected
         height[point_index] += (data_point * @graph_width - 2)
 
         if @show_labels_for_bar_values
-          label_values[point_index][:value] += @data[row_index][DATA_VALUES_INDEX][point_index]
+          label_values[point_index][:value] += @data[row_index].points[point_index]
           label_values[point_index][:right_x] = right_x
         end
 
@@ -89,7 +89,7 @@ protected
   end
 
   def max(data_point, index)
-    @data.inject(0) { |sum, item| sum + item[DATA_VALUES_INDEX][index] }
+    @data.inject(0) { |sum, item| sum + item.points[index] }
   end
 
 end

@@ -23,6 +23,10 @@ require 'gruff/version'
 
   scene
 
+  store/base_data
+  store/custom_data
+  store/xy_data
+
   mini/legend
   mini/bar
   mini/pie

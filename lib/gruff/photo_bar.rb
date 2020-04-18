@@ -44,10 +44,10 @@ class Gruff::PhotoBar < Gruff::Base
     #
     # Columns sit side-by-side.
     spacing_factor = 0.9
-    @bar_width = @norm_data[0][DATA_COLOR_INDEX].columns
+    @bar_width = @norm_data[0].color.columns
 
     @norm_data.each_with_index do |data_row, row_index|
-      data_row[DATA_VALUES_INDEX].each_with_index do |data_point, point_index|
+      data_row.points.each_with_index do |data_point, point_index|
         data_point = 0 if data_point.nil?
         # Use incremented x and scaled y
         left_x = @graph_left + (@bar_width * (row_index + point_index + ((@data.length - 1) * point_index)))
@@ -55,11 +55,11 @@ class Gruff::PhotoBar < Gruff::Base
         right_x = left_x + @bar_width * spacing_factor
         right_y = @graph_top + @graph_height - 1
 
-        bar_image_width = data_row[DATA_COLOR_INDEX].columns
+        bar_image_width = data_row.color.columns
         bar_image_height = right_y.to_f - left_y.to_f
 
         # Crop to scale for data
-        bar_image = data_row[DATA_COLOR_INDEX].crop(0, 0, bar_image_width, bar_image_height)
+        bar_image = data_row.color.crop(0, 0, bar_image_width, bar_image_height)
 
         @d.gravity = NorthWestGravity
         @d = @d.composite(left_x, left_y, bar_image_width, bar_image_height, bar_image)

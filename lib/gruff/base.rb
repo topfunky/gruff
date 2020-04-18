@@ -27,12 +27,6 @@ module Gruff
     # Draw extra lines showing where the margins and text centers are
     DEBUG = false
 
-    # Used for navigating the array of data to plot
-    DATA_LABEL_INDEX = 0
-    DATA_VALUES_INDEX = 1
-    DATA_COLOR_INDEX = 2
-    DATA_VALUES_X_INDEX = 3
-
     # Space around text elements. Mostly used for vertical spacing
     LEGEND_MARGIN = TITLE_MARGIN = 20.0
     LABEL_MARGIN = 10.0
@@ -226,6 +220,8 @@ module Gruff
         @rows = geometric_height.to_f
       end
 
+      @data_class = Gruff::Store::BaseData
+
       initialize_ivars
 
       reset_themes
@@ -406,7 +402,7 @@ module Gruff
     #   data("Bart S.", [95, 45, 78, 89, 88, 76], '#ffcc00')
     def data(name, data_points = [], color = nil)
       data_points = Array(data_points) # make sure it's an array
-      @data << [name, data_points, color]
+      @data << @data_class.new(name, data_points, color)
                                        # Set column count if this is larger than previous counts
       @column_count = (data_points.length > @column_count) ? data_points.length : @column_count
 
@@ -500,7 +496,7 @@ module Gruff
         if @data.empty?
           false
         else
-          points = @data.map { |data| data[DATA_VALUES_INDEX] }.flatten.compact
+          points = @data.map(&:points).flatten.compact
           min, max = points.minmax
           @minimum_value <= min || @maximum_value >= max
         end
@@ -515,14 +511,14 @@ module Gruff
 
         @data.each do |data_row|
           norm_data_points = []
-          data_row[DATA_VALUES_INDEX].each do |data_point|
+          data_row.points.each do |data_point|
             if data_point.nil?
               norm_data_points << nil
             else
               norm_data_points << ((data_point.to_f - @minimum_value.to_f) / @spread)
             end
           end
-          @norm_data << [data_row[DATA_LABEL_INDEX], norm_data_points, data_row[DATA_COLOR_INDEX]]
+          @norm_data << @data_class.new(data_row.label, norm_data_points, data_row.color)
         end
       end
     end
@@ -721,7 +717,7 @@ module Gruff
     def draw_legend
       return if @hide_legend
 
-      @legend_labels = @data.collect { |item| item[DATA_LABEL_INDEX] }
+      @legend_labels = @data.map(&:label)
 
       legend_square_width = @legend_box_size # small square with color of this item
 
@@ -760,7 +756,7 @@ module Gruff
 
         # Now draw box with color of this dataset
         @d = @d.stroke('transparent')
-        @d = @d.fill @data[index][DATA_COLOR_INDEX]
+        @d = @d.fill @data[index].color
         @d = @d.rectangle(current_x_offset,
                           current_y_offset - legend_square_width / 2.0,
                           current_x_offset + legend_square_width,
@@ -1004,19 +1000,19 @@ module Gruff
 
     # Sort with largest overall summed value at front of array.
     def sort_data
-      @data = @data.sort_by { |a| -a[DATA_VALUES_INDEX].inject(0) { |sum, num| sum + num.to_f } }
+      @data = @data.sort_by { |a| -a.points.inject(0) { |sum, num| sum + num.to_f } }
     end
 
     # Set the color for each data set unless it was gived in the data(...) call.
     def set_colors
-      @data.each { |a| a[DATA_COLOR_INDEX] ||= increment_color }
+      @data.each { |a| a.color ||= increment_color }
     end
 
     # Sort with largest overall summed value at front of array so it shows up
     # correctly in the drawn graph.
     def sort_norm_data
       @norm_data =
-        @norm_data.sort_by { |a| -a[DATA_VALUES_INDEX].inject(0) { |sum, num| sum + num.to_f } }
+        @norm_data.sort_by { |a| -a.points.inject(0) { |sum, num| sum + num.to_f } }
     end
 
     # Used by StackedBar and child classes.
@@ -1026,7 +1022,7 @@ module Gruff
       # Get sum of each stack
       max_hash = {}
       @data.each do |data_set|
-        data_set[DATA_VALUES_INDEX].each_with_index do |data_point, i|
+        data_set.points.each_with_index do |data_point, i|
           max_hash[i] = 0.0 unless max_hash[i]
           max_hash[i] += data_point.to_f
         end
@@ -1042,10 +1038,10 @@ module Gruff
     def make_stacked # :nodoc:
       stacked_values = Array.new(@column_count, 0)
       @data.each do |value_set|
-        value_set[DATA_VALUES_INDEX].each_with_index do |value, index|
+        value_set.points.each_with_index do |value, index|
           stacked_values[index] += value
         end
-        value_set[DATA_VALUES_INDEX] = stacked_values.dup
+        value_set.points = stacked_values.dup
       end
     end
 

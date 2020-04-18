@@ -22,7 +22,7 @@ class Gruff::Dot < Gruff::Base
     padding = (@items_width * (1 - spacing_factor)) / 2
 
     @norm_data.each_with_index do |data_row, row_index|
-      data_row[DATA_VALUES_INDEX].each_with_index do |data_point, point_index|
+      data_row.points.each_with_index do |data_point, point_index|
         x_pos = @graph_left + (data_point * @graph_width)
         y_pos = @graph_top + (@items_width * point_index) + padding + (@items_width.to_f / 2.0).round
 
@@ -36,7 +36,7 @@ class Gruff::Dot < Gruff::Base
           @d = @d.fill_opacity 1
         end
 
-        @d = @d.fill data_row[DATA_COLOR_INDEX]
+        @d = @d.fill data_row.color
         @d = @d.stroke('transparent')
         @d = @d.circle(x_pos, y_pos, x_pos + (@item_width.to_f / 3.0).round, y_pos)
 

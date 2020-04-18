@@ -171,8 +171,7 @@ protected
   class CustomLabeledPie < Gruff::Pie
     def data(name, data_points = [], options = {})
       super(name, data_points, options[:color])
-
-      @data.each { |data_array| data_array << options[:label] }
+      @data.last.custom = options[:label]
     end
 
   private
@@ -183,7 +182,7 @@ protected
 
     class CustomLabeledSlice < ::Gruff::Pie::PieSlice
       def label
-        data_array[3] || super
+        data_array.custom || super
       end
     end
   end

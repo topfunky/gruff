@@ -71,7 +71,7 @@ protected
 
     # iterate over all normalised data
     @norm_data.each_with_index do |data_row, row_index|
-      data_row[DATA_VALUES_INDEX].each_with_index do |data_point, point_index|
+      data_row.points.each_with_index do |data_point, point_index|
         # Use incremented x and scaled y
         # x
         left_x = @graph_left + (@bar_width * (row_index + point_index + ((@data.length - 1) * point_index))) + padding
@@ -81,7 +81,7 @@ protected
         conversion.get_left_y_right_y_scaled(data_point, conv)
 
         # create new bar
-        @d = @d.fill data_row[DATA_COLOR_INDEX]
+        @d = @d.fill data_row.color
         @d = @d.rectangle(left_x, conv[0], right_x, conv[1])
 
         # Calculate center based on bar_width and current row
@@ -92,7 +92,7 @@ protected
         # Subtract half a bar width to center left if requested
         draw_label(label_center - (@center_labels_over_point ? @bar_width / 2.0 : 0.0), point_index)
         if @show_labels_for_bar_values
-          val = (@label_formatting || '%.2f') % @data[row_index][DATA_VALUES_INDEX][point_index]
+          val = (@label_formatting || '%.2f') % @data[row_index].points[point_index]
           draw_value_label(left_x + (right_x - left_x) / 2, conv[0] - 30, val.commify, true)
         end
       end

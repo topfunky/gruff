@@ -92,6 +92,8 @@ class Gruff::Line < Gruff::Base
     @dot_style = 'circle'
 
     @show_vertical_markers = false
+
+    @data_class = Gruff::Store::XYData
   end
 
   # This method allows one to plot a dataset with both X and Y data.
@@ -143,7 +145,7 @@ class Gruff::Line < Gruff::Base
 
     x_data_points = Array(x_data_points) # make sure it's an array
     # append the x data to the last entry that was just added in the @data member
-    @data.last[DATA_VALUES_X_INDEX] = x_data_points
+    @data.last.x_points = x_data_points
 
     # Update the global min/max values for the x data
     x_data_points.each do |x_data_point|
@@ -221,8 +223,8 @@ class Gruff::Line < Gruff::Base
 
       @one_point = contains_one_point_only?(data_row)
 
-      data_row[DATA_VALUES_INDEX].each_with_index do |data_point, index|
-        x_data = data_row[DATA_VALUES_X_INDEX]
+      data_row.y_points.each_with_index do |data_point, index|
+        x_data = data_row.x_points
         if x_data == nil
           #use the old method: equally spaced points along the x-axis
           new_x = @graph_left + (@x_increment * index)
@@ -241,14 +243,14 @@ class Gruff::Line < Gruff::Base
         new_y = @graph_top + (@graph_height - data_point * @graph_height)
 
         # Reset each time to avoid thin-line errors
-        @d = @d.stroke data_row[DATA_COLOR_INDEX]
-        @d = @d.fill data_row[DATA_COLOR_INDEX]
+        @d = @d.stroke data_row.color
+        @d = @d.fill data_row.color
         @d = @d.stroke_opacity 1.0
         @d = @d.stroke_width line_width ||
-                                 clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 4), 5.0)
+                                 clip_value_if_greater_than(@columns / (@norm_data.first.y_points.size * 4), 5.0)
 
         circle_radius = dot_radius ||
-            clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 2.5), 5.0)
+            clip_value_if_greater_than(@columns / (@norm_data.first.y_points.size * 2.5), 5.0)
 
         if !@hide_lines && !prev_x.nil? && !prev_y.nil?
           @d = @d.line(prev_x, prev_y, new_x, new_y)
@@ -300,18 +302,18 @@ class Gruff::Line < Gruff::Base
     #normalize the x data if it is specified
     @data.each_with_index do |data_row, index|
       norm_x_data_points = []
-      if data_row[DATA_VALUES_X_INDEX] != nil
-        data_row[DATA_VALUES_X_INDEX].each do |x_data_point|
+      if data_row.x_points != nil
+        data_row.x_points.each do |x_data_point|
           norm_x_data_points << ((x_data_point.to_f - @minimum_x_value.to_f) /
               (@maximum_x_value.to_f - @minimum_x_value.to_f))
         end
-        @norm_data[index] << norm_x_data_points
+        @norm_data[index].x_points = norm_x_data_points
       end
     end
   end
 
   def sort_norm_data
-    super unless @data.any? { |d| d[DATA_VALUES_X_INDEX] }
+    super unless @data.any?(&:x_points)
   end
 
   def get_x_coord(x_data_point, width, offset)
@@ -321,7 +323,7 @@ class Gruff::Line < Gruff::Base
   def contains_one_point_only?(data_row)
     # Spin through data to determine if there is just one_value present.
     one_point = false
-    data_row[DATA_VALUES_INDEX].each do |data_point|
+    data_row.y_points.each do |data_point|
       unless data_point.nil?
         if one_point
           # more than one point, bail
