@@ -37,9 +37,9 @@ protected
     return if self.is_a?(Gruff::SideStackedBar)
 
     @norm_data.each_with_index do |data_row, row_index|
-      @d = @d.fill data_row[DATA_COLOR_INDEX]
+      @d = @d.fill data_row.color
 
-      data_row[DATA_VALUES_INDEX].each_with_index do |data_point, point_index|
+      data_row.points.each_with_index do |data_point, point_index|
         # Using the original calcs from the stacked bar chart
         # to get the difference between
         # part of the bart chart we wish to stack.
@@ -60,13 +60,13 @@ protected
 
         if @use_data_label
           label_center = @graph_top + (@bar_width * (row_index + point_index) + @bar_width / 2)
-          draw_label(label_center, row_index, @norm_data[row_index][DATA_LABEL_INDEX])
+          draw_label(label_center, row_index, @norm_data[row_index].label)
         else
           label_center = @graph_top + (@bars_width * point_index + @bars_width / 2)
           draw_label(label_center, point_index)
         end
         if @show_labels_for_bar_values
-          val = (@label_formatting || '%.2f') % @data[row_index][DATA_VALUES_INDEX][point_index]
+          val = (@label_formatting || '%.2f') % @data[row_index].points[point_index]
           draw_value_label(right_x + 40, (@graph_top + (((row_index + point_index + 1) * @bar_width) - (@bar_width / 2))) - 12, val.commify, true)
         end
       end

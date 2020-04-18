@@ -84,7 +84,7 @@ private
     current_angle = rotation * Math::PI / 180.0
 
     @data.each do |data_row|
-      @d.stroke(line_color || data_row[DATA_COLOR_INDEX])
+      @d.stroke(line_color || data_row.color)
       @d.stroke_width 5.0
 
       x_offset = radius * Math.cos(current_angle)
@@ -94,7 +94,7 @@ private
               center_x + x_offset,
               center_y + y_offset)
 
-      draw_label(center_x, center_y, current_angle, radius, data_row[DATA_LABEL_INDEX].to_s) unless hide_text
+      draw_label(center_x, center_y, current_angle, radius, data_row.label.to_s) unless hide_text
 
       current_angle += additive_angle
     end
@@ -105,8 +105,8 @@ private
     current_angle = rotation * Math::PI / 180.0
 
     @data.each do |data_row|
-      points << center_x + normalize_points(data_row[DATA_VALUES_INDEX].first) * Math.cos(current_angle)
-      points << center_y + normalize_points(data_row[DATA_VALUES_INDEX].first) * Math.sin(current_angle)
+      points << center_x + normalize_points(data_row.points.first) * Math.cos(current_angle)
+      points << center_y + normalize_points(data_row.points.first) * Math.sin(current_angle)
       current_angle += additive_angle
     end
 
@@ -118,7 +118,7 @@ private
   end
 
   def sums_for_spider
-    @data.inject(0.0) { |sum, data_row| sum + data_row[DATA_VALUES_INDEX].first }
+    @data.inject(0.0) { |sum, data_row| sum + data_row.points.first }
   end
 
 end

@@ -111,16 +111,16 @@ class Gruff::Scatter < Gruff::Base
     #~ end
 
     @norm_data.each do |data_row|
-      data_row[DATA_VALUES_INDEX].each_with_index do |data_point, index|
-        x_value = data_row[DATA_VALUES_X_INDEX][index]
+      data_row.y_points.each_with_index do |data_point, index|
+        x_value = data_row.x_points[index]
         next if data_point.nil? || x_value.nil?
 
         new_x = get_x_coord(x_value, @graph_width, @graph_left)
         new_y = @graph_top + (@graph_height - data_point * @graph_height)
 
         # Reset each time to avoid thin-line errors
-        @d = @d.stroke data_row[DATA_COLOR_INDEX]
-        @d = @d.fill data_row[DATA_COLOR_INDEX]
+        @d = @d.stroke data_row.color
+        @d = @d.fill data_row.color
         @d = @d.stroke_opacity 1.0
         @d = @d.stroke_width @stroke_width || clip_value_if_greater_than(@columns / (@norm_data.first[1].size * 4), 5.0)
 
@@ -206,15 +206,13 @@ protected
       return unless data_given?
 
       @data.each do |data_row|
-        norm_data_points = [data_row[DATA_LABEL_INDEX]]
-        norm_data_points << data_row[DATA_VALUES_INDEX].map do |r|
+        y_points = data_row.y_points.map do |r|
           (r.to_f - @minimum_value.to_f) / @spread
         end
-        norm_data_points << data_row[DATA_COLOR_INDEX]
-        norm_data_points << data_row[DATA_VALUES_X_INDEX].map do |r|
+        x_points = data_row.x_points.map do |r|
           (r.to_f - @minimum_x_value.to_f) / @x_spread
         end
-        @norm_data << norm_data_points
+        @norm_data << @data_class.new(data_row.label, y_points, data_row.color, x_points)
       end
     end
     #~ @norm_y_baseline = (@baseline_y_value.to_f / @maximum_value.to_f) if @baseline_y_value

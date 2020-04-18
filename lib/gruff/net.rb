@@ -29,11 +29,11 @@ class Gruff::Net < Gruff::Base
 
     @x_increment = @graph_width / (@column_count - 1).to_f
     circle_radius = dot_radius ||
-        clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 2.5), 5.0)
+        clip_value_if_greater_than(@columns / (@norm_data.first.points.size * 2.5), 5.0)
 
     @d = @d.stroke_opacity 1.0
     @d = @d.stroke_width line_width ||
-                             clip_value_if_greater_than(@columns / (@norm_data.first[DATA_VALUES_INDEX].size * 4), 5.0)
+                             clip_value_if_greater_than(@columns / (@norm_data.first.points.size * 4), 5.0)
 
     if defined?(@norm_baseline)
       level = @graph_top + (@graph_height - @norm_baseline * @graph_height)
@@ -47,10 +47,10 @@ class Gruff::Net < Gruff::Base
     end
 
     @norm_data.each do |data_row|
-      @d = @d.stroke data_row[DATA_COLOR_INDEX]
-      @d = @d.fill data_row[DATA_COLOR_INDEX]
+      @d = @d.stroke data_row.color
+      @d = @d.fill data_row.color
 
-      data_row[DATA_VALUES_INDEX].each_with_index do |data_point, index|
+      data_row.points.each_with_index do |data_point, index|
         next if data_point.nil?
 
         rad_pos = index * Math::PI * 2 / @column_count
@@ -58,10 +58,10 @@ class Gruff::Net < Gruff::Base
         start_x = @center_x + Math::sin(rad_pos) * point_distance
         start_y = @center_y - Math::cos(rad_pos) * point_distance
 
-        next_index = index + 1 < data_row[DATA_VALUES_INDEX].length ? index + 1 : 0
+        next_index = index + 1 < data_row.points.length ? index + 1 : 0
 
         next_rad_pos = next_index * Math::PI * 2 / @column_count
-        next_point_distance = data_row[DATA_VALUES_INDEX][next_index] * @radius
+        next_point_distance = data_row.points[next_index] * @radius
         end_x = @center_x + Math::sin(next_rad_pos) * next_point_distance
         end_y = @center_y - Math::cos(next_rad_pos) * next_point_distance
 

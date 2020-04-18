@@ -16,9 +16,9 @@ class Gruff::Area < Gruff::Base
 
     @norm_data.each do |data_row|
       poly_points = Array.new
-      @d = @d.fill data_row[DATA_COLOR_INDEX]
+      @d = @d.fill data_row.color
 
-      data_row[DATA_VALUES_INDEX].each_with_index do |data_point, index|
+      data_row.points.each_with_index do |data_point, index|
         # Use incremented x and scaled y
         new_x = @graph_left + (@x_increment * index)
         new_y = @graph_top + (@graph_height - data_point * @graph_height)
