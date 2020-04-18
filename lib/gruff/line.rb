@@ -307,7 +307,7 @@ class Gruff::Line < Gruff::Base
           norm_x_data_points << ((x_data_point.to_f - @minimum_x_value.to_f) /
               (@maximum_x_value.to_f - @minimum_x_value.to_f))
         end
-        @norm_data[index] << norm_x_data_points
+        @norm_data[index].x_points = norm_x_data_points
       end
     end
   end

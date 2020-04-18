@@ -524,7 +524,7 @@ module Gruff
               norm_data_points << ((data_point.to_f - @minimum_value.to_f) / @spread)
             end
           end
-          @norm_data << [data_row[DATA_LABEL_INDEX], norm_data_points, data_row[DATA_COLOR_INDEX]]
+          @norm_data << @data_class.new(data_row[DATA_LABEL_INDEX], norm_data_points, data_row[DATA_COLOR_INDEX])
         end
       end
     end
