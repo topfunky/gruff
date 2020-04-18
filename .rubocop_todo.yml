@@ -350,24 +350,6 @@ Style/CaseEquality:
 Style/ClassAndModuleChildren:
   Enabled: false
 
-# Offense count: 25
-# Cop supports --auto-correct.
-# Configuration parameters: PreferredMethods.
-Style/CollectionMethods:
-  Exclude:
-    - 'lib/gruff/accumulator_bar.rb'
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/mini/legend.rb'
-    - 'lib/gruff/scene.rb'
-    - 'lib/gruff/side_stacked_bar.rb'
-    - 'lib/gruff/spider.rb'
-    - 'test/test_accumulator_bar.rb'
-    - 'test/test_area.rb'
-    - 'test/test_bar.rb'
-    - 'test/test_dot.rb'
-    - 'test/test_line.rb'
-    - 'test/test_net.rb'
-
 # Offense count: 6
 # Cop supports --auto-correct.
 Style/ColonMethodCall:

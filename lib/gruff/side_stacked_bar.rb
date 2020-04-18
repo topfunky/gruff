@@ -89,7 +89,7 @@ protected
   end
 
   def max(data_point, index)
-    @data.inject(0) { |sum, item| sum + item.points[index] }
+    @data.reduce(0) { |sum, item| sum + item.points[index] }
   end
 
 end

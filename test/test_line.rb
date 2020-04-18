@@ -197,7 +197,7 @@ class TestGruffLine < GruffTestCase
       30 => 'August',
       50 => 'September',
     }
-    g.data('many points', (0..50).collect { |i| rand(100) })
+    g.data('many points', (0..50).map { |i| rand(100) })
     g.x_axis_label = 'Months'
 
     # Default theme
@@ -214,7 +214,7 @@ class TestGruffLine < GruffTestCase
       50 => 'September',
     }
     g.dot_style = :square
-    g.data('many points', (0..50).collect { |i| rand(100) })
+    g.data('many points', (0..50).map { |i| rand(100) })
     g.x_axis_label = 'Months'
 
     # Default theme
@@ -222,7 +222,7 @@ class TestGruffLine < GruffTestCase
   end
 
   def test_similar_high_end_values
-    @dataset = %w[29.43 29.459 29.498 29.53 29.548 29.589 29.619 29.66 29.689 29.849 29.878 29.74 29.769 29.79 29.808 29.828].collect { |i| i.to_f }
+    @dataset = %w[29.43 29.459 29.498 29.53 29.548 29.589 29.619 29.66 29.689 29.849 29.878 29.74 29.769 29.79 29.808 29.828].map { |i| i.to_f }
 
     g = Gruff::Line.new
     g.title = 'Similar High End Values Test'
@@ -249,7 +249,7 @@ class TestGruffLine < GruffTestCase
       50 => '6/16'
     }
     %w[jimmy jane philip arthur julie bert].each do |student_name|
-      g.data(student_name, (0..50).collect { |i| rand 100 })
+      g.data(student_name, (0..50).map { |i| rand 100 })
     end
 
     # Default theme
@@ -268,7 +268,7 @@ class TestGruffLine < GruffTestCase
       50 => '6/16'
     }
     %w[jimmy jane philip arthur julie bert].each do |student_name|
-      g.data(student_name, (0..50).collect { |i| rand 100 })
+      g.data(student_name, (0..50).map { |i| rand 100 })
     end
 
     # Default theme

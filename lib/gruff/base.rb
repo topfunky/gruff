@@ -546,7 +546,7 @@ module Gruff
       else
         if @has_left_labels
           longest_left_label_width = calculate_width(@marker_font_size,
-                                                     labels.values.inject('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
+                                                     labels.values.reduce('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
         else
           longest_left_label_width = calculate_width(@marker_font_size,
                                                      label(@maximum_value.to_f, @increment))
@@ -700,7 +700,7 @@ module Gruff
     # Duplicated to not conflict with active_support in Rails.
 
     def sum(arr)
-      arr.inject(0) { |i, m| m + i }
+      arr.reduce(0) { |i, m| m + i }
     end
 
     ##
@@ -1000,7 +1000,7 @@ module Gruff
 
     # Sort with largest overall summed value at front of array.
     def sort_data
-      @data = @data.sort_by { |a| -a.points.inject(0) { |sum, num| sum + num.to_f } }
+      @data = @data.sort_by { |a| -a.points.reduce(0) { |sum, num| sum + num.to_f } }
     end
 
     # Set the color for each data set unless it was gived in the data(...) call.
@@ -1012,7 +1012,7 @@ module Gruff
     # correctly in the drawn graph.
     def sort_norm_data
       @norm_data =
-        @norm_data.sort_by { |a| -a.points.inject(0) { |sum, num| sum + num.to_f } }
+        @norm_data.sort_by { |a| -a.points.reduce(0) { |sum, num| sum + num.to_f } }
     end
 
     # Used by StackedBar and child classes.

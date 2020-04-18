@@ -397,7 +397,7 @@ class TestGruffBar < GruffTestCase
     g = Gruff::Bar.new(600)
     g.hide_legend = true
     g.title = 'Full speed ahead'
-    g.labels = (0..10).inject({}) { |memo, i| memo.merge({ i => (i * 10).to_s }) }
+    g.labels = (0..10).reduce({}) { |memo, i| memo.merge({ i => (i * 10).to_s }) }
     g.data(:apples, (0..9).map { rand(20) / 10.0 })
     g.y_axis_increment = 1.0
     g.x_axis_label = 'Score (%)'
