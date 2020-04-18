@@ -57,7 +57,7 @@ protected
         height[point_index] += (data_point * @graph_width - 2)
 
         if @show_labels_for_bar_values
-          label_values[point_index][:value] += @norm_data[row_index][3][point_index]
+          label_values[point_index][:value] += @data[row_index][DATA_VALUES_INDEX][point_index]
           label_values[point_index][:right_x] = right_x
         end
 
