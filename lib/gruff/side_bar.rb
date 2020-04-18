@@ -66,7 +66,7 @@ protected
           draw_label(label_center, point_index)
         end
         if @show_labels_for_bar_values
-          val = (@label_formatting || '%.2f') % @norm_data[row_index][3][point_index]
+          val = (@label_formatting || '%.2f') % @data[row_index][DATA_VALUES_INDEX][point_index]
           draw_value_label(right_x + 40, (@graph_top + (((row_index + point_index + 1) * @bar_width) - (@bar_width / 2))) - 12, val.commify, true)
         end
       end
