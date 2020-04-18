@@ -92,8 +92,10 @@ protected
         # Subtract half a bar width to center left if requested
         draw_label(label_center - (@center_labels_over_point ? @bar_width / 2.0 : 0.0), point_index)
         if @show_labels_for_bar_values
-          val = (@label_formatting || '%.2f') % @data[row_index].points[point_index]
-          draw_value_label(left_x + (right_x - left_x) / 2, conv[0] - 30, val.commify, true)
+          raw_value = @data[row_index].points[point_index]
+          val = (@label_formatting || '%.2f') % raw_value
+          y = raw_value >= 0 ? conv[0] - 30 : conv[0] + 12
+          draw_value_label(left_x + (right_x - left_x) / 2, y, val.commify, true)
         end
       end
     end

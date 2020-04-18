@@ -451,6 +451,13 @@ class TestGruffBar < GruffTestCase
     g.write('test/output/bar_value_labels.png')
   end
 
+  def test_bar_negative_value_labels
+    g = Gruff::Bar.new
+    g.data :foo, [7, 56, -31.25]
+    g.show_labels_for_bar_values = true
+    g.write('test/output/bar_negative_value_labels.png')
+  end
+
   def test_zero_marker_count
     g = setup_basic_graph
     g.marker_count = 0

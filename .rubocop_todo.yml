@@ -608,17 +608,6 @@ Style/NestedTernaryOperator:
   Exclude:
     - 'lib/gruff/base.rb'
 
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, MinBodyLength.
-# SupportedStyles: skip_modifier_ifs, always
-Style/Next:
-  Exclude:
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/line.rb'
-    - 'lib/gruff/pie.rb'
-    - 'lib/gruff/scatter.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
