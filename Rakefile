@@ -219,7 +219,8 @@ def get_github_issues
     cat ||= 'Other'
     cat
   end
-  return categories, grouped_issues, milestone, milestone_description, milestone_name
+
+  [categories, grouped_issues, milestone, milestone_description, milestone_name]
 end
 
 def wrap(string, indent = 0)

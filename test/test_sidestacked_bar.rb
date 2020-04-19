@@ -95,6 +95,7 @@ protected
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    return g
+
+    g
   end
 end

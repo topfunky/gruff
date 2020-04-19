@@ -592,19 +592,6 @@ Style/RedundantPercentQ:
     - 'Rakefile'
     - 'gruff.gemspec'
 
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: AllowMultipleReturnValues.
-Style/RedundantReturn:
-  Exclude:
-    - 'Rakefile'
-    - 'lib/gruff/scene.rb'
-    - 'test/test_area.rb'
-    - 'test/test_net.rb'
-    - 'test/test_pie.rb'
-    - 'test/test_sidestacked_bar.rb'
-    - 'test/test_spider.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/RedundantSort:
