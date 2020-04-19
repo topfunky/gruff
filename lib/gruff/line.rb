@@ -140,7 +140,7 @@ class Gruff::Line < Gruff::Base
     raise ArgumentError, 'x_data_points.length != y_data_points.length!' if x_data_points.length != y_data_points.length
 
     # call the existing data routine for the y data.
-    self.data(name, y_data_points, color)
+    data(name, y_data_points, color)
 
     x_data_points = Array(x_data_points) # make sure it's an array
     # append the x data to the last entry that was just added in the @data member
