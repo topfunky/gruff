@@ -1,7 +1,6 @@
 require File.dirname(__FILE__) + "/gruff_test_case"
 
 class TestGruffSideBar < GruffTestCase
-
   def test_bar_graph
     g = setup_basic_graph(Gruff::SideBar, 800)
     write_test_file g, 'side_bar.png'
@@ -50,5 +49,4 @@ class TestGruffSideBar < GruffTestCase
     g.show_labels_for_bar_values = true
     g.write("test/output/side_bar_labels.png")
   end
-
 end

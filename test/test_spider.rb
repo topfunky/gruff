@@ -3,7 +3,6 @@
 require File.dirname(__FILE__) + "/gruff_test_case"
 
 class TestGruffSpider < GruffTestCase
-
   def setup
     @datasets = [
       [:Strength, [10]],
@@ -275,5 +274,4 @@ protected
     end
     return g
   end
-
 end

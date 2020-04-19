@@ -3,7 +3,6 @@
 require File.dirname(__FILE__) + "/gruff_test_case"
 
 class TestGruffBase < GruffTestCase
-
   def setup
     @sample_numeric_labels = {
       0 => 6,

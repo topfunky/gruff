@@ -694,5 +694,4 @@ private
     g.data(:peaches, [-10, -8, -6, -3])
     g
   end
-
 end

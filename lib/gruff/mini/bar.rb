@@ -6,7 +6,6 @@ module Gruff
   module Mini
 
     class Bar < Gruff::Bar
-
       include Gruff::Mini::Legend
 
       def initialize_ivars
@@ -30,7 +29,6 @@ module Gruff
         draw_vertical_legend
         @d.draw(@base_image)
       end
-
     end
 
   end

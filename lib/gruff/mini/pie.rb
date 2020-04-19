@@ -6,7 +6,6 @@ module Gruff
   module Mini
 
     class Pie < Gruff::Pie
-
       include Gruff::Mini::Legend
 
       def initialize_ivars
@@ -29,7 +28,6 @@ module Gruff
 
         @d.draw(@base_image)
       end # def draw
-
     end # class Pie
 
   end

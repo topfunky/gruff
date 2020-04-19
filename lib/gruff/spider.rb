@@ -4,7 +4,6 @@ require File.dirname(__FILE__) + '/base'
 #
 # Submitted by Kevin Clark http://glu.ttono.us/
 class Gruff::Spider < Gruff::Base
-
   # Hide all text
   attr_reader :hide_text
   attr_accessor :hide_axes
@@ -120,5 +119,4 @@ private
   def sums_for_spider
     @data.reduce(0.0) { |sum, data_row| sum + data_row.points.first }
   end
-
 end

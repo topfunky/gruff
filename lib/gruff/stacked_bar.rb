@@ -55,5 +55,4 @@ class Gruff::StackedBar < Gruff::Base
 
     @d.draw(@base_image)
   end
-
 end

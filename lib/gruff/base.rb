@@ -20,7 +20,6 @@ require File.dirname(__FILE__) + '/deprecated'
 
 module Gruff
   class Base
-
     include Magick
     include Deprecated
 
@@ -1146,7 +1145,6 @@ module Gruff
     def deg2rad(angle)
       angle * (Math::PI / 180.0)
     end
-
   end # Gruff::Base
 
   class IncorrectNumberOfDatasetsException < StandardError
@@ -1157,7 +1155,6 @@ end # Gruff
 module Magick
 
   class Draw
-
     # Additional method to scale annotation text since Draw.scale doesn't.
     def annotate_scaled(img, width, height, x, y, text, scale)
       scaled_width = (width * scale) >= 1 ? (width * scale) : 1
@@ -1180,7 +1177,6 @@ module Magick
       end
       # EMXIF
     end
-
   end
 
 end # Magick

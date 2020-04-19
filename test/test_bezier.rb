@@ -1,7 +1,6 @@
 require File.dirname(__FILE__) + "/gruff_test_case"
 
 class TestBezier < GruffTestCase
-
   def setup
     @data_args = [
       75,

@@ -12,7 +12,6 @@ require File.dirname(__FILE__) + '/base'
 # To control where the pie chart starts creating slices, use #zero_degree.
 
 class Gruff::Pie < Gruff::Base
-
   DEFAULT_TEXT_OFFSET_PERCENTAGE = 0.15
 
   # Can be used to make the pie start cutting slices at the top (-90.0)

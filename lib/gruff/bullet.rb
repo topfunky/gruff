@@ -3,7 +3,6 @@ require 'gruff/themes'
 
 # http://en.wikipedia.org/wiki/Bullet_graph
 class Gruff::Bullet < Gruff::Base
-
   def initialize(target_width = "400x40")
     if not Numeric === target_width
       geometric_width, geometric_height = target_width.split('x')
@@ -104,5 +103,4 @@ class Gruff::Bullet < Gruff::Base
       @base_image, 1.0, 1.0, @font_height / 2, @font_height / 2, @title, @scale
     )
   end
-
 end

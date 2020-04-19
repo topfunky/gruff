@@ -39,7 +39,6 @@ require File.dirname(__FILE__) + '/base'
 # * If there is a file named 'default.png', it will be used unless other input values are set for the corresponding layer.
 
 class Gruff::Scene < Gruff::Base
-
   # An array listing the foldernames that will be rendered, from back to front.
   #
   #  g.layers = %w(sky clouds buildings street people)
@@ -101,11 +100,9 @@ private
       end
     end
   end
-
 end
 
 class Gruff::Group
-
   include Observable
   attr_reader :name
 
@@ -120,11 +117,9 @@ class Gruff::Group
     changed
     notify_observers value
   end
-
 end
 
 class Gruff::Layer
-
   attr_reader :name
 
   def initialize(base_dir, folder_name)
@@ -203,5 +198,4 @@ private
   def file_exists_or_blank(filename)
     @filenames.include?("#{filename}.png") ? "#{filename}.png" : select_default
   end
-
 end

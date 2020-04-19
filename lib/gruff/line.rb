@@ -12,7 +12,6 @@ require File.dirname(__FILE__) + '/base'
 # There are also other options described below, such as #baseline_value, #baseline_color, #hide_dots, and #hide_lines.
 
 class Gruff::Line < Gruff::Base
-
   # Allow for reference lines ( which are like baseline ... just allowing for more & on both axes )
   attr_accessor :reference_lines
   attr_accessor :reference_line_default_color

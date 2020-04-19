@@ -1,7 +1,6 @@
 require File.dirname(__FILE__) + '/gruff_test_case'
 
 class TestGruffLegend < GruffTestCase
-
   def setup
     @datasets = [
       [:Jimmy, [25, 36, 86, 39, 25, 31, 79, 88]],

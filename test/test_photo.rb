@@ -3,7 +3,6 @@
 require File.dirname(__FILE__) + "/gruff_test_case"
 
 class TestGruffPhotoBar < GruffTestCase
-
 #   def setup
 #     @datasets = [
 #       [:Jimmy, [25, 36, 86, 39]],
@@ -37,5 +36,4 @@ class TestGruffPhotoBar < GruffTestCase
 #
 #     g.write("test/output/photo_plastik_#{size}.png")
 #   end
-
 end
