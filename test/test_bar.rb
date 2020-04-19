@@ -3,7 +3,6 @@
 require File.dirname(__FILE__) + '/gruff_test_case'
 
 class TestGruffBar < GruffTestCase
-
   # TODO Delete old output files once when starting tests
 
   def setup

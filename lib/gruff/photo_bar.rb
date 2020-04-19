@@ -5,7 +5,6 @@ require File.dirname(__FILE__) + '/base'
 # Doesn't work yet.
 #
 class Gruff::PhotoBar < Gruff::Base
-
 # TODO
 #
 # define base and cap in yml
@@ -93,5 +92,4 @@ protected
     end
     @colors = color_list
   end
-
 end

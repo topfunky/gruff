@@ -59,5 +59,4 @@ class Gruff::StackedArea < Gruff::Base
 
     @d.draw(@base_image)
   end
-
 end

@@ -4,7 +4,6 @@ require File.dirname(__FILE__) + '/gruff_test_case'
 require 'date'
 
 class TestGruffScatter < Minitest::Test
-
   def setup
     @datasets = [
       [:Chuck, [20, 10, 5, 12, 11, 6, 10, 7], [5, 10, 19, 6, 9, 1, 14, 8]],
@@ -269,5 +268,4 @@ protected
     g.data(:peaches, [-10, -8, -6, -3], [-1, -1, -3, -3])
     g
   end
-
 end # end GruffTestCase

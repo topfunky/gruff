@@ -3,7 +3,6 @@
 require File.dirname(__FILE__) + '/gruff_test_case'
 
 class TestGruffStackedArea < GruffTestCase
-
   def setup
     @datasets = [
       [:Jimmy, [25, 36, 86, 39]],
@@ -46,5 +45,4 @@ class TestGruffStackedArea < GruffTestCase
     end
     g.write 'test/output/stacked_area_keynote_small.png'
   end
-
 end

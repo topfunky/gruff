@@ -1,7 +1,6 @@
 require File.expand_path('../gruff_test_case', __FILE__)
 
 class TestMiniSideBar < GruffTestCase
-
   def test_one_color
     # Use a single data set
     @datasets = [
@@ -32,5 +31,4 @@ class TestMiniSideBar < GruffTestCase
     g = setup_basic_graph(Gruff::Mini::SideBar, 200)
     write_test_file g, 'mini_side_bar_multi_color.png'
   end
-
 end

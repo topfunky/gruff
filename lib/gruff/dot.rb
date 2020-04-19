@@ -5,7 +5,6 @@ require File.dirname(__FILE__) + '/base'
 # see: 'Creating More Effective Graphs' by Robbins
 
 class Gruff::Dot < Gruff::Base
-
   def draw
     @has_left_labels = true
     super
@@ -120,5 +119,4 @@ protected
       @labels_seen[index] = 1
     end
   end
-
 end

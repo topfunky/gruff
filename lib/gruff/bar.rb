@@ -2,7 +2,6 @@ require File.dirname(__FILE__) + '/base'
 require File.dirname(__FILE__) + '/bar_conversion'
 
 class Gruff::Bar < Gruff::Base
-
   # Spacing factor applied between bars
   attr_accessor :bar_spacing
 
@@ -105,5 +104,4 @@ protected
 
     @d.draw(@base_image)
   end
-
 end

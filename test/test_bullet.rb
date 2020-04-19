@@ -1,7 +1,6 @@
 require File.dirname(__FILE__) + "/gruff_test_case"
 
 class TestGruffBullet < GruffTestCase
-
   def setup
     @data_args = [
       75,
@@ -58,5 +57,4 @@ class TestGruffBullet < GruffTestCase
     )
     g.write("test/output/bullet_no_options.png")
   end
-
 end

@@ -6,7 +6,6 @@ module Gruff
   module Mini
 
     class SideBar < Gruff::SideBar
-
       include Gruff::Mini::Legend
 
       def initialize_ivars
@@ -28,7 +27,6 @@ module Gruff
 
         @d.draw(@base_image)
       end
-
     end
 
   end

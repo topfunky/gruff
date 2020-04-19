@@ -1,7 +1,6 @@
 require File.dirname(__FILE__) + '/gruff_test_case'
 
 class TestGruffAccumulatorBar < GruffTestCase
-
   # TODO Delete old output files once when starting tests
 
   def setup
@@ -47,5 +46,4 @@ class TestGruffAccumulatorBar < GruffTestCase
       g.write('test/output/_SHOULD_NOT_ACTUALLY_BE_WRITTEN.png')
     }
   end
-
 end

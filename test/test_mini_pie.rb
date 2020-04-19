@@ -1,7 +1,6 @@
 require File.expand_path('../gruff_test_case', __FILE__)
 
 class TestMiniPie < GruffTestCase
-
   def test_simple_pie
     g = setup_basic_graph(Gruff::Mini::Pie, 200)
     write_test_file g, 'mini_pie.png'
@@ -21,5 +20,4 @@ class TestMiniPie < GruffTestCase
   #   g.data "Music", 16
   #   g.write "mini_pie.png"
   # end
-
 end

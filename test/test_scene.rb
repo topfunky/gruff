@@ -6,7 +6,6 @@ require 'yaml'
 class LayerStub < Gruff::Layer; attr_reader :base_dir, :filenames, :selected_filename; end
 
 class TestGruffScene < GruffTestCase
-
   def test_hazy
     g = setup_scene
     g.weather = "cloudy"
@@ -93,5 +92,4 @@ private
     g.time_group = %w[background sky]
     g
   end
-
 end

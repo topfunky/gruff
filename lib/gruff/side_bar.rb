@@ -4,7 +4,6 @@ require File.dirname(__FILE__) + '/base'
 # Graph with individual horizontal bars instead of vertical bars.
 
 class Gruff::SideBar < Gruff::Base
-
   # Spacing factor applied between bars
   attr_accessor :bar_spacing
 
@@ -131,5 +130,4 @@ protected
       @labels_seen[index] = 1
     end
   end
-
 end

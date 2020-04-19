@@ -3,7 +3,6 @@
 require File.dirname(__FILE__) + "/gruff_test_case"
 
 class TestGruffArea < GruffTestCase
-
   def setup
     super
     @datasets = [
@@ -130,5 +129,4 @@ protected
     end
     return g
   end
-
 end

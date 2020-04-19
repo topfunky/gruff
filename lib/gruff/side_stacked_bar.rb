@@ -91,5 +91,4 @@ protected
   def max(data_point, index)
     @data.reduce(0) { |sum, item| sum + item.points[index] }
   end
-
 end

@@ -9,7 +9,6 @@ require File.dirname(__FILE__) + '/base'
 #
 #
 class Gruff::Scatter < Gruff::Base
-
   # Maximum X Value. The value will get overwritten by the max in the
   # datasets.
   attr_accessor :maximum_x_value
@@ -306,5 +305,4 @@ private
   def get_x_coord(x_data_point, width, offset) #:nodoc:
     x_data_point * width + offset
   end
-
 end # end Gruff::Scatter

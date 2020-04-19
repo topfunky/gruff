@@ -2,7 +2,6 @@ require File.dirname(__FILE__) + '/base'
 
 # Experimental!!! See also the Spider graph.
 class Gruff::Net < Gruff::Base
-
   # Hide parts of the graph to fit more datapoints, or for a different appearance.
   attr_accessor :hide_dots
 
@@ -117,5 +116,4 @@ private
     @d.gravity = CenterGravity
     @d.annotate_scaled(@base_image, 0, 0, x, y, amount, @scale)
   end
-
 end

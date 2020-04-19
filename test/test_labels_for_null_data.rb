@@ -1,7 +1,6 @@
 require File.dirname(__FILE__) + "/gruff_test_case"
 
 class TestLabelsForNullData < GruffTestCase
-
   def setup
     @dataset = [nil, 1, 2, 1, nil]
 
@@ -23,5 +22,4 @@ class TestLabelsForNullData < GruffTestCase
 
     g.write("test/output/TestLabelsForNullData.png")
   end
-
 end
