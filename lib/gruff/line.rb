@@ -300,13 +300,10 @@ class Gruff::Line < Gruff::Base
 
     #normalize the x data if it is specified
     @data.each_with_index do |data_row, index|
-      norm_x_data_points = []
-      if data_row.x_points != nil
-        data_row.x_points.each do |x_data_point|
-          norm_x_data_points << ((x_data_point.to_f - @minimum_x_value.to_f) /
-              (@maximum_x_value.to_f - @minimum_x_value.to_f))
+      if data_row.x_points
+        @norm_data[index].x_points = data_row.x_points.map do |x_data_point|
+          (x_data_point.to_f - @minimum_x_value.to_f) / (@maximum_x_value.to_f - @minimum_x_value.to_f)
         end
-        @norm_data[index].x_points = norm_x_data_points
       end
     end
   end

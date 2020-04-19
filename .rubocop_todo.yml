@@ -510,13 +510,6 @@ Style/NilComparison:
   Exclude:
     - 'lib/gruff/line.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: IncludeSemanticChanges.
-Style/NonNilCheck:
-  Exclude:
-    - 'lib/gruff/line.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 Style/Not:
