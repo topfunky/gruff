@@ -6,14 +6,44 @@ AllCops:
         - 'vendor/bundle/**/*'
         - 'rails_generators/gruff/**/*'
 
+Gemspec/OrderedDependencies:
+  Enabled: false
+
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
 Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
+
+Layout/CommentIndentation:
+  Enabled: false
+
+Layout/FirstMethodArgumentLineBreak:
+  Enabled: false
+
+Layout/LeadingCommentSpace:
+  Enabled: false
+
+Layout/MultilineMethodArgumentLineBreaks:
+  Enabled: false
 
 Layout/MultilineAssignmentLayout:
   EnforcedStyle: same_line
 
+Lint/NumberConversion:
+  Enabled: false
+
+Style/Copyright:
+  Enabled: false
+
+Style/Encoding:
+  Enabled: false
+
 Style/HashSyntax:
   EnforcedStyle: ruby19_no_mixed_keys
+
+Style/InlineComment:
+  Enabled: false
 
 Style/Next:
   Enabled: false
