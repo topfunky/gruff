@@ -1,7 +1,6 @@
 module Gruff
   module Mini
     module Legend
-
       attr_accessor :hide_mini_legend, :legend_position
 
       def initialize(*)
@@ -105,7 +104,6 @@ module Gruff
         end
         truncated_label + (truncated_label.length < label.to_s.length ? "..." : '')
       end
-
     end
   end
 end

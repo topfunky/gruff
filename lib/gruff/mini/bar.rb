@@ -4,7 +4,6 @@
 #
 module Gruff
   module Mini
-
     class Bar < Gruff::Bar
       include Gruff::Mini::Legend
 
@@ -30,6 +29,5 @@ module Gruff
         @d.draw(@base_image)
       end
     end
-
   end
 end

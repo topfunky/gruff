@@ -4,7 +4,6 @@
 #
 module Gruff
   module Mini
-
     class SideBar < Gruff::SideBar
       include Gruff::Mini::Legend
 
@@ -28,6 +27,5 @@ module Gruff
         @d.draw(@base_image)
       end
     end
-
   end
 end

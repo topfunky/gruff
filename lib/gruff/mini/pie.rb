@@ -4,7 +4,6 @@
 #
 module Gruff
   module Mini
-
     class Pie < Gruff::Pie
       include Gruff::Mini::Legend
 
@@ -29,6 +28,5 @@ module Gruff
         @d.draw(@base_image)
       end # def draw
     end # class Pie
-
   end
 end

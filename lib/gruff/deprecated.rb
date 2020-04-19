@@ -4,7 +4,6 @@
 
 module Gruff
   module Deprecated
-
     def scale_measurements
       setup_graph_measurements
     end
@@ -33,6 +32,5 @@ module Gruff
     # def setup_graph_height
     #   @graph_height = @graph_bottom - @graph_top
     # end
-
   end
 end
