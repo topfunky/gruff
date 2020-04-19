@@ -11,7 +11,7 @@ class Gruff::Area < Gruff::Base
 
     return unless data_given?
 
-    @x_increment = @graph_width / (@column_count - 1).to_f
+    @x_increment = @graph_width / (column_count - 1).to_f
     @d = @d.stroke 'transparent'
 
     @norm_data.each do |data_row|

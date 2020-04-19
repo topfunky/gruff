@@ -26,7 +26,7 @@ class Gruff::Net < Gruff::Base
     @center_x = @graph_left + (@graph_width / 2.0)
     @center_y = @graph_top + (@graph_height / 2.0) - 10 # Move graph up a bit
 
-    @x_increment = @graph_width / (@column_count - 1).to_f
+    @x_increment = @graph_width / (column_count - 1).to_f
     circle_radius = dot_radius ||
         clip_value_if_greater_than(@columns / (@norm_data.first.points.size * 2.5), 5.0)
 
@@ -52,14 +52,14 @@ class Gruff::Net < Gruff::Base
       data_row.points.each_with_index do |data_point, index|
         next if data_point.nil?
 
-        rad_pos = index * Math::PI * 2 / @column_count
+        rad_pos = index * Math::PI * 2 / column_count
         point_distance = data_point * @radius
         start_x = @center_x + Math::sin(rad_pos) * point_distance
         start_y = @center_y - Math::cos(rad_pos) * point_distance
 
         next_index = index + 1 < data_row.points.length ? index + 1 : 0
 
-        next_rad_pos = next_index * Math::PI * 2 / @column_count
+        next_rad_pos = next_index * Math::PI * 2 / column_count
         next_point_distance = data_row.points[next_index] * @radius
         end_x = @center_x + Math::sin(next_rad_pos) * next_point_distance
         end_y = @center_y - Math::cos(next_rad_pos) * next_point_distance
@@ -87,8 +87,8 @@ class Gruff::Net < Gruff::Base
     @d = @d.stroke(@marker_color)
     @d = @d.stroke_width 1
 
-    (0..@column_count - 1).each do |index|
-      rad_pos = index * Math::PI * 2 / @column_count
+    (0..column_count - 1).each do |index|
+      rad_pos = index * Math::PI * 2 / column_count
 
       @d = @d.line(@center_x, @center_y, @center_x + Math::sin(rad_pos) * @radius, @center_y - Math::cos(rad_pos) * @radius)
 

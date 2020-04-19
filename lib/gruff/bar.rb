@@ -14,7 +14,7 @@ class Gruff::Bar < Gruff::Base
     # Labels will be centered over the left of the bar if
     # there are more labels than columns. This is basically the same
     # as where it would be for a line graph.
-    @center_labels_over_point = (@labels.keys.length > @column_count)
+    @center_labels_over_point = (@labels.keys.length > column_count)
 
     super
     return unless data_given?
@@ -41,7 +41,7 @@ protected
     #
     # Columns sit side-by-side.
     @bar_spacing ||= @spacing_factor # space between the bars
-    @bar_width = @graph_width / (@column_count * @data.length).to_f
+    @bar_width = @graph_width / (column_count * @data.length).to_f
     padding = (@bar_width * (1 - @bar_spacing)) / 2
 
     @d = @d.stroke_opacity 0.0
@@ -100,7 +100,7 @@ protected
     end
 
     # Draw the last label if requested
-    draw_label(@graph_right, @column_count) if @center_labels_over_point
+    draw_label(@graph_right, column_count) if @center_labels_over_point
 
     @d.draw(@base_image)
   end

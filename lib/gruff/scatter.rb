@@ -81,10 +81,6 @@ class Gruff::Scatter < Gruff::Base
     @labels = {}
 
     super
-
-    # Translate our values so that we can use the base methods for drawing
-    # the standard chart stuff
-    @column_count = @x_spread
   end
 
   def draw
@@ -92,7 +88,7 @@ class Gruff::Scatter < Gruff::Base
     return unless data_given?
 
     # Check to see if more than one datapoint was given. NaN can result otherwise.
-    @x_increment = (@column_count > 1) ? (@graph_width / (@column_count - 1).to_f) : @graph_width
+    @x_increment = (@x_spread > 1) ? (@graph_width / (@x_spread - 1).to_f) : @graph_width
 
     #~ if (defined?(@norm_y_baseline)) then
       #~ level = @graph_top + (@graph_height - @norm_baseline * @graph_height)

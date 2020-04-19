@@ -11,10 +11,10 @@ class Gruff::StackedArea < Gruff::Base
 
     return unless data_given?
 
-    @x_increment = @graph_width / (@column_count - 1).to_f
+    @x_increment = @graph_width / (column_count - 1).to_f
     @d = @d.stroke 'transparent'
 
-    height = Array.new(@column_count, 0)
+    height = Array.new(column_count, 0)
 
     data_points = nil
     iterator = last_series_goes_on_bottom ? :reverse_each : :each
