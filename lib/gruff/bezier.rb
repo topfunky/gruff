@@ -6,7 +6,7 @@ class Gruff::Bezier < Gruff::Base
 
     return unless data_given?
 
-    @x_increment = @graph_width / (@column_count - 1).to_f
+    @x_increment = @graph_width / (column_count - 1).to_f
 
     @norm_data.each do |data_row|
       poly_points = Array.new

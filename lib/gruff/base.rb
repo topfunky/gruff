@@ -237,7 +237,6 @@ module Gruff
       # Internal for calculations
       @raw_columns = 800.0
       @raw_rows = 800.0 * (@rows / @columns)
-      @column_count = 0
       @data = Array.new
       @marker_count = nil
       @maximum_value = @minimum_value = nil
@@ -402,8 +401,6 @@ module Gruff
     def data(name, data_points = [], color = nil)
       data_points = Array(data_points) # make sure it's an array
       @data << @data_class.new(name, data_points, color)
-                                       # Set column count if this is larger than previous counts
-      @column_count = (data_points.length > @column_count) ? data_points.length : @column_count
 
       # Pre-normalize
       data_points.each do |data_point|
@@ -502,6 +499,11 @@ module Gruff
       end
     end
 
+    def column_count
+      @column_count ||=
+        @data.empty? ? 0 : @data.map { |data_row| data_row.points.length }.max
+    end
+
     # Make copy of data with values scaled between 0-100
     def normalize(force = false)
       if @norm_data.nil? || force
@@ -558,7 +560,7 @@ module Gruff
         # Make space for half the width of the rightmost column label.
         # Might be greater than the number of columns if between-style bar markers are used.
         last_label = @labels.keys.sort.last.to_i
-        extra_room_for_long_label = (last_label >= (@column_count - 1) && @center_labels_over_point) ?
+        extra_room_for_long_label = (last_label >= (column_count - 1) && @center_labels_over_point) ?
             calculate_width(@marker_font_size, @labels[last_label]) / 2.0 :
             0
         @graph_right_margin = @right_margin + extra_room_for_long_label
@@ -1030,7 +1032,7 @@ module Gruff
     end
 
     def make_stacked # :nodoc:
-      stacked_values = Array.new(@column_count, 0)
+      stacked_values = Array.new(column_count, 0)
       @data.each do |value_set|
         value_set.points.each_with_index do |value, index|
           stacked_values[index] += value

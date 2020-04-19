@@ -188,7 +188,7 @@ class Gruff::Line < Gruff::Base
     return unless data_given?
 
     # Check to see if more than one datapoint was given. NaN can result otherwise.
-    @x_increment = (@column_count > 1) ? (@graph_width / (@column_count - 1).to_f) : @graph_width
+    @x_increment = (column_count > 1) ? (@graph_width / (column_count - 1).to_f) : @graph_width
 
     @reference_lines.each_value do |curr_reference_line|
       draw_horizontal_reference_line(curr_reference_line) if curr_reference_line.key?(:norm_value)
@@ -196,7 +196,7 @@ class Gruff::Line < Gruff::Base
     end
 
     if @show_vertical_markers
-      (0..@column_count).each do |column|
+      (0..column_count).each do |column|
         x = @graph_left + @graph_width - column.to_f * @x_increment
 
         @d = @d.fill(@marker_color)
