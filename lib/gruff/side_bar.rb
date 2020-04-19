@@ -33,7 +33,7 @@ protected
     # if we're a side stacked bar then we don't need to draw ourself at all
     # because sometimes (due to different heights/min/max) you can actually
     # see both graphs and it looks like crap
-    return if self.is_a?(Gruff::SideStackedBar)
+    return if is_a?(Gruff::SideStackedBar)
 
     @norm_data.each_with_index do |data_row, row_index|
       @d = @d.fill data_row.color

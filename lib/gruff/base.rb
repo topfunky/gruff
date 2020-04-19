@@ -1158,10 +1158,10 @@ module Magick
       scaled_width = (width * scale) >= 1 ? (width * scale) : 1
       scaled_height = (height * scale) >= 1 ? (height * scale) : 1
 
-      self.annotate(img,
-                    scaled_width, scaled_height,
-                    x * scale, y * scale,
-                    text.gsub('%', '%%'))
+      annotate(img,
+               scaled_width, scaled_height,
+               x * scale, y * scale,
+               text.gsub('%', '%%'))
     end
 
     if defined? JRUBY_VERSION
@@ -1181,6 +1181,6 @@ end # Magick
 class String
   #Taken from http://codesnippets.joyent.com/posts/show/330
   def commify(delimiter = ',')
-    self.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{delimiter}")
+    gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{delimiter}")
   end
 end

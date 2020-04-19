@@ -605,14 +605,6 @@ Style/RedundantReturn:
     - 'test/test_sidestacked_bar.rb'
     - 'test/test_spider.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Exclude:
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/line.rb'
-    - 'lib/gruff/side_bar.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/RedundantSort:
