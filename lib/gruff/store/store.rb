@@ -42,5 +42,14 @@ module Gruff
     def reverse!
       @data.reverse!
     end
+
+    def set_colors!(colors, index)
+      @data.each do |data_row|
+        data_row.color ||= begin
+          index = (index + 1) % colors.length
+          colors[index - 1]
+        end
+      end
+    end
   end
 end

@@ -1019,7 +1019,7 @@ module Gruff
 
     # Set the color for each data set unless it was given in the data(...) call.
     def set_colors
-      store.data.each { |a| a.color ||= increment_color }
+      store.set_colors!(@colors, @color_index)
     end
 
     # Sort with largest overall summed value at front of array so it shows up
@@ -1071,12 +1071,6 @@ module Gruff
         @d = @d.stroke 'turquoise'
         @d = yield
       end
-    end
-
-    # Returns the next color in your color list.
-    def increment_color
-      @color_index = (@color_index + 1) % @colors.length
-      @colors[@color_index - 1]
     end
 
     # Return a formatted string representing a number value that should be
