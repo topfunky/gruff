@@ -1149,11 +1149,9 @@ module Gruff
 
   class IncorrectNumberOfDatasetsException < StandardError
   end
-
 end # Gruff
 
 module Magick
-
   class Draw
     # Additional method to scale annotation text since Draw.scale doesn't.
     def annotate_scaled(img, width, height, x, y, text, scale)
@@ -1178,7 +1176,6 @@ module Magick
       # EMXIF
     end
   end
-
 end # Magick
 
 class String

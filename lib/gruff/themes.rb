@@ -1,6 +1,5 @@
 module Gruff
   module Themes
-
     # A color scheme similar to the popular presentation software.
     KEYNOTE = {
       colors: [
@@ -96,6 +95,5 @@ module Gruff
       font_color: 'black',
       background_colors: 'white'
     }
-
   end
 end

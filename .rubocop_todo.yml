@@ -49,20 +49,6 @@ Layout/EmptyLineAfterMagicComment:
   Exclude:
     - 'gruff.gemspec'
 
-# Offense count: 15
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines
-Layout/EmptyLinesAroundModuleBody:
-  Exclude:
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/deprecated.rb'
-    - 'lib/gruff/mini/bar.rb'
-    - 'lib/gruff/mini/legend.rb'
-    - 'lib/gruff/mini/pie.rb'
-    - 'lib/gruff/mini/side_bar.rb'
-    - 'lib/gruff/themes.rb'
-
 # Offense count: 22
 # Cop supports --auto-correct.
 Layout/FirstMethodArgumentLineBreak:
