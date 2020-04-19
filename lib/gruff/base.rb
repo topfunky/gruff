@@ -509,13 +509,8 @@ module Gruff
         return unless data_given?
 
         @data.each do |data_row|
-          norm_data_points = []
-          data_row.points.each do |data_point|
-            if data_point.nil?
-              norm_data_points << nil
-            else
-              norm_data_points << ((data_point.to_f - @minimum_value.to_f) / @spread)
-            end
+          norm_data_points = data_row.points.map do |data_point|
+            data_point.nil? ? nil : (data_point.to_f - @minimum_value.to_f) / @spread
           end
           @norm_data << @data_class.new(data_row.label, norm_data_points, data_row.color)
         end
