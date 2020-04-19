@@ -163,7 +163,8 @@ protected
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    return g
+
+    g
   end
 
   # Example Gruff::Pie Subclass demonstrating custom labels

@@ -180,7 +180,8 @@ private
         return "#{times[index - 1]}.png"
       end
     end
-    return "#{times.last}.png"
+
+    "#{times.last}.png"
   end
 
   # Match "partly cloudy" to "partly_cloudy.png"
