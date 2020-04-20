@@ -22,7 +22,7 @@ class TestGruffNet < GruffTestCase
       4 => '6/4',
       5 => '6/12',
       6 => '6/21',
-      7 => '6/28',
+      7 => '6/28'
     }
   end
 
@@ -92,7 +92,7 @@ class TestGruffNet < GruffTestCase
       0 => 'June',
       10 => 'July',
       30 => 'August',
-      50 => 'September',
+      50 => 'September'
     }
     g.data('many points', (0..50).map { |i| rand(100) })
 

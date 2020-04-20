@@ -17,7 +17,7 @@ class TestGruffLine < GruffTestCase
       0 => '5/6',
       1 => '5/15',
       2 => '5/24',
-      3 => '5/30',
+      3 => '5/30'
     }
     g.data(:apples, [-1, 0, 4, -4])
     g.data(:peaches, [10, 8, 6, 3])
@@ -195,7 +195,7 @@ class TestGruffLine < GruffTestCase
       0 => 'June',
       10 => 'July',
       30 => 'August',
-      50 => 'September',
+      50 => 'September'
     }
     g.data('many points', (0..50).map { |i| rand(100) })
     g.x_axis_label = 'Months'
@@ -211,7 +211,7 @@ class TestGruffLine < GruffTestCase
       0 => 'June',
       10 => 'July',
       30 => 'August',
-      50 => 'September',
+      50 => 'September'
     }
     g.dot_style = :square
     g.data('many points', (0..50).map { |i| rand(100) })
@@ -674,7 +674,7 @@ private
       0 => '5/6',
       1 => '5/15',
       2 => '5/24',
-      3 => '5/30',
+      3 => '5/30'
     }
     g.data(:apples, [-1, 0, 4, -4])
     g.data(:peaches, [10, 8, 6, 3])
@@ -688,7 +688,7 @@ private
       0 => '5/6',
       1 => '5/15',
       2 => '5/24',
-      3 => '5/30',
+      3 => '5/30'
     }
     g.data(:apples, [-1, -5, -20, -4])
     g.data(:peaches, [-10, -8, -6, -3])

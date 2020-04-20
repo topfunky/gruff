@@ -26,7 +26,7 @@ class TestGruffSideStackedBar < GruffTestCase
       0 => '5/6',
       1 => '5/15',
       2 => '5/24',
-      3 => '5/30',
+      3 => '5/30'
     }
     @datasets.each do |data|
       g.data(data[0], data[1])
@@ -41,7 +41,7 @@ class TestGruffSideStackedBar < GruffTestCase
       0 => '5/6',
       1 => '5/15',
       2 => '5/24',
-      3 => '5/30',
+      3 => '5/30'
     }
     @datasets.each do |data|
       g.data(data[0], data[1])
@@ -62,7 +62,7 @@ class TestGruffSideStackedBar < GruffTestCase
       0 => 'September',
       1 => 'Oct',
       2 => 'Nov',
-      3 => 'Dec',
+      3 => 'Dec'
     }
     @datasets.each do |data|
       g.data(data[0], data[1])
@@ -77,7 +77,7 @@ class TestGruffSideStackedBar < GruffTestCase
       0 => 'September',
       1 => 'Oct',
       2 => 'Nov',
-      3 => 'Dec',
+      3 => 'Dec'
     }
     @datasets.each do |data|
       g.data(data[0], data[1])
