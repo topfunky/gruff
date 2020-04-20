@@ -89,7 +89,7 @@ module Gruff
         '#686868',
         '#989898',
         '#c8c8c8',
-        '#e8e8e8',
+        '#e8e8e8'
       ],
       marker_color: '#aea9a9', # Grey
       font_color: 'black',

@@ -11,7 +11,7 @@ class TestGruffPie < GruffTestCase
       [:Adam, [95]],
       [:Bill, [90]],
       ["Frank", [5]],
-      ["Zero", [0]],
+      ["Zero", [0]]
     ]
   end
 
