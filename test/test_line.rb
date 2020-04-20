@@ -485,7 +485,7 @@ class TestGruffLine < GruffTestCase
         wpm: 37,
         errors: 3,
         accuracy: 92
-      },
+      }
     ]
 
     [:wpm, :errors, :accuracy].each do |field|

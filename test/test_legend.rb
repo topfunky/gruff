@@ -11,7 +11,7 @@ class TestGruffLegend < GruffTestCase
       [:Arthur, [5, 10, 13, 11, 6, 16, 22, 32]],
       [:Vincent, [5, 10, 13, 11, 6, 16, 22, 32]],
       [:Jake, [5, 10, 13, 11, 6, 16, 22, 32]],
-      [:Stephen, [5, 10, 13, 11, 6, 16, 22, 32]],
+      [:Stephen, [5, 10, 13, 11, 6, 16, 22, 32]]
     ]
 
     @sample_labels = {

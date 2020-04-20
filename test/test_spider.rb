@@ -10,7 +10,7 @@ class TestGruffSpider < GruffTestCase
       [:Constitution, [12]],
       [:Intelligence, [12]],
       [:Wisdom, [10]],
-      ["Charisma", [16]],
+      ["Charisma", [16]]
     ]
 
 #     @datasets = [
@@ -162,7 +162,7 @@ class TestGruffSpider < GruffTestCase
       [:Constitution, [18]],
       [:Intelligence, [8]],
       [:Wisdom, [14]],
-      ["Charisma", [4]],
+      ["Charisma", [4]]
     ]
     @datasets.each do |data|
       g.data(data[0], data[1])
