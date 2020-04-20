@@ -11,6 +11,7 @@ FileUtils.rm_f Dir[TEST_OUTPUT_DIR + '/*']
 
 require 'minitest/autorun'
 require 'minitest/reporters'
+require_relative 'support/appearance_assertion'
 Minitest::Reporters.use!
 
 class Gruff::Base
