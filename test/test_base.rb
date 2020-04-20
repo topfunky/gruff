@@ -12,7 +12,7 @@ class TestGruffBase < GruffTestCase
       4 => 4,
       5 => 12,
       6 => 21,
-      7 => 28,
+      7 => 28
     }
   end
 

@@ -53,7 +53,7 @@ class TestGruffBar < GruffTestCase
       0 => '5/6',
       1 => '5/15',
       2 => '5/24',
-      3 => '5/30',
+      3 => '5/30'
     }
     g.data(:Art, [0, 5, 8, 15], '#990000')
     g.data(:Philosophy, [10, 3, 2, 8], '#009900')
@@ -71,7 +71,7 @@ class TestGruffBar < GruffTestCase
       0 => '5/6',
       1 => '5/15',
       2 => '5/24',
-      3 => '5/30',
+      3 => '5/30'
     }
     @datasets.each do |data|
       g.data(data[0], data[1])
@@ -183,7 +183,7 @@ class TestGruffBar < GruffTestCase
       0 => '5/6',
       1 => '5/15',
       2 => '5/24',
-      3 => '5/30',
+      3 => '5/30'
     }
     g.data(:apples, [-1, 0, 4, -4])
     g.data(:peaches, [10, 8, 6, 3])
@@ -198,7 +198,7 @@ class TestGruffBar < GruffTestCase
       0 => '5/6',
       1 => '5/15',
       2 => '5/24',
-      3 => '5/30',
+      3 => '5/30'
     }
     g.data(:apples, [1, 2, 3, 4])
     g.data(:peaches, [4, 3, 2, 1])
@@ -221,7 +221,7 @@ class TestGruffBar < GruffTestCase
       0 => '5/6',
       1 => '5/15',
       2 => '5/24',
-      3 => '5/30',
+      3 => '5/30'
     }
     g.y_axis_increment = increment
     g.data(:apples, [1, 0.2, 0.5, 0.7])
@@ -237,7 +237,7 @@ class TestGruffBar < GruffTestCase
       0 => '5/6',
       1 => '5/15',
       2 => '5/24',
-      3 => '5/30',
+      3 => '5/30'
     }
 
     g.data(:apples, [1, 5, 8, 4])
@@ -276,7 +276,7 @@ class TestGruffBar < GruffTestCase
       0 => '5/6',
       1 => '5/15',
       2 => '5/24',
-      3 => '5/30',
+      3 => '5/30'
     }
     g.data(:vancouver, [1, 2, 3, 4])
     g.data(:seattle, [2, 4, 6, 8])
@@ -291,7 +291,7 @@ class TestGruffBar < GruffTestCase
     g.title = 'Background gradient top to bottom'
     g.theme = {
       background_colors: %w[#ff0000 #00ff00],
-      background_direction: :top_bottom,
+      background_direction: :top_bottom
     }
     g.labels = @labels
     @datasets.each do |name, values|
@@ -306,7 +306,7 @@ class TestGruffBar < GruffTestCase
     g.title = 'Background gradient top to bottom'
     g.theme = {
       background_colors: %w[#ff0000 #00ff00],
-      background_direction: :bottom_top,
+      background_direction: :bottom_top
     }
     g.labels = @labels
     @datasets.each do |name, values|
@@ -321,7 +321,7 @@ class TestGruffBar < GruffTestCase
     g.title = 'Background gradient left to right'
     g.theme = {
       background_colors: %w[#ff0000 #00ff00],
-      background_direction: :left_right,
+      background_direction: :left_right
     }
     g.labels = @labels
     @datasets.each do |name, values|
@@ -336,7 +336,7 @@ class TestGruffBar < GruffTestCase
     g.title = 'Background gradient right to left'
     g.theme = {
       background_colors: %w[#ff0000 #00ff00],
-      background_direction: :right_left,
+      background_direction: :right_left
     }
     g.labels = @labels
     @datasets.each do |name, values|
@@ -351,7 +351,7 @@ class TestGruffBar < GruffTestCase
     g.title = 'Background gradient top left to bottom right'
     g.theme = {
       background_colors: %w[#ff0000 #00ff00],
-      background_direction: :topleft_bottomright,
+      background_direction: :topleft_bottomright
     }
     g.labels = @labels
     @datasets.each do |name, values|
@@ -367,7 +367,7 @@ class TestGruffBar < GruffTestCase
     g.title_font_size = 30
     g.theme = {
       background_colors: %w[#ff0000 #00ff00],
-      background_direction: :topright_bottomleft,
+      background_direction: :topright_bottomleft
     }
     g.labels = @labels
     @datasets.each do |name, values|
@@ -476,7 +476,7 @@ protected
       0 => '5/6',
       1 => '5/15',
       2 => '5/24',
-      3 => '5/30',
+      3 => '5/30'
     }
     @datasets.each do |data|
       g.data(data[0], data[1])

@@ -22,7 +22,7 @@ class TestGruffLegend < GruffTestCase
       4 => '6/4',
       5 => '6/12',
       6 => '6/21',
-      7 => '6/28',
+      7 => '6/28'
     }
   end
 
