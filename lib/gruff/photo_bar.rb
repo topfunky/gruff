@@ -82,7 +82,7 @@ protected
   # Sets up colors with a list of images that will be used.
   # Images should be 340px tall
   def init_photo_bar_graphics
-    color_list = Array.new
+    color_list = []
     theme_dir = File.dirname(__FILE__) + '/../../assets/' + theme
 
     Dir.open(theme_dir).each do |file|

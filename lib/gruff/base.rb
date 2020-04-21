@@ -237,13 +237,13 @@ module Gruff
       # Internal for calculations
       @raw_columns = 800.0
       @raw_rows = 800.0 * (@rows / @columns)
-      @data = Array.new
+      @data = []
       @marker_count = nil
       @maximum_value = @minimum_value = nil
       @increment = nil
-      @labels = Hash.new
+      @labels = {}
       @label_formatting = nil
-      @labels_seen = Hash.new
+      @labels_seen = {}
       @sort = false
       @sorted_drawing = false
       @title = nil

@@ -15,7 +15,7 @@ class Gruff::Area < Gruff::Base
     @d = @d.stroke 'transparent'
 
     @norm_data.each do |data_row|
-      poly_points = Array.new
+      poly_points = []
       @d = @d.fill data_row.color
 
       data_row.points.each_with_index do |data_point, index|

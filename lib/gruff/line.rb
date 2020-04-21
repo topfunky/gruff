@@ -45,7 +45,7 @@ class Gruff::Line < Gruff::Base
 
   # Set a value for a baseline reference line..
   def baseline_value=(new_value)
-    @reference_lines[:baseline] ||= Hash.new
+    @reference_lines[:baseline] ||= {}
     @reference_lines[:baseline][:value] = new_value
   end
 
@@ -58,7 +58,7 @@ class Gruff::Line < Gruff::Base
   end
 
   def baseline_color=(new_value)
-    @reference_lines[:baseline] ||= Hash.new
+    @reference_lines[:baseline] ||= {}
     @reference_lines[:baseline][:color] = new_value
   end
 
@@ -80,7 +80,7 @@ class Gruff::Line < Gruff::Base
       super args.shift
     end
 
-    @reference_lines = Hash.new
+    @reference_lines = {}
     @reference_line_default_color = 'red'
     @reference_line_default_width = 5
 

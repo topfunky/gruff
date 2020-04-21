@@ -492,7 +492,7 @@ class TestGruffLine < GruffTestCase
       g.dataxy(field, data.each_with_index.map { |d, i| [i + 1, d[field]] if d[field] }.compact)
     end
 
-    labels = Hash.new
+    labels = {}
     data.each_with_index do |d, i|
       labels[i + 1] = d[:date] if d.size > 1
     end
