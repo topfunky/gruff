@@ -54,15 +54,15 @@ class Gruff::Net < Gruff::Base
 
         rad_pos = index * Math::PI * 2 / column_count
         point_distance = data_point * @radius
-        start_x = @center_x + Math::sin(rad_pos) * point_distance
-        start_y = @center_y - Math::cos(rad_pos) * point_distance
+        start_x = @center_x + Math.sin(rad_pos) * point_distance
+        start_y = @center_y - Math.cos(rad_pos) * point_distance
 
         next_index = index + 1 < data_row.points.length ? index + 1 : 0
 
         next_rad_pos = next_index * Math::PI * 2 / column_count
         next_point_distance = data_row.points[next_index] * @radius
-        end_x = @center_x + Math::sin(next_rad_pos) * next_point_distance
-        end_y = @center_y - Math::cos(next_rad_pos) * next_point_distance
+        end_x = @center_x + Math.sin(next_rad_pos) * next_point_distance
+        end_y = @center_y - Math.cos(next_rad_pos) * next_point_distance
 
         @d = @d.line(start_x, start_y, end_x, end_y)
 
@@ -90,7 +90,7 @@ class Gruff::Net < Gruff::Base
     (0..column_count - 1).each do |index|
       rad_pos = index * Math::PI * 2 / column_count
 
-      @d = @d.line(@center_x, @center_y, @center_x + Math::sin(rad_pos) * @radius, @center_y - Math::cos(rad_pos) * @radius)
+      @d = @d.line(@center_x, @center_y, @center_x + Math.sin(rad_pos) * @radius, @center_y - Math.cos(rad_pos) * @radius)
 
       marker_label = labels[index] ? labels[index].to_s : '000'
 
