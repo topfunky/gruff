@@ -53,7 +53,7 @@ end
 
 if $0 == __FILE__
   unless ARGV.size == 2
-    puts "Usage:  #$0 <image1> <image2>"
+    puts "Usage:  #{$0} <image1> <image2>"
     exit 1
   end
   ImageCompare.compare(ARGV[0], ARGV[1])

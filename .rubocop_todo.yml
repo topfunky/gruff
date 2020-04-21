@@ -650,12 +650,6 @@ Style/TrivialAccessors:
   Exclude:
     - 'lib/gruff/pie.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/VariableInterpolation:
-  Exclude:
-    - 'test/image_compare.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Style/ZeroLengthPredicate:
