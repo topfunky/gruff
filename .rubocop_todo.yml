@@ -261,12 +261,6 @@ Style/CaseEquality:
 Style/ClassAndModuleChildren:
   Enabled: false
 
-# Offense count: 6
-# Cop supports --auto-correct.
-Style/ColonMethodCall:
-  Exclude:
-    - 'lib/gruff/net.rb'
-
 # Offense count: 21
 # Cop supports --auto-correct.
 # Configuration parameters: Keywords.
