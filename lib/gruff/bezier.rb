@@ -9,7 +9,7 @@ class Gruff::Bezier < Gruff::Base
     @x_increment = @graph_width / (column_count - 1).to_f
 
     @norm_data.each do |data_row|
-      poly_points = Array.new
+      poly_points = []
       @d = @d.fill data_row.color
 
       data_row[1].each_with_index do |data_point, index|

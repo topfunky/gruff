@@ -337,19 +337,6 @@ Style/EmptyElse:
   Exclude:
     - 'lib/gruff/line.rb'
 
-# Offense count: 12
-# Cop supports --auto-correct.
-Style/EmptyLiteral:
-  Exclude:
-    - 'lib/gruff/area.rb'
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/bezier.rb'
-    - 'lib/gruff/line.rb'
-    - 'lib/gruff/photo_bar.rb'
-    - 'lib/gruff/side_stacked_bar.rb'
-    - 'lib/gruff/stacked_area.rb'
-    - 'test/test_line.rb'
-
 # Offense count: 3
 Style/EvalWithLocation:
   Exclude:

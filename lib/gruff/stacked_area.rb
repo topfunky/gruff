@@ -20,7 +20,7 @@ class Gruff::StackedArea < Gruff::Base
     iterator = last_series_goes_on_bottom ? :reverse_each : :each
     @norm_data.send(iterator) do |data_row|
       prev_data_points = data_points
-      data_points = Array.new
+      data_points = []
 
       @d = @d.fill data_row.color
 

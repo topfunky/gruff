@@ -34,7 +34,7 @@ protected
     length = Array.new(column_count, @graph_left)
     padding = (@bar_width * (1 - @bar_spacing)) / 2
     if @show_labels_for_bar_values
-      label_values = Array.new
+      label_values = []
       0.upto(column_count - 1) { |i| label_values[i] = { value: 0, right_x: 0 } }
     end
     @norm_data.each_with_index do |data_row, row_index|
