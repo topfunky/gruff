@@ -20,15 +20,15 @@ class Gruff::BarConversion
   def get_left_y_right_y_scaled(data_point, result)
     case @mode
     when 1 then # Case one
-                # minimum value >= 0 ( only positiv values )
+                # minimum value >= 0 ( only positive values )
       result[0] = @graph_top + @graph_height * (1 - data_point) + 1
       result[1] = @graph_top + @graph_height - 1
     when 2 then # Case two
-                # only negativ values
+                # only negative values
       result[0] = @graph_top + 1
       result[1] = @graph_top + @graph_height * (1 - data_point) - 1
     when 3 then # Case three
-                # positiv and negativ values
+                # positive and negative values
       val = data_point - @minimum_value / @spread
       if data_point >= @zero
         result[0] = @graph_top + @graph_height * (1 - (val - @zero)) + 1

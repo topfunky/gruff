@@ -663,7 +663,7 @@ module Gruff
         end
       end
 
-      # # Submitted by a contibutor...the utility escapes me
+      # # Submitted by a contributor...the utility escapes me
       # i = 0
       # @additional_line_values.each do |value|
       #   @increment_scaled = @graph_height.to_f / (@maximum_value.to_f / value)
@@ -885,7 +885,7 @@ module Gruff
     def render_background
       case @theme_options[:background_colors]
       when Array
-        @base_image = render_gradiated_background(@theme_options[:background_colors][0], @theme_options[:background_colors][1], @theme_options[:background_direction])
+        @base_image = render_gradated_background(@theme_options[:background_colors][0], @theme_options[:background_colors][1], @theme_options[:background_direction])
       when String
         @base_image = render_solid_background(@theme_options[:background_colors])
       else
@@ -900,8 +900,8 @@ module Gruff
       }
     end
 
-    # Use with a theme definition method to draw a gradiated background.
-    def render_gradiated_background(top_color, bottom_color, direct = :top_bottom)
+    # Use with a theme definition method to draw a gradated background.
+    def render_gradated_background(top_color, bottom_color, direct = :top_bottom)
       case direct
       when :bottom_top
         gradient_fill = GradientFill.new(0, 0, 100, 0, bottom_color, top_color)
@@ -998,7 +998,7 @@ module Gruff
       @data = @data.sort_by { |a| -a.points.reduce(0) { |sum, num| sum + num.to_f } }
     end
 
-    # Set the color for each data set unless it was gived in the data(...) call.
+    # Set the color for each data set unless it was given in the data(...) call.
     def set_colors
       @data.each { |a| a.color ||= increment_color }
     end

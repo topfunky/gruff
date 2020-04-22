@@ -53,14 +53,14 @@ protected
 
     # Set up the right mode [1,2,3] see BarConversion for further explanation
     if @minimum_value >= 0
-      # all bars go from zero to positiv
+      # all bars go from zero to positive
       conversion.mode = 1
     else
-      # all bars go from 0 to negativ
+      # all bars go from 0 to negative
       if @maximum_value <= 0
         conversion.mode = 2
       else
-        # bars either go from zero to negativ or to positiv
+        # bars either go from zero to negative or to positive
         conversion.mode = 3
         conversion.spread = @spread
         conversion.minimum_value = @minimum_value
