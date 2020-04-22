@@ -66,14 +66,14 @@ class Gruff::Bullet < Gruff::Base
     @d = @d.rectangle(@graph_left, 0, @graph_left + @graph_width, @graph_height)
 
     [:high, :low].each_with_index do |indicator, index|
-      next unless @options.has_key?(indicator)
+      next unless @options.key?(indicator)
 
       @d = @d.fill @colors[index + 1]
       indicator_width_x = @graph_left + @graph_width * (@options[indicator] / @maximum_value)
       @d = @d.rectangle(@graph_left, 0, indicator_width_x, @graph_height)
     end
 
-    if @options.has_key?(:target)
+    if @options.key?(:target)
       @d = @d.fill @font_color
       target_x = @graph_left + @graph_width * (@options[:target] / @maximum_value)
       half_thickness = @thickness / 2.0

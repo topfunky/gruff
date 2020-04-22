@@ -515,14 +515,6 @@ Style/PerlBackrefs:
   Exclude:
     - 'lib/gruff/scene.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: short, verbose
-Style/PreferredHashMethods:
-  Exclude:
-    - 'lib/gruff/bullet.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/RedundantSort:
