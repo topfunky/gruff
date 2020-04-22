@@ -538,12 +538,6 @@ Style/PreferredHashMethods:
   Exclude:
     - 'lib/gruff/bullet.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/RedundantParentheses:
-  Exclude:
-    - 'lib/gruff/side_bar.rb'
-
 # Offense count: 6
 # Cop supports --auto-correct.
 Style/RedundantPercentQ:

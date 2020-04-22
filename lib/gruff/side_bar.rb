@@ -116,7 +116,7 @@ protected
 
   def draw_label(y_offset, index, label = nil)
     if !@labels[index].nil? && @labels_seen[index].nil?
-      lbl = (@use_data_label) ? label : @labels[index]
+      lbl = @use_data_label ? label : @labels[index]
       @d.fill = @font_color
       @d.font = @font if @font
       @d.stroke = 'transparent'
