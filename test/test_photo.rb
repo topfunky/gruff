@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-require File.dirname(__FILE__) + "/gruff_test_case"
+require File.dirname(__FILE__) + '/gruff_test_case'
 
 class TestGruffPhotoBar < GruffTestCase
 #   def setup

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + "/gruff_test_case"
+require File.dirname(__FILE__) + '/gruff_test_case'
 
 class TestLabelsForNullData < GruffTestCase
   def setup
@@ -20,6 +20,6 @@ class TestLabelsForNullData < GruffTestCase
     g.data('data', @dataset)
     g.minimum_value = 0
 
-    g.write("test/output/TestLabelsForNullData.png")
+    g.write('test/output/TestLabelsForNullData.png')
   end
 end

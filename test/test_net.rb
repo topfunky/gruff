@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-require File.dirname(__FILE__) + "/gruff_test_case"
+require File.dirname(__FILE__) + '/gruff_test_case'
 
 class TestGruffNet < GruffTestCase
   def setup
@@ -11,7 +11,7 @@ class TestGruffNet < GruffTestCase
       [:Julie, [22, 29, 35, 38, 36, 40, 46, 57]],
       [:Jane, [95, 95, 95, 90, 85, 80, 88, 100]],
       [:Philip, [90, 34, 23, 12, 78, 89, 98, 88]],
-      ["Arthur", [5, 10, 13, 11, 6, 16, 22, 32]]
+      ['Arthur', [5, 10, 13, 11, 6, 16, 22, 32]]
     ]
 
     @sample_labels = {
@@ -33,18 +33,18 @@ class TestGruffNet < GruffTestCase
     ]
 
     g = Gruff::Net.new
-    g.title = "Small Values Net Graph Test"
+    g.title = 'Small Values Net Graph Test'
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    g.write("test/output/net_small.png")
+    g.write('test/output/net_small.png')
 
     g = Gruff::Net.new(400)
-    g.title = "Small Values Net Graph Test 400px"
+    g.title = 'Small Values Net Graph Test 400px'
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    g.write("test/output/net_small_small.png")
+    g.write('test/output/net_small_small.png')
   end
 
   def test_net_starts_with_zero
@@ -54,18 +54,18 @@ class TestGruffNet < GruffTestCase
     ]
 
     g = Gruff::Net.new
-    g.title = "Small Values Net Graph Test"
+    g.title = 'Small Values Net Graph Test'
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    g.write("test/output/net_small_zero.png")
+    g.write('test/output/net_small_zero.png')
 
     g = Gruff::Net.new(400)
-    g.title = "Small Values Net Graph Test 400px"
+    g.title = 'Small Values Net Graph Test 400px'
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    g.write("test/output/net_small_small_zero.png")
+    g.write('test/output/net_small_small_zero.png')
   end
 
   def test_net_large_values
@@ -77,17 +77,17 @@ class TestGruffNet < GruffTestCase
     ]
 
     g = Gruff::Net.new
-    g.title = "Very Large Values Net Graph Test"
+    g.title = 'Very Large Values Net Graph Test'
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
 
-    g.write("test/output/net_large.png")
+    g.write('test/output/net_large.png')
   end
 
   def test_many_datapoints
     g = Gruff::Net.new
-    g.title = "Many Multi-Net Graph Test"
+    g.title = 'Many Multi-Net Graph Test'
     g.labels = {
       0 => 'June',
       10 => 'July',
@@ -97,21 +97,21 @@ class TestGruffNet < GruffTestCase
     g.data('many points', (0..50).map { |i| rand(100) })
 
     # Default theme
-    g.write("test/output/net_many.png")
+    g.write('test/output/net_many.png')
   end
 
   def test_similar_high_end_values
     g = Gruff::Net.new
-    g.title = "Similar High End Values Test"
+    g.title = 'Similar High End Values Test'
     g.data('similar points', %w[29.43 29.459 29.498 29.53 29.548 29.589 29.619 29.66 29.689 29.849 29.878 29.74 29.769 29.79 29.808 29.828].map(&:to_f))
 
     # Default theme
-    g.write("test/output/net_similar_high_end_values.png")
+    g.write('test/output/net_similar_high_end_values.png')
   end
 
   def test_many_nets_graph_small
     g = Gruff::Net.new(400)
-    g.title = "Many Values Net Test 400px"
+    g.title = 'Many Values Net Test 400px'
     g.labels = {
       0 => '5/6',
       10 => '5/15',
@@ -125,12 +125,12 @@ class TestGruffNet < GruffTestCase
     end
 
     # Default theme
-    g.write("test/output/net_many_nets_small.png")
+    g.write('test/output/net_many_nets_small.png')
   end
 
   def test_dots_graph_tiny
     g = Gruff::Net.new(300)
-    g.title = "Dots Test 300px"
+    g.title = 'Dots Test 300px'
     g.labels = {
       0 => '5/6',
       10 => '5/15',
@@ -144,29 +144,29 @@ class TestGruffNet < GruffTestCase
     end
 
     # Default theme
-    g.write("test/output/net_dots_tiny.png")
+    g.write('test/output/net_dots_tiny.png')
   end
 
   def test_no_data
     g = Gruff::Net.new(400)
-    g.title = "No Data"
+    g.title = 'No Data'
     # Default theme
-    g.write("test/output/net_no_data.png")
+    g.write('test/output/net_no_data.png')
 
     g = Gruff::Net.new(400)
-    g.title = "No Data Title"
+    g.title = 'No Data Title'
     g.no_data_message = 'There is no data'
-    g.write("test/output/net_no_data_msg.png")
+    g.write('test/output/net_no_data_msg.png')
   end
 
   def test_all_zeros
     g = Gruff::Net.new(400)
-    g.title = "All Zeros"
+    g.title = 'All Zeros'
 
     g.data(:gus, [0, 0, 0, 0])
 
     # Default theme
-    g.write("test/output/net_no_data_other.png")
+    g.write('test/output/net_no_data_other.png')
   end
 
   def test_no_title
@@ -176,47 +176,47 @@ class TestGruffNet < GruffTestCase
       g.data(data[0], data[1])
     end
 
-    g.write("test/output/net_no_title.png")
+    g.write('test/output/net_no_title.png')
   end
 
   def test_no_net_markers
     g = setup_basic_graph(400)
-    g.title = "No Net Markers"
+    g.title = 'No Net Markers'
     g.hide_line_markers = true
-    g.write("test/output/net_no_net_markers.png")
+    g.write('test/output/net_no_net_markers.png')
   end
 
   def test_no_legend
     g = setup_basic_graph(400)
-    g.title = "No Legend"
+    g.title = 'No Legend'
     g.hide_legend = true
-    g.write("test/output/net_no_legend.png")
+    g.write('test/output/net_no_legend.png')
   end
 
   def test_nothing_but_the_graph
     g = setup_basic_graph(400)
-    g.title = "THIS TITLE SHOULD NOT DISPLAY!!!"
+    g.title = 'THIS TITLE SHOULD NOT DISPLAY!!!'
     g.hide_line_markers = true
     g.hide_legend = true
     g.hide_title = true
-    g.write("test/output/net_nothing_but_the_graph.png")
+    g.write('test/output/net_nothing_but_the_graph.png')
   end
 
   def test_wide_graph
     g = setup_basic_graph('800x400')
-    g.title = "Wide Graph"
-    g.write("test/output/net_wide_graph.png")
+    g.title = 'Wide Graph'
+    g.write('test/output/net_wide_graph.png')
 
     g = setup_basic_graph('400x200')
-    g.title = "Wide Graph Small"
-    g.write("test/output/net_wide_graph_small.png")
+    g.title = 'Wide Graph Small'
+    g.write('test/output/net_wide_graph_small.png')
   end
 
 protected
 
   def setup_basic_graph(size = 800)
     g = Gruff::Net.new(size)
-    g.title = "My Graph Title"
+    g.title = 'My Graph Title'
     g.labels = @sample_labels
     @datasets.each do |data|
       g.data(data[0], data[1])
