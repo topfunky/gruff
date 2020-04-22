@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/base'
+require 'gruff/base'
 
 ##
 # A special bar graph that shows a single dataset as a set of

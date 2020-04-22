@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/base'
+require 'gruff/base'
 
 ##
 # Graph with dots and labels along a vertical access

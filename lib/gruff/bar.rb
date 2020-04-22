@@ -1,5 +1,5 @@
-require File.dirname(__FILE__) + '/base'
-require File.dirname(__FILE__) + '/bar_conversion'
+require 'gruff/base'
+require 'gruff/bar_conversion'
 
 class Gruff::Bar < Gruff::Base
   # Spacing factor applied between bars

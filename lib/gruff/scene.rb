@@ -1,5 +1,5 @@
 require "observer"
-require File.dirname(__FILE__) + '/base'
+require 'gruff/base'
 
 ##
 # A scene is a non-linear graph that assembles layers together to tell a story.

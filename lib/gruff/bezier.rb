@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/base'
+require 'gruff/base'
 
 class Gruff::Bezier < Gruff::Base
   def draw

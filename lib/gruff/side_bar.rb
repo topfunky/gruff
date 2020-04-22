@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/base'
+require 'gruff/base'
 
 ##
 # Graph with individual horizontal bars instead of vertical bars.
