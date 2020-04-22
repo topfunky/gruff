@@ -538,13 +538,6 @@ Style/PreferredHashMethods:
   Exclude:
     - 'lib/gruff/bullet.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-Style/RedundantPercentQ:
-  Exclude:
-    - 'Rakefile'
-    - 'gruff.gemspec'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/RedundantSort:
