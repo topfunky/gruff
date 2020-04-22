@@ -39,7 +39,7 @@ require 'gruff/base'
 # * If there is a file named 'default.png', it will be used unless other input values are set for the corresponding layer.
 
 class Gruff::Scene < Gruff::Base
-  # An array listing the foldernames that will be rendered, from back to front.
+  # An array listing the folder names that will be rendered, from back to front.
   #
   #  g.layers = %w(sky clouds buildings street people)
   #

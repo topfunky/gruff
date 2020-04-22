@@ -78,7 +78,7 @@ class Gruff::Net < Gruff::Base
     return if @hide_line_markers
 
     # have to do this here (AGAIN)... see draw() in this class
-    # because this funtion is called before the @radius, @center_x and @center_y are set
+    # because this function is called before the @radius, @center_x and @center_y are set
     @radius = @graph_height / 2.0
     @center_x = @graph_left + (@graph_width / 2.0)
     @center_y = @graph_top + (@graph_height / 2.0) - 10 # Move graph up a bit
