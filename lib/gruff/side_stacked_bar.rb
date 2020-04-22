@@ -75,7 +75,7 @@ protected
     end
     if @show_labels_for_bar_values
       label_values.each_with_index do |data, i|
-        val = (@label_formatting || "%.2f") % data[:value]
+        val = (@label_formatting || '%.2f') % data[:value]
         draw_value_label(data[:right_x] + 40, (@graph_top + (((i + 1) * @bar_width) - (@bar_width / 2))) - 12, val.commify, true)
       end
     end

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + "/gruff_test_case"
+require File.dirname(__FILE__) + '/gruff_test_case'
 
 class TestGruffBullet < GruffTestCase
   def setup
@@ -15,7 +15,7 @@ class TestGruffBullet < GruffTestCase
 
   def test_bullet_graph
     g = Gruff::Bullet.new
-    g.title = "Monthly Revenue"
+    g.title = 'Monthly Revenue'
     g.data(*@data_args)
     g.replace_colors(
       %w[
@@ -33,7 +33,7 @@ class TestGruffBullet < GruffTestCase
         #bae5e5
       ]
     )
-    g.write("test/output/bullet_greyscale.png")
+    g.write('test/output/bullet_greyscale.png')
   end
 
   def test_no_options
@@ -55,6 +55,6 @@ class TestGruffBullet < GruffTestCase
         #bae5e5
       ]
     )
-    g.write("test/output/bullet_no_options.png")
+    g.write('test/output/bullet_no_options.png')
   end
 end

@@ -1,4 +1,4 @@
-require "observer"
+require 'observer'
 require 'gruff/base'
 
 ##
@@ -190,7 +190,7 @@ private
   end
 
   def select_default
-    @filenames.include?("default.png") ? "default.png" : ''
+    @filenames.include?('default.png') ? 'default.png' : ''
   end
 
   # Returns the string "#{filename}.png", if it exists.

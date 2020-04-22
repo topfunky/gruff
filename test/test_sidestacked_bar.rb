@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-require File.dirname(__FILE__) + "/gruff_test_case"
+require File.dirname(__FILE__) + '/gruff_test_case'
 
 class TestGruffSideStackedBar < GruffTestCase
   def setup
@@ -21,7 +21,7 @@ class TestGruffSideStackedBar < GruffTestCase
 
   def test_bar_graph
     g = Gruff::SideStackedBar.new
-    g.title = "Visual Stacked Bar Graph Test"
+    g.title = 'Visual Stacked Bar Graph Test'
     g.labels = {
       0 => '5/6',
       1 => '5/15',
@@ -31,12 +31,12 @@ class TestGruffSideStackedBar < GruffTestCase
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    g.write "test/output/side_stacked_bar_keynote.png"
+    g.write 'test/output/side_stacked_bar_keynote.png'
   end
 
   def test_bar_graph_small
     g = Gruff::SideStackedBar.new(400)
-    g.title = "Visual Stacked Bar Graph Test"
+    g.title = 'Visual Stacked Bar Graph Test'
     g.labels = {
       0 => '5/6',
       1 => '5/15',
@@ -46,18 +46,18 @@ class TestGruffSideStackedBar < GruffTestCase
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    g.write "test/output/side_stacked_bar_keynote_small.png"
+    g.write 'test/output/side_stacked_bar_keynote_small.png'
   end
 
   def test_wide
     g = setup_basic_graph('800x400')
-    g.title = "Wide SSBar"
-    g.write "test/output/side_stacked_bar_wide.png"
+    g.title = 'Wide SSBar'
+    g.write 'test/output/side_stacked_bar_wide.png'
   end
 
   def test_should_space_long_left_labels_appropriately
     g = Gruff::SideStackedBar.new
-    g.title = "Stacked Bar Long Label"
+    g.title = 'Stacked Bar Long Label'
     g.labels = {
       0 => 'September',
       1 => 'Oct',
@@ -67,12 +67,12 @@ class TestGruffSideStackedBar < GruffTestCase
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    g.write "test/output/side_stacked_bar_long_label.png"
+    g.write 'test/output/side_stacked_bar_long_label.png'
   end
 
   def test_bar_labels
     g = Gruff::SideStackedBar.new
-    g.title = "Stacked Bar Long Label"
+    g.title = 'Stacked Bar Long Label'
     g.labels = {
       0 => 'September',
       1 => 'Oct',
@@ -83,14 +83,14 @@ class TestGruffSideStackedBar < GruffTestCase
       g.data(data[0], data[1])
     end
     g.show_labels_for_bar_values = true
-    g.write "test/output/side_stacked_bar_labels.png"
+    g.write 'test/output/side_stacked_bar_labels.png'
   end
 
 protected
 
   def setup_basic_graph(size = 800)
     g = Gruff::SideStackedBar.new(size)
-    g.title = "My Graph Title"
+    g.title = 'My Graph Title'
     g.labels = @sample_labels
     @datasets.each do |data|
       g.data(data[0], data[1])

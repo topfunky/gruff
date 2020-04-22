@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + "/gruff_test_case"
+require File.dirname(__FILE__) + '/gruff_test_case'
 
 class TestBezier < GruffTestCase
   def setup
@@ -15,22 +15,22 @@ class TestBezier < GruffTestCase
 
   def test_bezier
     g = Gruff::Bezier.new
-    g.title = "Bezier?"
+    g.title = 'Bezier?'
     g.data 'Series 1', [0, 100]
-    g.write("test/output/bezier.png")
+    g.write('test/output/bezier.png')
   end
 
   def test_bezier_2
     g = Gruff::Bezier.new
     g.data 'Series 2', [0, 127, 150]
-    g.write("test/output/bezier_2.png")
+    g.write('test/output/bezier_2.png')
   end
 
   def test_bezier_3
     g = Gruff::Bezier.new
     g.data 'Series 3', [100, 300, 200, 250]
     g.minimum_value = 0
-    g.write("test/output/bezier_3.png")
+    g.write('test/output/bezier_3.png')
   end
 
   def test_bezier_4
@@ -47,6 +47,6 @@ class TestBezier < GruffTestCase
         2.9516386719456804
       ]
     )
-    g.write("test/output/bezier_4.png")
+    g.write('test/output/bezier_4.png')
   end
 end

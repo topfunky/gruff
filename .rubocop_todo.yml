@@ -563,13 +563,6 @@ Style/StringHashKeys:
   Exclude:
     - 'Rakefile'
 
-# Offense count: 209
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Enabled: false
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: MinSize.
