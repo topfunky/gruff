@@ -87,7 +87,7 @@ class TestGruffSpider < GruffTestCase
   end
 
   def test_label_size
-    g = setup_basic_graph()
+    g = setup_basic_graph
     g.title = 'Spider With Small Legend'
     g.legend_font_size = 10
     g.write('test/output/spider_legend.png')

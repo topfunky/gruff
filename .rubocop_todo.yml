@@ -402,19 +402,6 @@ Style/ImplicitRuntimeError:
 Style/MethodCallWithArgsParentheses:
   Enabled: false
 
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: IgnoredMethods.
-Style/MethodCallWithoutArgsParentheses:
-  Exclude:
-    - 'lib/gruff/bar.rb'
-    - 'lib/gruff/photo_bar.rb'
-    - 'lib/gruff/scatter.rb'
-    - 'test/test_bar.rb'
-    - 'test/test_line.rb'
-    - 'test/test_pie.rb'
-    - 'test/test_spider.rb'
-
 # Offense count: 1
 Style/MethodCalledOnDoEndBlock:
   Exclude:

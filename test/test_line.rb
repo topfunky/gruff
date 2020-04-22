@@ -35,7 +35,7 @@ class TestGruffLine < GruffTestCase
   end
 
   def test_line_graph_with_themes
-    line_graph_with_themes()
+    line_graph_with_themes
     line_graph_with_themes(400)
   end
 

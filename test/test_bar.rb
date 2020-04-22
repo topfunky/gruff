@@ -379,7 +379,7 @@ class TestGruffBar < GruffTestCase
 
   def test_legend_should_not_overlap
     g = Gruff::Bar.new(400)
-    g.theme_37signals()
+    g.theme_37signals
     g.title = 'My Graph'
     g.data('Apples Oranges Watermelon Apples Oranges', [1, 2, 3, 4, 4, 3])
     g.data('Oranges', [4, 8, 7, 9, 8, 9])
