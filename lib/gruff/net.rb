@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/base'
+require 'gruff/base'
 
 # Experimental!!! See also the Spider graph.
 class Gruff::Net < Gruff::Base

@@ -1,8 +1,7 @@
-require 'rubygems'
 require 'rmagick'
 require 'bigdecimal'
 
-require File.dirname(__FILE__) + '/deprecated'
+require 'gruff/deprecated'
 
 ##
 # = Gruff. Graphs.

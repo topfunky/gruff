@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/base'
+require 'gruff/base'
 require 'gruff/themes'
 
 # http://en.wikipedia.org/wiki/Bullet_graph

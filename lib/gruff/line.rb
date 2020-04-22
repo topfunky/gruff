@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/base'
+require 'gruff/base'
 
 ##
 # Here's how to make a Line graph:

@@ -1,6 +1,5 @@
-require File.dirname(__FILE__) + '/base'
-require File.dirname(__FILE__) + '/side_bar'
-require File.dirname(__FILE__) + '/stacked_mixin'
+require 'gruff/side_bar'
+require 'gruff/stacked_mixin'
 
 ##
 # New gruff graph type added to enable sideways stacking bar charts

@@ -1,5 +1,5 @@
-require File.dirname(__FILE__) + '/base'
-require File.dirname(__FILE__) + '/stacked_mixin'
+require 'gruff/base'
+require 'gruff/stacked_mixin'
 
 class Gruff::StackedArea < Gruff::Base
   include StackedMixin
