@@ -573,9 +573,15 @@ module Gruff
 
       # When @hide title, leave a title_margin space for aesthetics.
       # Same with @hide_legend
-      @graph_top = @legend_at_bottom ? @top_margin : (@top_margin +
-          (@hide_title ? title_margin : @title_caps_height + title_margin) +
-          (@hide_legend ? legend_margin : @legend_caps_height + legend_margin))
+      @graph_top = begin
+        if @legend_at_bottom
+          @top_margin
+        else
+          @top_margin +
+            (@hide_title ? title_margin : @title_caps_height + title_margin) +
+              (@hide_legend ? legend_margin : @legend_caps_height + legend_margin)
+        end
+      end
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 :
           @marker_caps_height + LABEL_MARGIN
@@ -732,9 +738,15 @@ module Gruff
       end
 
       current_x_offset = center(sum(label_widths.first))
-      current_y_offset = @legend_at_bottom ? @graph_height + title_margin : (@hide_title ?
-          @top_margin + title_margin :
-          @top_margin + title_margin + @title_caps_height)
+      current_y_offset = begin
+        if @legend_at_bottom
+          @graph_height + title_margin
+        else
+          @hide_title ?
+            @top_margin + title_margin :
+              @top_margin + title_margin + @title_caps_height
+        end
+      end
 
       @legend_labels.each_with_index do |legend_label, index|
         # Draw label
