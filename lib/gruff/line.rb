@@ -38,8 +38,6 @@ class Gruff::Line < Gruff::Base
   def baseline_value
     if @reference_lines.key?(:baseline)
       @reference_lines[:baseline][:value]
-    else
-      nil
     end
   end
 
@@ -52,8 +50,6 @@ class Gruff::Line < Gruff::Base
   def baseline_color
     if @reference_lines.key?(:baseline)
       @reference_lines[:baseline][:color]
-    else
-      nil
     end
   end
 
