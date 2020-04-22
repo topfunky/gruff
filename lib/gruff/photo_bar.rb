@@ -28,7 +28,7 @@ class Gruff::PhotoBar < Gruff::Base
 
     return # TODO Remove for further development
 
-    init_photo_bar_graphics()
+    init_photo_bar_graphics
 
     #Draw#define_clip_path()
     #Draw#clip_path(pathname)

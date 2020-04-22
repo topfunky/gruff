@@ -47,7 +47,7 @@ protected
     @d = @d.stroke_opacity 0.0
 
     # Setup the BarConversion Object
-    conversion = Gruff::BarConversion.new()
+    conversion = Gruff::BarConversion.new
     conversion.graph_height = @graph_height
     conversion.graph_top = @graph_top
 
