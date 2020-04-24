@@ -103,13 +103,6 @@ Lint/UnusedBlockArgument:
     - 'test/test_pie.rb'
 
 # Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods, IgnoreNotImplementedMethods.
-Lint/UnusedMethodArgument:
-  Exclude:
-    - 'lib/gruff/side_stacked_bar.rb'
-
-# Offense count: 1
 Lint/UselessAssignment:
   Exclude:
     - 'lib/gruff/photo_bar.rb'
