@@ -4,8 +4,8 @@ module MiniTest
   module Assertions
     def assert_same_image(expected_image_path, output_image, delta = 0.0)
       # not supported yet
-      return if RUBY_PLATFORM == 'java'
-      return if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('2.4.0')
+      skip if RUBY_PLATFORM == 'java'
+      skip if Gem::Version.new(RUBY_VERSION) < Gem::Version.new('2.4.0')
 
       expected_path = File.expand_path(expected_image_path)
       expected_image = Magick::Image.read(expected_path).first
