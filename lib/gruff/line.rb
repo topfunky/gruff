@@ -151,10 +151,8 @@ class Gruff::Line < Gruff::Base
         @maximum_x_value = @minimum_x_value = x_data_point
       end
 
-      @maximum_x_value = (x_data_point > @maximum_x_value) ?
-          x_data_point : @maximum_x_value
-      @minimum_x_value = (x_data_point < @minimum_x_value) ?
-          x_data_point : @minimum_x_value
+      @maximum_x_value = (x_data_point > @maximum_x_value) ? x_data_point : @maximum_x_value
+      @minimum_x_value = (x_data_point < @minimum_x_value) ? x_data_point : @minimum_x_value
     end
   end
 
