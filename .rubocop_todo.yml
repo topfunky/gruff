@@ -224,12 +224,6 @@ Style/ConstantVisibility:
     - 'lib/gruff/themes.rb'
     - 'lib/gruff/version.rb'
 
-# Offense count: 1
-# Configuration parameters: AllowCoercion.
-Style/DateTime:
-  Exclude:
-    - 'test/test_scatter.rb'
-
 # Offense count: 28
 Style/Documentation:
   Enabled: false
