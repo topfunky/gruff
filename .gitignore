@@ -2,6 +2,7 @@
 /.idea/
 /pkg/
 /vendor/
+/test/output/
 .DS_Store
 .bundle
 .yardoc

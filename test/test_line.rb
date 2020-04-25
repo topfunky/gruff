@@ -1,6 +1,4 @@
-#!/usr/bin/ruby
-
-require File.dirname(__FILE__) + '/gruff_test_case'
+require_relative 'gruff_test_case'
 
 class TestGruffLine < GruffTestCase
   def test_should_render_with_transparent_theme
@@ -22,6 +20,7 @@ class TestGruffLine < GruffTestCase
     g.data(:apples, [-1, 0, 4, -4])
     g.data(:peaches, [10, 8, 6, 3])
     g.write('test/output/line_transparent.png')
+    assert_same_image('test/expected/line_transparent.png', 'test/output/line_transparent.png')
   end
 
   def test_very_small
@@ -32,6 +31,7 @@ class TestGruffLine < GruffTestCase
       g.data(data[0], data[1])
     end
     g.write('test/output/line_very_small.png')
+    assert_same_image('test/expected/line_very_small.png', 'test/output/line_very_small.png')
   end
 
   def test_line_graph_with_themes
@@ -49,6 +49,7 @@ class TestGruffLine < GruffTestCase
     g.data('one', 1)
 
     g.write('test/output/line_one_value.png')
+    assert_same_image('test/expected/line_one_value.png', 'test/output/line_one_value.png')
   end
 
   def test_one_value_array
@@ -61,6 +62,7 @@ class TestGruffLine < GruffTestCase
     g.data('one', [1])
 
     g.write('test/output/line_one_value_array.png')
+    assert_same_image('test/expected/line_one_value_array.png', 'test/output/line_one_value_array.png')
   end
 
   def test_should_not_hang_with_0_0_100
@@ -69,6 +71,7 @@ class TestGruffLine < GruffTestCase
     g.data('test', [0, 0, 100])
 
     g.write('test/output/line_hang_value.png')
+    assert_same_image('test/expected/line_hang_value.png', 'test/output/line_hang_value.png')
   end
 
   # TODO
@@ -94,6 +97,7 @@ class TestGruffLine < GruffTestCase
       g.data(data[0], data[1])
     end
     g.write('test/output/line_small_values.png')
+    assert_same_image('test/expected/line_small_values.png', 'test/output/line_small_values.png')
 
     g = Gruff::Line.new(400)
     g.title = 'Small Values Line Graph Test 400px'
@@ -101,6 +105,7 @@ class TestGruffLine < GruffTestCase
       g.data(data[0], data[1])
     end
     g.write('test/output/line_small_values_small.png')
+    assert_same_image('test/expected/line_small_values_small.png', 'test/output/line_small_values_small.png')
   end
 
   def test_line_starts_with_zero
@@ -115,6 +120,7 @@ class TestGruffLine < GruffTestCase
       g.data(data[0], data[1])
     end
     g.write('test/output/line_small_zero.png')
+    assert_same_image('test/expected/line_small_zero.png', 'test/output/line_small_zero.png')
 
     g = Gruff::Line.new(400)
     g.title = 'Small Values Line Graph Test 400px'
@@ -122,6 +128,7 @@ class TestGruffLine < GruffTestCase
       g.data(data[0], data[1])
     end
     g.write('test/output/line_small_small_zero.png')
+    assert_same_image('test/expected/line_small_small_zero.png', 'test/output/line_small_small_zero.png')
   end
 
   def test_line_large_values
@@ -143,6 +150,7 @@ class TestGruffLine < GruffTestCase
     end
 
     g.write('test/output/line_large.png')
+    assert_same_image('test/expected/line_large.png', 'test/output/line_large.png')
   end
 
   # def test_long_title
@@ -181,6 +189,7 @@ class TestGruffLine < GruffTestCase
       ]
     )
     g.write('test/output/line_more_sets_than_colors.png')
+    assert_same_image('test/expected/line_more_sets_than_colors.png', 'test/output/line_more_sets_than_colors.png')
   end
 
   #
@@ -202,6 +211,7 @@ class TestGruffLine < GruffTestCase
 
     # Default theme
     g.write('test/output/line_many.png')
+    assert_same_image('test/expected/line_many.png', 'test/output/line_many.png')
   end
 
   def test_dot_style_square
@@ -219,6 +229,7 @@ class TestGruffLine < GruffTestCase
 
     # Default theme
     g.write('test/output/line_dot_style_square.png')
+    assert_same_image('test/expected/line_dot_style_square.png', 'test/output/line_dot_style_square.png')
   end
 
   def test_similar_high_end_values
@@ -228,6 +239,7 @@ class TestGruffLine < GruffTestCase
     g.title = 'Similar High End Values Test'
     g.data('similar points', @dataset)
     g.write('test/output/line_similar_high_end_values.png')
+    assert_same_image('test/expected/line_similar_high_end_values.png', 'test/output/line_similar_high_end_values.png')
 
     g = Gruff::Line.new
     g.title = 'Similar High End Values With Floor'
@@ -235,6 +247,7 @@ class TestGruffLine < GruffTestCase
     g.minimum_value = 0
     g.y_axis_label = 'Barometric Pressure'
     g.write('test/output/line_similar_high_end_values_with_floor.png')
+    assert_same_image('test/expected/line_similar_high_end_values_with_floor.png', 'test/output/line_similar_high_end_values_with_floor.png')
   end
 
   def test_many_lines_graph_small
@@ -254,6 +267,7 @@ class TestGruffLine < GruffTestCase
 
     # Default theme
     g.write('test/output/line_many_lines_small.png')
+    assert_same_image('test/expected/line_many_lines_small.png', 'test/output/line_many_lines_small.png')
   end
 
   def test_graph_tiny
@@ -273,6 +287,7 @@ class TestGruffLine < GruffTestCase
 
     # Default theme
     g.write('test/output/line_tiny.png')
+    assert_same_image('test/expected/line_tiny.png', 'test/output/line_tiny.png')
   end
 
   def test_no_data
@@ -280,11 +295,13 @@ class TestGruffLine < GruffTestCase
     g.title = 'No Data'
     # Default theme
     g.write('test/output/line_no_data.png')
+    assert_same_image('test/expected/line_no_data.png', 'test/output/line_no_data.png')
 
     g = Gruff::Line.new(400)
     g.title = 'No Data Title'
     g.no_data_message = 'There is no data'
     g.write('test/output/line_no_data_msg.png')
+    assert_same_image('test/expected/line_no_data_msg.png', 'test/output/line_no_data_msg.png')
   end
 
   def test_all_zeros
@@ -295,6 +312,7 @@ class TestGruffLine < GruffTestCase
 
     # Default theme
     g.write('test/output/line_no_data_other.png')
+    assert_same_image('test/expected/line_no_data_other.png', 'test/output/line_no_data_other.png')
   end
 
   def test_some_nil_points
@@ -314,6 +332,7 @@ class TestGruffLine < GruffTestCase
 
     # Default theme
     g.write('test/output/line_some_nil_points.png')
+    assert_same_image('test/expected/line_some_nil_points.png', 'test/output/line_some_nil_points.png')
   end
 
   def test_no_title
@@ -324,6 +343,7 @@ class TestGruffLine < GruffTestCase
     end
 
     g.write('test/output/line_no_title.png')
+    assert_same_image('test/expected/line_no_title.png', 'test/output/line_no_title.png')
   end
 
   def test_no_line_markers
@@ -331,6 +351,7 @@ class TestGruffLine < GruffTestCase
     g.title = 'No Line Markers'
     g.hide_line_markers = true
     g.write('test/output/line_no_line_markers.png')
+    assert_same_image('test/expected/line_no_line_markers.png', 'test/output/line_no_line_markers.png')
   end
 
   def test_no_legend
@@ -338,6 +359,7 @@ class TestGruffLine < GruffTestCase
     g.title = 'No Legend'
     g.hide_legend = true
     g.write('test/output/line_no_legend.png')
+    assert_same_image('test/expected/line_no_legend.png', 'test/output/line_no_legend.png')
   end
 
   def test_nothing_but_the_graph
@@ -347,6 +369,7 @@ class TestGruffLine < GruffTestCase
     g.hide_legend = true
     g.hide_title = true
     g.write('test/output/line_nothing_but_the_graph.png')
+    assert_same_image('test/expected/line_nothing_but_the_graph.png', 'test/output/line_nothing_but_the_graph.png')
   end
 
   def test_legend_below_the_chart
@@ -354,6 +377,7 @@ class TestGruffLine < GruffTestCase
     g.title = 'Legend below the chart'
     g.legend_at_bottom = true
     g.write('test/output/line_legend_at_bottom.png')
+    assert_same_image('test/expected/line_legend_at_bottom.png', 'test/output/line_legend_at_bottom.png')
   end
 
   def test_baseline_larger_than_data
@@ -361,6 +385,7 @@ class TestGruffLine < GruffTestCase
     g.title = 'Baseline Larger Than Data'
     g.baseline_value = 150
     g.write('test/output/line_large_baseline.png')
+    assert_same_image('test/expected/line_large_baseline.png', 'test/output/line_large_baseline.png')
   end
 
   def test_hide_dots
@@ -368,6 +393,7 @@ class TestGruffLine < GruffTestCase
     g.title = 'Hide Dots'
     g.hide_dots = true
     g.write('test/output/line_hide_dots.png')
+    assert_same_image('test/expected/line_hide_dots.png', 'test/output/line_hide_dots.png')
   end
 
   def test_hide_lines
@@ -375,36 +401,43 @@ class TestGruffLine < GruffTestCase
     g.title = 'Hide Lines'
     g.hide_lines = true
     g.write('test/output/line_hide_lines.png')
+    assert_same_image('test/expected/line_hide_lines.png', 'test/output/line_hide_lines.png')
   end
 
   def test_wide_graph
     g = setup_basic_graph('800x400')
     g.title = 'Wide Graph'
     g.write('test/output/line_wide_graph.png')
+    assert_same_image('test/expected/line_wide_graph.png', 'test/output/line_wide_graph.png')
 
     g = setup_basic_graph('400x200')
     g.title = 'Wide Graph Small'
     g.write('test/output/line_wide_graph_small.png')
+    assert_same_image('test/expected/line_wide_graph_small.png', 'test/output/line_wide_graph_small.png')
   end
 
   def test_negative
     g = setup_pos_neg(800)
     g.write('test/output/line_pos_neg.png')
+    assert_same_image('test/expected/line_pos_neg.png', 'test/output/line_pos_neg.png')
 
     g = setup_pos_neg(400)
     g.title = 'Pos/Neg Line Test Small'
     g.write('test/output/line_pos_neg_400.png')
+    assert_same_image('test/expected/line_pos_neg_400.png', 'test/output/line_pos_neg_400.png')
   end
 
   def test_all_negative
     g = setup_all_neg(800)
     g.maximum_value = 0
     g.write('test/output/line_all_neg.png')
+    assert_same_image('test/expected/line_all_neg.png', 'test/output/line_all_neg.png')
   end
 
   def test_all_negative_no_max_value
     g = setup_all_neg(800)
     g.write('test/output/line_all_neg_no_max.png')
+    assert_same_image('test/expected/line_all_neg_no_max.png', 'test/output/line_all_neg_no_max.png')
   end
 
   def test_all_negative_400
@@ -412,6 +445,7 @@ class TestGruffLine < GruffTestCase
     g.maximum_value = 0
     g.title = 'All Neg Line Test Small'
     g.write('test/output/line_all_neg_400.png')
+    assert_same_image('test/expected/line_all_neg_400.png', 'test/output/line_all_neg_400.png')
   end
 
   def test_many_numbers
@@ -499,6 +533,7 @@ class TestGruffLine < GruffTestCase
     g.labels = labels
 
     g.write('test/output/line_many_numbers.png')
+    assert_same_image('test/expected/line_many_numbers.png', 'test/output/line_many_numbers.png')
   end
 
   def test_no_hide_line_no_labels
@@ -509,6 +544,7 @@ class TestGruffLine < GruffTestCase
     end
     g.hide_line_markers = false
     g.write('test/output/line_no_hide.png')
+    assert_same_image('test/expected/line_no_hide.png', 'test/output/line_no_hide.png')
   end
 
   def test_xy_data
@@ -519,6 +555,7 @@ class TestGruffLine < GruffTestCase
     g.data('Capples', [1, 1, 2, 2, 3, 3])
     g.labels = { 0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006', 8 => '2007', 10 => '2008' }
     g.write('test/output/line_xy.png')
+    assert_same_image('test/expected/line_xy.png', 'test/output/line_xy.png')
   end
 
   def test_xy_data_pairs
@@ -531,6 +568,7 @@ class TestGruffLine < GruffTestCase
     g.dataxy('Eapples', [[1, 1], [2, 3], [5, 8], [13, 21], [13, 8], [5, 3], [2, 1], [1, 1]])
     g.labels = { 0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006', 8 => '2007', 10 => '2008', 12 => '2009' }
     g.write('test/output/line_xy_pairs.png')
+    assert_same_image('test/expected/line_xy_pairs.png', 'test/output/line_xy_pairs.png')
   end
 
   def test_jruby_error
@@ -547,6 +585,7 @@ class TestGruffLine < GruffTestCase
     g.hide_dots = false
 
     g.write('test/output/line_jruby_error.png')
+    assert_same_image('test/expected/line_jruby_error.png', 'test/output/line_jruby_error.png')
   end
 
   def test_marker_label_accuracy
@@ -564,6 +603,7 @@ class TestGruffLine < GruffTestCase
     g.data('third', [0.7, 0.71, 0.72, 0.73, 0.74])
 
     g.write('test/output/line_marker_label_accuracy.png')
+    assert_same_image('test/expected/line_marker_label_accuracy.png', 'test/output/line_marker_label_accuracy.png')
   end
 
   def test_y_axis_increment
@@ -575,6 +615,7 @@ class TestGruffLine < GruffTestCase
     g.y_axis_increment = 1
 
     g.write('test/output/line_y_axis_increment.png')
+    assert_same_image('test/expected/line_y_axis_increment.png', 'test/output/line_y_axis_increment.png')
   end
 
   def test_multiple_reference_lines
@@ -596,7 +637,8 @@ class TestGruffLine < GruffTestCase
     g.reference_lines[:horiz_one] = { index: 1, color: 'green' }
     g.reference_lines[:horiz_two] = { index: 3, color: 'green' }
 
-    g.write('line_reference_lines.png')
+    g.write('test/output/line_reference_lines.png')
+    assert_same_image('test/expected/line_reference_lines.png', 'test/output/line_reference_lines.png')
   end
 
   def test_baseline
@@ -635,6 +677,7 @@ private
     end
     # Default theme
     g.write("test/output/line_theme_keynote_#{size}.png")
+    assert_same_image("test/expected/line_theme_keynote_#{size}.png", "test/output/line_theme_keynote_#{size}.png")
 
     g = Gruff::Line.new(size)
     g.title = "Multi-Line Graph Test #{size}"
@@ -645,6 +688,7 @@ private
       g.data(data[0], data[1])
     end
     g.write("test/output/line_theme_37signals_#{size}.png")
+    assert_same_image("test/expected/line_theme_37signals_#{size}.png", "test/output/line_theme_37signals_#{size}.png")
 
     g = Gruff::Line.new(size)
     g.title = "Multi-Line Graph Test #{size}"
@@ -655,6 +699,7 @@ private
       g.data(data[0], data[1])
     end
     g.write("test/output/line_theme_rails_keynote_#{size}.png")
+    assert_same_image("test/expected/line_theme_rails_keynote_#{size}.png", "test/output/line_theme_rails_keynote_#{size}.png")
 
     g = Gruff::Line.new(size)
     g.title = "Multi-Line Graph Test #{size}"
@@ -665,6 +710,7 @@ private
       g.data(data[0], data[1])
     end
     g.write("test/output/line_theme_odeo_#{size}.png")
+    assert_same_image("test/expected/line_theme_odeo_#{size}.png", "test/output/line_theme_odeo_#{size}.png")
   end
 
   def setup_pos_neg(size = 800)

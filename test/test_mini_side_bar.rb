@@ -1,4 +1,4 @@
-require File.expand_path('../gruff_test_case', __FILE__)
+require_relative 'gruff_test_case'
 
 class TestMiniSideBar < GruffTestCase
   def test_one_color

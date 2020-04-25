@@ -1,6 +1,4 @@
-#!/usr/bin/ruby
-
-require File.dirname(__FILE__) + '/gruff_test_case'
+require_relative 'gruff_test_case'
 
 class TestGruffDot < GruffTestCase
   # TODO Delete old output files once when starting tests
@@ -17,6 +15,7 @@ class TestGruffDot < GruffTestCase
     g = setup_basic_graph
     g.title = 'Dot Graph Test'
     g.write('test/output/dot.png')
+    assert_same_image('test/expected/dot.png', 'test/output/dot.png')
   end
 
   def test_dot_graph_set_colors
@@ -35,27 +34,22 @@ class TestGruffDot < GruffTestCase
     g.minimum_value = 0
 
     g.write('test/output/dot_manual_colors.png')
+    assert_same_image('test/expected/dot_manual_colors.png', 'test/output/dot_manual_colors.png')
   end
 
   def test_dot_graph_small
     g = setup_basic_graph(400)
     g.title = 'Visual Multi-Line Dot Graph Test'
     g.write('test/output/dot_small.png')
+    assert_same_image('test/expected/dot_small.png', 'test/output/dot_small.png')
   end
-
-  # Somewhat worthless test. Should an error be thrown?
-  # def test_nil_font
-  #   g = setup_basic_graph 400
-  #   g.title = "Nil Font"
-  #   g.font = nil
-  #   g.write "test/output/dot_nil_font.png"
-  # end
 
   def test_no_line_markers
     g = setup_basic_graph(400)
     g.title = 'No Line Markers'
     g.hide_line_markers = true
     g.write('test/output/dot_no_line_markers.png')
+    assert_same_image('test/expected/dot_no_line_markers.png', 'test/output/dot_no_line_markers.png')
   end
 
   def test_no_legend
@@ -63,6 +57,7 @@ class TestGruffDot < GruffTestCase
     g.title = 'No Legend'
     g.hide_legend = true
     g.write('test/output/dot_no_legend.png')
+    assert_same_image('test/expected/dot_no_legend.png', 'test/output/dot_no_legend.png')
   end
 
   def test_no_title
@@ -70,6 +65,7 @@ class TestGruffDot < GruffTestCase
     g.title = 'No Title'
     g.hide_title = true
     g.write('test/output/dot_no_title.png')
+    assert_same_image('test/expected/dot_no_title.png', 'test/output/dot_no_title.png')
   end
 
   def test_no_title_or_legend
@@ -78,6 +74,7 @@ class TestGruffDot < GruffTestCase
     g.hide_legend = true
     g.hide_title = true
     g.write('test/output/dot_no_title_or_legend.png')
+    assert_same_image('test/expected/dot_no_title_or_legend.png', 'test/output/dot_no_title_or_legend.png')
   end
 
   def test_set_marker_count
@@ -85,6 +82,7 @@ class TestGruffDot < GruffTestCase
     g.title = 'Set marker'
     g.marker_count = 10
     g.write('test/output/dot_set_marker.png')
+    assert_same_image('test/expected/dot_set_marker.png', 'test/output/dot_set_marker.png')
   end
 
   def test_set_legend_box_size
@@ -92,11 +90,13 @@ class TestGruffDot < GruffTestCase
     g.title = 'Set Small Legend Box Size'
     g.legend_box_size = 10.0
     g.write('test/output/dot_set_legend_box_size_sm.png')
+    assert_same_image('test/expected/dot_set_legend_box_size_sm.png', 'test/output/dot_set_legend_box_size_sm.png')
 
     g = setup_basic_graph(400)
     g.title = 'Set Large Legend Box Size'
     g.legend_box_size = 50.0
     g.write('test/output/dot_set_legend_box_size_lg.png')
+    assert_same_image('test/expected/dot_set_legend_box_size_lg.png', 'test/output/dot_set_legend_box_size_lg.png')
   end
 
   def test_x_y_labels
@@ -105,26 +105,31 @@ class TestGruffDot < GruffTestCase
     g.x_axis_label = 'Score (%)'
     g.y_axis_label = 'Students'
     g.write('test/output/dot_x_y_labels.png')
+    assert_same_image('test/expected/dot_x_y_labels.png', 'test/output/dot_x_y_labels.png')
   end
 
   def test_wide_graph
     g = setup_basic_graph('800x400')
     g.title = 'Wide Graph'
     g.write('test/output/dot_wide_graph.png')
+    assert_same_image('test/expected/dot_wide_graph.png', 'test/output/dot_wide_graph.png')
 
     g = setup_basic_graph('400x200')
     g.title = 'Wide Graph Small'
     g.write('test/output/dot_wide_graph_small.png')
+    assert_same_image('test/expected/dot_wide_graph_small.png', 'test/output/dot_wide_graph_small.png')
   end
 
   def test_tall_graph
     g = setup_basic_graph('400x600')
     g.title = 'Tall Graph'
     g.write('test/output/dot_tall_graph.png')
+    assert_same_image('test/expected/dot_tall_graph.png', 'test/output/dot_tall_graph.png')
 
     g = setup_basic_graph('200x400')
     g.title = 'Tall Graph Small'
     g.write('test/output/dot_tall_graph_small.png')
+    assert_same_image('test/expected/dot_tall_graph_small.png', 'test/output/dot_tall_graph_small.png')
   end
 
   def test_one_value
@@ -137,6 +142,7 @@ class TestGruffDot < GruffTestCase
     g.data('one', [1, 1])
 
     g.write('test/output/dot_one_value.png')
+    assert_same_image('test/expected/dot_one_value.png', 'test/output/dot_one_value.png')
   end
 
   def test_negative
@@ -152,6 +158,7 @@ class TestGruffDot < GruffTestCase
     g.data(:peaches, [10, 8, 6, 3])
 
     g.write('test/output/dot_pos_neg.png')
+    assert_same_image('test/expected/dot_pos_neg.png', 'test/output/dot_pos_neg.png')
   end
 
   def test_nearly_zero
@@ -168,6 +175,7 @@ class TestGruffDot < GruffTestCase
     g.minimum_value = 0
     g.maximum_value = 10
     g.write('test/output/dot_nearly_zero_max_10.png')
+    assert_same_image('test/expected/dot_nearly_zero_max_10.png', 'test/output/dot_nearly_zero_max_10.png')
   end
 
   def test_y_axis_increment
@@ -190,6 +198,7 @@ class TestGruffDot < GruffTestCase
     g.data(:apples, [1, 0.2, 0.5, 0.7])
     g.data(:peaches, [2.5, 2.3, 2, 6.1])
     g.write("test/output/dot_y_increment_#{increment}.png")
+    assert_same_image("test/expected/dot_y_increment_#{increment}.png", "test/output/dot_y_increment_#{increment}.png")
   end
 
   def test_custom_theme
@@ -217,6 +226,7 @@ class TestGruffDot < GruffTestCase
     g.data(:victoria, [4, 3, 5, 7])
     g.minimum_value = 0
     g.write('test/output/dot_themed.png')
+    assert_same_image('test/expected/dot_themed.png', 'test/output/dot_themed.png')
   end
 
   def test_july_enhancements

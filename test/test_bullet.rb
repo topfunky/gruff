@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/gruff_test_case'
+require_relative 'gruff_test_case'
 
 class TestGruffBullet < GruffTestCase
   def setup
@@ -34,6 +34,7 @@ class TestGruffBullet < GruffTestCase
       ]
     )
     g.write('test/output/bullet_greyscale.png')
+    assert_same_image('test/expected/bullet_greyscale.png', 'test/output/bullet_greyscale.png')
   end
 
   def test_no_options
@@ -56,5 +57,6 @@ class TestGruffBullet < GruffTestCase
       ]
     )
     g.write('test/output/bullet_no_options.png')
+    assert_same_image('test/expected/bullet_no_options.png', 'test/output/bullet_no_options.png')
   end
 end
