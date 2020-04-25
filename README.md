@@ -43,75 +43,75 @@ g.write('exciting.png')
 
 You can find many examples in the [test](https://github.com/topfunky/gruff/tree/master/test)
 directory along with their resulting charts in the
-[output](https://github.com/topfunky/gruff/tree/master/test/output) directory.
+[expected](https://github.com/topfunky/gruff/tree/master/test/expected) directory.
 
 ### Accumulator bar chart
 
-![Accumulator bar chart](https://raw.github.com/topfunky/gruff/master/test/output/accum_bar.png)
+![Accumulator bar chart](https://raw.github.com/topfunky/gruff/master/test/expected/accum_bar.png)
 
 ### Area chart
 
-![Area chart](https://raw.github.com/topfunky/gruff/master/test/output/area_keynote.png)
+![Area chart](https://raw.github.com/topfunky/gruff/master/test/expected/area_keynote.png)
 
 ### Bar chart
 
-![Bar chart](https://raw.github.com/topfunky/gruff/master/test/output/bar_rails_keynote.png)
+![Bar chart](https://raw.github.com/topfunky/gruff/master/test/expected/bar_rails_keynote.png)
 
 ### Bezier chart
 
 In progress!
 
-![Bezier chart](https://raw.github.com/topfunky/gruff/master/test/output/bezier_3.png)
+![Bezier chart](https://raw.github.com/topfunky/gruff/master/test/expected/bezier_3.png)
 
 ### Bullet chart
 
 In progress!
 
-![Bullet chart](https://raw.github.com/topfunky/gruff/master/test/output/bullet_greyscale.png)
+![Bullet chart](https://raw.github.com/topfunky/gruff/master/test/expected/bullet_greyscale.png)
 
 ### Dot chart
 
-![Dot chart](https://raw.github.com/topfunky/gruff/master/test/output/dot.png)
+![Dot chart](https://raw.github.com/topfunky/gruff/master/test/expected/dot.png)
 
 ### Line chart
 
-![Line chart](https://raw.github.com/topfunky/gruff/master/test/output/line_theme_rails_keynote_.png)
+![Line chart](https://raw.github.com/topfunky/gruff/master/test/expected/line_theme_rails_keynote_.png)
 
 ### LineXY chart
 
-![LineXY chart](https://raw.github.com/topfunky/gruff/master/test/output/line_xy.png)
+![LineXY chart](https://raw.github.com/topfunky/gruff/master/test/expected/line_xy.png)
 
 ### Net chart
 
-![Net chart](https://raw.github.com/topfunky/gruff/master/test/output/net_wide_graph.png)
+![Net chart](https://raw.github.com/topfunky/gruff/master/test/expected/net_wide_graph.png)
 
 ### Pie chart
 
-![Pie chart](https://raw.github.com/topfunky/gruff/master/test/output/pie_pastel.png)
+![Pie chart](https://raw.github.com/topfunky/gruff/master/test/expected/pie_pastel.png)
 
 ### Scatter chart
 
-![Scatter chart](https://raw.github.com/topfunky/gruff/master/test/output/scatter_basic.png)
+![Scatter chart](https://raw.github.com/topfunky/gruff/master/test/expected/scatter_basic.png)
 
 ### Side bar chart
 
-![Side bar chart](https://raw.github.com/topfunky/gruff/master/test/output/side_bar.png)
+![Side bar chart](https://raw.github.com/topfunky/gruff/master/test/expected/side_bar.png)
 
 ### Side stacked bar chart
 
-![Side stacked bar chart](https://raw.github.com/topfunky/gruff/master/test/output/side_stacked_bar_keynote.png)
+![Side stacked bar chart](https://raw.github.com/topfunky/gruff/master/test/expected/side_stacked_bar_keynote.png)
 
 ### Spider chart
 
-![Spider chart](https://raw.github.com/topfunky/gruff/master/test/output/spider_37signals.png)
+![Spider chart](https://raw.github.com/topfunky/gruff/master/test/expected/spider_37signals.png)
 
 ### Stacked area chart
 
-![Stacked area chart](https://raw.github.com/topfunky/gruff/master/test/output/stacked_area_keynote.png)
+![Stacked area chart](https://raw.github.com/topfunky/gruff/master/test/expected/stacked_area_keynote.png)
 
 ### Stacked bar chart
 
-![Stacked bar chart](https://raw.github.com/topfunky/gruff/master/test/output/stacked_bar_keynote.png)
+![Stacked bar chart](https://raw.github.com/topfunky/gruff/master/test/expected/stacked_bar_keynote.png)
 
 
 ## Documentation
