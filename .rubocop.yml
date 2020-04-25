@@ -30,10 +30,16 @@ Layout/MultilineMethodArgumentLineBreaks:
 Layout/MultilineAssignmentLayout:
   EnforcedStyle: same_line
 
+Lint/AssignmentInCondition:
+  Enabled: false
+
 Lint/NumberConversion:
   Enabled: false
 
 Style/ConditionalAssignment:
+  Enabled: false
+
+Style/ConstantVisibility:
   Enabled: false
 
 Style/Copyright:
@@ -63,7 +69,16 @@ Style/InlineComment:
 Style/Next:
   Enabled: false
 
+Style/NumericLiterals:
+  Enabled: false
+
+Style/OptionHash:
+  Enabled: false
+
 Style/StructInheritance:
+  Enabled: false
+
+Style/SymbolArray:
   Enabled: false
 
 Style/TernaryParentheses:

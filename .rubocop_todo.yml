@@ -38,12 +38,6 @@ Lint/AmbiguousBlockAssociation:
     - 'test/test_accumulator_bar.rb'
 
 # Offense count: 1
-# Configuration parameters: AllowSafeAssignment.
-Lint/AssignmentInCondition:
-  Exclude:
-    - 'lib/gruff/scene.rb'
-
-# Offense count: 1
 Lint/DuplicateMethods:
   Exclude:
     - 'lib/gruff/photo_bar.rb'
@@ -216,14 +210,6 @@ Style/CommentedKeyword:
     - 'lib/gruff/side_bar.rb'
     - 'test/test_scatter.rb'
 
-# Offense count: 14
-Style/ConstantVisibility:
-  Exclude:
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/pie.rb'
-    - 'lib/gruff/themes.rb'
-    - 'lib/gruff/version.rb'
-
 # Offense count: 28
 Style/Documentation:
   Enabled: false
@@ -323,12 +309,6 @@ Style/Not:
     - 'lib/gruff/line.rb'
     - 'lib/gruff/scene.rb'
 
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: Strict.
-Style/NumericLiterals:
-  MinDigits: 8
-
 # Offense count: 18
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, EnforcedStyle, IgnoredMethods.
@@ -345,14 +325,6 @@ Style/NumericPredicate:
     - 'lib/gruff/scene.rb'
     - 'lib/gruff/side_bar.rb'
     - 'lib/gruff/stacked_bar.rb'
-
-# Offense count: 2
-# Configuration parameters: SuspiciousParamNames.
-# SuspiciousParamNames: options, opts, args, params, parameters
-Style/OptionHash:
-  Exclude:
-    - 'lib/gruff/bullet.rb'
-    - 'test/test_pie.rb'
 
 # Offense count: 4
 # Cop supports --auto-correct.
@@ -392,13 +364,6 @@ Style/SpecialGlobalVars:
   Exclude:
     - 'gruff.gemspec'
     - 'test/gruff_test_case.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: MinSize.
-# SupportedStyles: percent, brackets
-Style/SymbolArray:
-  EnforcedStyle: brackets
 
 # Offense count: 2
 # Cop supports --auto-correct.
