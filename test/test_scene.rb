@@ -24,7 +24,7 @@ class TestGruffScene < GruffTestCase
     g = setup_scene
     g.weather = 'cloudy'
     g.haze = false
-    g.time = Time.mktime(2006, 7, 4, 6, 00)
+    g.time = Time.mktime(2006, 7, 4, 6, 0)
     g.write('test/output/scene_not_hazy_day.png')
     assert_same_image('test/expected/scene_not_hazy_day.png', 'test/output/scene_not_hazy_day.png')
   end
@@ -33,7 +33,7 @@ class TestGruffScene < GruffTestCase
     g = setup_scene
     g.weather = 'partly cloudy'
     g.haze = false
-    g.time = Time.mktime(2006, 7, 4, 13, 00)
+    g.time = Time.mktime(2006, 7, 4, 13, 0)
     g.write('test/output/scene_partly_cloudy_day.png')
     assert_same_image('test/expected/scene_partly_cloudy_day.png', 'test/output/scene_partly_cloudy_day.png')
   end
@@ -42,7 +42,7 @@ class TestGruffScene < GruffTestCase
     g = setup_scene
     g.weather = 'stormy'
     g.haze = false
-    g.time = Time.mktime(2006, 7, 4, 8, 00)
+    g.time = Time.mktime(2006, 7, 4, 8, 0)
     g.write('test/output/scene_stormy_day.png')
     assert_same_image('test/expected/scene_stormy_day.png', 'test/output/scene_stormy_day.png')
   end
@@ -75,7 +75,7 @@ class TestGruffScene < GruffTestCase
     assert_equal '0200.png', l.selected_filename
 
     l = LayerStub.new(File.expand_path('../assets/city_scene', File.dirname(__FILE__)), 'sky')
-    l.update Time.mktime(2006, 7, 4, 4, 00) # 04:00, July 4, 2006
+    l.update Time.mktime(2006, 7, 4, 4, 0) # 04:00, July 4, 2006
     assert_equal '0400.png', l.selected_filename
 
     # TODO Need number_sample folder
