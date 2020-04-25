@@ -6,6 +6,9 @@ require 'gruff/deprecated'
 if Magick.respond_to?(:limit_resource)
   memory_size = Magick.limit_resource(:memory)
   Magick.limit_resource(:memory, memory_size * 2)
+
+  disk_size = Magick.limit_resource(:disk)
+  Magick.limit_resource(:disk, disk_size * 2)
 end
 
 ##
