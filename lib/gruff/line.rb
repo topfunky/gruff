@@ -126,7 +126,7 @@ class Gruff::Line < Gruff::Base
   #   g.labels = {0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006'}
   #   The 0 => '2003' label will be ignored since it is outside the chart range.
   def dataxy(name, x_data_points = [], y_data_points = [], color = nil)
-    raise ArgumentError, 'x_data_points is nil!' if x_data_points.length == 0
+    raise ArgumentError, 'x_data_points is nil!' if x_data_points.empty?
 
     if x_data_points.all? { |p| p.is_a?(Array) && p.size == 2 }
       y_data_points = x_data_points.map { |p| p[1] }

@@ -777,7 +777,7 @@ module Gruff
           label_widths.shift
           current_x_offset = center(sum(label_widths.first)) unless label_widths.empty?
           line_height = [@legend_caps_height, legend_square_width].max + legend_margin
-          if label_widths.length > 0
+          unless label_widths.empty?
             # Wrap to next line and shrink available graph dimensions
             current_y_offset += line_height
             @graph_top += line_height
