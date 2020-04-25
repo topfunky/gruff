@@ -181,10 +181,8 @@ class Gruff::Scatter < Gruff::Base
       @maximum_x_value = @minimum_x_value = x_data_points.first
     end
 
-    @maximum_x_value = x_data_points.max > @maximum_x_value ?
-                        x_data_points.max : @maximum_x_value
-    @minimum_x_value = x_data_points.min < @minimum_x_value ?
-                        x_data_points.min : @minimum_x_value
+    @maximum_x_value = x_data_points.max > @maximum_x_value ? x_data_points.max : @maximum_x_value
+    @minimum_x_value = x_data_points.min < @minimum_x_value ? x_data_points.min : @minimum_x_value
   end
 
 protected

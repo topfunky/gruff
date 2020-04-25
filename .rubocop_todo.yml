@@ -349,13 +349,6 @@ Style/MissingRespondToMissing:
   Exclude:
     - 'lib/gruff/scene.rb'
 
-# Offense count: 11
-Style/MultilineTernaryOperator:
-  Exclude:
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/line.rb'
-    - 'lib/gruff/scatter.rb'
-
 # Offense count: 8
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

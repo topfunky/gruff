@@ -527,12 +527,9 @@ module Gruff
     # Calculates size of drawable area, general font dimensions, etc.
 
     def setup_graph_measurements
-      @marker_caps_height = @hide_line_markers ? 0 :
-          calculate_caps_height(@marker_font_size)
-      @title_caps_height = (@hide_title || @title.nil?) ? 0 :
-          calculate_caps_height(@title_font_size) * @title.lines.to_a.size
-      @legend_caps_height = @hide_legend ? 0 :
-          calculate_caps_height(@legend_font_size)
+      @marker_caps_height = @hide_line_markers ? 0 : calculate_caps_height(@marker_font_size)
+      @title_caps_height = (@hide_title || @title.nil?) ? 0 : calculate_caps_height(@title_font_size) * @title.lines.to_a.size
+      @legend_caps_height = @hide_legend ? 0 : calculate_caps_height(@legend_font_size)
 
       if @hide_line_markers
         @graph_left = @left_margin
@@ -548,9 +545,7 @@ module Gruff
         end
 
         # Shift graph if left line numbers are hidden
-        line_number_width = @hide_line_numbers && !@has_left_labels ?
-            0.0 :
-            (longest_left_label_width + LABEL_MARGIN * 2)
+        line_number_width = @hide_line_numbers && !@has_left_labels ? 0.0 : (longest_left_label_width + LABEL_MARGIN * 2)
 
         @graph_left = @left_margin +
             line_number_width +
@@ -559,13 +554,12 @@ module Gruff
         # Make space for half the width of the rightmost column label.
         # Might be greater than the number of columns if between-style bar markers are used.
         last_label = @labels.keys.sort.last.to_i
-        extra_room_for_long_label = (last_label >= (column_count - 1) && @center_labels_over_point) ?
-            calculate_width(@marker_font_size, @labels[last_label]) / 2.0 :
-            0
+        extra_room_for_long_label = begin
+          (last_label >= (column_count - 1) && @center_labels_over_point) ? calculate_width(@marker_font_size, @labels[last_label]) / 2.0 : 0
+        end
         @graph_right_margin = @right_margin + extra_room_for_long_label
 
-        @graph_bottom_margin = @bottom_margin +
-            @marker_caps_height + LABEL_MARGIN
+        @graph_bottom_margin = @bottom_margin + @marker_caps_height + LABEL_MARGIN
       end
 
       @graph_right = @raw_columns - @graph_right_margin
@@ -583,8 +577,7 @@ module Gruff
         end
       end
 
-      x_axis_label_height = @x_axis_label.nil? ? 0.0 :
-          @marker_caps_height + LABEL_MARGIN
+      x_axis_label_height = @x_axis_label.nil? ? 0.0 : @marker_caps_height + LABEL_MARGIN
       # FIXME: Consider chart types other than bar
       @graph_bottom = @raw_rows - @graph_bottom_margin - x_axis_label_height - @label_stagger_height
       @graph_height = @graph_bottom - @graph_top
@@ -742,9 +735,7 @@ module Gruff
         if @legend_at_bottom
           @graph_height + title_margin
         else
-          @hide_title ?
-            @top_margin + title_margin :
-              @top_margin + title_margin + @title_caps_height
+          @hide_title ? @top_margin + title_margin : @top_margin + title_margin + @title_caps_height
         end
       end
 
