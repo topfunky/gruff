@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'gruff/base'
 
 class Gruff::Area < Gruff::Base

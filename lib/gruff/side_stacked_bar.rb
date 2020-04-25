@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'gruff/side_bar'
 require 'gruff/stacked_mixin'
 

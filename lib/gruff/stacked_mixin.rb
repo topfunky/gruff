@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Gruff::Base::StackedMixin
   # Used by StackedBar and child classes.
   #

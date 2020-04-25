@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'gruff/version'
 
 # Extra full path added to fix loading errors on some installations.
