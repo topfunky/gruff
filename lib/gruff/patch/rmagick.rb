@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Magick
   class Draw
     # Additional method to scale annotation text since Draw.scale doesn't.

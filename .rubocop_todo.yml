@@ -15,12 +15,6 @@ Layout/ClassStructure:
     - 'lib/gruff/line.rb'
     - 'lib/gruff/spider.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Layout/EmptyLineAfterMagicComment:
-  Exclude:
-    - 'gruff.gemspec'
-
 # Offense count: 11
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.
@@ -229,13 +223,6 @@ Style/EvalWithLocation:
 Style/ExpandPathArguments:
   Exclude:
     - 'gruff.gemspec'
-
-# Offense count: 62
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: always, always_true, never
-Style/FrozenStringLiteralComment:
-  Enabled: false
 
 # Offense count: 8
 Style/IdenticalConditionalBranches:

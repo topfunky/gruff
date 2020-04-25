@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'gruff_test_case'
 
 class LayerStub < Gruff::Layer; attr_reader :base_dir, :filenames, :selected_filename; end

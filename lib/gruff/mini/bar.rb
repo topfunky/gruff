@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ##
 #
 # Makes a small bar graph suitable for display at 200px or even smaller.

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Gruff
   module Themes
     # A color scheme similar to the popular presentation software.

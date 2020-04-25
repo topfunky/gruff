@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'gruff_test_case'
 
 class TestMiniSideBar < GruffTestCase

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'gruff/base'
 
 # Here's how to set up an XY Scatter Chart
