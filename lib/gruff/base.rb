@@ -3,6 +3,11 @@ require 'bigdecimal'
 
 require 'gruff/deprecated'
 
+if Magick.respond_to?(:limit_resource)
+  memory_size = Magick.limit_resource(:memory)
+  Magick.limit_resource(:memory, memory_size * 2)
+end
+
 ##
 # = Gruff. Graphs.
 #
