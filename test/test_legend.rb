@@ -33,7 +33,7 @@ class TestGruffLegend < GruffTestCase
         g.title = "Wrapped Legend Bar Test #{font_size}pts #{width}px"
         g.labels = @sample_labels
         0xEFD250.step(0xFF0000, 60) do |num|
-          g.colors << '#%x' % num
+          g.colors << sprintf('#%x', num)
         end
 
         @datasets.each do |data|
