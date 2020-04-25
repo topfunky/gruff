@@ -1,6 +1,4 @@
-#!/usr/bin/ruby
-
-require File.dirname(__FILE__) + '/gruff_test_case'
+require_relative 'gruff_test_case'
 
 class TestGruffSideStackedBar < GruffTestCase
   def setup
@@ -31,7 +29,8 @@ class TestGruffSideStackedBar < GruffTestCase
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    g.write 'test/output/side_stacked_bar_keynote.png'
+    g.write('test/output/side_stacked_bar_keynote.png')
+    assert_same_image('test/expected/side_stacked_bar_keynote.png', 'test/output/side_stacked_bar_keynote.png')
   end
 
   def test_bar_graph_small
@@ -46,13 +45,15 @@ class TestGruffSideStackedBar < GruffTestCase
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    g.write 'test/output/side_stacked_bar_keynote_small.png'
+    g.write('test/output/side_stacked_bar_keynote_small.png')
+    assert_same_image('test/expected/side_stacked_bar_keynote_small.png', 'test/output/side_stacked_bar_keynote_small.png')
   end
 
   def test_wide
     g = setup_basic_graph('800x400')
     g.title = 'Wide SSBar'
-    g.write 'test/output/side_stacked_bar_wide.png'
+    g.write('test/output/side_stacked_bar_wide.png')
+    assert_same_image('test/expected/side_stacked_bar_wide.png', 'test/output/side_stacked_bar_wide.png')
   end
 
   def test_should_space_long_left_labels_appropriately
@@ -67,7 +68,8 @@ class TestGruffSideStackedBar < GruffTestCase
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    g.write 'test/output/side_stacked_bar_long_label.png'
+    g.write('test/output/side_stacked_bar_long_label.png')
+    assert_same_image('test/expected/side_stacked_bar_long_label.png', 'test/output/side_stacked_bar_long_label.png')
   end
 
   def test_bar_labels
@@ -83,7 +85,8 @@ class TestGruffSideStackedBar < GruffTestCase
       g.data(data[0], data[1])
     end
     g.show_labels_for_bar_values = true
-    g.write 'test/output/side_stacked_bar_labels.png'
+    g.write('test/output/side_stacked_bar_labels.png')
+    assert_same_image('test/expected/side_stacked_bar_labels.png', 'test/output/side_stacked_bar_labels.png')
   end
 
 protected

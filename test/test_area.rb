@@ -1,6 +1,4 @@
-#!/usr/bin/ruby
-
-require File.dirname(__FILE__) + '/gruff_test_case'
+require_relative 'gruff_test_case'
 
 class TestGruffArea < GruffTestCase
   def setup
@@ -40,6 +38,7 @@ class TestGruffArea < GruffTestCase
 
     # Default theme
     g.write('test/output/area_keynote.png')
+    assert_same_image('test/expected/area_keynote.png', 'test/output/area_keynote.png')
   end
 
   def test_resize
@@ -57,6 +56,7 @@ class TestGruffArea < GruffTestCase
 
     # Default theme
     g.write('test/output/area_keynote_small.png')
+    assert_same_image('test/expected/area_keynote_small.png', 'test/output/area_keynote_small.png')
   end
 
   def test_many_datapoints
@@ -72,6 +72,7 @@ class TestGruffArea < GruffTestCase
 
     # Default theme
     g.write('test/output/area_many.png')
+    assert_same_image('test/expected/area_many.png', 'test/output/area_many.png')
   end
 
   def test_many_areas_graph_small
@@ -91,6 +92,7 @@ class TestGruffArea < GruffTestCase
 
     # Default theme
     g.write('test/output/area_many_areas_small.png')
+    assert_same_image('test/expected/area_many_areas_small.png', 'test/output/area_many_areas_small.png')
   end
 
   def test_area_graph_tiny
@@ -110,6 +112,7 @@ class TestGruffArea < GruffTestCase
 
     # Default theme
     g.write('test/output/area_tiny.png')
+    assert_same_image('test/expected/area_tiny.png', 'test/output/area_tiny.png')
   end
 
   def test_wide

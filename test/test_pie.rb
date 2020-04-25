@@ -1,6 +1,4 @@
-#!/usr/bin/ruby
-
-require File.dirname(__FILE__) + '/gruff_test_case'
+require_relative 'gruff_test_case'
 
 class TestGruffPie < GruffTestCase
   def setup
@@ -24,6 +22,7 @@ class TestGruffPie < GruffTestCase
 
     # Default theme
     g.write('test/output/pie_keynote.png')
+    assert_same_image('test/expected/pie_keynote.png', 'test/output/pie_keynote.png')
   end
 
   def test_pie_graph_greyscale
@@ -36,6 +35,7 @@ class TestGruffPie < GruffTestCase
 
     # Default theme
     g.write('test/output/pie_grey.png')
+    assert_same_image('test/expected/pie_grey.png', 'test/output/pie_grey.png')
   end
 
   def test_pie_graph_pastel
@@ -48,6 +48,7 @@ class TestGruffPie < GruffTestCase
 
     # Default theme
     g.write('test/output/pie_pastel.png')
+    assert_same_image('test/expected/pie_pastel.png', 'test/output/pie_pastel.png')
   end
 
   def test_pie_graph_small
@@ -59,6 +60,7 @@ class TestGruffPie < GruffTestCase
 
     # Default theme
     g.write('test/output/pie_keynote_small.png')
+    assert_same_image('test/expected/pie_keynote_small.png', 'test/output/pie_keynote_small.png')
   end
 
   def test_pie_graph_nearly_equal
@@ -71,6 +73,7 @@ class TestGruffPie < GruffTestCase
 #    g.data(:Snuffleupagus, [43])
 
     g.write('test/output/pie_nearly_equal.png')
+    assert_same_image('test/expected/pie_nearly_equal.png', 'test/output/pie_nearly_equal.png')
   end
 
   def test_pie_graph_equal
@@ -81,6 +84,7 @@ class TestGruffPie < GruffTestCase
     g.data(:Adam, [41])
 
     g.write('test/output/pie_equal.png')
+    assert_same_image('test/expected/pie_equal.png', 'test/output/pie_equal.png')
   end
 
   def test_pie_graph_zero
@@ -91,6 +95,7 @@ class TestGruffPie < GruffTestCase
     g.data(:Adam, [1])
 
     g.write('test/output/pie_zero.png')
+    assert_same_image('test/expected/pie_zero.png', 'test/output/pie_zero.png')
   end
 
   def test_pie_graph_one_val
@@ -101,12 +106,14 @@ class TestGruffPie < GruffTestCase
     g.data(:Adam, 29)
 
     g.write('test/output/pie_one_val.png')
+    assert_same_image('test/expected/pie_one_val.png', 'test/output/pie_one_val.png')
   end
 
   def test_wide
     g = setup_basic_graph('800x400')
     g.title = 'Wide Pie'
     g.write('test/output/pie_wide.png')
+    assert_same_image('test/expected/pie_wide.png', 'test/output/pie_wide.png')
   end
 
   def test_label_size
@@ -114,11 +121,13 @@ class TestGruffPie < GruffTestCase
     g.title = 'Pie With Small Legend'
     g.legend_font_size = 10
     g.write('test/output/pie_legend.png')
+    assert_same_image('test/expected/pie_legend.png', 'test/output/pie_legend.png')
 
     g = setup_basic_graph(400)
     g.title = 'Small Pie With Small Legend'
     g.legend_font_size = 10
     g.write('test/output/pie_legend_small.png')
+    assert_same_image('test/expected/pie_legend_small.png', 'test/output/pie_legend_small.png')
   end
 
   def test_tiny_simple_pie
@@ -140,7 +149,8 @@ class TestGruffPie < GruffTestCase
     g = setup_basic_graph
     g.title = 'Adjusted Text Offset Percentage'
     g.text_offset_percentage = 0.03
-    g.write 'test/output/pie_adjusted_text_offset_percentage.png'
+    g.write('test/output/pie_adjusted_text_offset_percentage.png')
+    assert_same_image('test/expected/pie_adjusted_text_offset_percentage.png', 'test/output/pie_adjusted_text_offset_percentage.png')
   end
 
   def test_subclassed_pie_with_custom_labels
@@ -151,7 +161,8 @@ class TestGruffPie < GruffTestCase
         graph.data(data[0], data[1], label: data[2])
       end
 
-      graph.write 'test/output/pie_subclass_custom_labels.png'
+      graph.write('test/output/pie_subclass_custom_labels.png')
+      assert_same_image('test/expected/pie_subclass_custom_labels.png', 'test/output/pie_subclass_custom_labels.png')
     end
   end
 

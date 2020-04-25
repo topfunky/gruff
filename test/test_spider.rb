@@ -1,6 +1,4 @@
-#!/usr/bin/ruby
-
-require File.dirname(__FILE__) + '/gruff_test_case'
+require_relative 'gruff_test_case'
 
 class TestGruffSpider < GruffTestCase
   def setup
@@ -33,6 +31,7 @@ class TestGruffSpider < GruffTestCase
 
     # Default theme
     g.write('test/output/spider_keynote.png')
+    assert_same_image('test/expected/spider_keynote.png', 'test/output/spider_keynote.png')
   end
 
   def test_pie_graph_small
@@ -44,6 +43,7 @@ class TestGruffSpider < GruffTestCase
 
     # Default theme
     g.write('test/output/spider_small.png')
+    assert_same_image('test/expected/spider_small.png', 'test/output/spider_small.png')
   end
 
   def test_spider_graph_nearly_equal
@@ -56,6 +56,7 @@ class TestGruffSpider < GruffTestCase
 #    g.data(:Snuffleupagus, [43])
 
     g.write('test/output/spider_nearly_equal.png')
+    assert_same_image('test/expected/spider_nearly_equal.png', 'test/output/spider_nearly_equal.png')
   end
 
   def test_pie_graph_equal
@@ -67,6 +68,7 @@ class TestGruffSpider < GruffTestCase
     g.data(:Joe, [41])
 
     g.write('test/output/spider_equal.png')
+    assert_same_image('test/expected/spider_equal.png', 'test/output/spider_equal.png')
   end
 
   def test_pie_graph_zero
@@ -78,12 +80,14 @@ class TestGruffSpider < GruffTestCase
     g.data(:Sam,  [2])
 
     g.write('test/output/spider_zero.png')
+    assert_same_image('test/expected/spider_zero.png', 'test/output/spider_zero.png')
   end
 
   def test_wide
     g = setup_basic_graph('800x400')
     g.title = 'Wide spider'
     g.write('test/output/spider_wide.png')
+    assert_same_image('test/expected/spider_wide.png', 'test/output/spider_wide.png')
   end
 
   def test_label_size
@@ -91,11 +95,13 @@ class TestGruffSpider < GruffTestCase
     g.title = 'Spider With Small Legend'
     g.legend_font_size = 10
     g.write('test/output/spider_legend.png')
+    assert_same_image('test/expected/spider_legend.png', 'test/output/spider_legend.png')
 
     g = setup_basic_graph(400)
     g.title = 'Small spider With Small Legend'
     g.legend_font_size = 10
     g.write('test/output/spider_legend_small.png')
+    assert_same_image('test/expected/spider_legend_small.png', 'test/output/spider_legend_small.png')
   end
 
   def test_theme_37signals
@@ -109,6 +115,7 @@ class TestGruffSpider < GruffTestCase
 
     # Default theme
     g.write('test/output/spider_37signals.png')
+    assert_same_image('test/expected/spider_37signals.png', 'test/output/spider_37signals.png')
   end
 
   def test_no_axes
@@ -119,6 +126,7 @@ class TestGruffSpider < GruffTestCase
       g.data(data[0], data[1])
     end
     g.write('test/output/spider_no_axes.png')
+    assert_same_image('test/expected/spider_no_axes.png', 'test/output/spider_no_axes.png')
   end
 
   def test_no_print
@@ -129,6 +137,7 @@ class TestGruffSpider < GruffTestCase
       g.data(data[0], data[1])
     end
     g.write('test/output/spider_no_print.png')
+    assert_same_image('test/expected/spider_no_print.png', 'test/output/spider_no_print.png')
   end
 
   def test_transparency
@@ -141,6 +150,7 @@ class TestGruffSpider < GruffTestCase
       g.data(data[0], data[1])
     end
     g.write('test/output/spider_no_background.png')
+    assert_same_image('test/expected/spider_no_background.png', 'test/output/spider_no_background.png')
   end
 
   def test_overlay
@@ -150,6 +160,7 @@ class TestGruffSpider < GruffTestCase
       g.data(data[0], data[1])
     end
     g.write('test/output/spider_overlay_1.png')
+    assert_same_image('test/expected/spider_overlay_1.png', 'test/output/spider_overlay_1.png')
 
     g = Gruff::Spider.new(20)
     g.title = 'Transparent background'
@@ -169,6 +180,7 @@ class TestGruffSpider < GruffTestCase
     end
     g.marker_color = '#4F6EFF'
     g.write('test/output/spider_overlay_2.png')
+    assert_same_image('test/expected/spider_overlay_2.png', 'test/output/spider_overlay_2.png')
   end
 
   def test_lots_of_data
@@ -210,6 +222,7 @@ class TestGruffSpider < GruffTestCase
 
     g.title = 'Sample Data'
     g.write('test/output/spider_lots_of_data.png')
+    assert_same_image('test/expected/spider_lots_of_data.png', 'test/output/spider_lots_of_data.png')
   end
 
   def test_lots_of_data_with_large_names
@@ -251,6 +264,7 @@ class TestGruffSpider < GruffTestCase
 
     g.title = 'Zoo Inventory'
     g.write('test/output/spider_lots_of_data_normal_names.png')
+    assert_same_image('test/expected/spider_lots_of_data_normal_names.png', 'test/output/spider_lots_of_data_normal_names.png')
   end
 
   def test_rotation
@@ -262,6 +276,7 @@ class TestGruffSpider < GruffTestCase
 
     g.rotation = 45 # degrees
     g.write('test/output/spider_rotation.png')
+    assert_same_image('test/expected/spider_rotation.png', 'test/output/spider_rotation.png')
   end
 
 protected

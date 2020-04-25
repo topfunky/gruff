@@ -1,6 +1,4 @@
-#!/usr/bin/ruby
-
-require File.dirname(__FILE__) + '/gruff_test_case'
+require_relative 'gruff_test_case'
 
 class TestGruffNet < GruffTestCase
   def setup
@@ -38,6 +36,7 @@ class TestGruffNet < GruffTestCase
       g.data(data[0], data[1])
     end
     g.write('test/output/net_small.png')
+    assert_same_image('test/expected/net_small.png', 'test/output/net_small.png')
 
     g = Gruff::Net.new(400)
     g.title = 'Small Values Net Graph Test 400px'
@@ -45,6 +44,7 @@ class TestGruffNet < GruffTestCase
       g.data(data[0], data[1])
     end
     g.write('test/output/net_small_small.png')
+    assert_same_image('test/expected/net_small_small.png', 'test/output/net_small_small.png')
   end
 
   def test_net_starts_with_zero
@@ -59,6 +59,7 @@ class TestGruffNet < GruffTestCase
       g.data(data[0], data[1])
     end
     g.write('test/output/net_small_zero.png')
+    assert_same_image('test/expected/net_small_zero.png', 'test/output/net_small_zero.png')
 
     g = Gruff::Net.new(400)
     g.title = 'Small Values Net Graph Test 400px'
@@ -66,6 +67,7 @@ class TestGruffNet < GruffTestCase
       g.data(data[0], data[1])
     end
     g.write('test/output/net_small_small_zero.png')
+    assert_same_image('test/expected/net_small_small_zero.png', 'test/output/net_small_small_zero.png')
   end
 
   def test_net_large_values
@@ -83,6 +85,7 @@ class TestGruffNet < GruffTestCase
     end
 
     g.write('test/output/net_large.png')
+    assert_same_image('test/expected/net_large.png', 'test/output/net_large.png')
   end
 
   def test_many_datapoints
@@ -98,6 +101,7 @@ class TestGruffNet < GruffTestCase
 
     # Default theme
     g.write('test/output/net_many.png')
+    assert_same_image('test/expected/net_many.png', 'test/output/net_many.png')
   end
 
   def test_similar_high_end_values
@@ -107,6 +111,7 @@ class TestGruffNet < GruffTestCase
 
     # Default theme
     g.write('test/output/net_similar_high_end_values.png')
+    assert_same_image('test/expected/net_similar_high_end_values.png', 'test/output/net_similar_high_end_values.png')
   end
 
   def test_many_nets_graph_small
@@ -126,6 +131,7 @@ class TestGruffNet < GruffTestCase
 
     # Default theme
     g.write('test/output/net_many_nets_small.png')
+    assert_same_image('test/expected/net_many_nets_small.png', 'test/output/net_many_nets_small.png')
   end
 
   def test_dots_graph_tiny
@@ -145,6 +151,7 @@ class TestGruffNet < GruffTestCase
 
     # Default theme
     g.write('test/output/net_dots_tiny.png')
+    assert_same_image('test/expected/net_dots_tiny.png', 'test/output/net_dots_tiny.png')
   end
 
   def test_no_data
@@ -152,11 +159,13 @@ class TestGruffNet < GruffTestCase
     g.title = 'No Data'
     # Default theme
     g.write('test/output/net_no_data.png')
+    assert_same_image('test/expected/net_no_data.png', 'test/output/net_no_data.png')
 
     g = Gruff::Net.new(400)
     g.title = 'No Data Title'
     g.no_data_message = 'There is no data'
     g.write('test/output/net_no_data_msg.png')
+    assert_same_image('test/expected/net_no_data_msg.png', 'test/output/net_no_data_msg.png')
   end
 
   def test_all_zeros
@@ -167,6 +176,7 @@ class TestGruffNet < GruffTestCase
 
     # Default theme
     g.write('test/output/net_no_data_other.png')
+    assert_same_image('test/expected/net_no_data_other.png', 'test/output/net_no_data_other.png')
   end
 
   def test_no_title
@@ -177,6 +187,7 @@ class TestGruffNet < GruffTestCase
     end
 
     g.write('test/output/net_no_title.png')
+    assert_same_image('test/expected/net_no_title.png', 'test/output/net_no_title.png')
   end
 
   def test_no_net_markers
@@ -184,6 +195,7 @@ class TestGruffNet < GruffTestCase
     g.title = 'No Net Markers'
     g.hide_line_markers = true
     g.write('test/output/net_no_net_markers.png')
+    assert_same_image('test/expected/net_no_net_markers.png', 'test/output/net_no_net_markers.png')
   end
 
   def test_no_legend
@@ -191,6 +203,7 @@ class TestGruffNet < GruffTestCase
     g.title = 'No Legend'
     g.hide_legend = true
     g.write('test/output/net_no_legend.png')
+    assert_same_image('test/expected/net_no_legend.png', 'test/output/net_no_legend.png')
   end
 
   def test_nothing_but_the_graph
@@ -200,16 +213,19 @@ class TestGruffNet < GruffTestCase
     g.hide_legend = true
     g.hide_title = true
     g.write('test/output/net_nothing_but_the_graph.png')
+    assert_same_image('test/expected/net_nothing_but_the_graph.png', 'test/output/net_nothing_but_the_graph.png')
   end
 
   def test_wide_graph
     g = setup_basic_graph('800x400')
     g.title = 'Wide Graph'
     g.write('test/output/net_wide_graph.png')
+    assert_same_image('test/expected/net_wide_graph.png', 'test/output/net_wide_graph.png')
 
     g = setup_basic_graph('400x200')
     g.title = 'Wide Graph Small'
     g.write('test/output/net_wide_graph_small.png')
+    assert_same_image('test/expected/net_wide_graph_small.png', 'test/output/net_wide_graph_small.png')
   end
 
 protected

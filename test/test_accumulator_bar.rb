@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/gruff_test_case'
+require_relative 'gruff_test_case'
 
 class TestGruffAccumulatorBar < GruffTestCase
   # TODO Delete old output files once when starting tests
@@ -36,6 +36,7 @@ class TestGruffAccumulatorBar < GruffTestCase
     g.minimum_value = 0
 
     g.write('test/output/accum_bar.png')
+    assert_same_image('test/expected/accum_bar.png', 'test/output/accum_bar.png')
   end
 
   def test_too_many_args

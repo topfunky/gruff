@@ -1,6 +1,4 @@
-#!/usr/bin/ruby
-
-require File.dirname(__FILE__) + '/gruff_test_case'
+require_relative 'gruff_test_case'
 require 'date'
 
 class TestGruffScatter < Minitest::Test
@@ -17,6 +15,7 @@ class TestGruffScatter < Minitest::Test
     g = setup_basic_graph
     g.title = 'Basic Scatter Plot Test'
     g.write('test/output/scatter_basic.png')
+    assert_same_image('test/expected/scatter_basic.png', 'test/output/scatter_basic.png')
   end
 
   #~ # Done
@@ -30,6 +29,7 @@ class TestGruffScatter < Minitest::Test
 
     # Default theme
     g.write('test/output/scatter_many.png')
+    assert_same_image('test/expected/scatter_many.png', 'test/output/scatter_many.png')
   end
 
   def test_custom_label_format
@@ -68,6 +68,7 @@ class TestGruffScatter < Minitest::Test
     x_values = (0..100).map { |i| Date.today.strftime('%s').to_i + i * 3600 * 24 }
     g.data('many points', x_values, y_values)
     g.write('test/output/scatter_custom_label_format.png')
+    assert_same_image('test/expected/scatter_custom_label_format.png', 'test/output/scatter_custom_label_format.png')
   end
 
   # Done
@@ -76,11 +77,13 @@ class TestGruffScatter < Minitest::Test
     g.title = 'No Data'
     # Default theme
     g.write('test/output/scatter_no_data.png')
+    assert_same_image('test/expected/scatter_no_data.png', 'test/output/scatter_no_data.png')
 
     g = Gruff::Scatter.new(400)
     g.title = 'No Data Title'
     g.no_data_message = 'There is no data'
     g.write('test/output/scatter_no_data_msg.png')
+    assert_same_image('test/expected/scatter_no_data_msg.png', 'test/output/scatter_no_data_msg.png')
   end
 
   # Done
@@ -92,6 +95,7 @@ class TestGruffScatter < Minitest::Test
 
     # Default theme
     g.write('test/output/scatter_no_data_other.png')
+    assert_same_image('test/expected/scatter_no_data_other.png', 'test/output/scatter_no_data_other.png')
   end
 
   # Done
@@ -148,6 +152,7 @@ class TestGruffScatter < Minitest::Test
     g = Gruff::Scatter.new(400)
     g.data(:data1, [1, 2, 3, 4, 5], [1, 2, 3, 4, 5])
     g.write('test/output/scatter_no_title.png')
+    assert_same_image('test/expected/scatter_no_title.png', 'test/output/scatter_no_title.png')
   end
 
   # Done
@@ -156,6 +161,7 @@ class TestGruffScatter < Minitest::Test
     g.title = 'No Line Markers'
     g.hide_line_markers = true
     g.write('test/output/scatter_no_line_markers.png')
+    assert_same_image('test/expected/scatter_no_line_markers.png', 'test/output/scatter_no_line_markers.png')
   end
 
   # Done
@@ -164,6 +170,7 @@ class TestGruffScatter < Minitest::Test
     g.title = 'No Legend'
     g.hide_legend = true
     g.write('test/output/scatter_no_legend.png')
+    assert_same_image('test/expected/scatter_no_legend.png', 'test/output/scatter_no_legend.png')
   end
 
   # Done
@@ -174,6 +181,7 @@ class TestGruffScatter < Minitest::Test
     g.hide_legend = true
     g.hide_title = true
     g.write('test/output/scatter_nothing_but_the_graph.png')
+    assert_same_image('test/expected/scatter_nothing_but_the_graph.png', 'test/output/scatter_nothing_but_the_graph.png')
   end
 
   # TODO Implement baselines on x and y axis
@@ -189,30 +197,36 @@ class TestGruffScatter < Minitest::Test
     g = setup_basic_graph('800x400')
     g.title = 'Wide Graph'
     g.write('test/output/scatter_wide_graph.png')
+    assert_same_image('test/expected/scatter_wide_graph.png', 'test/output/scatter_wide_graph.png')
 
     g = setup_basic_graph('400x200')
     g.title = 'Wide Graph Small'
     g.write('test/output/scatter_wide_graph_small.png')
+    assert_same_image('test/expected/scatter_wide_graph_small.png', 'test/output/scatter_wide_graph_small.png')
   end
 
   # Done
   def test_negative
     g = setup_pos_neg(800)
     g.write('test/output/scatter_pos_neg.png')
+    assert_same_image('test/expected/scatter_pos_neg.png', 'test/output/scatter_pos_neg.png')
 
     g = setup_pos_neg(400)
     g.title = 'Pos/Neg Line Test Small'
     g.write('test/output/scatter_pos_neg_400.png')
+    assert_same_image('test/expected/scatter_pos_neg_400.png', 'test/output/scatter_pos_neg_400.png')
   end
 
   # Done
   def test_all_negative
     g = setup_all_neg(800)
     g.write('test/output/scatter_all_neg.png')
+    assert_same_image('test/expected/scatter_all_neg.png', 'test/output/scatter_all_neg.png')
 
     g = setup_all_neg(400)
     g.title = 'All Neg Line Test Small'
     g.write('test/output/scatter_all_neg_400.png')
+    assert_same_image('test/expected/scatter_all_neg_400.png', 'test/output/scatter_all_neg_400.png')
   end
 
   # Done
@@ -224,6 +238,7 @@ class TestGruffScatter < Minitest::Test
     end
     g.hide_line_markers = false
     g.write('test/output/scatter_no_hide.png')
+    assert_same_image('test/expected/scatter_no_hide.png', 'test/output/scatter_no_hide.png')
   end
 
   def test_no_set_labels
@@ -240,6 +255,7 @@ class TestGruffScatter < Minitest::Test
       g.data(data[0], data[1], data[2])
     end
     g.write('test/output/scatter_no_labels.png')
+    assert_same_image('test/expected/scatter_no_labels.png', 'test/output/scatter_no_labels.png')
   end
 
 protected

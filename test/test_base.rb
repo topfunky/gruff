@@ -1,6 +1,4 @@
-#!/usr/bin/ruby
-
-require File.dirname(__FILE__) + '/gruff_test_case'
+require_relative 'gruff_test_case'
 
 class TestGruffBase < GruffTestCase
   def setup
@@ -28,6 +26,7 @@ class TestGruffBase < GruffTestCase
     g.minimum_value = 0
 
     g.write('test/output/bar_object_labels.png')
+    assert_same_image('test/expected/bar_object_labels.png', 'test/output/bar_object_labels.png')
   end
 
   def test_data_given

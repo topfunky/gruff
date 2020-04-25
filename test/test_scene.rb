@@ -1,7 +1,4 @@
-#!/usr/bin/ruby
-
-require File.dirname(__FILE__) + '/gruff_test_case'
-require 'yaml'
+require_relative 'gruff_test_case'
 
 class LayerStub < Gruff::Layer; attr_reader :base_dir, :filenames, :selected_filename; end
 
@@ -11,14 +8,16 @@ class TestGruffScene < GruffTestCase
     g.weather = 'cloudy'
     g.haze = true
     g.time = Time.mktime(2006, 7, 4, 4, 35)
-    g.write 'test/output/scene_hazy_night.png'
+    g.write('test/output/scene_hazy_night.png')
+    assert_same_image('test/expected/scene_hazy_night.png', 'test/output/scene_hazy_night.png')
   end
 
   def test_stormy_night
     g = setup_scene
     g.weather = 'stormy'
     g.time = Time.mktime(2006, 7, 4, 0, 0)
-    g.write 'test/output/scene_stormy_night.png'
+    g.write('test/output/scene_stormy_night.png')
+    assert_same_image('test/expected/scene_stormy_night.png', 'test/output/scene_stormy_night.png')
   end
 
   def test_not_hazy
@@ -26,7 +25,8 @@ class TestGruffScene < GruffTestCase
     g.weather = 'cloudy'
     g.haze = false
     g.time = Time.mktime(2006, 7, 4, 6, 00)
-    g.write 'test/output/scene_not_hazy_day.png'
+    g.write('test/output/scene_not_hazy_day.png')
+    assert_same_image('test/expected/scene_not_hazy_day.png', 'test/output/scene_not_hazy_day.png')
   end
 
   def test_partly_cloudy
@@ -34,7 +34,8 @@ class TestGruffScene < GruffTestCase
     g.weather = 'partly cloudy'
     g.haze = false
     g.time = Time.mktime(2006, 7, 4, 13, 00)
-    g.write 'test/output/scene_partly_cloudy_day.png'
+    g.write('test/output/scene_partly_cloudy_day.png')
+    assert_same_image('test/expected/scene_partly_cloudy_day.png', 'test/output/scene_partly_cloudy_day.png')
   end
 
   def test_stormy_day
@@ -42,7 +43,8 @@ class TestGruffScene < GruffTestCase
     g.weather = 'stormy'
     g.haze = false
     g.time = Time.mktime(2006, 7, 4, 8, 00)
-    g.write 'test/output/scene_stormy_day.png'
+    g.write('test/output/scene_stormy_day.png')
+    assert_same_image('test/expected/scene_stormy_day.png', 'test/output/scene_stormy_day.png')
   end
 
   def test_layer
