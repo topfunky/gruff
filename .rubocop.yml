@@ -33,6 +33,9 @@ Layout/MultilineAssignmentLayout:
 Lint/NumberConversion:
   Enabled: false
 
+Style/ConditionalAssignment:
+  Enabled: false
+
 Style/Copyright:
   Enabled: false
 
@@ -42,8 +45,17 @@ Style/Encoding:
 Style/FormatString:
   EnforcedStyle: sprintf
 
+Style/FormatStringToken:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
 Style/HashSyntax:
   EnforcedStyle: ruby19_no_mixed_keys
+
+Style/IfUnlessModifier:
+  Enabled: false
 
 Style/InlineComment:
   Enabled: false
@@ -52,4 +64,7 @@ Style/Next:
   Enabled: false
 
 Style/StructInheritance:
+  Enabled: false
+
+Style/TernaryParentheses:
   Enabled: false

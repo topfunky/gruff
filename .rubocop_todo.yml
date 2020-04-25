@@ -216,15 +216,6 @@ Style/CommentedKeyword:
     - 'lib/gruff/side_bar.rb'
     - 'test/test_scatter.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
-# SupportedStyles: assign_to_condition, assign_inside_condition
-Style/ConditionalAssignment:
-  Exclude:
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/bezier.rb'
-
 # Offense count: 14
 Style/ConstantVisibility:
   Exclude:
@@ -259,31 +250,12 @@ Style/ExpandPathArguments:
   Exclude:
     - 'gruff.gemspec'
 
-# Offense count: 8
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: annotated, template, unannotated
-Style/FormatStringToken:
-  Exclude:
-    - 'lib/gruff/base.rb'
-    - 'test/test_legend.rb'
-
 # Offense count: 62
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: always, always_true, never
 Style/FrozenStringLiteralComment:
   Enabled: false
-
-# Offense count: 10
-# Configuration parameters: MinBodyLength.
-Style/GuardClause:
-  Exclude:
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/dot.rb'
-    - 'lib/gruff/line.rb'
-    - 'lib/gruff/pie.rb'
-    - 'lib/gruff/scatter.rb'
-    - 'lib/gruff/side_bar.rb'
 
 # Offense count: 8
 Style/IdenticalConditionalBranches:
@@ -296,15 +268,6 @@ Style/IdenticalConditionalBranches:
 Style/IfInsideElse:
   Exclude:
     - 'lib/gruff/bar.rb'
-    - 'lib/gruff/scene.rb'
-
-# Offense count: 9
-# Cop supports --auto-correct.
-Style/IfUnlessModifier:
-  Exclude:
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/line.rb'
-    - 'lib/gruff/scatter.rb'
     - 'lib/gruff/scene.rb'
 
 # Offense count: 229
@@ -442,17 +405,6 @@ Style/SpecialGlobalVars:
 # SupportedStyles: percent, brackets
 Style/SymbolArray:
   EnforcedStyle: brackets
-
-# Offense count: 11
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, AllowSafeAssignment.
-# SupportedStyles: require_parentheses, require_no_parentheses, require_parentheses_when_complex
-Style/TernaryParentheses:
-  Exclude:
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/dot.rb'
-    - 'lib/gruff/line.rb'
-    - 'lib/gruff/scatter.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
