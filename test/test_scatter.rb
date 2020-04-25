@@ -1,5 +1,4 @@
 require_relative 'gruff_test_case'
-require 'date'
 
 class TestGruffScatter < Minitest::Test
   def setup
@@ -57,7 +56,7 @@ class TestGruffScatter < Minitest::Test
     g.enable_vertical_line_markers = true
     g.marker_x_count = 50 # One label every 2 days
     g.x_axis_label_format = lambda do |value|
-      DateTime.strptime(value.to_i.to_s, '%s').strftime('%d.%m.%Y')
+      Time.at(value).strftime('%d.%m.%Y')
     end
     g.y_axis_increment = 1
 
