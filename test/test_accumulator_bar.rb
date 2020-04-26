@@ -17,8 +17,6 @@ class TestGruffAccumulatorBar < GruffTestCase
     g.title = 'Your Savings'
     g.hide_legend = true
 
-    # g.font = File.expand_path(File.dirname(__FILE__) + "/../assets/fonts/ATMA____.TTF")
-
     g.marker_font_size = 18
 
     g.theme = {
@@ -26,7 +24,6 @@ class TestGruffAccumulatorBar < GruffTestCase
       marker_color: '#dddddd',
       font_color: 'black',
       background_colors: 'white'
-      # :background_image => File.expand_path(File.dirname(__FILE__) + "/../assets/backgrounds/43things.png")
     }
 
     # Attempt at negative numbers

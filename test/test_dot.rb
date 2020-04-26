@@ -214,7 +214,7 @@ class TestGruffDot < GruffTestCase
       colors: %w[#efd250 #666699 #e5573f #9595e2],
       marker_color: 'white',
       font_color: 'blue',
-      background_image: 'assets/pc306715.jpg'
+      background_image: File.join(fixtures_dir, 'pc306715.jpg')
     }
     g.labels = {
       0 => '5/6',
