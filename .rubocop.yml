@@ -66,6 +66,12 @@ Style/IfUnlessModifier:
 Style/InlineComment:
   Enabled: false
 
+Style/MissingElse:
+  Enabled: false
+
+Style/MutableConstant:
+  Enabled: false
+
 Style/Next:
   Enabled: false
 

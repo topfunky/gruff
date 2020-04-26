@@ -237,41 +237,10 @@ Style/IdenticalConditionalBranches:
 Style/MethodCallWithArgsParentheses:
   Enabled: false
 
-# Offense count: 48
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: if, case, both
-Style/MissingElse:
-  Exclude:
-    - 'lib/gruff/bar.rb'
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/bezier.rb'
-    - 'lib/gruff/bullet.rb'
-    - 'lib/gruff/dot.rb'
-    - 'lib/gruff/line.rb'
-    - 'lib/gruff/net.rb'
-    - 'lib/gruff/patch/rmagick.rb'
-    - 'lib/gruff/pie.rb'
-    - 'lib/gruff/scatter.rb'
-    - 'lib/gruff/scene.rb'
-    - 'lib/gruff/side_bar.rb'
-    - 'lib/gruff/side_stacked_bar.rb'
-    - 'test/gruff_test_case.rb'
-    - 'test/support/appearance_assertion.rb'
-
 # Offense count: 1
 Style/MissingRespondToMissing:
   Exclude:
     - 'lib/gruff/scene.rb'
-
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: literals, strict
-Style/MutableConstant:
-  Exclude:
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/themes.rb'
-    - 'lib/gruff/version.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
