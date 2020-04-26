@@ -80,11 +80,10 @@ class TestGruffScene < GruffTestCase
     l.update Time.mktime(2006, 7, 4, 4, 0) # 04:00, July 4, 2006
     assert_equal '0400.png', l.selected_filename
 
-    # TODO Need number_sample folder
-    # l = LayerStub.new(File.join(fixtures_dir, 'city_scene'), "number_sample")
-    # assert_equal %w(1.png 2.png default.png), l.filenames
-    # l.update 3
-    # assert_equal 'default.png', l.selected_filename
+    l = LayerStub.new(File.join(fixtures_dir, 'city_scene'), 'number_sample')
+    assert_equal %w[1.png 2.png default.png], l.filenames
+    l.update 3
+    assert_equal 'default.png', l.selected_filename
   end
 
 private
