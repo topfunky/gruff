@@ -230,13 +230,6 @@ Style/IdenticalConditionalBranches:
     - 'lib/gruff/bar_conversion.rb'
     - 'lib/gruff/stacked_area.rb'
 
-# Offense count: 2
-# Configuration parameters: AllowIfModifier.
-Style/IfInsideElse:
-  Exclude:
-    - 'lib/gruff/bar.rb'
-    - 'lib/gruff/scene.rb'
-
 # Offense count: 229
 # Cop supports --auto-correct.
 # Configuration parameters: IgnoreMacros, IgnoredMethods, IgnoredPatterns, IncludedMacros, AllowParenthesesInMultilineCall, AllowParenthesesInChaining, AllowParenthesesInCamelCaseMethod, EnforcedStyle.

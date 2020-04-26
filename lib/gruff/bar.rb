@@ -57,17 +57,15 @@ protected
     if @minimum_value >= 0
       # all bars go from zero to positive
       conversion.mode = 1
-    else
+    elsif @maximum_value <= 0
       # all bars go from 0 to negative
-      if @maximum_value <= 0
-        conversion.mode = 2
-      else
-        # bars either go from zero to negative or to positive
-        conversion.mode = 3
-        conversion.spread = @spread
-        conversion.minimum_value = @minimum_value
-        conversion.zero = -@minimum_value / @spread
-      end
+      conversion.mode = 2
+    else
+      # bars either go from zero to negative or to positive
+      conversion.mode = 3
+      conversion.spread = @spread
+      conversion.minimum_value = @minimum_value
+      conversion.zero = -@minimum_value / @spread
     end
 
     # iterate over all normalised data
