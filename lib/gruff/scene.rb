@@ -78,10 +78,10 @@ class Gruff::Scene < Gruff::Base
   def method_missing(method_name, *args)
     case method_name.to_s
     when /^(\w+)_group=$/
-      add_group $1, *args
+      add_group Regexp.last_match(1), *args
       return
     when /^(\w+)=$/
-      set_input $1, args.first
+      set_input Regexp.last_match(1), args.first
       return
     end
     super
@@ -144,7 +144,7 @@ class Gruff::Layer
                           when /^-?(\d+\.)?\d+$/
                             select_numeric value
                           when /(\d\d):(\d\d):\d\d/
-                            select_time "#{$1}#{$2}"
+                            select_time "#{Regexp.last_match(1)}#{Regexp.last_match(2)}"
                           else
                             select_default
                           end

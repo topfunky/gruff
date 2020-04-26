@@ -275,12 +275,6 @@ Style/NumericPredicate:
     - 'lib/gruff/side_bar.rb'
     - 'lib/gruff/stacked_bar.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-Style/PerlBackrefs:
-  Exclude:
-    - 'lib/gruff/scene.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/RedundantSort:
