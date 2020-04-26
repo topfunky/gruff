@@ -929,7 +929,21 @@ module Gruff
       else
         gradient_fill = GradientFill.new(0, 0, 100, 0, top_color, bottom_color)
       end
-      Image.new(@columns, @rows, gradient_fill)
+
+      image = Image.new(@columns, @rows, gradient_fill)
+      @render_gradated_background_retry_count = 0
+
+      image
+    rescue StandardError => e
+      @render_gradated_background_retry_count ||= 0
+      GC.start
+
+      if @render_gradated_background_retry_count < 1
+        @render_gradated_background_retry_count += 1
+        render_gradated_background(top_color, bottom_color, direct)
+      else
+        raise e
+      end
     end
 
     # Use with a theme to use an image (800x600 original) background.
