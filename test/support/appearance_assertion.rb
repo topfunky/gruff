@@ -18,7 +18,19 @@ module MiniTest
       end
 
       _, error = expected_image.compare_channel(output_image, Magick::PeakAbsoluteErrorMetric)
+      @assert_same_image_retry_count = 0
+
       assert_in_delta(0.0, error, delta)
+    rescue StandardError => e
+      @assert_same_image_retry_count ||= 0
+      GC.start
+
+      if @assert_same_image_retry_count < 1
+        @assert_same_image_retry_count += 1
+        assert_same_image(expected_image_path, output_image, delta)
+      else
+        raise e
+      end
     end
   end
 end
