@@ -144,7 +144,8 @@ class TestGruffPie < GruffTestCase
     g.marker_font_size = 40.0
     g.minimum_value = 0.0
 
-    write_test_file g, 'pie_simple.png'
+    write_test_file(g, 'pie_simple.png')
+    assert_same_image('test/expected/pie_simple.png', 'test/output/pie_simple.png')
   end
 
   def test_pie_with_adjusted_text_offset_percentage

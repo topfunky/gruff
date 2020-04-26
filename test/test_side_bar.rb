@@ -5,7 +5,8 @@ require_relative 'gruff_test_case'
 class TestGruffSideBar < GruffTestCase
   def test_bar_graph
     g = setup_basic_graph(Gruff::SideBar, 800)
-    write_test_file g, 'side_bar.png'
+    write_test_file(g, 'side_bar.png')
+    assert_same_image('test/expected/side_bar.png', 'test/output/side_bar.png')
   end
 
   def test_bar_spacing

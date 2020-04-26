@@ -16,7 +16,8 @@ class TestMiniSideBar < GruffTestCase
     }
 
     g = setup_basic_graph(Gruff::Mini::SideBar, 200)
-    write_test_file g, 'mini_side_bar.png'
+    write_test_file(g, 'mini_side_bar.png')
+    assert_same_image('test/expected/mini_side_bar.png', 'test/output/mini_side_bar.png')
   end
 
   def test_multi_color
@@ -31,6 +32,7 @@ class TestMiniSideBar < GruffTestCase
     #   }
 
     g = setup_basic_graph(Gruff::Mini::SideBar, 200)
-    write_test_file g, 'mini_side_bar_multi_color.png'
+    write_test_file(g, 'mini_side_bar_multi_color.png')
+    assert_same_image('test/expected/mini_side_bar_multi_color.png', 'test/output/mini_side_bar_multi_color.png')
   end
 end

@@ -324,6 +324,7 @@ class TestGruffBar < GruffTestCase
     end
     g.minimum_value = 0
     write_test_file(g, 'bar_background_gradient_top_bottom.png')
+    assert_same_image('test/expected/bar_background_gradient_top_bottom.png', 'test/output/bar_background_gradient_top_bottom.png')
   end
 
   def test_background_gradient_bottom_top
@@ -339,6 +340,7 @@ class TestGruffBar < GruffTestCase
     end
     g.minimum_value = 0
     write_test_file(g, 'bar_background_gradient_bottom_top.png')
+    assert_same_image('test/expected/bar_background_gradient_bottom_top.png', 'test/output/bar_background_gradient_bottom_top.png')
   end
 
   def test_background_gradient_left_right
@@ -354,6 +356,7 @@ class TestGruffBar < GruffTestCase
     end
     g.minimum_value = 0
     write_test_file(g, 'bar_background_gradient_left_right.png')
+    assert_same_image('test/expected/bar_background_gradient_left_right.png', 'test/output/bar_background_gradient_left_right.png')
   end
 
   def test_background_gradient_right_left
@@ -369,6 +372,7 @@ class TestGruffBar < GruffTestCase
     end
     g.minimum_value = 0
     write_test_file(g, 'bar_background_gradient_right_left.png')
+    assert_same_image('test/expected/bar_background_gradient_right_left.png', 'test/output/bar_background_gradient_right_left.png')
   end
 
   def test_background_gradient_topleft_bottomright
@@ -384,6 +388,7 @@ class TestGruffBar < GruffTestCase
     end
     g.minimum_value = 0
     write_test_file(g, 'bar_background_gradient_topleft_bottomright.png')
+    assert_same_image('test/expected/bar_background_gradient_topleft_bottomright.png', 'test/output/bar_background_gradient_topleft_bottomright.png')
   end
 
   def test_background_gradient_topright_bottomleft
@@ -400,6 +405,7 @@ class TestGruffBar < GruffTestCase
     end
     g.minimum_value = 0
     write_test_file(g, 'bar_background_gradient_topright_bottomleft.png')
+    assert_same_image('test/expected/bar_background_gradient_topright_bottomleft.png', 'test/output/bar_background_gradient_topright_bottomleft.png')
   end
 
   def test_legend_should_not_overlap
@@ -424,7 +430,8 @@ class TestGruffBar < GruffTestCase
     g.y_axis_increment = 1.0
     g.x_axis_label = 'Score (%)'
     g.y_axis_label = 'Students'
-    write_test_file g, 'enhancements.png'
+    write_test_file(g, 'enhancements.png')
+    assert_same_image('test/expected/enhancements.png', 'test/output/enhancements.png')
   end
 
   def test_bar_spacing
