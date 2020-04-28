@@ -66,6 +66,9 @@ Style/IfUnlessModifier:
 Style/InlineComment:
   Enabled: false
 
+Style/MethodCallWithArgsParentheses:
+  Enabled: false
+
 Style/MissingElse:
   Enabled: false
 
