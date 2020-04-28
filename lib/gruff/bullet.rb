@@ -47,7 +47,7 @@ class Gruff::Bullet < Gruff::Base
   # end
 
   def draw
-    # TODO Left label
+    # TODO: Left label
     # TODO Bottom labels and markers
     # @graph_bottom
     # Calculations are off 800x???

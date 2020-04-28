@@ -186,7 +186,7 @@ class TestGruffScatter < Minitest::Test
     assert_same_image('test/expected/scatter_nothing_but_the_graph.png', 'test/output/scatter_nothing_but_the_graph.png')
   end
 
-  # TODO Implement baselines on x and y axis
+  # TODO: Implement baselines on x and y axis
   #~ def test_baseline_larger_than_data
   #~ g = setup_basic_graph(400)
   #~ g.title = "Baseline Larger Than Data"

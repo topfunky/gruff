@@ -75,7 +75,7 @@ protected
         end
         @marker_count ||= 5
       end
-      # TODO Round maximum marker value to a round number like 100, 0.1, 0.5, etc.
+      # TODO: Round maximum marker value to a round number like 100, 0.1, 0.5, etc.
       @increment = (@spread > 0 && @marker_count > 0) ? significant(@spread / @marker_count) : 1
 
       number_of_lines = @marker_count
@@ -93,7 +93,7 @@ protected
         @d.stroke = 'transparent'
         @d.pointsize = scale_fontsize(@marker_font_size)
         @d.gravity = CenterGravity
-        # TODO Center text over line
+        # TODO: Center text over line
         @d = @d.annotate_scaled(@base_image,
                                 0, 0, # Width of box to draw text in
                                 x, @graph_bottom + (LABEL_MARGIN * 2.0), # Coordinates of text
