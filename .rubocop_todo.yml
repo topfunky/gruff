@@ -210,13 +210,6 @@ Style/IdenticalConditionalBranches:
     - 'lib/gruff/bar_conversion.rb'
     - 'lib/gruff/stacked_area.rb'
 
-# Offense count: 224
-# Cop supports --auto-correct.
-# Configuration parameters: IgnoreMacros, IgnoredMethods, IgnoredPatterns, IncludedMacros, AllowParenthesesInMultilineCall, AllowParenthesesInChaining, AllowParenthesesInCamelCaseMethod, EnforcedStyle.
-# SupportedStyles: require_parentheses, omit_parentheses
-Style/MethodCallWithArgsParentheses:
-  Enabled: false
-
 # Offense count: 1
 Style/MissingRespondToMissing:
   Exclude:
