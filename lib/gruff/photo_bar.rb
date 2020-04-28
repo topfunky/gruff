@@ -28,7 +28,7 @@ class Gruff::PhotoBar < Gruff::Base
     super
     return unless data_given?
 
-    return # TODO Remove for further development
+    return # TODO: Remove for further development
 
     init_photo_bar_graphics
 

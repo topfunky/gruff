@@ -668,7 +668,7 @@ class TestGruffLine < GruffTestCase
 
 private
 
-  # TODO Reset data after each theme
+  # TODO: Reset data after each theme
   def line_graph_with_themes(size = nil)
     g = Gruff::Line.new(size)
     g.title = "Multi-Line Graph Test #{size}"

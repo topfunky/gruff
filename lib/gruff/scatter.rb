@@ -79,7 +79,7 @@ class Gruff::Scatter < Gruff::Base
   end
 
   def setup_drawing
-    # TODO Need to get x-axis labels working. Current behavior will be to not allow.
+    # TODO: Need to get x-axis labels working. Current behavior will be to not allow.
     @labels = {}
 
     super
@@ -222,7 +222,7 @@ protected
     @d = @d.stroke_antialias false
 
     if @x_axis_increment.nil?
-      # TODO Do the same for larger numbers...100, 75, 50, 25
+      # TODO: Do the same for larger numbers...100, 75, 50, 25
       if @marker_x_count.nil?
         (3..7).each do |lines|
           if @x_spread % lines == 0.0
@@ -237,7 +237,7 @@ protected
         @x_increment = significant(@x_increment)
       end
     else
-      # TODO Make this work for negative values
+      # TODO: Make this work for negative values
       @maximum_x_value = [@maximum_value.ceil, @x_axis_increment].max
       @minimum_x_value = @minimum_x_value.floor
       calculate_spread
@@ -250,7 +250,7 @@ protected
 
     # Draw vertical line markers and annotate with numbers
     (0..@marker_x_count).each do |index|
-      # TODO Fix the vertical lines, and enable them by default. Not pretty when they don't match up with top y-axis line
+      # TODO: Fix the vertical lines, and enable them by default. Not pretty when they don't match up with top y-axis line
       if @enable_vertical_line_markers
         x = @graph_left + @graph_width - index.to_f * @increment_x_scaled
         @d = @d.stroke(@marker_color)

@@ -411,7 +411,7 @@ module Gruff
         @minimum_value = data_point if @minimum_value.nil?
         @maximum_value = data_point if @maximum_value.nil?
 
-        # TODO Doesn't work with stacked bar graphs
+        # TODO: Doesn't work with stacked bar graphs
         # Original: @maximum_value = larger_than_max?(data_point, index) ? max(data_point, index) : @maximum_value
         @maximum_value = larger_than_max?(data_point) ? data_point : @maximum_value
         @minimum_value = less_than_min?(data_point) ? data_point : @minimum_value
@@ -593,7 +593,7 @@ module Gruff
         # height to 1.0 and the width to the width of the graph.
         x_axis_label_y_coordinate = @graph_bottom + LABEL_MARGIN * 2 + @marker_caps_height
 
-        # TODO Center between graph area
+        # TODO: Center between graph area
         @d.fill = @font_color
         @d.font = @font if @font
         @d.stroke('transparent')
@@ -942,7 +942,7 @@ module Gruff
     def render_image_background(image_path)
       image = Image.read(image_path)
       if @scale != 1.0
-        image[0].resize!(@scale) # TODO Resize with new scale (crop if necessary for wide graph)
+        image[0].resize!(@scale) # TODO: Resize with new scale (crop if necessary for wide graph)
       end
       image[0]
     end
@@ -1150,7 +1150,7 @@ module Gruff
         end
         @increment = (@spread > 0 && @marker_count > 0) ? significant(@spread / @marker_count) : 1
       else
-        # TODO Make this work for negative values
+        # TODO: Make this work for negative values
         @marker_count = (@spread / @y_axis_increment).to_i
         @increment = @y_axis_increment
       end

@@ -3,7 +3,7 @@
 require_relative 'gruff_test_case'
 
 class TestGruffAccumulatorBar < GruffTestCase
-  # TODO Delete old output files once when starting tests
+  # TODO: Delete old output files once when starting tests
 
   def setup
     super

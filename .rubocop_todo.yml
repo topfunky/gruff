@@ -174,25 +174,6 @@ Style/CaseEquality:
 Style/ClassAndModuleChildren:
   Enabled: false
 
-# Offense count: 20
-# Cop supports --auto-correct.
-# Configuration parameters: Keywords.
-# Keywords: TODO, FIXME, OPTIMIZE, HACK, REVIEW
-Style/CommentAnnotation:
-  Exclude:
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/bullet.rb'
-    - 'lib/gruff/deprecated.rb'
-    - 'lib/gruff/dot.rb'
-    - 'lib/gruff/photo_bar.rb'
-    - 'lib/gruff/scatter.rb'
-    - 'lib/gruff/side_bar.rb'
-    - 'test/test_accumulator_bar.rb'
-    - 'test/test_bar.rb'
-    - 'test/test_dot.rb'
-    - 'test/test_line.rb'
-    - 'test/test_scatter.rb'
-
 # Offense count: 8
 Style/CommentedKeyword:
   Exclude:

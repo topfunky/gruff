@@ -30,7 +30,7 @@ module Gruff
       @graph_width * @scale
     end
 
-    # TODO Should be calculate_graph_height
+    # TODO: Should be calculate_graph_height
     # def setup_graph_height
     #   @graph_height = @graph_bottom - @graph_top
     # end
