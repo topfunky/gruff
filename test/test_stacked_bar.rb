@@ -28,7 +28,8 @@ class TestGruffStackedBar < GruffTestCase
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    g.write 'test/output/stacked_bar_keynote.png'
+    g.write('test/output/stacked_bar_keynote.png')
+    assert_same_image('test/expected/stacked_bar_keynote.png', 'test/output/stacked_bar_keynote.png')
   end
 
   def test_bar_graph_small
@@ -43,7 +44,8 @@ class TestGruffStackedBar < GruffTestCase
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    g.write 'test/output/stacked_bar_keynote_small.png'
+    g.write('test/output/stacked_bar_keynote_small.png')
+    assert_same_image('test/expected/stacked_bar_keynote_small.png', 'test/output/stacked_bar_keynote_small.png')
   end
 
   def test_bar_graph_segment_spacing
@@ -59,6 +61,7 @@ class TestGruffStackedBar < GruffTestCase
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    g.write 'test/output/stacked_bar_keynote_no_space.png'
+    g.write('test/output/stacked_bar_keynote_no_space.png')
+    assert_same_image('test/expected/stacked_bar_keynote_no_space.png', 'test/output/stacked_bar_keynote_no_space.png')
   end
 end

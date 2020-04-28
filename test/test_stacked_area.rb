@@ -28,7 +28,8 @@ class TestGruffStackedArea < GruffTestCase
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    g.write 'test/output/stacked_area_keynote.png'
+    g.write('test/output/stacked_area_keynote.png')
+    assert_same_image('test/expected/stacked_area_keynote.png', 'test/output/stacked_area_keynote.png')
   end
 
   def test_area_graph_small
@@ -43,6 +44,7 @@ class TestGruffStackedArea < GruffTestCase
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
-    g.write 'test/output/stacked_area_keynote_small.png'
+    g.write('test/output/stacked_area_keynote_small.png')
+    assert_same_image('test/expected/stacked_area_keynote_small.png', 'test/output/stacked_area_keynote_small.png')
   end
 end
