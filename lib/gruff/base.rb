@@ -555,7 +555,7 @@ module Gruff
 
         # Make space for half the width of the rightmost column label.
         # Might be greater than the number of columns if between-style bar markers are used.
-        last_label = @labels.keys.sort.last.to_i
+        last_label = @labels.keys.max.to_i
         extra_room_for_long_label = begin
           (last_label >= (column_count - 1) && @center_labels_over_point) ? calculate_width(@marker_font_size, @labels[last_label]) / 2.0 : 0
         end

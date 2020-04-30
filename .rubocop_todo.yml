@@ -248,12 +248,6 @@ Style/NumericPredicate:
     - 'lib/gruff/stacked_bar.rb'
 
 # Offense count: 1
-# Cop supports --auto-correct.
-Style/RedundantSort:
-  Exclude:
-    - 'lib/gruff/base.rb'
-
-# Offense count: 1
 Style/Send:
   Exclude:
     - 'lib/gruff/stacked_area.rb'
