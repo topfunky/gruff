@@ -17,9 +17,9 @@ module Gruff
       def expand_canvas_for_vertical_legend
         return if @hide_mini_legend
 
-        @legend_labels = @data.map(&:label)
+        @legend_labels = store.data.map(&:label)
 
-        legend_height = scale_fontsize(@data.length * calculate_line_height + @top_margin + @bottom_margin)
+        legend_height = scale_fontsize(store.length * calculate_line_height + @top_margin + @bottom_margin)
 
         @original_rows = @raw_rows
         @original_columns = @raw_columns
@@ -29,7 +29,7 @@ module Gruff
           @rows = [@rows, legend_height].max
           @columns += calculate_legend_width + @left_margin
         else
-          @rows += @data.length * calculate_caps_height(scale_fontsize(@legend_font_size)) * 1.7
+          @rows += store.length * calculate_caps_height(scale_fontsize(@legend_font_size)) * 1.7
         end
         render_background
       end
@@ -83,7 +83,7 @@ module Gruff
 
           # Now draw box with color of this dataset
           @d = @d.stroke 'transparent'
-          @d = @d.fill @data[index].color
+          @d = @d.fill store.data[index].color
           @d = @d.rectangle(current_x_offset,
                             current_y_offset - legend_square_width / 2.0,
                             current_x_offset + legend_square_width,

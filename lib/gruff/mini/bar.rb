@@ -17,9 +17,9 @@ module Gruff
         @hide_line_numbers = true
 
         @marker_font_size = 50.0
-        @minimum_value = 0.0
-        @maximum_value = 0.0
         @legend_font_size = 60.0
+
+        @minimum_value = 0.0
       end
 
       def draw

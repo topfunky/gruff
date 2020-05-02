@@ -158,19 +158,6 @@ module Gruff
     # The number of horizontal lines shown for reference
     attr_accessor :marker_count
 
-    # You can manually set a minimum value instead of having the values
-    # guessed for you.
-    #
-    # Set it after you have given all your data to the graph object.
-    attr_accessor :minimum_value
-
-    # You can manually set a maximum value, such as a percentage-based graph
-    # that always goes to 100.
-    #
-    # If you use this, you must set it after you have given all your data to
-    # the graph object.
-    attr_accessor :maximum_value
-
     # Set to true if you want the data sets sorted with largest avg values drawn
     # first.
     attr_accessor :sort
@@ -224,6 +211,8 @@ module Gruff
 
       initialize_ivars
 
+      @store = Gruff::Store.new(@data_class)
+
       reset_themes
       self.theme = Themes::KEYNOTE
     end
@@ -238,7 +227,6 @@ module Gruff
       # Internal for calculations
       @raw_columns = 800.0
       @raw_rows = 800.0 * (@rows / @columns)
-      @data = []
       @marker_count = nil
       @maximum_value = @minimum_value = nil
       @increment = nil
@@ -400,22 +388,28 @@ module Gruff
     # Example:
     #   data("Bart S.", [95, 45, 78, 89, 88, 76], '#ffcc00')
     def data(name, data_points = [], color = nil)
-      data_points = Array(data_points) # make sure it's an array
-      @data << @data_class.new(name, data_points, color)
+      store.add(name, data_points, color)
+    end
 
-      # Pre-normalize
-      data_points.each do |data_point|
-        next if data_point.nil?
+    # You can manually set a minimum value instead of having the values
+    # guessed for you.
+    #
+    # Set it after you have given all your data to the graph object.
+    attr_writer :minimum_value
 
-        # Setup max/min so spread starts at the low end of the data points
-        @minimum_value = data_point if @minimum_value.nil?
-        @maximum_value = data_point if @maximum_value.nil?
+    def minimum_value
+      @minimum_value || store.min
+    end
 
-        # TODO: Doesn't work with stacked bar graphs
-        # Original: @maximum_value = larger_than_max?(data_point, index) ? max(data_point, index) : @maximum_value
-        @maximum_value = larger_than_max?(data_point) ? data_point : @maximum_value
-        @minimum_value = less_than_min?(data_point) ? data_point : @minimum_value
-      end
+    # You can manually set a maximum value, such as a percentage-based graph
+    # that always goes to 100.
+    #
+    # If you use this, you must set it after you have given all your data to
+    # the graph object.
+    attr_writer :maximum_value
+
+    def maximum_value
+      @maximum_value || store.max
     end
 
     # Writes the graph to a file. Defaults to 'graph.png'
@@ -467,8 +461,8 @@ module Gruff
     # Perform data manipulation before calculating chart measurements
     def setup_data # :nodoc:
       if @y_axis_increment && !@hide_line_markers
-        @maximum_value = [@y_axis_increment, @maximum_value, (@maximum_value.to_f / @y_axis_increment).round * @y_axis_increment].max
-        @minimum_value = [@minimum_value, (@minimum_value.to_f / @y_axis_increment).round * @y_axis_increment].min
+        self.maximum_value = [@y_axis_increment, maximum_value, (maximum_value.to_f / @y_axis_increment).round * @y_axis_increment].max
+        self.minimum_value = [minimum_value, (minimum_value.to_f / @y_axis_increment).round * @y_axis_increment].min
       end
       make_stacked if @stacked
     end
@@ -488,21 +482,20 @@ module Gruff
       sort_norm_data if @sorted_drawing # Sort norm_data with avg largest values set first (for display)
     end
 
+    attr_reader :store
+
     def data_given?
       @data_given ||= begin
-        if @data.empty?
+        if store.empty?
           false
         else
-          points = @data.map(&:points).flatten.compact
-          min, max = points.minmax
-          @minimum_value <= min || @maximum_value >= max
+          minimum_value <= store.min || maximum_value >= store.max
         end
       end
     end
 
     def column_count
-      @column_count ||=
-        @data.empty? ? 0 : @data.map { |data_row| data_row.points.length }.max
+      store.columns
     end
 
     # Make copy of data with values scaled between 0-100
@@ -511,9 +504,9 @@ module Gruff
         @norm_data = []
         return unless data_given?
 
-        @data.each do |data_row|
+        store.data.each do |data_row|
           norm_data_points = data_row.points.map do |data_point|
-            data_point.nil? ? nil : (data_point.to_f - @minimum_value.to_f) / @spread
+            data_point.nil? ? nil : (data_point.to_f - minimum_value.to_f) / @spread
           end
           @norm_data << @data_class.new(data_row.label, norm_data_points, data_row.color)
         end
@@ -521,7 +514,7 @@ module Gruff
     end
 
     def calculate_spread # :nodoc:
-      @spread = @maximum_value.to_f - @minimum_value.to_f
+      @spread = maximum_value.to_f - minimum_value.to_f
       @spread = @spread > 0 ? @spread : 1
     end
 
@@ -543,7 +536,7 @@ module Gruff
                                                      labels.values.reduce('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
         else
           longest_left_label_width = calculate_width(@marker_font_size,
-                                                     label(@maximum_value.to_f, @increment))
+                                                     label(maximum_value.to_f, @increment))
         end
 
         # Shift graph if left line numbers are hidden
@@ -646,8 +639,7 @@ module Gruff
           @d = @d.line(@graph_left, y + 1, @graph_right, y + 1)
         end
 
-        marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) +
-            BigDecimal(@minimum_value.to_s)
+        marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) + BigDecimal(minimum_value.to_s)
 
         unless @hide_line_numbers
           @d.fill = @font_color
@@ -713,7 +705,7 @@ module Gruff
     def draw_legend
       return if @hide_legend
 
-      @legend_labels = @data.map(&:label)
+      @legend_labels = store.data.map(&:label)
 
       legend_square_width = @legend_box_size # small square with color of this item
 
@@ -756,7 +748,7 @@ module Gruff
 
         # Now draw box with color of this dataset
         @d = @d.stroke('transparent')
-        @d = @d.fill @data[index].color
+        @d = @d.fill store.data[index].color
         @d = @d.rectangle(current_x_offset,
                           current_y_offset - legend_square_width / 2.0,
                           current_x_offset + legend_square_width,
@@ -978,15 +970,6 @@ module Gruff
       (value > max_value) ? max_value : value
     end
 
-    # Overridden by subclasses such as stacked bar.
-    def larger_than_max?(data_point) # :nodoc:
-      data_point > @maximum_value
-    end
-
-    def less_than_min?(data_point) # :nodoc:
-      data_point < @minimum_value
-    end
-
     def significant(i) # :nodoc:
       return 1.0 if i == 0 # Keep from going into infinite loop
 
@@ -1014,12 +997,12 @@ module Gruff
 
     # Sort with largest overall summed value at front of array.
     def sort_data
-      @data = @data.sort_by { |a| -a.points.reduce(0) { |sum, num| sum + num.to_f } }
+      store.sort!
     end
 
     # Set the color for each data set unless it was given in the data(...) call.
     def set_colors
-      @data.each { |a| a.color ||= increment_color }
+      store.set_colors!(@colors, @color_index)
     end
 
     # Sort with largest overall summed value at front of array so it shows up
@@ -1035,23 +1018,22 @@ module Gruff
     def get_maximum_by_stack
       # Get sum of each stack
       max_hash = {}
-      @data.each do |data_set|
+      store.data.each do |data_set|
         data_set.points.each_with_index do |data_point, i|
           max_hash[i] = 0.0 unless max_hash[i]
           max_hash[i] += data_point.to_f
         end
       end
 
-      # @maximum_value = 0
       max_hash.each_key do |key|
-        @maximum_value = max_hash[key] if max_hash[key] > @maximum_value
+        self.maximum_value = max_hash[key] if max_hash[key] > maximum_value
       end
-      @minimum_value = 0
+      self.minimum_value = 0
     end
 
     def make_stacked # :nodoc:
       stacked_values = Array.new(column_count, 0)
-      @data.each do |value_set|
+      store.data.each do |value_set|
         value_set.points.each_with_index do |value, index|
           stacked_values[index] += value
         end
@@ -1071,12 +1053,6 @@ module Gruff
         @d = @d.stroke 'turquoise'
         @d = yield
       end
-    end
-
-    # Returns the next color in your color list.
-    def increment_color
-      @color_index = (@color_index + 1) % @colors.length
-      @colors[@color_index - 1]
     end
 
     # Return a formatted string representing a number value that should be

@@ -6,6 +6,18 @@ module Gruff
       def points
         y_points
       end
+
+      def columns
+        y_points.length
+      end
+
+      def min
+        y_points.compact.min
+      end
+
+      def max
+        y_points.compact.max
+      end
     end
   end
 end

@@ -67,7 +67,7 @@ protected
           draw_label(label_center, point_index)
         end
         if @show_labels_for_bar_values
-          val = (@label_formatting || '%.2f') % @data[row_index].points[point_index]
+          val = (@label_formatting || '%.2f') % store.data[row_index].points[point_index]
           draw_value_label(right_x + 40, (@graph_top + (((row_index + point_index + 1) * @bar_width) - (@bar_width / 2))) - 12, val.commify, true)
         end
       end
@@ -95,7 +95,7 @@ protected
       x = @graph_right - (line_diff * index) - 1
       @d = @d.line(x, @graph_bottom, x, @graph_top)
       diff = index - number_of_lines
-      marker_label = diff.abs * increment + @minimum_value
+      marker_label = diff.abs * increment + minimum_value
 
       unless @hide_line_numbers
         @d.fill = @font_color

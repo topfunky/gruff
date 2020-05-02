@@ -42,7 +42,7 @@ class Gruff::Spider < Gruff::Base
 
     @unit_length = radius / @max_value
 
-    additive_angle = (2 * Math::PI) / @data.size
+    additive_angle = (2 * Math::PI) / store.length
 
     # Draw axes
     draw_axes(center_x, center_y, radius, additive_angle) unless hide_axes
@@ -84,7 +84,7 @@ private
 
     current_angle = rotation * Math::PI / 180.0
 
-    @data.each do |data_row|
+    store.data.each do |data_row|
       @d.stroke(line_color || data_row.color)
       @d.stroke_width 5.0
 
@@ -105,7 +105,7 @@ private
     points = []
     current_angle = rotation * Math::PI / 180.0
 
-    @data.each do |data_row|
+    store.data.each do |data_row|
       points << center_x + normalize_points(data_row.points.first) * Math.cos(current_angle)
       points << center_y + normalize_points(data_row.points.first) * Math.sin(current_angle)
       current_angle += additive_angle
@@ -119,6 +119,6 @@ private
   end
 
   def sums_for_spider
-    @data.reduce(0.0) { |sum, data_row| sum + data_row.points.first }
+    store.data.reduce(0.0) { |sum, data_row| sum + data_row.points.first }
   end
 end

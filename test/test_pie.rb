@@ -185,7 +185,7 @@ protected
   class CustomLabeledPie < Gruff::Pie
     def data(name, data_points = [], options = {})
       super(name, data_points, options[:color])
-      @data.last.custom = options[:label]
+      store.data.last.custom = options[:label]
     end
 
   private

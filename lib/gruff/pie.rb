@@ -85,7 +85,7 @@ private
 
   def slices
     @slices ||= begin
-      slices = @data.map { |data| slice_class.new(data, options) }
+      slices = store.data.map { |data| slice_class.new(data, options) }
 
       slices.sort_by(&:value) if @sort
 
