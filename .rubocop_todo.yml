@@ -27,11 +27,6 @@ Layout/MultilineOperationIndentation:
     - 'lib/gruff/net.rb'
 
 # Offense count: 1
-Lint/AmbiguousBlockAssociation:
-  Exclude:
-    - 'test/test_accumulator_bar.rb'
-
-# Offense count: 1
 Lint/DuplicateMethods:
   Exclude:
     - 'lib/gruff/photo_bar.rb'
