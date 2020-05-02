@@ -72,7 +72,7 @@ class Gruff::Line < Gruff::Base
   def initialize(*args)
     raise ArgumentError, 'Wrong number of arguments' if args.length > 2
 
-    if args.empty? || ((not Numeric === args.first) && (not String === args.first))
+    if args.empty? || (!args.first.is_a?(Numeric) && !args.first.is_a?(String))
       super()
     else
       super args.shift

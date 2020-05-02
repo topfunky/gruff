@@ -198,13 +198,13 @@ module Gruff
     # Looks for Bitstream Vera as the default font. Expects an environment var
     # of MAGICK_FONT_PATH to be set. (Uses RMagick's default font otherwise.)
     def initialize(target_width = DEFAULT_TARGET_WIDTH)
-      if Numeric === target_width
-        @columns = target_width.to_f
-        @rows = target_width.to_f * 0.75
-      else
+      if target_width.is_a?(String)
         geometric_width, geometric_height = target_width.split('x')
         @columns = geometric_width.to_f
         @rows = geometric_height.to_f
+      else
+        @columns = target_width.to_f
+        @rows = target_width.to_f * 0.75
       end
 
       initialize_ivars
