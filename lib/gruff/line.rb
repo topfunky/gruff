@@ -90,8 +90,7 @@ class Gruff::Line < Gruff::Base
 
     @show_vertical_markers = false
 
-    @data_class = Gruff::Store::XYData
-    @store = Gruff::Store.new(@data_class)
+    @store = Gruff::Store.new(Gruff::Store::XYData)
   end
 
   # This method allows one to plot a dataset with both X and Y data.
