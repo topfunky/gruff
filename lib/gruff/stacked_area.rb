@@ -39,23 +39,21 @@ class Gruff::StackedArea < Gruff::Base
         draw_label(new_x, index)
       end
 
+      poly_points = data_points.dup
       if prev_data_points
-        poly_points = data_points.dup
         (prev_data_points.length / 2 - 1).downto(0) do |i|
           poly_points << prev_data_points[2 * i]
           poly_points << prev_data_points[2 * i + 1]
         end
-        poly_points << data_points[0]
-        poly_points << data_points[1]
       else
-        poly_points = data_points.dup
         poly_points << @graph_right
         poly_points << @graph_bottom - 1
         poly_points << @graph_left
         poly_points << @graph_bottom - 1
-        poly_points << data_points[0]
-        poly_points << data_points[1]
       end
+      poly_points << data_points[0]
+      poly_points << data_points[1]
+
       @d = @d.polyline(*poly_points)
     end
 
