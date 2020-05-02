@@ -21,18 +21,24 @@ module Gruff
       @data.length
     end
 
-    def minmax
-      @minmax ||= begin
+    def columns
+      @columns ||= @data.empty? ? 0 : @data.map(&:columns).max
+    end
+
+    def min
+      @min ||= begin
         unless @data.empty?
-          points = @data.map(&:points).flatten.compact
-          points.minmax
+          @data.map(&:min).min
         end
       end
     end
 
-    def columns
-      @columns ||=
-        @data.empty? ? 0 : @data.map { |data_row| data_row.points.length }.max
+    def max
+      @max ||= begin
+        unless @data.empty?
+          @data.map(&:max).max
+        end
+      end
     end
 
     def sort!

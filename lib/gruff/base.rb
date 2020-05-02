@@ -495,8 +495,7 @@ module Gruff
         if store.empty?
           false
         else
-          min, max = store.minmax
-          @minimum_value <= min || @maximum_value >= max
+          @minimum_value <= store.min || @maximum_value >= store.max
         end
       end
     end
