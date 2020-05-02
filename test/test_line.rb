@@ -666,6 +666,18 @@ class TestGruffLine < GruffTestCase
     # assert_match(/no encode delegate for this image format .*\.webp/, $!.message)
   end
 
+  def test_data_duck_typing
+    g = Gruff::Line.new
+
+    obj = Object.new
+    def obj.to_a
+      [1, 2, 3, 4, 5]
+    end
+    g.dataxy('Apples', obj, obj)
+
+    pass
+  end
+
 private
 
   # TODO: Reset data after each theme
