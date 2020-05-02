@@ -196,12 +196,6 @@ Style/ExpandPathArguments:
   Exclude:
     - 'gruff.gemspec'
 
-# Offense count: 8
-Style/IdenticalConditionalBranches:
-  Exclude:
-    - 'lib/gruff/bar_conversion.rb'
-    - 'lib/gruff/stacked_area.rb'
-
 # Offense count: 1
 Style/MissingRespondToMissing:
   Exclude:

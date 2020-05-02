@@ -32,13 +32,8 @@ class Gruff::BarConversion
     when 3 then # Case three
                 # positive and negative values
       val = data_point - @minimum_value / @spread
-      if data_point >= @zero
-        result[0] = @graph_top + @graph_height * (1 - (val - @zero)) + 1
-        result[1] = @graph_top + @graph_height * (1 - @zero) - 1
-      else
-        result[0] = @graph_top + @graph_height * (1 - (val - @zero)) + 1
-        result[1] = @graph_top + @graph_height * (1 - @zero) - 1
-      end
+      result[0] = @graph_top + @graph_height * (1 - (val - @zero)) + 1
+      result[1] = @graph_top + @graph_height * (1 - @zero) - 1
     else
       result[0] = 0.0
       result[1] = 0.0
