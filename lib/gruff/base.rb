@@ -158,19 +158,6 @@ module Gruff
     # The number of horizontal lines shown for reference
     attr_accessor :marker_count
 
-    # You can manually set a minimum value instead of having the values
-    # guessed for you.
-    #
-    # Set it after you have given all your data to the graph object.
-    attr_accessor :minimum_value
-
-    # You can manually set a maximum value, such as a percentage-based graph
-    # that always goes to 100.
-    #
-    # If you use this, you must set it after you have given all your data to
-    # the graph object.
-    attr_accessor :maximum_value
-
     # Set to true if you want the data sets sorted with largest avg values drawn
     # first.
     attr_accessor :sort
@@ -402,20 +389,27 @@ module Gruff
     #   data("Bart S.", [95, 45, 78, 89, 88, 76], '#ffcc00')
     def data(name, data_points = [], color = nil)
       store.add(name, data_points, color)
+    end
 
-      # Pre-normalize
-      data_points.each do |data_point|
-        next if data_point.nil?
+    # You can manually set a minimum value instead of having the values
+    # guessed for you.
+    #
+    # Set it after you have given all your data to the graph object.
+    attr_writer :minimum_value
 
-        # Setup max/min so spread starts at the low end of the data points
-        @minimum_value = data_point if @minimum_value.nil?
-        @maximum_value = data_point if @maximum_value.nil?
+    def minimum_value
+      @minimum_value || store.min
+    end
 
-        # TODO: Doesn't work with stacked bar graphs
-        # Original: @maximum_value = larger_than_max?(data_point, index) ? max(data_point, index) : @maximum_value
-        @maximum_value = larger_than_max?(data_point) ? data_point : @maximum_value
-        @minimum_value = less_than_min?(data_point) ? data_point : @minimum_value
-      end
+    # You can manually set a maximum value, such as a percentage-based graph
+    # that always goes to 100.
+    #
+    # If you use this, you must set it after you have given all your data to
+    # the graph object.
+    attr_writer :maximum_value
+
+    def maximum_value
+      @maximum_value || store.max
     end
 
     # Writes the graph to a file. Defaults to 'graph.png'
@@ -974,15 +968,6 @@ module Gruff
 
     def clip_value_if_greater_than(value, max_value) # :nodoc:
       (value > max_value) ? max_value : value
-    end
-
-    # Overridden by subclasses such as stacked bar.
-    def larger_than_max?(data_point) # :nodoc:
-      data_point > maximum_value
-    end
-
-    def less_than_min?(data_point) # :nodoc:
-      data_point < minimum_value
     end
 
     def significant(i) # :nodoc:

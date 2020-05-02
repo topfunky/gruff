@@ -84,12 +84,4 @@ protected
 
     @d.draw(@base_image)
   end
-
-  def larger_than_max?(_data_point, index = 0)
-    max(index) > maximum_value
-  end
-
-  def max(index)
-    store.data.reduce(0) { |sum, item| sum + item.points[index] }
-  end
 end
