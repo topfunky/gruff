@@ -141,11 +141,8 @@ class Gruff::Line < Gruff::Base
 
     raise ArgumentError, 'x_data_points.length != y_data_points.length!' if x_data_points.length != y_data_points.length
 
-    # call the existing data routine for the y data.
-    store.add(name, y_data_points, color)
-
-    # append the x data to the last entry that was just added in the @data member
-    store.data.last.x_points = x_data_points
+    # call the existing data routine for the x/y data.
+    store.add(name, y_data_points, color, x_data_points)
 
     # Update the global min/max values for the x data
     x_data_points.each do |x_data_point|

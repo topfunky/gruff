@@ -10,8 +10,8 @@ module Gruff
       @data = []
     end
 
-    def add(name, data_points, color)
-      @data << @data_class.new(name, Array(data_points), color)
+    def add(*args)
+      @data << @data_class.new(*args)
     end
 
     def empty?

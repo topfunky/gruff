@@ -184,8 +184,7 @@ protected
   # Example Gruff::Pie Subclass demonstrating custom labels
   class CustomLabeledPie < Gruff::Pie
     def data(name, data_points = [], options = {})
-      super(name, data_points, options[:color])
-      store.data.last.custom = options[:label]
+      store.add(name, data_points, options[:color], options[:label])
     end
 
   private
