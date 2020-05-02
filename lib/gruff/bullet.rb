@@ -6,7 +6,7 @@ require 'gruff/themes'
 # http://en.wikipedia.org/wiki/Bullet_graph
 class Gruff::Bullet < Gruff::Base
   def initialize(target_width = '400x40')
-    if not Numeric === target_width
+    if target_width.is_a?(String)
       geometric_width, geometric_height = target_width.split('x')
       @columns = geometric_width.to_f
       @rows = geometric_height.to_f
@@ -26,7 +26,7 @@ class Gruff::Bullet < Gruff::Base
     @value = value.to_f
     self.maximum_value = maximum_value.to_f
     @options = options
-    @options.map { |k, v| @options[k] = v.to_f if v === Numeric }
+    @options.map { |k, v| @options[k] = v.to_f if v.is_a?(Numeric) }
   end
 
   # def setup_drawing
