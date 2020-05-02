@@ -128,6 +128,10 @@ class Gruff::Line < Gruff::Base
   #   g.labels = {0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006'}
   #   The 0 => '2003' label will be ignored since it is outside the chart range.
   def dataxy(name, x_data_points = [], y_data_points = [], color = nil)
+    # make sure it's an array
+    x_data_points = Array(x_data_points)
+    y_data_points = Array(y_data_points)
+
     raise ArgumentError, 'x_data_points is nil!' if x_data_points.empty?
 
     if x_data_points.all? { |p| p.is_a?(Array) && p.size == 2 }
@@ -138,9 +142,8 @@ class Gruff::Line < Gruff::Base
     raise ArgumentError, 'x_data_points.length != y_data_points.length!' if x_data_points.length != y_data_points.length
 
     # call the existing data routine for the y data.
-    data(name, y_data_points, color)
+    store.add(name, y_data_points, color)
 
-    x_data_points = Array(x_data_points) # make sure it's an array
     # append the x data to the last entry that was just added in the @data member
     store.data.last.x_points = x_data_points
 

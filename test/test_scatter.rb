@@ -269,6 +269,18 @@ class TestGruffScatter < Minitest::Test
     assert_same_image('test/expected/scatter_xy.png', 'test/output/scatter_xy.png')
   end
 
+  def test_data_duck_typing
+    g = Gruff::Scatter.new
+
+    obj = Object.new
+    def obj.to_a
+      [1, 2, 3, 4, 5]
+    end
+    g.dataxy('Apples', obj, obj)
+
+    pass
+  end
+
 protected
 
   def setup_basic_graph(size = 800)
