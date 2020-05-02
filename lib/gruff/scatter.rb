@@ -173,7 +173,7 @@ class Gruff::Scatter < Gruff::Base
     raise ArgumentError, 'x_data_points.length != y_data_points.length!' if x_data_points.length != y_data_points.length
 
     # Call the existing data routine for the y axis data
-    super(name, y_data_points, color)
+    store.add(name, y_data_points, color)
 
     #append the x data to the last entry that was just added in the @data member
     store.data.last.x_points = x_data_points
@@ -185,6 +185,8 @@ class Gruff::Scatter < Gruff::Base
     @maximum_x_value = x_data_points.max > @maximum_x_value ? x_data_points.max : @maximum_x_value
     @minimum_x_value = x_data_points.min < @minimum_x_value ? x_data_points.min : @minimum_x_value
   end
+
+  alias dataxy data
 
 protected
 
