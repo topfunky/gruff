@@ -260,6 +260,15 @@ class TestGruffScatter < Minitest::Test
     assert_same_image('test/expected/scatter_no_labels.png', 'test/output/scatter_no_labels.png')
   end
 
+  def test_xy_data
+    g = Gruff::Scatter.new
+    g.title = 'Setting Labels Test'
+    g.dataxy('Apples', [1, 3, 4, 5, 6, 10], [1, 2, 3, 4, 4, 3])
+    g.dataxy('Bapples', [1, 3, 4, 5, 7, 9], [1, 1, 2, 2, 3, 3])
+    g.write('test/output/scatter_xy.png')
+    assert_same_image('test/expected/scatter_xy.png', 'test/output/scatter_xy.png')
+  end
+
 protected
 
   def setup_basic_graph(size = 800)
