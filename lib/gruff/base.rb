@@ -467,8 +467,8 @@ module Gruff
     # Perform data manipulation before calculating chart measurements
     def setup_data # :nodoc:
       if @y_axis_increment && !@hide_line_markers
-        @maximum_value = [@y_axis_increment, @maximum_value, (@maximum_value.to_f / @y_axis_increment).round * @y_axis_increment].max
-        @minimum_value = [@minimum_value, (@minimum_value.to_f / @y_axis_increment).round * @y_axis_increment].min
+        self.maximum_value = [@y_axis_increment, maximum_value, (maximum_value.to_f / @y_axis_increment).round * @y_axis_increment].max
+        self.minimum_value = [minimum_value, (minimum_value.to_f / @y_axis_increment).round * @y_axis_increment].min
       end
       make_stacked if @stacked
     end
@@ -495,7 +495,7 @@ module Gruff
         if store.empty?
           false
         else
-          @minimum_value <= store.min || @maximum_value >= store.max
+          minimum_value <= store.min || maximum_value >= store.max
         end
       end
     end
@@ -512,7 +512,7 @@ module Gruff
 
         store.data.each do |data_row|
           norm_data_points = data_row.points.map do |data_point|
-            data_point.nil? ? nil : (data_point.to_f - @minimum_value.to_f) / @spread
+            data_point.nil? ? nil : (data_point.to_f - minimum_value.to_f) / @spread
           end
           @norm_data << @data_class.new(data_row.label, norm_data_points, data_row.color)
         end
@@ -520,7 +520,7 @@ module Gruff
     end
 
     def calculate_spread # :nodoc:
-      @spread = @maximum_value.to_f - @minimum_value.to_f
+      @spread = maximum_value.to_f - minimum_value.to_f
       @spread = @spread > 0 ? @spread : 1
     end
 
@@ -542,7 +542,7 @@ module Gruff
                                                      labels.values.reduce('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
         else
           longest_left_label_width = calculate_width(@marker_font_size,
-                                                     label(@maximum_value.to_f, @increment))
+                                                     label(maximum_value.to_f, @increment))
         end
 
         # Shift graph if left line numbers are hidden
@@ -645,8 +645,7 @@ module Gruff
           @d = @d.line(@graph_left, y + 1, @graph_right, y + 1)
         end
 
-        marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) +
-            BigDecimal(@minimum_value.to_s)
+        marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) + BigDecimal(minimum_value.to_s)
 
         unless @hide_line_numbers
           @d.fill = @font_color
@@ -979,11 +978,11 @@ module Gruff
 
     # Overridden by subclasses such as stacked bar.
     def larger_than_max?(data_point) # :nodoc:
-      data_point > @maximum_value
+      data_point > maximum_value
     end
 
     def less_than_min?(data_point) # :nodoc:
-      data_point < @minimum_value
+      data_point < minimum_value
     end
 
     def significant(i) # :nodoc:
@@ -1041,11 +1040,10 @@ module Gruff
         end
       end
 
-      # @maximum_value = 0
       max_hash.each_key do |key|
-        @maximum_value = max_hash[key] if max_hash[key] > @maximum_value
+        self.maximum_value = max_hash[key] if max_hash[key] > maximum_value
       end
-      @minimum_value = 0
+      self.minimum_value = 0
     end
 
     def make_stacked # :nodoc:

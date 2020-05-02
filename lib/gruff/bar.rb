@@ -54,18 +54,18 @@ protected
     conversion.graph_top = @graph_top
 
     # Set up the right mode [1,2,3] see BarConversion for further explanation
-    if @minimum_value >= 0
+    if minimum_value >= 0
       # all bars go from zero to positive
       conversion.mode = 1
-    elsif @maximum_value <= 0
+    elsif maximum_value <= 0
       # all bars go from 0 to negative
       conversion.mode = 2
     else
       # bars either go from zero to negative or to positive
       conversion.mode = 3
       conversion.spread = @spread
-      conversion.minimum_value = @minimum_value
-      conversion.zero = -@minimum_value / @spread
+      conversion.minimum_value = minimum_value
+      conversion.zero = -minimum_value / @spread
     end
 
     # iterate over all normalised data

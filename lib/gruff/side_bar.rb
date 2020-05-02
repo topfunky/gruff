@@ -95,7 +95,7 @@ protected
       x = @graph_right - (line_diff * index) - 1
       @d = @d.line(x, @graph_bottom, x, @graph_top)
       diff = index - number_of_lines
-      marker_label = diff.abs * increment + @minimum_value
+      marker_label = diff.abs * increment + minimum_value
 
       unless @hide_line_numbers
         @d.fill = @font_color

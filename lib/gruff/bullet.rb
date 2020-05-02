@@ -24,7 +24,7 @@ class Gruff::Bullet < Gruff::Base
 
   def data(value, maximum_value, options = {})
     @value = value.to_f
-    @maximum_value = maximum_value.to_f
+    self.maximum_value = maximum_value.to_f
     @options = options
     @options.map { |k, v| @options[k] = v.to_f if v === Numeric }
   end
@@ -71,20 +71,20 @@ class Gruff::Bullet < Gruff::Base
       next unless @options.key?(indicator)
 
       @d = @d.fill @colors[index + 1]
-      indicator_width_x = @graph_left + @graph_width * (@options[indicator] / @maximum_value)
+      indicator_width_x = @graph_left + @graph_width * (@options[indicator] / maximum_value)
       @d = @d.rectangle(@graph_left, 0, indicator_width_x, @graph_height)
     end
 
     if @options.key?(:target)
       @d = @d.fill @font_color
-      target_x = @graph_left + @graph_width * (@options[:target] / @maximum_value)
+      target_x = @graph_left + @graph_width * (@options[:target] / maximum_value)
       half_thickness = @thickness / 2.0
       @d = @d.rectangle(target_x, half_thickness, target_x + half_thickness, @thickness * 2 + half_thickness)
     end
 
     # Value
     @d = @d.fill @font_color
-    @d = @d.rectangle(@graph_left, @thickness, @graph_left + @graph_width * (@value / @maximum_value), @thickness * 2)
+    @d = @d.rectangle(@graph_left, @thickness, @graph_left + @graph_width * (@value / maximum_value), @thickness * 2)
 
     @d.draw(@base_image)
   end

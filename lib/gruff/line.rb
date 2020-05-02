@@ -269,8 +269,8 @@ class Gruff::Line < Gruff::Base
 
   def setup_data
     # Deal with horizontal reference line values that exceed the existing minimum & maximum values.
-    possible_maximums = [@maximum_value.to_f]
-    possible_minimums = [@minimum_value.to_f]
+    possible_maximums = [maximum_value.to_f]
+    possible_minimums = [minimum_value.to_f]
 
     @reference_lines.each_value do |curr_reference_line|
       if curr_reference_line.key?(:value)
@@ -279,8 +279,8 @@ class Gruff::Line < Gruff::Base
       end
     end
 
-    @maximum_value = possible_maximums.max
-    @minimum_value = possible_minimums.min
+    self.maximum_value = possible_maximums.max
+    self.minimum_value = possible_minimums.min
 
     super
   end
@@ -292,7 +292,7 @@ class Gruff::Line < Gruff::Base
       # We only care about horizontal markers ... for normalization.
       # Vertical markers won't have a :value, they will have an :index
 
-      curr_reference_line[:norm_value] = ((curr_reference_line[:value].to_f - @minimum_value) / @spread.to_f) if curr_reference_line.key?(:value)
+      curr_reference_line[:norm_value] = ((curr_reference_line[:value].to_f - minimum_value) / @spread.to_f) if curr_reference_line.key?(:value)
     end
 
     #normalize the x data if it is specified

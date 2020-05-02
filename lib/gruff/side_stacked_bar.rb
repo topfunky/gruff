@@ -86,7 +86,7 @@ protected
   end
 
   def larger_than_max?(_data_point, index = 0)
-    max(index) > @maximum_value
+    max(index) > maximum_value
   end
 
   def max(index)

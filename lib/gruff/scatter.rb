@@ -202,7 +202,7 @@ protected
 
       store.data.each do |data_row|
         y_points = data_row.y_points.map do |r|
-          (r.to_f - @minimum_value.to_f) / @spread
+          (r.to_f - minimum_value.to_f) / @spread
         end
         x_points = data_row.x_points.map do |r|
           (r.to_f - @minimum_x_value.to_f) / @x_spread
@@ -238,7 +238,7 @@ protected
       end
     else
       # TODO: Make this work for negative values
-      @maximum_x_value = [@maximum_value.ceil, @x_axis_increment].max
+      @maximum_x_value = [maximum_value.ceil, @x_axis_increment].max
       @minimum_x_value = @minimum_x_value.floor
       calculate_spread
       normalize(true)

@@ -14,10 +14,9 @@ module Gruff::Base::StackedMixin
       end
     end
 
-    # @maximum_value = 0
     max_hash.each_key do |key|
-      @maximum_value = max_hash[key] if max_hash[key] > @maximum_value
+      self.maximum_value = max_hash[key] if max_hash[key] > maximum_value
     end
-    @minimum_value = 0
+    self.minimum_value = 0
   end
 end
