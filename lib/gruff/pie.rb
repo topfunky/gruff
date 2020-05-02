@@ -36,7 +36,7 @@ class Gruff::Pie < Gruff::Base
 
     @show_values_as_labels = false
 
-    @data_class = Gruff::Store::CustomData
+    @store = Gruff::Store.new(Gruff::Store::CustomData)
   end
 
   def zero_degree

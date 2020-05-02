@@ -207,11 +207,7 @@ module Gruff
         @rows = geometric_height.to_f
       end
 
-      @data_class = Gruff::Store::BaseData
-
       initialize_ivars
-
-      @store = Gruff::Store.new(@data_class)
 
       reset_themes
       self.theme = Themes::KEYNOTE
@@ -273,6 +269,8 @@ module Gruff
       @y_axis_increment = nil
       @stacked = nil
       @norm_data = nil
+
+      @store = Gruff::Store.new(Gruff::Store::BaseData)
     end
 
     # Sets the top, bottom, left and right margins to +margin+.
@@ -508,7 +506,7 @@ module Gruff
           norm_data_points = data_row.points.map do |data_point|
             data_point.nil? ? nil : (data_point.to_f - minimum_value.to_f) / @spread
           end
-          @norm_data << @data_class.new(data_row.label, norm_data_points, data_row.color)
+          @norm_data << store.data_class.new(data_row.label, norm_data_points, data_row.color)
         end
       end
     end

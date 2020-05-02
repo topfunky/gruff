@@ -75,8 +75,7 @@ class Gruff::Scatter < Gruff::Base
     @x_label_margin = nil
     @y_axis_label_format = nil
 
-    @data_class = Gruff::Store::XYData
-    @store = Gruff::Store.new(@data_class)
+    @store = Gruff::Store.new(Gruff::Store::XYData)
   end
 
   def setup_drawing
@@ -207,7 +206,7 @@ protected
         x_points = data_row.x_points.map do |r|
           (r.to_f - @minimum_x_value.to_f) / @x_spread
         end
-        @norm_data << @data_class.new(data_row.label, y_points, data_row.color, x_points)
+        @norm_data << store.data_class.new(data_row.label, y_points, data_row.color, x_points)
       end
     end
     #~ @norm_y_baseline = (@baseline_y_value.to_f / @maximum_value.to_f) if @baseline_y_value
