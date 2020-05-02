@@ -3,6 +3,13 @@
 module Gruff
   class Store
     class CustomData < Struct.new(:label, :points, :color, :custom)
+      def initialize(label, points, color, custom = nil)
+        self.label = label
+        self.points = Array(points)
+        self.color = color
+        self.custom = custom
+      end
+
       def columns
         points.length
       end
