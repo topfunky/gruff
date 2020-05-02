@@ -17,7 +17,7 @@ require_relative 'support/appearance_assertion'
 Minitest::Reporters.use!
 
 class Gruff::Base
-  alias :write_org :write
+  alias write_org write
 
   def write(filename = 'graph.png')
     basefilename = File.basename(filename).split('.')[0..-2].join('.')
