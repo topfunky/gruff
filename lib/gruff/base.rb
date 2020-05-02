@@ -224,6 +224,8 @@ module Gruff
 
       initialize_ivars
 
+      @store = Gruff::Store.new(@data_class)
+
       reset_themes
       self.theme = Themes::KEYNOTE
     end
@@ -238,7 +240,6 @@ module Gruff
       # Internal for calculations
       @raw_columns = 800.0
       @raw_rows = 800.0 * (@rows / @columns)
-      @data = []
       @marker_count = nil
       @maximum_value = @minimum_value = nil
       @increment = nil
@@ -400,8 +401,7 @@ module Gruff
     # Example:
     #   data("Bart S.", [95, 45, 78, 89, 88, 76], '#ffcc00')
     def data(name, data_points = [], color = nil)
-      data_points = Array(data_points) # make sure it's an array
-      @data << @data_class.new(name, data_points, color)
+      store.add(name, data_points, color)
 
       # Pre-normalize
       data_points.each do |data_point|
@@ -488,21 +488,21 @@ module Gruff
       sort_norm_data if @sorted_drawing # Sort norm_data with avg largest values set first (for display)
     end
 
+    attr_reader :store
+
     def data_given?
       @data_given ||= begin
-        if @data.empty?
+        if store.empty?
           false
         else
-          points = @data.map(&:points).flatten.compact
-          min, max = points.minmax
+          min, max = store.minmax
           @minimum_value <= min || @maximum_value >= max
         end
       end
     end
 
     def column_count
-      @column_count ||=
-        @data.empty? ? 0 : @data.map { |data_row| data_row.points.length }.max
+      store.columns
     end
 
     # Make copy of data with values scaled between 0-100
@@ -511,7 +511,7 @@ module Gruff
         @norm_data = []
         return unless data_given?
 
-        @data.each do |data_row|
+        store.data.each do |data_row|
           norm_data_points = data_row.points.map do |data_point|
             data_point.nil? ? nil : (data_point.to_f - @minimum_value.to_f) / @spread
           end
@@ -713,7 +713,7 @@ module Gruff
     def draw_legend
       return if @hide_legend
 
-      @legend_labels = @data.map(&:label)
+      @legend_labels = store.data.map(&:label)
 
       legend_square_width = @legend_box_size # small square with color of this item
 
@@ -756,7 +756,7 @@ module Gruff
 
         # Now draw box with color of this dataset
         @d = @d.stroke('transparent')
-        @d = @d.fill @data[index].color
+        @d = @d.fill store.data[index].color
         @d = @d.rectangle(current_x_offset,
                           current_y_offset - legend_square_width / 2.0,
                           current_x_offset + legend_square_width,
@@ -1014,12 +1014,12 @@ module Gruff
 
     # Sort with largest overall summed value at front of array.
     def sort_data
-      @data = @data.sort_by { |a| -a.points.reduce(0) { |sum, num| sum + num.to_f } }
+      store.sort!
     end
 
     # Set the color for each data set unless it was given in the data(...) call.
     def set_colors
-      @data.each { |a| a.color ||= increment_color }
+      store.data.each { |a| a.color ||= increment_color }
     end
 
     # Sort with largest overall summed value at front of array so it shows up
@@ -1035,7 +1035,7 @@ module Gruff
     def get_maximum_by_stack
       # Get sum of each stack
       max_hash = {}
-      @data.each do |data_set|
+      store.data.each do |data_set|
         data_set.points.each_with_index do |data_point, i|
           max_hash[i] = 0.0 unless max_hash[i]
           max_hash[i] += data_point.to_f
@@ -1051,7 +1051,7 @@ module Gruff
 
     def make_stacked # :nodoc:
       stacked_values = Array.new(column_count, 0)
-      @data.each do |value_set|
+      store.data.each do |value_set|
         value_set.points.each_with_index do |value, index|
           stacked_values[index] += value
         end

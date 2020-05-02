@@ -58,7 +58,7 @@ protected
         height[point_index] += (data_point * @graph_width - 2)
 
         if @show_labels_for_bar_values
-          label_values[point_index][:value] += @data[row_index].points[point_index]
+          label_values[point_index][:value] += store.data[row_index].points[point_index]
           label_values[point_index][:right_x] = right_x
         end
 
@@ -90,6 +90,6 @@ protected
   end
 
   def max(index)
-    @data.reduce(0) { |sum, item| sum + item.points[index] }
+    store.data.reduce(0) { |sum, item| sum + item.points[index] }
   end
 end

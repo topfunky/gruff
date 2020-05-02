@@ -9,12 +9,12 @@ require 'gruff/base'
 
 class Gruff::AccumulatorBar < Gruff::StackedBar
   def draw
-    raise(Gruff::IncorrectNumberOfDatasetsException) unless @data.length == 1
+    raise(Gruff::IncorrectNumberOfDatasetsException) unless store.length == 1
 
-    accum_array = @data.first.points[0..-2].reduce([0]) { |a, v| a << a.last + v }
+    accum_array = store.data.first.points[0..-2].reduce([0]) { |a, v| a << a.last + v }
     data 'Accumulator', accum_array
     set_colors
-    @data.reverse!
+    store.reverse!
     super
   end
 end

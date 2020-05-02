@@ -76,6 +76,7 @@ class Gruff::Scatter < Gruff::Base
     @y_axis_label_format = nil
 
     @data_class = Gruff::Store::XYData
+    @store = Gruff::Store.new(@data_class)
   end
 
   def setup_drawing
@@ -176,8 +177,7 @@ class Gruff::Scatter < Gruff::Base
     super(name, y_data_points, color)
 
     #append the x data to the last entry that was just added in the @data member
-    last_elem = @data.length - 1
-    @data[last_elem].x_points = x_data_points
+    store.data.last.x_points = x_data_points
 
     if @maximum_x_value.nil? && @minimum_x_value.nil?
       @maximum_x_value = @minimum_x_value = x_data_points.first
@@ -200,7 +200,7 @@ protected
       @norm_data = []
       return unless data_given?
 
-      @data.each do |data_row|
+      store.data.each do |data_row|
         y_points = data_row.y_points.map do |r|
           (r.to_f - @minimum_value.to_f) / @spread
         end

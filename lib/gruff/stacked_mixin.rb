@@ -7,7 +7,7 @@ module Gruff::Base::StackedMixin
   def get_maximum_by_stack
     # Get sum of each stack
     max_hash = {}
-    @data.each do |data_set|
+    store.data.each do |data_set|
       data_set.points.each_with_index do |data_point, i|
         max_hash[i] = 0.0 unless max_hash[i]
         max_hash[i] += data_point.to_f

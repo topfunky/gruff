@@ -43,7 +43,7 @@ protected
     #
     # Columns sit side-by-side.
     @bar_spacing ||= @spacing_factor # space between the bars
-    @bar_width = @graph_width / (column_count * @data.length).to_f
+    @bar_width = @graph_width / (column_count * store.length).to_f
     padding = (@bar_width * (1 - @bar_spacing)) / 2
 
     @d = @d.stroke_opacity 0.0
@@ -73,7 +73,7 @@ protected
       data_row.points.each_with_index do |data_point, point_index|
         # Use incremented x and scaled y
         # x
-        left_x = @graph_left + (@bar_width * (row_index + point_index + ((@data.length - 1) * point_index))) + padding
+        left_x = @graph_left + (@bar_width * (row_index + point_index + ((store.length - 1) * point_index))) + padding
         right_x = left_x + @bar_width * @bar_spacing
         # y
         conv = []
@@ -85,13 +85,13 @@ protected
 
         # Calculate center based on bar_width and current row
         label_center = @graph_left +
-                      (@data.length * @bar_width * point_index) +
-                      (@data.length * @bar_width / 2.0)
+                      (store.length * @bar_width * point_index) +
+                      (store.length * @bar_width / 2.0)
 
         # Subtract half a bar width to center left if requested
         draw_label(label_center - (@center_labels_over_point ? @bar_width / 2.0 : 0.0), point_index)
         if @show_labels_for_bar_values
-          raw_value = @data[row_index].points[point_index]
+          raw_value = store.data[row_index].points[point_index]
           val = (@label_formatting || '%.2f') % raw_value
           y = raw_value >= 0 ? conv[0] - 30 : conv[0] + 12
           draw_value_label(left_x + (right_x - left_x) / 2, y, val.commify, true)

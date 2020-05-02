@@ -91,6 +91,7 @@ class Gruff::Line < Gruff::Base
     @show_vertical_markers = false
 
     @data_class = Gruff::Store::XYData
+    @store = Gruff::Store.new(@data_class)
   end
 
   # This method allows one to plot a dataset with both X and Y data.
@@ -142,7 +143,7 @@ class Gruff::Line < Gruff::Base
 
     x_data_points = Array(x_data_points) # make sure it's an array
     # append the x data to the last entry that was just added in the @data member
-    @data.last.x_points = x_data_points
+    store.data.last.x_points = x_data_points
 
     # Update the global min/max values for the x data
     x_data_points.each do |x_data_point|
@@ -295,7 +296,7 @@ class Gruff::Line < Gruff::Base
     end
 
     #normalize the x data if it is specified
-    @data.each_with_index do |data_row, index|
+    store.data.each_with_index do |data_row, index|
       if data_row.x_points
         @norm_data[index].x_points = data_row.x_points.map do |x_data_point|
           (x_data_point.to_f - @minimum_x_value.to_f) / (@maximum_x_value.to_f - @minimum_x_value.to_f)
@@ -305,7 +306,7 @@ class Gruff::Line < Gruff::Base
   end
 
   def sort_norm_data
-    super unless @data.any?(&:x_points)
+    super unless store.data.any?(&:x_points)
   end
 
   def get_x_coord(x_data_point, width, offset)
