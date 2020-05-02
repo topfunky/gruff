@@ -54,25 +54,33 @@ class TestGruffBase < GruffTestCase
 
   def test_minimum
     g = Gruff::Bar.new
-    g.minimum_value = 0
-    g.data :hora, [6, 0, 0, 0, 0, 2, 8]
+    g.minimum_value = 3
+    g.data :foo, [1, 2, 3, 4, 5]
+    g.data :bar, [6, 7, 8, 9, 10]
+    assert_equal(3, g.minimum_value)
+    assert_equal(10, g.maximum_value)
 
     g = Gruff::Bar.new
-    g.data :hora, [6, 0, 0, 0, 0, 2, 8]
-    g.minimum_value = 0
-
-    pass
+    g.data :foo, [1, 2, 3, 4, 5]
+    g.data :bar, [6, 7, 8, 9, 10]
+    g.minimum_value = 3
+    assert_equal(3, g.minimum_value)
+    assert_equal(10, g.maximum_value)
   end
 
   def test_maximum
     g = Gruff::Bar.new
-    g.maximum_value = 0
-    g.data :hora, [6, 0, 0, 0, 0, 2, 8]
+    g.maximum_value = 3
+    g.data :bar, [6, 7, 8, 9, 10]
+    g.data :foo, [1, 2, 3, 4, 5]
+    assert_equal(1, g.minimum_value)
+    assert_equal(3, g.maximum_value)
 
     g = Gruff::Bar.new
-    g.data :hora, [6, 0, 0, 0, 0, 2, 8]
-    g.maximum_value = 0
-
-    pass
+    g.data :bar, [6, 7, 8, 9, 10]
+    g.data :foo, [1, 2, 3, 4, 5]
+    g.maximum_value = 3
+    assert_equal(1, g.minimum_value)
+    assert_equal(3, g.maximum_value)
   end
 end
