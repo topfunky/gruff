@@ -31,6 +31,16 @@ class TestGruffBase < GruffTestCase
     assert_same_image('test/expected/bar_object_labels.png', 'test/output/bar_object_labels.png')
   end
 
+  def test_font
+    g = Gruff::Bar.new
+    g.title_font = File.join(fixtures_dir, 'Pacifico-Regular.ttf')
+    g.font = File.join(fixtures_dir, 'ComicNeue-Regular.ttf')
+    g.title = 'Bar Graph With Manual Colors'
+    g.data('Hello world!!!', [0, 5, 8, 15], '#990000')
+    g.write('test/output/bar_font.png')
+    assert_same_image('test/expected/bar_font.png', 'test/output/bar_font.png')
+  end
+
   def test_data_given
     graph = Gruff::Bar.new
     refute(graph.__send__(:data_given?))
