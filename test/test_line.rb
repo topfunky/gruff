@@ -208,7 +208,7 @@ class TestGruffLine < GruffTestCase
       30 => 'August',
       50 => 'September'
     }
-    g.data('many points', (0..50).map { |i| rand(100) })
+    g.data('many points', (0..50).map { rand(100) })
     g.x_axis_label = 'Months'
 
     # Default theme
@@ -226,7 +226,7 @@ class TestGruffLine < GruffTestCase
       50 => 'September'
     }
     g.dot_style = :square
-    g.data('many points', (0..50).map { |i| rand(100) })
+    g.data('many points', (0..50).map { rand(100) })
     g.x_axis_label = 'Months'
 
     # Default theme
@@ -264,7 +264,7 @@ class TestGruffLine < GruffTestCase
       50 => '6/16'
     }
     %w[jimmy jane philip arthur julie bert].each do |student_name|
-      g.data(student_name, (0..50).map { |i| rand 100 })
+      g.data(student_name, (0..50).map { rand(100) })
     end
 
     # Default theme
@@ -284,7 +284,7 @@ class TestGruffLine < GruffTestCase
       50 => '6/16'
     }
     %w[jimmy jane philip arthur julie bert].each do |student_name|
-      g.data(student_name, (0..50).map { |i| rand 100 })
+      g.data(student_name, (0..50).map { rand(100) })
     end
 
     # Default theme

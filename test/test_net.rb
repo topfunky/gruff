@@ -99,7 +99,7 @@ class TestGruffNet < GruffTestCase
       30 => 'August',
       50 => 'September'
     }
-    g.data('many points', (0..50).map { |i| rand(100) })
+    g.data('many points', (0..50).map { rand(100) })
 
     # Default theme
     g.write('test/output/net_many.png')
@@ -128,7 +128,7 @@ class TestGruffNet < GruffTestCase
       50 => '6/16'
     }
     %w[jimmy jane philip arthur julie bert].each do |student_name|
-      g.data(student_name, (0..50).map { |i| rand 100 })
+      g.data(student_name, (0..50).map { rand(100) })
     end
 
     # Default theme
@@ -148,7 +148,7 @@ class TestGruffNet < GruffTestCase
       50 => '6/16'
     }
     %w[jimmy jane philip arthur julie bert].each do |student_name|
-      g.data(student_name, (0..50).map { |i| rand 100 })
+      g.data(student_name, (0..50).map { rand(100) })
     end
 
     # Default theme
