@@ -1134,8 +1134,8 @@ module Gruff
     def deg2rad(angle)
       angle * (Math::PI / 180.0)
     end
-  end # Gruff::Base
+  end
 
   class IncorrectNumberOfDatasetsException < StandardError
   end
-end # Gruff
+end

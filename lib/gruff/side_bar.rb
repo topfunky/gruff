@@ -108,7 +108,7 @@ protected
                                 0, 0, # Width of box to draw text in
                                 x, @graph_bottom + (LABEL_MARGIN * 2.0), # Coordinates of text
                                 marker_label.to_s, @scale)
-      end # unless
+      end
       @d = @d.stroke_antialias true
     end
   end
