@@ -6,15 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: Categories, ExpectedOrder.
-# ExpectedOrder: module_inclusion, constants, public_class_methods, initializer, public_methods, protected_methods, private_methods
-Layout/ClassStructure:
-  Exclude:
-    - 'lib/gruff/line.rb'
-    - 'lib/gruff/spider.rb'
-
 # Offense count: 10
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.
@@ -176,48 +167,10 @@ Style/NilComparison:
   Exclude:
     - 'lib/gruff/line.rb'
 
-# Offense count: 16
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, EnforcedStyle, IgnoredMethods.
-# SupportedStyles: predicate, comparison
-Style/NumericPredicate:
-  Exclude:
-    - 'spec/**/*'
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/bezier.rb'
-    - 'lib/gruff/dot.rb'
-    - 'lib/gruff/pie.rb'
-    - 'lib/gruff/scatter.rb'
-    - 'lib/gruff/scene.rb'
-    - 'lib/gruff/side_bar.rb'
-    - 'lib/gruff/stacked_bar.rb'
-
 # Offense count: 1
 Style/Send:
   Exclude:
     - 'lib/gruff/stacked_area.rb'
-
-# Offense count: 10
-# Configuration parameters: Methods.
-# Methods: {"reduce"=>["acc", "elem"]}, {"inject"=>["acc", "elem"]}
-Style/SingleLineBlockParams:
-  Exclude:
-    - 'lib/gruff/accumulator_bar.rb'
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/side_stacked_bar.rb'
-    - 'lib/gruff/spider.rb'
-    - 'test/test_accumulator_bar.rb'
-    - 'test/test_bar.rb'
-    - 'test/test_dot.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: use_perl_names, use_english_names
-Style/SpecialGlobalVars:
-  Exclude:
-    - 'gruff.gemspec'
-    - 'test/gruff_test_case.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.

@@ -15,6 +15,9 @@ Gemspec/RequiredRubyVersion:
 Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
 
+Layout/ClassStructure:
+  Enabled: false
+
 Layout/CommentIndentation:
   Enabled: false
 
@@ -81,7 +84,16 @@ Style/Next:
 Style/NumericLiterals:
   Enabled: false
 
+Style/NumericPredicate:
+  Enabled: false
+
 Style/OptionHash:
+  Enabled: false
+
+Style/SingleLineBlockParams:
+  Enabled: false
+
+Style/SpecialGlobalVars:
   Enabled: false
 
 Style/StructInheritance:
