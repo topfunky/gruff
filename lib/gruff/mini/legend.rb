@@ -54,7 +54,6 @@ module Gruff
         legend_top_margin = 40.0
 
         # May fix legend drawing problem at small sizes
-        @d.font = @font if @font
         @d.pointsize = @legend_font_size
 
         case @legend_position
@@ -71,7 +70,6 @@ module Gruff
         @legend_labels.each_with_index do |legend_label, index|
           # Draw label
           @d.fill = @font_color
-          @d.font = @font if @font
           @d.pointsize = scale_fontsize(@legend_font_size)
           @d.stroke = 'transparent'
           @d.font_weight = Magick::NormalWeight
