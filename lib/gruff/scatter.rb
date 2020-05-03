@@ -269,7 +269,7 @@ protected
         @d.font = @font if @font
         @d.stroke('transparent')
         @d.pointsize = scale_fontsize(@marker_font_size)
-        @d.gravity = NorthGravity
+        @d.gravity = Magick::NorthGravity
         @d.rotation = -90.0 if @use_vertical_x_labels
         @d = @d.annotate_scaled(@base_image,
                                 1.0, 1.0,

@@ -216,8 +216,8 @@ private
     @d.font        = @font if @font
     @d.pointsize   = scale_fontsize(@marker_font_size)
     @d.stroke      = 'transparent'
-    @d.font_weight = BoldWeight
-    @d.gravity     = CenterGravity
+    @d.font_weight = Magick::BoldWeight
+    @d.gravity     = Magick::CenterGravity
   end
 
   def draw_label(x, y, value)

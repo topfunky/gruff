@@ -92,7 +92,7 @@ protected
         @d.font = @font if @font
         @d.stroke = 'transparent'
         @d.pointsize = scale_fontsize(@marker_font_size)
-        @d.gravity = CenterGravity
+        @d.gravity = Magick::CenterGravity
         # TODO: Center text over line
         @d = @d.annotate_scaled(@base_image,
                                 0, 0, # Width of box to draw text in
@@ -111,9 +111,9 @@ protected
       @d.fill = @font_color
       @d.font = @font if @font
       @d.stroke = 'transparent'
-      @d.font_weight = NormalWeight
+      @d.font_weight = Magick::NormalWeight
       @d.pointsize = scale_fontsize(@marker_font_size)
-      @d.gravity = EastGravity
+      @d.gravity = Magick::EastGravity
       @d = @d.annotate_scaled(@base_image,
                               1, 1,
                               -@graph_left + LABEL_MARGIN * 2.0, y_offset,

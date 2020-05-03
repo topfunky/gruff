@@ -21,7 +21,6 @@ require 'gruff/deprecated'
 
 module Gruff
   class Base
-    include Magick
     include Deprecated
 
     # Draw extra lines showing where the margins and text centers are
@@ -589,7 +588,7 @@ module Gruff
         @d.font = @font if @font
         @d.stroke('transparent')
         @d.pointsize = scale_fontsize(@marker_font_size)
-        @d.gravity = NorthGravity
+        @d.gravity = Magick::NorthGravity
         @d = @d.annotate_scaled(@base_image,
                                 @raw_columns, 1.0,
                                 0.0, x_axis_label_y_coordinate,
@@ -600,7 +599,7 @@ module Gruff
       unless @y_axis_label.nil?
         # Y Axis, rotated vertically
         @d.rotation = -90.0
-        @d.gravity = CenterGravity
+        @d.gravity = Magick::CenterGravity
         @d = @d.annotate_scaled(@base_image,
                                 1.0, @raw_rows,
                                 @left_margin + @marker_caps_height / 2.0, 0.0,
@@ -644,7 +643,7 @@ module Gruff
           @d.font = @font if @font
           @d.stroke('transparent')
           @d.pointsize = scale_fontsize(@marker_font_size)
-          @d.gravity = EastGravity
+          @d.gravity = Magick::EastGravity
 
           # Vertically center with 1.0 for the height
           @d = @d.annotate_scaled(@base_image,
@@ -669,7 +668,7 @@ module Gruff
       #   @d.font = @font if @font
       #   @d.stroke('transparent')
       #   @d.pointsize = scale_fontsize(@marker_font_size)
-      #   @d.gravity = EastGravity
+      #   @d.gravity = Magick::EastGravity
       #   @d = @d.annotate_scaled( @base_image,
       #                     100, 20,
       #                     -10, y - (@marker_font_size/2.0),
@@ -737,8 +736,8 @@ module Gruff
         @d.font = @font if @font
         @d.pointsize = scale_fontsize(@legend_font_size)
         @d.stroke('transparent')
-        @d.font_weight = NormalWeight
-        @d.gravity = WestGravity
+        @d.font_weight = Magick::NormalWeight
+        @d.gravity = Magick::WestGravity
         @d = @d.annotate_scaled(@base_image,
                                 @raw_columns, 1.0,
                                 current_x_offset + (legend_square_width * 1.7), current_y_offset,
@@ -785,8 +784,8 @@ module Gruff
       @d.font = @title_font || @font if @title_font || @font
       @d.stroke('transparent')
       @d.pointsize = scale_fontsize(@title_font_size)
-      @d.font_weight = @bold_title ? BoldWeight : NormalWeight
-      @d.gravity = NorthGravity
+      @d.font_weight = @bold_title ? Magick::BoldWeight : Magick::NormalWeight
+      @d.gravity = Magick::NorthGravity
       @d = @d.annotate_scaled(@base_image,
                               @raw_columns, 1.0,
                               0, @top_margin,
@@ -827,9 +826,9 @@ module Gruff
           @d.fill = @font_color
           @d.font = @font if @font
           @d.stroke('transparent')
-          @d.font_weight = NormalWeight
+          @d.font_weight = Magick::NormalWeight
           @d.pointsize = scale_fontsize(@marker_font_size)
-          @d.gravity = NorthGravity
+          @d.gravity = Magick::NorthGravity
           @d = @d.annotate_scaled(@base_image,
                                   1.0, 1.0,
                                   x_offset, y_offset,
@@ -849,9 +848,9 @@ module Gruff
       @d.fill = @font_color
       @d.font = @font if @font
       @d.stroke('transparent')
-      @d.font_weight = NormalWeight
+      @d.font_weight = Magick::NormalWeight
       @d.pointsize = scale_fontsize(@marker_font_size)
-      @d.gravity = NorthGravity
+      @d.gravity = Magick::NorthGravity
       @d = @d.annotate_scaled(@base_image,
                               1.0, 1.0,
                               x_offset, y_offset,
@@ -865,9 +864,9 @@ module Gruff
       @d.fill = @font_color
       @d.font = @font if @font
       @d.stroke('transparent')
-      @d.font_weight = NormalWeight
+      @d.font_weight = Magick::NormalWeight
       @d.pointsize = scale_fontsize(80)
-      @d.gravity = CenterGravity
+      @d.gravity = Magick::CenterGravity
       @d = @d.annotate_scaled(@base_image,
                               @raw_columns, @raw_rows / 2.0,
                               0, 10,
@@ -890,7 +889,7 @@ module Gruff
 
     # Make a new image at the current size with a solid +color+.
     def render_solid_background(color)
-      Image.new(@columns, @rows) {
+      Magick::Image.new(@columns, @rows) {
         self.background_color = color
       }
     end
@@ -899,20 +898,20 @@ module Gruff
     def render_gradated_background(top_color, bottom_color, direct = :top_bottom)
       case direct
       when :bottom_top
-        gradient_fill = GradientFill.new(0, 0, 100, 0, bottom_color, top_color)
+        gradient_fill = Magick::GradientFill.new(0, 0, 100, 0, bottom_color, top_color)
       when :left_right
-        gradient_fill = GradientFill.new(0, 0, 0, 100, top_color, bottom_color)
+        gradient_fill = Magick::GradientFill.new(0, 0, 0, 100, top_color, bottom_color)
       when :right_left
-        gradient_fill = GradientFill.new(0, 0, 0, 100, bottom_color, top_color)
+        gradient_fill = Magick::GradientFill.new(0, 0, 0, 100, bottom_color, top_color)
       when :topleft_bottomright
-        gradient_fill = GradientFill.new(0, 100, 100, 0, top_color, bottom_color)
+        gradient_fill = Magick::GradientFill.new(0, 100, 100, 0, top_color, bottom_color)
       when :topright_bottomleft
-        gradient_fill = GradientFill.new(0, 0, 100, 100, bottom_color, top_color)
+        gradient_fill = Magick::GradientFill.new(0, 0, 100, 100, bottom_color, top_color)
       else
-        gradient_fill = GradientFill.new(0, 0, 100, 0, top_color, bottom_color)
+        gradient_fill = Magick::GradientFill.new(0, 0, 100, 0, top_color, bottom_color)
       end
 
-      image = Image.new(@columns, @rows, gradient_fill)
+      image = Magick::Image.new(@columns, @rows, gradient_fill)
       @render_gradated_background_retry_count = 0
 
       image
@@ -930,7 +929,7 @@ module Gruff
 
     # Use with a theme to use an image (800x600 original) background.
     def render_image_background(image_path)
-      image = Image.read(image_path)
+      image = Magick::Image.read(image_path)
       if @scale != 1.0
         image[0].resize!(@scale) # TODO: Resize with new scale (crop if necessary for wide graph)
       end
@@ -939,7 +938,7 @@ module Gruff
 
     # Use with a theme to make a transparent background
     def render_transparent_background
-      Image.new(@columns, @rows) do
+      Magick::Image.new(@columns, @rows) do
         self.background_color = 'transparent'
       end
     end
@@ -950,7 +949,7 @@ module Gruff
       @labels_seen = {}
       @theme_options = {}
 
-      @d = Draw.new
+      @d = Magick::Draw.new
       # Scale down from 800x600 used to calculate drawing.
       @d = @d.scale(@scale, @scale)
     end

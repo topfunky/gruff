@@ -98,9 +98,9 @@ class Gruff::Bullet < Gruff::Base
     @d.fill        = @font_color
     @d.font        = @font if @font
     @d.stroke('transparent')
-    @d.font_weight = NormalWeight
+    @d.font_weight = Magick::NormalWeight
     @d.pointsize   = scale_fontsize(@title_font_size)
-    @d.gravity     = NorthWestGravity
+    @d.gravity     = Magick::NorthWestGravity
     @d             = @d.annotate_scaled(
       @base_image, 1.0, 1.0, @font_height / 2, @font_height / 2, @title, @scale
     )
