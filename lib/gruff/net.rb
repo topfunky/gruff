@@ -114,8 +114,8 @@ private
     @d.font = @font if @font
     @d.pointsize = scale_fontsize(20)
     @d.stroke = 'transparent'
-    @d.font_weight = BoldWeight
-    @d.gravity = CenterGravity
+    @d.font_weight = Magick::BoldWeight
+    @d.gravity = Magick::CenterGravity
     @d.annotate_scaled(@base_image, 0, 0, x, y, amount, @scale)
   end
 end

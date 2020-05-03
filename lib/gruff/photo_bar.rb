@@ -62,7 +62,7 @@ class Gruff::PhotoBar < Gruff::Base
         # Crop to scale for data
         bar_image = data_row.color.crop(0, 0, bar_image_width, bar_image_height)
 
-        @d.gravity = NorthWestGravity
+        @d.gravity = Magick::NorthWestGravity
         @d = @d.composite(left_x, left_y, bar_image_width, bar_image_height, bar_image)
 
         # Calculate center based on bar_width and current row
@@ -90,7 +90,7 @@ protected
     Dir.open(theme_dir).each do |file|
       next unless /\.png$/.match(file)
 
-      color_list << Image.read("#{theme_dir}/#{file}").first
+      color_list << Magick::Image.read("#{theme_dir}/#{file}").first
     end
     @colors = color_list
   end
