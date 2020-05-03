@@ -14,6 +14,11 @@ module Gruff
         y_points
       end
 
+      def coordinates
+        x = x_points || Array.new(y_points.length)
+        x.zip(y_points)
+      end
+
       def columns
         y_points.length
       end
