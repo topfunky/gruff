@@ -235,8 +235,7 @@ module Gruff
 
       @scale = @columns / @raw_columns
 
-      vera_font_path = File.expand_path('Vera.ttf', ENV['MAGICK_FONT_PATH'])
-      @font = File.exist?(vera_font_path) ? vera_font_path : nil
+      @font = nil
       @bold_title = true
 
       @marker_font_size = 21.0
@@ -585,7 +584,6 @@ module Gruff
 
         # TODO: Center between graph area
         @d.fill = @font_color
-        @d.font = @font if @font
         @d.stroke('transparent')
         @d.pointsize = scale_fontsize(@marker_font_size)
         @d.gravity = Magick::NorthGravity
@@ -640,7 +638,6 @@ module Gruff
 
         unless @hide_line_numbers
           @d.fill = @font_color
-          @d.font = @font if @font
           @d.stroke('transparent')
           @d.pointsize = scale_fontsize(@marker_font_size)
           @d.gravity = Magick::EastGravity
@@ -665,7 +662,6 @@ module Gruff
       #
       #
       #   @d.fill = @additional_line_colors[i]
-      #   @d.font = @font if @font
       #   @d.stroke('transparent')
       #   @d.pointsize = scale_fontsize(@marker_font_size)
       #   @d.gravity = Magick::EastGravity
@@ -707,7 +703,6 @@ module Gruff
       legend_square_width = @legend_box_size # small square with color of this item
 
       # May fix legend drawing problem at small sizes
-      @d.font = @font if @font
       @d.pointsize = @legend_font_size
 
       label_widths = [[]] # Used to calculate line wrap
@@ -733,7 +728,6 @@ module Gruff
       @legend_labels.each_with_index do |legend_label, index|
         # Draw label
         @d.fill = @font_color
-        @d.font = @font if @font
         @d.pointsize = scale_fontsize(@legend_font_size)
         @d.stroke('transparent')
         @d.font_weight = Magick::NormalWeight
@@ -781,7 +775,7 @@ module Gruff
       return if @hide_title || @title.nil?
 
       @d.fill = @font_color
-      @d.font = @title_font || @font if @title_font || @font
+      @d.font = (@title_font || @font) if @title_font || @font
       @d.stroke('transparent')
       @d.pointsize = scale_fontsize(@title_font_size)
       @d.font_weight = @bold_title ? Magick::BoldWeight : Magick::NormalWeight
@@ -790,6 +784,9 @@ module Gruff
                               @raw_columns, 1.0,
                               0, @top_margin,
                               @title, @scale)
+
+      # Revert the font
+      @d.font = @font if @font
     end
 
     # Draws column labels below graph, centered over x_offset
@@ -824,7 +821,6 @@ module Gruff
 
         if x_offset >= @graph_left && x_offset <= @graph_right
           @d.fill = @font_color
-          @d.font = @font if @font
           @d.stroke('transparent')
           @d.font_weight = Magick::NormalWeight
           @d.pointsize = scale_fontsize(@marker_font_size)
@@ -846,7 +842,6 @@ module Gruff
       #y_offset = @graph_bottom + LABEL_MARGIN
 
       @d.fill = @font_color
-      @d.font = @font if @font
       @d.stroke('transparent')
       @d.font_weight = Magick::NormalWeight
       @d.pointsize = scale_fontsize(@marker_font_size)
@@ -862,7 +857,6 @@ module Gruff
     # Shows an error message because you have no data.
     def draw_no_data
       @d.fill = @font_color
-      @d.font = @font if @font
       @d.stroke('transparent')
       @d.font_weight = Magick::NormalWeight
       @d.pointsize = scale_fontsize(80)
@@ -950,6 +944,7 @@ module Gruff
       @theme_options = {}
 
       @d = Magick::Draw.new
+      @d.font = @font if @font
       # Scale down from 800x600 used to calculate drawing.
       @d = @d.scale(@scale, @scale)
     end
@@ -1072,7 +1067,6 @@ module Gruff
     # handle.
     def calculate_caps_height(font_size)
       @d.pointsize = font_size
-      @d.font = @font if @font
       @d.get_type_metrics(@base_image, 'X').height
     end
 
@@ -1084,7 +1078,6 @@ module Gruff
       return 0 if text.nil?
 
       @d.pointsize = font_size
-      @d.font = @font if @font
       @d.get_type_metrics(@base_image, text.to_s).width
     end
 

@@ -68,7 +68,6 @@ private
 
     # Draw label
     @d.fill = @marker_color
-    @d.font = @font if @font
     @d.pointsize = scale_fontsize(legend_font_size)
     @d.stroke = 'transparent'
     @d.font_weight = Magick::BoldWeight

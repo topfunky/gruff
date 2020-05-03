@@ -89,7 +89,6 @@ protected
 
       unless @hide_line_numbers
         @d.fill = @font_color
-        @d.font = @font if @font
         @d.stroke = 'transparent'
         @d.pointsize = scale_fontsize(@marker_font_size)
         @d.gravity = Magick::CenterGravity
@@ -109,7 +108,6 @@ protected
   def draw_label(y_offset, index)
     if !@labels[index].nil? && @labels_seen[index].nil?
       @d.fill = @font_color
-      @d.font = @font if @font
       @d.stroke = 'transparent'
       @d.font_weight = Magick::NormalWeight
       @d.pointsize = scale_fontsize(@marker_font_size)

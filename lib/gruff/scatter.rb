@@ -266,7 +266,6 @@ protected
         x_offset = get_x_coord(index.to_f, @increment_x_scaled, @graph_left)
 
         @d.fill = @font_color
-        @d.font = @font if @font
         @d.stroke('transparent')
         @d.pointsize = scale_fontsize(@marker_font_size)
         @d.gravity = Magick::NorthGravity
