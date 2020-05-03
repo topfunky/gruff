@@ -303,4 +303,4 @@ private
   def get_x_coord(x_data_point, width, offset) #:nodoc:
     x_data_point * width + offset
   end
-end # end Gruff::Scatter
+end

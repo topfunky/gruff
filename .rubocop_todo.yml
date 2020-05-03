@@ -154,16 +154,6 @@ Style/BlockDelimiters:
 Style/ClassAndModuleChildren:
   Enabled: false
 
-# Offense count: 8
-Style/CommentedKeyword:
-  Exclude:
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/dot.rb'
-    - 'lib/gruff/mini/pie.rb'
-    - 'lib/gruff/scatter.rb'
-    - 'lib/gruff/side_bar.rb'
-    - 'test/test_scatter.rb'
-
 # Offense count: 28
 Style/Documentation:
   Enabled: false

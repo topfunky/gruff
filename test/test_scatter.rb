@@ -307,4 +307,4 @@ protected
     g.data(:peaches, [-10, -8, -6, -3], [-1, -1, -3, -3])
     g
   end
-end # end GruffTestCase
+end

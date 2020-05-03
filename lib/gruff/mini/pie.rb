@@ -28,7 +28,7 @@ module Gruff
         draw_vertical_legend
 
         @d.draw(@base_image)
-      end # def draw
-    end # class Pie
+      end
+    end
   end
 end
