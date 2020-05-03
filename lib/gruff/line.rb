@@ -218,24 +218,23 @@ class Gruff::Line < Gruff::Base
 
       @one_point = contains_one_point_only?(data_row)
 
-      data_row.y_points.each_with_index do |data_point, index|
-        x_data = data_row.x_points
-        if x_data == nil
+      data_row.coordinates.each_with_index do |(x_data, y_data), index|
+        if x_data.nil?
           #use the old method: equally spaced points along the x-axis
           new_x = @graph_left + (@x_increment * index)
           draw_label(new_x, index)
         else
-          new_x = get_x_coord(x_data[index], @graph_width, @graph_left)
+          new_x = get_x_coord(x_data, @graph_width, @graph_left)
           @labels.each do |label_pos, _|
             draw_label(@graph_left + ((label_pos - @minimum_x_value) * @graph_width) / (@maximum_x_value - @minimum_x_value), label_pos)
           end
         end
-        unless data_point # we can't draw a line for a null data point, we can still label the axis though
+        unless y_data # we can't draw a line for a null data point, we can still label the axis though
           prev_x = prev_y = nil
           next
         end
 
-        new_y = @graph_top + (@graph_height - data_point * @graph_height)
+        new_y = @graph_top + (@graph_height - y_data * @graph_height)
 
         # Reset each time to avoid thin-line errors
         @d = @d.stroke data_row.color
