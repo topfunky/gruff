@@ -15,8 +15,8 @@ module Gruff
     end
 
     def normalize(args = {})
-      @data.each do |raw_data|
-        @norm_data << raw_data.normalize(args)
+      @data.each do |data_row|
+        @norm_data << data_row.normalize(args)
       end
     end
 
@@ -58,6 +58,16 @@ module Gruff
 
     def reverse!
       @data.reverse!
+    end
+
+    def stack!
+      stacked_values = Array.new(columns, 0)
+      @data.each do |data_row|
+        data_row.points.each_with_index do |value, index|
+          stacked_values[index] += value
+        end
+        data_row.points = stacked_values.dup
+      end
     end
 
     def set_colors!(colors, index)

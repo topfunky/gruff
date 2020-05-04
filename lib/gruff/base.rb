@@ -993,13 +993,7 @@ module Gruff
     end
 
     def make_stacked # :nodoc:
-      stacked_values = Array.new(column_count, 0)
-      store.data.each do |value_set|
-        value_set.points.each_with_index do |value, index|
-          stacked_values[index] += value
-        end
-        value_set.points = stacked_values.dup
-      end
+      store.stack!
     end
 
   private
