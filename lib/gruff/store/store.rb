@@ -3,7 +3,6 @@
 module Gruff
   class Store
     attr_reader :data, :norm_data
-    attr_reader :data_class
 
     def initialize(data_class)
       @data_class = data_class
