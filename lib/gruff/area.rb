@@ -16,7 +16,7 @@ class Gruff::Area < Gruff::Base
     @x_increment = @graph_width / (column_count - 1).to_f
     @d = @d.stroke 'transparent'
 
-    @norm_data.each do |data_row|
+    store.norm_data.each do |data_row|
       poly_points = []
       @d = @d.fill data_row.color
 

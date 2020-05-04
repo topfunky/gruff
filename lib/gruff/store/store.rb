@@ -8,10 +8,17 @@ module Gruff
     def initialize(data_class)
       @data_class = data_class
       @data = []
+      @norm_data = []
     end
 
     def add(*args)
       @data << @data_class.new(*args)
+    end
+
+    def normalize(args = {})
+      @data.each do |raw_data|
+        @norm_data << raw_data.normalize(args)
+      end
     end
 
     def empty?
@@ -42,8 +49,12 @@ module Gruff
       end
     end
 
-    def sort!
+    def sort_data!
       @data = @data.sort_by { |a| -a.points.reduce(0) { |acc, elem| acc + elem.to_f } }
+    end
+
+    def sort_norm_data!
+      @norm_data = @norm_data.sort_by { |a| -a.points.reduce(0) { |acc, elem| acc + elem.to_f } }
     end
 
     def reverse!

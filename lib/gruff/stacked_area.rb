@@ -20,7 +20,7 @@ class Gruff::StackedArea < Gruff::Base
 
     data_points = nil
     iterator = last_series_goes_on_bottom ? :reverse_each : :each
-    @norm_data.send(iterator) do |data_row|
+    store.norm_data.send(iterator) do |data_row|
       prev_data_points = data_points
       data_points = []
 

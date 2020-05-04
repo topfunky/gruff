@@ -30,11 +30,11 @@ class Gruff::Net < Gruff::Base
 
     @x_increment = @graph_width / (column_count - 1).to_f
     circle_radius = dot_radius ||
-        clip_value_if_greater_than(@columns / (@norm_data.first.points.size * 2.5), 5.0)
+        clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 2.5), 5.0)
 
     @d = @d.stroke_opacity 1.0
     @d = @d.stroke_width line_width ||
-                             clip_value_if_greater_than(@columns / (@norm_data.first.points.size * 4), 5.0)
+                             clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 4), 5.0)
 
     if defined?(@norm_baseline)
       level = @graph_top + (@graph_height - @norm_baseline * @graph_height)
@@ -47,7 +47,7 @@ class Gruff::Net < Gruff::Base
       @d = @d.pop
     end
 
-    @norm_data.each do |data_row|
+    store.norm_data.each do |data_row|
       @d = @d.stroke data_row.color
       @d = @d.fill data_row.color
 

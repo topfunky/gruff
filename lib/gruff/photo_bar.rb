@@ -45,9 +45,9 @@ class Gruff::PhotoBar < Gruff::Base
     #
     # Columns sit side-by-side.
     spacing_factor = 0.9
-    @bar_width = @norm_data[0].color.columns
+    @bar_width = store.norm_data[0].color.columns
 
-    @norm_data.each_with_index do |data_row, row_index|
+    store.norm_data.each_with_index do |data_row, row_index|
       data_row.points.each_with_index do |data_point, point_index|
         data_point = 0 if data_point.nil?
         # Use incremented x and scaled y

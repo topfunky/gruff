@@ -266,7 +266,6 @@ module Gruff
       @x_axis_label = @y_axis_label = nil
       @y_axis_increment = nil
       @stacked = nil
-      @norm_data = nil
 
       @store = Gruff::Store.new(Gruff::Store::BaseData)
     end
@@ -496,17 +495,7 @@ module Gruff
 
     # Make copy of data with values scaled between 0-100
     def normalize
-      if @norm_data.nil?
-        @norm_data = []
-        return unless data_given?
-
-        store.data.each do |data_row|
-          norm_data_points = data_row.points.map do |data_point|
-            data_point.nil? ? nil : (data_point.to_f - minimum_value.to_f) / @spread
-          end
-          @norm_data << store.data_class.new(data_row.label, norm_data_points, data_row.color)
-        end
-      end
+      store.normalize(minimum: minimum_value, spread: @spread)
     end
 
     def calculate_spread # :nodoc:
@@ -989,7 +978,7 @@ module Gruff
 
     # Sort with largest overall summed value at front of array.
     def sort_data
-      store.sort!
+      store.sort_data!
     end
 
     # Set the color for each data set unless it was given in the data(...) call.
@@ -1000,8 +989,7 @@ module Gruff
     # Sort with largest overall summed value at front of array so it shows up
     # correctly in the drawn graph.
     def sort_norm_data
-      @norm_data =
-        @norm_data.sort_by { |a| -a.points.reduce(0) { |sum, num| sum + num.to_f } }
+      store.sort_norm_data!
     end
 
     def make_stacked # :nodoc:

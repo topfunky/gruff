@@ -26,7 +26,7 @@ protected
     @bar_spacing ||= 0.9
 
     @bars_width = @graph_height / column_count.to_f
-    @bar_width = @bars_width / @norm_data.size
+    @bar_width = @bars_width / store.length
     @d = @d.stroke_opacity 0.0
     height = Array.new(column_count, 0)
     length = Array.new(column_count, @graph_left)
@@ -37,7 +37,7 @@ protected
     # see both graphs and it looks like crap
     return if is_a?(Gruff::SideStackedBar)
 
-    @norm_data.each_with_index do |data_row, row_index|
+    store.norm_data.each_with_index do |data_row, row_index|
       @d = @d.fill data_row.color
 
       data_row.points.each_with_index do |data_point, point_index|
@@ -61,7 +61,7 @@ protected
 
         if @use_data_label
           label_center = @graph_top + (@bar_width * (row_index + point_index) + @bar_width / 2)
-          draw_label(label_center, row_index, @norm_data[row_index].label)
+          draw_label(label_center, row_index, store.norm_data[row_index].label)
         else
           label_center = @graph_top + (@bars_width * point_index + @bars_width / 2)
           draw_label(label_center, point_index)

@@ -38,7 +38,7 @@ protected
       label_values = []
       0.upto(column_count - 1) { |i| label_values[i] = { value: 0, right_x: 0 } }
     end
-    @norm_data.each_with_index do |data_row, row_index|
+    store.norm_data.each_with_index do |data_row, row_index|
       data_row.points.each_with_index do |data_point, point_index|
         ## using the original calcs from the stacked bar chart to get the difference between
         ## part of the bart chart we wish to stack.

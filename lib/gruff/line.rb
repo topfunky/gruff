@@ -213,7 +213,7 @@ class Gruff::Line < Gruff::Base
       end
     end
 
-    @norm_data.each do |data_row|
+    store.norm_data.each do |data_row|
       prev_x = prev_y = nil
 
       @one_point = contains_one_point_only?(data_row)
@@ -241,10 +241,10 @@ class Gruff::Line < Gruff::Base
         @d = @d.fill data_row.color
         @d = @d.stroke_opacity 1.0
         @d = @d.stroke_width line_width ||
-                                 clip_value_if_greater_than(@columns / (@norm_data.first.y_points.size * 4), 5.0)
+                                 clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 4), 5.0)
 
         circle_radius = dot_radius ||
-            clip_value_if_greater_than(@columns / (@norm_data.first.y_points.size * 2.5), 5.0)
+            clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 2.5), 5.0)
 
         if !@hide_lines && !prev_x.nil? && !prev_y.nil?
           @d = @d.line(prev_x, prev_y, new_x, new_y)
@@ -284,22 +284,10 @@ class Gruff::Line < Gruff::Base
   end
 
   def normalize
-    if @norm_data.nil?
-      @norm_data = []
-      return unless data_given?
+    return unless data_given?
 
-      spread_x = @maximum_x_value.to_f - @minimum_x_value.to_f
-
-      store.data.each do |data_row|
-        y_points = data_row.y_points.map do |r|
-          r.nil? ? nil : (r.to_f - minimum_value.to_f) / @spread
-        end
-        x_points = data_row.x_points.map do |r|
-          r.nil? ? nil : (r.to_f - @minimum_x_value.to_f) / spread_x
-        end
-        @norm_data << store.data_class.new(data_row.label, y_points, data_row.color, x_points)
-      end
-    end
+    spread_x = @maximum_x_value.to_f - @minimum_x_value.to_f
+    store.normalize(minimum_x: @minimum_x_value, spread_x: spread_x, minimum_y: minimum_value, spread_y: @spread)
 
     @reference_lines.each_value do |curr_reference_line|
       # We only care about horizontal markers ... for normalization.
