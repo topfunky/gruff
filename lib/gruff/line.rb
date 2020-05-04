@@ -283,23 +283,29 @@ class Gruff::Line < Gruff::Base
     super
   end
 
-  def normalize(force = false)
-    super(force)
+  def normalize
+    if @norm_data.nil?
+      @norm_data = []
+      return unless data_given?
+
+      spread_x = @maximum_x_value.to_f - @minimum_x_value.to_f
+
+      store.data.each do |data_row|
+        y_points = data_row.y_points.map do |r|
+          r.nil? ? nil : (r.to_f - minimum_value.to_f) / @spread
+        end
+        x_points = data_row.x_points.map do |r|
+          r.nil? ? nil : (r.to_f - @minimum_x_value.to_f) / spread_x
+        end
+        @norm_data << store.data_class.new(data_row.label, y_points, data_row.color, x_points)
+      end
+    end
 
     @reference_lines.each_value do |curr_reference_line|
       # We only care about horizontal markers ... for normalization.
       # Vertical markers won't have a :value, they will have an :index
 
       curr_reference_line[:norm_value] = ((curr_reference_line[:value].to_f - minimum_value) / @spread.to_f) if curr_reference_line.key?(:value)
-    end
-
-    #normalize the x data if it is specified
-    store.data.each_with_index do |data_row, index|
-      if data_row.x_points
-        @norm_data[index].x_points = data_row.x_points.map do |x_data_point|
-          (x_data_point.to_f - @minimum_x_value.to_f) / (@maximum_x_value.to_f - @minimum_x_value.to_f)
-        end
-      end
     end
   end
 
