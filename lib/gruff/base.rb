@@ -495,8 +495,8 @@ module Gruff
     end
 
     # Make copy of data with values scaled between 0-100
-    def normalize(force = false)
-      if @norm_data.nil? || force
+    def normalize
+      if @norm_data.nil?
         @norm_data = []
         return unless data_given?
 

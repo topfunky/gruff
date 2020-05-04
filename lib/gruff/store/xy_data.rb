@@ -10,13 +10,12 @@ module Gruff
         self.x_points = Array(x_points) if x_points
       end
 
-      def points
-        y_points
+      def x_points
+        self[:x_points] || Array.new(y_points.length)
       end
 
       def coordinates
-        x = x_points || Array.new(y_points.length)
-        x.zip(y_points)
+        x_points.zip(y_points)
       end
 
       def columns

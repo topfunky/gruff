@@ -197,8 +197,8 @@ protected
     @x_spread = @x_spread > 0 ? @x_spread : 1
   end
 
-  def normalize(force = nil)
-    if @norm_data.nil? || force
+  def normalize
+    if @norm_data.nil?
       @norm_data = []
       return unless data_given?
 
@@ -243,7 +243,7 @@ protected
       @maximum_x_value = [maximum_value.ceil, @x_axis_increment].max
       @minimum_x_value = @minimum_x_value.floor
       calculate_spread
-      normalize(true)
+      normalize
 
       @marker_count = (@x_spread / @x_axis_increment).to_i
       @x_increment = @x_axis_increment
