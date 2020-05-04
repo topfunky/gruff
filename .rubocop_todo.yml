@@ -148,12 +148,6 @@ Style/EvalWithLocation:
     - 'test/gruff_test_case.rb'
 
 # Offense count: 1
-# Cop supports --auto-correct.
-Style/ExpandPathArguments:
-  Exclude:
-    - 'gruff.gemspec'
-
-# Offense count: 1
 Style/MissingRespondToMissing:
   Exclude:
     - 'lib/gruff/scene.rb'
