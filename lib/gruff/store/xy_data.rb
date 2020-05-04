@@ -29,6 +29,17 @@ module Gruff
       def max
         y_points.compact.max
       end
+
+      def normalize(args = {})
+        norm_x_points = x_points.map do |x|
+          x.nil? ? nil : (x.to_f - args[:minimum_x].to_f) / args[:spread_x]
+        end
+        norm_y_points = y_points.map do |y|
+          y.nil? ? nil : (y.to_f - args[:minimum_y].to_f) / args[:spread_y]
+        end
+
+        self.class.new(label, norm_y_points, color, norm_x_points)
+      end
     end
   end
 end

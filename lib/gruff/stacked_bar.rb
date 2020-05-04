@@ -30,7 +30,7 @@ class Gruff::StackedBar < Gruff::Base
 
     height = Array.new(column_count, 0)
 
-    @norm_data.each do |data_row|
+    store.norm_data.each do |data_row|
       data_row.points.each_with_index do |data_point, point_index|
         @d = @d.fill data_row.color
 

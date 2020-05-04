@@ -69,7 +69,7 @@ protected
     end
 
     # iterate over all normalised data
-    @norm_data.each_with_index do |data_row, row_index|
+    store.norm_data.each_with_index do |data_row, row_index|
       data_row.points.each_with_index do |data_point, point_index|
         # Use incremented x and scaled y
         # x

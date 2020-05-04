@@ -107,7 +107,7 @@ class Gruff::Scatter < Gruff::Base
 
     #~ end
 
-    @norm_data.each do |data_row|
+    store.norm_data.each do |data_row|
       data_row.y_points.each_with_index do |data_point, index|
         x_value = data_row.x_points[index]
         next if data_point.nil? || x_value.nil?
@@ -119,9 +119,9 @@ class Gruff::Scatter < Gruff::Base
         @d = @d.stroke data_row.color
         @d = @d.fill data_row.color
         @d = @d.stroke_opacity 1.0
-        @d = @d.stroke_width @stroke_width || clip_value_if_greater_than(@columns / (@norm_data.first[1].size * 4), 5.0)
+        @d = @d.stroke_width @stroke_width || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4), 5.0)
 
-        circle_radius = @circle_radius || clip_value_if_greater_than(@columns / (@norm_data.first[1].size * 2.5), 5.0)
+        circle_radius = @circle_radius || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 2.5), 5.0)
         @d = @d.circle(new_x, new_y, new_x - circle_radius, new_y)
       end
     end
@@ -198,22 +198,9 @@ protected
   end
 
   def normalize
-    if @norm_data.nil?
-      @norm_data = []
-      return unless data_given?
+    return unless data_given?
 
-      store.data.each do |data_row|
-        y_points = data_row.y_points.map do |r|
-          (r.to_f - minimum_value.to_f) / @spread
-        end
-        x_points = data_row.x_points.map do |r|
-          (r.to_f - @minimum_x_value.to_f) / @x_spread
-        end
-        @norm_data << store.data_class.new(data_row.label, y_points, data_row.color, x_points)
-      end
-    end
-    #~ @norm_y_baseline = (@baseline_y_value.to_f / @maximum_value.to_f) if @baseline_y_value
-    #~ @norm_x_baseline = (@baseline_x_value.to_f / @maximum_x_value.to_f) if @baseline_x_value
+    store.normalize(minimum_x: @minimum_x_value, spread_x: @x_spread, minimum_y: minimum_value, spread_y: @spread)
   end
 
   def draw_line_markers

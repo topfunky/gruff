@@ -10,7 +10,7 @@ class Gruff::Bezier < Gruff::Base
 
     @x_increment = @graph_width / (column_count - 1).to_f
 
-    @norm_data.each do |data_row|
+    store.norm_data.each do |data_row|
       poly_points = []
       @d = @d.fill data_row.color
 
@@ -32,7 +32,7 @@ class Gruff::Bezier < Gruff::Base
 
       @d = @d.fill_opacity 0.0
       @d = @d.stroke data_row.color
-      @d = @d.stroke_width clip_value_if_greater_than(@columns / (@norm_data.first[1].size * 4), 5.0)
+      @d = @d.stroke_width clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4), 5.0)
 
       if RUBY_PLATFORM == 'java'
         @d = @d.polyline(*poly_points)
