@@ -440,14 +440,6 @@ module Gruff
       setup_data
       setup_drawing
 
-      debug {
-        # Outer margin
-        @d.rectangle(@left_margin, @top_margin,
-                     @raw_columns - @right_margin, @raw_rows - @bottom_margin)
-        # Graph area box
-        @d.rectangle(@graph_left, @graph_top, @graph_right, @graph_bottom)
-      }
-
       draw_legend
       draw_line_markers
       draw_axis_labels
@@ -702,12 +694,11 @@ module Gruff
         text_renderer.render(@raw_columns, 1.0, current_x_offset + (legend_square_width * 1.7), current_y_offset, Magick::WestGravity)
 
         # Now draw box with color of this dataset
-        @d = @d.stroke('transparent')
-        @d = @d.fill store.data[index].color
-        @d = @d.rectangle(current_x_offset,
-                          current_y_offset - legend_square_width / 2.0,
-                          current_x_offset + legend_square_width,
-                          current_y_offset + legend_square_width / 2.0)
+        rect_renderer = Gruff::Renderer::Rectangle.new(color: store.data[index].color)
+        rect_renderer.render(current_x_offset,
+                             current_y_offset - legend_square_width / 2.0,
+                             current_x_offset + legend_square_width,
+                             current_y_offset + legend_square_width / 2.0)
 
         @d.pointsize = @legend_font_size
         metrics = @d.get_type_metrics(@base_image, legend_label.to_s)

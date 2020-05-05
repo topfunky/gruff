@@ -38,8 +38,6 @@ protected
     return if is_a?(Gruff::SideStackedBar)
 
     store.norm_data.each_with_index do |data_row, row_index|
-      @d = @d.fill data_row.color
-
       data_row.points.each_with_index do |data_point, point_index|
         # Using the original calcs from the stacked bar chart
         # to get the difference between
@@ -55,7 +53,8 @@ protected
 
         height[point_index] += (data_point * @graph_width)
 
-        @d = @d.rectangle(left_x, left_y, right_x, right_y)
+        rect_renderer = Gruff::Renderer::Rectangle.new(color: data_row.color)
+        rect_renderer.render(left_x, left_y, right_x, right_y)
 
         # Calculate center based on bar_width and current row
 
