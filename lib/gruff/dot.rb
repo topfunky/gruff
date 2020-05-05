@@ -88,15 +88,9 @@ protected
       @d = @d.line(x, @graph_bottom, x, @graph_bottom + 0.5 * LABEL_MARGIN)
 
       unless @hide_line_numbers
-        @d.fill = @font_color
-        @d.stroke = 'transparent'
-        @d.pointsize = scale_fontsize(@marker_font_size)
-        @d.gravity = Magick::CenterGravity
-        # TODO: Center text over line
-        @d = @d.annotate_scaled(@base_image,
-                                0, 0, # Width of box to draw text in
-                                x, @graph_bottom + (LABEL_MARGIN * 2.0), # Coordinates of text
-                                label(marker_label, increment), @scale)
+        label = label(marker_label, increment)
+        text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @marker_font_size, color: @font_color)
+        text_renderer.render(0, 0, x, @graph_bottom + (LABEL_MARGIN * 2.0), Magick::CenterGravity)
       end
       @d = @d.stroke_antialias true
     end
@@ -107,15 +101,8 @@ protected
 
   def draw_label(y_offset, index)
     if !@labels[index].nil? && @labels_seen[index].nil?
-      @d.fill = @font_color
-      @d.stroke = 'transparent'
-      @d.font_weight = Magick::NormalWeight
-      @d.pointsize = scale_fontsize(@marker_font_size)
-      @d.gravity = Magick::EastGravity
-      @d = @d.annotate_scaled(@base_image,
-                              1, 1,
-                              -@graph_left + LABEL_MARGIN * 2.0, y_offset,
-                              @labels[index], @scale)
+      text_renderer = Gruff::Renderer::Text.new(@labels[index], font: @font, size: @marker_font_size, color: @font_color)
+      text_renderer.render(1, 1, -@graph_left + LABEL_MARGIN * 2.0, y_offset, Magick::EastGravity)
       @labels_seen[index] = 1
     end
   end

@@ -252,16 +252,10 @@ protected
         y_offset = @graph_bottom + (@x_label_margin || LABEL_MARGIN)
         x_offset = get_x_coord(index.to_f, @increment_x_scaled, @graph_left)
 
-        @d.fill = @font_color
-        @d.stroke('transparent')
-        @d.pointsize = scale_fontsize(@marker_font_size)
-        @d.gravity = Magick::NorthGravity
-        @d.rotation = -90.0 if @use_vertical_x_labels
-        @d = @d.annotate_scaled(@base_image,
-                                1.0, 1.0,
-                                x_offset, y_offset,
-                                vertical_label(marker_label, @x_increment), @scale)
-        @d.rotation = 90.0 if @use_vertical_x_labels
+        label = vertical_label(marker_label, @x_increment)
+        rotation = -90.0 if @use_vertical_x_labels
+        text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @marker_font_size, color: @font_color, rotation: rotation)
+        text_renderer.render(1.0, 1.0, x_offset, y_offset)
       end
     end
 

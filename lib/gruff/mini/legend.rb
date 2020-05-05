@@ -69,15 +69,9 @@ module Gruff
 
         @legend_labels.each_with_index do |legend_label, index|
           # Draw label
-          @d.fill = @font_color
-          @d.pointsize = scale_fontsize(@legend_font_size)
-          @d.stroke = 'transparent'
-          @d.font_weight = Magick::NormalWeight
-          @d.gravity = Magick::WestGravity
-          @d = @d.annotate_scaled(@base_image,
-                                  @raw_columns, 1.0,
-                                  current_x_offset + (legend_square_width * 1.7), current_y_offset,
-                                  truncate_legend_label(legend_label), @scale)
+          label = truncate_legend_label(legend_label)
+          text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @legend_font_size, color: @font_color)
+          text_renderer.render(@raw_columns, 1.0, current_x_offset + (legend_square_width * 1.7), current_y_offset, Magick::WestGravity)
 
           # Now draw box with color of this dataset
           @d = @d.stroke 'transparent'

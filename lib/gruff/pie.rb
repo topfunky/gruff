@@ -164,7 +164,7 @@ private
     if slice.percentage >= hide_labels_less_than
       x, y = label_coordinates_for slice
 
-      @d = draw_label(x, y, slice.label)
+      draw_label(x, y, slice.label)
     end
   end
 
@@ -211,27 +211,9 @@ private
     @d.draw(@base_image)
   end
 
-  def configure_label_styling
-    @d.fill        = @font_color
-    @d.font        = @font if @font
-    @d.pointsize   = scale_fontsize(@marker_font_size)
-    @d.stroke      = 'transparent'
-    @d.font_weight = Magick::BoldWeight
-    @d.gravity     = Magick::CenterGravity
-  end
-
   def draw_label(x, y, value)
-    configure_label_styling
-
-    @d.annotate_scaled(
-      @base_image,
-      0,
-      0,
-      x,
-      y,
-      value,
-      @scale
-    )
+    text_renderer = Gruff::Renderer::Text.new(value, font: @font, size: @marker_font_size, color: @font_color, weight: Magick::BoldWeight)
+    text_renderer.render(0, 0, x, y, Magick::CenterGravity)
   end
 
   # Helper Classes

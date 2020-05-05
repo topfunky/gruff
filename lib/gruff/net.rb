@@ -110,11 +110,7 @@ private
     y = y_offset - (radius * r_offset * Math.cos(deg2rad(angle)))
 
     # Draw label
-    @d.fill = @marker_color
-    @d.pointsize = scale_fontsize(20)
-    @d.stroke = 'transparent'
-    @d.font_weight = Magick::BoldWeight
-    @d.gravity = Magick::CenterGravity
-    @d.annotate_scaled(@base_image, 0, 0, x, y, amount, @scale)
+    text_renderer = Gruff::Renderer::Text.new(amount, font: @font, size: 20, color: @marker_color, weight: Magick::BoldWeight)
+    text_renderer.render(0, 0, x, y, Magick::CenterGravity)
   end
 end
