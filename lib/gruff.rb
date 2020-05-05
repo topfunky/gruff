@@ -28,6 +28,9 @@ require 'gruff/version'
 
   scene
 
+  renderer/renderer
+  renderer/text
+
   store/store
   store/base_data
   store/custom_data

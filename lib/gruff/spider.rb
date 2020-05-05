@@ -67,15 +67,8 @@ private
     y = y_offset + ((radius + r_offset) * Math.sin(angle))
 
     # Draw label
-    @d.fill = @marker_color
-    @d.pointsize = scale_fontsize(legend_font_size)
-    @d.stroke = 'transparent'
-    @d.font_weight = Magick::BoldWeight
-    @d.gravity = Magick::CenterGravity
-    @d.annotate_scaled(@base_image,
-                       0, 0,
-                       x, y,
-                       amount, @scale)
+    text_renderer = Gruff::Renderer::Text.new(amount, font: @font, size: legend_font_size, color: @marker_color, weight: Magick::BoldWeight)
+    text_renderer.render(0, 0, x, y, Magick::CenterGravity)
   end
 
   def draw_axes(center_x, center_y, radius, additive_angle, line_color = nil)

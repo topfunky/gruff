@@ -234,6 +234,7 @@ module Gruff
       @title_font = nil
 
       @scale = @columns / @raw_columns
+      Renderer.instance.scale = @scale
 
       @font = nil
       @bold_title = true
@@ -572,26 +573,14 @@ module Gruff
         x_axis_label_y_coordinate = @graph_bottom + LABEL_MARGIN * 2 + @marker_caps_height
 
         # TODO: Center between graph area
-        @d.fill = @font_color
-        @d.stroke('transparent')
-        @d.pointsize = scale_fontsize(@marker_font_size)
-        @d.gravity = Magick::NorthGravity
-        @d = @d.annotate_scaled(@base_image,
-                                @raw_columns, 1.0,
-                                0.0, x_axis_label_y_coordinate,
-                                @x_axis_label, @scale)
-        debug { @d.line 0.0, x_axis_label_y_coordinate, @raw_columns, x_axis_label_y_coordinate }
+        text_renderer = Gruff::Renderer::Text.new(@x_axis_label, font: @font, size: @marker_font_size, color: @font_color)
+        text_renderer.render(@raw_columns, 1.0, 0.0, x_axis_label_y_coordinate)
       end
 
       unless @y_axis_label.nil?
         # Y Axis, rotated vertically
-        @d.rotation = -90.0
-        @d.gravity = Magick::CenterGravity
-        @d = @d.annotate_scaled(@base_image,
-                                1.0, @raw_rows,
-                                @left_margin + @marker_caps_height / 2.0, 0.0,
-                                @y_axis_label, @scale)
-        @d.rotation = 90.0
+        text_renderer = Gruff::Renderer::Text.new(@y_axis_label, font: @font, size: @marker_font_size, color: @font_color, rotation: -90)
+        text_renderer.render(1.0, @raw_rows, @left_margin + @marker_caps_height / 2.0, 0.0, Magick::CenterGravity)
       end
     end
 
@@ -626,16 +615,9 @@ module Gruff
         marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) + BigDecimal(minimum_value.to_s)
 
         unless @hide_line_numbers
-          @d.fill = @font_color
-          @d.stroke('transparent')
-          @d.pointsize = scale_fontsize(@marker_font_size)
-          @d.gravity = Magick::EastGravity
-
-          # Vertically center with 1.0 for the height
-          @d = @d.annotate_scaled(@base_image,
-                                  @graph_left - LABEL_MARGIN, 1.0,
-                                  0.0, y,
-                                  label(marker_label, @increment), @scale)
+          label = label(marker_label, @increment)
+          text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @marker_font_size, color: @font_color)
+          text_renderer.render(@graph_left - LABEL_MARGIN, 1.0, 0.0, y, Magick::EastGravity)
         end
       end
 
@@ -716,15 +698,8 @@ module Gruff
 
       @legend_labels.each_with_index do |legend_label, index|
         # Draw label
-        @d.fill = @font_color
-        @d.pointsize = scale_fontsize(@legend_font_size)
-        @d.stroke('transparent')
-        @d.font_weight = Magick::NormalWeight
-        @d.gravity = Magick::WestGravity
-        @d = @d.annotate_scaled(@base_image,
-                                @raw_columns, 1.0,
-                                current_x_offset + (legend_square_width * 1.7), current_y_offset,
-                                legend_label.to_s, @scale)
+        text_renderer = Gruff::Renderer::Text.new(legend_label, font: @font, size: @legend_font_size, color: @font_color)
+        text_renderer.render(@raw_columns, 1.0, current_x_offset + (legend_square_width * 1.7), current_y_offset, Magick::WestGravity)
 
         # Now draw box with color of this dataset
         @d = @d.stroke('transparent')
@@ -763,19 +738,10 @@ module Gruff
     def draw_title
       return if @hide_title || @title.nil?
 
-      @d.fill = @font_color
-      @d.font = (@title_font || @font) if @title_font || @font
-      @d.stroke('transparent')
-      @d.pointsize = scale_fontsize(@title_font_size)
-      @d.font_weight = @bold_title ? Magick::BoldWeight : Magick::NormalWeight
-      @d.gravity = Magick::NorthGravity
-      @d = @d.annotate_scaled(@base_image,
-                              @raw_columns, 1.0,
-                              0, @top_margin,
-                              @title, @scale)
-
-      # Revert the font
-      @d.font = @font if @font
+      font = (@title_font || @font) if @title_font || @font
+      font_weight = @bold_title ? Magick::BoldWeight : Magick::NormalWeight
+      text_renderer = Gruff::Renderer::Text.new(@title, font: font, size: @title_font_size, color: @font_color, weight: font_weight)
+      text_renderer.render(@raw_columns, 1.0, 0, @top_margin)
     end
 
     # Draws column labels below graph, centered over x_offset
@@ -809,18 +775,10 @@ module Gruff
         end
 
         if x_offset >= @graph_left && x_offset <= @graph_right
-          @d.fill = @font_color
-          @d.stroke('transparent')
-          @d.font_weight = Magick::NormalWeight
-          @d.pointsize = scale_fontsize(@marker_font_size)
-          @d.gravity = Magick::NorthGravity
-          @d = @d.annotate_scaled(@base_image,
-                                  1.0, 1.0,
-                                  x_offset, y_offset,
-                                  label_text, @scale)
+          text_renderer = Gruff::Renderer::Text.new(label_text, font: @font, size: @marker_font_size, color: @font_color)
+          text_renderer.render(1.0, 1.0, x_offset, y_offset)
         end
         @labels_seen[index] = 1
-        debug { @d.line 0.0, y_offset, @raw_columns, y_offset }
       end
     end
 
@@ -828,32 +786,14 @@ module Gruff
     def draw_value_label(x_offset, y_offset, data_point, bar_value = false)
       return if @hide_line_markers && !bar_value
 
-      #y_offset = @graph_bottom + LABEL_MARGIN
-
-      @d.fill = @font_color
-      @d.stroke('transparent')
-      @d.font_weight = Magick::NormalWeight
-      @d.pointsize = scale_fontsize(@marker_font_size)
-      @d.gravity = Magick::NorthGravity
-      @d = @d.annotate_scaled(@base_image,
-                              1.0, 1.0,
-                              x_offset, y_offset,
-                              data_point.to_s, @scale)
-
-      debug { @d.line 0.0, y_offset, @raw_columns, y_offset }
+      text_renderer = Gruff::Renderer::Text.new(data_point, font: @font, size: @marker_font_size, color: @font_color)
+      text_renderer.render(1.0, 1.0, x_offset, y_offset)
     end
 
     # Shows an error message because you have no data.
     def draw_no_data
-      @d.fill = @font_color
-      @d.stroke('transparent')
-      @d.font_weight = Magick::NormalWeight
-      @d.pointsize = scale_fontsize(80)
-      @d.gravity = Magick::CenterGravity
-      @d = @d.annotate_scaled(@base_image,
-                              @raw_columns, @raw_rows / 2.0,
-                              0, 10,
-                              @no_data_message, @scale)
+      text_renderer = Gruff::Renderer::Text.new(@no_data_message, font: @font, size: 80, color: @font_color)
+      text_renderer.render(@raw_columns, @raw_rows / 2.0, 0, 10, Magick::CenterGravity)
     end
 
     # Finds the best background to render based on the provided theme options.
@@ -868,6 +808,7 @@ module Gruff
       else
         @base_image = render_image_background(*@theme_options[:background_image])
       end
+      Renderer.instance.image = @base_image
     end
 
     # Make a new image at the current size with a solid +color+.
@@ -933,6 +874,7 @@ module Gruff
       @theme_options = {}
 
       @d = Magick::Draw.new
+      Renderer.instance.draw = @d
       @d.font = @font if @font
       # Scale down from 800x600 used to calculate drawing.
       @d = @d.scale(@scale, @scale)
