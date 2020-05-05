@@ -64,27 +64,29 @@ class Gruff::Bullet < Gruff::Base
     @graph_height = @thickness * 3.0
 
     # Background
-    @d = @d.fill @colors[0]
-    @d = @d.rectangle(@graph_left, 0, @graph_left + @graph_width, @graph_height)
+    rect_renderer = Gruff::Renderer::Rectangle.new(color: @colors[0])
+    rect_renderer.render(@graph_left, 0, @graph_left + @graph_width, @graph_height)
 
     [:high, :low].each_with_index do |indicator, index|
       next unless @options.key?(indicator)
 
-      @d = @d.fill @colors[index + 1]
       indicator_width_x = @graph_left + @graph_width * (@options[indicator] / maximum_value)
-      @d = @d.rectangle(@graph_left, 0, indicator_width_x, @graph_height)
+
+      rect_renderer = Gruff::Renderer::Rectangle.new(color: @colors[index + 1])
+      rect_renderer.render(@graph_left, 0, indicator_width_x, @graph_height)
     end
 
     if @options.key?(:target)
-      @d = @d.fill @font_color
       target_x = @graph_left + @graph_width * (@options[:target] / maximum_value)
       half_thickness = @thickness / 2.0
-      @d = @d.rectangle(target_x, half_thickness, target_x + half_thickness, @thickness * 2 + half_thickness)
+
+      rect_renderer = Gruff::Renderer::Rectangle.new(color: @font_color)
+      rect_renderer.render(target_x, half_thickness, target_x + half_thickness, @thickness * 2 + half_thickness)
     end
 
     # Value
-    @d = @d.fill @font_color
-    @d = @d.rectangle(@graph_left, @thickness, @graph_left + @graph_width * (@value / maximum_value), @thickness * 2)
+    rect_renderer = Gruff::Renderer::Rectangle.new(color: @font_color)
+    rect_renderer.render(@graph_left, @thickness, @graph_left + @graph_width * (@value / maximum_value), @thickness * 2)
 
     @d.draw(@base_image)
   end

@@ -48,8 +48,6 @@ protected
         temp2 = @graph_left + @graph_width - height[point_index] - 1
         difference = temp2 - temp1
 
-        @d = @d.fill data_row.color
-
         left_x = length[point_index] #+ 1
         left_y = @graph_top + (@bar_width * point_index) + padding
         right_x = left_x + difference
@@ -66,7 +64,8 @@ protected
         # that shouldn't even be there being drawn on top of the existing
         # bar - this is bad
         if data_point != 0
-          @d = @d.rectangle(left_x, left_y, right_x, right_y)
+          rect_renderer = Gruff::Renderer::Rectangle.new(color: data_row.color)
+          rect_renderer.render(left_x, left_y, right_x, right_y)
           # Calculate center based on bar_width and current row
         end
         # we still need to draw the labels

@@ -65,8 +65,6 @@ module Gruff
           current_y_offset = @original_rows + legend_top_margin
         end
 
-        debug { @d.line 0.0, current_y_offset, @raw_columns, current_y_offset }
-
         @legend_labels.each_with_index do |legend_label, index|
           # Draw label
           label = truncate_legend_label(legend_label)
@@ -74,12 +72,11 @@ module Gruff
           text_renderer.render(@raw_columns, 1.0, current_x_offset + (legend_square_width * 1.7), current_y_offset, Magick::WestGravity)
 
           # Now draw box with color of this dataset
-          @d = @d.stroke 'transparent'
-          @d = @d.fill store.data[index].color
-          @d = @d.rectangle(current_x_offset,
-                            current_y_offset - legend_square_width / 2.0,
-                            current_x_offset + legend_square_width,
-                            current_y_offset + legend_square_width / 2.0)
+          rect_renderer = Gruff::Renderer::Rectangle.new(color: store.data[index].color)
+          rect_renderer.render(current_x_offset,
+                               current_y_offset - legend_square_width / 2.0,
+                               current_x_offset + legend_square_width,
+                               current_y_offset + legend_square_width / 2.0)
 
           current_y_offset += calculate_line_height
         end

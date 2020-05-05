@@ -80,8 +80,8 @@ protected
         conversion.get_left_y_right_y_scaled(data_point, conv)
 
         # create new bar
-        @d = @d.fill data_row.color
-        @d = @d.rectangle(left_x, conv[0], right_x, conv[1])
+        rect_renderer = Gruff::Renderer::Rectangle.new(color: data_row.color)
+        rect_renderer.render(left_x, conv[0], right_x, conv[1])
 
         # Calculate center based on bar_width and current row
         label_center = @graph_left +

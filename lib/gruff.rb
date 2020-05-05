@@ -29,6 +29,7 @@ require 'gruff/version'
   scene
 
   renderer/renderer
+  renderer/rectangle
   renderer/text
 
   store/store
