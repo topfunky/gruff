@@ -3,6 +3,7 @@
 /pkg/
 /vendor/
 /test/output/
+/test/output_java/
 .DS_Store
 .bundle
 .yardoc
