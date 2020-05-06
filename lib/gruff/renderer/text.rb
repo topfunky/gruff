@@ -28,6 +28,8 @@ module Gruff
                                   x, y,
                                   @text, scale)
       draw.rotation = -@rotation if @rotation
+
+      Renderer.instance.draw = draw
     end
   end
 end
