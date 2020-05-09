@@ -36,13 +36,7 @@ class Gruff::Net < Gruff::Base
 
     if defined?(@norm_baseline)
       level = @graph_top + (@graph_height - @norm_baseline * @graph_height)
-      @d.push
-      @d.stroke_color @baseline_color
-      @d.fill_opacity 0.0
-      @d.stroke_dasharray(10, 20)
-      @d.stroke_width 5
-      @d.line(@graph_left, level, @graph_left + @graph_width, level)
-      @d.pop
+      Gruff::Renderer::DashLine.new(color: @baseline_color, width: 5.0).rendere(@graph_left, level, @graph_left + @graph_width, level)
     end
 
     store.norm_data.each do |data_row|
