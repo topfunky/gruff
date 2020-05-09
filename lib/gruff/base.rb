@@ -666,11 +666,9 @@ module Gruff
       legend_square_width = @legend_box_size # small square with color of this item
 
       # May fix legend drawing problem at small sizes
-      @d.pointsize = @legend_font_size
-
       label_widths = [[]] # Used to calculate line wrap
       @legend_labels.each do |label|
-        metrics = @d.get_type_metrics(@base_image, label.to_s)
+        metrics = Renderer::Text.metrics(label, @legend_font_size)
         label_width = metrics.width + legend_square_width * 2.7
         label_widths.last.push label_width
 
@@ -700,8 +698,7 @@ module Gruff
                              current_x_offset + legend_square_width,
                              current_y_offset + legend_square_width / 2.0)
 
-        @d.pointsize = @legend_font_size
-        metrics = @d.get_type_metrics(@base_image, legend_label.to_s)
+        metrics = Renderer::Text.metrics(legend_label, legend_font_size)
         current_string_offset = metrics.width + (legend_square_width * 2.7)
 
         # Handle wrapping
@@ -981,8 +978,8 @@ module Gruff
     # Not scaled since it deals with dimensions that the regular scaling will
     # handle.
     def calculate_caps_height(font_size)
-      @d.pointsize = font_size
-      @d.get_type_metrics(@base_image, 'X').height
+      metrics = Renderer::Text.metrics('X', font_size)
+      metrics.height
     end
 
     # Returns the width of a string at this pointsize.
@@ -992,8 +989,8 @@ module Gruff
     def calculate_width(font_size, text)
       return 0 if text.nil?
 
-      @d.pointsize = font_size
-      @d.get_type_metrics(@base_image, text.to_s).width
+      metrics = Renderer::Text.metrics(text, font_size)
+      metrics.width
     end
 
     def calculate_increment

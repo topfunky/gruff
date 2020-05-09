@@ -31,5 +31,13 @@ module Gruff
 
       Renderer.instance.draw = draw
     end
+
+    def self.metrics(text, size)
+      draw  = Renderer.instance.draw
+      image = Renderer.instance.image
+
+      draw.pointsize = size
+      draw.get_type_metrics(image, text.to_s)
+    end
   end
 end
