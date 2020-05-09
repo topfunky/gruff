@@ -159,13 +159,11 @@ class Gruff::Line < Gruff::Base
   end
 
   def draw_reference_line(reference_line, left, right, top, bottom)
-    @d.push
-    @d.stroke_color(reference_line[:color] || @reference_line_default_color)
-    @d.fill_opacity 0.0
-    @d.stroke_dasharray(10, 20)
-    @d.stroke_width(reference_line[:width] || @reference_line_default_width)
-    @d.line(left, top, right, bottom)
-    @d.pop
+    config = {
+      color: reference_line[:color] || @reference_line_default_color,
+      width: reference_line[:width] || @reference_line_default_width
+    }
+    Gruff::Renderer::DashLine.new(config).render(left, top, right, bottom)
   end
 
   def draw_horizontal_reference_line(reference_line)
