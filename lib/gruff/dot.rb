@@ -19,7 +19,6 @@ class Gruff::Dot < Gruff::Base
 
     @items_width = @graph_height / column_count.to_f
     @item_width = @items_width * spacing_factor / store.length
-    @d = @d.stroke_opacity 0.0
     padding = (@items_width * (1 - spacing_factor)) / 2
 
     store.norm_data.each_with_index do |data_row, row_index|
@@ -31,10 +30,7 @@ class Gruff::Dot < Gruff::Base
           @d = @d.stroke(@marker_color)
           @d = @d.fill(@marker_color)
           @d = @d.stroke_width 1.0
-          @d = @d.stroke_opacity 0.1
-          @d = @d.fill_opacity 0.1
           @d = @d.line(@graph_left, y_pos, @graph_left + @graph_width, y_pos)
-          @d = @d.fill_opacity 1
         end
 
         @d = @d.fill data_row.color

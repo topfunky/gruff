@@ -69,6 +69,9 @@ Style/IfUnlessModifier:
 Style/InlineComment:
   Enabled: false
 
+Style/ImplicitRuntimeError:
+  Enabled: false
+
 Style/MethodCallWithArgsParentheses:
   Enabled: false
 
