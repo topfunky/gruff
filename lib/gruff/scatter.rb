@@ -116,12 +116,9 @@ class Gruff::Scatter < Gruff::Base
         new_y = @graph_top + (@graph_height - data_point * @graph_height)
 
         # Reset each time to avoid thin-line errors
-        @d.stroke data_row.color
-        @d.fill data_row.color
-        @d.stroke_width @stroke_width || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4), 5.0)
-
+        stroke_width  = @stroke_width || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4), 5.0)
         circle_radius = @circle_radius || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 2.5), 5.0)
-        @d.circle(new_x, new_y, new_x - circle_radius, new_y)
+        Gruff::Renderer::Circle.new(color: data_row.color, width: stroke_width).render(new_x, new_y, new_x - circle_radius, new_y)
       end
     end
 
@@ -207,8 +204,6 @@ protected
     super
     return if @hide_line_markers
 
-    @d.stroke_antialias false
-
     if @x_axis_increment.nil?
       # TODO: Do the same for larger numbers...100, 75, 50, 25
       if @marker_x_count.nil?
@@ -255,8 +250,6 @@ protected
         text_renderer.render(1.0, 1.0, x_offset, y_offset)
       end
     end
-
-    @d.stroke_antialias true
   end
 
   def label(value, increment)
