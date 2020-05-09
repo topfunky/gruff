@@ -580,28 +580,16 @@ module Gruff
     def draw_line_markers
       return if @hide_line_markers
 
-      @d.stroke_antialias false
-
       @increment_scaled = @graph_height.to_f / (@spread / @increment)
 
       # Draw horizontal line markers and annotate with numbers
       (0..@marker_count).each do |index|
         y = @graph_top + @graph_height - index.to_f * @increment_scaled
 
-        @d.fill(@marker_color)
-
-        # FIXME(uwe): Workaround for Issue #66
-        #             https://github.com/topfunky/gruff/issues/66
-        #             https://github.com/rmagick/rmagick/issues/82
-        #             Remove if the issue gets fixed.
-        y += 0.001 unless defined?(JRUBY_VERSION)
-        # EMXIF
-
-        @d.line(@graph_left, y, @graph_right, y)
+        Gruff::Renderer::Line.new(color: @marker_color).render(@graph_left, y, @graph_right, y)
         #If the user specified a marker shadow color, draw a shadow just below it
         unless @marker_shadow_color.nil?
-          @d.fill(@marker_shadow_color)
-          @d.line(@graph_left, y + 1, @graph_right, y + 1)
+          Gruff::Renderer::Line.new(color: @marker_shadow_color).render(@graph_left, y + 1, @graph_right, y + 1)
         end
 
         marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) + BigDecimal(minimum_value.to_s)
@@ -634,8 +622,6 @@ module Gruff
       #                     "", @scale)
       #   i += 1
       # end
-
-      @d.stroke_antialias true
     end
 
     ##
@@ -704,8 +690,6 @@ module Gruff
         # Handle wrapping
         label_widths.first.shift
         if label_widths.first.empty?
-          debug { @d.line 0.0, current_y_offset, @raw_columns, current_y_offset }
-
           label_widths.shift
           current_x_offset = center(sum(label_widths.first)) unless label_widths.empty?
           line_height = [@legend_caps_height, legend_square_width].max + legend_margin

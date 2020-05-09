@@ -78,11 +78,7 @@ protected
   def draw_line_markers
     return if @hide_line_markers
 
-    @d.stroke_antialias false
-
     # Draw horizontal line markers and annotate with numbers
-    @d.stroke(@marker_color)
-    @d.stroke_width 1
     number_of_lines = @marker_count || 5
     number_of_lines = 1 if number_of_lines == 0
 
@@ -91,7 +87,7 @@ protected
     (0..number_of_lines).each do |index|
       line_diff = (@graph_right - @graph_left) / number_of_lines
       x = @graph_right - (line_diff * index) - 1
-      @d.line(x, @graph_bottom, x, @graph_top)
+      Gruff::Renderer::Line.new(color: @marker_color).render(x, @graph_bottom, x, @graph_top)
       diff = index - number_of_lines
       marker_label = diff.abs * increment + minimum_value
 
@@ -99,7 +95,6 @@ protected
         text_renderer = Gruff::Renderer::Text.new(marker_label, font: @font, size: @marker_font_size, color: @font_color)
         text_renderer.render(0, 0, x, @graph_bottom + (LABEL_MARGIN * 2.0), Magick::CenterGravity)
       end
-      @d.stroke_antialias true
     end
   end
 

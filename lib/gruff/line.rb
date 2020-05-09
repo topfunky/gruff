@@ -195,20 +195,10 @@ class Gruff::Line < Gruff::Base
       (0..column_count).each do |column|
         x = @graph_left + @graph_width - column.to_f * @x_increment
 
-        @d.fill(@marker_color)
-
-        # FIXME(uwe): Workaround for Issue #66
-        #             https://github.com/topfunky/gruff/issues/66
-        #             https://github.com/rmagick/rmagick/issues/82
-        #             Remove if the issue gets fixed.
-        x += 0.001 unless defined?(JRUBY_VERSION)
-        # EMXIF
-
-        @d.line(x, @graph_bottom, x, @graph_top)
+        Gruff::Renderer::Line.new(color: @marker_color).render(x, @graph_bottom, x, @graph_top)
         #If the user specified a marker shadow color, draw a shadow just below it
         unless @marker_shadow_color.nil?
-          @d.fill(@marker_shadow_color)
-          @d.line(x + 1, @graph_bottom, x + 1, @graph_top)
+          Gruff::Renderer::Line.new(color: @marker_shadow_color).render(x + 1, @graph_bottom, x + 1, @graph_top)
         end
       end
     end
@@ -237,17 +227,20 @@ class Gruff::Line < Gruff::Base
         new_y = @graph_top + (@graph_height - y_data * @graph_height)
 
         # Reset each time to avoid thin-line errors
-        @d.stroke data_row.color
-        @d.fill data_row.color
-        @d.stroke_width line_width ||
-                                 clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 4), 5.0)
-
+        stroke_width = line_width || clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 4), 5.0)
         circle_radius = dot_radius ||
             clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 2.5), 5.0)
 
         if !@hide_lines && !prev_x.nil? && !prev_y.nil?
-          @d.line(prev_x, prev_y, new_x, new_y)
-        elsif @one_point
+          Gruff::Renderer::Line.new(color: data_row.color, width: stroke_width, antialias: true)
+                               .render(prev_x, prev_y, new_x, new_y)
+        end
+
+        @d.stroke data_row.color
+        @d.fill data_row.color
+        @d.stroke_width stroke_width
+
+        if @one_point
           # Show a circle if there's just one_point
           DotRenderers.renderer(@dot_style).render(@d, new_x, new_y, circle_radius)
         end
