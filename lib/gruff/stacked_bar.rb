@@ -26,8 +26,6 @@ class Gruff::StackedBar < Gruff::Base
     @bar_width = @graph_width / column_count.to_f
     padding = (@bar_width * (1 - @bar_spacing)) / 2
 
-    @d = @d.stroke_opacity 0.0
-
     height = Array.new(column_count, 0)
 
     store.norm_data.each do |data_row|

@@ -239,7 +239,6 @@ class Gruff::Line < Gruff::Base
         # Reset each time to avoid thin-line errors
         @d = @d.stroke data_row.color
         @d = @d.fill data_row.color
-        @d = @d.stroke_opacity 1.0
         @d = @d.stroke_width line_width ||
                                  clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 4), 5.0)
 

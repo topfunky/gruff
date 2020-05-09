@@ -13,6 +13,10 @@ module Magick
                text.gsub('%', '%%'))
     end
 
+    def stroke_opacity(_opacity)
+      raise '#stroke_opacity method has different behavior between RMagick and RMagick4J. Should not use this method.'
+    end
+
     if defined? JRUBY_VERSION
       # FIXME(uwe):  We should NOT need to implement this method.
       #              Remove this method as soon as RMagick4J Issue #16 is fixed.

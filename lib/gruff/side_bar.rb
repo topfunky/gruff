@@ -27,7 +27,6 @@ protected
 
     @bars_width = @graph_height / column_count.to_f
     @bar_width = @bars_width / store.length
-    @d = @d.stroke_opacity 0.0
     height = Array.new(column_count, 0)
     length = Array.new(column_count, @graph_left)
     padding = (@bar_width * (1 - @bar_spacing)) / 2

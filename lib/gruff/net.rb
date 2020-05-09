@@ -32,7 +32,6 @@ class Gruff::Net < Gruff::Base
     circle_radius = dot_radius ||
         clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 2.5), 5.0)
 
-    @d = @d.stroke_opacity 1.0
     @d = @d.stroke_width line_width ||
                              clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 4), 5.0)
 

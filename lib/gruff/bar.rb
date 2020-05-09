@@ -46,8 +46,6 @@ protected
     @bar_width = @graph_width / (column_count * store.length).to_f
     padding = (@bar_width * (1 - @bar_spacing)) / 2
 
-    @d = @d.stroke_opacity 0.0
-
     # Setup the BarConversion Object
     conversion = Gruff::BarConversion.new
     conversion.graph_height = @graph_height
