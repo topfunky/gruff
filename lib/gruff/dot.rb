@@ -30,9 +30,7 @@ class Gruff::Dot < Gruff::Base
           Gruff::Renderer::Line.new(color: @marker_color).render(@graph_left, y_pos, @graph_left + @graph_width, y_pos)
         end
 
-        @d.fill data_row.color
-        @d.stroke('transparent')
-        @d.circle(x_pos, y_pos, x_pos + (@item_width.to_f / 3.0).round, y_pos)
+        Gruff::Renderer::Circle.new(color: data_row.color).render(x_pos, y_pos, x_pos + (@item_width.to_f / 3.0).round, y_pos)
 
         draw_label(y_pos, point_index)
       end

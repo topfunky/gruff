@@ -31,6 +31,7 @@ require 'gruff/version'
 
   renderer/renderer
   renderer/rectangle
+  renderer/circle
   renderer/dash_line
   renderer/line
   renderer/polyline

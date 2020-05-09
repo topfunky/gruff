@@ -40,9 +40,6 @@ class Gruff::Net < Gruff::Base
     end
 
     store.norm_data.each do |data_row|
-      @d.stroke data_row.color
-      @d.fill data_row.color
-
       data_row.points.each_with_index do |data_point, index|
         next if data_point.nil?
 
@@ -60,8 +57,7 @@ class Gruff::Net < Gruff::Base
 
         Gruff::Renderer::Line.new(color: data_row.color, width: stroke_width, antialias: true).render(start_x, start_y, end_x, end_y)
 
-        @d.stroke_width stroke_width
-        @d.circle(start_x, start_y, start_x - circle_radius, start_y) unless @hide_dots
+        Gruff::Renderer::Circle.new(color: data_row.color, width: stroke_width).render(start_x, start_y, start_x - circle_radius, start_y) unless @hide_dots
       end
     end
 
