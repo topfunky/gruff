@@ -27,15 +27,15 @@ class Gruff::Dot < Gruff::Base
         y_pos = @graph_top + (@items_width * point_index) + padding + (@items_width.to_f / 2.0).round
 
         if row_index == 0
-          @d = @d.stroke(@marker_color)
-          @d = @d.fill(@marker_color)
-          @d = @d.stroke_width 1.0
-          @d = @d.line(@graph_left, y_pos, @graph_left + @graph_width, y_pos)
+          @d.stroke(@marker_color)
+          @d.fill(@marker_color)
+          @d.stroke_width 1.0
+          @d.line(@graph_left, y_pos, @graph_left + @graph_width, y_pos)
         end
 
-        @d = @d.fill data_row.color
-        @d = @d.stroke('transparent')
-        @d = @d.circle(x_pos, y_pos, x_pos + (@item_width.to_f / 3.0).round, y_pos)
+        @d.fill data_row.color
+        @d.stroke('transparent')
+        @d.circle(x_pos, y_pos, x_pos + (@item_width.to_f / 3.0).round, y_pos)
 
         draw_label(y_pos, point_index)
       end
@@ -50,11 +50,11 @@ protected
   def draw_line_markers
     return if @hide_line_markers
 
-    @d = @d.stroke_antialias false
+    @d.stroke_antialias false
 
     # Draw horizontal line markers and annotate with numbers
-    @d = @d.stroke(@marker_color)
-    @d = @d.stroke_width 1
+    @d.stroke(@marker_color)
+    @d.stroke_width 1
     if @y_axis_increment
       increment = @y_axis_increment
       number_of_lines = (@spread / @y_axis_increment).to_i
@@ -81,14 +81,14 @@ protected
     (0..number_of_lines).each do |index|
       marker_label = minimum_value + index * increment
       x = @graph_left + (marker_label - minimum_value) * @graph_width / @spread
-      @d = @d.line(x, @graph_bottom, x, @graph_bottom + 0.5 * LABEL_MARGIN)
+      @d.line(x, @graph_bottom, x, @graph_bottom + 0.5 * LABEL_MARGIN)
 
       unless @hide_line_numbers
         label = label(marker_label, increment)
         text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @marker_font_size, color: @font_color)
         text_renderer.render(0, 0, x, @graph_bottom + (LABEL_MARGIN * 2.0), Magick::CenterGravity)
       end
-      @d = @d.stroke_antialias true
+      @d.stroke_antialias true
     end
   end
 

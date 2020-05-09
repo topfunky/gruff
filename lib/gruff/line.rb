@@ -159,13 +159,13 @@ class Gruff::Line < Gruff::Base
   end
 
   def draw_reference_line(reference_line, left, right, top, bottom)
-    @d = @d.push
+    @d.push
     @d.stroke_color(reference_line[:color] || @reference_line_default_color)
     @d.fill_opacity 0.0
     @d.stroke_dasharray(10, 20)
     @d.stroke_width(reference_line[:width] || @reference_line_default_width)
     @d.line(left, top, right, bottom)
-    @d = @d.pop
+    @d.pop
   end
 
   def draw_horizontal_reference_line(reference_line)
@@ -195,7 +195,7 @@ class Gruff::Line < Gruff::Base
       (0..column_count).each do |column|
         x = @graph_left + @graph_width - column.to_f * @x_increment
 
-        @d = @d.fill(@marker_color)
+        @d.fill(@marker_color)
 
         # FIXME(uwe): Workaround for Issue #66
         #             https://github.com/topfunky/gruff/issues/66
@@ -204,11 +204,11 @@ class Gruff::Line < Gruff::Base
         x += 0.001 unless defined?(JRUBY_VERSION)
         # EMXIF
 
-        @d = @d.line(x, @graph_bottom, x, @graph_top)
+        @d.line(x, @graph_bottom, x, @graph_top)
         #If the user specified a marker shadow color, draw a shadow just below it
         unless @marker_shadow_color.nil?
-          @d = @d.fill(@marker_shadow_color)
-          @d = @d.line(x + 1, @graph_bottom, x + 1, @graph_top)
+          @d.fill(@marker_shadow_color)
+          @d.line(x + 1, @graph_bottom, x + 1, @graph_top)
         end
       end
     end
@@ -237,23 +237,23 @@ class Gruff::Line < Gruff::Base
         new_y = @graph_top + (@graph_height - y_data * @graph_height)
 
         # Reset each time to avoid thin-line errors
-        @d = @d.stroke data_row.color
-        @d = @d.fill data_row.color
-        @d = @d.stroke_width line_width ||
+        @d.stroke data_row.color
+        @d.fill data_row.color
+        @d.stroke_width line_width ||
                                  clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 4), 5.0)
 
         circle_radius = dot_radius ||
             clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 2.5), 5.0)
 
         if !@hide_lines && !prev_x.nil? && !prev_y.nil?
-          @d = @d.line(prev_x, prev_y, new_x, new_y)
+          @d.line(prev_x, prev_y, new_x, new_y)
         elsif @one_point
           # Show a circle if there's just one_point
-          @d = DotRenderers.renderer(@dot_style).render(@d, new_x, new_y, circle_radius)
+          DotRenderers.renderer(@dot_style).render(@d, new_x, new_y, circle_radius)
         end
 
         unless @hide_dots
-          @d = DotRenderers.renderer(@dot_style).render(@d, new_x, new_y, circle_radius)
+          DotRenderers.renderer(@dot_style).render(@d, new_x, new_y, circle_radius)
         end
 
         prev_x = new_x

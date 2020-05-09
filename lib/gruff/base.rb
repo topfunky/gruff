@@ -580,7 +580,7 @@ module Gruff
     def draw_line_markers
       return if @hide_line_markers
 
-      @d = @d.stroke_antialias false
+      @d.stroke_antialias false
 
       @increment_scaled = @graph_height.to_f / (@spread / @increment)
 
@@ -588,7 +588,7 @@ module Gruff
       (0..@marker_count).each do |index|
         y = @graph_top + @graph_height - index.to_f * @increment_scaled
 
-        @d = @d.fill(@marker_color)
+        @d.fill(@marker_color)
 
         # FIXME(uwe): Workaround for Issue #66
         #             https://github.com/topfunky/gruff/issues/66
@@ -597,11 +597,11 @@ module Gruff
         y += 0.001 unless defined?(JRUBY_VERSION)
         # EMXIF
 
-        @d = @d.line(@graph_left, y, @graph_right, y)
+        @d.line(@graph_left, y, @graph_right, y)
         #If the user specified a marker shadow color, draw a shadow just below it
         unless @marker_shadow_color.nil?
-          @d = @d.fill(@marker_shadow_color)
-          @d = @d.line(@graph_left, y + 1, @graph_right, y + 1)
+          @d.fill(@marker_shadow_color)
+          @d.line(@graph_left, y + 1, @graph_right, y + 1)
         end
 
         marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) + BigDecimal(minimum_value.to_s)
@@ -620,22 +620,22 @@ module Gruff
       #
       #   y = @graph_top + @graph_height - @increment_scaled
       #
-      #   @d = @d.stroke(@additional_line_colors[i])
-      #   @d = @d.line(@graph_left, y, @graph_right, y)
+      #   @d.stroke(@additional_line_colors[i])
+      #   @d.line(@graph_left, y, @graph_right, y)
       #
       #
       #   @d.fill = @additional_line_colors[i]
       #   @d.stroke('transparent')
       #   @d.pointsize = scale_fontsize(@marker_font_size)
       #   @d.gravity = Magick::EastGravity
-      #   @d = @d.annotate_scaled( @base_image,
+      #   @d.annotate_scaled( @base_image,
       #                     100, 20,
       #                     -10, y - (@marker_font_size/2.0),
       #                     "", @scale)
       #   i += 1
       # end
 
-      @d = @d.stroke_antialias true
+      @d.stroke_antialias true
     end
 
     ##
@@ -865,7 +865,7 @@ module Gruff
       Renderer.instance.draw = @d
       @d.font = @font if @font
       # Scale down from 800x600 used to calculate drawing.
-      @d = @d.scale(@scale, @scale)
+      @d.scale(@scale, @scale)
     end
 
     def scale(value) # :nodoc:
@@ -934,9 +934,9 @@ module Gruff
     #   debug { @d.rectangle x1, y1, x2, y2 }
     def debug
       if DEBUG
-        @d = @d.fill 'transparent'
-        @d = @d.stroke 'turquoise'
-        @d = yield
+        @d.fill 'transparent'
+        @d.stroke 'turquoise'
+        yield
       end
     end
 
