@@ -32,8 +32,7 @@ class Gruff::Net < Gruff::Base
     circle_radius = dot_radius ||
         clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 2.5), 5.0)
 
-    @d.stroke_width line_width ||
-                             clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 4), 5.0)
+    stroke_width = line_width || clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 4), 5.0)
 
     if defined?(@norm_baseline)
       level = @graph_top + (@graph_height - @norm_baseline * @graph_height)
@@ -65,8 +64,9 @@ class Gruff::Net < Gruff::Base
         end_x = @center_x + Math.sin(next_rad_pos) * next_point_distance
         end_y = @center_y - Math.cos(next_rad_pos) * next_point_distance
 
-        @d.line(start_x, start_y, end_x, end_y)
+        Gruff::Renderer::Line.new(color: data_row.color, width: stroke_width, antialias: true).render(start_x, start_y, end_x, end_y)
 
+        @d.stroke_width stroke_width
         @d.circle(start_x, start_y, start_x - circle_radius, start_y) unless @hide_dots
       end
     end
@@ -85,16 +85,13 @@ class Gruff::Net < Gruff::Base
     @center_y = @graph_top + (@graph_height / 2.0) - 10 # Move graph up a bit
 
     # Draw horizontal line markers and annotate with numbers
-    @d.stroke(@marker_color)
-    @d.stroke_width 1
-
     (0..column_count - 1).each do |index|
       rad_pos = index * Math::PI * 2 / column_count
 
-      @d.line(@center_x, @center_y, @center_x + Math.sin(rad_pos) * @radius, @center_y - Math.cos(rad_pos) * @radius)
+      Gruff::Renderer::Line.new(color: @marker_color, antialias: true)
+                           .render(@center_x, @center_y, @center_x + Math.sin(rad_pos) * @radius, @center_y - Math.cos(rad_pos) * @radius)
 
       marker_label = labels[index] ? labels[index].to_s : '000'
-
       draw_label(@center_x, @center_y, rad_pos * 360 / (2 * Math::PI), @radius, marker_label)
     end
   end

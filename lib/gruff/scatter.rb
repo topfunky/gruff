@@ -241,9 +241,7 @@ protected
       # TODO: Fix the vertical lines, and enable them by default. Not pretty when they don't match up with top y-axis line
       if @enable_vertical_line_markers
         x = @graph_left + @graph_width - index.to_f * @increment_x_scaled
-        @d.stroke(@marker_color)
-        @d.stroke_width 1
-        @d.line(x, @graph_top, x, @graph_bottom)
+        Gruff::Renderer::Line.new(color: @marker_color).render(x, @graph_top, x, @graph_bottom)
       end
 
       unless @hide_line_numbers

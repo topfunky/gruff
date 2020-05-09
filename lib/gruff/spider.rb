@@ -77,15 +77,11 @@ private
     current_angle = rotation * Math::PI / 180.0
 
     store.data.each do |data_row|
-      @d.stroke(line_color || data_row.color)
-      @d.stroke_width 5.0
-
       x_offset = radius * Math.cos(current_angle)
       y_offset = radius * Math.sin(current_angle)
 
-      @d.line(center_x, center_y,
-              center_x + x_offset,
-              center_y + y_offset)
+      Gruff::Renderer::Line.new(color: line_color || data_row.color, width: 5.0, antialias: true)
+                           .render(center_x, center_y, center_x + x_offset, center_y + y_offset)
 
       draw_label(center_x, center_y, current_angle, radius, data_row.label.to_s) unless hide_text
 
@@ -103,6 +99,7 @@ private
       current_angle += additive_angle
     end
 
+    @d.stroke_antialias(true)
     @d.stroke_width 1.0
     @d.stroke(color || @marker_color)
     @d.fill(color || @marker_color)

@@ -27,10 +27,7 @@ class Gruff::Dot < Gruff::Base
         y_pos = @graph_top + (@items_width * point_index) + padding + (@items_width.to_f / 2.0).round
 
         if row_index == 0
-          @d.stroke(@marker_color)
-          @d.fill(@marker_color)
-          @d.stroke_width 1.0
-          @d.line(@graph_left, y_pos, @graph_left + @graph_width, y_pos)
+          Gruff::Renderer::Line.new(color: @marker_color).render(@graph_left, y_pos, @graph_left + @graph_width, y_pos)
         end
 
         @d.fill data_row.color
@@ -50,11 +47,7 @@ protected
   def draw_line_markers
     return if @hide_line_markers
 
-    @d.stroke_antialias false
-
     # Draw horizontal line markers and annotate with numbers
-    @d.stroke(@marker_color)
-    @d.stroke_width 1
     if @y_axis_increment
       increment = @y_axis_increment
       number_of_lines = (@spread / @y_axis_increment).to_i
@@ -81,14 +74,13 @@ protected
     (0..number_of_lines).each do |index|
       marker_label = minimum_value + index * increment
       x = @graph_left + (marker_label - minimum_value) * @graph_width / @spread
-      @d.line(x, @graph_bottom, x, @graph_bottom + 0.5 * LABEL_MARGIN)
+      Gruff::Renderer::Line.new(color: @marker_color).render(x, @graph_bottom, x, @graph_bottom + 0.5 * LABEL_MARGIN)
 
       unless @hide_line_numbers
         label = label(marker_label, increment)
         text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @marker_font_size, color: @font_color)
         text_renderer.render(0, 0, x, @graph_bottom + (LABEL_MARGIN * 2.0), Magick::CenterGravity)
       end
-      @d.stroke_antialias true
     end
   end
 

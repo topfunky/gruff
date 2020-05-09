@@ -31,6 +31,7 @@ require 'gruff/version'
 
   renderer/renderer
   renderer/rectangle
+  renderer/line
   renderer/text
 
   store/store
