@@ -9,11 +9,9 @@ module Gruff
     def render(upper_left_x, upper_left_y, lower_right_x, lower_right_y)
       draw = Renderer.instance.draw
 
-      draw = draw.stroke('transparent')
-      draw = draw.fill(@color) if @color
-      draw = draw.rectangle(upper_left_x, upper_left_y, lower_right_x, lower_right_y)
-
-      Renderer.instance.draw = draw
+      draw.stroke('transparent')
+      draw.fill(@color) if @color
+      draw.rectangle(upper_left_x, upper_left_y, lower_right_x, lower_right_y)
     end
   end
 end

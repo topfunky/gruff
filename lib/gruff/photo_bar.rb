@@ -63,7 +63,7 @@ class Gruff::PhotoBar < Gruff::Base
         bar_image = data_row.color.crop(0, 0, bar_image_width, bar_image_height)
 
         @d.gravity = Magick::NorthWestGravity
-        @d = @d.composite(left_x, left_y, bar_image_width, bar_image_height, bar_image)
+        @d.composite(left_x, left_y, bar_image_width, bar_image_height, bar_image)
 
         # Calculate center based on bar_width and current row
         label_center = @graph_left + (store.length * @bar_width * point_index) + (store.length * @bar_width / 2.0)

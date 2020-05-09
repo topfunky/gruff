@@ -32,23 +32,23 @@ class Gruff::Net < Gruff::Base
     circle_radius = dot_radius ||
         clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 2.5), 5.0)
 
-    @d = @d.stroke_width line_width ||
+    @d.stroke_width line_width ||
                              clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 4), 5.0)
 
     if defined?(@norm_baseline)
       level = @graph_top + (@graph_height - @norm_baseline * @graph_height)
-      @d = @d.push
+      @d.push
       @d.stroke_color @baseline_color
       @d.fill_opacity 0.0
       @d.stroke_dasharray(10, 20)
       @d.stroke_width 5
       @d.line(@graph_left, level, @graph_left + @graph_width, level)
-      @d = @d.pop
+      @d.pop
     end
 
     store.norm_data.each do |data_row|
-      @d = @d.stroke data_row.color
-      @d = @d.fill data_row.color
+      @d.stroke data_row.color
+      @d.fill data_row.color
 
       data_row.points.each_with_index do |data_point, index|
         next if data_point.nil?
@@ -65,9 +65,9 @@ class Gruff::Net < Gruff::Base
         end_x = @center_x + Math.sin(next_rad_pos) * next_point_distance
         end_y = @center_y - Math.cos(next_rad_pos) * next_point_distance
 
-        @d = @d.line(start_x, start_y, end_x, end_y)
+        @d.line(start_x, start_y, end_x, end_y)
 
-        @d = @d.circle(start_x, start_y, start_x - circle_radius, start_y) unless @hide_dots
+        @d.circle(start_x, start_y, start_x - circle_radius, start_y) unless @hide_dots
       end
     end
 
@@ -85,13 +85,13 @@ class Gruff::Net < Gruff::Base
     @center_y = @graph_top + (@graph_height / 2.0) - 10 # Move graph up a bit
 
     # Draw horizontal line markers and annotate with numbers
-    @d = @d.stroke(@marker_color)
-    @d = @d.stroke_width 1
+    @d.stroke(@marker_color)
+    @d.stroke_width 1
 
     (0..column_count - 1).each do |index|
       rad_pos = index * Math::PI * 2 / column_count
 
-      @d = @d.line(@center_x, @center_y, @center_x + Math.sin(rad_pos) * @radius, @center_y - Math.cos(rad_pos) * @radius)
+      @d.line(@center_x, @center_y, @center_x + Math.sin(rad_pos) * @radius, @center_y - Math.cos(rad_pos) * @radius)
 
       marker_label = labels[index] ? labels[index].to_s : '000'
 

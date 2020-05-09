@@ -12,7 +12,7 @@ class Gruff::Bezier < Gruff::Base
 
     store.norm_data.each do |data_row|
       poly_points = []
-      @d = @d.fill data_row.color
+      @d.fill data_row.color
 
       data_row[1].each_with_index do |data_point, index|
         # Use incremented x and scaled y
@@ -30,14 +30,14 @@ class Gruff::Bezier < Gruff::Base
         draw_label(new_x, index)
       end
 
-      @d = @d.fill_opacity 0.0
-      @d = @d.stroke data_row.color
-      @d = @d.stroke_width clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4), 5.0)
+      @d.fill_opacity 0.0
+      @d.stroke data_row.color
+      @d.stroke_width clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4), 5.0)
 
       if RUBY_PLATFORM == 'java'
-        @d = @d.polyline(*poly_points)
+        @d.polyline(*poly_points)
       else
-        @d = @d.bezier(*poly_points)
+        @d.bezier(*poly_points)
       end
     end
 

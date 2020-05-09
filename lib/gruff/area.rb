@@ -14,11 +14,11 @@ class Gruff::Area < Gruff::Base
     return unless data_given?
 
     @x_increment = @graph_width / (column_count - 1).to_f
-    @d = @d.stroke 'transparent'
+    @d.stroke 'transparent'
 
     store.norm_data.each do |data_row|
       poly_points = []
-      @d = @d.fill data_row.color
+      @d.fill data_row.color
 
       data_row.points.each_with_index do |data_point, index|
         # Use incremented x and scaled y
@@ -37,7 +37,7 @@ class Gruff::Area < Gruff::Base
       poly_points << @graph_left
       poly_points << @graph_bottom - 1
 
-      @d = @d.polyline(*poly_points)
+      @d.polyline(*poly_points)
     end
 
     @d.draw(@base_image)

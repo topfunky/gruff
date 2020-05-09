@@ -189,15 +189,15 @@ private
   end
 
   def set_stroke_color(slice)
-    @d = @d.stroke slice.color
+    @d.stroke slice.color
   end
 
   def set_fill_color
-    @d = @d.fill 'transparent'
+    @d.fill 'transparent'
   end
 
   def set_drawing_points_for(slice)
-    @d = @d.ellipse(
+    @d.ellipse(
       center_x,
       center_y,
       radius / 2.0,

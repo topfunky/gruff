@@ -94,13 +94,13 @@ class Gruff::Scatter < Gruff::Base
 
     #~ if (defined?(@norm_y_baseline)) then
       #~ level = @graph_top + (@graph_height - @norm_baseline * @graph_height)
-      #~ @d = @d.push
+      #~ @d.push
       #~ @d.stroke_color @baseline_color
       #~ @d.fill_opacity 0.0
       #~ @d.stroke_dasharray(10, 20)
       #~ @d.stroke_width 5
       #~ @d.line(@graph_left, level, @graph_left + @graph_width, level)
-      #~ @d = @d.pop
+      #~ @d.pop
     #~ end
 
     #~ if (defined?(@norm_x_baseline)) then
@@ -116,12 +116,12 @@ class Gruff::Scatter < Gruff::Base
         new_y = @graph_top + (@graph_height - data_point * @graph_height)
 
         # Reset each time to avoid thin-line errors
-        @d = @d.stroke data_row.color
-        @d = @d.fill data_row.color
-        @d = @d.stroke_width @stroke_width || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4), 5.0)
+        @d.stroke data_row.color
+        @d.fill data_row.color
+        @d.stroke_width @stroke_width || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4), 5.0)
 
         circle_radius = @circle_radius || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 2.5), 5.0)
-        @d = @d.circle(new_x, new_y, new_x - circle_radius, new_y)
+        @d.circle(new_x, new_y, new_x - circle_radius, new_y)
       end
     end
 
@@ -207,7 +207,7 @@ protected
     super
     return if @hide_line_markers
 
-    @d = @d.stroke_antialias false
+    @d.stroke_antialias false
 
     if @x_axis_increment.nil?
       # TODO: Do the same for larger numbers...100, 75, 50, 25
@@ -241,9 +241,9 @@ protected
       # TODO: Fix the vertical lines, and enable them by default. Not pretty when they don't match up with top y-axis line
       if @enable_vertical_line_markers
         x = @graph_left + @graph_width - index.to_f * @increment_x_scaled
-        @d = @d.stroke(@marker_color)
-        @d = @d.stroke_width 1
-        @d = @d.line(x, @graph_top, x, @graph_bottom)
+        @d.stroke(@marker_color)
+        @d.stroke_width 1
+        @d.line(x, @graph_top, x, @graph_bottom)
       end
 
       unless @hide_line_numbers
@@ -258,7 +258,7 @@ protected
       end
     end
 
-    @d = @d.stroke_antialias true
+    @d.stroke_antialias true
   end
 
   def label(value, increment)

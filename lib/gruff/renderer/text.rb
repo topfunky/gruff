@@ -23,13 +23,11 @@ module Gruff
       draw.font_weight = @font_weight
       draw.pointsize = @font_size * scale
       draw.gravity = gravity
-      draw = draw.annotate_scaled(image,
-                                  width, height,
-                                  x, y,
-                                  @text, scale)
+      draw.annotate_scaled(image,
+                           width, height,
+                           x, y,
+                           @text, scale)
       draw.rotation = -@rotation if @rotation
-
-      Renderer.instance.draw = draw
     end
 
     def self.metrics(text, size)
