@@ -24,8 +24,8 @@ module Gruff
 
       draw = Renderer.instance.draw
 
+      draw.push
       draw.stroke_antialias(@antialias)
-
       if @width
         draw.stroke(@color)
         draw.stroke_width(@width)
@@ -34,8 +34,7 @@ module Gruff
         draw.stroke('transparent')
       end
       draw.line(start_x, start_y, end_x, end_y)
-
-      draw.stroke_antialias(true) unless @antialias
+      draw.pop
     end
   end
 end
