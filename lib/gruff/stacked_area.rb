@@ -24,8 +24,6 @@ class Gruff::StackedArea < Gruff::Base
       prev_data_points = data_points
       data_points = []
 
-      @d.fill data_row.color
-
       data_row.points.each_with_index do |data_point, index|
         # Use incremented x and scaled y
         new_x = @graph_left + (@x_increment * index)
@@ -54,7 +52,7 @@ class Gruff::StackedArea < Gruff::Base
       poly_points << data_points[0]
       poly_points << data_points[1]
 
-      @d.polyline(*poly_points)
+      Gruff::Renderer::Polyline.new(color: data_row.color).render(poly_points)
     end
 
     @d.draw(@base_image)

@@ -33,6 +33,7 @@ require 'gruff/version'
   renderer/rectangle
   renderer/dash_line
   renderer/line
+  renderer/polyline
   renderer/text
 
   store/store
