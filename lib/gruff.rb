@@ -35,6 +35,7 @@ require 'gruff/version'
   renderer/dash_line
   renderer/line
   renderer/polyline
+  renderer/bezier
   renderer/text
 
   store/store
