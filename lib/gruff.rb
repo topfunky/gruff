@@ -37,6 +37,7 @@ require 'gruff/version'
   renderer/polyline
   renderer/polygon
   renderer/bezier
+  renderer/ellipse
   renderer/text
 
   store/store

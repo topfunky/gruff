@@ -69,10 +69,8 @@ class Gruff::Pie < Gruff::Base
 
     slices.each do |slice|
       if slice.value > 0
-        set_stroke_color slice
-        set_fill_color
-        set_stroke_width
-        set_drawing_points_for slice
+        Gruff::Renderer::Ellipse.new(color: slice.color, width: radius)
+                                .render(center_x, center_y, radius / 2.0, radius / 2.0, chart_degrees, chart_degrees + slice.degrees + 0.5)
         process_label_for slice
         update_chart_degrees_with slice.degrees
       end
@@ -183,29 +181,6 @@ private
   end
 
   # Drawing-Related Methods
-
-  def set_stroke_width
-    @d.stroke_width(radius)
-  end
-
-  def set_stroke_color(slice)
-    @d.stroke slice.color
-  end
-
-  def set_fill_color
-    @d.fill 'transparent'
-  end
-
-  def set_drawing_points_for(slice)
-    @d.ellipse(
-      center_x,
-      center_y,
-      radius / 2.0,
-      radius / 2.0,
-      chart_degrees,
-      chart_degrees + slice.degrees + 0.5
-    )
-  end
 
   def trigger_final_draw
     @d.draw(@base_image)
