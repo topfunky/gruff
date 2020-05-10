@@ -99,12 +99,7 @@ private
       current_angle += additive_angle
     end
 
-    @d.stroke_antialias(true)
-    @d.stroke_width 1.0
-    @d.stroke(color || @marker_color)
-    @d.fill(color || @marker_color)
-    @d.fill_opacity 0.4
-    @d.polygon(*points)
+    Gruff::Renderer::Polygon.new(color: color || @marker_color).render(points)
   end
 
   def sums_for_spider
