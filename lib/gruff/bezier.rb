@@ -34,11 +34,7 @@ class Gruff::Bezier < Gruff::Base
       if RUBY_PLATFORM == 'java'
         Gruff::Renderer::Polyline.new(color: data_row.color, width: stroke_width).render(poly_points)
       else
-        @d.fill data_row.color
-        @d.fill_opacity 0.0
-        @d.stroke data_row.color
-        @d.stroke_width stroke_width
-        @d.bezier(*poly_points)
+        Gruff::Renderer::Bezier.new(color: data_row.color, width: stroke_width).render(poly_points)
       end
     end
 
