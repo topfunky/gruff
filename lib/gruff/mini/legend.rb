@@ -53,9 +53,6 @@ module Gruff
         @legend_left_margin = 100.0
         legend_top_margin = 40.0
 
-        # May fix legend drawing problem at small sizes
-        @d.pointsize = @legend_font_size
-
         case @legend_position
         when :right then
           current_x_offset = @original_columns + @left_margin
