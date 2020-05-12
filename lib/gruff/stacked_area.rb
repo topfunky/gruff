@@ -14,7 +14,6 @@ class Gruff::StackedArea < Gruff::Base
     return unless data_given?
 
     @x_increment = @graph_width / (column_count - 1).to_f
-    @d.stroke 'transparent'
 
     height = Array.new(column_count, 0)
 
