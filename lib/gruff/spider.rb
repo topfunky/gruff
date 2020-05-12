@@ -14,10 +14,7 @@ class Gruff::Spider < Gruff::Base
 
   def transparent_background=(value)
     @transparent_background = value
-    if value
-      @base_image = render_transparent_background
-      Gruff::Renderer.instance.image = @base_image
-    end
+    Gruff::Renderer.background_image = render_transparent_background if value
   end
 
   def hide_text=(value)
