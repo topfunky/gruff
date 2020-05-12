@@ -234,17 +234,14 @@ class Gruff::Line < Gruff::Base
                                .render(prev_x, prev_y, new_x, new_y)
         end
 
-        @d.stroke data_row.color
-        @d.fill data_row.color
-        @d.stroke_width stroke_width
-
+        config = { color: data_row.color, width: stroke_width }
         if @one_point
           # Show a circle if there's just one_point
-          DotRenderers.renderer(@dot_style).render(@d, new_x, new_y, circle_radius)
+          Gruff::Renderer::Dot.new(@dot_style, config).render(new_x, new_y, circle_radius)
         end
 
         unless @hide_dots
-          DotRenderers.renderer(@dot_style).render(@d, new_x, new_y, circle_radius)
+          Gruff::Renderer::Dot.new(@dot_style, config).render(new_x, new_y, circle_radius)
         end
 
         prev_x = new_x
@@ -310,32 +307,5 @@ class Gruff::Line < Gruff::Base
       end
     end
     one_point
-  end
-
-  module DotRenderers
-    class Circle
-      def render(d, new_x, new_y, circle_radius)
-        d.circle(new_x, new_y, new_x - circle_radius, new_y)
-      end
-    end
-
-    class Square
-      def render(d, new_x, new_y, circle_radius)
-        offset = (circle_radius * 0.8).to_i
-        corner_1 = new_x - offset
-        corner_2 = new_y - offset
-        corner_3 = new_x + offset
-        corner_4 = new_y + offset
-        d.rectangle(corner_1, corner_2, corner_3, corner_4)
-      end
-    end
-
-    def self.renderer(style)
-      if style.to_s == 'square'
-        Square.new
-      else
-        Circle.new
-      end
-    end
   end
 end
