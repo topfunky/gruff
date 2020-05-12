@@ -678,7 +678,7 @@ module Gruff
         text_renderer.render(@raw_columns, 1.0, current_x_offset + (legend_square_width * 1.7), current_y_offset, Magick::WestGravity)
 
         # Now draw box with color of this dataset
-        rect_renderer = Gruff::Renderer::Rectangle.new(color: store.data[index].color, antialias: false)
+        rect_renderer = Gruff::Renderer::Rectangle.new(color: store.data[index].color)
         rect_renderer.render(current_x_offset,
                              current_y_offset - legend_square_width / 2.0,
                              current_x_offset + legend_square_width,
