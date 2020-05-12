@@ -412,17 +412,15 @@ module Gruff
     #
     # Example:
     #   write('graphs/my_pretty_graph.png')
-    def write(filename = 'graph.png')
+    def write(file_name = 'graph.png')
       draw
-      @base_image.write(filename)
+      Gruff::Renderer.write(file_name)
     end
 
     # Return the graph as a rendered binary blob.
-    def to_blob(fileformat = 'PNG')
+    def to_blob(file_format = 'PNG')
       draw
-      @base_image.to_blob do
-        self.format = fileformat
-      end
+      Gruff::Renderer.to_blob(file_format)
     end
 
   protected
@@ -774,13 +772,13 @@ module Gruff
     def render_background
       case @theme_options[:background_colors]
       when Array
-        @base_image = render_gradated_background(@theme_options[:background_colors][0], @theme_options[:background_colors][1], @theme_options[:background_direction])
+        image = render_gradated_background(@theme_options[:background_colors][0], @theme_options[:background_colors][1], @theme_options[:background_direction])
       when String
-        @base_image = render_solid_background(@theme_options[:background_colors])
+        image = render_solid_background(@theme_options[:background_colors])
       else
-        @base_image = render_image_background(*@theme_options[:background_image])
+        image = render_image_background(*@theme_options[:background_image])
       end
-      Renderer.instance.image = @base_image
+      Gruff::Renderer.background_image = image
     end
 
     # Make a new image at the current size with a solid +color+.
