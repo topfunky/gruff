@@ -71,7 +71,7 @@ protected
       end
     end
 
-    @d.draw(@base_image)
+    Gruff::Renderer.finish
   end
 
   # Instead of base class version, draws vertical background lines and label

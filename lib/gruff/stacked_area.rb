@@ -55,6 +55,6 @@ class Gruff::StackedArea < Gruff::Base
       Gruff::Renderer::Polyline.new(color: data_row.color).render(poly_points)
     end
 
-    @d.draw(@base_image)
+    Gruff::Renderer.finish
   end
 end

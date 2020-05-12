@@ -100,6 +100,6 @@ protected
     # Draw the last label if requested
     draw_label(@graph_right, column_count) if @center_labels_over_point
 
-    @d.draw(@base_image)
+    Gruff::Renderer.finish
   end
 end

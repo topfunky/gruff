@@ -122,7 +122,7 @@ class Gruff::Scatter < Gruff::Base
       end
     end
 
-    @d.draw(@base_image)
+    Gruff::Renderer.finish
   end
 
   # The first parameter is the name of the dataset.  The next two are the

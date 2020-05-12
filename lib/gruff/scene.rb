@@ -59,6 +59,7 @@ class Gruff::Scene < Gruff::Base
     image_paths = @layers.map(&:path).reject(&:empty?)
     images = Magick::ImageList.new(*image_paths)
     @base_image = images.flatten_images
+    Gruff::Renderer.instance.image = @base_image
   end
 
   def layers=(ordered_list)

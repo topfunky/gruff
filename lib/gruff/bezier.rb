@@ -38,6 +38,6 @@ class Gruff::Bezier < Gruff::Base
       end
     end
 
-    @d.draw(@base_image)
+    Gruff::Renderer.finish
   end
 end
