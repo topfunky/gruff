@@ -14,7 +14,10 @@ class Gruff::Spider < Gruff::Base
 
   def transparent_background=(value)
     @transparent_background = value
-    @base_image = render_transparent_background if value
+    if value
+      @base_image = render_transparent_background
+      Gruff::Renderer.instance.image = @base_image
+    end
   end
 
   def hide_text=(value)
@@ -50,7 +53,7 @@ class Gruff::Spider < Gruff::Base
     # Draw polygon
     draw_polygon(center_x, center_y, additive_angle)
 
-    @d.draw(@base_image)
+    Gruff::Renderer.finish
   end
 
 private

@@ -76,7 +76,7 @@ class Gruff::Pie < Gruff::Base
       end
     end
 
-    trigger_final_draw
+    Gruff::Renderer.finish
   end
 
 private
@@ -181,10 +181,6 @@ private
   end
 
   # Drawing-Related Methods
-
-  def trigger_final_draw
-    @d.draw(@base_image)
-  end
 
   def draw_label(x, y, value)
     text_renderer = Gruff::Renderer::Text.new(value, font: @font, size: @marker_font_size, color: @font_color, weight: Magick::BoldWeight)

@@ -88,7 +88,7 @@ class Gruff::Bullet < Gruff::Base
     rect_renderer = Gruff::Renderer::Rectangle.new(color: @font_color)
     rect_renderer.render(@graph_left, @thickness, @graph_left + @graph_width * (@value / maximum_value), @thickness * 2)
 
-    @d.draw(@base_image)
+    Gruff::Renderer.finish
   end
 
   def draw_title

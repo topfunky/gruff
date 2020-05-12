@@ -71,7 +71,7 @@ class Gruff::PhotoBar < Gruff::Base
       end
     end
 
-    @d.draw(@base_image)
+    Gruff::Renderer.finish
   end
 
   # Return the chosen theme or the default

@@ -27,7 +27,7 @@ module Gruff
 
         draw_vertical_legend
 
-        @d.draw(@base_image)
+        Gruff::Renderer.finish
       end
     end
   end

@@ -252,7 +252,7 @@ class Gruff::Line < Gruff::Base
       end
     end
 
-    @d.draw(@base_image)
+    Gruff::Renderer.finish
   end
 
   def setup_data

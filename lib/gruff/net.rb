@@ -61,7 +61,7 @@ class Gruff::Net < Gruff::Base
       end
     end
 
-    @d.draw(@base_image)
+    Gruff::Renderer.finish
   end
 
   # the lines connecting in the center, with the first line vertical
