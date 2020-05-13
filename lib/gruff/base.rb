@@ -208,7 +208,6 @@ module Gruff
 
       initialize_ivars
 
-      reset_themes
       self.theme = Themes::KEYNOTE
     end
 
@@ -279,7 +278,7 @@ module Gruff
     # Sets the font for graph text to the font at +font_path+.
     def font=(font_path)
       @font = font_path
-      @d.font = @font
+      Gruff::Renderer.font = @font
     end
 
     # Add a color to the list of available colors for lines.
@@ -342,7 +341,7 @@ module Gruff
       @font_color = @theme_options[:font_color] || @marker_color
       @additional_line_colors = @theme_options[:additional_line_colors]
 
-      render_background
+      Gruff::Renderer.setup(@columns, @rows, @font, @scale, @theme_options)
     end
 
     def theme_keynote
@@ -766,88 +765,11 @@ module Gruff
       text_renderer.render(@raw_columns, @raw_rows / 2.0, 0, 10, Magick::CenterGravity)
     end
 
-    # Finds the best background to render based on the provided theme options.
-    #
-    # Creates a @base_image to draw on.
-    def render_background
-      case @theme_options[:background_colors]
-      when Array
-        image = render_gradated_background(@theme_options[:background_colors][0], @theme_options[:background_colors][1], @theme_options[:background_direction])
-      when String
-        image = render_solid_background(@theme_options[:background_colors])
-      else
-        image = render_image_background(*@theme_options[:background_image])
-      end
-      Gruff::Renderer.background_image = image
-    end
-
-    # Make a new image at the current size with a solid +color+.
-    def render_solid_background(color)
-      Magick::Image.new(@columns, @rows) {
-        self.background_color = color
-      }
-    end
-
-    # Use with a theme definition method to draw a gradated background.
-    def render_gradated_background(top_color, bottom_color, direct = :top_bottom)
-      case direct
-      when :bottom_top
-        gradient_fill = Magick::GradientFill.new(0, 0, 100, 0, bottom_color, top_color)
-      when :left_right
-        gradient_fill = Magick::GradientFill.new(0, 0, 0, 100, top_color, bottom_color)
-      when :right_left
-        gradient_fill = Magick::GradientFill.new(0, 0, 0, 100, bottom_color, top_color)
-      when :topleft_bottomright
-        gradient_fill = Magick::GradientFill.new(0, 100, 100, 0, top_color, bottom_color)
-      when :topright_bottomleft
-        gradient_fill = Magick::GradientFill.new(0, 0, 100, 100, bottom_color, top_color)
-      else
-        gradient_fill = Magick::GradientFill.new(0, 0, 100, 0, top_color, bottom_color)
-      end
-
-      image = Magick::Image.new(@columns, @rows, gradient_fill)
-      @render_gradated_background_retry_count = 0
-
-      image
-    rescue StandardError => e
-      @render_gradated_background_retry_count ||= 0
-      GC.start
-
-      if @render_gradated_background_retry_count < 1
-        @render_gradated_background_retry_count += 1
-        render_gradated_background(top_color, bottom_color, direct)
-      else
-        raise e
-      end
-    end
-
-    # Use with a theme to use an image (800x600 original) background.
-    def render_image_background(image_path)
-      image = Magick::Image.read(image_path)
-      if @scale != 1.0
-        image[0].resize!(@scale) # TODO: Resize with new scale (crop if necessary for wide graph)
-      end
-      image[0]
-    end
-
-    # Use with a theme to make a transparent background
-    def render_transparent_background
-      Magick::Image.new(@columns, @rows) do
-        self.background_color = 'transparent'
-      end
-    end
-
     # Resets everything to defaults (except data).
     def reset_themes
       @color_index = 0
       @labels_seen = {}
       @theme_options = {}
-
-      @d = Magick::Draw.new
-      Renderer.instance.draw = @d
-      @d.font = @font if @font
-      # Scale down from 800x600 used to calculate drawing.
-      @d.scale(@scale, @scale)
     end
 
     def scale(value) # :nodoc:
