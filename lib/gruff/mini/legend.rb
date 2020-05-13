@@ -31,7 +31,8 @@ module Gruff
         else
           @rows += store.length * calculate_caps_height(scale_fontsize(@legend_font_size)) * 1.7
         end
-        render_background
+
+        Gruff::Renderer.setup(@columns, @rows, @font, @scale, @theme_options)
       end
 
       def calculate_line_height
