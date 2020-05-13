@@ -233,7 +233,6 @@ module Gruff
       @title_font = nil
 
       @scale = @columns / @raw_columns
-      Renderer.instance.scale = @scale
 
       @font = nil
       @bold_title = true
