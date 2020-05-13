@@ -554,7 +554,7 @@ module Gruff
 
     # Draw the optional labels for the x axis and y axis.
     def draw_axis_labels
-      unless @x_axis_label.nil?
+      if @x_axis_label
         # X Axis
         # Centered vertically and horizontally by setting the
         # height to 1.0 and the width to the width of the graph.
@@ -565,7 +565,7 @@ module Gruff
         text_renderer.render(@raw_columns, 1.0, 0.0, x_axis_label_y_coordinate)
       end
 
-      unless @y_axis_label.nil?
+      if @y_axis_label
         # Y Axis, rotated vertically
         text_renderer = Gruff::Renderer::Text.new(@y_axis_label, font: @font, size: @marker_font_size, color: @font_color, rotation: -90)
         text_renderer.render(1.0, @raw_rows, @left_margin + @marker_caps_height / 2.0, 0.0, Magick::CenterGravity)
@@ -584,7 +584,7 @@ module Gruff
 
         Gruff::Renderer::Line.new(color: @marker_color).render(@graph_left, y, @graph_right, y)
         #If the user specified a marker shadow color, draw a shadow just below it
-        unless @marker_shadow_color.nil?
+        if @marker_shadow_color
           Gruff::Renderer::Line.new(color: @marker_shadow_color).render(@graph_left, y + 1, @graph_right, y + 1)
         end
 

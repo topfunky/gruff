@@ -195,7 +195,7 @@ class Gruff::Line < Gruff::Base
 
         Gruff::Renderer::Line.new(color: @marker_color).render(x, @graph_bottom, x, @graph_top)
         #If the user specified a marker shadow color, draw a shadow just below it
-        unless @marker_shadow_color.nil?
+        if @marker_shadow_color
           Gruff::Renderer::Line.new(color: @marker_shadow_color).render(x + 1, @graph_bottom, x + 1, @graph_top)
         end
       end
@@ -296,7 +296,7 @@ class Gruff::Line < Gruff::Base
     # Spin through data to determine if there is just one_value present.
     one_point = false
     data_row.y_points.each do |data_point|
-      unless data_point.nil?
+      if data_point
         if one_point
           # more than one point, bail
           return false

@@ -42,7 +42,7 @@ class TestGruffLegend < GruffTestCase
           g.data(data[0], data[1])
         end
 
-        g.legend_font_size = font_size unless font_size.nil?
+        g.legend_font_size = font_size if font_size
         g.write("test/output/#{name}_wrapped_legend_#{font_size}_#{width}.png")
         assert_same_image("test/expected/#{name}_wrapped_legend_#{font_size}_#{width}.png", "test/output/#{name}_wrapped_legend_#{font_size}_#{width}.png")
       end
