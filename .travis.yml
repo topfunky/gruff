@@ -16,7 +16,7 @@ rvm:
 jobs:
   include:
     - name: 'Lint'
-      rvm: 2.3
+      rvm: 2.7
       script: bundle exec rubocop
 
 addons:

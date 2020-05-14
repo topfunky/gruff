@@ -27,7 +27,6 @@ Gem::Specification.new do |s|
     s.add_dependency 'rmagick4j'
   else
     s.add_dependency 'rmagick'
-    s.add_development_dependency 'rubocop', '~> 0.81.0'
   end
   s.required_ruby_version = '>= 1.9.3'
 
