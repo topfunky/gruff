@@ -225,23 +225,16 @@ class Gruff::Line < Gruff::Base
         new_y = @graph_top + (@graph_height - y_data * @graph_height)
 
         # Reset each time to avoid thin-line errors
-        stroke_width = line_width || clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 4), 5.0)
-        circle_radius = dot_radius ||
-            clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 2.5), 5.0)
+        stroke_width  = line_width || clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 4), 5.0)
+        circle_radius = dot_radius || clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 2.5), 5.0)
 
-        if !@hide_lines && !prev_x.nil? && !prev_y.nil?
+        if !@hide_lines && prev_x && prev_y
           Gruff::Renderer::Line.new(color: data_row.color, width: stroke_width, antialias: true)
                                .render(prev_x, prev_y, new_x, new_y)
         end
 
-        config = { color: data_row.color, width: stroke_width }
-        if @one_point
-          # Show a circle if there's just one_point
-          Gruff::Renderer::Dot.new(@dot_style, config).render(new_x, new_y, circle_radius)
-        end
-
-        unless @hide_dots
-          Gruff::Renderer::Dot.new(@dot_style, config).render(new_x, new_y, circle_radius)
+        if @one_point || !@hide_dots
+          Gruff::Renderer::Dot.new(@dot_style, color: data_row.color, width: stroke_width).render(new_x, new_y, circle_radius)
         end
 
         prev_x = new_x
@@ -293,19 +286,6 @@ class Gruff::Line < Gruff::Base
   end
 
   def contains_one_point_only?(data_row)
-    # Spin through data to determine if there is just one_value present.
-    one_point = false
-    data_row.y_points.each do |data_point|
-      if data_point
-        if one_point
-          # more than one point, bail
-          return false
-        end
-
-        # there is at least one data point
-        one_point = true
-      end
-    end
-    one_point
+    data_row.y_points.compact.count == 1
   end
 end
