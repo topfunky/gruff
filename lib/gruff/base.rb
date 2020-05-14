@@ -3,8 +3,6 @@
 require 'rmagick'
 require 'bigdecimal'
 
-require 'gruff/deprecated'
-
 ##
 # = Gruff. Graphs.
 #
@@ -21,8 +19,6 @@ require 'gruff/deprecated'
 
 module Gruff
   class Base
-    include Deprecated
-
     # Draw extra lines showing where the margins and text centers are
     DEBUG = false
 
