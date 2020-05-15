@@ -19,7 +19,9 @@ class Gruff::BarConversion
   attr_writer :minimum_value
   attr_writer :spread
 
-  def get_left_y_right_y_scaled(data_point, result)
+  def get_left_y_right_y_scaled(data_point)
+    result = []
+
     case @mode
     when 1 then # Case one
                 # minimum value >= 0 ( only positive values )
@@ -38,5 +40,7 @@ class Gruff::BarConversion
       result[0] = 0.0
       result[1] = 0.0
     end
+
+    result
   end
 end
