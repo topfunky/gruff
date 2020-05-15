@@ -47,7 +47,7 @@ module Gruff
     end
 
     def max_x
-      @max_y ||= @data.map(&:max_x).compact.max
+      @max_x ||= @data.map(&:max_x).compact.max
     end
 
     def sort_data!
