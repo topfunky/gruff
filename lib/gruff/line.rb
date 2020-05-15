@@ -142,19 +142,6 @@ class Gruff::Line < Gruff::Base
 
     # call the existing data routine for the x/y data.
     store.add(name, y_data_points, color, x_data_points)
-
-    # Update the global min/max values for the x data
-    x_data_points.each do |x_data_point|
-      next if x_data_point.nil?
-
-      # Setup max/min so spread starts at the low end of the data points
-      if @maximum_x_value.nil? && @minimum_x_value.nil?
-        @maximum_x_value = @minimum_x_value = x_data_point
-      end
-
-      @maximum_x_value = (x_data_point > @maximum_x_value) ? x_data_point : @maximum_x_value
-      @minimum_x_value = (x_data_point < @minimum_x_value) ? x_data_point : @minimum_x_value
-    end
   end
 
   def draw_reference_line(reference_line, left, right, top, bottom)
@@ -245,6 +232,10 @@ class Gruff::Line < Gruff::Base
   end
 
   def setup_data
+    # Update the global min/max values for the x data
+    @maximum_x_value = store.max_x unless @maximum_x_value
+    @minimum_x_value = store.min_x unless @minimum_x_value
+
     # Deal with horizontal reference line values that exceed the existing minimum & maximum values.
     possible_maximums = [maximum_value.to_f]
     possible_minimums = [minimum_value.to_f]

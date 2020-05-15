@@ -25,9 +25,19 @@ module Gruff
       def min
         y_points.compact.min
       end
+      alias min_y min
 
       def max
         y_points.compact.max
+      end
+      alias max_y max
+
+      def min_x
+        x_points.compact.min
+      end
+
+      def max_x
+        x_points.compact.max
       end
 
       def normalize(args = {})
