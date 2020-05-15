@@ -281,6 +281,34 @@ class TestGruffScatter < Minitest::Test
     pass
   end
 
+  def test_minimum_x
+    g = Gruff::Scatter.new
+    g.minimum_x_value = 3
+    g.dataxy('foo', [1, 2, 3, 4, 5], [21, 22, 23, 24, 25])
+    g.dataxy('bar', [6, 7, 8, 9, 10], [26, 27, 28, 29, 30])
+    assert_equal(3, g.minimum_x_value)
+
+    g = Gruff::Scatter.new
+    g.dataxy('foo', [1, 2, 3, 4, 5], [21, 22, 23, 24, 25])
+    g.dataxy('bar', [6, 7, 8, 9, 10], [26, 27, 28, 29, 30])
+    g.minimum_x_value = 3
+    assert_equal(3, g.minimum_x_value)
+  end
+
+  def test_maximum
+    g = Gruff::Scatter.new
+    g.maximum_x_value = 3
+    g.dataxy('foo', [1, 2, 3, 4, 5], [21, 22, 23, 24, 25])
+    g.dataxy('bar', [6, 7, 8, 9, 10], [26, 27, 28, 29, 30])
+    assert_equal(3, g.maximum_x_value)
+
+    g = Gruff::Scatter.new
+    g.dataxy('foo', [1, 2, 3, 4, 5], [21, 22, 23, 24, 25])
+    g.dataxy('bar', [6, 7, 8, 9, 10], [26, 27, 28, 29, 30])
+    g.maximum_x_value = 3
+    assert_equal(3, g.maximum_x_value)
+  end
+
 protected
 
   def setup_basic_graph(size = 800)

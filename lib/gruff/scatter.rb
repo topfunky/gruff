@@ -78,13 +78,6 @@ class Gruff::Scatter < Gruff::Base
     @store = Gruff::Store.new(Gruff::Store::XYData)
   end
 
-  def setup_drawing
-    # TODO: Need to get x-axis labels working. Current behavior will be to not allow.
-    @labels = {}
-
-    super
-  end
-
   def draw
     super
     return unless data_given?
@@ -174,18 +167,26 @@ class Gruff::Scatter < Gruff::Base
 
     # Call the existing data routine for the x/y axis data
     store.add(name, y_data_points, color, x_data_points)
-
-    if @maximum_x_value.nil? && @minimum_x_value.nil?
-      @maximum_x_value = @minimum_x_value = x_data_points.first
-    end
-
-    @maximum_x_value = x_data_points.max > @maximum_x_value ? x_data_points.max : @maximum_x_value
-    @minimum_x_value = x_data_points.min < @minimum_x_value ? x_data_points.min : @minimum_x_value
   end
 
   alias dataxy data
 
 protected
+
+  def setup_data
+    # Update the global min/max values for the x data
+    @maximum_x_value ||= store.max_x
+    @minimum_x_value ||= store.min_x
+
+    super
+  end
+
+  def setup_drawing
+    # TODO: Need to get x-axis labels working. Current behavior will be to not allow.
+    @labels = {}
+
+    super
+  end
 
   def calculate_spread #:nodoc:
     super
