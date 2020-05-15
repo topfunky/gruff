@@ -233,8 +233,8 @@ class Gruff::Line < Gruff::Base
 
   def setup_data
     # Update the global min/max values for the x data
-    @maximum_x_value = store.max_x unless @maximum_x_value
-    @minimum_x_value = store.min_x unless @minimum_x_value
+    @maximum_x_value ||= store.max_x
+    @minimum_x_value ||= store.min_x
 
     # Deal with horizontal reference line values that exceed the existing minimum & maximum values.
     possible_maximums = [maximum_value.to_f]
