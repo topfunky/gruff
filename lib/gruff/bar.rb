@@ -74,12 +74,11 @@ protected
         left_x = @graph_left + (@bar_width * (row_index + point_index + ((store.length - 1) * point_index))) + padding
         right_x = left_x + @bar_width * @bar_spacing
         # y
-        conv = []
-        conversion.get_left_y_right_y_scaled(data_point, conv)
+        left_y, right_y = conversion.get_left_y_right_y_scaled(data_point)
 
         # create new bar
         rect_renderer = Gruff::Renderer::Rectangle.new(color: data_row.color)
-        rect_renderer.render(left_x, conv[0], right_x, conv[1])
+        rect_renderer.render(left_x, left_y, right_x, right_y)
 
         # Calculate center based on bar_width and current row
         label_center = @graph_left +
@@ -91,7 +90,7 @@ protected
         if @show_labels_for_bar_values
           raw_value = store.data[row_index].points[point_index]
           val = (@label_formatting || '%.2f') % raw_value
-          y = raw_value >= 0 ? conv[0] - 30 : conv[0] + 12
+          y = raw_value >= 0 ? left_y - 30 : left_y + 12
           draw_value_label(left_x + (right_x - left_x) / 2, y, val.commify, true)
         end
       end
