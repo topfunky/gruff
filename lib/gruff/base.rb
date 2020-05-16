@@ -170,14 +170,6 @@ module Gruff
     # Will be scaled down if graph is smaller than 800px wide.
     attr_accessor :legend_box_size
 
-    # Output the values for the bars on a bar graph
-    # Default is false
-    attr_accessor :show_labels_for_bar_values
-
-    # Set the number output format for labels using sprintf
-    # Default is "%.2f"
-    attr_accessor :label_formatting
-
     # With Side Bars use the data label for the marker value to the left of the bar
     # Default is false
     attr_accessor :use_data_label
@@ -222,7 +214,6 @@ module Gruff
       @maximum_value = @minimum_value = nil
       @increment = nil
       @labels = {}
-      @label_formatting = nil
       @labels_seen = {}
       @sort = false
       @sorted_drawing = false
@@ -246,7 +237,7 @@ module Gruff
 
       @no_data_message = 'No Data'
 
-      @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = @legend_at_bottom = @show_labels_for_bar_values = false
+      @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = @legend_at_bottom = false
       @center_labels_over_point = true
       @has_left_labels = false
       @label_stagger_height = 0
