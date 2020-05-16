@@ -81,9 +81,7 @@ protected
         rect_renderer.render(left_x, left_y, right_x, right_y)
 
         # Calculate center based on bar_width and current row
-        label_center = @graph_left +
-                      (store.length * @bar_width * point_index) +
-                      (store.length * @bar_width / 2.0)
+        label_center = @graph_left + (store.length * @bar_width * point_index) + (store.length * @bar_width / 2.0)
 
         # Subtract half a bar width to center left if requested
         draw_label(label_center - (@center_labels_over_point ? @bar_width / 2.0 : 0.0), point_index)

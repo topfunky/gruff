@@ -6,16 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: aligned, indented
-Layout/MultilineOperationIndentation:
-  Exclude:
-    - 'lib/gruff/bar.rb'
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/net.rb'
-
 # Offense count: 1
 Lint/DuplicateMethods:
   Exclude:
