@@ -34,9 +34,9 @@ protected
     length = Array.new(column_count, @graph_left)
     padding = (@bar_width * (1 - @bar_spacing)) / 2
     if @show_labels_for_bar_values
-      label_values = []
-      0.upto(column_count - 1) { |i| label_values[i] = { value: 0, right_x: 0 } }
+      label_values = Array.new(column_count) { { value: 0, right_x: 0 } }
     end
+
     store.norm_data.each_with_index do |data_row, row_index|
       data_row.points.each_with_index do |data_point, point_index|
         ## using the original calcs from the stacked bar chart to get the difference between
@@ -73,6 +73,7 @@ protected
         draw_label(label_center, point_index)
       end
     end
+
     if @show_labels_for_bar_values
       label_values.each_with_index do |data, i|
         val = (@label_formatting || '%.2f') % data[:value]
