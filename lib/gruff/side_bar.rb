@@ -9,6 +9,20 @@ class Gruff::SideBar < Gruff::Base
   # Spacing factor applied between bars
   attr_accessor :bar_spacing
 
+  # Set the number output format for labels using sprintf
+  # Default is "%.2f"
+  attr_accessor :label_formatting
+
+  # Output the values for the bars on a bar graph
+  # Default is false
+  attr_accessor :show_labels_for_bar_values
+
+  def initialize(*)
+    super
+    @label_formatting = nil
+    @show_labels_for_bar_values = false
+  end
+
   def draw
     @has_left_labels = true
     super
