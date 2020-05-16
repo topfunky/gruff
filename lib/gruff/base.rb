@@ -19,9 +19,6 @@ require 'bigdecimal'
 
 module Gruff
   class Base
-    # Draw extra lines showing where the margins and text centers are
-    DEBUG = false
-
     # Space around text elements. Mostly used for vertical spacing
     LEGEND_MARGIN = TITLE_MARGIN = 20.0
     LABEL_MARGIN = 10.0
@@ -803,18 +800,6 @@ module Gruff
     end
 
   private
-
-    # Takes a block and draws it if DEBUG is true.
-    #
-    # Example:
-    #   debug { @d.rectangle x1, y1, x2, y2 }
-    def debug
-      if DEBUG
-        @d.fill 'transparent'
-        @d.stroke 'turquoise'
-        yield
-      end
-    end
 
     # Return a formatted string representing a number value that should be
     # printed as a label.
