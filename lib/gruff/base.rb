@@ -24,7 +24,7 @@ module Gruff
     LABEL_MARGIN = 10.0
     DEFAULT_MARGIN = 20.0
 
-    DEFAULT_TARGET_WIDTH = 800
+    DEFAULT_TARGET_WIDTH = 800.0
 
     THOUSAND_SEPARATOR = ','
 
@@ -213,8 +213,11 @@ module Gruff
     # developers to change this values in their program.
     def initialize_ivars
       # Internal for calculations
-      @raw_columns = 800.0
-      @raw_rows = 800.0 * (@rows / @columns)
+      @raw_columns = DEFAULT_TARGET_WIDTH
+      @raw_rows = DEFAULT_TARGET_WIDTH * (@rows / @columns)
+      @raw_columns.freeze
+      @raw_rows.freeze
+
       @marker_count = nil
       @maximum_value = @minimum_value = nil
       @increment = nil
