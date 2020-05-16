@@ -513,9 +513,7 @@ module Gruff
         # Shift graph if left line numbers are hidden
         line_number_width = @hide_line_numbers && !@has_left_labels ? 0.0 : (longest_left_label_width + LABEL_MARGIN * 2)
 
-        @graph_left = @left_margin +
-            line_number_width +
-            (@y_axis_label.nil? ? 0.0 : @marker_caps_height + LABEL_MARGIN * 2)
+        @graph_left = @left_margin + line_number_width + (@y_axis_label.nil? ? 0.0 : @marker_caps_height + LABEL_MARGIN * 2)
 
         # Make space for half the width of the rightmost column label.
         # Might be greater than the number of columns if between-style bar markers are used.
@@ -539,7 +537,7 @@ module Gruff
         else
           @top_margin +
             (@hide_title ? title_margin : @title_caps_height + title_margin) +
-              (@hide_legend ? legend_margin : @legend_caps_height + legend_margin)
+            (@hide_legend ? legend_margin : @legend_caps_height + legend_margin)
         end
       end
 

@@ -29,10 +29,8 @@ class Gruff::Net < Gruff::Base
     @center_y = @graph_top + (@graph_height / 2.0) - 10 # Move graph up a bit
 
     @x_increment = @graph_width / (column_count - 1).to_f
-    circle_radius = dot_radius ||
-        clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 2.5), 5.0)
-
-    stroke_width = line_width || clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 4), 5.0)
+    stroke_width = line_width  || clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 4), 5.0)
+    circle_radius = dot_radius || clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 2.5), 5.0)
 
     if defined?(@norm_baseline)
       level = @graph_top + (@graph_height - @norm_baseline * @graph_height)
