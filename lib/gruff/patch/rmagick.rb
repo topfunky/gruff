@@ -13,6 +13,7 @@ module Magick
                text.gsub('%', '%%'))
     end
 
+    remove_method :stroke_opacity
     def stroke_opacity(_opacity)
       raise '#stroke_opacity method has different behavior between RMagick and RMagick4J. Should not use this method.'
     end
