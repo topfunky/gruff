@@ -74,12 +74,11 @@ class Gruff::Scatter < Gruff::Base
     @x_increment = (@x_spread > 1) ? (@graph_width / (@x_spread - 1).to_f) : @graph_width
 
     store.norm_data.each do |data_row|
-      data_row.y_points.each_with_index do |data_point, index|
-        x_value = data_row.x_points[index]
-        next if data_point.nil? || x_value.nil?
+      data_row.coordinates.each do |x_value, y_value|
+        next if y_value.nil? || x_value.nil?
 
         new_x = get_x_coord(x_value, @graph_width, @graph_left)
-        new_y = @graph_top + (@graph_height - data_point * @graph_height)
+        new_y = @graph_top + (@graph_height - y_value * @graph_height)
 
         # Reset each time to avoid thin-line errors
         stroke_width  = @stroke_width || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4), 5.0)
