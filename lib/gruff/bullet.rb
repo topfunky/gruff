@@ -29,23 +29,6 @@ class Gruff::Bullet < Gruff::Base
     @options.map { |k, v| @options[k] = v.to_f if v.is_a?(Numeric) }
   end
 
-  # def setup_drawing
-  #   # Maybe should be done in one of the following functions for more granularity.
-  #   unless @has_data
-  #     draw_no_data()
-  #     return
-  #   end
-  #
-  #   normalize()
-  #   setup_graph_measurements()
-  #   sort_norm_data() if @sort # Sort norm_data with avg largest values set first (for display)
-  #
-  #   draw_legend()
-  #   draw_line_markers()
-  #   draw_axis_labels()
-  #   draw_title
-  # end
-
   def draw
     # TODO: Left label
     # TODO Bottom labels and markers

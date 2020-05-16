@@ -22,18 +22,6 @@ class Gruff::Scatter < Gruff::Base
   # The number of vertical lines shown for reference
   attr_accessor :marker_x_count
 
-  #~ # Draw a dashed horizontal line at the given y value
-  #~ attr_accessor :baseline_y_value
-
-  #~ # Color of the horizontal baseline
-  #~ attr_accessor :baseline_y_color
-
-  #~ # Draw a dashed horizontal line at the given y value
-  #~ attr_accessor :baseline_x_value
-
-  #~ # Color of the horizontal baseline
-  #~ attr_accessor :baseline_x_color
-
   # Attributes to allow customising the size of the points
   attr_accessor :circle_radius
   attr_accessor :stroke_width
@@ -84,21 +72,6 @@ class Gruff::Scatter < Gruff::Base
 
     # Check to see if more than one datapoint was given. NaN can result otherwise.
     @x_increment = (@x_spread > 1) ? (@graph_width / (@x_spread - 1).to_f) : @graph_width
-
-    #~ if (defined?(@norm_y_baseline)) then
-      #~ level = @graph_top + (@graph_height - @norm_baseline * @graph_height)
-      #~ @d.push
-      #~ @d.stroke_color @baseline_color
-      #~ @d.fill_opacity 0.0
-      #~ @d.stroke_dasharray(10, 20)
-      #~ @d.stroke_width 5
-      #~ @d.line(@graph_left, level, @graph_left + @graph_width, level)
-      #~ @d.pop
-    #~ end
-
-    #~ if (defined?(@norm_x_baseline)) then
-
-    #~ end
 
     store.norm_data.each do |data_row|
       data_row.y_points.each_with_index do |data_point, index|

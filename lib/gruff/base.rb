@@ -184,6 +184,7 @@ module Gruff
     # With Side Bars use the data label for the marker value to the left of the bar
     # Default is false
     attr_accessor :use_data_label
+
     # If one numerical argument is given, the graph is drawn at 4/3 ratio
     # according to the given width (800 results in 800x600, 400 gives 400x300,
     # etc.).
@@ -592,28 +593,6 @@ module Gruff
           text_renderer.render(@graph_left - LABEL_MARGIN, 1.0, 0.0, y, Magick::EastGravity)
         end
       end
-
-      # # Submitted by a contributor...the utility escapes me
-      # i = 0
-      # @additional_line_values.each do |value|
-      #   @increment_scaled = @graph_height.to_f / (@maximum_value.to_f / value)
-      #
-      #   y = @graph_top + @graph_height - @increment_scaled
-      #
-      #   @d.stroke(@additional_line_colors[i])
-      #   @d.line(@graph_left, y, @graph_right, y)
-      #
-      #
-      #   @d.fill = @additional_line_colors[i]
-      #   @d.stroke('transparent')
-      #   @d.pointsize = scale_fontsize(@marker_font_size)
-      #   @d.gravity = Magick::EastGravity
-      #   @d.annotate_scaled( @base_image,
-      #                     100, 20,
-      #                     -10, y - (@marker_font_size/2.0),
-      #                     "", @scale)
-      #   i += 1
-      # end
     end
 
     ##
