@@ -8,6 +8,7 @@ module Gruff
       @data_class = data_class
       @data = []
       @norm_data = []
+      @normalized = false
     end
 
     def add(*args)
@@ -15,8 +16,12 @@ module Gruff
     end
 
     def normalize(args = {})
-      @data.each do |data_row|
-        @norm_data << data_row.normalize(args)
+      unless @normalized
+        @data.each do |data_row|
+          @norm_data << data_row.normalize(args)
+        end
+
+        @normalized = true
       end
     end
 
