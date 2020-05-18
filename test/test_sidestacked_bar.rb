@@ -91,6 +91,15 @@ class TestGruffSideStackedBar < GruffTestCase
     assert_same_image('test/expected/side_stacked_bar_labels.png', 'test/output/side_stacked_bar_labels.png')
   end
 
+  def test_draw_twice
+    g = setup_basic_graph
+    g.show_labels_for_bar_values = true
+    g.draw
+    g.draw
+
+    pass
+  end
+
 protected
 
   def setup_basic_graph(size = 800)

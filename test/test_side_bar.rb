@@ -57,4 +57,13 @@ class TestGruffSideBar < GruffTestCase
     g.write('test/output/side_bar_labels.png')
     assert_same_image('test/expected/side_bar_labels.png', 'test/output/side_bar_labels.png')
   end
+
+  def test_draw_twice
+    g = setup_basic_graph(Gruff::SideBar, 800)
+    g.show_labels_for_bar_values = true
+    g.draw
+    g.draw
+
+    pass
+  end
 end
