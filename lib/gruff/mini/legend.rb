@@ -78,7 +78,6 @@ module Gruff
 
           current_y_offset += calculate_line_height
         end
-        @color_index = 0
       end
 
       ##

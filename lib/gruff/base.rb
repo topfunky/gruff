@@ -292,7 +292,6 @@ module Gruff
     #  replace_colors ['#cc99cc', '#d9e043', '#34d8a2']
     def replace_colors(color_list = [])
       @colors = color_list
-      @color_index = 0
     end
 
     # You can set a theme manually. Assign a hash to this method before you
@@ -663,7 +662,6 @@ module Gruff
           current_x_offset += current_string_offset
         end
       end
-      @color_index = 0
     end
 
     # Draws a title on the graph.
@@ -730,7 +728,6 @@ module Gruff
 
     # Resets everything to defaults (except data).
     def reset_themes
-      @color_index = 0
       @labels_seen = {}
       @theme_options = {}
     end
@@ -780,7 +777,7 @@ module Gruff
 
     # Set the color for each data set unless it was given in the data(...) call.
     def set_colors
-      store.set_colors!(@colors, @color_index)
+      store.set_colors!(@colors)
     end
 
     # Sort with largest overall summed value at front of array so it shows up
