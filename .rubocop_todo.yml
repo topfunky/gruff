@@ -68,10 +68,11 @@ Metrics/ParameterLists:
 Metrics/PerceivedComplexity:
   Max: 20
 
-# Offense count: 1
+# Offense count: 2
 Naming/AccessorMethodName:
   Exclude:
     - 'lib/gruff/stacked_mixin.rb'
+    - 'lib/gruff/store/store.rb'
 
 # Offense count: 1
 # Configuration parameters: EnforcedStyleForLeadingUnderscores.

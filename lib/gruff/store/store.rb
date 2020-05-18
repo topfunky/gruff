@@ -77,7 +77,8 @@ module Gruff
       end
     end
 
-    def set_colors!(colors, index)
+    def set_colors!(colors)
+      index = 0
       @data.each do |data_row|
         data_row.color ||= begin
           index = (index + 1) % colors.length
