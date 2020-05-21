@@ -191,6 +191,8 @@ module Gruff
         @columns = target_width.to_f
         @rows = target_width.to_f * 0.75
       end
+      @columns.freeze
+      @rows.freeze
 
       initialize_ivars
 
