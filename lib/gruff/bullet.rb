@@ -14,6 +14,8 @@ class Gruff::Bullet < Gruff::Base
       @columns = target_width.to_f
       @rows = target_width.to_f / 5.0
     end
+    @columns.freeze
+    @rows.freeze
 
     initialize_ivars
 
