@@ -39,8 +39,8 @@ protected
     #
     @bar_spacing ||= 0.9
 
-    @bars_width = @graph_height / column_count.to_f
-    bar_width = @bars_width / store.length
+    bars_width = @graph_height / column_count.to_f
+    bar_width = bars_width / store.length
     height = Array.new(column_count, 0)
     length = Array.new(column_count, @graph_left)
     padding = (bar_width * (1 - @bar_spacing)) / 2
@@ -60,7 +60,7 @@ protected
         difference = temp2 - temp1
 
         left_x = length[point_index] - 1
-        left_y = @graph_top + (@bars_width * point_index) + (bar_width * row_index) + padding
+        left_y = @graph_top + (bars_width * point_index) + (bar_width * row_index) + padding
         right_x = left_x + difference
         right_y = left_y + bar_width * @bar_spacing
 
@@ -75,7 +75,7 @@ protected
           label_center = @graph_top + (bar_width * (row_index + point_index) + bar_width / 2)
           draw_label(label_center, row_index, store.norm_data[row_index].label)
         else
-          label_center = @graph_top + (@bars_width * point_index + @bars_width / 2)
+          label_center = @graph_top + (bars_width * point_index + bars_width / 2)
           draw_label(label_center, point_index)
         end
         if @show_labels_for_bar_values

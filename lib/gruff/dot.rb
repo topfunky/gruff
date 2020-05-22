@@ -63,10 +63,8 @@ protected
         @marker_count ||= 5
       end
       # TODO: Round maximum marker value to a round number like 100, 0.1, 0.5, etc.
-      @increment = (@spread > 0 && @marker_count > 0) ? significant(@spread / @marker_count) : 1
-
+      increment = (@spread > 0 && @marker_count > 0) ? significant(@spread / @marker_count) : 1
       number_of_lines = @marker_count
-      increment = @increment
     end
 
     (0..number_of_lines).each do |index|
