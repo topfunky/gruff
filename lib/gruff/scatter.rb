@@ -202,20 +202,20 @@ protected
       @marker_count = (@x_spread / @x_axis_increment).to_i
       @x_increment = @x_axis_increment
     end
-    @increment_x_scaled = @graph_width.to_f / (@x_spread / @x_increment)
+    increment_x_scaled = @graph_width.to_f / (@x_spread / @x_increment)
 
     # Draw vertical line markers and annotate with numbers
     (0..@marker_x_count).each do |index|
       # TODO: Fix the vertical lines, and enable them by default. Not pretty when they don't match up with top y-axis line
       if @enable_vertical_line_markers
-        x = @graph_left + @graph_width - index.to_f * @increment_x_scaled
+        x = @graph_left + @graph_width - index.to_f * increment_x_scaled
         Gruff::Renderer::Line.new(color: @marker_color).render(x, @graph_top, x, @graph_bottom)
       end
 
       unless @hide_line_numbers
         marker_label = index * @x_increment + @minimum_x_value.to_f
         y_offset = @graph_bottom + (@x_label_margin || LABEL_MARGIN)
-        x_offset = get_x_coord(index.to_f, @increment_x_scaled, @graph_left)
+        x_offset = get_x_coord(index.to_f, increment_x_scaled, @graph_left)
 
         label = vertical_label(marker_label, @x_increment)
         rotation = -90.0 if @use_vertical_x_labels
