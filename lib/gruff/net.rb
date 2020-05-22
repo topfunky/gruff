@@ -27,11 +27,6 @@ class Gruff::Net < Gruff::Base
     stroke_width = line_width  || clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 4), 5.0)
     circle_radius = dot_radius || clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 2.5), 5.0)
 
-    if defined?(@norm_baseline)
-      level = @graph_top + (@graph_height - @norm_baseline * @graph_height)
-      Gruff::Renderer::DashLine.new(color: @baseline_color, width: 5.0).rendere(@graph_left, level, @graph_left + @graph_width, level)
-    end
-
     store.norm_data.each do |data_row|
       data_row.points.each_with_index do |data_point, index|
         next if data_point.nil?
