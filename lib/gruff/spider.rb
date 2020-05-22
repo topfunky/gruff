@@ -13,7 +13,6 @@ class Gruff::Spider < Gruff::Base
   attr_accessor :rotation
 
   def transparent_background=(value)
-    @transparent_background = value
     Gruff::Renderer.setup_transparent_background(@columns, @rows) if value
   end
 
