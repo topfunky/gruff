@@ -45,15 +45,15 @@ class Gruff::PhotoBar < Gruff::Base
     #
     # Columns sit side-by-side.
     spacing_factor = 0.9
-    @bar_width = store.norm_data[0].color.columns
+    bar_width = store.norm_data[0].color.columns
 
     store.norm_data.each_with_index do |data_row, row_index|
       data_row.points.each_with_index do |data_point, point_index|
         data_point = 0 if data_point.nil?
         # Use incremented x and scaled y
-        left_x = @graph_left + (@bar_width * (row_index + point_index + ((store.length - 1) * point_index)))
+        left_x = @graph_left + (bar_width * (row_index + point_index + ((store.length - 1) * point_index)))
         left_y = @graph_top + (@graph_height - data_point * @graph_height) + 1
-        right_x = left_x + @bar_width * spacing_factor
+        right_x = left_x + bar_width * spacing_factor
         right_y = @graph_top + @graph_height - 1
 
         bar_image_width = data_row.color.columns
@@ -66,7 +66,7 @@ class Gruff::PhotoBar < Gruff::Base
         @d.composite(left_x, left_y, bar_image_width, bar_image_height, bar_image)
 
         # Calculate center based on bar_width and current row
-        label_center = @graph_left + (store.length * @bar_width * point_index) + (store.length * @bar_width / 2.0)
+        label_center = @graph_left + (store.length * bar_width * point_index) + (store.length * bar_width / 2.0)
         draw_label(label_center, point_index)
       end
     end

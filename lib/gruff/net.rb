@@ -28,7 +28,6 @@ class Gruff::Net < Gruff::Base
     @center_x = @graph_left + (@graph_width / 2.0)
     @center_y = @graph_top + (@graph_height / 2.0) - 10 # Move graph up a bit
 
-    @x_increment = @graph_width / (column_count - 1).to_f
     stroke_width = line_width  || clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 4), 5.0)
     circle_radius = dot_radius || clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 2.5), 5.0)
 

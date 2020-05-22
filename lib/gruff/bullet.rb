@@ -41,37 +41,38 @@ class Gruff::Bullet < Gruff::Base
 
     draw_title
 
-    @margin       = 30.0
-    @thickness    = @raw_rows / 6.0
-    @right_margin = @margin
-    @graph_left   = (@title && (@title_width * 1.3)) || @margin
-    @graph_width  = @raw_columns - @graph_left - @right_margin
-    @graph_height = @thickness * 3.0
+    title_width  = calculate_width(@title_font_size, @title)
+    margin       = 30.0
+    thickness    = @raw_rows / 6.0
+    right_margin = margin
+    graph_left   = (@title && (title_width * 1.3)) || margin
+    graph_width  = @raw_columns - graph_left - right_margin
+    graph_height = thickness * 3.0
 
     # Background
     rect_renderer = Gruff::Renderer::Rectangle.new(color: @colors[0])
-    rect_renderer.render(@graph_left, 0, @graph_left + @graph_width, @graph_height)
+    rect_renderer.render(graph_left, 0, graph_left + graph_width, graph_height)
 
     [:high, :low].each_with_index do |indicator, index|
       next unless @options.key?(indicator)
 
-      indicator_width_x = @graph_left + @graph_width * (@options[indicator] / maximum_value)
+      indicator_width_x = graph_left + graph_width * (@options[indicator] / maximum_value)
 
       rect_renderer = Gruff::Renderer::Rectangle.new(color: @colors[index + 1])
-      rect_renderer.render(@graph_left, 0, indicator_width_x, @graph_height)
+      rect_renderer.render(graph_left, 0, indicator_width_x, graph_height)
     end
 
     if @options.key?(:target)
-      target_x = @graph_left + @graph_width * (@options[:target] / maximum_value)
-      half_thickness = @thickness / 2.0
+      target_x = graph_left + graph_width * (@options[:target] / maximum_value)
+      half_thickness = thickness / 2.0
 
       rect_renderer = Gruff::Renderer::Rectangle.new(color: @font_color)
-      rect_renderer.render(target_x, half_thickness, target_x + half_thickness, @thickness * 2 + half_thickness)
+      rect_renderer.render(target_x, half_thickness, target_x + half_thickness, thickness * 2 + half_thickness)
     end
 
     # Value
     rect_renderer = Gruff::Renderer::Rectangle.new(color: @font_color)
-    rect_renderer.render(@graph_left, @thickness, @graph_left + @graph_width * (@value / maximum_value), @thickness * 2)
+    rect_renderer.render(graph_left, thickness, graph_left + graph_width * (@value / maximum_value), thickness * 2)
 
     Gruff::Renderer.finish
   end
@@ -79,10 +80,9 @@ class Gruff::Bullet < Gruff::Base
   def draw_title
     return unless @title
 
-    @font_height = calculate_caps_height(scale_fontsize(@title_font_size))
-    @title_width = calculate_width(@title_font_size, @title)
+    font_height = calculate_caps_height(scale_fontsize(@title_font_size))
 
     text_renderer = Gruff::Renderer::Text.new(@title, font: @font, size: @title_font_size, color: @font_color)
-    text_renderer.render(1.0, 1.0, @font_height / 2, @font_height / 2, Magick::NorthWestGravity)
+    text_renderer.render(1.0, 1.0, font_height / 2, font_height / 2, Magick::NorthWestGravity)
   end
 end
