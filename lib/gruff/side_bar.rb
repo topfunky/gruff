@@ -40,10 +40,10 @@ protected
     @bar_spacing ||= 0.9
 
     @bars_width = @graph_height / column_count.to_f
-    @bar_width = @bars_width / store.length
+    bar_width = @bars_width / store.length
     height = Array.new(column_count, 0)
     length = Array.new(column_count, @graph_left)
-    padding = (@bar_width * (1 - @bar_spacing)) / 2
+    padding = (bar_width * (1 - @bar_spacing)) / 2
 
     # if we're a side stacked bar then we don't need to draw ourself at all
     # because sometimes (due to different heights/min/max) you can actually
@@ -60,9 +60,9 @@ protected
         difference = temp2 - temp1
 
         left_x = length[point_index] - 1
-        left_y = @graph_top + (@bars_width * point_index) + (@bar_width * row_index) + padding
+        left_y = @graph_top + (@bars_width * point_index) + (bar_width * row_index) + padding
         right_x = left_x + difference
-        right_y = left_y + @bar_width * @bar_spacing
+        right_y = left_y + bar_width * @bar_spacing
 
         height[point_index] += (data_point * @graph_width)
 
@@ -72,7 +72,7 @@ protected
         # Calculate center based on bar_width and current row
 
         if @use_data_label
-          label_center = @graph_top + (@bar_width * (row_index + point_index) + @bar_width / 2)
+          label_center = @graph_top + (bar_width * (row_index + point_index) + bar_width / 2)
           draw_label(label_center, row_index, store.norm_data[row_index].label)
         else
           label_center = @graph_top + (@bars_width * point_index + @bars_width / 2)
@@ -80,7 +80,7 @@ protected
         end
         if @show_labels_for_bar_values
           val = (@label_formatting || '%.2f') % store.data[row_index].points[point_index]
-          draw_value_label(right_x + 40, (@graph_top + (((row_index + point_index + 1) * @bar_width) - (@bar_width / 2))) - 12, val.commify, true)
+          draw_value_label(right_x + 40, (@graph_top + (((row_index + point_index + 1) * bar_width) - (bar_width / 2))) - 12, val.commify, true)
         end
       end
     end

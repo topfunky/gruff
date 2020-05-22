@@ -190,7 +190,7 @@ class Gruff::Line < Gruff::Base
     store.norm_data.each do |data_row|
       prev_x = prev_y = nil
 
-      @one_point = contains_one_point_only?(data_row)
+      one_point = contains_one_point_only?(data_row)
 
       data_row.coordinates.each_with_index do |(x_data, y_data), index|
         if x_data.nil?
@@ -219,7 +219,7 @@ class Gruff::Line < Gruff::Base
                                .render(prev_x, prev_y, new_x, new_y)
         end
 
-        if @one_point || !@hide_dots
+        if one_point || !@hide_dots
           Gruff::Renderer::Dot.new(@dot_style, color: data_row.color, width: stroke_width).render(new_x, new_y, circle_radius)
         end
 

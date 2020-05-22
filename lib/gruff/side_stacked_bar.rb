@@ -43,10 +43,10 @@ protected
     # Columns sit stacked.
     @bar_spacing ||= 0.9
 
-    @bar_width = @graph_height / column_count.to_f
+    bar_width = @graph_height / column_count.to_f
     height = Array.new(column_count, 0)
     length = Array.new(column_count, @graph_left)
-    padding = (@bar_width * (1 - @bar_spacing)) / 2
+    padding = (bar_width * (1 - @bar_spacing)) / 2
     if @show_labels_for_bar_values
       label_values = Array.new(column_count) { { value: 0, right_x: 0 } }
     end
@@ -62,9 +62,9 @@ protected
         difference = temp2 - temp1
 
         left_x = length[point_index] #+ 1
-        left_y = @graph_top + (@bar_width * point_index) + padding
+        left_y = @graph_top + (bar_width * point_index) + padding
         right_x = left_x + difference
-        right_y = left_y + @bar_width * @bar_spacing
+        right_y = left_y + bar_width * @bar_spacing
         length[point_index] += difference
         height[point_index] += (data_point * @graph_width - 2)
 
@@ -83,7 +83,7 @@ protected
         end
         # we still need to draw the labels
         # Calculate center based on bar_width and current row
-        label_center = @graph_top + (@bar_width * point_index) + (@bar_width * @bar_spacing / 2.0)
+        label_center = @graph_top + (bar_width * point_index) + (bar_width * @bar_spacing / 2.0)
         draw_label(label_center, point_index)
       end
     end
@@ -91,7 +91,7 @@ protected
     if @show_labels_for_bar_values
       label_values.each_with_index do |data, i|
         val = (@label_formatting || '%.2f') % data[:value]
-        draw_value_label(data[:right_x] + 40, (@graph_top + (((i + 1) * @bar_width) - (@bar_width / 2))) - 12, val.commify, true)
+        draw_value_label(data[:right_x] + 40, (@graph_top + (((i + 1) * bar_width) - (bar_width / 2))) - 12, val.commify, true)
       end
     end
 

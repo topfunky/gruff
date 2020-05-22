@@ -563,11 +563,11 @@ module Gruff
     def draw_line_markers
       return if @hide_line_markers
 
-      @increment_scaled = @graph_height.to_f / (@spread / @increment)
+      increment_scaled = @graph_height.to_f / (@spread / @increment)
 
       # Draw horizontal line markers and annotate with numbers
       (0..@marker_count).each do |index|
-        y = @graph_top + @graph_height - index.to_f * @increment_scaled
+        y = @graph_top + @graph_height - index.to_f * increment_scaled
 
         Gruff::Renderer::Line.new(color: @marker_color).render(@graph_left, y, @graph_right, y)
         #If the user specified a marker shadow color, draw a shadow just below it
@@ -608,13 +608,13 @@ module Gruff
     def draw_legend
       return if @hide_legend
 
-      @legend_labels = store.data.map(&:label)
+      legend_labels = store.data.map(&:label)
 
       legend_square_width = @legend_box_size # small square with color of this item
 
       # May fix legend drawing problem at small sizes
       label_widths = [[]] # Used to calculate line wrap
-      @legend_labels.each do |label|
+      legend_labels.each do |label|
         metrics = Renderer::Text.metrics(label, @legend_font_size)
         label_width = metrics.width + legend_square_width * 2.7
         label_widths.last.push label_width
@@ -633,7 +633,7 @@ module Gruff
         end
       end
 
-      @legend_labels.each_with_index do |legend_label, index|
+      legend_labels.each_with_index do |legend_label, index|
         # Draw label
         text_renderer = Gruff::Renderer::Text.new(legend_label, font: @font, size: @legend_font_size, color: @font_color)
         text_renderer.render(@raw_columns, 1.0, current_x_offset + (legend_square_width * 1.7), current_y_offset, Magick::WestGravity)
