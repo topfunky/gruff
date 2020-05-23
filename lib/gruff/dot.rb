@@ -84,10 +84,9 @@ protected
   # Draw on the Y axis instead of the X
 
   def draw_label(y_offset, index)
-    if !@labels[index].nil? && @labels_seen[index].nil?
+    draw_unique_label(index) do
       text_renderer = Gruff::Renderer::Text.new(@labels[index], font: @font, size: @marker_font_size, color: @font_color)
       text_renderer.render(1, 1, -@graph_left + LABEL_MARGIN * 2.0, y_offset, Magick::EastGravity)
-      @labels_seen[index] = 1
     end
   end
 end
