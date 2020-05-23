@@ -667,7 +667,13 @@ module Gruff
 
       font = (@title_font || @font) if @title_font || @font
       font_weight = @bold_title ? Magick::BoldWeight : Magick::NormalWeight
-      text_renderer = Gruff::Renderer::Text.new(@title, font: font, size: @title_font_size, color: @font_color, weight: font_weight)
+      font_size = @title_font_size
+
+      metrics = Renderer::Text.metrics(@title, font_size, font_weight)
+      if metrics.width > @raw_columns
+        font_size = font_size * (@raw_columns / metrics.width) * 0.95
+      end
+      text_renderer = Gruff::Renderer::Text.new(@title, font: font, size: font_size, color: @font_color, weight: font_weight)
       text_renderer.render(@raw_columns, 1.0, 0, @top_margin)
     end
 
@@ -696,7 +702,6 @@ module Gruff
           else # @label_truncation_style is :absolute (default)
             label_text = label_text[0..(@label_max_size - 1)]
           end
-
         end
 
         if x_offset >= @graph_left && x_offset <= @graph_right
