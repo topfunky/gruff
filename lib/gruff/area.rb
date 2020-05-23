@@ -35,7 +35,7 @@ class Gruff::Area < Gruff::Base
       poly_points << @graph_left
       poly_points << @graph_bottom - 1
 
-      Gruff::Renderer::Polyline.new(color: data_row.color).render(poly_points)
+      Gruff::Renderer::Polygon.new(color: data_row.color).render(poly_points)
     end
 
     Gruff::Renderer.finish

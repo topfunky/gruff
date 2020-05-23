@@ -5,6 +5,7 @@ module Gruff
     def initialize(args = {})
       @color = args[:color]
       @width = args[:width] || 1.0
+      @opacity = args[:opacity] || 1.0
     end
 
     def render(points)
@@ -14,7 +15,7 @@ module Gruff
       draw.stroke_width(@width)
       draw.stroke(@color)
       draw.fill(@color)
-      draw.fill_opacity(0.4)
+      draw.fill_opacity(@opacity)
       draw.polygon(*points)
       draw.pop
     end

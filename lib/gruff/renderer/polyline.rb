@@ -11,14 +11,9 @@ module Gruff
       draw = Renderer.instance.draw
 
       draw.push
-      if @width
-        draw.stroke(@color)
-        draw.stroke_width(@width)
-        draw.fill_opacity(0.0)
-      else
-        draw.fill(@color)
-        draw.stroke('transparent')
-      end
+      draw.stroke(@color)
+      draw.fill('transparent')
+      draw.stroke_width(@width)
       draw.polyline(*points)
       draw.pop
     end
