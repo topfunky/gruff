@@ -19,15 +19,16 @@ class TestGruffStackedBar < GruffTestCase
   def test_bar_graph
     g = Gruff::StackedBar.new
     g.title = 'Visual Stacked Bar Graph Test'
+    g.show_labels_for_bar_values = true
     g.labels = {
       0 => '5/6',
       1 => '5/15',
       2 => '5/24',
       3 => '5/30'
     }
-    @datasets.each do |data|
-      g.data(data[0], data[1])
-    end
+    g.data :Jimmy, [25, 36, 86, 39]
+    g.data :Charles, [80, 54, 67, 54]
+    g.data :Julie, [2, 29, 35, 38]
     g.write('test/output/stacked_bar_keynote.png')
     assert_same_image('test/expected/stacked_bar_keynote.png', 'test/output/stacked_bar_keynote.png')
   end

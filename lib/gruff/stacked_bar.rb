@@ -2,15 +2,31 @@
 
 require 'gruff/base'
 require 'gruff/stacked_mixin'
+require 'gruff/bar_value_label_mixin'
 
 class Gruff::StackedBar < Gruff::Base
   include StackedMixin
+  include BarValueLabelMixin
 
   # Spacing factor applied between bars
   attr_accessor :bar_spacing
 
   # Number of pixels between bar segments
   attr_accessor :segment_spacing
+
+  # Set the number output format for labels using sprintf
+  # Default is "%.2f"
+  attr_accessor :label_formatting
+
+  # Output the values for the bars on a bar graph
+  # Default is false
+  attr_accessor :show_labels_for_bar_values
+
+  def initialize_ivars
+    super
+    @label_formatting = nil
+    @show_labels_for_bar_values = false
+  end
 
   # Draws a bar graph, but multiple sets are stacked on top of each other.
   def draw
@@ -28,8 +44,9 @@ class Gruff::StackedBar < Gruff::Base
     padding = (bar_width * (1 - @bar_spacing)) / 2
 
     height = Array.new(column_count, 0)
+    bar_value_label = BarValueLabel.new(store.length)
 
-    store.norm_data.each do |data_row|
+    store.norm_data.each_with_index do |data_row, row_index|
       data_row.points.each_with_index do |data_point, point_index|
         next if data_point == 0
 
@@ -50,6 +67,15 @@ class Gruff::StackedBar < Gruff::Base
         # Calculate center based on bar_width and current row
         label_center = left_x + bar_width * @bar_spacing / 2.0
         draw_label(label_center, point_index)
+
+        bar_value_label.coordinates[point_index] = [left_x, left_y, right_x, right_y]
+        bar_value_label.values[point_index] += store.data[row_index].points[point_index]
+      end
+    end
+
+    if @show_labels_for_bar_values
+      bar_value_label.prepare_rendering(@label_formatting) do |x, y, text|
+        draw_value_label(x, y, text, true)
       end
     end
 
