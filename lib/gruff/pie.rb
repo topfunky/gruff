@@ -112,13 +112,9 @@ private
     @chart_degrees ||= zero_degree
   end
 
-  def graph_height
-    @graph_height
-  end
+  attr_reader :graph_height
 
-  def graph_width
-    @graph_width
-  end
+  attr_reader :graph_width
 
   def diameter
     graph_height
