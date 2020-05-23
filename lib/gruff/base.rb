@@ -674,7 +674,7 @@ module Gruff
     # Draws column labels below graph, centered over x_offset
     #--
     # TODO Allow WestGravity as an option
-    def draw_label(x_offset, index)
+    def draw_label(x_offset, index, gravity = Magick::NorthGravity)
       draw_unique_label(index) do
         y_offset = @graph_bottom + LABEL_MARGIN
 
@@ -701,7 +701,7 @@ module Gruff
 
         if x_offset >= @graph_left && x_offset <= @graph_right
           text_renderer = Gruff::Renderer::Text.new(label_text, font: @font, size: @marker_font_size, color: @font_color)
-          text_renderer.render(1.0, 1.0, x_offset, y_offset)
+          text_renderer.render(1.0, 1.0, x_offset, y_offset, gravity)
         end
       end
     end
