@@ -30,10 +30,11 @@ module Gruff
       draw.rotation = -@rotation if @rotation
     end
 
-    def self.metrics(text, size)
+    def self.metrics(text, size, font_weight = Magick::NormalWeight)
       draw  = Renderer.instance.draw
       image = Renderer.instance.image
 
+      draw.font_weight = font_weight
       draw.pointsize = size
       draw.get_type_metrics(image, text.to_s)
     end
