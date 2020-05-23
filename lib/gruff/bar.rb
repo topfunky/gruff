@@ -94,7 +94,7 @@ protected
         label_center = @graph_left + (store.length * bar_width * point_index) + (store.length * bar_width / 2.0)
 
         # Subtract half a bar width to center left if requested
-        draw_label(label_center - (@center_labels_over_point ? bar_width / 2.0 : 0.0), point_index)
+        draw_label(label_center, point_index)
         if @show_labels_for_bar_values
           raw_value = store.data[row_index].points[point_index]
           val = (@label_formatting || '%.2f') % raw_value
@@ -105,7 +105,7 @@ protected
     end
 
     # Draw the last label if requested
-    draw_label(@graph_right, column_count) if @center_labels_over_point
+    draw_label(@graph_right, column_count, Magick::NorthWestGravity) if @center_labels_over_point
 
     Gruff::Renderer.finish
   end
