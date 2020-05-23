@@ -98,7 +98,7 @@ private
       current_angle += additive_angle
     end
 
-    Gruff::Renderer::Polygon.new(color: color || @marker_color).render(points)
+    Gruff::Renderer::Polygon.new(color: color || @marker_color, opacity: 0.4).render(points)
   end
 
   def sums_for_spider
