@@ -680,9 +680,7 @@ module Gruff
     #--
     # TODO Allow WestGravity as an option
     def draw_label(x_offset, index)
-      return if @hide_line_markers
-
-      if !@labels[index].nil? && @labels_seen[index].nil?
+      draw_unique_label(index) do
         y_offset = @graph_bottom + LABEL_MARGIN
 
         # TESTME
@@ -710,6 +708,14 @@ module Gruff
           text_renderer = Gruff::Renderer::Text.new(label_text, font: @font, size: @marker_font_size, color: @font_color)
           text_renderer.render(1.0, 1.0, x_offset, y_offset)
         end
+      end
+    end
+
+    def draw_unique_label(index)
+      return if @hide_line_markers
+
+      if !@labels[index].nil? && @labels_seen[index].nil?
+        yield
         @labels_seen[index] = 1
       end
     end
