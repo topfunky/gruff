@@ -22,7 +22,8 @@ class Gruff::StackedBar < Gruff::Base
     #
     # Columns sit stacked.
     @bar_spacing ||= 0.9
-    @segment_spacing ||= 1
+    @segment_spacing ||= 2
+
     bar_width = @graph_width / column_count.to_f
     padding = (bar_width * (1 - @bar_spacing)) / 2
 
@@ -42,7 +43,7 @@ class Gruff::StackedBar < Gruff::Base
                                data_point * @graph_height -
                                height[point_index]) + @segment_spacing
         right_x = left_x + bar_width * @bar_spacing
-        right_y = @graph_top + @graph_height - height[point_index] - @segment_spacing
+        right_y = @graph_top + @graph_height - height[point_index]
 
         # update the total height of the current stacked bar
         height[point_index] += (data_point * @graph_height)
