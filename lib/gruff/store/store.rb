@@ -67,16 +67,6 @@ module Gruff
       @data.reverse!
     end
 
-    def stack!
-      stacked_values = Array.new(columns, 0)
-      @data.each do |data_row|
-        data_row.points.each_with_index do |value, index|
-          stacked_values[index] += value
-        end
-        data_row.points = stacked_values.dup
-      end
-    end
-
     def set_colors!(colors)
       index = 0
       @data.each do |data_row|
