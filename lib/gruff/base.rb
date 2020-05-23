@@ -161,9 +161,6 @@ module Gruff
     # Experimental
     attr_accessor :additional_line_values
 
-    # Experimental
-    attr_accessor :stacked
-
     # Optionally set the size of the colored box by each item in the legend.
     # Default is 20.0
     #
@@ -254,7 +251,6 @@ module Gruff
       @x_axis_increment = nil
       @x_axis_label = @y_axis_label = nil
       @y_axis_increment = nil
-      @stacked = nil
 
       @store = Gruff::Store.new(Gruff::Store::BaseData)
     end
@@ -437,7 +433,6 @@ module Gruff
         self.maximum_value = [@y_axis_increment, maximum_value, (maximum_value.to_f / @y_axis_increment).round * @y_axis_increment].max
         self.minimum_value = [minimum_value, (minimum_value.to_f / @y_axis_increment).round * @y_axis_increment].min
       end
-      make_stacked if @stacked
     end
 
     # Calculates size of drawable area and generates normalized data.
@@ -792,10 +787,6 @@ module Gruff
     # correctly in the drawn graph.
     def sort_norm_data
       store.sort_norm_data!
-    end
-
-    def make_stacked # :nodoc:
-      store.stack!
     end
 
   private
