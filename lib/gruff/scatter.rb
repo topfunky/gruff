@@ -47,7 +47,7 @@ class Gruff::Scatter < Gruff::Base
   #
   # g = Gruff::Scatter.new
   #
-  def initialize(*)
+  def initialize_ivars
     super
 
     @baseline_x_color = @baseline_y_color = 'red'

@@ -3,7 +3,7 @@
 require 'gruff/base'
 
 class Gruff::Area < Gruff::Base
-  def initialize(*)
+  def initialize_ivars
     super
     @sorted_drawing = true
   end
