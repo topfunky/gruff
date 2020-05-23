@@ -11,7 +11,7 @@ class Gruff::Net < Gruff::Base
   attr_accessor :line_width
   attr_accessor :dot_radius
 
-  def initialize(*args)
+  def initialize_ivars
     super
 
     @hide_dots = false

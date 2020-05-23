@@ -23,7 +23,7 @@ class Gruff::SideStackedBar < Gruff::SideBar
   # Default is false
   attr_accessor :show_labels_for_bar_values
 
-  def initialize(*)
+  def initialize_ivars
     super
     @label_formatting = nil
     @show_labels_for_bar_values = false
