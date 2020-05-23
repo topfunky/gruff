@@ -15,6 +15,9 @@ class Gruff::SideStackedBar < Gruff::SideBar
   # Spacing factor applied between bars
   attr_accessor :bar_spacing
 
+  # Number of pixels between bar segments
+  attr_accessor :segment_spacing
+
   # Set the number output format for labels using sprintf
   # Default is "%.2f"
   attr_accessor :label_formatting
@@ -42,6 +45,7 @@ protected
     #
     # Columns sit stacked.
     @bar_spacing ||= 0.9
+    @segment_spacing ||= 2.0
 
     bar_width = @graph_height / column_count.to_f
     height = Array.new(column_count, 0)
@@ -61,9 +65,9 @@ protected
         temp2 = @graph_left + @graph_width - height[point_index] - 1
         difference = temp2 - temp1
 
-        left_x = length[point_index] #+ 1
+        left_x = length[point_index]
         left_y = @graph_top + (bar_width * point_index) + padding
-        right_x = left_x + difference
+        right_x = left_x + difference - @segment_spacing
         right_y = left_y + bar_width * @bar_spacing
         length[point_index] += difference
         height[point_index] += (data_point * @graph_width - 2)
