@@ -44,7 +44,7 @@ class Gruff::StackedBar < Gruff::Base
     padding = (bar_width * (1 - @bar_spacing)) / 2
 
     height = Array.new(column_count, 0)
-    bar_value_label = BarValueLabel.new(store.length)
+    bar_value_label = BarValueLabel.new(column_count, bar_width)
 
     store.norm_data.each_with_index do |data_row, row_index|
       data_row.points.each_with_index do |data_point, point_index|
