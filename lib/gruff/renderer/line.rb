@@ -7,7 +7,6 @@ module Gruff
     def initialize(args = {})
       @color = args[:color]
       @width = args[:width]
-      @antialias = args[:antialias] || false
     end
 
     def render(start_x, start_y, end_x, end_y)
@@ -25,14 +24,9 @@ module Gruff
       draw = Renderer.instance.draw
 
       draw.push
-      draw.stroke_antialias(@antialias)
-      if @width
-        draw.stroke(@color)
-        draw.stroke_width(@width)
-      else
-        draw.fill(@color)
-        draw.stroke('transparent')
-      end
+      draw.stroke(@color)
+      draw.fill(@color)
+      draw.stroke_width(@width) if @width
       draw.line(start_x, start_y, end_x, end_y)
       draw.pop
     end
