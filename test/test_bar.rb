@@ -487,6 +487,13 @@ class TestGruffBar < GruffTestCase
     assert_same_image('test/expected/bar_value_labels.png', 'test/output/bar_value_labels.png')
   end
 
+  def test_group_spacing
+    g = setup_basic_graph
+    g.group_spacing = 100
+    g.write('test/output/bar_group_spacing.png')
+    assert_same_image('test/expected/bar_group_spacing.png', 'test/output/bar_group_spacing.png')
+  end
+
   def test_bar_negative_value_labels
     g = Gruff::Bar.new
     g.data :foo, [7, 56, -31.25]
