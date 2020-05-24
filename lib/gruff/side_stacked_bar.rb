@@ -11,6 +11,7 @@ require 'gruff/helper/stacked_mixin'
 
 class Gruff::SideStackedBar < Gruff::SideBar
   include StackedMixin
+  include BarValueLabelMixin
 
   # Spacing factor applied between bars
   attr_accessor :bar_spacing
@@ -51,9 +52,7 @@ protected
     height = Array.new(column_count, 0)
     length = Array.new(column_count, @graph_left)
     padding = (bar_width * (1 - @bar_spacing)) / 2
-    if @show_labels_for_bar_values
-      label_values = Array.new(column_count) { { value: 0, right_x: 0 } }
-    end
+    bar_value_label = BarValueLabel.new(column_count, bar_width)
 
     store.norm_data.each_with_index do |data_row, row_index|
       data_row.points.each_with_index do |data_point, point_index|
@@ -72,10 +71,8 @@ protected
         length[point_index] += difference
         height[point_index] += (data_point * @graph_width - 2)
 
-        if @show_labels_for_bar_values
-          label_values[point_index][:value] += store.data[row_index].points[point_index]
-          label_values[point_index][:right_x] = right_x
-        end
+        bar_value_label.coordinates[point_index] = [left_x, left_y, right_x, right_y]
+        bar_value_label.values[point_index] += store.data[row_index].points[point_index]
 
         # if a data point is 0 it can result in weird really thing lines
         # that shouldn't even be there being drawn on top of the existing
@@ -93,9 +90,8 @@ protected
     end
 
     if @show_labels_for_bar_values
-      label_values.each_with_index do |data, i|
-        val = (@label_formatting || '%.2f') % data[:value]
-        draw_value_label(data[:right_x] + 40, (@graph_top + (((i + 1) * bar_width) - (bar_width / 2))) - 12, val.commify, true)
+      bar_value_label.prepare_sidebar_rendering(@label_formatting) do |x, y, text|
+        draw_value_label(x, y, text, true)
       end
     end
 
