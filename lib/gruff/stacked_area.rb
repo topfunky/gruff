@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'gruff/base'
-require 'gruff/stacked_mixin'
+require 'gruff/helper/stacked_mixin'
 
 class Gruff::StackedArea < Gruff::Base
   include StackedMixin

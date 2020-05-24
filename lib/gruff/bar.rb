@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'gruff/base'
-require 'gruff/bar_conversion'
+require 'gruff/helper/bar_conversion'
 
 class Gruff::Bar < Gruff::Base
   # Spacing factor applied between bars
