@@ -215,7 +215,7 @@ class Gruff::Line < Gruff::Base
         circle_radius = dot_radius || clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 2.5), 5.0)
 
         if !@hide_lines && prev_x && prev_y
-          Gruff::Renderer::Line.new(color: data_row.color, width: stroke_width, antialias: true)
+          Gruff::Renderer::Line.new(color: data_row.color, width: stroke_width)
                                .render(prev_x, prev_y, new_x, new_y)
         end
 

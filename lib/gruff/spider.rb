@@ -79,7 +79,7 @@ private
       x_offset = radius * Math.cos(current_angle)
       y_offset = radius * Math.sin(current_angle)
 
-      Gruff::Renderer::Line.new(color: line_color || data_row.color, width: 5.0, antialias: true)
+      Gruff::Renderer::Line.new(color: line_color || data_row.color, width: 5.0)
                            .render(center_x, center_y, center_x + x_offset, center_y + y_offset)
 
       draw_label(center_x, center_y, current_angle, radius, data_row.label.to_s) unless hide_text
