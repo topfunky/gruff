@@ -29,6 +29,14 @@ class TestGruffSideBar < GruffTestCase
     assert_same_image('test/expected/side_bar_spacing_none.png', 'test/output/side_bar_spacing_none.png')
   end
 
+  def test_group_spacing
+    g = setup_basic_graph(Gruff::SideBar, 800)
+    g.group_spacing = 30
+    g.title = 'Group spacing'
+    g.write('test/output/side_bar_group_spacing.png')
+    assert_same_image('test/expected/side_bar_group_spacing.png', 'test/output/side_bar_group_spacing.png')
+  end
+
   def test_x_axis_range
     g = Gruff::SideBar.new('400x300')
     g.title = 'Should run from 8 to 32'
