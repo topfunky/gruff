@@ -84,7 +84,7 @@ protected
         end
         # we still need to draw the labels
         # Calculate center based on bar_width and current row
-        label_center = @graph_top + (bar_width * point_index) + (bar_width * @bar_spacing / 2.0)
+        label_center = left_y + bar_width / 2
         draw_label(label_center, point_index)
       end
     end

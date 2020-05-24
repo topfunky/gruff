@@ -72,10 +72,10 @@ protected
         # Calculate center based on bar_width and current row
 
         if @use_data_label
-          label_center = @graph_top + (bar_width * (row_index + point_index) + bar_width / 2)
+          label_center = left_y + bar_width / 2
           draw_label(label_center, row_index, store.norm_data[row_index].label)
         else
-          label_center = @graph_top + (bars_width * point_index + bars_width / 2)
+          label_center = left_y + bars_width / 2
           draw_label(label_center, point_index)
         end
         if @show_labels_for_bar_values
