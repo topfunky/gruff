@@ -9,6 +9,9 @@ class Gruff::SideBar < Gruff::Base
   # Spacing factor applied between bars
   attr_accessor :bar_spacing
 
+  # Spacing factor applied between a group of bars belonging to the same label
+  attr_accessor :group_spacing
+
   # Set the number output format for labels using sprintf
   # Default is "%.2f"
   attr_accessor :label_formatting
@@ -38,8 +41,9 @@ protected
     # Setup spacing.
     #
     @bar_spacing ||= 0.9
+    @group_spacing ||= 10
 
-    bars_width = @graph_height / column_count.to_f
+    bars_width = (@graph_height - calculate_spacing) / column_count.to_f
     bar_width = bars_width / store.length
     height = Array.new(column_count, 0)
     length = Array.new(column_count, @graph_left)
@@ -52,6 +56,8 @@ protected
 
     store.norm_data.each_with_index do |data_row, row_index|
       data_row.points.each_with_index do |data_point, point_index|
+        group_spacing = @group_spacing * @scale * point_index
+
         # Using the original calcs from the stacked bar chart
         # to get the difference between
         # part of the bart chart we wish to stack.
@@ -60,7 +66,7 @@ protected
         difference = temp2 - temp1
 
         left_x = length[point_index] - 1
-        left_y = @graph_top + (bars_width * point_index) + (bar_width * row_index) + padding
+        left_y = @graph_top + (bars_width * point_index) + (bar_width * row_index) + padding + group_spacing
         right_x = left_x + difference
         right_y = left_y + bar_width * @bar_spacing
 
@@ -122,5 +128,9 @@ protected
       text_renderer = Gruff::Renderer::Text.new(lbl, font: @font, size: @marker_font_size, color: @font_color)
       text_renderer.render(1, 1, -@graph_left + LABEL_MARGIN * 2.0, y_offset, Magick::EastGravity)
     end
+  end
+
+  def calculate_spacing
+    @scale * @group_spacing * (column_count - 1)
   end
 end

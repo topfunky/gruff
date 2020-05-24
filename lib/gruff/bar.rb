@@ -7,6 +7,9 @@ class Gruff::Bar < Gruff::Base
   # Spacing factor applied between bars
   attr_accessor :bar_spacing
 
+  # Spacing factor applied between a group of bars belonging to the same label
+  attr_accessor :group_spacing
+
   # Set the number output format for labels using sprintf
   # Default is "%.2f"
   attr_accessor :label_formatting
@@ -53,7 +56,9 @@ protected
     #
     # Columns sit side-by-side.
     @bar_spacing ||= @spacing_factor # space between the bars
-    bar_width = @graph_width / (column_count * store.length).to_f
+    @group_spacing ||= 10
+
+    bar_width = (@graph_width - calculate_spacing) / (column_count * store.length).to_f
     padding = (bar_width * (1 - @bar_spacing)) / 2
 
     # Setup the BarConversion Object
@@ -79,9 +84,11 @@ protected
     # iterate over all normalised data
     store.norm_data.each_with_index do |data_row, row_index|
       data_row.points.each_with_index do |data_point, point_index|
+        group_spacing = @group_spacing * @scale * point_index
+
         # Use incremented x and scaled y
         # x
-        left_x = @graph_left + (bar_width * (row_index + point_index + ((store.length - 1) * point_index))) + padding
+        left_x = @graph_left + (bar_width * (row_index + point_index + ((store.length - 1) * point_index))) + padding + group_spacing
         right_x = left_x + bar_width * @bar_spacing
         # y
         left_y, right_y = conversion.get_left_y_right_y_scaled(data_point)
@@ -91,7 +98,7 @@ protected
         rect_renderer.render(left_x, left_y, right_x, right_y)
 
         # Calculate center based on bar_width and current row
-        label_center = @graph_left + (store.length * bar_width * point_index) + (store.length * bar_width / 2.0)
+        label_center = @graph_left + group_spacing + (store.length * bar_width * point_index) + (store.length * bar_width / 2.0)
 
         # Subtract half a bar width to center left if requested
         draw_label(label_center, point_index)
@@ -108,5 +115,9 @@ protected
     draw_label(@graph_right, column_count, Magick::NorthWestGravity) if @center_labels_over_point
 
     Gruff::Renderer.finish
+  end
+
+  def calculate_spacing
+    @scale * @group_spacing * (column_count - 1)
   end
 end
