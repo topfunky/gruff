@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'gruff/base'
-require 'gruff/stacked_mixin'
-require 'gruff/bar_value_label_mixin'
+require 'gruff/helper/stacked_mixin'
+require 'gruff/helper/bar_value_label_mixin'
 
 class Gruff::StackedBar < Gruff::Base
   include StackedMixin

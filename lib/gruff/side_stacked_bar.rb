@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'gruff/side_bar'
-require 'gruff/stacked_mixin'
+require 'gruff/helper/stacked_mixin'
 
 ##
 # New gruff graph type added to enable sideways stacking bar charts
