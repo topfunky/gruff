@@ -32,6 +32,7 @@ class Gruff::SideStackedBar < Gruff::SideBar
     @label_formatting = nil
     @show_labels_for_bar_values = false
   end
+  private :initialize_ivars
 
   def draw
     @has_left_labels = true
@@ -39,7 +40,7 @@ class Gruff::SideStackedBar < Gruff::SideBar
     super
   end
 
-protected
+private
 
   def draw_bars
     # Setup spacing.

@@ -65,6 +65,7 @@ class Gruff::Scatter < Gruff::Base
 
     @store = Gruff::Store.new(Gruff::Store::XYData)
   end
+  private :initialize_ivars
 
   def draw
     super
@@ -143,7 +144,7 @@ class Gruff::Scatter < Gruff::Base
 
   alias dataxy data
 
-protected
+private
 
   def setup_data
     # Update the global min/max values for the x data
@@ -240,8 +241,6 @@ protected
       label(value, increment)
     end
   end
-
-private
 
   def get_x_coord(x_data_point, width, offset) #:nodoc:
     x_data_point * width + offset

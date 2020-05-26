@@ -18,6 +18,7 @@ class Gruff::Net < Gruff::Base
     @hide_line_numbers = true
     @sorted_drawing = true
   end
+  private :initialize_ivars
 
   def draw
     super
@@ -52,6 +53,8 @@ class Gruff::Net < Gruff::Base
     Gruff::Renderer.finish
   end
 
+private
+
   def setup_drawing
     super
 
@@ -75,8 +78,6 @@ class Gruff::Net < Gruff::Base
       draw_label(@center_x, @center_y, rad_pos * 360 / (2 * Math::PI), @radius, marker_label)
     end
   end
-
-private
 
   def draw_label(center_x, center_y, angle, radius, amount)
     r_offset = 1.1

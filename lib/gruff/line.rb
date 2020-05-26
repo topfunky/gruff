@@ -231,6 +231,8 @@ class Gruff::Line < Gruff::Base
     Gruff::Renderer.finish
   end
 
+private
+
   def setup_data
     # Update the global min/max values for the x data
     @maximum_x_value ||= store.max_x

@@ -7,6 +7,7 @@ class Gruff::Area < Gruff::Base
     super
     @sorted_drawing = true
   end
+  private :initialize_ivars
 
   def draw
     super
