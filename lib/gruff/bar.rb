@@ -24,6 +24,7 @@ class Gruff::Bar < Gruff::Base
     @label_formatting = nil
     @show_labels_for_bar_values = false
   end
+  private :initialize_ivars
 
   def draw
     # Labels will be centered over the left of the bar if

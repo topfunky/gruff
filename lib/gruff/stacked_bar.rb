@@ -27,6 +27,7 @@ class Gruff::StackedBar < Gruff::Base
     @label_formatting = nil
     @show_labels_for_bar_values = false
   end
+  private :initialize_ivars
 
   # Draws a bar graph, but multiple sets are stacked on top of each other.
   def draw

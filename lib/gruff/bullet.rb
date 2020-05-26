@@ -77,6 +77,8 @@ class Gruff::Bullet < Gruff::Base
     Gruff::Renderer.finish
   end
 
+private
+
   def draw_title
     return unless @title
 

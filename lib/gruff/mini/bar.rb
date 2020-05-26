@@ -21,6 +21,7 @@ module Gruff
 
         @minimum_value = 0.0
       end
+      private :initialize_ivars
 
       def draw
         expand_canvas_for_vertical_legend

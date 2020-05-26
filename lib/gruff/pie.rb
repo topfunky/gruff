@@ -38,6 +38,7 @@ class Gruff::Pie < Gruff::Base
 
     @store = Gruff::Store.new(Gruff::Store::CustomData)
   end
+  private :initialize_ivars
 
   def zero_degree
     @zero_degree ||= 0.0

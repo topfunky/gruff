@@ -254,6 +254,7 @@ module Gruff
 
       @store = Gruff::Store.new(Gruff::Store::BaseData)
     end
+    protected :initialize_ivars
 
     # Sets the top, bottom, left and right margins to +margin+.
     def margins=(margin)

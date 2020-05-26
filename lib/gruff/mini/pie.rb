@@ -19,6 +19,7 @@ module Gruff
         @marker_font_size = 60.0
         @legend_font_size = 60.0
       end
+      private :initialize_ivars
 
       def draw
         expand_canvas_for_vertical_legend
