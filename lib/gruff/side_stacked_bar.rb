@@ -8,7 +8,6 @@ require 'gruff/helper/stacked_mixin'
 # (basically looks like a x/y flip of a standard stacking bar chart)
 #
 # alun.eyre@googlemail.com
-
 class Gruff::SideStackedBar < Gruff::SideBar
   include StackedMixin
   include BarValueLabelMixin

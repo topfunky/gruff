@@ -15,8 +15,7 @@ require 'bigdecimal'
 # David Stokar, Paul Rogers, Dave Woodward, Frank Oxener, Kevin Clark, Cies
 # Breijs, Richard Cowin, and a cast of thousands.
 #
-# See Gruff::Base#theme= for setting themes.
-
+# See {Gruff::Base#theme=} for setting themes.
 module Gruff
   class Base
     # Space around text elements. Mostly used for vertical spacing
@@ -51,7 +50,8 @@ module Gruff
     #
     # Not all columns need to be named.
     #
-    # Example: 0 => 2005, 3 => 2006, 5 => 2007, 7 => 2008
+    # @example
+    #   { 0 => 2005, 3 => 2006, 5 => 2007, 7 => 2008 }
     attr_accessor :labels
 
     # Used internally for spacing.
@@ -81,10 +81,10 @@ module Gruff
     attr_accessor :label_max_size
 
     # How truncated labels visually appear if they exceed label_max_size
-    # :absolute - does not show trailing dots to indicate truncation. This is
-    #   the default.
-    # :trailing_dots - shows trailing dots to indicate truncation (note
-    #   that label_max_size must be greater than 3).
+    #
+    # - +:absolute+ - does not show trailing dots to indicate truncation. This is the default.
+    # - +:trailing_dots+ - shows trailing dots to indicate truncation (note that label_max_size
+    #   must be greater than 3).
     attr_accessor :label_truncation_style
 
     # Get or set the list of colors that will be used to draw the bars or lines.
@@ -96,12 +96,6 @@ module Gruff
     # Font used for titles, labels, etc. Works best if you provide the full
     # path to the TTF font file.  RMagick must be built with the Freetype
     # libraries for this to work properly.
-    #
-    # Tries to find Bitstream Vera (Vera.ttf) in the location specified by
-    # ENV['MAGICK_FONT_PATH']. Uses default RMagick font otherwise.
-    #
-    # The font= method below fulfills the role of the writer, so we only need
-    # a reader here.
     attr_reader :font
 
     # Same as font but for the title.
@@ -176,9 +170,6 @@ module Gruff
     # etc.).
     #
     # Or, send a geometry string for other ratios ('800x400', '400x225').
-    #
-    # Looks for Bitstream Vera as the default font. Expects an environment var
-    # of MAGICK_FONT_PATH to be set. (Uses RMagick's default font otherwise.)
     def initialize(target_width = DEFAULT_TARGET_WIDTH)
       if target_width.is_a?(String)
         geometric_width, geometric_height = target_width.split('x')
@@ -276,19 +267,18 @@ module Gruff
     end
 
     # Replace the entire color list with a new array of colors. Also
-    # aliased as the colors= setter method.
+    # aliased as the {#colors=} setter method.
     #
     # If you specify fewer colors than the number of datasets you intend
-    # to draw, 'increment_color' will cycle through the array, reusing
-    # colors as needed.
+    # to draw, it will cycle through the array, reusing colors as needed.
     #
-    # Note that (as with the 'theme' method), you should set up your color
-    # list before you send your data (via the 'data' method).  Calls to the
-    # 'data' method made prior to this call will use whatever color scheme
+    # Note that (as with the {#theme=} method), you should set up your color
+    # list before you send your data (via the {#data} method).  Calls to the
+    # {#data} method made prior to this call will use whatever color scheme
     # was in place at the time data was called.
     #
-    # Example:
-    #  replace_colors ['#cc99cc', '#d9e043', '#34d8a2']
+    # @example
+    #   replace_colors ['#cc99cc', '#d9e043', '#34d8a2']
     def replace_colors(color_list = [])
       @colors = color_list
     end
@@ -297,12 +287,12 @@ module Gruff
     # send your data.
     #
     #  graph.theme = {
-    #    :colors => %w(orange purple green white red),
-    #    :marker_color => 'blue',
-    #    :background_colors => ['black', 'grey', :top_bottom]
+    #    colors: %w(orange purple green white red),
+    #    marker_color: 'blue',
+    #    background_colors: ['black', 'grey', :top_bottom]
     #  }
     #
-    # :background_image => 'squirrel.png' is also possible.
+    # +background_image: 'squirrel.png'+ is also possible.
     #
     # (Or hopefully something better looking than that.)
     #
@@ -362,10 +352,10 @@ module Gruff
     # If the color argument is nil, the next color from the default theme will
     # be used.
     #
-    # NOTE: If you want to use a preset theme, you must set it before calling
-    # data().
+    # @note
+    #   If you want to use a preset theme, you must set it before calling {#data}.
     #
-    # Example:
+    # @example
     #   data("Bart S.", [95, 45, 78, 89, 88, 76], '#ffcc00')
     def data(name, data_points = [], color = nil)
       store.add(name, data_points, color)
@@ -375,26 +365,24 @@ module Gruff
     # guessed for you.
     #
     # Set it after you have given all your data to the graph object.
-    attr_writer :minimum_value
-
     def minimum_value
       @minimum_value || store.min
     end
+    attr_writer :minimum_value
 
     # You can manually set a maximum value, such as a percentage-based graph
     # that always goes to 100.
     #
     # If you use this, you must set it after you have given all your data to
     # the graph object.
-    attr_writer :maximum_value
-
     def maximum_value
       @maximum_value || store.max
     end
+    attr_writer :maximum_value
 
-    # Writes the graph to a file. Defaults to 'graph.png'
+    # Writes the graph to a file. Defaults to +'graph.png'+
     #
-    # Example:
+    # @example
     #   write('graphs/my_pretty_graph.png')
     def write(file_name = 'graph.png')
       draw
@@ -581,26 +569,20 @@ module Gruff
       end
     end
 
-    ##
     # Return the sum of values in an array.
     #
     # Duplicated to not conflict with active_support in Rails.
-
     def sum(arr)
       arr.reduce(0) { |i, m| m + i }
     end
 
-    ##
     # Return a calculation of center
-
     def center(size)
       (@raw_columns - size) / 2
     end
 
-    ##
     # Draws a legend with the names of the datasets matched
     # to the colors used to draw them.
-
     def draw_legend
       return if @hide_legend
 

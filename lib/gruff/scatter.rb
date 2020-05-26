@@ -4,11 +4,10 @@ require 'gruff/base'
 
 # Here's how to set up an XY Scatter Chart
 #
-# g = Gruff::Scatter.new(800)
-# g.data(:apples, [1,2,3,4], [4,3,2,1])
-# g.data('oranges', [5,7,8], [4,1,7])
-# g.write('test/output/scatter.png')
-#
+#  g = Gruff::Scatter.new(800)
+#  g.data(:apples, [1,2,3,4], [4,3,2,1])
+#  g.data('oranges', [5,7,8], [4,1,7])
+#  g.write('test/output/scatter.png')
 #
 class Gruff::Scatter < Gruff::Base
   # Maximum X Value. The value will get overwritten by the max in the
@@ -41,12 +40,6 @@ class Gruff::Scatter < Gruff::Base
   attr_accessor :y_axis_label_format
   attr_accessor :x_axis_label_format
 
-  # Gruff::Scatter takes the same parameters as the Gruff::Line graph
-  #
-  # ==== Example
-  #
-  # g = Gruff::Scatter.new
-  #
   def initialize_ivars
     super
 
@@ -101,32 +94,30 @@ class Gruff::Scatter < Gruff::Base
   # If the color argument is nil, the next color from the default theme will
   # be used.
   #
-  # NOTE: If you want to use a preset theme, you must set it before calling
-  # data().
+  # @note If you want to use a preset theme, you must set it before calling {#data}.
   #
-  # ==== Parameters
-  # name:: String or Symbol containing the name of the dataset.
-  # x_data_points:: An Array of of x-axis data points.
-  # y_data_points:: An Array of of y-axis data points.
-  # color:: The hex string for the color of the dataset.  Defaults to nil.
+  # @param name [String, Symbol] containing the name of the dataset.
+  # @param x_data_points [Array] An Array of of x-axis data points.
+  # @param y_data_points [Array] An Array of of y-axis data points.
+  # @param color [String] The hex string for the color of the dataset. Defaults to nil.
   #
-  # ==== Exceptions
-  # Data points contain nil values::
+  #
+  # @raise [ArgumentError] Data points contain nil values.
   #   This error will get raised if either the x or y axis data points array
-  #   contains a <tt>nil</tt> value.  The graph will not make an assumption
-  #   as how to graph <tt>nil</tt>
-  # x_data_points is empty::
+  #   contains a +nil+ value.  The graph will not make an assumption
+  #   as how to graph +nil+
+  # @raise [ArgumentError] +x_data_points+ is empty.
   #   This error is raised when the array for the x-axis points are empty
-  # y_data_points is empty::
+  # @raise [ArgumentError] +y_data_points+ is empty.
   #   This error is raised when the array for the y-axis points are empty
-  # x_data_points.length != y_data_points.length::
+  # @raise [ArgumentError] +x_data_points.length != y_data_points.length+.
   #   Error means that the x and y axis point arrays do not match in length
   #
-  # ==== Examples
-  # g = Gruff::Scatter.new
-  # g.data(:apples, [1,2,3], [3,2,1])
-  # g.data('oranges', [1,1,1], [2,3,4])
-  # g.data('bitter_melon', [3,5,6], [6,7,8], '#000000')
+  # @example
+  #  g = Gruff::Scatter.new
+  #  g.data(:apples, [1,2,3], [3,2,1])
+  #  g.data('oranges', [1,1,1], [2,3,4])
+  #  g.data('bitter_melon', [3,5,6], [6,7,8], '#000000')
   #
   def data(name, x_data_points = [], y_data_points = [], color = nil)
     # make sure it's an array
