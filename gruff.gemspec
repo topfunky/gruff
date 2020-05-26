@@ -31,6 +31,8 @@ Gem::Specification.new do |s|
   end
   s.required_ruby_version = '>= 1.9.3'
 
-  s.add_development_dependency('rake')
-  s.add_development_dependency('minitest-reporters')
+  s.add_development_dependency 'rake'
+  s.add_development_dependency 'minitest-reporters'
+  s.add_development_dependency 'yard', '~> 0.9.25'
+  s.add_development_dependency 'redcarpet', '~> 3.5'
 end
