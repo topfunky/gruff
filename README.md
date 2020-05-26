@@ -12,19 +12,25 @@ for a list of the system-level prerequisities (ImageMagick etc) and how to insta
 
 Add this line to your application's Gemfile:
 
-    gem 'gruff'
+```sh
+gem 'gruff'
+```
 
 And then execute:
 
-    $ bundle
+```sh
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install gruff
+```sh
+$ gem install gruff
+```
 
 ## Usage
 
-```Ruby
+```ruby
 require 'gruff'
 g = Gruff::Line.new
 g.title = 'Wow!  Look at this!'
