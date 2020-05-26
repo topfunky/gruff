@@ -5,7 +5,6 @@ require 'gruff/base'
 ##
 # Graph with dots and labels along a vertical access
 # see: 'Creating More Effective Graphs' by Robbins
-
 class Gruff::Dot < Gruff::Base
   def draw
     @has_left_labels = true

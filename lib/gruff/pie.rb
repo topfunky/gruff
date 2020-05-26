@@ -12,7 +12,6 @@ require 'gruff/base'
 #   g.write("test/output/pie_keynote.png")
 #
 # To control where the pie chart starts creating slices, use #zero_degree.
-
 class Gruff::Pie < Gruff::Base
   DEFAULT_TEXT_OFFSET_PERCENTAGE = 0.15
 

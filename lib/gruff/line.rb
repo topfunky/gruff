@@ -11,8 +11,8 @@ require 'gruff/base'
 #   g.data 'Hamburgers', [50, 19, 99, 29]
 #   g.write("test/output/line.png")
 #
-# There are also other options described below, such as #baseline_value, #baseline_color, #hide_dots, and #hide_lines.
-
+# There are also other options described below, such as {#baseline_value}, {#baseline_color},
+# {#hide_dots}, and {#hide_lines}.
 class Gruff::Line < Gruff::Base
   # Allow for reference lines ( which are like baseline ... just allowing for more & on both axes )
   attr_accessor :reference_lines
@@ -60,7 +60,7 @@ class Gruff::Line < Gruff::Base
     @reference_lines[:baseline][:color] = new_value
   end
 
-  # Call with target pixel width of graph (800, 400, 300), and/or 'false' to omit lines (points only).
+  # Call with target pixel width of graph (+800+, +400+, +300+), and/or +false+ to omit lines (points only).
   #
   #  g = Gruff::Line.new(400) # 400px wide with lines
   #
@@ -68,7 +68,7 @@ class Gruff::Line < Gruff::Base
   #
   #  g = Gruff::Line.new(false) # Defaults to 800px wide, no lines (for backwards compatibility)
   #
-  # The preferred way is to call hide_dots or hide_lines instead.
+  # The preferred way is to call {#hide_dots} or {#hide_lines} instead.
   def initialize(*args)
     raise ArgumentError, 'Wrong number of arguments' if args.length > 2
 
@@ -95,38 +95,38 @@ class Gruff::Line < Gruff::Base
 
   # This method allows one to plot a dataset with both X and Y data.
   #
-  # Parameters are as follows:
-  #   name: string, the title of the dataset
-  #   x_data_points: an array containing the x data points for the graph
-  #   y_data_points: an array containing the y data points for the graph
-  #   color: hex number indicating the line color as an RGB triplet
+  # @overload dataxy(name, x_data_points = [], y_data_points = [], color = nil)
+  #   @param name [String] the title of the dataset
+  #   @param x_data_points [Array] an array containing the x data points for the graph
+  #   @param y_data_points [Array] an array containing the y data points for the graph
+  #   @param color [String] hex number indicating the line color as an RGB triplet
   #
-  #   or
+  # @overload dataxy(name, xy_data_points = [], color = nil)
+  #   @param name [String] the title of the dataset
+  #   @param xy_data_points [Array] an array containing both x and y data points for the graph
+  #   @param color [String] hex number indicating the line color as an RGB triplet
   #
-  #   name: string, the title of the dataset
-  #   xy_data_points: an array containing both x and y data points for the graph
-  #   color: hex number indicating the line color as an RGB triplet
-  #
-  #  Notes:
-  #   -if (x_data_points.length != y_data_points.length) an error is
+  # @note
+  #   - if (x_data_points.length != y_data_points.length) an error is
   #     returned.
-  #   -if the color argument is nil, the next color from the default theme will
+  #   - if the color argument is nil, the next color from the default theme will
   #     be used.
-  #   -if you want to use a preset theme, you must set it before calling
-  #     dataxy().
+  #   - if you want to use a preset theme, you must set it before calling {#dataxy}.
   #
-  # Example:
+  # @example
   #   g = Gruff::Line.new
   #   g.title = "X/Y Dataset"
   #   g.dataxy("Apples", [1,3,4,5,6,10], [1, 2, 3, 4, 4, 3])
   #   g.dataxy("Bapples", [1,3,4,5,7,9], [1, 1, 2, 2, 3, 3])
   #   g.dataxy("Capples", [[1,1],[2,3],[3,4],[4,5],[5,7],[6,9]])
-  #   #you can still use the old data method too if you want:
+  #
+  #   # you can still use the old data method too if you want:
   #   g.data("Capples", [1, 1, 2, 2, 3, 3])
-  #   #labels will be drawn at the x locations of the keys passed in.
+  #
+  #   # labels will be drawn at the x locations of the keys passed in.
   #   In this example the lables are drawn at x positions 2, 4, and 6:
   #   g.labels = {0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006'}
-  #   The 0 => '2003' label will be ignored since it is outside the chart range.
+  #   # The 0 => '2003' label will be ignored since it is outside the chart range.
   def dataxy(name, x_data_points = [], y_data_points = [], color = nil)
     # make sure it's an array
     x_data_points = Array(x_data_points)

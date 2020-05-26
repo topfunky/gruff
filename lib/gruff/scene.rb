@@ -13,8 +13,6 @@ require 'gruff/base'
 # * A city scene that changes with the time of day and the weather conditions.
 # * A traffic map that shows red lines on streets that are crowded and green on free-flowing ones.
 #
-# Usage:
-#
 #  g = Gruff::Scene.new("500x100", "path/to/city_scene_directory")
 #
 #  # Define order of layers, back to front
@@ -36,10 +34,9 @@ require 'gruff/base'
 # There are several rules that will magically select a layer when possible.
 #
 # * Numbered files will be selected according to the closest value that is less than the input value.
-# * 'true.png' and 'false.png' will be used as booleans.
+# * +'true.png'+ and +'false.png'+ will be used as booleans.
 # * Other named files will be used if the input matches the filename (without the filetype extension).
-# * If there is a file named 'default.png', it will be used unless other input values are set for the corresponding layer.
-
+# * If there is a file named +'default.png'+, it will be used unless other input values are set for the corresponding layer.
 class Gruff::Scene < Gruff::Base
   # An array listing the folder names that will be rendered, from back to front.
   #

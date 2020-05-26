@@ -4,7 +4,6 @@ require 'gruff/base'
 
 ##
 # Graph with individual horizontal bars instead of vertical bars.
-
 class Gruff::SideBar < Gruff::Base
   # Spacing factor applied between bars
   attr_accessor :bar_spacing
