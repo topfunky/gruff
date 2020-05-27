@@ -1,5 +1,27 @@
 # Change Log
 
+## 0.9.0
+
+* Fix that sidebar label is not displayed on JRuby platform (#402)
+* Add `group_spacing` which is spacing factor applied between a group of bars belonging to the same label (#400)
+* Fix that label is displayed in the center of the side bar (#399)
+* Fix that value label is displayed in the center of the side bar (#398)
+* Add `show_labels_for_bar_values` into StackedBar (#396)
+* Auto resize title font size if long title will be cut off (#395)
+* Adjust label position in StackedBar (#394)
+* Fix that labels are rendered in the center of bar graph (#393)
+* Remove `stacked` property marked as experimental (#392)
+* Fix to not move away from the baseline if big value was given into `segment_spacing` (#391)
+* Add `segment_spacing property` into SideStackedBar like StackedBar (#390)
+* Fix an exception when using an object as an argument that behaves as an Array (#317)
+* Add `Scatter#dataxy` method like `Line#dataxy` (#316)
+* Retry to fill background to fix "cache resources exhausted" error (#305)
+* Fix label position in Gruff::Bar with negative value (#265)
+* Fixed a bug that did not handle the specified minimum/maximum properly (#260)
+* Fix error of “comparison of Integer with nil failed” (#257, #366, #367)
+* Fix redundant label padding with many decimal points (#254)
+* Fix that value label might be displayed with scientific notation (#252)
+
 ## 0.8.0
 
 * Remove version restriction in RMagick (#186)
