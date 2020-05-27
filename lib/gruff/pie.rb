@@ -16,18 +16,18 @@ class Gruff::Pie < Gruff::Base
   DEFAULT_TEXT_OFFSET_PERCENTAGE = 0.15
 
   # Can be used to make the pie start cutting slices at the top (-90.0)
-  # or at another angle. Default is 0.0, which starts at 3 o'clock.
+  # or at another angle. Default is +0.0+, which starts at 3 o'clock.
   attr_writer :zero_degree
 
   # Do not show labels for slices that are less than this percent. Use 0 to always show all labels.
-  # Defaults to 0
+  # Defaults to +0+.
   attr_writer :hide_labels_less_than
 
-  # Affect the distance between the percentages and the pie chart
-  # Defaults to 0.15
+  # Affect the distance between the percentages and the pie chart.
+  # Defaults to +0.15+.
   attr_writer :text_offset_percentage
 
-  ## Use values instead of percentages
+  ## Use values instead of percentages.
   attr_accessor :show_values_as_labels
 
   def initialize_ivars

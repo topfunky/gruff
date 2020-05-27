@@ -4,10 +4,10 @@ require 'gruff/base'
 
 # Here's how to set up an XY Scatter Chart
 #
-#  g = Gruff::Scatter.new(800)
-#  g.data(:apples, [1,2,3,4], [4,3,2,1])
-#  g.data('oranges', [5,7,8], [4,1,7])
-#  g.write('test/output/scatter.png')
+#   g = Gruff::Scatter.new(800)
+#   g.data(:apples, [1,2,3,4], [4,3,2,1])
+#   g.data('oranges', [5,7,8], [4,1,7])
+#   g.write('test/output/scatter.png')
 #
 class Gruff::Scatter < Gruff::Base
   # Maximum X Value. The value will get overwritten by the max in the
@@ -18,25 +18,25 @@ class Gruff::Scatter < Gruff::Base
   # datasets.
   attr_accessor :minimum_x_value
 
-  # The number of vertical lines shown for reference
+  # The number of vertical lines shown for reference.
   attr_accessor :marker_x_count
 
-  # Attributes to allow customising the size of the points
+  # Attributes to allow customising the size of the points.
   attr_accessor :circle_radius
   attr_accessor :stroke_width
 
-  # Allow disabling the significant rounding when labeling the X axis
-  # This is useful when working with a small range of high values (for example, a date range of months, while seconds as units)
+  # Allow disabling the significant rounding when labeling the X axis.
+  # This is useful when working with a small range of high values (for example, a date range of months, while seconds as units).
   attr_accessor :disable_significant_rounding_x_axis
 
-  # Allow enabling vertical lines. When you have a lot of data, they can work great
+  # Allow enabling vertical lines. When you have a lot of data, they can work great.
   attr_accessor :enable_vertical_line_markers
 
-  # Allow using vertical labels in the X axis (and setting the label margin)
+  # Allow using vertical labels in the X axis (and setting the label margin).
   attr_accessor :x_label_margin
   attr_accessor :use_vertical_x_labels
 
-  # Allow passing lambdas to format labels
+  # Allow passing lambdas to format labels.
   attr_accessor :y_axis_label_format
   attr_accessor :x_axis_label_format
 
@@ -105,19 +105,19 @@ class Gruff::Scatter < Gruff::Base
   # @raise [ArgumentError] Data points contain nil values.
   #   This error will get raised if either the x or y axis data points array
   #   contains a +nil+ value.  The graph will not make an assumption
-  #   as how to graph +nil+
+  #   as how to graph +nil+.
   # @raise [ArgumentError] +x_data_points+ is empty.
   #   This error is raised when the array for the x-axis points are empty
   # @raise [ArgumentError] +y_data_points+ is empty.
-  #   This error is raised when the array for the y-axis points are empty
+  #   This error is raised when the array for the y-axis points are empty.
   # @raise [ArgumentError] +x_data_points.length != y_data_points.length+.
-  #   Error means that the x and y axis point arrays do not match in length
+  #   Error means that the x and y axis point arrays do not match in length.
   #
   # @example
-  #  g = Gruff::Scatter.new
-  #  g.data(:apples, [1,2,3], [3,2,1])
-  #  g.data('oranges', [1,1,1], [2,3,4])
-  #  g.data('bitter_melon', [3,5,6], [6,7,8], '#000000')
+  #   g = Gruff::Scatter.new
+  #   g.data(:apples, [1,2,3], [3,2,1])
+  #   g.data('oranges', [1,1,1], [2,3,4])
+  #   g.data('bitter_melon', [3,5,6], [6,7,8], '#000000')
   #
   def data(name, x_data_points = [], y_data_points = [], color = nil)
     # make sure it's an array

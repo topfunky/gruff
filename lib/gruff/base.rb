@@ -18,7 +18,7 @@ require 'bigdecimal'
 # See {Gruff::Base#theme=} for setting themes.
 module Gruff
   class Base
-    # Space around text elements. Mostly used for vertical spacing
+    # Space around text elements. Mostly used for vertical spacing.
     LEGEND_MARGIN = TITLE_MARGIN = 20.0
     LABEL_MARGIN = 10.0
     DEFAULT_MARGIN = 20.0
@@ -27,22 +27,22 @@ module Gruff
 
     THOUSAND_SEPARATOR = ','
 
-    # Blank space above the graph
+    # Blank space above the graph.
     attr_accessor :top_margin
 
-    # Blank space below the graph
+    # Blank space below the graph.
     attr_accessor :bottom_margin
 
-    # Blank space to the right of the graph
+    # Blank space to the right of the graph.
     attr_accessor :right_margin
 
-    # Blank space to the left of the graph
+    # Blank space to the left of the graph.
     attr_accessor :left_margin
 
-    # Blank space below the title
+    # Blank space below the title.
     attr_accessor :title_margin
 
-    # Blank space below the legend
+    # Blank space below the legend.
     attr_accessor :legend_margin
 
     # A hash of names for the individual columns, where the key is the array
@@ -62,35 +62,35 @@ module Gruff
     # Used internally for horizontal graph types.
     attr_accessor :has_left_labels
 
-    # A label for the bottom of the graph
+    # A label for the bottom of the graph.
     attr_accessor :x_axis_label
 
-    # A label for the left side of the graph
+    # A label for the left side of the graph.
     attr_accessor :y_axis_label
 
-    # Manually set increment of the vertical marking lines
+    # Manually set increment of the vertical marking lines.
     attr_accessor :x_axis_increment
 
-    # Manually set increment of the horizontal marking lines
+    # Manually set increment of the horizontal marking lines.
     attr_accessor :y_axis_increment
 
-    # Height of staggering between labels (Bar graph only)
+    # Height of staggering between labels (Bar graph only).
     attr_accessor :label_stagger_height
 
-    # Truncates labels if longer than max specified
+    # Truncates labels if longer than max specified.
     attr_accessor :label_max_size
 
-    # How truncated labels visually appear if they exceed label_max_size
+    # How truncated labels visually appear if they exceed {#label_max_size}.
     #
     # - +:absolute+ - does not show trailing dots to indicate truncation. This is the default.
-    # - +:trailing_dots+ - shows trailing dots to indicate truncation (note that label_max_size
+    # - +:trailing_dots+ - shows trailing dots to indicate truncation (note that {#label_max_size}
     #   must be greater than 3).
     attr_accessor :label_truncation_style
 
     # Get or set the list of colors that will be used to draw the bars or lines.
     attr_accessor :colors
 
-    # The large title of the graph displayed at the top
+    # The large title of the graph displayed at the top.
     attr_accessor :title
 
     # Font used for titles, labels, etc. Works best if you provide the full
@@ -106,42 +106,42 @@ module Gruff
 
     attr_accessor :font_color
 
-    # Prevent drawing of line markers
+    # Prevent drawing of line markers.
     attr_accessor :hide_line_markers
 
-    # Prevent drawing of the legend
+    # Prevent drawing of the legend.
     attr_accessor :hide_legend
 
-    # Prevent drawing of the title
+    # Prevent drawing of the title.
     attr_accessor :hide_title
 
-    # Prevent drawing of line numbers
+    # Prevent drawing of line numbers.
     attr_accessor :hide_line_numbers
 
     # Message shown when there is no data. Fits up to 20 characters. Defaults
-    # to "No Data."
+    # to +"No Data."+.
     attr_accessor :no_data_message
 
-    # The font size of the large title at the top of the graph
+    # The font size of the large title at the top of the graph.
     attr_accessor :title_font_size
 
     # Optionally set the size of the font. Based on an 800x600px graph.
-    # Default is 20.
+    # Default is +20+.
     #
     # Will be scaled down if the graph is smaller than 800px wide.
     attr_accessor :legend_font_size
 
-    # Display the legend under the graph
+    # Display the legend under the graph.
     attr_accessor :legend_at_bottom
 
-    # The font size of the labels around the graph
+    # The font size of the labels around the graph.
     attr_accessor :marker_font_size
 
-    # The color of the auxiliary lines
+    # The color of the auxiliary lines.
     attr_accessor :marker_color
     attr_accessor :marker_shadow_color
 
-    # The number of horizontal lines shown for reference
+    # The number of horizontal lines shown for reference.
     attr_accessor :marker_count
 
     # Set to true if you want the data sets sorted with largest avg values drawn
@@ -156,13 +156,13 @@ module Gruff
     attr_accessor :additional_line_values
 
     # Optionally set the size of the colored box by each item in the legend.
-    # Default is 20.0
+    # Default is +20.0+.
     #
     # Will be scaled down if graph is smaller than 800px wide.
     attr_accessor :legend_box_size
 
-    # With Side Bars use the data label for the marker value to the left of the bar
-    # Default is false
+    # With Side Bars use the data label for the marker value to the left of the bar.
+    # Default is +false+.
     attr_accessor :use_data_label
 
     # If one numerical argument is given, the graph is drawn at 4/3 ratio
@@ -260,8 +260,8 @@ module Gruff
 
     # Add a color to the list of available colors for lines.
     #
-    # Example:
-    #  add_color('#c0e9d3')
+    # @example
+    #   add_color('#c0e9d3')
     def add_color(colorname)
       @colors << colorname
     end
@@ -286,11 +286,11 @@ module Gruff
     # You can set a theme manually. Assign a hash to this method before you
     # send your data.
     #
-    #  graph.theme = {
-    #    colors: %w(orange purple green white red),
-    #    marker_color: 'blue',
-    #    background_colors: ['black', 'grey', :top_bottom]
-    #  }
+    #   graph.theme = {
+    #     colors: %w(orange purple green white red),
+    #     marker_color: 'blue',
+    #     background_colors: ['black', 'grey', :top_bottom]
+    #   }
     #
     # +background_image: 'squirrel.png'+ is also possible.
     #

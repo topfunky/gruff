@@ -6,7 +6,7 @@ require 'gruff/base'
 #
 # Submitted by Kevin Clark http://glu.ttono.us/
 class Gruff::Spider < Gruff::Base
-  # Hide all text
+  # Hide all text.
   attr_reader :hide_text
   attr_accessor :hide_axes
   attr_reader :transparent_background

@@ -7,7 +7,7 @@ class Gruff::Net < Gruff::Base
   # Hide parts of the graph to fit more datapoints, or for a different appearance.
   attr_accessor :hide_dots
 
-  # Dimensions of lines and dots; calculated based on dataset size if left unspecified
+  # Dimensions of lines and dots; calculated based on dataset size if left unspecified.
   attr_accessor :line_width
   attr_accessor :dot_radius
 
