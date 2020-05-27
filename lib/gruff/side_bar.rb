@@ -2,21 +2,20 @@
 
 require 'gruff/base'
 
-##
 # Graph with individual horizontal bars instead of vertical bars.
 class Gruff::SideBar < Gruff::Base
-  # Spacing factor applied between bars
+  # Spacing factor applied between bars.
   attr_accessor :bar_spacing
 
-  # Spacing factor applied between a group of bars belonging to the same label
+  # Spacing factor applied between a group of bars belonging to the same label.
   attr_accessor :group_spacing
 
-  # Set the number output format for labels using sprintf
-  # Default is "%.2f"
+  # Set the number output format for labels using sprintf.
+  # Default is +"%.2f"+.
   attr_accessor :label_formatting
 
-  # Output the values for the bars on a bar graph
-  # Default is false
+  # Output the values for the bars on a bar graph.
+  # Default is +false+.
   attr_accessor :show_labels_for_bar_values
 
   def initialize_ivars

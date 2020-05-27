@@ -3,7 +3,6 @@
 require 'gruff/side_bar'
 require 'gruff/helper/stacked_mixin'
 
-##
 # New gruff graph type added to enable sideways stacking bar charts
 # (basically looks like a x/y flip of a standard stacking bar chart)
 #
@@ -12,18 +11,18 @@ class Gruff::SideStackedBar < Gruff::SideBar
   include StackedMixin
   include BarValueLabelMixin
 
-  # Spacing factor applied between bars
+  # Spacing factor applied between bars.
   attr_accessor :bar_spacing
 
-  # Number of pixels between bar segments
+  # Number of pixels between bar segments.
   attr_accessor :segment_spacing
 
-  # Set the number output format for labels using sprintf
-  # Default is "%.2f"
+  # Set the number output format for labels using sprintf.
+  # Default is +"%.2f"+.
   attr_accessor :label_formatting
 
-  # Output the values for the bars on a bar graph
-  # Default is false
+  # Output the values for the bars on a bar graph.
+  # Default is +false+.
   attr_accessor :show_labels_for_bar_values
 
   def initialize_ivars

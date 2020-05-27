@@ -4,18 +4,18 @@ require 'gruff/base'
 require 'gruff/helper/bar_conversion'
 
 class Gruff::Bar < Gruff::Base
-  # Spacing factor applied between bars
+  # Spacing factor applied between bars.
   attr_accessor :bar_spacing
 
-  # Spacing factor applied between a group of bars belonging to the same label
+  # Spacing factor applied between a group of bars belonging to the same label.
   attr_accessor :group_spacing
 
-  # Set the number output format for labels using sprintf
-  # Default is "%.2f"
+  # Set the number output format for labels using sprintf.
+  # Default is +"%.2f"+.
   attr_accessor :label_formatting
 
-  # Output the values for the bars on a bar graph
-  # Default is false
+  # Output the values for the bars on a bar graph.
+  # Default is +false+.
   attr_accessor :show_labels_for_bar_values
 
   def initialize_ivars
@@ -43,7 +43,7 @@ class Gruff::Bar < Gruff::Base
   # and 1 means that each bars' width is nearly 0 (so each bar is a simple
   # line with no x dimension).
   #
-  # Default value is 0.9.
+  # Default value is +0.9+.
   def spacing_factor=(space_percent)
     raise ArgumentError, 'spacing_factor must be between 0.00 and 1.00' unless (space_percent >= 0) && (space_percent <= 1)
 

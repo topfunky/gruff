@@ -3,7 +3,6 @@
 require 'observer'
 require 'gruff/base'
 
-##
 # A scene is a non-linear graph that assembles layers together to tell a story.
 # Layers are folders with appropriately named files (see below). You can group
 # layers and control them together or just set their values individually.
@@ -30,7 +29,6 @@ require 'gruff/base'
 #  # Write the final graph to disk
 #  g.write "hazy_daytime_city_scene.png"
 #
-#
 # There are several rules that will magically select a layer when possible.
 #
 # * Numbered files will be selected according to the closest value that is less than the input value.
@@ -40,8 +38,8 @@ require 'gruff/base'
 class Gruff::Scene < Gruff::Base
   # An array listing the folder names that will be rendered, from back to front.
   #
-  #  g.layers = %w(sky clouds buildings street people)
-  #
+  # @example
+  #   g.layers = %w(sky clouds buildings street people)
   attr_reader :layers
 
   def initialize(target_width, base_dir)

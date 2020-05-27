@@ -2,7 +2,6 @@
 
 require 'gruff/base'
 
-##
 # Here's how to make a Line graph:
 #
 #   g = Gruff::Line.new
@@ -14,26 +13,28 @@ require 'gruff/base'
 # There are also other options described below, such as {#baseline_value}, {#baseline_color},
 # {#hide_dots}, and {#hide_lines}.
 class Gruff::Line < Gruff::Base
-  # Allow for reference lines ( which are like baseline ... just allowing for more & on both axes )
+  # Allow for reference lines ( which are like baseline ... just allowing for more & on both axes ).
   attr_accessor :reference_lines
   attr_accessor :reference_line_default_color
   attr_accessor :reference_line_default_width
 
-  # Allow for vertical marker lines
+  # Allow for vertical marker lines.
   attr_accessor :show_vertical_markers
 
-  # Dimensions of lines and dots; calculated based on dataset size if left unspecified
+  # Dimensions of lines and dots; calculated based on dataset size if left unspecified.
   attr_accessor :line_width
   attr_accessor :dot_radius
 
-  # default is a circle, other options include square
+  # default is +'circle'+, other options include square.
   attr_accessor :dot_style
 
   # Hide parts of the graph to fit more datapoints, or for a different appearance.
   attr_accessor :hide_dots, :hide_lines
 
-  #accessors for support of xy data
+  # accessors for support of xy data.
   attr_accessor :minimum_x_value
+
+  # accessors for support of xy data.
   attr_accessor :maximum_x_value
 
   # Get the value if somebody has defined it.
@@ -62,11 +63,9 @@ class Gruff::Line < Gruff::Base
 
   # Call with target pixel width of graph (+800+, +400+, +300+), and/or +false+ to omit lines (points only).
   #
-  #  g = Gruff::Line.new(400) # 400px wide with lines
-  #
-  #  g = Gruff::Line.new(400, false) # 400px wide, no lines (for backwards compatibility)
-  #
-  #  g = Gruff::Line.new(false) # Defaults to 800px wide, no lines (for backwards compatibility)
+  #   g = Gruff::Line.new(400) # 400px wide with lines
+  #   g = Gruff::Line.new(400, false) # 400px wide, no lines (for backwards compatibility)
+  #   g = Gruff::Line.new(false) # Defaults to 800px wide, no lines (for backwards compatibility)
   #
   # The preferred way is to call {#hide_dots} or {#hide_lines} instead.
   def initialize(*args)
@@ -96,15 +95,15 @@ class Gruff::Line < Gruff::Base
   # This method allows one to plot a dataset with both X and Y data.
   #
   # @overload dataxy(name, x_data_points = [], y_data_points = [], color = nil)
-  #   @param name [String] the title of the dataset
-  #   @param x_data_points [Array] an array containing the x data points for the graph
-  #   @param y_data_points [Array] an array containing the y data points for the graph
-  #   @param color [String] hex number indicating the line color as an RGB triplet
+  #   @param name [String] the title of the dataset.
+  #   @param x_data_points [Array] an array containing the x data points for the graph.
+  #   @param y_data_points [Array] an array containing the y data points for the graph.
+  #   @param color [String] hex number indicating the line color as an RGB triplet.
   #
   # @overload dataxy(name, xy_data_points = [], color = nil)
-  #   @param name [String] the title of the dataset
-  #   @param xy_data_points [Array] an array containing both x and y data points for the graph
-  #   @param color [String] hex number indicating the line color as an RGB triplet
+  #   @param name [String] the title of the dataset.
+  #   @param xy_data_points [Array] an array containing both x and y data points for the graph.
+  #   @param color [String] hex number indicating the line color as an RGB triplet.
   #
   # @note
   #   - if (x_data_points.length != y_data_points.length) an error is
