@@ -99,6 +99,7 @@ private
   end
 end
 
+# @private
 class Gruff::Group
   include Observable
   attr_reader :name
@@ -116,6 +117,7 @@ class Gruff::Group
   end
 end
 
+# @private
 class Gruff::Layer
   attr_reader :name
 

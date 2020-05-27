@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# @private
 module Gruff::Base::BarValueLabelMixin
   class BarValueLabel
     attr_accessor :coordinates, :values
