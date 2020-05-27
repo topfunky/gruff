@@ -11,6 +11,7 @@
 #   2. Bars all go from zero to negative direction
 #   3. Bars either go from zero to positive or from zero to negative
 #
+# @private
 class Gruff::BarConversion
   attr_writer :mode
   attr_writer :zero

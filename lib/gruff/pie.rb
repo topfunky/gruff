@@ -184,7 +184,8 @@ private
   end
 
   # Helper Classes
-
+  #
+  # @private
   class PieSlice < Struct.new(:data_array, :options)
     attr_accessor :total
 

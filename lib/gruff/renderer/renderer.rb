@@ -3,6 +3,7 @@
 require 'singleton'
 
 module Gruff
+  # @private
   class Renderer
     include Singleton
 
