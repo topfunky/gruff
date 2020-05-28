@@ -27,22 +27,22 @@ module Gruff
 
     THOUSAND_SEPARATOR = ','
 
-    # Blank space above the graph.
+    # Blank space above the graph. Default is +20+.
     attr_accessor :top_margin
 
-    # Blank space below the graph.
+    # Blank space below the graph. Default is +20+.
     attr_accessor :bottom_margin
 
-    # Blank space to the right of the graph.
+    # Blank space to the right of the graph. Default is +20+.
     attr_accessor :right_margin
 
-    # Blank space to the left of the graph.
+    # Blank space to the left of the graph. Default is +20+.
     attr_accessor :left_margin
 
-    # Blank space below the title.
+    # Blank space below the title. Default is +20+.
     attr_accessor :title_margin
 
-    # Blank space below the legend.
+    # Blank space below the legend. Default is +20+.
     attr_accessor :legend_margin
 
     # A hash of names for the individual columns, where the key is the array
@@ -59,19 +59,19 @@ module Gruff
     # By default, labels are centered over the point they represent.
     attr_accessor :center_labels_over_point
 
-    # Used internally for horizontal graph types.
+    # Used internally for horizontal graph types. Default is +false+.
     attr_accessor :has_left_labels
 
-    # A label for the bottom of the graph.
+    # Set a label for the bottom of the graph.
     attr_accessor :x_axis_label
 
-    # A label for the left side of the graph.
+    # Set a label for the left side of the graph.
     attr_accessor :y_axis_label
 
-    # Manually set increment of the vertical marking lines.
+    # Set increment of the vertical marking lines.
     attr_accessor :x_axis_increment
 
-    # Manually set increment of the horizontal marking lines.
+    # Set increment of the horizontal marking lines.
     attr_accessor :y_axis_increment
 
     # Height of staggering between labels (Bar graph only).
@@ -90,7 +90,7 @@ module Gruff
     # Get or set the list of colors that will be used to draw the bars or lines.
     attr_accessor :colors
 
-    # The large title of the graph displayed at the top.
+    # Set the large title of the graph displayed at the top.
     attr_accessor :title
 
     # Font used for titles, labels, etc. Works best if you provide the full
@@ -98,31 +98,32 @@ module Gruff
     # libraries for this to work properly.
     attr_reader :font
 
-    # Same as font but for the title.
+    # Same as {#font} but for the title.
     attr_accessor :title_font
 
-    # Specifies whether to draw the title bolded or not.
+    # Specifies whether to draw the title bolded or not. Default is +true+.
     attr_accessor :bold_title
 
+    # Specifies the text color.
     attr_accessor :font_color
 
-    # Prevent drawing of line markers.
+    # Prevent drawing of line markers. Default is +false+.
     attr_accessor :hide_line_markers
 
-    # Prevent drawing of the legend.
+    # Prevent drawing of the legend. Default is +false+.
     attr_accessor :hide_legend
 
-    # Prevent drawing of the title.
+    # Prevent drawing of the title. Default is +false+.
     attr_accessor :hide_title
 
-    # Prevent drawing of line numbers.
+    # Prevent drawing of line numbers. Default is +false+.
     attr_accessor :hide_line_numbers
 
-    # Message shown when there is no data. Fits up to 20 characters. Defaults
+    # Set a message shown when there is no data. Fits up to 20 characters. Defaults
     # to +"No Data."+.
     attr_accessor :no_data_message
 
-    # The font size of the large title at the top of the graph.
+    # Set the font size of the large title at the top of the graph. Default is +36+.
     attr_accessor :title_font_size
 
     # Optionally set the size of the font. Based on an 800x600px graph.
@@ -131,25 +132,27 @@ module Gruff
     # Will be scaled down if the graph is smaller than 800px wide.
     attr_accessor :legend_font_size
 
-    # Display the legend under the graph.
+    # Display the legend under the graph. Default is +false+.
     attr_accessor :legend_at_bottom
 
-    # The font size of the labels around the graph.
+    # The font size of the labels around the graph. Default is +21+.
     attr_accessor :marker_font_size
 
-    # The color of the auxiliary lines.
+    # Set the color of the auxiliary lines.
     attr_accessor :marker_color
+
+    # Set the shadow color of the auxiliary lines.
     attr_accessor :marker_shadow_color
 
-    # The number of horizontal lines shown for reference.
+    # Set the number of horizontal lines shown for reference.
     attr_accessor :marker_count
 
-    # Set to true if you want the data sets sorted with largest avg values drawn
-    # first.
+    # Set to +true+ if you want the data sets sorted with largest avg values drawn
+    # first. Default is +false+.
     attr_accessor :sort
 
-    # Set to true if you want the data sets drawn with largest avg values drawn
-    # first.  This does not affect the legend.
+    # Set to +true+ if you want the data sets drawn with largest avg values drawn
+    # first. This does not affect the legend. Default is +false+.
     attr_accessor :sorted_drawing
 
     # Experimental
@@ -166,10 +169,13 @@ module Gruff
     attr_accessor :use_data_label
 
     # If one numerical argument is given, the graph is drawn at 4/3 ratio
-    # according to the given width (800 results in 800x600, 400 gives 400x300,
+    # according to the given width (+800+ results in 800x600, +400+ gives 400x300,
     # etc.).
     #
-    # Or, send a geometry string for other ratios ('800x400', '400x225').
+    # Or, send a geometry string for other ratios ( +'800x400'+, +'400x225'+).
+    #
+    # @param target_width [Numeric, String] The graph image width.
+    #
     def initialize(target_width = DEFAULT_TARGET_WIDTH)
       if target_width.is_a?(String)
         geometric_width, geometric_height = target_width.split('x')
@@ -248,17 +254,25 @@ module Gruff
     protected :initialize_ivars
 
     # Sets the top, bottom, left and right margins to +margin+.
+    #
+    # @param margin [Numeric] The margin size.
+    #
     def margins=(margin)
       @top_margin = @left_margin = @right_margin = @bottom_margin = margin
     end
 
     # Sets the font for graph text to the font at +font_path+.
+    #
+    # @param font_path [String] The path to font.
+    #
     def font=(font_path)
       @font = font_path
       Gruff::Renderer.font = @font
     end
 
     # Add a color to the list of available colors for lines.
+    #
+    # @param colorname [String] The color.
     #
     # @example
     #   add_color('#c0e9d3')
@@ -276,6 +290,8 @@ module Gruff
     # list before you send your data (via the {#data} method).  Calls to the
     # {#data} method made prior to this call will use whatever color scheme
     # was in place at the time data was called.
+    #
+    # @param color_list [Array] The array of colors.
     #
     # @example
     #   replace_colors ['#cc99cc', '#d9e043', '#34d8a2']
@@ -295,6 +311,8 @@ module Gruff
     # +background_image: 'squirrel.png'+ is also possible.
     #
     # (Or hopefully something better looking than that.)
+    #
+    # @param options [Hash] The optional setting for theme
     #
     def theme=(options)
       reset_themes
@@ -319,30 +337,38 @@ module Gruff
       Gruff::Renderer.setup(@columns, @rows, @font, @scale, @theme_options)
     end
 
+    # Apply Apple's keynote theme.
     def theme_keynote
       self.theme = Themes::KEYNOTE
     end
 
+    # Apply 37signals theme.
     def theme_37signals
       self.theme = Themes::THIRTYSEVEN_SIGNALS
     end
 
+    # Apply Rails theme.
     def theme_rails_keynote
       self.theme = Themes::RAILS_KEYNOTE
     end
 
+    # Apply Odeo theme.
     def theme_odeo
       self.theme = Themes::ODEO
     end
 
+    # Apply pastel theme.
     def theme_pastel
       self.theme = Themes::PASTEL
     end
 
+    # Apply greyscale theme.
     def theme_greyscale
       self.theme = Themes::GREYSCALE
     end
 
+    # Input the data in the graph.
+    #
     # Parameters are an array where the first element is the name of the dataset
     # and the value is an array of values to plot.
     #
@@ -351,6 +377,10 @@ module Gruff
     #
     # If the color argument is nil, the next color from the default theme will
     # be used.
+    #
+    # @param name [String, Symbol] The name of the dataset.
+    # @param data_points [Array] The array of dataset.
+    # @param color [String] The color for drawing graph of dataset.
     #
     # @note
     #   If you want to use a preset theme, you must set it before calling {#data}.
@@ -381,6 +411,8 @@ module Gruff
     attr_writer :maximum_value
 
     # Writes the graph to a file. Defaults to +'graph.png'+
+    #
+    # @param file_name [String] The file name of output image.
     #
     # @example
     #   write('graphs/my_pretty_graph.png')
