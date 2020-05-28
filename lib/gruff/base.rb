@@ -593,8 +593,8 @@ module Gruff
       # May fix legend drawing problem at small sizes
       label_widths = [[]] # Used to calculate line wrap
       legend_labels.each do |label|
-        metrics = Renderer::Text.metrics(label, @legend_font_size)
-        label_width = metrics.width + legend_square_width * 2.7
+        width = calculate_width(@legend_font_size, label)
+        label_width = width + legend_square_width * 2.7
         label_widths.last.push label_width
 
         if sum(label_widths.last) > (@raw_columns * 0.9)
@@ -612,6 +612,8 @@ module Gruff
       end
 
       legend_labels.each_with_index do |legend_label, index|
+        next if legend_label.empty?
+
         # Draw label
         text_renderer = Gruff::Renderer::Text.new(legend_label, font: @font, size: @legend_font_size, color: @font_color)
         text_renderer.render(@raw_columns, 1.0, current_x_offset + (legend_square_width * 1.7), current_y_offset, Magick::WestGravity)
@@ -623,8 +625,8 @@ module Gruff
                              current_x_offset + legend_square_width,
                              current_y_offset + legend_square_width / 2.0)
 
-        metrics = Renderer::Text.metrics(legend_label, legend_font_size)
-        current_string_offset = metrics.width + (legend_square_width * 2.7)
+        width = calculate_width(legend_font_size, legend_label)
+        current_string_offset = width + (legend_square_width * 2.7)
 
         # Handle wrapping
         label_widths.first.shift
@@ -826,7 +828,8 @@ module Gruff
     # Not scaled since it deals with dimensions that the regular
     # scaling will handle.
     def calculate_width(font_size, text)
-      return 0 if text.nil?
+      text = text.to_s
+      return 0 if text.empty?
 
       metrics = Renderer::Text.metrics(text, font_size)
       metrics.width
