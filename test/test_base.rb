@@ -49,6 +49,15 @@ class TestGruffBase < GruffTestCase
     assert_same_image('test/expected/bar_title_font_size.png', 'test/output/bar_title_font_size.png')
   end
 
+  def test_legend_with_no_name
+    g = Gruff::Bar.new
+    g.data nil, [1, 2, 3, 4, 5]
+    g.data 'foo', [6, 7, 8, 9, 10]
+    g.data '', [10, 5, 4, 7, 2]
+    g.write('test/output/legend_with_no_name.png')
+    assert_same_image('test/expected/legend_with_no_name.png', 'test/output/legend_with_no_name.png')
+  end
+
   def test_data_given
     graph = Gruff::Bar.new
     refute(graph.__send__(:data_given?))
