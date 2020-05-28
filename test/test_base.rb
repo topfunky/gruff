@@ -41,6 +41,20 @@ class TestGruffBase < GruffTestCase
     assert_same_image('test/expected/bar_font.png', 'test/output/bar_font.png')
   end
 
+  def test_empty_title
+    g = Gruff::Bar.new
+    g.title = ''
+    g.data('foo', [0, 5, 8, 15])
+    g.draw
+
+    g = Gruff::Bar.new
+    g.title = nil
+    g.data('foo', [0, 5, 8, 15])
+    g.draw
+
+    pass
+  end
+
   def test_title_font_size
     g = Gruff::Bar.new
     g.title = 'Bar Graph With Manual Colors' * 2

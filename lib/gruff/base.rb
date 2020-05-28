@@ -470,7 +470,7 @@ module Gruff
 
     def setup_graph_measurements
       @marker_caps_height = @hide_line_markers ? 0 : calculate_caps_height(@marker_font_size)
-      @title_caps_height = (@hide_title || @title.nil?) ? 0 : calculate_caps_height(@title_font_size) * @title.lines.to_a.size
+      @title_caps_height = hide_title? ? 0 : calculate_caps_height(@title_font_size) * @title.lines.to_a.size
       @legend_caps_height = @hide_legend ? 0 : calculate_caps_height(@legend_font_size)
 
       if @hide_line_markers
@@ -648,7 +648,7 @@ module Gruff
 
     # Draws a title on the graph.
     def draw_title
-      return if @hide_title || @title.nil?
+      return if hide_title?
 
       font = (@title_font || @font) if @title_font || @font
       font_weight = @bold_title ? Magick::BoldWeight : Magick::NormalWeight
@@ -660,6 +660,10 @@ module Gruff
       end
       text_renderer = Gruff::Renderer::Text.new(@title, font: font, size: font_size, color: @font_color, weight: font_weight)
       text_renderer.render(@raw_columns, 1.0, 0, @top_margin)
+    end
+
+    def hide_title?
+      @hide_title || @title.nil? || @title.empty?
     end
 
     # Draws column labels below graph, centered over x_offset
