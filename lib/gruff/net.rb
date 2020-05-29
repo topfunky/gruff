@@ -2,7 +2,28 @@
 
 require 'gruff/base'
 
-# Experimental!!! See also the Spider graph.
+# See also the Spider graph.
+#
+# Here's how to make a Gruff::Net.
+#
+#   g = Gruff::Net.new
+#   g.title = "Net Graph"
+#   g.labels = {
+#     0 => '5/6',
+#     1 => '5/15',
+#     2 => '5/24',
+#     3 => '5/30',
+#     4 => '6/4',
+#     5 => '6/12',
+#     6 => '6/21',
+#     7 => '6/28'
+#   }
+#   g.line_width = 3
+#   g.dot_radius = 4
+#   g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88]
+#   g.data :Julie, [22, 29, 35, 38, 36, 40, 46, 57]
+#   g.write("net.png")
+#
 class Gruff::Net < Gruff::Base
   # Hide parts of the graph to fit more datapoints, or for a different appearance.
   attr_accessor :hide_dots

@@ -3,6 +3,16 @@
 require 'gruff/base'
 require 'gruff/helper/stacked_mixin'
 
+#
+# Here's how to set up a Gruff::StackedArea.
+#
+#   g = Gruff::StackedArea.new
+#   g.title = 'StackedArea Graph'
+#   g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88]
+#   g.data :Charles, [80, 54, 67, 54, 68, 70, 90, 95]
+#   g.data :Julie, [22, 29, 35, 38, 36, 40, 46, 57]
+#   g.write('stacked_area.png')
+#
 class Gruff::StackedArea < Gruff::Base
   include StackedMixin
   attr_accessor :last_series_goes_on_bottom

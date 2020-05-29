@@ -2,12 +2,13 @@
 
 require 'gruff/base'
 
-# Here's how to set up an XY Scatter Chart
+#
+# Here's how to set up a Gruff::Scatter.
 #
 #   g = Gruff::Scatter.new(800)
-#   g.data(:apples, [1,2,3,4], [4,3,2,1])
-#   g.data('oranges', [5,7,8], [4,1,7])
-#   g.write('test/output/scatter.png')
+#   g.data :apples, [1,2,3,4], [4,3,2,1]
+#   g.data 'oranges', [5,7,8], [4,1,7]
+#   g.write('scatter.png')
 #
 class Gruff::Scatter < Gruff::Base
   # Maximum X Value. The value will get overwritten by the max in the

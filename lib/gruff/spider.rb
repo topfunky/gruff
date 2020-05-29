@@ -4,7 +4,18 @@ require 'gruff/base'
 
 # Experimental!!! See also the Net graph.
 #
-# Submitted by Kevin Clark http://glu.ttono.us/
+# Here's how to set up a Gruff::Spider.
+#
+#   g = Gruff::Spider.new(30)
+#   g.title = "Spider Graph"
+#   g.data :Strength, [10]
+#   g.data :Dexterity, [16]
+#   g.data :Constitution, [12]
+#   g.data :Intelligence, [12]
+#   g.data :Wisdom, [10]
+#   g.data 'Charisma', [16]
+#   g.write("spider.png")
+
 class Gruff::Spider < Gruff::Base
   # Hide all text.
   attr_reader :hide_text
