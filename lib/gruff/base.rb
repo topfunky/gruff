@@ -497,6 +497,10 @@ module Gruff
       @spread = @spread > 0 ? @spread : 1
     end
 
+    def hide_title?
+      @hide_title || @title.nil? || @title.empty?
+    end
+
     ##
     # Calculates size of drawable area, general font dimensions, etc.
 
@@ -544,7 +548,7 @@ module Gruff
           @top_margin
         else
           @top_margin +
-            (@hide_title ? title_margin : @title_caps_height + title_margin) +
+            (hide_title? ? title_margin : @title_caps_height + title_margin) +
             (@hide_legend ? legend_margin : @legend_caps_height + legend_margin)
         end
       end
@@ -639,7 +643,7 @@ module Gruff
         if @legend_at_bottom
           @graph_height + title_margin
         else
-          @hide_title ? @top_margin + title_margin : @top_margin + title_margin + @title_caps_height
+          hide_title? ? @top_margin + title_margin : @top_margin + title_margin + @title_caps_height
         end
       end
 
@@ -692,10 +696,6 @@ module Gruff
       end
       text_renderer = Gruff::Renderer::Text.new(@title, font: font, size: font_size, color: @font_color, weight: font_weight)
       text_renderer.render(@raw_columns, 1.0, 0, @top_margin)
-    end
-
-    def hide_title?
-      @hide_title || @title.nil? || @title.empty?
     end
 
     # Draws column labels below graph, centered over x_offset
