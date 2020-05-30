@@ -210,7 +210,6 @@ module Gruff
       @maximum_value = @minimum_value = nil
       @increment = nil
       @labels = {}
-      @labels_seen = {}
       @sort = false
       @sorted_drawing = false
       @title = nil
@@ -734,6 +733,7 @@ module Gruff
     def draw_unique_label(index)
       return if @hide_line_markers
 
+      @labels_seen ||= {}
       if !@labels[index].nil? && @labels_seen[index].nil?
         yield
         @labels_seen[index] = 1
@@ -756,7 +756,6 @@ module Gruff
 
     # Resets everything to defaults (except data).
     def reset_themes
-      @labels_seen = {}
       @theme_options = {}
     end
 
