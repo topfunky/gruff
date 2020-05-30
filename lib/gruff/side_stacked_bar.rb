@@ -49,7 +49,7 @@ class Gruff::SideStackedBar < Gruff::SideBar
 
   def draw
     @has_left_labels = true
-    get_maximum_by_stack
+    calculate_maximum_by_stack
     super
   end
 

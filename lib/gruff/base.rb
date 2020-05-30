@@ -803,7 +803,7 @@ module Gruff
 
     # Set the color for each data set unless it was given in the data(...) call.
     def set_colors
-      store.set_colors!(@colors)
+      store.change_colors(@colors)
     end
 
     # Sort with largest overall summed value at front of array so it shows up

@@ -67,7 +67,7 @@ module Gruff
       @data.reverse!
     end
 
-    def set_colors!(colors)
+    def change_colors(colors)
       index = 0
       @data.each do |data_row|
         data_row.color ||= begin

@@ -5,7 +5,7 @@ module Gruff::Base::StackedMixin
   # Used by StackedBar and child classes.
   #
   # tsal: moved from Base 03 FEB 2007
-  def get_maximum_by_stack
+  def calculate_maximum_by_stack
     # Get sum of each stack
     max_hash = {}
     store.data.each do |data_set|
