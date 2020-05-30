@@ -683,7 +683,7 @@ module Gruff
     def draw_title
       return if hide_title?
 
-      font = (@title_font || @font) if @title_font || @font
+      font = @title_font || @font
       font_weight = @bold_title ? Magick::BoldWeight : Magick::NormalWeight
       font_size = @title_font_size
 
