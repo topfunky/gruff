@@ -142,11 +142,7 @@ private
       lbl = @use_data_label ? label : @labels[index]
 
       text_renderer = Gruff::Renderer::Text.new(lbl, font: @font, size: @marker_font_size, color: @font_color)
-      if RUBY_PLATFORM == 'java'
-        text_renderer.render(1, 1, @graph_left - LABEL_MARGIN * 2.0, y_offset, Magick::EastGravity)
-      else
-        text_renderer.render(1, 1, -@graph_left + LABEL_MARGIN * 2.0, y_offset, Magick::EastGravity)
-      end
+      text_renderer.render(@graph_left - LABEL_MARGIN * 2, 1.0, 0.0, y_offset, Magick::EastGravity)
     end
   end
 
