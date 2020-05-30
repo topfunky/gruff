@@ -41,7 +41,7 @@ class Gruff::StackedBar < Gruff::Base
 
   # Draws a bar graph, but multiple sets are stacked on top of each other.
   def draw
-    get_maximum_by_stack
+    calculate_maximum_by_stack
     super
     return unless data_given?
 
