@@ -43,6 +43,26 @@ class TestGruffArea < GruffTestCase
     assert_same_image('test/expected/area_keynote.png', 'test/output/area_keynote.png')
   end
 
+  def test_area_fill_opacity
+    g = Gruff::Area.new
+    g.title = 'Visual Multi-Area Graph Test'
+    g.fill_opacity = 1.0
+    g.stroke_width = 3.0
+    g.labels = {
+      0 => '5/6',
+      2 => '5/15',
+      4 => '5/24',
+      6 => '5/30'
+    }
+    @datasets.each do |data|
+      g.data(data[0], data[1])
+    end
+
+    # Default theme
+    g.write('test/output/area_fill_opacity.png')
+    assert_same_image('test/expected/area_fill_opacity.png', 'test/output/area_fill_opacity.png')
+  end
+
   def test_resize
     g = Gruff::Area.new(400)
     g.title = 'Small Size Multi-Area Graph Test'
