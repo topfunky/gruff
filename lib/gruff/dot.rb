@@ -95,7 +95,7 @@ protected
   def draw_label(y_offset, index)
     draw_unique_label(index) do
       text_renderer = Gruff::Renderer::Text.new(@labels[index], font: @font, size: @marker_font_size, color: @font_color)
-      text_renderer.render(1, 1, -@graph_left + LABEL_MARGIN * 2.0, y_offset, Magick::EastGravity)
+      text_renderer.render(@graph_left - LABEL_MARGIN * 2, 1.0, 0.0, y_offset, Magick::EastGravity)
     end
   end
 end
