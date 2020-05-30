@@ -595,9 +595,8 @@ module Gruff
           Gruff::Renderer::Line.new(color: @marker_shadow_color).render(@graph_left, y + 1, @graph_right, y + 1)
         end
 
-        marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) + BigDecimal(minimum_value.to_s)
-
         unless @hide_line_numbers
+          marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) + BigDecimal(minimum_value.to_s)
           label = label(marker_label, @increment)
           text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @marker_font_size, color: @font_color)
           text_renderer.render(@graph_left - LABEL_MARGIN, 1.0, 0.0, y, Magick::EastGravity)
