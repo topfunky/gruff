@@ -25,8 +25,6 @@ module Gruff
 
     DEFAULT_TARGET_WIDTH = 800.0
 
-    THOUSAND_SEPARATOR = ','
-
     # Blank space above the graph. Default is +20+.
     attr_accessor :top_margin
 
@@ -844,7 +842,7 @@ module Gruff
               end
 
       parts = label.split('.')
-      parts[0].gsub!(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{THOUSAND_SEPARATOR}")
+      parts[0] = parts[0].commify
       parts.join('.')
     end
 
