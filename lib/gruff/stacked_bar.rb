@@ -4,6 +4,16 @@ require 'gruff/base'
 require 'gruff/helper/stacked_mixin'
 require 'gruff/helper/bar_value_label_mixin'
 
+#
+# Here's how to set up a Gruff::StackedBar.
+#
+#   g = Gruff::StackedBar.new
+#   g.title = 'StackedBar Graph'
+#   g.data :Art, [0, 5, 8, 15]
+#   g.data :Philosophy, [10, 3, 2, 8]
+#   g.data :Science, [2, 15, 8, 11]
+#   g.write('stacked_bar.png')
+#
 class Gruff::StackedBar < Gruff::Base
   include StackedMixin
   include BarValueLabelMixin

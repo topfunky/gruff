@@ -2,16 +2,18 @@
 
 require 'gruff/base'
 
-# Here's how to make a Line graph:
+#
+# Here's how to make a Gruff::Line.
 #
 #   g = Gruff::Line.new
 #   g.title = "A Line Graph"
 #   g.data 'Fries', [20, 23, 19, 8]
 #   g.data 'Hamburgers', [50, 19, 99, 29]
-#   g.write("test/output/line.png")
+#   g.write("line.png")
 #
 # There are also other options described below, such as {#baseline_value}, {#baseline_color},
 # {#hide_dots}, and {#hide_lines}.
+#
 class Gruff::Line < Gruff::Base
   # Allow for reference lines ( which are like baseline ... just allowing for more & on both axes ).
   attr_accessor :reference_lines

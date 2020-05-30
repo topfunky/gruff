@@ -2,9 +2,19 @@
 
 require 'gruff/base'
 
-# A special bar graph that shows a single dataset as a set of
-# stacked bars. The bottom bar shows the running total and
-# the top bar shows the new value being added to the array.
+#
+# Gruff::AccumulatorBar is a special bar graph that shows a
+# single dataset as a set of stacked bars.
+# The bottom bar shows the running total and the top bar shows
+# the new value being added to the array.
+#
+# Here's how to set up a Gruff::AccumulatorBar.
+#
+#   g = Gruff::AccumulatorBar.new
+#   g.title = 'Your Savings'
+#   g.data 'First', [1, 1, 1]
+#   g.write('accumulator_bar.png')
+#
 class Gruff::AccumulatorBar < Gruff::StackedBar
   def draw
     raise(Gruff::IncorrectNumberOfDatasetsException) unless store.length == 1

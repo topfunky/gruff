@@ -3,7 +3,17 @@
 require 'gruff/base'
 require 'gruff/themes'
 
+#
+# A bullet graph is a variation of a bar graph.
 # http://en.wikipedia.org/wiki/Bullet_graph
+#
+# Here's how to set up a Gruff::Bullet.
+#
+#   g = Gruff::Bullet.new
+#   g.title = 'Monthly Revenue'
+#   g.data 75, 100, { target: 80, low: 50, high: 90 }
+#   g.write('bullet.png')
+#
 class Gruff::Bullet < Gruff::Base
   def initialize(target_width = '400x40')
     if target_width.is_a?(String)

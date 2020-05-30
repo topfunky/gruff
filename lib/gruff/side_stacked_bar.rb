@@ -3,10 +3,25 @@
 require 'gruff/side_bar'
 require 'gruff/helper/stacked_mixin'
 
+#
 # New gruff graph type added to enable sideways stacking bar charts
 # (basically looks like a x/y flip of a standard stacking bar chart)
 #
-# alun.eyre@googlemail.com
+# Here's how to set up a Gruff::SideStackedBar.
+#
+#   g = Gruff::SideStackedBar.new
+#   g.title = 'SideStackedBar Graph'
+#   g.labels = {
+#     0 => '5/6',
+#     1 => '5/15',
+#     2 => '5/24',
+#     3 => '5/30',
+#   }
+#   g.data :Art, [0, 5, 8, 15]
+#   g.data :Philosophy, [10, 3, 2, 8]
+#   g.data :Science, [2, 15, 8, 11]
+#   g.write('side_stacked_bar.png')
+#
 class Gruff::SideStackedBar < Gruff::SideBar
   include StackedMixin
   include BarValueLabelMixin

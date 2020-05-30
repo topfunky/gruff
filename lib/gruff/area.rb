@@ -2,6 +2,19 @@
 
 require 'gruff/base'
 
+#
+# Gruff::Area provides an area graph which displays graphically
+# quantitative data.
+#
+# Here's how to set up a Gruff::Area.
+#
+#   g = Gruff::Area.new
+#   g.title = 'Area Graph'
+#   g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88]
+#   g.data :Charles, [80, 54, 67, 54, 68, 70, 90, 95]
+#   g.data :Julie, [22, 29, 35, 38, 36, 40, 46, 57]
+#   g.write('area.png')
+#
 class Gruff::Area < Gruff::Base
   def initialize_ivars
     super

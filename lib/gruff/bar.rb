@@ -3,6 +3,21 @@
 require 'gruff/base'
 require 'gruff/helper/bar_conversion'
 
+#
+# Gruff::Bar provide a bar graph that presents categorical data
+# with rectangular bars.
+#
+# Here's how to set up a Gruff::Bar.
+#
+#   g = Gruff::Bar.new
+#   g.title = 'Bar Graph With Manual Colors'
+#   g.spacing_factor = 0.1
+#   g.group_spacing = 20
+#   g.data :Art, [0, 5, 8, 15], '#990000'
+#   g.data :Philosophy, [10, 3, 2, 8], '#009900'
+#   g.data :Science, [2, 15, 8, 11], '#990099'
+#   g.write('bar.png')
+#
 class Gruff::Bar < Gruff::Base
   # Spacing factor applied between bars.
   attr_accessor :bar_spacing

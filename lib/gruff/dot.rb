@@ -2,8 +2,19 @@
 
 require 'gruff/base'
 
-# Graph with dots and labels along a vertical access
+#
+# Graph with dots and labels along a vertical access.
 # see: 'Creating More Effective Graphs' by Robbins
+#
+# Here's how to set up a Gruff::Dot.
+#
+#   g = Gruff::Dot.new
+#   g.title = 'Dot Graph'
+#   g.data :Art, [0, 5, 8, 15]
+#   g.data :Philosophy, [10, 3, 2, 8]
+#   g.data :Science, [2, 15, 8, 11]
+#   g.write('dot.png')
+#
 class Gruff::Dot < Gruff::Base
   def draw
     @has_left_labels = true

@@ -1,8 +1,16 @@
 # frozen_string_literal: true
 
-##
 #
 # Makes a small bar graph suitable for display at 200px or even smaller.
+#
+# Here's how to set up a Gruff::Mini::Bar.
+#
+#   g = Gruff::Mini::Bar.new
+#   g.title = 'Mini Bar Graph'
+#   g.data :Art, [0, 5, 8, 15]
+#   g.data :Philosophy, [10, 3, 2, 8]
+#   g.data :Science, [2, 15, 8, 11]
+#   g.write('mini_bar.png')
 #
 module Gruff
   module Mini

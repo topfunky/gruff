@@ -3,6 +3,23 @@
 require 'gruff/base'
 
 # Graph with individual horizontal bars instead of vertical bars.
+#
+# Here's how to set up a Gruff::SideBar.
+#
+#   g = Gruff::SideBar.new
+#   g.title = 'SideBar Graph'
+#   g.labels = {
+#     0 => '5/6',
+#     1 => '5/15',
+#     2 => '5/24',
+#     3 => '5/30',
+#   }
+#   g.group_spacing = 20
+#   g.data :Art, [0, 5, 8, 15]
+#   g.data :Philosophy, [10, 3, 2, 8]
+#   g.data :Science, [2, 15, 8, 11]
+#   g.write('sidebar.png')
+#
 class Gruff::SideBar < Gruff::Base
   # Spacing factor applied between bars.
   attr_accessor :bar_spacing

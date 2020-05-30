@@ -2,16 +2,17 @@
 
 require 'gruff/base'
 
-##
-# Here's how to make a Pie graph:
+#
+# Here's how to make a Gruff::Pie.
 #
 #   g = Gruff::Pie.new
 #   g.title = "Visual Pie Graph Test"
 #   g.data 'Fries', 20
 #   g.data 'Hamburgers', 50
-#   g.write("test/output/pie_keynote.png")
+#   g.write("pie_keynote.png")
 #
-# To control where the pie chart starts creating slices, use #zero_degree.
+# To control where the pie chart starts creating slices, use {#zero_degree=}.
+#
 class Gruff::Pie < Gruff::Base
   DEFAULT_TEXT_OFFSET_PERCENTAGE = 0.15
 
