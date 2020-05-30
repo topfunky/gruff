@@ -206,6 +206,9 @@ module Gruff
       @raw_columns.freeze
       @raw_rows.freeze
 
+      @scale = @columns / @raw_columns
+      @scale.freeze
+
       @marker_count = nil
       @maximum_value = @minimum_value = nil
       @increment = nil
@@ -214,8 +217,6 @@ module Gruff
       @sorted_drawing = false
       @title = nil
       @title_font = nil
-
-      @scale = @columns / @raw_columns
 
       @font = nil
       @bold_title = true
