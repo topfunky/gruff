@@ -707,20 +707,7 @@ module Gruff
         # TODO: See if index.odd? is the best stragegy
         y_offset += @label_stagger_height if index.odd?
 
-        label_text = labels[index].to_s
-
-        # TESTME
-        # FIXME: Consider chart types other than bar
-        if label_text.size > @label_max_size
-          if @label_truncation_style == :trailing_dots
-            if @label_max_size > 3
-              # 4 because '...' takes up 3 chars
-              label_text = "#{label_text[0..(@label_max_size - 4)]}..."
-            end
-          else # @label_truncation_style is :absolute (default)
-            label_text = label_text[0..(@label_max_size - 1)]
-          end
-        end
+        label_text = truncate_label_text(labels[index].to_s)
 
         if x_offset >= @graph_left && x_offset <= @graph_right
           text_renderer = Gruff::Renderer::Text.new(label_text, font: @font, size: @marker_font_size, color: @font_color)
@@ -813,6 +800,18 @@ module Gruff
     end
 
   private
+
+    def truncate_label_text(text)
+      return text if text.size <= @label_max_size
+
+      if @label_truncation_style == :trailing_dots
+        # 4 because '...' takes up 3 chars
+        text = "#{text[0..(@label_max_size - 4)]}..." if @label_max_size > 3
+      else
+        text = text[0..(@label_max_size - 1)]
+      end
+      text
+    end
 
     # Return a formatted string representing a number value that should be
     # printed as a label.
