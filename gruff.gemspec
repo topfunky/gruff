@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
     s.add_dependency 'rmagick'
     s.add_development_dependency 'rubocop', '~> 0.81.0'
   end
+  s.add_dependency 'histogram'
   s.required_ruby_version = '>= 1.9.3'
 
   s.add_development_dependency 'rake'

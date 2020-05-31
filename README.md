@@ -119,6 +119,10 @@ In progress!
 
 ![Stacked bar chart](https://raw.github.com/topfunky/gruff/master/test/expected/stacked_bar_keynote.png)
 
+### Histogram chart
+
+![Histogram chart](https://raw.github.com/topfunky/gruff/master/test/expected/histogram.png)
+
 
 ## Documentation
 
