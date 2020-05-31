@@ -235,7 +235,6 @@ module Gruff
       @label_max_size = 0
       @label_truncation_style = :absolute
 
-      @additional_line_colors = []
       @theme_options = {}
 
       @use_data_label = false
@@ -313,7 +312,6 @@ module Gruff
 
       defaults = {
         colors: %w[black white],
-        additional_line_colors: [],
         marker_color: 'white',
         marker_shadow_color: nil,
         font_color: 'black',
@@ -326,7 +324,6 @@ module Gruff
       @marker_color = @theme_options[:marker_color]
       @marker_shadow_color = @theme_options[:marker_shadow_color]
       @font_color = @theme_options[:font_color] || @marker_color
-      @additional_line_colors = @theme_options[:additional_line_colors]
 
       Gruff::Renderer.setup(@columns, @rows, @font, @scale, @theme_options)
     end
