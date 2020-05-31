@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.10.0
+
+* Add Histogram chart (#419)
+* Fix that Y axis label is not displayed on JRuby platform (#415)
+* Add fill_opacity and stroke_width in Gruff::Area in order to specify the filling opacity (#413)
+* Fix "`get_type_metrics': no text to measure" exception (#410, #409)
+
 ## 0.9.0
 
 * Fix that sidebar label is not displayed on JRuby platform (#402)
