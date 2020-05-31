@@ -18,7 +18,8 @@ class Gruff::Histogram < Gruff::Bar
   def initialize_ivars
     super
     @bin_width = 10
-    @minimum_bin = 0
+    @minimum_bin = nil
+    @maximum_bin = nil
   end
   private :initialize_ivars
 
@@ -29,15 +30,22 @@ class Gruff::Histogram < Gruff::Bar
     @bin_width = width
   end
 
-  # Specifies minimum value for bin. Default is +0+.
-  def minimum_bin=(bin)
+  # Specifies minimum value for bin.
+  def minimum_bin=(min)
     raise 'minimum_bin= should be called before set the data.' unless store.empty?
 
-    @minimum_bin = bin
+    @minimum_bin = min
+  end
+
+  # Specifies maximum value for bin.
+  def maximum_bin=(max)
+    raise 'maximum_bin= should be called before set the data.' unless store.empty?
+
+    @maximum_bin = max
   end
 
   def data(name, data_points = [], color = nil)
-    bins, freqs = HistogramArray.new(data_points).histogram(bin_width: @bin_width, min: @minimum_bin)
+    bins, freqs = HistogramArray.new(data_points).histogram(bin_width: @bin_width, min: @minimum_bin, max: @maximum_bin)
     bins.each_with_index do |bin, index|
       labels[index] = bin
     end
