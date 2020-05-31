@@ -16,6 +16,7 @@ require 'gruff/version'
   bezier
   bullet
   dot
+  histogram
   line
   net
   pie
