@@ -153,9 +153,6 @@ module Gruff
     # first. This does not affect the legend. Default is +false+.
     attr_accessor :sorted_drawing
 
-    # Experimental
-    attr_accessor :additional_line_values
-
     # Optionally set the size of the colored box by each item in the legend.
     # Default is +20.0+.
     #
@@ -238,7 +235,6 @@ module Gruff
       @label_max_size = 0
       @label_truncation_style = :absolute
 
-      @additional_line_values = []
       @additional_line_colors = []
       @theme_options = {}
 
