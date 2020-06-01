@@ -41,6 +41,11 @@ class Gruff::Scatter < Gruff::Base
   attr_accessor :y_axis_label_format
   attr_accessor :x_axis_label_format
 
+  def initialize_store
+    @store = Gruff::Store.new(Gruff::Store::XYData)
+  end
+  private :initialize_store
+
   def initialize_ivars
     super
 
@@ -56,8 +61,6 @@ class Gruff::Scatter < Gruff::Base
     @x_axis_label_format = nil
     @x_label_margin = nil
     @y_axis_label_format = nil
-
-    @store = Gruff::Store.new(Gruff::Store::XYData)
   end
   private :initialize_ivars
 

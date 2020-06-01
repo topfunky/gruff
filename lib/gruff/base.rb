@@ -183,19 +183,14 @@ module Gruff
       @columns.freeze
       @rows.freeze
 
+      initialize_graph_scale
       initialize_ivars
+      initialize_store
 
       self.theme = Themes::KEYNOTE
     end
 
-    # Set instance variables for this object.
-    #
-    # Subclasses can override this, call super, then set values separately.
-    #
-    # This makes it possible to set defaults in a subclass but still allow
-    # developers to change this values in their program.
-    def initialize_ivars
-      # Internal for calculations
+    def initialize_graph_scale
       @raw_columns = DEFAULT_TARGET_WIDTH
       @raw_rows = DEFAULT_TARGET_WIDTH * (@rows / @columns)
       @raw_columns.freeze
@@ -203,10 +198,23 @@ module Gruff
 
       @scale = @columns / @raw_columns
       @scale.freeze
+    end
+    protected :initialize_graph_scale
 
+    def initialize_store
+      @store = Gruff::Store.new(Gruff::Store::BaseData)
+    end
+    protected :initialize_store
+
+    # Initialize instance variable of attribures
+    #
+    # Subclasses can override this, call super, then set values separately.
+    #
+    # This makes it possible to set defaults in a subclass but still allow
+    # developers to change this values in their program.
+    def initialize_ivars
       @marker_count = nil
       @maximum_value = @minimum_value = nil
-      @increment = nil
       @labels = {}
       @sort = false
       @sorted_drawing = false
@@ -235,14 +243,10 @@ module Gruff
       @label_max_size = 0
       @label_truncation_style = :absolute
 
-      @theme_options = {}
-
       @use_data_label = false
       @x_axis_increment = nil
       @x_axis_label = @y_axis_label = nil
       @y_axis_increment = nil
-
-      @store = Gruff::Store.new(Gruff::Store::BaseData)
     end
     protected :initialize_ivars
 

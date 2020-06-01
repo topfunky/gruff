@@ -31,12 +31,15 @@ class Gruff::Pie < Gruff::Base
   ## Use values instead of percentages.
   attr_accessor :show_values_as_labels
 
+  def initialize_store
+    @store = Gruff::Store.new(Gruff::Store::CustomData)
+  end
+  private :initialize_store
+
   def initialize_ivars
     super
 
     @show_values_as_labels = false
-
-    @store = Gruff::Store.new(Gruff::Store::CustomData)
   end
   private :initialize_ivars
 

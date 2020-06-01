@@ -27,12 +27,19 @@ class Gruff::Bullet < Gruff::Base
     @columns.freeze
     @rows.freeze
 
+    initialize_graph_scale
     initialize_ivars
+    initialize_store
 
-    reset_themes
     self.theme = Gruff::Themes::GREYSCALE
+  end
+
+  def initialize_ivars
+    super
+
     @title_font_size = 20
   end
+  private :initialize_ivars
 
   def data(value, maximum_value, options = {})
     @value = value.to_f
