@@ -90,9 +90,12 @@ class Gruff::Line < Gruff::Base
     @dot_style = 'circle'
 
     @show_vertical_markers = false
+  end
 
+  def initialize_store
     @store = Gruff::Store.new(Gruff::Store::XYData)
   end
+  private :initialize_store
 
   # This method allows one to plot a dataset with both X and Y data.
   #
