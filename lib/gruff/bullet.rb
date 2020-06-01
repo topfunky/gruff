@@ -55,7 +55,7 @@ class Gruff::Bullet < Gruff::Base
     margin       = 30.0
     thickness    = @raw_rows / 6.0
     right_margin = margin
-    graph_left   = (@title && (title_width * 1.3)) || margin
+    graph_left   = [title_width * 1.3, margin].max
     graph_width  = @raw_columns - graph_left - right_margin
     graph_height = thickness * 3.0
 
@@ -90,7 +90,7 @@ class Gruff::Bullet < Gruff::Base
 private
 
   def draw_title
-    return unless @title
+    return if hide_title?
 
     font_height = calculate_caps_height(scale_fontsize(@title_font_size))
 
