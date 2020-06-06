@@ -78,7 +78,15 @@ class Gruff::Line < Gruff::Base
     else
       super args.shift
     end
+  end
 
+  def initialize_store
+    @store = Gruff::Store.new(Gruff::Store::XYData)
+  end
+  private :initialize_store
+
+  def initialize_ivars
+    super
     @reference_lines = {}
     @reference_line_default_color = 'red'
     @reference_line_default_width = 5
@@ -93,11 +101,7 @@ class Gruff::Line < Gruff::Base
 
     @show_vertical_markers = false
   end
-
-  def initialize_store
-    @store = Gruff::Store.new(Gruff::Store::XYData)
-  end
-  private :initialize_store
+  private :initialize_ivars
 
   # This method allows one to plot a dataset with both X and Y data.
   #

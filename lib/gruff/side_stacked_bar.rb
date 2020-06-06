@@ -42,6 +42,8 @@ class Gruff::SideStackedBar < Gruff::SideBar
 
   def initialize_ivars
     super
+    @bar_spacing = 0.9
+    @segment_spacing = 2.0
     @label_formatting = nil
     @show_labels_for_bar_values = false
   end
@@ -59,9 +61,6 @@ private
     # Setup spacing.
     #
     # Columns sit stacked.
-    @bar_spacing ||= 0.9
-    @segment_spacing ||= 2.0
-
     bar_width = @graph_height / column_count.to_f
     height = Array.new(column_count, 0)
     length = Array.new(column_count, @graph_left)

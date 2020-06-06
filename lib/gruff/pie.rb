@@ -38,28 +38,18 @@ class Gruff::Pie < Gruff::Base
 
   def initialize_ivars
     super
-
+    @zero_degree = 0.0
+    @hide_labels_less_than = 0.0
+    @text_offset_percentage = DEFAULT_TEXT_OFFSET_PERCENTAGE
     @show_values_as_labels = false
   end
   private :initialize_ivars
 
-  def zero_degree
-    @zero_degree ||= 0.0
-  end
-
-  def hide_labels_less_than
-    @hide_labels_less_than ||= 0.0
-  end
-
-  def text_offset_percentage
-    @text_offset_percentage ||= DEFAULT_TEXT_OFFSET_PERCENTAGE
-  end
-
   def options
     {
-      zero_degree: zero_degree,
-      hide_labels_less_than: hide_labels_less_than,
-      text_offset_percentage: text_offset_percentage,
+      zero_degree: @zero_degree,
+      hide_labels_less_than: @hide_labels_less_than,
+      text_offset_percentage: @text_offset_percentage,
       show_values_as_labels: @show_values_as_labels
     }
   end
@@ -113,7 +103,7 @@ private
   # Spatial Value-Related Methods
 
   def chart_degrees
-    @chart_degrees ||= zero_degree
+    @chart_degrees ||= @zero_degree
   end
 
   attr_reader :graph_height
@@ -149,17 +139,17 @@ private
   end
 
   def radius_offset
-    radius + (radius * text_offset_percentage) + distance_from_center
+    radius + (radius * @text_offset_percentage) + distance_from_center
   end
 
   def ellipse_factor
-    radius_offset * text_offset_percentage
+    radius_offset * @text_offset_percentage
   end
 
   # Label-Related Methods
 
   def process_label_for(slice)
-    if slice.percentage >= hide_labels_less_than
+    if slice.percentage >= @hide_labels_less_than
       x, y = label_coordinates_for slice
 
       draw_label(x, y, slice.label)
