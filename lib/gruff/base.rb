@@ -26,22 +26,22 @@ module Gruff
     DEFAULT_TARGET_WIDTH = 800.0
 
     # Blank space above the graph. Default is +20+.
-    attr_accessor :top_margin
+    attr_writer :top_margin
 
     # Blank space below the graph. Default is +20+.
-    attr_accessor :bottom_margin
+    attr_writer :bottom_margin
 
     # Blank space to the right of the graph. Default is +20+.
-    attr_accessor :right_margin
+    attr_writer :right_margin
 
     # Blank space to the left of the graph. Default is +20+.
-    attr_accessor :left_margin
+    attr_writer :left_margin
 
     # Blank space below the title. Default is +20+.
-    attr_accessor :title_margin
+    attr_writer :title_margin
 
     # Blank space below the legend. Default is +20+.
-    attr_accessor :legend_margin
+    attr_writer :legend_margin
 
     # A hash of names for the individual columns, where the key is the array
     # index for the column this label represents.
@@ -50,118 +50,113 @@ module Gruff
     #
     # @example
     #   { 0 => 2005, 3 => 2006, 5 => 2007, 7 => 2008 }
-    attr_accessor :labels
+    attr_writer :labels
 
     # Used internally for spacing.
     #
     # By default, labels are centered over the point they represent.
-    attr_accessor :center_labels_over_point
+    attr_writer :center_labels_over_point
 
     # Used internally for horizontal graph types. Default is +false+.
-    attr_accessor :has_left_labels
+    attr_writer :has_left_labels
 
     # Set a label for the bottom of the graph.
-    attr_accessor :x_axis_label
+    attr_writer :x_axis_label
 
     # Set a label for the left side of the graph.
-    attr_accessor :y_axis_label
+    attr_writer :y_axis_label
 
     # Set increment of the vertical marking lines.
-    attr_accessor :x_axis_increment
+    attr_writer :x_axis_increment
 
     # Set increment of the horizontal marking lines.
-    attr_accessor :y_axis_increment
+    attr_writer :y_axis_increment
 
     # Height of staggering between labels (Bar graph only).
-    attr_accessor :label_stagger_height
+    attr_writer :label_stagger_height
 
     # Truncates labels if longer than max specified.
-    attr_accessor :label_max_size
+    attr_writer :label_max_size
 
     # How truncated labels visually appear if they exceed {#label_max_size}.
     #
     # - +:absolute+ - does not show trailing dots to indicate truncation. This is the default.
     # - +:trailing_dots+ - shows trailing dots to indicate truncation (note that {#label_max_size}
     #   must be greater than 3).
-    attr_accessor :label_truncation_style
+    attr_writer :label_truncation_style
 
     # Get or set the list of colors that will be used to draw the bars or lines.
     attr_accessor :colors
 
     # Set the large title of the graph displayed at the top.
-    attr_accessor :title
-
-    # Font used for titles, labels, etc. Works best if you provide the full
-    # path to the TTF font file.  RMagick must be built with the Freetype
-    # libraries for this to work properly.
-    attr_reader :font
+    attr_writer :title
 
     # Same as {#font} but for the title.
-    attr_accessor :title_font
+    attr_writer :title_font
 
     # Specifies whether to draw the title bolded or not. Default is +true+.
-    attr_accessor :bold_title
+    attr_writer :bold_title
 
     # Specifies the text color.
-    attr_accessor :font_color
+    attr_writer :font_color
 
     # Prevent drawing of line markers. Default is +false+.
-    attr_accessor :hide_line_markers
+    attr_writer :hide_line_markers
 
     # Prevent drawing of the legend. Default is +false+.
-    attr_accessor :hide_legend
+    attr_writer :hide_legend
 
     # Prevent drawing of the title. Default is +false+.
-    attr_accessor :hide_title
+    attr_writer :hide_title
 
     # Prevent drawing of line numbers. Default is +false+.
-    attr_accessor :hide_line_numbers
+    attr_writer :hide_line_numbers
 
     # Set a message shown when there is no data. Fits up to 20 characters. Defaults
     # to +"No Data."+.
-    attr_accessor :no_data_message
+    attr_writer :no_data_message
 
     # Set the font size of the large title at the top of the graph. Default is +36+.
-    attr_accessor :title_font_size
+    attr_writer :title_font_size
 
     # Optionally set the size of the font. Based on an 800x600px graph.
     # Default is +20+.
     #
     # Will be scaled down if the graph is smaller than 800px wide.
-    attr_accessor :legend_font_size
+    attr_writer :legend_font_size
 
     # Display the legend under the graph. Default is +false+.
-    attr_accessor :legend_at_bottom
+    attr_writer :legend_at_bottom
 
     # The font size of the labels around the graph. Default is +21+.
-    attr_accessor :marker_font_size
+    attr_writer :marker_font_size
 
     # Set the color of the auxiliary lines.
-    attr_accessor :marker_color
+    attr_writer :marker_color
 
     # Set the shadow color of the auxiliary lines.
-    attr_accessor :marker_shadow_color
+    attr_writer :marker_shadow_color
 
     # Set the number of horizontal lines shown for reference.
-    attr_accessor :marker_count
+    attr_writer :marker_count
 
     # Set to +true+ if you want the data sets sorted with largest avg values drawn
     # first. Default is +false+.
-    attr_accessor :sort
+    attr_writer :sort
 
     # Set to +true+ if you want the data sets drawn with largest avg values drawn
     # first. This does not affect the legend. Default is +false+.
-    attr_accessor :sorted_drawing
+    attr_writer :sorted_drawing
 
     # Optionally set the size of the colored box by each item in the legend.
     # Default is +20.0+.
     #
     # Will be scaled down if graph is smaller than 800px wide.
-    attr_accessor :legend_box_size
+    attr_writer :legend_box_size
 
     # With Side Bars use the data label for the marker value to the left of the bar.
     # Default is +false+.
-    attr_accessor :use_data_label
+    attr_writer :use_data_label
 
     # If one numerical argument is given, the graph is drawn at 4/3 ratio
     # according to the given width (+800+ results in 800x600, +400+ gives 400x300,
@@ -513,7 +508,7 @@ module Gruff
       else
         if @has_left_labels
           longest_left_label_width = calculate_width(@marker_font_size,
-                                                     labels.values.reduce('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
+                                                     @labels.values.reduce('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
         else
           longest_left_label_width = calculate_width(@marker_font_size,
                                                      label(maximum_value.to_f, @increment))
@@ -545,8 +540,8 @@ module Gruff
           @top_margin
         else
           @top_margin +
-            (hide_title? ? title_margin : @title_caps_height + title_margin) +
-            (@hide_legend ? legend_margin : @legend_caps_height + legend_margin)
+            (hide_title? ? @title_margin : @title_caps_height + @title_margin) +
+            (@hide_legend ? @legend_margin : @legend_caps_height + @legend_margin)
         end
       end
 
@@ -637,9 +632,9 @@ module Gruff
       current_x_offset = center(sum(label_widths.first))
       current_y_offset = begin
         if @legend_at_bottom
-          @graph_height + title_margin
+          @graph_height + @title_margin
         else
-          hide_title? ? @top_margin + title_margin : @top_margin + title_margin + @title_caps_height
+          hide_title? ? @top_margin + @title_margin : @top_margin + @title_margin + @title_caps_height
         end
       end
 
@@ -657,7 +652,7 @@ module Gruff
                              current_x_offset + legend_square_width,
                              current_y_offset + legend_square_width / 2.0)
 
-        width = calculate_width(legend_font_size, legend_label)
+        width = calculate_width(@legend_font_size, legend_label)
         current_string_offset = width + (legend_square_width * 2.7)
 
         # Handle wrapping
@@ -665,7 +660,7 @@ module Gruff
         if label_widths.first.empty?
           label_widths.shift
           current_x_offset = center(sum(label_widths.first)) unless label_widths.empty?
-          line_height = [@legend_caps_height, legend_square_width].max + legend_margin
+          line_height = [@legend_caps_height, legend_square_width].max + @legend_margin
           unless label_widths.empty?
             # Wrap to next line and shrink available graph dimensions
             current_y_offset += line_height
@@ -706,7 +701,7 @@ module Gruff
         # TODO: See if index.odd? is the best stragegy
         y_offset += @label_stagger_height if index.odd?
 
-        label_text = truncate_label_text(labels[index].to_s)
+        label_text = truncate_label_text(@labels[index].to_s)
 
         if x_offset >= @graph_left && x_offset <= @graph_right
           text_renderer = Gruff::Renderer::Text.new(label_text, font: @font, size: @marker_font_size, color: @font_color)

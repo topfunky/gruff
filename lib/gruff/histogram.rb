@@ -47,7 +47,7 @@ class Gruff::Histogram < Gruff::Bar
   def data(name, data_points = [], color = nil)
     bins, freqs = HistogramArray.new(data_points).histogram(bin_width: @bin_width, min: @minimum_bin, max: @maximum_bin)
     bins.each_with_index do |bin, index|
-      labels[index] = bin
+      @labels[index] = bin
     end
     store.add(name, freqs, color)
   end

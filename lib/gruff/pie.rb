@@ -29,7 +29,7 @@ class Gruff::Pie < Gruff::Base
   attr_writer :text_offset_percentage
 
   ## Use values instead of percentages.
-  attr_accessor :show_values_as_labels
+  attr_writer :show_values_as_labels
 
   def initialize_store
     @store = Gruff::Store.new(Gruff::Store::CustomData)
@@ -60,7 +60,7 @@ class Gruff::Pie < Gruff::Base
       zero_degree: zero_degree,
       hide_labels_less_than: hide_labels_less_than,
       text_offset_percentage: text_offset_percentage,
-      show_values_as_labels: show_values_as_labels
+      show_values_as_labels: @show_values_as_labels
     }
   end
 

@@ -17,10 +17,10 @@ require 'gruff/base'
 #
 class Gruff::Area < Gruff::Base
   # Specifies the filling opacity in area graph. Default is +0.85+.
-  attr_accessor :fill_opacity
+  attr_writer :fill_opacity
 
   # Specifies the stroke width in line around area graph. Default is +2.0+.
-  attr_accessor :stroke_width
+  attr_writer :stroke_width
 
   def initialize_ivars
     super

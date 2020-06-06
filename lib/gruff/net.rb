@@ -26,16 +26,18 @@ require 'gruff/base'
 #
 class Gruff::Net < Gruff::Base
   # Hide parts of the graph to fit more datapoints, or for a different appearance.
-  attr_accessor :hide_dots
+  attr_writer :hide_dots
 
   # Dimensions of lines and dots; calculated based on dataset size if left unspecified.
-  attr_accessor :line_width
-  attr_accessor :dot_radius
+  attr_writer :line_width
+  attr_writer :dot_radius
 
   def initialize_ivars
     super
 
     @hide_dots = false
+    @line_width = nil
+    @dot_radius = nil
     @hide_line_numbers = true
     @sorted_drawing = true
   end
@@ -46,8 +48,8 @@ class Gruff::Net < Gruff::Base
 
     return unless data_given?
 
-    stroke_width = line_width  || clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 4), 5.0)
-    circle_radius = dot_radius || clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 2.5), 5.0)
+    stroke_width = @line_width  || clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 4), 5.0)
+    circle_radius = @dot_radius || clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 2.5), 5.0)
 
     store.norm_data.each do |data_row|
       data_row.points.each_with_index do |data_point, index|
@@ -95,7 +97,7 @@ private
       Gruff::Renderer::Line.new(color: @marker_color)
                            .render(@center_x, @center_y, @center_x + Math.sin(rad_pos) * @radius, @center_y - Math.cos(rad_pos) * @radius)
 
-      marker_label = labels[index] ? labels[index].to_s : '000'
+      marker_label = @labels[index] ? @labels[index].to_s : '000'
       draw_label(@center_x, @center_y, rad_pos * 360 / (2 * Math::PI), @radius, marker_label)
     end
   end

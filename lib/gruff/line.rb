@@ -17,27 +17,27 @@ require 'gruff/base'
 class Gruff::Line < Gruff::Base
   # Allow for reference lines ( which are like baseline ... just allowing for more & on both axes ).
   attr_accessor :reference_lines
-  attr_accessor :reference_line_default_color
-  attr_accessor :reference_line_default_width
+  attr_writer :reference_line_default_color
+  attr_writer :reference_line_default_width
 
   # Allow for vertical marker lines.
-  attr_accessor :show_vertical_markers
+  attr_writer :show_vertical_markers
 
   # Dimensions of lines and dots; calculated based on dataset size if left unspecified.
-  attr_accessor :line_width
-  attr_accessor :dot_radius
+  attr_writer :line_width
+  attr_writer :dot_radius
 
   # default is +'circle'+, other options include square.
-  attr_accessor :dot_style
+  attr_writer :dot_style
 
   # Hide parts of the graph to fit more datapoints, or for a different appearance.
-  attr_accessor :hide_dots, :hide_lines
+  attr_writer :hide_dots, :hide_lines
 
   # accessors for support of xy data.
-  attr_accessor :minimum_x_value
+  attr_writer :minimum_x_value
 
   # accessors for support of xy data.
-  attr_accessor :maximum_x_value
+  attr_writer :maximum_x_value
 
   # Get the value if somebody has defined it.
   def baseline_value
@@ -87,6 +87,8 @@ class Gruff::Line < Gruff::Base
     @maximum_x_value = nil
     @minimum_x_value = nil
 
+    @line_width = nil
+    @dot_radius = nil
     @dot_style = 'circle'
 
     @show_vertical_markers = false
@@ -215,8 +217,8 @@ class Gruff::Line < Gruff::Base
         new_y = @graph_top + (@graph_height - y_data * @graph_height)
 
         # Reset each time to avoid thin-line errors
-        stroke_width  = line_width || clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 4), 5.0)
-        circle_radius = dot_radius || clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 2.5), 5.0)
+        stroke_width  = @line_width || clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 4), 5.0)
+        circle_radius = @dot_radius || clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 2.5), 5.0)
 
         if !@hide_lines && prev_x && prev_y
           Gruff::Renderer::Line.new(color: data_row.color, width: stroke_width)
