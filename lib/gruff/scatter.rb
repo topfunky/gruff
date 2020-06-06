@@ -13,33 +13,33 @@ require 'gruff/base'
 class Gruff::Scatter < Gruff::Base
   # Maximum X Value. The value will get overwritten by the max in the
   # datasets.
-  attr_accessor :maximum_x_value
+  attr_writer :maximum_x_value
 
   # Minimum X Value. The value will get overwritten by the min in the
   # datasets.
-  attr_accessor :minimum_x_value
+  attr_writer :minimum_x_value
 
   # The number of vertical lines shown for reference.
-  attr_accessor :marker_x_count
+  attr_writer :marker_x_count
 
   # Attributes to allow customising the size of the points.
-  attr_accessor :circle_radius
-  attr_accessor :stroke_width
+  attr_writer :circle_radius
+  attr_writer :stroke_width
 
   # Allow disabling the significant rounding when labeling the X axis.
   # This is useful when working with a small range of high values (for example, a date range of months, while seconds as units).
-  attr_accessor :disable_significant_rounding_x_axis
+  attr_writer :disable_significant_rounding_x_axis
 
   # Allow enabling vertical lines. When you have a lot of data, they can work great.
-  attr_accessor :enable_vertical_line_markers
+  attr_writer :enable_vertical_line_markers
 
   # Allow using vertical labels in the X axis (and setting the label margin).
-  attr_accessor :x_label_margin
-  attr_accessor :use_vertical_x_labels
+  attr_writer :x_label_margin
+  attr_writer :use_vertical_x_labels
 
   # Allow passing lambdas to format labels.
-  attr_accessor :y_axis_label_format
-  attr_accessor :x_axis_label_format
+  attr_writer :y_axis_label_format
+  attr_writer :x_axis_label_format
 
   def initialize_store
     @store = Gruff::Store.new(Gruff::Store::XYData)

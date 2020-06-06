@@ -20,18 +20,18 @@ require 'gruff/helper/bar_conversion'
 #
 class Gruff::Bar < Gruff::Base
   # Spacing factor applied between bars.
-  attr_accessor :bar_spacing
+  attr_writer :bar_spacing
 
   # Spacing factor applied between a group of bars belonging to the same label.
-  attr_accessor :group_spacing
+  attr_writer :group_spacing
 
   # Set the number output format for labels using sprintf.
   # Default is +"%.2f"+.
-  attr_accessor :label_formatting
+  attr_writer :label_formatting
 
   # Output the values for the bars on a bar graph.
   # Default is +false+.
-  attr_accessor :show_labels_for_bar_values
+  attr_writer :show_labels_for_bar_values
 
   def initialize_ivars
     super

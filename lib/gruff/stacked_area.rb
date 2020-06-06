@@ -15,7 +15,13 @@ require 'gruff/helper/stacked_mixin'
 #
 class Gruff::StackedArea < Gruff::Base
   include StackedMixin
-  attr_accessor :last_series_goes_on_bottom
+  attr_writer :last_series_goes_on_bottom
+
+  def initialize_ivars
+    super
+    @last_series_goes_on_bottom = false
+  end
+  private :initialize_ivars
 
   def draw
     calculate_maximum_by_stack
@@ -28,7 +34,7 @@ class Gruff::StackedArea < Gruff::Base
     height = Array.new(column_count, 0)
 
     data_points = nil
-    iterator = last_series_goes_on_bottom ? :reverse_each : :each
+    iterator = @last_series_goes_on_bottom ? :reverse_each : :each
     store.norm_data.public_send(iterator) do |data_row|
       prev_data_points = data_points
       data_points = []
