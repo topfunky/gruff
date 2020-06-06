@@ -36,6 +36,7 @@ class Gruff::Bar < Gruff::Base
   def initialize_ivars
     super
     @spacing_factor = 0.9
+    @group_spacing = 10
     @label_formatting = nil
     @show_labels_for_bar_values = false
   end
@@ -72,7 +73,6 @@ protected
     #
     # Columns sit side-by-side.
     @bar_spacing ||= @spacing_factor # space between the bars
-    @group_spacing ||= 10
 
     bar_width = (@graph_width - calculate_spacing) / (column_count * store.length).to_f
     padding = (bar_width * (1 - @bar_spacing)) / 2

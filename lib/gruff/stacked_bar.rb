@@ -34,6 +34,8 @@ class Gruff::StackedBar < Gruff::Base
 
   def initialize_ivars
     super
+    @bar_spacing = 0.9
+    @segment_spacing = 2
     @label_formatting = nil
     @show_labels_for_bar_values = false
   end
@@ -48,9 +50,6 @@ class Gruff::StackedBar < Gruff::Base
     # Setup spacing.
     #
     # Columns sit stacked.
-    @bar_spacing ||= 0.9
-    @segment_spacing ||= 2
-
     bar_width = @graph_width / column_count.to_f
     padding = (bar_width * (1 - @bar_spacing)) / 2
 

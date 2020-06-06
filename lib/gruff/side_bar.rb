@@ -37,6 +37,8 @@ class Gruff::SideBar < Gruff::Base
 
   def initialize_ivars
     super
+    @bar_spacing = 0.9
+    @group_spacing = 10
     @label_formatting = nil
     @show_labels_for_bar_values = false
   end
@@ -56,9 +58,6 @@ private
   def draw_bars
     # Setup spacing.
     #
-    @bar_spacing ||= 0.9
-    @group_spacing ||= 10
-
     bars_width = (@graph_height - calculate_spacing) / column_count.to_f
     bar_width = bars_width / store.length
     height = Array.new(column_count, 0)
