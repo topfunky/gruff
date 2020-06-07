@@ -18,6 +18,22 @@ require 'bigdecimal'
 # See {Gruff::Base#theme=} for setting themes.
 module Gruff
   class Base
+    def self.config_attr_writer(sym, default = {})
+      value = default[:default]
+
+      @@initialize_table ||= {}
+      @@initialize_table[sym] = value
+
+      define_method("#{sym}=") { |val| instance_variable_set("@#{sym}", val) }
+    end
+
+    def initialize_attribute_variables
+      @@initialize_table.each do |sym, value|
+        instance_variable_set("@#{sym}", value.dup)
+      end
+    end
+    protected :initialize_attribute_variables
+
     # Space around text elements. Mostly used for vertical spacing.
     LEGEND_MARGIN = TITLE_MARGIN = 20.0
     LABEL_MARGIN = 10.0
@@ -26,22 +42,22 @@ module Gruff
     DEFAULT_TARGET_WIDTH = 800.0
 
     # Blank space above the graph. Default is +20+.
-    attr_writer :top_margin
+    config_attr_writer :top_margin, default: DEFAULT_MARGIN
 
     # Blank space below the graph. Default is +20+.
-    attr_writer :bottom_margin
+    config_attr_writer :bottom_margin, default: DEFAULT_MARGIN
 
     # Blank space to the right of the graph. Default is +20+.
-    attr_writer :right_margin
+    config_attr_writer :right_margin, default: DEFAULT_MARGIN
 
     # Blank space to the left of the graph. Default is +20+.
-    attr_writer :left_margin
+    config_attr_writer :left_margin, default: DEFAULT_MARGIN
 
     # Blank space below the title. Default is +20+.
-    attr_writer :title_margin
+    config_attr_writer :title_margin, default: TITLE_MARGIN
 
     # Blank space below the legend. Default is +20+.
-    attr_writer :legend_margin
+    config_attr_writer :legend_margin, default: LEGEND_MARGIN
 
     # A hash of names for the individual columns, where the key is the array
     # index for the column this label represents.
@@ -50,86 +66,86 @@ module Gruff
     #
     # @example
     #   { 0 => 2005, 3 => 2006, 5 => 2007, 7 => 2008 }
-    attr_writer :labels
+    config_attr_writer :labels, default: {}
 
     # Used internally for spacing.
     #
     # By default, labels are centered over the point they represent.
-    attr_writer :center_labels_over_point
+    config_attr_writer :center_labels_over_point, default: true
 
     # Used internally for horizontal graph types. Default is +false+.
-    attr_writer :has_left_labels
+    config_attr_writer :has_left_labels, default: false
 
     # Set a label for the bottom of the graph.
-    attr_writer :x_axis_label
+    config_attr_writer :x_axis_label, default: nil
 
     # Set a label for the left side of the graph.
-    attr_writer :y_axis_label
+    config_attr_writer :y_axis_label, default: nil
 
     # Set increment of the vertical marking lines.
-    attr_writer :x_axis_increment
+    config_attr_writer :x_axis_increment, default: nil
 
     # Set increment of the horizontal marking lines.
-    attr_writer :y_axis_increment
+    config_attr_writer :y_axis_increment, default: nil
 
     # Height of staggering between labels (Bar graph only).
-    attr_writer :label_stagger_height
+    config_attr_writer :label_stagger_height, default: 0
 
     # Truncates labels if longer than max specified.
-    attr_writer :label_max_size
+    config_attr_writer :label_max_size, default: 0
 
     # How truncated labels visually appear if they exceed {#label_max_size}.
     #
     # - +:absolute+ - does not show trailing dots to indicate truncation. This is the default.
     # - +:trailing_dots+ - shows trailing dots to indicate truncation (note that {#label_max_size}
     #   must be greater than 3).
-    attr_writer :label_truncation_style
+    config_attr_writer :label_truncation_style, default: :absolute
 
     # Get or set the list of colors that will be used to draw the bars or lines.
     attr_accessor :colors
 
     # Set the large title of the graph displayed at the top.
-    attr_writer :title
+    config_attr_writer :title, default: nil
 
     # Same as {#font} but for the title.
-    attr_writer :title_font
+    config_attr_writer :title_font, default: nil
 
     # Specifies whether to draw the title bolded or not. Default is +true+.
-    attr_writer :bold_title
+    config_attr_writer :bold_title, default: true
 
     # Specifies the text color.
     attr_writer :font_color
 
     # Prevent drawing of line markers. Default is +false+.
-    attr_writer :hide_line_markers
+    config_attr_writer :hide_line_markers, default: false
 
     # Prevent drawing of the legend. Default is +false+.
-    attr_writer :hide_legend
+    config_attr_writer :hide_legend, default: false
 
     # Prevent drawing of the title. Default is +false+.
-    attr_writer :hide_title
+    config_attr_writer :hide_title, default: false
 
     # Prevent drawing of line numbers. Default is +false+.
-    attr_writer :hide_line_numbers
+    config_attr_writer :hide_line_numbers, default: false
 
     # Set a message shown when there is no data. Fits up to 20 characters. Defaults
     # to +"No Data."+.
-    attr_writer :no_data_message
+    config_attr_writer :no_data_message, default: 'No Data'
 
     # Set the font size of the large title at the top of the graph. Default is +36+.
-    attr_writer :title_font_size
+    config_attr_writer :title_font_size, default: 36.0
 
     # Optionally set the size of the font. Based on an 800x600px graph.
     # Default is +20+.
     #
     # Will be scaled down if the graph is smaller than 800px wide.
-    attr_writer :legend_font_size
+    config_attr_writer :legend_font_size, default: 20.0
 
     # Display the legend under the graph. Default is +false+.
-    attr_writer :legend_at_bottom
+    config_attr_writer :legend_at_bottom, default: false
 
     # The font size of the labels around the graph. Default is +21+.
-    attr_writer :marker_font_size
+    config_attr_writer :marker_font_size, default: 21.0
 
     # Set the color of the auxiliary lines.
     attr_writer :marker_color
@@ -138,25 +154,25 @@ module Gruff
     attr_writer :marker_shadow_color
 
     # Set the number of horizontal lines shown for reference.
-    attr_writer :marker_count
+    config_attr_writer :marker_count, default: nil
 
     # Set to +true+ if you want the data sets sorted with largest avg values drawn
     # first. Default is +false+.
-    attr_writer :sort
+    config_attr_writer :sort, default: false
 
     # Set to +true+ if you want the data sets drawn with largest avg values drawn
     # first. This does not affect the legend. Default is +false+.
-    attr_writer :sorted_drawing
+    config_attr_writer :sorted_drawing, default: false
 
     # Optionally set the size of the colored box by each item in the legend.
     # Default is +20.0+.
     #
     # Will be scaled down if graph is smaller than 800px wide.
-    attr_writer :legend_box_size
+    config_attr_writer :legend_box_size, default: 20.0
 
     # With Side Bars use the data label for the marker value to the left of the bar.
     # Default is +false+.
-    attr_writer :use_data_label
+    config_attr_writer :use_data_label, default: false
 
     # If one numerical argument is given, the graph is drawn at 4/3 ratio
     # according to the given width (+800+ results in 800x600, +400+ gives 400x300,
@@ -178,6 +194,7 @@ module Gruff
       @columns.freeze
       @rows.freeze
 
+      initialize_attribute_variables
       initialize_graph_scale
       initialize_ivars
       initialize_store
@@ -208,40 +225,8 @@ module Gruff
     # This makes it possible to set defaults in a subclass but still allow
     # developers to change this values in their program.
     def initialize_ivars
-      @marker_count = nil
       @maximum_value = @minimum_value = nil
-      @labels = {}
-      @sort = false
-      @sorted_drawing = false
-      @title = nil
-      @title_font = nil
-
       @font = nil
-      @bold_title = true
-
-      @marker_font_size = 21.0
-      @legend_font_size = 20.0
-      @title_font_size = 36.0
-
-      @top_margin = @bottom_margin = @left_margin = @right_margin = DEFAULT_MARGIN
-      @legend_margin = LEGEND_MARGIN
-      @title_margin = TITLE_MARGIN
-
-      @legend_box_size = 20.0
-
-      @no_data_message = 'No Data'
-
-      @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = @legend_at_bottom = false
-      @center_labels_over_point = true
-      @has_left_labels = false
-      @label_stagger_height = 0
-      @label_max_size = 0
-      @label_truncation_style = :absolute
-
-      @use_data_label = false
-      @x_axis_increment = nil
-      @x_axis_label = @y_axis_label = nil
-      @y_axis_increment = nil
     end
     protected :initialize_ivars
 

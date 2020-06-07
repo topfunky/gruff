@@ -27,6 +27,7 @@ class Gruff::Bullet < Gruff::Base
     @columns.freeze
     @rows.freeze
 
+    initialize_attribute_variables
     initialize_graph_scale
     initialize_ivars
     initialize_store
