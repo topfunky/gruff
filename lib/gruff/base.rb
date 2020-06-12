@@ -503,8 +503,8 @@ module Gruff
 
       if @hide_line_markers
         @graph_left = @left_margin
-        @graph_right_margin = @right_margin
-        @graph_bottom_margin = @bottom_margin
+        graph_right_margin = @right_margin
+        graph_bottom_margin = @bottom_margin
       else
         if @has_left_labels
           longest_left_label_width = calculate_width(@marker_font_size,
@@ -525,13 +525,13 @@ module Gruff
         extra_room_for_long_label = begin
           (last_label >= (column_count - 1) && @center_labels_over_point) ? calculate_width(@marker_font_size, @labels[last_label]) / 2.0 : 0
         end
-        @graph_right_margin = @right_margin + extra_room_for_long_label
+        graph_right_margin = @right_margin + extra_room_for_long_label
 
-        @graph_bottom_margin = @bottom_margin + @marker_caps_height + LABEL_MARGIN
+        graph_bottom_margin = @bottom_margin + @marker_caps_height + LABEL_MARGIN
       end
 
-      @graph_right = @raw_columns - @graph_right_margin
-      @graph_width = @raw_columns - @graph_left - @graph_right_margin
+      @graph_right = @raw_columns - graph_right_margin
+      @graph_width = @raw_columns - @graph_left - graph_right_margin
 
       # When @hide title, leave a title_margin space for aesthetics.
       # Same with @hide_legend
@@ -547,7 +547,7 @@ module Gruff
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 : @marker_caps_height + LABEL_MARGIN
       # FIXME: Consider chart types other than bar
-      @graph_bottom = @raw_rows - @graph_bottom_margin - x_axis_label_height - @label_stagger_height
+      @graph_bottom = @raw_rows - graph_bottom_margin - x_axis_label_height - @label_stagger_height
       @graph_height = @graph_bottom - @graph_top
     end
 
