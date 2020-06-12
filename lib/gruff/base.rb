@@ -731,7 +731,7 @@ module Gruff
     # Shows an error message because you have no data.
     def draw_no_data
       text_renderer = Gruff::Renderer::Text.new(@no_data_message, font: @font, size: 80, color: @font_color)
-      text_renderer.render(@raw_columns, @raw_rows / 2.0, 0, 10, Magick::CenterGravity)
+      text_renderer.render(@raw_columns, @raw_rows, 0, 0, Magick::CenterGravity)
     end
 
     # Resets everything to defaults (except data).
