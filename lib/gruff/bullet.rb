@@ -17,9 +17,7 @@ require 'gruff/themes'
 class Gruff::Bullet < Gruff::Base
   def initialize(target_width = '400x40')
     if target_width.is_a?(String)
-      geometric_width, geometric_height = target_width.split('x')
-      @columns = geometric_width.to_f
-      @rows = geometric_height.to_f
+      @columns, @rows = target_width.split('x').map(&:to_f)
     else
       @columns = target_width.to_f
       @rows = target_width.to_f / 5.0
