@@ -122,7 +122,10 @@ private
     (0..number_of_lines).each do |index|
       line_diff = (@graph_right - @graph_left) / number_of_lines
       x = @graph_right - (line_diff * index) - 1
-      Gruff::Renderer::Line.new(color: @marker_color).render(x, @graph_bottom, x, @graph_top)
+
+      line_renderer = Gruff::Renderer::Line.new(color: @marker_color, shadow_color: @marker_shadow_color)
+      line_renderer.render(x, @graph_bottom, x, @graph_top)
+
       diff = index - number_of_lines
       marker_label = diff.abs * increment + minimum_value
 

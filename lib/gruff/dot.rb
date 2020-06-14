@@ -79,7 +79,9 @@ protected
     (0..number_of_lines).each do |index|
       marker_label = minimum_value + index * increment
       x = @graph_left + (marker_label - minimum_value) * @graph_width / @spread
-      Gruff::Renderer::Line.new(color: @marker_color).render(x, @graph_bottom, x, @graph_bottom + 0.5 * LABEL_MARGIN)
+
+      line_renderer = Gruff::Renderer::Line.new(color: @marker_color, shadow_color: @marker_shadow_color)
+      line_renderer.render(x, @graph_bottom, x, @graph_bottom + 0.5 * LABEL_MARGIN)
 
       unless @hide_line_numbers
         label = label(marker_label, increment)
