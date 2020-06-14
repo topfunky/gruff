@@ -579,11 +579,8 @@ module Gruff
       (0..@marker_count).each do |index|
         y = @graph_top + @graph_height - index.to_f * increment_scaled
 
-        Gruff::Renderer::Line.new(color: @marker_color).render(@graph_left, y, @graph_right, y)
-        #If the user specified a marker shadow color, draw a shadow just below it
-        if @marker_shadow_color
-          Gruff::Renderer::Line.new(color: @marker_shadow_color).render(@graph_left, y + 1, @graph_right, y + 1)
-        end
+        line_renderer = Gruff::Renderer::Line.new(color: @marker_color, shadow_color: @marker_shadow_color)
+        line_renderer.render(@graph_left, y, @graph_right, y)
 
         unless @hide_line_numbers
           marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) + BigDecimal(minimum_value.to_s)
