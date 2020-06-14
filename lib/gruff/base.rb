@@ -609,20 +609,8 @@ module Gruff
       return if @hide_legend
 
       legend_labels = store.data.map(&:label)
-
       legend_square_width = @legend_box_size # small square with color of this item
-
-      # May fix legend drawing problem at small sizes
-      label_widths = [[]] # Used to calculate line wrap
-      legend_labels.each do |label|
-        width = calculate_width(@legend_font_size, label)
-        label_width = width + legend_square_width * 2.7
-        label_widths.last.push label_width
-
-        if sum(label_widths.last) > (@raw_columns * 0.9)
-          label_widths.push [label_widths.last.pop]
-        end
-      end
+      label_widths = calculate_legend_label_widths_for_each_line(legend_labels, legend_square_width)
 
       current_x_offset = center(sum(label_widths.first))
       current_y_offset = begin
@@ -648,10 +636,10 @@ module Gruff
                              current_y_offset + legend_square_width / 2.0)
 
         width = calculate_width(@legend_font_size, legend_label)
-        current_string_offset = width + (legend_square_width * 2.7)
+        current_x_offset += width + (legend_square_width * 2.7)
+        label_widths.first.shift
 
         # Handle wrapping
-        label_widths.first.shift
         if label_widths.first.empty?
           label_widths.shift
           current_x_offset = center(sum(label_widths.first)) unless label_widths.empty?
@@ -662,8 +650,6 @@ module Gruff
             @graph_top += line_height
             @graph_height = @graph_bottom - @graph_top
           end
-        else
-          current_x_offset += current_string_offset
         end
       end
     end
@@ -832,6 +818,22 @@ module Gruff
       parts = label.split('.')
       parts[0] = parts[0].commify
       parts.join('.')
+    end
+
+    def calculate_legend_label_widths_for_each_line(legend_labels, legend_square_width)
+      # May fix legend drawing problem at small sizes
+      label_widths = [[]] # Used to calculate line wrap
+      legend_labels.each do |label|
+        width = calculate_width(@legend_font_size, label)
+        label_width = width + legend_square_width * 2.7
+        label_widths.last.push label_width
+
+        if sum(label_widths.last) > (@raw_columns * 0.9)
+          label_widths.push [label_widths.last.pop]
+        end
+      end
+
+      label_widths
     end
 
     # Returns the height of the capital letter 'X' for the current font and
