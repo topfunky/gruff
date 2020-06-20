@@ -39,11 +39,11 @@ class TestGruffAccumulatorBar < GruffTestCase
   end
 
   def test_too_many_args
-    assert_raises(Gruff::IncorrectNumberOfDatasetsException) {
+    assert_raises(Gruff::IncorrectNumberOfDatasetsException) do
       g = Gruff::AccumulatorBar.new
       g.data 'First', [1, 1, 1]
       g.data 'Too Many', [1, 1, 1]
       g.write('test/output/_SHOULD_NOT_ACTUALLY_BE_WRITTEN.png')
-    }
+    end
   end
 end
