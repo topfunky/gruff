@@ -36,6 +36,9 @@ Lint/AssignmentInCondition:
 Lint/NumberConversion:
   Enabled: false
 
+Style/ClassAndModuleChildren:
+  Enabled: false
+
 Style/ConditionalAssignment:
   Enabled: false
 

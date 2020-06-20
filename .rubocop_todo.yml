@@ -85,13 +85,6 @@ Security/Eval:
   Exclude:
     - 'test/gruff_test_case.rb'
 
-# Offense count: 33
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, EnforcedStyle.
-# SupportedStyles: nested, compact
-Style/ClassAndModuleChildren:
-  Enabled: false
-
 # Offense count: 39
 Style/Documentation:
   Enabled: false
