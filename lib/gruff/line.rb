@@ -12,7 +12,7 @@ require 'gruff/base'
 #   g.write("line.png")
 #
 # There are also other options described below, such as {#baseline_value}, {#baseline_color},
-# {#hide_dots}, and {#hide_lines}.
+# {#hide_dots=}, and {#hide_lines=}.
 #
 class Gruff::Line < Gruff::Base
   # Allow for reference lines ( which are like baseline ... just allowing for more & on both axes ).
@@ -69,7 +69,7 @@ class Gruff::Line < Gruff::Base
   #   g = Gruff::Line.new(400, false) # 400px wide, no lines (for backwards compatibility)
   #   g = Gruff::Line.new(false) # Defaults to 800px wide, no lines (for backwards compatibility)
   #
-  # The preferred way is to call {#hide_dots} or {#hide_lines} instead.
+  # The preferred way is to call {#hide_dots=} or {#hide_lines=} instead.
   def initialize(*args)
     raise ArgumentError, 'Wrong number of arguments' if args.length > 2
 

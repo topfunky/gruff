@@ -78,10 +78,10 @@ module Gruff
     # Truncates labels if longer than max specified.
     attr_writer :label_max_size
 
-    # How truncated labels visually appear if they exceed {#label_max_size}.
+    # How truncated labels visually appear if they exceed {#label_max_size=}.
     #
     # - +:absolute+ - does not show trailing dots to indicate truncation. This is the default.
-    # - +:trailing_dots+ - shows trailing dots to indicate truncation (note that {#label_max_size}
+    # - +:trailing_dots+ - shows trailing dots to indicate truncation (note that {#label_max_size=}
     #   must be greater than 3).
     attr_writer :label_truncation_style
 
@@ -91,7 +91,7 @@ module Gruff
     # Set the large title of the graph displayed at the top.
     attr_writer :title
 
-    # Same as {#font} but for the title.
+    # Same as {#font=} but for the title.
     attr_writer :title_font
 
     # Specifies whether to draw the title bolded or not. Default is +true+.
