@@ -20,7 +20,7 @@ module Gruff
   class Base
     # Space around text elements. Mostly used for vertical spacing.
     LEGEND_MARGIN = TITLE_MARGIN = 20.0
-    LABEL_MARGIN = 10.0
+    LABEL_MARGIN = 15.0
     DEFAULT_MARGIN = 20.0
 
     DEFAULT_TARGET_WIDTH = 800.0
@@ -555,7 +555,7 @@ module Gruff
         # X Axis
         # Centered vertically and horizontally by setting the
         # height to 1.0 and the width to the width of the graph.
-        x_axis_label_y_coordinate = @graph_bottom + LABEL_MARGIN * 2 + @marker_caps_height
+        x_axis_label_y_coordinate = @graph_bottom + LABEL_MARGIN + @marker_caps_height
 
         # TODO: Center between graph area
         text_renderer = Gruff::Renderer::Text.new(@x_axis_label, font: @font, size: @marker_font_size, color: @font_color)
