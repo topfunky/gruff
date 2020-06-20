@@ -54,37 +54,15 @@ protected
   def draw_line_markers
     return if @hide_line_markers
 
-    # Draw horizontal line markers and annotate with numbers
-    if @y_axis_increment
-      increment = @y_axis_increment
-      number_of_lines = (@spread / @y_axis_increment).to_i
-    else
-      # Try to use a number of horizontal lines that will come out even.
-      #
-      # TODO Do the same for larger numbers...100, 75, 50, 25
-      if @marker_count.nil?
-        (3..7).each do |lines|
-          if @spread % lines == 0.0
-            @marker_count = lines
-            break
-          end
-        end
-        @marker_count ||= 5
-      end
-      # TODO: Round maximum marker value to a round number like 100, 0.1, 0.5, etc.
-      increment = (@spread > 0 && @marker_count > 0) ? significant(@spread / @marker_count) : 1
-      number_of_lines = @marker_count
-    end
-
-    (0..number_of_lines).each do |index|
-      marker_label = minimum_value + index * increment
+    (0..@marker_count).each do |index|
+      marker_label = minimum_value + index * @increment
       x = @graph_left + (marker_label - minimum_value) * @graph_width / @spread
 
       line_renderer = Gruff::Renderer::Line.new(color: @marker_color, shadow_color: @marker_shadow_color)
       line_renderer.render(x, @graph_bottom, x, @graph_bottom + 0.5 * LABEL_MARGIN)
 
       unless @hide_line_numbers
-        label = label(marker_label, increment)
+        label = label(marker_label, @increment)
         text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @marker_font_size, color: @font_color)
         text_renderer.render(0, 0, x, @graph_bottom + (LABEL_MARGIN * 2.0), Magick::CenterGravity)
       end
