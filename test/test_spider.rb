@@ -12,16 +12,6 @@ class TestGruffSpider < GruffTestCase
       [:Wisdom, [10]],
       ['Charisma', [16]]
     ]
-
-#     @datasets = [
-#       [:Darren, [25]],
-#       [:Chris, [80]],
-#       [:Egbert, [22]],
-#       [:Adam, [95]],
-#       [:Bill, [90]],
-#       ["Frank", [5]],
-#       ["Zero", [0]],
-#       ]
   end
 
   def test_spider_graph
@@ -55,7 +45,6 @@ class TestGruffSpider < GruffTestCase
     g.data(:Blake, [41])
     g.data(:Aaron, [42])
     g.data(:Grouch, [40])
-#    g.data(:Snuffleupagus, [43])
 
     g.write('test/output/spider_nearly_equal.png')
     assert_same_image('test/expected/spider_nearly_equal.png', 'test/output/spider_nearly_equal.png')

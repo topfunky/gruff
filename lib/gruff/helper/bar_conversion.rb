@@ -24,16 +24,16 @@ class Gruff::BarConversion
     result = []
 
     case @mode
-    when 1 then # Case one
-                # minimum value >= 0 ( only positive values )
+    when 1
+      # minimum value >= 0 ( only positive values )
       result[0] = @graph_top + @graph_height * (1 - data_point) + 1
       result[1] = @graph_top + @graph_height - 1
-    when 2 then # Case two
-                # only negative values
+    when 2
+      # only negative values
       result[0] = @graph_top + 1
       result[1] = @graph_top + @graph_height * (1 - data_point) - 1
-    when 3 then # Case three
-                # positive and negative values
+    when 3
+      # positive and negative values
       val = data_point - @minimum_value / @spread
       result[0] = @graph_top + @graph_height * (1 - (val - @zero)) + 1
       result[1] = @graph_top + @graph_height * (1 - @zero) - 1

@@ -18,9 +18,6 @@ Layout/AccessModifierIndentation:
 Layout/ClassStructure:
   Enabled: false
 
-Layout/CommentIndentation:
-  Enabled: false
-
 Layout/FirstMethodArgumentLineBreak:
   Enabled: false
 

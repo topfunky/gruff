@@ -167,7 +167,6 @@ class TestGruffLine < GruffTestCase
   def test_request_too_many_colors
     g = Gruff::Line.new
     g.title = 'More Sets Than in Color Array'
-#     g.theme = {} # Sets theme with only black and white
     @datasets.each do |data|
       g.data(data[0], data[1])
     end
