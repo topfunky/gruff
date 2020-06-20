@@ -295,10 +295,19 @@ module Gruff
     #   graph.theme = {
     #     colors: %w(orange purple green white red),
     #     marker_color: 'blue',
-    #     background_colors: ['black', 'grey', :top_bottom]
+    #     background_colors: ['black', 'grey'],
+    #     background_direction: :top_bottom
     #   }
     #
     # +background_image: 'squirrel.png'+ is also possible.
+    #
+    # +background_direction+ accepts one of following parameters.
+    # - +:top_bottom+
+    # - +:bottom_top+
+    # - +:left_right+
+    # - +:right_left+
+    # - +:topleft_bottomright+
+    # - +:topright_bottomleft+
     #
     # (Or hopefully something better looking than that.)
     #
