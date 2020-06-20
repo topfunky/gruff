@@ -71,8 +71,6 @@ class TestGruffPie < GruffTestCase
 
     g.data(:Blake, [41])
     g.data(:Aaron, [42])
-#    g.data(:Grouch, [40])
-#    g.data(:Snuffleupagus, [43])
 
     g.write('test/output/pie_nearly_equal.png')
     assert_same_image('test/expected/pie_nearly_equal.png', 'test/output/pie_nearly_equal.png')
