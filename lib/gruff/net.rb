@@ -48,8 +48,6 @@ class Gruff::Net < Gruff::Base
 
     return unless data_given?
 
-    stroke_width = @line_width || clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 4), 5.0)
-
     store.norm_data.each do |data_row|
       data_row.points.each_with_index do |data_point, index|
         next if data_point.nil?
@@ -66,9 +64,9 @@ class Gruff::Net < Gruff::Base
         end_x = @center_x + Math.sin(next_rad_pos) * next_point_distance
         end_y = @center_y - Math.cos(next_rad_pos) * next_point_distance
 
-        Gruff::Renderer::Line.new(color: data_row.color, width: stroke_width).render(start_x, start_y, end_x, end_y)
+        Gruff::Renderer::Line.new(color: data_row.color, width: @stroke_width).render(start_x, start_y, end_x, end_y)
 
-        Gruff::Renderer::Circle.new(color: data_row.color, width: stroke_width).render(start_x, start_y, start_x - @circle_radius, start_y) unless @hide_dots
+        Gruff::Renderer::Circle.new(color: data_row.color, width: @stroke_width).render(start_x, start_y, start_x - @circle_radius, start_y) unless @hide_dots
       end
     end
 
@@ -82,6 +80,7 @@ private
 
     @radius = @graph_height / 2.0
     @circle_radius = @dot_radius || clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 2.5), 5.0)
+    @stroke_width  = @line_width || clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 4), 5.0)
     @center_x = @graph_left + (@graph_width / 2.0)
     @center_y = @graph_top + (@graph_height / 2.0) + 10
   end
