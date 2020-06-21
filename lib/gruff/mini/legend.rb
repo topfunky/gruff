@@ -67,7 +67,7 @@ module Gruff
           # Draw label
           label = truncate_legend_label(legend_label)
           text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @legend_font_size, color: @font_color)
-          text_renderer.render(@raw_columns, 1.0, current_x_offset + (legend_square_width * 1.7), current_y_offset, Magick::WestGravity)
+          text_renderer.add_to_render_queue(@raw_columns, 1.0, current_x_offset + (legend_square_width * 1.7), current_y_offset, Magick::WestGravity)
 
           # Now draw box with color of this dataset
           rect_renderer = Gruff::Renderer::Rectangle.new(color: store.data[index].color)

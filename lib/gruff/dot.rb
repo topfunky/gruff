@@ -64,7 +64,7 @@ protected
       unless @hide_line_numbers
         label = label(marker_label, @increment)
         text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @marker_font_size, color: @font_color)
-        text_renderer.render(0, 0, x, @graph_bottom + (LABEL_MARGIN * 1.5), Magick::CenterGravity)
+        text_renderer.add_to_render_queue(0, 0, x, @graph_bottom + (LABEL_MARGIN * 1.5), Magick::CenterGravity)
       end
     end
   end
@@ -75,7 +75,7 @@ protected
   def draw_label(y_offset, index)
     draw_unique_label(index) do
       text_renderer = Gruff::Renderer::Text.new(@labels[index], font: @font, size: @marker_font_size, color: @font_color)
-      text_renderer.render(@graph_left - LABEL_MARGIN, 1.0, 0.0, y_offset, Magick::EastGravity)
+      text_renderer.add_to_render_queue(@graph_left - LABEL_MARGIN, 1.0, 0.0, y_offset, Magick::EastGravity)
     end
   end
 end

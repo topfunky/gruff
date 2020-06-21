@@ -100,6 +100,6 @@ private
     font_height = calculate_caps_height(scale_fontsize(@title_font_size))
 
     text_renderer = Gruff::Renderer::Text.new(@title, font: @font, size: @title_font_size, color: @font_color)
-    text_renderer.render(1.0, 1.0, font_height / 2, font_height / 2, Magick::NorthWestGravity)
+    text_renderer.add_to_render_queue(1.0, 1.0, font_height / 2, font_height / 2, Magick::NorthWestGravity)
   end
 end

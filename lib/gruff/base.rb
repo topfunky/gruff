@@ -568,13 +568,13 @@ module Gruff
 
         # TODO: Center between graph area
         text_renderer = Gruff::Renderer::Text.new(@x_axis_label, font: @font, size: @marker_font_size, color: @font_color)
-        text_renderer.render(@raw_columns, 1.0, 0.0, x_axis_label_y_coordinate)
+        text_renderer.add_to_render_queue(@raw_columns, 1.0, 0.0, x_axis_label_y_coordinate)
       end
 
       if @y_axis_label
         # Y Axis, rotated vertically
         text_renderer = Gruff::Renderer::Text.new(@y_axis_label, font: @font, size: @marker_font_size, color: @font_color, rotation: -90)
-        text_renderer.render(1.0, @raw_rows, @left_margin + @marker_caps_height / 2.0, 0.0, Magick::CenterGravity)
+        text_renderer.add_to_render_queue(1.0, @raw_rows, @left_margin + @marker_caps_height / 2.0, 0.0, Magick::CenterGravity)
       end
     end
 
@@ -595,7 +595,7 @@ module Gruff
           marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) + BigDecimal(minimum_value.to_s)
           label = label(marker_label, @increment)
           text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @marker_font_size, color: @font_color)
-          text_renderer.render(@graph_left - LABEL_MARGIN, 1.0, 0.0, y, Magick::EastGravity)
+          text_renderer.add_to_render_queue(@graph_left - LABEL_MARGIN, 1.0, 0.0, y, Magick::EastGravity)
         end
       end
     end
@@ -635,7 +635,7 @@ module Gruff
 
         # Draw label
         text_renderer = Gruff::Renderer::Text.new(legend_label, font: @font, size: @legend_font_size, color: @font_color)
-        text_renderer.render(@raw_columns, 1.0, current_x_offset + (legend_square_width * 1.7), current_y_offset, Magick::WestGravity)
+        text_renderer.add_to_render_queue(@raw_columns, 1.0, current_x_offset + (legend_square_width * 1.7), current_y_offset, Magick::WestGravity)
 
         # Now draw box with color of this dataset
         rect_renderer = Gruff::Renderer::Rectangle.new(color: store.data[index].color)
@@ -676,7 +676,7 @@ module Gruff
         font_size = font_size * (@raw_columns / metrics.width) * 0.95
       end
       text_renderer = Gruff::Renderer::Text.new(@title, font: font, size: font_size, color: @font_color, weight: font_weight)
-      text_renderer.render(@raw_columns, 1.0, 0, @top_margin)
+      text_renderer.add_to_render_queue(@raw_columns, 1.0, 0, @top_margin)
     end
 
     # Draws column labels below graph, centered over x_offset
@@ -695,7 +695,7 @@ module Gruff
 
         if x_offset >= @graph_left && x_offset <= @graph_right
           text_renderer = Gruff::Renderer::Text.new(label_text, font: @font, size: @marker_font_size, color: @font_color)
-          text_renderer.render(1.0, 1.0, x_offset, y_offset, gravity)
+          text_renderer.add_to_render_queue(1.0, 1.0, x_offset, y_offset, gravity)
         end
       end
     end
@@ -715,7 +715,7 @@ module Gruff
       return if @hide_line_markers && !bar_value
 
       text_renderer = Gruff::Renderer::Text.new(data_point, font: @font, size: @marker_font_size, color: @font_color)
-      text_renderer.render(1.0, 1.0, x_offset, y_offset)
+      text_renderer.add_to_render_queue(1.0, 1.0, x_offset, y_offset)
     end
 
     # Shows an error message because you have no data.
