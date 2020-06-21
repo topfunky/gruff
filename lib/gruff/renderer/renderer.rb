@@ -7,7 +7,7 @@ module Gruff
   class Renderer
     include Singleton
 
-    attr_accessor :draw, :image, :scale
+    attr_accessor :draw, :image, :scale, :text_renderers
 
     class << self
       def setup(columns, rows, font, scale, theme_options)
@@ -21,6 +21,7 @@ module Gruff
         Renderer.instance.draw  = draw
         Renderer.instance.scale = scale
         Renderer.instance.image = image
+        Renderer.instance.text_renderers = []
       end
 
       def setup_transparent_background(columns, rows)
@@ -42,6 +43,10 @@ module Gruff
         image = Renderer.instance.image
 
         draw.draw(image)
+
+        Renderer.instance.text_renderers.each do |renderer|
+          renderer.render(renderer.width, renderer.height, renderer.x, renderer.y, renderer.gravity)
+        end
       end
 
       def write(file_name)

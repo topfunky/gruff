@@ -109,6 +109,6 @@ private
 
     # Draw label
     text_renderer = Gruff::Renderer::Text.new(amount, font: @font, size: 20, color: @marker_color, weight: Magick::BoldWeight)
-    text_renderer.render(0, 0, x, y, Magick::CenterGravity)
+    text_renderer.add_to_render_queue(0, 0, x, y, Magick::CenterGravity)
   end
 end

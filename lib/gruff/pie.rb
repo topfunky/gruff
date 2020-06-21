@@ -174,7 +174,7 @@ private
 
   def draw_label(x, y, value)
     text_renderer = Gruff::Renderer::Text.new(value, font: @font, size: @marker_font_size, color: @font_color, weight: Magick::BoldWeight)
-    text_renderer.render(0, 0, x, y, Magick::CenterGravity)
+    text_renderer.add_to_render_queue(0, 0, x, y, Magick::CenterGravity)
   end
 
   # Helper Classes

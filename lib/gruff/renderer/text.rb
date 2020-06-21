@@ -11,6 +11,17 @@ module Gruff
       @rotation = args[:rotation]
     end
 
+    attr_reader :width, :height, :x, :y, :gravity
+    def add_to_render_queue(width, height, x, y, gravity = Magick::NorthGravity)
+      @width = width
+      @height = height
+      @x = x
+      @y = y
+      @gravity = gravity
+
+      Renderer.instance.text_renderers << self
+    end
+
     def render(width, height, x, y, gravity = Magick::NorthGravity)
       draw  = Renderer.instance.draw
       image = Renderer.instance.image
