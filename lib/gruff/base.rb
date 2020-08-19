@@ -828,7 +828,7 @@ module Gruff
               end
 
       parts = label.split('.')
-      parts[0] = parts[0].commify(@delimiter)
+      parts[0] = parts[0].commify(@delimiter, separator: @separator)
       parts.join(@separator)
     end
 
