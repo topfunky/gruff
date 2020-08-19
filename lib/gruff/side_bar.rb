@@ -101,7 +101,7 @@ private
         end
         if @show_labels_for_bar_values
           val = (@label_formatting || '%.2f') % store.data[row_index].points[point_index]
-          draw_value_label(right_x + 40, right_y - bar_width / 2, val.commify, true)
+          draw_value_label(right_x + 40, right_y - bar_width / 2, val.commify(@delimiter, separator: @separator), true)
         end
       end
     end

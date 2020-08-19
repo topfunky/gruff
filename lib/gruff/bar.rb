@@ -122,7 +122,7 @@ protected
           raw_value = store.data[row_index].points[point_index]
           val = (@label_formatting || '%.2f') % raw_value
           y = raw_value >= 0 ? left_y - 30 : left_y + 12
-          draw_value_label(left_x + (right_x - left_x) / 2, y, val.commify, true)
+          draw_value_label(left_x + (right_x - left_x) / 2, y, val.commify(@delimiter, separator: @separator), true)
         end
       end
     end

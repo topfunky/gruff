@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 class String
-  THOUSAND_SEPARATOR = ','
-
-  #Taken from http://codesnippets.joyent.com/posts/show/330
-  def commify(delimiter = THOUSAND_SEPARATOR)
-    gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{delimiter}")
+  def commify(delimiter, separator: nil)
+    gsub('.', separator).gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{delimiter}")
   end
 end

@@ -166,7 +166,7 @@ module Gruff
     #
     # @param target_width [Numeric, String] The graph image width.
     #
-    def initialize(target_width = DEFAULT_TARGET_WIDTH)
+    def initialize(target_width = DEFAULT_TARGET_WIDTH, delimiter: ',', separator: '.')
       if target_width.is_a?(String)
         @columns, @rows = target_width.split('x').map(&:to_f)
       else
@@ -175,6 +175,9 @@ module Gruff
       end
       @columns.freeze
       @rows.freeze
+
+      @delimiter = delimiter
+      @separator = separator
 
       initialize_graph_scale
       initialize_ivars
@@ -825,8 +828,8 @@ module Gruff
               end
 
       parts = label.split('.')
-      parts[0] = parts[0].commify
-      parts.join('.')
+      parts[0] = parts[0].commify(@delimiter)
+      parts.join(@separator)
     end
 
     def calculate_legend_label_widths_for_each_line(legend_labels, legend_square_width)
