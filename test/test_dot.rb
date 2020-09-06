@@ -46,6 +46,23 @@ class TestGruffDot < GruffTestCase
     assert_same_image('test/expected/dot_small.png', 'test/output/dot_small.png')
   end
 
+  def test_no_labels
+    g = setup_basic_graph(400)
+    g.title = 'No Labels'
+    g.hide_labels = true
+    g.write('test/output/dot_no_labels.png')
+    assert_same_image('test/expected/dot_no_labels.png', 'test/output/dot_no_labels.png')
+  end
+
+  def test_no_line_markers_or_labels
+    g = setup_basic_graph(400)
+    g.title = 'No Line Markers or Labels'
+    g.hide_labels = true
+    g.hide_line_markers = true
+    g.write('test/output/dot_no_line_markers_or_labels.png')
+    assert_same_image('test/expected/dot_no_line_markers_or_labels.png', 'test/output/dot_no_line_markers_or_labels.png')
+  end
+
   def test_no_line_markers
     g = setup_basic_graph(400)
     g.title = 'No Line Markers'

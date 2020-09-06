@@ -100,6 +100,9 @@ module Gruff
     # Specifies the text color.
     attr_writer :font_color
 
+    # Prevent drawing of column labels below or to left of graph. Default is +false+.
+    attr_writer :hide_labels
+
     # Prevent drawing of line markers. Default is +false+.
     attr_writer :hide_line_markers
 
@@ -229,7 +232,7 @@ module Gruff
 
       @no_data_message = 'No Data'
 
-      @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = @legend_at_bottom = false
+      @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = @legend_at_bottom = @hide_labels = false
       @center_labels_over_point = true
       @has_left_labels = false
       @label_stagger_height = 0
@@ -661,7 +664,7 @@ module Gruff
     end
 
     def draw_unique_label(index)
-      return if @hide_line_markers
+      return if @hide_labels
 
       @labels_seen ||= {}
       if !@labels[index].nil? && @labels_seen[index].nil?
@@ -746,7 +749,10 @@ module Gruff
   private
 
     def setup_marker_caps_height
-      @hide_line_markers ? 0 : calculate_caps_height(@marker_font_size)
+      # check if not adding labels or line marker data below graph
+      return 0 if (@hide_labels && !@has_left_labels) || (@hide_line_markers && @has_left_labels)
+
+      calculate_caps_height(@marker_font_size)
     end
 
     def setup_title_caps_height
@@ -769,7 +775,8 @@ module Gruff
     end
 
     def setup_left_margin
-      return @left_margin if @hide_line_markers
+      # check if not adding labels or line marker data to left of graph
+      return @left_margin if (@hide_labels && @has_left_labels) || (@hide_line_markers && !@has_left_labels)
 
       if @has_left_labels
         longest_left_label_width = calculate_width(@marker_font_size,
@@ -795,7 +802,12 @@ module Gruff
     end
 
     def setup_bottom_margin
-      graph_bottom_margin = @hide_line_markers ? @bottom_margin : @bottom_margin + @marker_caps_height + LABEL_MARGIN
+      graph_bottom_margin = if (@hide_labels && !@has_left_labels) || (@hide_line_markers && @has_left_labels)
+                              # not adding labels or line marker data below graph
+                              @bottom_margin
+                            else
+                              @bottom_margin + @marker_caps_height + LABEL_MARGIN
+                            end
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 : @marker_caps_height + LABEL_MARGIN
       # FIXME: Consider chart types other than bar

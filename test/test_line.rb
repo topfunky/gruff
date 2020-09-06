@@ -2,7 +2,7 @@
 
 require_relative 'gruff_test_case'
 
-class TestGruffLine < GruffTestCase
+class TestGruffLine < GruffTestCase # rubocop:disable Metrics/ClassLength
   def test_should_render_with_transparent_theme
     g = Gruff::Line.new(400)
     g.title = 'Transparent Background'
@@ -347,6 +347,23 @@ class TestGruffLine < GruffTestCase
     assert_same_image('test/expected/line_no_title.png', 'test/output/line_no_title.png')
   end
 
+  def test_no_labels
+    g = setup_basic_graph(400)
+    g.title = 'No Labels'
+    g.hide_labels = true
+    g.write('test/output/line_no_labels.png')
+    assert_same_image('test/expected/line_no_labels.png', 'test/output/line_no_labels.png')
+  end
+
+  def test_no_line_markers_or_labels
+    g = setup_basic_graph(400)
+    g.title = 'No Line Markers or Labels'
+    g.hide_labels = true
+    g.hide_line_markers = true
+    g.write('test/output/line_no_line_markers_or_labels.png')
+    assert_same_image('test/expected/line_no_line_markers_or_labels.png', 'test/output/line_no_line_markers_or_labels.png')
+  end
+
   def test_no_line_markers
     g = setup_basic_graph(400)
     g.title = 'No Line Markers'
@@ -367,6 +384,7 @@ class TestGruffLine < GruffTestCase
     g = setup_basic_graph(400)
     g.title = 'THIS TITLE SHOULD NOT DISPLAY!!!'
     g.hide_line_markers = true
+    g.hide_labels = true
     g.hide_legend = true
     g.hide_title = true
     g.write('test/output/line_nothing_but_the_graph.png')
