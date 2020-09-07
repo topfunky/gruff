@@ -504,57 +504,17 @@ module Gruff
     # Calculates size of drawable area, general font dimensions, etc.
 
     def setup_graph_measurements
-      @marker_caps_height = @hide_line_markers ? 0 : calculate_caps_height(@marker_font_size)
-      @title_caps_height = hide_title? ? 0 : calculate_caps_height(@title_font_size) * @title.lines.to_a.size
-      @legend_caps_height = @hide_legend ? 0 : calculate_caps_height(@legend_font_size)
+      @marker_caps_height = setup_marker_caps_height
+      @title_caps_height = setup_title_caps_height
+      @legend_caps_height = setup_legend_caps_height
 
-      if @hide_line_markers
-        @graph_left = @left_margin
-        graph_right_margin = @right_margin
-        graph_bottom_margin = @bottom_margin
-      else
-        if @has_left_labels
-          longest_left_label_width = calculate_width(@marker_font_size,
-                                                     @labels.values.reduce('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
-        else
-          longest_left_label_width = calculate_width(@marker_font_size,
-                                                     label(maximum_value.to_f, @increment))
-        end
+      margin_on_right = graph_right_margin
+      @graph_right = @raw_columns - margin_on_right
+      @graph_left = setup_left_margin
+      @graph_top = setup_top_margin
+      @graph_bottom = setup_bottom_margin
 
-        # Shift graph if left line numbers are hidden
-        line_number_width = @hide_line_numbers && !@has_left_labels ? 0.0 : (longest_left_label_width + LABEL_MARGIN * 2)
-
-        @graph_left = @left_margin + line_number_width + (@y_axis_label.nil? ? 0.0 : @marker_caps_height + LABEL_MARGIN * 2)
-
-        # Make space for half the width of the rightmost column label.
-        # Might be greater than the number of columns if between-style bar markers are used.
-        last_label = @labels.keys.max.to_i
-        extra_room_for_long_label = begin
-          (last_label >= (column_count - 1) && @center_labels_over_point) ? calculate_width(@marker_font_size, @labels[last_label]) / 2.0 : 0
-        end
-        graph_right_margin = @right_margin + extra_room_for_long_label
-
-        graph_bottom_margin = @bottom_margin + @marker_caps_height + LABEL_MARGIN
-      end
-
-      @graph_right = @raw_columns - graph_right_margin
-      @graph_width = @raw_columns - @graph_left - graph_right_margin
-
-      # When @hide title, leave a title_margin space for aesthetics.
-      # Same with @hide_legend
-      @graph_top = begin
-        if @legend_at_bottom
-          @top_margin
-        else
-          @top_margin +
-            (hide_title? ? @title_margin : @title_caps_height + @title_margin) +
-            (@hide_legend ? @legend_margin : @legend_caps_height + @legend_margin)
-        end
-      end
-
-      x_axis_label_height = @x_axis_label.nil? ? 0.0 : @marker_caps_height + LABEL_MARGIN
-      # FIXME: Consider chart types other than bar
-      @graph_bottom = @raw_rows - graph_bottom_margin - x_axis_label_height - @label_stagger_height
+      @graph_width = @raw_columns - @graph_left - margin_on_right
       @graph_height = @graph_bottom - @graph_top
     end
 
@@ -784,6 +744,63 @@ module Gruff
     end
 
   private
+
+    def setup_marker_caps_height
+      @hide_line_markers ? 0 : calculate_caps_height(@marker_font_size)
+    end
+
+    def setup_title_caps_height
+      hide_title? ? 0 : calculate_caps_height(@title_font_size) * @title.lines.to_a.size
+    end
+
+    def setup_legend_caps_height
+      @hide_legend ? 0 : calculate_caps_height(@legend_font_size)
+    end
+
+    def graph_right_margin
+      @hide_line_markers ? @right_margin : @right_margin + extra_room_for_long_label
+    end
+
+    def extra_room_for_long_label
+      # Make space for half the width of the rightmost column label.
+      # Might be greater than the number of columns if between-style bar markers are used.
+      last_label = @labels.keys.max.to_i
+      (last_label >= (column_count - 1) && @center_labels_over_point) ? calculate_width(@marker_font_size, @labels[last_label]) / 2.0 : 0
+    end
+
+    def setup_left_margin
+      return @left_margin if @hide_line_markers
+
+      if @has_left_labels
+        longest_left_label_width = calculate_width(@marker_font_size,
+                                                   @labels.values.reduce('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
+      else
+        longest_left_label_width = calculate_width(@marker_font_size,
+                                                   label(maximum_value.to_f, @increment))
+      end
+      # Shift graph if left line numbers are hidden
+      line_number_width = @hide_line_numbers && !@has_left_labels ? 0.0 : (longest_left_label_width + LABEL_MARGIN * 2)
+
+      @left_margin + line_number_width + (@y_axis_label.nil? ? 0.0 : @marker_caps_height + LABEL_MARGIN * 2)
+    end
+
+    def setup_top_margin
+      return @top_margin if @legend_at_bottom
+
+      # When @hide title, leave a title_margin space for aesthetics.
+      # Same with @hide_legend
+      @top_margin +
+        (hide_title? ? @title_margin : @title_caps_height + @title_margin) +
+        (@hide_legend ? @legend_margin : @legend_caps_height + @legend_margin)
+    end
+
+    def setup_bottom_margin
+      graph_bottom_margin = @hide_line_markers ? @bottom_margin : @bottom_margin + @marker_caps_height + LABEL_MARGIN
+
+      x_axis_label_height = @x_axis_label.nil? ? 0.0 : @marker_caps_height + LABEL_MARGIN
+      # FIXME: Consider chart types other than bar
+      @raw_rows - graph_bottom_margin - x_axis_label_height - @label_stagger_height
+    end
 
     def truncate_label_text(text)
       return text if text.size <= @label_max_size
