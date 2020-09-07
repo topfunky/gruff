@@ -107,7 +107,7 @@ module Gruff
 
       if @gradated_background_retry_count < 3
         @gradated_background_retry_count += 1
-        gradated_background(top_color, bottom_color, direct)
+        gradated_background(columns, rows, top_color, bottom_color, direct)
       else
         raise e
       end
