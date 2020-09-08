@@ -10,6 +10,10 @@ module Gruff
         self.color = color
       end
 
+      def empty?
+        points.empty?
+      end
+
       def columns
         points.length
       end
