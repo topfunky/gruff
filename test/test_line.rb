@@ -303,6 +303,12 @@ class TestGruffLine < GruffTestCase
     g.no_data_message = 'There is no data'
     g.write('test/output/line_no_data_msg.png')
     assert_same_image('test/expected/line_no_data_msg.png', 'test/output/line_no_data_msg.png')
+
+    g = Gruff::Line.new(400)
+    g.data 'A', []
+    g.data 'B', []
+    g.write('test/output/line_no_data_with_empty.png')
+    assert_same_image('test/expected/line_no_data_with_empty.png', 'test/output/line_no_data_with_empty.png')
   end
 
   def test_all_zeros

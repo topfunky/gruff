@@ -26,7 +26,7 @@ module Gruff
     end
 
     def empty?
-      @data.empty?
+      @data.all?(&:empty?)
     end
 
     def length

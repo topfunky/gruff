@@ -10,6 +10,10 @@ module Gruff
         self.custom = custom
       end
 
+      def empty?
+        points.empty?
+      end
+
       def columns
         points.length
       end

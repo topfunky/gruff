@@ -18,6 +18,10 @@ module Gruff
         x_points.zip(y_points)
       end
 
+      def empty?
+        y_points.empty?
+      end
+
       def columns
         y_points.length
       end

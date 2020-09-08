@@ -168,6 +168,12 @@ class TestGruffNet < GruffTestCase
     g.no_data_message = 'There is no data'
     g.write('test/output/net_no_data_msg.png')
     assert_same_image('test/expected/net_no_data_msg.png', 'test/output/net_no_data_msg.png')
+
+    g = Gruff::Net.new(400)
+    g.data 'A', []
+    g.data 'B', []
+    g.write('test/output/net_no_data_with_empty.png')
+    assert_same_image('test/expected/net_no_data_with_empty.png', 'test/output/net_no_data_with_empty.png')
   end
 
   def test_all_zeros
