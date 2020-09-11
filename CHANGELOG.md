@@ -1,5 +1,16 @@
 # Change Log
 
+## 0.11.0
+- Fix regression in empty data handling (#445)
+- Rendering text in front most (#439)
+- Allow to change settings even after entered the data in Gruff::Histogram (#437)
+- Adjust label position in Gruff::Net (#436)
+- Adjust LABEL_MARGIN value (#435)
+- Add shadow line in marker line into Gruff::{Dot, SideBar, Scatter} (#430)
+- Move no data message to the vertical center (#428)
+- Remove the getter method in attributes for configuration (#424)
+- Fix title margin in Gruff::Bullet if empty title was given (#422)
+
 ## 0.10.0
 
 * Add Histogram chart (#419)
