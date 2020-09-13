@@ -199,7 +199,7 @@ module Gruff
     end
     protected :initialize_store
 
-    # Initialize instance variable of attribures
+    # Initialize instance variable of attributes
     #
     # Subclasses can override this, call super, then set values separately.
     #
@@ -500,6 +500,10 @@ module Gruff
       @hide_title || @title.nil? || @title.empty?
     end
 
+    def hide_labels?
+      @hide_line_markers
+    end
+
     ##
     # Calculates size of drawable area, general font dimensions, etc.
 
@@ -661,7 +665,7 @@ module Gruff
     end
 
     def draw_unique_label(index)
-      return if @hide_line_markers
+      return if hide_labels?
 
       @labels_seen ||= {}
       if !@labels[index].nil? && @labels_seen[index].nil?
@@ -746,7 +750,7 @@ module Gruff
   private
 
     def setup_marker_caps_height
-      @hide_line_markers ? 0 : calculate_caps_height(@marker_font_size)
+      hide_labels? ? 0 : calculate_caps_height(@marker_font_size)
     end
 
     def setup_title_caps_height
@@ -795,7 +799,7 @@ module Gruff
     end
 
     def setup_bottom_margin
-      graph_bottom_margin = @hide_line_markers ? @bottom_margin : @bottom_margin + @marker_caps_height + LABEL_MARGIN
+      graph_bottom_margin = hide_labels? ? @bottom_margin : @bottom_margin + @marker_caps_height + LABEL_MARGIN
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 : @marker_caps_height + LABEL_MARGIN
       # FIXME: Consider chart types other than bar
