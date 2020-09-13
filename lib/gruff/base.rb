@@ -504,6 +504,14 @@ module Gruff
       @hide_line_markers
     end
 
+    def hide_left_label_area?
+      @hide_line_markers
+    end
+
+    def hide_bottom_label_area?
+      @hide_line_markers
+    end
+
     ##
     # Calculates size of drawable area, general font dimensions, etc.
 
@@ -750,7 +758,7 @@ module Gruff
   private
 
     def setup_marker_caps_height
-      hide_labels? ? 0 : calculate_caps_height(@marker_font_size)
+      hide_bottom_label_area? ? 0 : calculate_caps_height(@marker_font_size)
     end
 
     def setup_title_caps_height
@@ -773,7 +781,7 @@ module Gruff
     end
 
     def setup_left_margin
-      return @left_margin if @hide_line_markers
+      return @left_margin if hide_left_label_area?
 
       if @has_left_labels
         longest_left_label_width = calculate_width(@marker_font_size,
@@ -799,7 +807,7 @@ module Gruff
     end
 
     def setup_bottom_margin
-      graph_bottom_margin = hide_labels? ? @bottom_margin : @bottom_margin + @marker_caps_height + LABEL_MARGIN
+      graph_bottom_margin = hide_bottom_label_area? ? @bottom_margin : @bottom_margin + @marker_caps_height + LABEL_MARGIN
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 : @marker_caps_height + LABEL_MARGIN
       # FIXME: Consider chart types other than bar
