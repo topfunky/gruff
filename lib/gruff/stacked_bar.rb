@@ -101,4 +101,12 @@ protected
   def hide_labels?
     @hide_labels
   end
+
+  def hide_left_label_area?
+    @hide_line_markers
+  end
+
+  def hide_bottom_label_area?
+    hide_labels?
+  end
 end
