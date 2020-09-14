@@ -66,6 +66,31 @@ class TestGruffSideBar < GruffTestCase
     assert_same_image('test/expected/side_bar_labels.png', 'test/output/side_bar_labels.png')
   end
 
+  def test_no_labels
+    g = setup_basic_graph(Gruff::SideBar, 400)
+    g.title = 'No Labels'
+    g.hide_labels = true
+    g.write('test/output/side_bar_no_labels.png')
+    assert_same_image('test/expected/side_bar_no_labels.png', 'test/output/side_bar_no_labels.png')
+  end
+
+  def test_no_line_markers_or_labels
+    g = setup_basic_graph(Gruff::SideBar, 400)
+    g.title = 'No Line Markers or Labels'
+    g.hide_labels = true
+    g.hide_line_markers = true
+    g.write('test/output/side_bar_no_line_markers_or_labels.png')
+    assert_same_image('test/expected/side_bar_no_line_markers_or_labels.png', 'test/output/side_bar_no_line_markers_or_labels.png')
+  end
+
+  def test_no_line_markers
+    g = setup_basic_graph(Gruff::SideBar, 400)
+    g.title = 'No Line Markers'
+    g.hide_line_markers = true
+    g.write('test/output/side_bar_no_line_markers.png')
+    assert_same_image('test/expected/side_bar_no_line_markers.png', 'test/output/side_bar_no_line_markers.png')
+  end
+
   def test_draw_twice
     g = setup_basic_graph(Gruff::SideBar, 800)
     g.show_labels_for_bar_values = true
