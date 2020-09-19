@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
     s.add_development_dependency 'rubocop-performance', '1.5.1'
   end
   s.add_dependency 'histogram'
-  s.required_ruby_version = '>= 2.3.0'
+  s.required_ruby_version = '>= 2.4.0'
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'minitest-reporters'
