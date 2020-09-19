@@ -2,13 +2,13 @@
 
 module Gruff
   class Renderer::Text
-    def initialize(text, args = {})
+    def initialize(text, font:, size:, color:, weight: Magick::NormalWeight, rotation: nil)
       @text = text.to_s
-      @font = args[:font]
-      @font_size = args[:size]
-      @font_color = args[:color]
-      @font_weight = args[:weight] || Magick::NormalWeight
-      @rotation = args[:rotation]
+      @font = font
+      @font_size = size
+      @font_color = color
+      @font_weight = weight
+      @rotation = rotation
     end
 
     attr_reader :width, :height, :x, :y, :gravity

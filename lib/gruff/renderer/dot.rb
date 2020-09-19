@@ -2,10 +2,10 @@
 
 module Gruff
   class Renderer::Dot
-    def initialize(style, config)
+    def initialize(style, color:, width: 1.0)
       @style = style
-      @color = config[:color]
-      @width = config[:width] || 1.0
+      @color = color
+      @width = width
     end
 
     def render(new_x, new_y, circle_radius)

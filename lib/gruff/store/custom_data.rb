@@ -23,9 +23,9 @@ module Gruff
         points.compact.max
       end
 
-      def normalize(args = {})
+      def normalize(minimum:, spread:)
         norm_points = points.map do |point|
-          point.nil? ? nil : (point.to_f - args[:minimum].to_f) / args[:spread]
+          point.nil? ? nil : (point.to_f - minimum.to_f) / spread
         end
 
         self.class.new(label, norm_points, color, custom)
