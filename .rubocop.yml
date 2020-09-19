@@ -112,3 +112,6 @@ Style/SymbolArray:
 
 Style/TernaryParentheses:
   Enabled: false
+
+Performance/ChainArrayAllocation:
+  Enabled: false

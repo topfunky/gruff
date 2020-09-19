@@ -93,13 +93,6 @@ Naming/MethodParameterName:
     - 'lib/gruff/pie.rb'
     - 'lib/gruff/renderer/text.rb'
 
-# Offense count: 7
-Performance/ChainArrayAllocation:
-  Exclude:
-    - 'lib/gruff/scene.rb'
-    - 'lib/gruff/store/store.rb'
-    - 'test/test_line.rb'
-
 # Offense count: 1
 # Configuration parameters: MinSize.
 Performance/CollectionLiteralInLoop:
