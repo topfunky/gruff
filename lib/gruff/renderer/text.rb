@@ -12,6 +12,7 @@ module Gruff
     end
 
     attr_reader :width, :height, :x, :y, :gravity
+
     def add_to_render_queue(width, height, x, y, gravity = Magick::NorthGravity)
       @width = width
       @height = height
