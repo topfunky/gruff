@@ -27,8 +27,8 @@ Gem::Specification.new do |s|
     s.add_dependency 'rmagick4j'
   else
     s.add_dependency 'rmagick'
-    s.add_development_dependency 'rubocop', '~> 0.81.0'
-    s.add_development_dependency 'rubocop-performance', '1.5.1'
+    s.add_development_dependency 'rubocop', '~> 0.91.0'
+    s.add_development_dependency 'rubocop-performance', '~> 1.8'
   end
   s.add_dependency 'histogram'
   s.required_ruby_version = '>= 2.4.0'
