@@ -2,9 +2,9 @@
 
 module Gruff
   class Renderer::Polyline
-    def initialize(args = {})
-      @color = args[:color]
-      @width = args[:width]
+    def initialize(color:, width:)
+      @color = color
+      @width = width
     end
 
     def render(points)

@@ -4,10 +4,10 @@ module Gruff
   class Renderer::Line
     EPSILON = 0.001
 
-    def initialize(args = {})
-      @color = args[:color]
-      @shadow_color = args[:shadow_color]
-      @width = args[:width]
+    def initialize(color:, width: nil, shadow_color: nil)
+      @color = color
+      @width = width
+      @shadow_color = shadow_color
     end
 
     def render(start_x, start_y, end_x, end_y)

@@ -2,10 +2,10 @@
 
 module Gruff
   class Renderer::Polygon
-    def initialize(args = {})
-      @color = args[:color]
-      @width = args[:width] || 1.0
-      @opacity = args[:opacity] || 1.0
+    def initialize(color:, width: 1.0, opacity: 1.0)
+      @color = color
+      @width = width
+      @opacity = opacity
     end
 
     def render(points)

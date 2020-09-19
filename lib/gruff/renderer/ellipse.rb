@@ -2,9 +2,9 @@
 
 module Gruff
   class Renderer::Ellipse
-    def initialize(args = {})
-      @color = args[:color]
-      @width = args[:width] || 1.0
+    def initialize(color:, width: 1.0)
+      @color = color
+      @width = width
     end
 
     def render(origin_x, origin_y, width, height, arc_start, arc_end)

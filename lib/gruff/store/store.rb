@@ -15,10 +15,10 @@ module Gruff
       @data << @data_class.new(*args)
     end
 
-    def normalize(args = {})
+    def normalize(**keywords)
       unless @normalized
         @data.each do |data_row|
-          @norm_data << data_row.normalize(args)
+          @norm_data << data_row.normalize(**keywords)
         end
 
         @normalized = true

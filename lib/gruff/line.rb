@@ -155,11 +155,9 @@ class Gruff::Line < Gruff::Base
   end
 
   def draw_reference_line(reference_line, left, right, top, bottom)
-    config = {
-      color: reference_line[:color] || @reference_line_default_color,
-      width: reference_line[:width] || @reference_line_default_width
-    }
-    Gruff::Renderer::DashLine.new(config).render(left, top, right, bottom)
+    color = reference_line[:color] || @reference_line_default_color
+    width = reference_line[:width] || @reference_line_default_width
+    Gruff::Renderer::DashLine.new(color: color, width: width).render(left, top, right, bottom)
   end
 
   def draw_horizontal_reference_line(reference_line)
