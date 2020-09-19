@@ -51,7 +51,7 @@ class Gruff::Scene < Gruff::Base
 
   def draw
     # Join all the custom paths and filter out the empty ones
-    image_paths = @layers.map(&:path).reject(&:empty?)
+    image_paths = @layers.map(&:path).reject!(&:empty?)
     images = Magick::ImageList.new(*image_paths)
     Gruff::Renderer.background_image = images.flatten_images
   end
@@ -122,7 +122,7 @@ class Gruff::Layer
   def initialize(base_dir, folder_name)
     @base_dir = base_dir.to_s
     @name = folder_name.to_s
-    @filenames = Dir.open(File.join(base_dir, folder_name)).entries.select { |file| file =~ /^[^.]+\.png$/ }.sort
+    @filenames = Dir.open(File.join(base_dir, folder_name)).entries.select! { |file| file =~ /^[^.]+\.png$/ }.sort!
     @selected_filename = select_default
   end
 

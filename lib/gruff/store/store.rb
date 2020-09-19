@@ -38,21 +38,21 @@ module Gruff
     end
 
     def min
-      @min ||= @data.map(&:min).compact.min
+      @min ||= @data.map(&:min).compact!.min
     end
     alias min_y min
 
     def max
-      @max ||= @data.map(&:max).compact.max
+      @max ||= @data.map(&:max).compact!.max
     end
     alias max_y max
 
     def min_x
-      @min_x ||= @data.map(&:min_x).compact.min
+      @min_x ||= @data.map(&:min_x).compact!.min
     end
 
     def max_x
-      @max_x ||= @data.map(&:max_x).compact.max
+      @max_x ||= @data.map(&:max_x).compact!.max
     end
 
     def sort_data!
