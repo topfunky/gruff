@@ -25,7 +25,7 @@ module Gruff
         @original_columns = @raw_columns
 
         case @legend_position
-        when :right then
+        when :right
           @rows = [@rows, legend_height].max
           @columns += calculate_legend_width + @left_margin
         else
@@ -55,7 +55,7 @@ module Gruff
         legend_top_margin = 40.0
 
         case @legend_position
-        when :right then
+        when :right
           current_x_offset = @original_columns + @left_margin
           current_y_offset = @top_margin + legend_top_margin
         else
