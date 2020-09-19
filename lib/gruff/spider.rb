@@ -118,6 +118,6 @@ private
   end
 
   def sums_for_spider
-    store.data.reduce(0.0) { |sum, data_row| sum + data_row.points.first }
+    store.data.sum { |data_row| data_row.points.first }
   end
 end

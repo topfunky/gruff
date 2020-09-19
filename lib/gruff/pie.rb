@@ -81,7 +81,7 @@ private
 
       slices.sort_by(&:value) if @sort
 
-      total = slices.map(&:value).inject(:+).to_f
+      total = slices.map(&:value).sum.to_f
       slices.each { |slice| slice.total = total }
     end
   end

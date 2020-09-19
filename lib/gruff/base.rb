@@ -572,13 +572,6 @@ module Gruff
       end
     end
 
-    # Return the sum of values in an array.
-    #
-    # Duplicated to not conflict with active_support in Rails.
-    def sum(arr)
-      arr.reduce(0) { |i, m| m + i }
-    end
-
     # Return a calculation of center
     def center(size)
       (@raw_columns - size) / 2
@@ -593,7 +586,7 @@ module Gruff
       legend_square_width = @legend_box_size # small square with color of this item
       label_widths = calculate_legend_label_widths_for_each_line(legend_labels, legend_square_width)
 
-      current_x_offset = center(sum(label_widths.first))
+      current_x_offset = center(label_widths.first.sum)
       current_y_offset = begin
         if @legend_at_bottom
           @graph_height + @title_margin
@@ -623,7 +616,7 @@ module Gruff
         # Handle wrapping
         if label_widths.first.empty?
           label_widths.shift
-          current_x_offset = center(sum(label_widths.first)) unless label_widths.empty?
+          current_x_offset = center(label_widths.first.sum) unless label_widths.empty?
           line_height = [@legend_caps_height, legend_square_width].max + @legend_margin
           unless label_widths.empty?
             # Wrap to next line and shrink available graph dimensions
@@ -866,7 +859,7 @@ module Gruff
         label_width = width + legend_square_width * 2.7
         label_widths.last.push label_width
 
-        if sum(label_widths.last) > (@raw_columns * 0.9)
+        if label_widths.last.sum > (@raw_columns * 0.9)
           label_widths.push [label_widths.last.pop]
         end
       end

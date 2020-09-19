@@ -56,11 +56,11 @@ module Gruff
     end
 
     def sort_data!
-      @data = @data.sort_by { |a| -a.points.reduce(0) { |acc, elem| acc + elem.to_f } }
+      @data = @data.sort_by { |a| -a.points.sum(&:to_f) }
     end
 
     def sort_norm_data!
-      @norm_data = @norm_data.sort_by { |a| -a.points.reduce(0) { |acc, elem| acc + elem.to_f } }
+      @norm_data = @norm_data.sort_by { |a| -a.points.sum(&:to_f) }
     end
 
     def reverse!
