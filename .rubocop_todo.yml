@@ -137,18 +137,6 @@ Security/Eval:
   Exclude:
     - 'test/gruff_test_case.rb'
 
-# Offense count: 16
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: separated, grouped
-Style/AccessorGrouping:
-  Exclude:
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/helper/bar_conversion.rb'
-    - 'lib/gruff/line.rb'
-    - 'lib/gruff/pie.rb'
-    - 'lib/gruff/scatter.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

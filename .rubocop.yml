@@ -38,6 +38,9 @@ Lint/AssignmentInCondition:
 Lint/NumberConversion:
   Enabled: false
 
+Style/AccessorGrouping:
+  Enabled: false
+
 Style/ClassAndModuleChildren:
   Enabled: false
 
