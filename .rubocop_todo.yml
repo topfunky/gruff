@@ -181,12 +181,6 @@ Style/MissingRespondToMissing:
   Exclude:
     - 'lib/gruff/scene.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/MultilineWhenThen:
-  Exclude:
-    - 'lib/gruff/mini/legend.rb'
-
 # Offense count: 1
 Style/OptionalBooleanParameter:
   Exclude:
