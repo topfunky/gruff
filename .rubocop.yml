@@ -3,6 +3,7 @@ require: rubocop-performance
 
 AllCops:
     EnabledByDefault: true
+    TargetRubyVersion: 2.4
     Exclude:
         - 'vendor/bundle/**/*'
         - 'rails_generators/gruff/**/*'
@@ -11,7 +12,7 @@ Gemspec/OrderedDependencies:
   Enabled: false
 
 Gemspec/RequiredRubyVersion:
-  Enabled: false
+  Enabled: true
 
 Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
