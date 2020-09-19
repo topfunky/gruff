@@ -4,10 +4,8 @@ module Gruff
   class Store
     class XYData < Struct.new(:label, :y_points, :color, :x_points)
       def initialize(label, y_points, color, x_points = nil)
-        self.label = label.to_s
-        self.y_points = Array(y_points)
-        self.color = color
-        self.x_points = Array(x_points) if x_points
+        x_points = Array(x_points) if x_points
+        super(label.to_s, Array(y_points), color, x_points)
       end
 
       def x_points

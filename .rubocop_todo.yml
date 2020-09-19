@@ -24,14 +24,6 @@ Lint/FloatComparison:
     - 'lib/gruff/renderer/renderer.rb'
     - 'lib/gruff/scatter.rb'
 
-# Offense count: 4
-Lint/MissingSuper:
-  Exclude:
-    - 'lib/gruff/bullet.rb'
-    - 'lib/gruff/store/base_data.rb'
-    - 'lib/gruff/store/custom_data.rb'
-    - 'lib/gruff/store/xy_data.rb'
-
 # Offense count: 1
 Lint/UnreachableCode:
   Exclude:

@@ -16,6 +16,8 @@ require 'gruff/themes'
 #
 class Gruff::Bullet < Gruff::Base
   def initialize(target_width = '400x40')
+    super
+
     if target_width.is_a?(String)
       @columns, @rows = target_width.split('x').map(&:to_f)
     else
@@ -24,10 +26,6 @@ class Gruff::Bullet < Gruff::Base
     end
     @columns.freeze
     @rows.freeze
-
-    initialize_graph_scale
-    initialize_ivars
-    initialize_store
 
     self.theme = Gruff::Themes::GREYSCALE
   end
