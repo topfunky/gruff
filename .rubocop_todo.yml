@@ -138,14 +138,6 @@ Security/Eval:
     - 'test/gruff_test_case.rb'
 
 # Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: def_self, self_class
-Style/ClassMethodsDefinitions:
-  Exclude:
-    - 'lib/gruff/renderer/renderer.rb'
-
-# Offense count: 1
 Style/CombinableLoops:
   Exclude:
     - 'test/test_line.rb'
