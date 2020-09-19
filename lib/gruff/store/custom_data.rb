@@ -4,10 +4,7 @@ module Gruff
   class Store
     class CustomData < Struct.new(:label, :points, :color, :custom)
       def initialize(label, points, color, custom = nil)
-        self.label = label.to_s
-        self.points = Array(points)
-        self.color = color
-        self.custom = custom
+        super(label.to_s, Array(points), color, custom)
       end
 
       def empty?

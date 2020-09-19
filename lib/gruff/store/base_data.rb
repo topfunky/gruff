@@ -5,9 +5,7 @@ module Gruff
   class Store
     class BaseData < Struct.new(:label, :points, :color)
       def initialize(label, points, color)
-        self.label = label.to_s
-        self.points = Array(points)
-        self.color = color
+        super(label.to_s, Array(points), color)
       end
 
       def empty?
