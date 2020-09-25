@@ -87,7 +87,7 @@ private
 
     store.norm_data.each_with_index do |data_row, row_index|
       data_row.points.each_with_index do |data_point, point_index|
-        ## using the original calcs from the stacked bar chart to get the difference between
+        ## using the original calculations from the stacked bar chart to get the difference between
         ## part of the bart chart we wish to stack.
         temp1 = @graph_left + (@graph_width -
                                   data_point * @graph_width -

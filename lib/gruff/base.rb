@@ -877,7 +877,7 @@ module Gruff
       metrics.height
     end
 
-    # Returns the width of a string at this pointsize.
+    # Returns the width of a string at this point size.
     #
     # Not scaled since it deals with dimensions that the regular
     # scaling will handle.

@@ -91,7 +91,7 @@ private
       data_row.points.each_with_index do |data_point, point_index|
         group_spacing = @group_spacing * @scale * point_index
 
-        # Using the original calcs from the stacked bar chart
+        # Using the original calculations from the stacked bar chart
         # to get the difference between
         # part of the bart chart we wish to stack.
         temp1 = @graph_left + (@graph_width - data_point * @graph_width - height[point_index])

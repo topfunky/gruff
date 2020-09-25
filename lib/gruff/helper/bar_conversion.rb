@@ -3,7 +3,7 @@
 ##
 # Original Author: David Stokar
 #
-#   This class perfoms the y coordinats conversion for the bar class.
+#   This class performs the y coordinates conversion for the bar class.
 #
 #   There are three cases:
 #

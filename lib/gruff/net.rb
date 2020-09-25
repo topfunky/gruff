@@ -25,7 +25,7 @@ require 'gruff/base'
 #   g.write("net.png")
 #
 class Gruff::Net < Gruff::Base
-  # Hide parts of the graph to fit more datapoints, or for a different appearance.
+  # Hide parts of the graph to fit more data points, or for a different appearance.
   attr_writer :hide_dots
 
   # Dimensions of lines and dots; calculated based on dataset size if left unspecified.

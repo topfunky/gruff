@@ -30,7 +30,7 @@ class Gruff::Line < Gruff::Base
   # default is +'circle'+, other options include square.
   attr_writer :dot_style
 
-  # Hide parts of the graph to fit more datapoints, or for a different appearance.
+  # Hide parts of the graph to fit more data points, or for a different appearance.
   attr_writer :hide_dots, :hide_lines
 
   # accessors for support of xy data.
@@ -134,7 +134,7 @@ class Gruff::Line < Gruff::Base
   #   g.data("Capples", [1, 1, 2, 2, 3, 3])
   #
   #   # labels will be drawn at the x locations of the keys passed in.
-  #   In this example the lables are drawn at x positions 2, 4, and 6:
+  #   In this example the labels are drawn at x positions 2, 4, and 6:
   #   g.labels = {0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006'}
   #   # The 0 => '2003' label will be ignored since it is outside the chart range.
   def dataxy(name, x_data_points = [], y_data_points = [], color = nil)
