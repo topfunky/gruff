@@ -1,6 +1,8 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
-RUN apt update && apt install -y gcc libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev \
+RUN apt update && \
+    apt install -y tzdata && \
+    apt install -y make gcc libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev \
     libmagickwand-dev wget git pkg-config && \
     wget https://cache.ruby-lang.org/pub/ruby/2.7/ruby-2.7.1.tar.gz && \
     tar xvzf ruby-2.7.1.tar.gz && \
