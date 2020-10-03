@@ -25,9 +25,11 @@ namespace :test do
   task :"image:update" do
     require 'rmagick'
     require 'fileutils'
+    require 'parallel'
 
     update_expected_images = lambda do |expect_dir, output_dir|
-      Dir.glob("#{output_dir}/*.png") do |output_path|
+      files = Dir.glob("#{output_dir}/*.png")
+      Parallel.each(files) do |output_path|
         file_name = File.basename(output_path)
         expected_path = "#{expect_dir}/#{file_name}"
 
