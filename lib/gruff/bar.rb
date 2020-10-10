@@ -19,6 +19,8 @@ require 'gruff/helper/bar_conversion'
 #   g.write('bar.png')
 #
 class Gruff::Bar < Gruff::Base
+  using String::GruffCommify
+
   # Spacing factor applied between bars.
   attr_writer :bar_spacing
 

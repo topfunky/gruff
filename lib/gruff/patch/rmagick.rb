@@ -3,33 +3,29 @@
 # @private
 module Magick
   # @private
-  class Draw
-    # Additional method to scale annotation text since Draw.scale doesn't.
-    def annotate_scaled(img, width, height, x, y, text, scale)
-      scaled_width = (width * scale) >= 1 ? (width * scale) : 1
-      scaled_height = (height * scale) >= 1 ? (height * scale) : 1
+  module GruffAnnotate
+    refine Draw do
+      # Additional method to scale annotation text since Draw.scale doesn't.
+      def annotate_scaled(img, width, height, x, y, text, scale)
+        scaled_width = (width * scale) >= 1 ? (width * scale) : 1
+        scaled_height = (height * scale) >= 1 ? (height * scale) : 1
 
-      annotate(img,
-               scaled_width, scaled_height,
-               x * scale, y * scale,
-               text.gsub('%', '%%'))
-    end
-
-    remove_method :stroke_opacity
-    def stroke_opacity(_opacity)
-      raise '#stroke_opacity method has different behavior between RMagick and RMagick4J. Should not use this method.'
-    end
-
-    if defined? JRUBY_VERSION
-      # FIXME(uwe):  We should NOT need to implement this method.
-      #              Remove this method as soon as RMagick4J Issue #16 is fixed.
-      #              https://github.com/Serabe/RMagick4J/issues/16
-      def fill=(fill)
-        fill = { white: '#FFFFFF' }[fill.to_sym] || fill
-        @draw.fill = Magick4J.ColorDatabase.query_default(fill)
-        self
+        annotate(img,
+                 scaled_width, scaled_height,
+                 x * scale, y * scale,
+                 text.gsub('%', '%%'))
       end
-      # EMXIF
+
+      if defined? JRUBY_VERSION
+        # FIXME(uwe):  We should NOT need to implement this method.
+        #              Remove this method as soon as RMagick4J Issue #16 is fixed.
+        #              https://github.com/Serabe/RMagick4J/issues/16
+        def fill=(fill)
+          fill = { white: '#FFFFFF' }[fill.to_sym] || fill
+          @draw.fill = Magick4J.ColorDatabase.query_default(fill)
+          self
+        end
+      end
     end
   end
 end

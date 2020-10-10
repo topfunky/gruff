@@ -21,6 +21,8 @@ require 'gruff/base'
 #   g.write('sidebar.png')
 #
 class Gruff::SideBar < Gruff::Base
+  using String::GruffCommify
+
   # Spacing factor applied between bars.
   attr_writer :bar_spacing
 
