@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Gruff
+  # @private
   class Renderer::Dot
     def initialize(style, color:, width: 1.0)
       @style = style

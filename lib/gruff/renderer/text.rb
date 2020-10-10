@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Gruff
+  # @private
   class Renderer::Text
     def initialize(text, font:, size:, color:, weight: Magick::NormalWeight, rotation: nil)
       @text = text.to_s

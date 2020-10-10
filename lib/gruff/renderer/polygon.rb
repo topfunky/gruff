@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Gruff
+  # @private
   class Renderer::Polygon
     def initialize(color:, width: 1.0, opacity: 1.0)
       @color = color
