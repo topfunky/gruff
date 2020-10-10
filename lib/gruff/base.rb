@@ -17,6 +17,7 @@ require 'bigdecimal'
 #
 # See {Gruff::Base#theme=} for setting themes.
 module Gruff
+  # A common base class inherited from class of drawing a graph.
   class Base
     # Space around text elements. Mostly used for vertical spacing.
     LEGEND_MARGIN = TITLE_MARGIN = 20.0

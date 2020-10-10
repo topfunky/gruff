@@ -15,7 +15,7 @@ require 'gruff/base'
 #   g.data :Wisdom, [10]
 #   g.data 'Charisma', [16]
 #   g.write("spider.png")
-
+#
 class Gruff::Spider < Gruff::Base
   # Hide all text.
   attr_writer :hide_axes

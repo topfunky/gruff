@@ -13,6 +13,7 @@
 #
 module Gruff
   module Mini
+    # A class for drawing a small pie graph.
     class Pie < Gruff::Pie
       include Gruff::Mini::Legend
 
