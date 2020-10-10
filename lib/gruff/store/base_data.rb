@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Gruff
-  # @private
   class Store
+    # @private
     class BaseData < Struct.new(:label, :points, :color)
       def initialize(label, points, color)
         super(label.to_s, Array(points), color)

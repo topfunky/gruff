@@ -2,6 +2,7 @@
 
 module Gruff
   class Store
+    # @private
     class CustomData < Struct.new(:label, :points, :color, :custom)
       def initialize(label, points, color, custom = nil)
         super(label.to_s, Array(points), color, custom)
