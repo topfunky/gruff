@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Gruff
+  # @private
   class Renderer::Polyline
     def initialize(color:, width:)
       @color = color

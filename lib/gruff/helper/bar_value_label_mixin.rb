@@ -2,6 +2,7 @@
 
 # @private
 module Gruff::Base::BarValueLabelMixin
+  # @private
   class BarValueLabel
     attr_accessor :coordinates, :values
 

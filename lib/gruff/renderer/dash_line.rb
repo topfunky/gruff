@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Gruff
+  # @private
   class Renderer::DashLine
     def initialize(color:, width:)
       @color = color

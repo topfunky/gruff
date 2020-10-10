@@ -14,6 +14,7 @@
 #
 module Gruff
   module Mini
+    # A class for drawing a small bar graph.
     class Bar < Gruff::Bar
       include Gruff::Mini::Legend
 

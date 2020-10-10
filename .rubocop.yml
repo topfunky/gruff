@@ -53,6 +53,9 @@ Style/ConstantVisibility:
 Style/Copyright:
   Enabled: false
 
+Style/Documentation:
+  Enabled: true
+
 Style/Encoding:
   Enabled: false
 

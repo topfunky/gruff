@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# @private
 class String
   THOUSAND_SEPARATOR = ','
 

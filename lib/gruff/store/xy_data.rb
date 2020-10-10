@@ -2,6 +2,7 @@
 
 module Gruff
   class Store
+    # @private
     class XYData < Struct.new(:label, :y_points, :color, :x_points)
       def initialize(label, y_points, color, x_points = nil)
         x_points = Array(x_points) if x_points
