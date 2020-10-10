@@ -127,10 +127,6 @@ Style/CombinableLoops:
   Exclude:
     - 'test/test_line.rb'
 
-# Offense count: 23
-Style/Documentation:
-  Enabled: false
-
 # Offense count: 135
 # Configuration parameters: RequireForNonPublicMethods.
 Style/DocumentationMethod:
