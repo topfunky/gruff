@@ -13,7 +13,9 @@ Gem::Specification.new do |s|
   s.date = Date.today.to_s
   s.description = 'Beautiful graphs for one or multiple datasets. Can be used on websites or in documents.'
   s.email = 'boss@topfunky.com'
-  s.files = `git ls-files`.split($/).reject { |f| f =~ /^test/ }
+  s.files = `git ls-files`.split.reject do |f|
+    f =~ /^\.|^test|^docker|^Rakefile/
+  end
   s.homepage = 'https://github.com/topfunky/gruff'
   s.require_paths = %w[lib]
   s.summary = 'Beautiful graphs for one or multiple datasets.'
