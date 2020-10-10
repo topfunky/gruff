@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'gruff/base'
-require 'gruff/themes'
-
 #
 # A bullet graph is a variation of a bar graph.
 # http://en.wikipedia.org/wiki/Bullet_graph

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'gruff/base'
-
 #
 # Gruff::AccumulatorBar is a special bar graph that shows a
 # single dataset as a set of stacked bars.

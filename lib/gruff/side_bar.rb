@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'gruff/base'
-
 # Graph with individual horizontal bars instead of vertical bars.
 #
 # Here's how to set up a Gruff::SideBar.

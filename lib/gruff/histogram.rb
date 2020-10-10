@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'histogram'
-require 'gruff/base'
 
 #
 # Here's how to set up a Gruff::Histogram.

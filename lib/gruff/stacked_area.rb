@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'gruff/base'
-require 'gruff/helper/stacked_mixin'
-
 #
 # Here's how to set up a Gruff::StackedArea.
 #

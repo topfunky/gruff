@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'observer'
-require 'gruff/base'
 
 # A scene is a non-linear graph that assembles layers together to tell a story.
 # Layers are folders with appropriately named files (see below). You can group
