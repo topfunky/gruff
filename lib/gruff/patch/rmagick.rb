@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+# @private
 module Magick
+  # @private
   class Draw
     # Additional method to scale annotation text since Draw.scale doesn't.
     def annotate_scaled(img, width, height, x, y, text, scale)
