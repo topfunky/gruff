@@ -3,6 +3,8 @@
 module Gruff
   # @private
   class Renderer::Text
+    using Magick::GruffAnnotate
+
     def initialize(text, font:, size:, color:, weight: Magick::NormalWeight, rotation: nil)
       @text = text.to_s
       @font = font

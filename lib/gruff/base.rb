@@ -17,6 +17,8 @@ require 'bigdecimal'
 #
 # See {Gruff::Base#theme=} for setting themes.
 module Gruff
+  using String::GruffCommify
+
   # A common base class inherited from class of drawing a graph.
   class Base
     # Space around text elements. Mostly used for vertical spacing.

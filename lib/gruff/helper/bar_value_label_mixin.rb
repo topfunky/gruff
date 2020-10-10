@@ -2,6 +2,8 @@
 
 # @private
 module Gruff::Base::BarValueLabelMixin
+  using String::GruffCommify
+
   # @private
   class BarValueLabel
     attr_accessor :coordinates, :values
