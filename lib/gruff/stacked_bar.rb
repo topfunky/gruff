@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require 'gruff/base'
-require 'gruff/helper/stacked_mixin'
-require 'gruff/helper/bar_value_label_mixin'
-
 #
 # Here's how to set up a Gruff::StackedBar.
 #

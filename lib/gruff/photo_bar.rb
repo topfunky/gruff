@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'gruff/base'
-
 # EXPERIMENTAL!
 #
 # Doesn't work yet.

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'gruff/base'
-
 #
 # Gruff::Bezier is a special line graph that have
 # the bezier curve.

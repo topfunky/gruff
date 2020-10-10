@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'gruff/base'
-require 'gruff/helper/bar_conversion'
-
 #
 # Gruff::Bar provide a bar graph that presents categorical data
 # with rectangular bars.

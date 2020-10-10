@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'gruff/base'
-
 # See also the Spider graph.
 #
 # Here's how to make a Gruff::Net.

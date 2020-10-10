@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'gruff/base'
-
 #
 # Graph with dots and labels along a vertical access.
 # see: 'Creating More Effective Graphs' by Robbins

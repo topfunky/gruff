@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'gruff/base'
-
 #
 # Gruff::Area provides an area graph which displays graphically
 # quantitative data.
