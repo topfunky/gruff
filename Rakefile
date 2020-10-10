@@ -14,13 +14,6 @@ task gem: :build
 Rake::TestTask.new
 
 namespace :test do
-  desc 'Run mini tests'
-  task mini: :clean do
-    Dir['test/test_mini*'].each do |file|
-      system "ruby #{file}"
-    end
-  end
-
   desc 'Update expected image with output'
   task :"image:update" do
     require 'rmagick'
