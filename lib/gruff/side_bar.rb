@@ -132,7 +132,7 @@ private
     return if @hide_line_markers
 
     # Draw horizontal line markers and annotate with numbers
-    number_of_lines = @marker_count || 5
+    number_of_lines = marker_count
     number_of_lines = 1 if number_of_lines == 0
 
     # TODO: Round maximum marker value to a round number like 100, 0.1, 0.5, etc.

@@ -54,7 +54,7 @@ protected
   def draw_line_markers
     return if @hide_line_markers
 
-    (0..@marker_count).each do |index|
+    (0..marker_count).each do |index|
       marker_label = minimum_value + index * @increment
       x = @graph_left + (marker_label - minimum_value) * @graph_width / @spread
 

@@ -486,6 +486,18 @@ module Gruff
       store.columns
     end
 
+    def marker_count
+      @marker_count ||= begin
+        count = nil
+        (3..7).each do |lines|
+          if @spread.to_f % lines == 0.0
+            count = lines and break
+          end
+        end
+        count || 4
+      end
+    end
+
     # Make copy of data with values scaled between 0-100
     def normalize
       store.normalize(minimum: minimum_value, spread: @spread)
@@ -557,7 +569,7 @@ module Gruff
       increment_scaled = @graph_height.to_f / (@spread / @increment)
 
       # Draw horizontal line markers and annotate with numbers
-      (0..@marker_count).each do |index|
+      (0..marker_count).each do |index|
         y = @graph_top + @graph_height - index.to_f * increment_scaled
 
         line_renderer = Gruff::Renderer::Line.new(color: @marker_color, shadow_color: @marker_shadow_color)
@@ -836,7 +848,7 @@ module Gruff
                 else
                   value.to_s
                 end
-              elsif (@spread.to_f % (@marker_count.to_f == 0 ? 1 : @marker_count.to_f) == 0) || !@y_axis_increment.nil?
+              elsif (@spread.to_f % (marker_count.to_f == 0 ? 1 : marker_count.to_f) == 0) || !@y_axis_increment.nil?
                 value.to_i.to_s
               elsif @spread > 10.0
                 sprintf('%0i', value)
@@ -894,19 +906,10 @@ module Gruff
         # Try to use a number of horizontal lines that will come out even.
         #
         # TODO Do the same for larger numbers...100, 75, 50, 25
-        if @marker_count.nil?
-          (3..7).each do |lines|
-            if @spread % lines == 0.0
-              @marker_count = lines
-              break
-            end
-          end
-          @marker_count ||= 4
-        end
-        @increment = (@spread > 0 && @marker_count > 0) ? significant(@spread / @marker_count) : 1
+        @increment = (@spread > 0 && marker_count > 0) ? significant(@spread / marker_count) : 1
       else
         # TODO: Make this work for negative values
-        @marker_count = (@spread / @y_axis_increment).to_i
+        self.marker_count = (@spread / @y_axis_increment).to_i
         @increment = @y_axis_increment
       end
     end
