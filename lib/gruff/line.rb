@@ -233,8 +233,6 @@ class Gruff::Line < Gruff::Base
         prev_y = new_y
       end
     end
-
-    Gruff::Renderer.finish
   end
 
 private

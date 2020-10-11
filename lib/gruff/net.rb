@@ -67,8 +67,6 @@ class Gruff::Net < Gruff::Base
         Gruff::Renderer::Circle.new(color: data_row.color, width: @stroke_width).render(start_x, start_y, start_x - @circle_radius, start_y) unless @hide_dots
       end
     end
-
-    Gruff::Renderer.finish
   end
 
 private

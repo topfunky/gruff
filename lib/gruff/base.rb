@@ -434,6 +434,7 @@ module Gruff
     #
     def to_image
       draw
+      Gruff::Renderer.finish
       Gruff::Renderer.instance.image
     end
 

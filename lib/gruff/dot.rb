@@ -42,8 +42,6 @@ class Gruff::Dot < Gruff::Base
         draw_label(y_pos, point_index)
       end
     end
-
-    Gruff::Renderer.finish
   end
 
 protected

@@ -62,8 +62,6 @@ class Gruff::Spider < Gruff::Base
 
     # Draw polygon
     draw_polygon(center_x, center_y, additive_angle)
-
-    Gruff::Renderer.finish
   end
 
 private

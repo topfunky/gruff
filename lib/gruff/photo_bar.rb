@@ -68,8 +68,6 @@ class Gruff::PhotoBar < Gruff::Base
         draw_label(label_center, point_index)
       end
     end
-
-    Gruff::Renderer.finish
   end
 
   # Return the chosen theme or the default

@@ -88,8 +88,6 @@ class Gruff::StackedBar < Gruff::Base
         draw_value_label(x, y, text, true)
       end
     end
-
-    Gruff::Renderer.finish
   end
 
 protected

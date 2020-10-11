@@ -123,8 +123,6 @@ private
         end
       end
     end
-
-    Gruff::Renderer.finish
   end
 
   # Instead of base class version, draws vertical background lines and label
