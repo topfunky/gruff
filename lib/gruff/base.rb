@@ -440,9 +440,13 @@ module Gruff
     # Return the graph as a rendered binary blob.
     #
     # @param image_format [String] The image format of binary blob.
+    #
+    # @deprecated Please use +to_image.to_blob+ instead.
     def to_blob(image_format = 'PNG')
-      draw
-      Gruff::Renderer.to_blob(image_format)
+      warn '#to_blob is deprecated. Please use `to_image.to_blob` instead'
+      to_image.to_blob do
+        self.format = image_format
+      end
     end
 
   protected
