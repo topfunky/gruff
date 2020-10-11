@@ -416,8 +416,25 @@ module Gruff
     # @example
     #   write('graphs/my_pretty_graph.png')
     def write(file_name = 'graph.png')
+      to_image.write(file_name)
+    end
+
+    # Return a rendered graph image.
+    # This can use RMagick's methods to adjust the image before saving.
+    #
+    # @return [Magick::Image] The rendered image.
+    #
+    # @example
+    #   g = Gruff::Line.new
+    #   g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88]
+    #   g.data :Charles, [80, 54, 67, 54, 68, 70, 90, 95]
+    #   image = g.to_image
+    #   image = image.resize(400, 300).quantize(128, Magick::RGBColorspace)
+    #   image.write('test.png')
+    #
+    def to_image
       draw
-      Gruff::Renderer.write(file_name)
+      Gruff::Renderer.instance.image
     end
 
     # Return the graph as a rendered binary blob.

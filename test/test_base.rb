@@ -124,4 +124,10 @@ class TestGruffBase < GruffTestCase
     assert_equal(1, g.minimum_value)
     assert_equal(3, g.maximum_value)
   end
+
+  def test_to_image
+    g = Gruff::Bar.new
+    g.data :bar, [6, 7, 8, 9, 10]
+    assert_kind_of(Magick::Image, g.to_image)
+  end
 end
