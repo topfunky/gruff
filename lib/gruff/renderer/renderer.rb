@@ -48,10 +48,6 @@ module Gruff
       end
     end
 
-    def self.write(file_name)
-      Renderer.instance.image.write(file_name)
-    end
-
     def self.to_blob(file_format)
       Renderer.instance.image.to_blob do
         self.format = file_format
