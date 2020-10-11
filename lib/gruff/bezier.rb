@@ -53,7 +53,5 @@ class Gruff::Bezier < Gruff::Base
         Gruff::Renderer::Bezier.new(color: data_row.color, width: stroke_width).render(poly_points)
       end
     end
-
-    Gruff::Renderer.finish
   end
 end

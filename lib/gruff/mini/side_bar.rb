@@ -42,8 +42,6 @@ module Gruff
         super
 
         draw_vertical_legend
-
-        Gruff::Renderer.finish
       end
     end
   end

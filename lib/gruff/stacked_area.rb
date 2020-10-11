@@ -66,7 +66,5 @@ class Gruff::StackedArea < Gruff::Base
 
       Gruff::Renderer::Polygon.new(color: data_row.color).render(poly_points)
     end
-
-    Gruff::Renderer.finish
   end
 end

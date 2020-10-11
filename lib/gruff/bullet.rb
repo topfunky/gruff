@@ -83,8 +83,6 @@ class Gruff::Bullet < Gruff::Base
     # Value
     rect_renderer = Gruff::Renderer::Rectangle.new(color: @font_color)
     rect_renderer.render(graph_left, thickness, graph_left + graph_width * (@value / maximum_value), thickness * 2)
-
-    Gruff::Renderer.finish
   end
 
 private

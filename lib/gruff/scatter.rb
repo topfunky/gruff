@@ -82,8 +82,6 @@ class Gruff::Scatter < Gruff::Base
         Gruff::Renderer::Circle.new(color: data_row.color, width: stroke_width).render(new_x, new_y, new_x - circle_radius, new_y)
       end
     end
-
-    Gruff::Renderer.finish
   end
 
   # The first parameter is the name of the dataset.  The next two are the

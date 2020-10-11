@@ -144,8 +144,6 @@ protected
 
     # Draw the last label if requested
     draw_label(@graph_right, column_count, Magick::NorthWestGravity) if @center_labels_over_point
-
-    Gruff::Renderer.finish
   end
 
   def calculate_spacing
