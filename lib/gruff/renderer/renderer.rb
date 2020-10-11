@@ -48,12 +48,6 @@ module Gruff
       end
     end
 
-    def self.to_blob(file_format)
-      Renderer.instance.image.to_blob do
-        self.format = file_format
-      end
-    end
-
     def background(columns, rows, scale, theme_options)
       case theme_options[:background_colors]
       when Array
