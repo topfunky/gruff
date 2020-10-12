@@ -433,9 +433,11 @@ module Gruff
     #   image.write('test.png')
     #
     def to_image
-      draw
-      Gruff::Renderer.finish
-      Gruff::Renderer.instance.image
+      @to_image ||= begin
+        draw
+        Gruff::Renderer.finish
+        Gruff::Renderer.instance.image
+      end
     end
 
     # Return the graph as a rendered binary blob.
