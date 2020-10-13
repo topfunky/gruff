@@ -35,6 +35,9 @@ Layout/MultilineAssignmentLayout:
 Lint/AssignmentInCondition:
   Enabled: false
 
+Lint/ConstantResolution:
+  Enabled: false
+
 Lint/NumberConversion:
   Enabled: false
 
