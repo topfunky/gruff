@@ -51,7 +51,7 @@ module Gruff
     def background(columns, rows, scale, theme_options)
       case theme_options[:background_colors]
       when Array
-        gradated_background(columns, rows, theme_options[:background_colors][0], theme_options[:background_colors][1], theme_options[:background_direction])
+        gradated_background(columns, rows, *theme_options[:background_colors][0..1], theme_options[:background_direction])
       when String
         solid_background(columns, rows, theme_options[:background_colors])
       else
