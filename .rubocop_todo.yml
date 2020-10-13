@@ -149,12 +149,6 @@ Style/OptionalBooleanParameter:
   Exclude:
     - 'lib/gruff/base.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/RedundantRegexpEscape:
-  Exclude:
-    - 'test/gruff_test_case.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 Style/StringConcatenation:

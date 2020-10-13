@@ -21,7 +21,7 @@ class Gruff::Base
 
   def write(filename = 'graph.png')
     basefilename = File.basename(filename).split('.')[0..-2].join('.')
-    extension = filename.slice(/\.[^\.]*$/)
+    extension = File.extname(filename)
     testfilename = File.join(TEST_OUTPUT_DIR, basefilename) + extension
     counter = 0
     while File.exist?(testfilename)
