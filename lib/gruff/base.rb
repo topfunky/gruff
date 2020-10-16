@@ -814,13 +814,16 @@ module Gruff
     def setup_left_margin
       return @left_margin if hide_left_label_area?
 
-      if @has_left_labels
-        longest_left_label_width = calculate_width(@marker_font_size,
-                                                   @labels.values.reduce('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }) * 1.25
-      else
-        longest_left_label_width = calculate_width(@marker_font_size,
-                                                   label(maximum_value.to_f, @increment))
+      text = begin
+        if @has_left_labels
+          @labels.values.reduce('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }
+        else
+          label(maximum_value.to_f, @increment)
+        end
       end
+      longest_left_label_width = calculate_width(@marker_font_size, text)
+      longest_left_label_width *= 1.25 if @has_left_labels
+
       # Shift graph if left line numbers are hidden
       line_number_width = @hide_line_numbers && !@has_left_labels ? 0.0 : (longest_left_label_width + LABEL_MARGIN * 2)
 
