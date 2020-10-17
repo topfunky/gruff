@@ -26,6 +26,9 @@ Layout/FirstMethodArgumentLineBreak:
 Layout/LeadingCommentSpace:
   Enabled: false
 
+Layout/LineLength:
+  Max: 150
+
 Layout/MultilineMethodArgumentLineBreaks:
   Enabled: false
 
