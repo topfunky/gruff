@@ -68,7 +68,8 @@ module Gruff
           # Draw label
           label = truncate_legend_label(legend_label)
           text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @legend_font_size, color: @font_color)
-          text_renderer.add_to_render_queue(@raw_columns, 1.0, current_x_offset + (legend_square_width * 1.7), current_y_offset, Magick::WestGravity)
+          x_offset = current_x_offset + (legend_square_width * 1.7)
+          text_renderer.add_to_render_queue(@raw_columns, 1.0, x_offset, current_y_offset, Magick::WestGravity)
 
           # Now draw box with color of this dataset
           rect_renderer = Gruff::Renderer::Rectangle.new(color: store.data[index].color)
@@ -88,7 +89,10 @@ module Gruff
 
       def truncate_legend_label(label)
         truncated_label = label.to_s
-        while calculate_width(scale_fontsize(@legend_font_size), truncated_label) > (@columns - @legend_left_margin - @right_margin) && (truncated_label.length > 1)
+
+        font_size = scale_fontsize(@legend_font_size)
+        max_width = @columns - @legend_left_margin - @right_margin
+        while calculate_width(font_size, truncated_label) > max_width && truncated_label.length > 1
           truncated_label = truncated_label[0..truncated_label.length - 2]
         end
         truncated_label + (truncated_label.length < label.to_s.length ? '...' : '')

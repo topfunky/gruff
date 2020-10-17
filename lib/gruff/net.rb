@@ -64,7 +64,10 @@ class Gruff::Net < Gruff::Base
 
         Gruff::Renderer::Line.new(color: data_row.color, width: @stroke_width).render(start_x, start_y, end_x, end_y)
 
-        Gruff::Renderer::Circle.new(color: data_row.color, width: @stroke_width).render(start_x, start_y, start_x - @circle_radius, start_y) unless @hide_dots
+        unless @hide_dots
+          circle_renderer = Gruff::Renderer::Circle.new(color: data_row.color, width: @stroke_width)
+          circle_renderer.render(start_x, start_y, start_x - @circle_radius, start_y)
+        end
       end
     end
   end
