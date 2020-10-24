@@ -197,7 +197,7 @@ module Gruff
     protected :initialize_graph_scale
 
     def initialize_store
-      @store = Gruff::Store.new(Gruff::Store::BaseData)
+      @store = Gruff::Store.new(Gruff::Store::BasicData)
     end
     protected :initialize_store
 
