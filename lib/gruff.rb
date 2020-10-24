@@ -48,7 +48,7 @@ require 'gruff/version'
   renderer/text
 
   store/store
-  store/base_data
+  store/basic_data
   store/custom_data
   store/xy_data
 
