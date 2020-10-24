@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
     s.add_dependency 'rmagick4j'
   else
     s.add_dependency 'rmagick'
-    s.add_development_dependency 'rubocop', '~> 0.93.1'
+    s.add_development_dependency 'rubocop', '~> 1.0.0'
     s.add_development_dependency 'rubocop-performance', '~> 1.8'
   end
   s.add_dependency 'histogram'
