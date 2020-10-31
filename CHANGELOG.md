@@ -1,5 +1,14 @@
 # Change Log
 
+## 0.12.0
+- Mark Gruff::Base#to_blob as deprecated (#473)
+- Add Gruff::Base#to_image method (#472)
+- Drop support of Ruby v2.3.x or below (#453, #448)
+- add hide_labels to stacked side bar graphs (#452)
+- add hide_labels to side bar graphs (#451)
+- add hide_labels to stacked bar graphs (#450)
+- support hide_labels separate from hide_line_markers for bar graphs only (#446)
+
 ## 0.11.0
 - Fix regression in empty data handling (#445)
 - Rendering text in front most (#439)
