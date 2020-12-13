@@ -127,12 +127,6 @@ Performance/StringReplacement:
   Exclude:
     - 'lib/gruff/scene.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Performance/Sum:
-  Exclude:
-    - 'lib/gruff/pie.rb'
-
 # Offense count: 2
 Security/Eval:
   Exclude:
