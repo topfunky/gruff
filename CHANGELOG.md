@@ -1,5 +1,8 @@
 # Change Log
 
+## 0.12.2
+- Avoid SEGV caused with '%S' in Draw#get_type_metrics by old ImageMagick (6.9.9 or below)  (#490)
+
 ## 0.12.0
 - Mark Gruff::Base#to_blob as deprecated (#473)
 - Add Gruff::Base#to_image method (#472)
