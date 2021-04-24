@@ -51,7 +51,14 @@ module Gruff
 
       draw.font_weight = font_weight
       draw.pointsize = size
-      draw.get_type_metrics(image, text.to_s)
+
+      # The old ImageMagick causes SEGV with string which has '%' + alphabet (eg. '%S').
+      # This format is used to embed value into a string using image properties.
+      # However, gruff use plain image as canvas which does not have any property.
+      # So, in here, it just escape % in order to avoid SEGV.
+      text = text.to_s.gsub(/(%+)/) { ('%' * Regexp.last_match(1).size * 2).to_s }
+
+      draw.get_type_metrics(image, text)
     end
   end
 end
