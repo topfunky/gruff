@@ -627,7 +627,7 @@ module Gruff
       current_x_offset = center(label_widths.first.sum)
       current_y_offset = begin
         if @legend_at_bottom
-          @graph_height + @title_margin
+          @graph_bottom + @legend_margin + @legend_caps_height + LABEL_MARGIN
         else
           hide_title? ? @top_margin + @title_margin : @top_margin + @title_margin + @title_caps_height
         end
@@ -831,17 +831,16 @@ module Gruff
     end
 
     def setup_top_margin
-      return @top_margin if @legend_at_bottom
-
       # When @hide title, leave a title_margin space for aesthetics.
       # Same with @hide_legend
       @top_margin +
         (hide_title? ? @title_margin : @title_caps_height + @title_margin) +
-        (@hide_legend ? @legend_margin : @legend_caps_height + @legend_margin)
+        ((@hide_legend || @legend_at_bottom) ? @legend_margin : @legend_caps_height + @legend_margin)
     end
 
     def setup_bottom_margin
       graph_bottom_margin = hide_bottom_label_area? ? @bottom_margin : @bottom_margin + @marker_caps_height + LABEL_MARGIN
+      graph_bottom_margin += (@legend_caps_height + @legend_margin) if @legend_at_bottom
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 : @marker_caps_height + LABEL_MARGIN
       # FIXME: Consider chart types other than bar
