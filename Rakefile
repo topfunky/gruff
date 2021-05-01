@@ -21,6 +21,8 @@ namespace :test do
     require 'parallel'
 
     update_expected_images = lambda do |expect_dir, output_dir|
+      sh "pngquant --quality 100 #{output_dir}/*.png"
+
       files = Dir.glob("#{output_dir}/*.png")
       Parallel.each(files) do |output_path|
         file_name = File.basename(output_path)
