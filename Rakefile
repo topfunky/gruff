@@ -43,6 +43,5 @@ namespace :test do
     end
 
     update_expected_images.call('test/expected', 'test/output')
-    update_expected_images.call('test/expected_java', 'test/output_java')
   end
 end
