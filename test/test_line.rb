@@ -387,6 +387,15 @@ class TestGruffLine < GruffTestCase
     assert_same_image('test/expected/line_legend_at_bottom.png', 'test/output/line_legend_at_bottom.png')
   end
 
+  def test_legend_below_the_chart_without_title
+    g = setup_basic_graph(400)
+    g.title = 'Legend below the chart'
+    g.hide_title = true
+    g.legend_at_bottom = true
+    g.write('test/output/line_legend_at_bottom_no_title.png')
+    assert_same_image('test/expected/line_legend_at_bottom_no_title.png', 'test/output/line_legend_at_bottom_no_title.png')
+  end
+
   def test_baseline_larger_than_data
     g = setup_basic_graph(400)
     g.title = 'Baseline Larger Than Data'
