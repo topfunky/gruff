@@ -26,9 +26,13 @@ namespace :test do
         file_name = File.basename(output_path)
         expected_path = "#{expect_dir}/#{file_name}"
 
-        expected_image = Magick::Image.read(expected_path).first
+        error = nil
         output_image = Magick::Image.read(output_path).first
-        _, error = expected_image.compare_channel(output_image, Magick::PeakAbsoluteErrorMetric)
+
+        if File.exist?(expected_path)
+          expected_image = Magick::Image.read(expected_path).first
+          _, error = expected_image.compare_channel(output_image, Magick::PeakAbsoluteErrorMetric)
+        end
 
         if error != 0.0
           FileUtils.copy(output_path, expected_path)
