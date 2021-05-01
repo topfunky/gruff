@@ -659,8 +659,6 @@ module Gruff
           unless label_widths.empty?
             # Wrap to next line and shrink available graph dimensions
             current_y_offset += line_height
-            @graph_top += line_height
-            @graph_height = @graph_bottom - @graph_top
           end
         end
       end
@@ -835,12 +833,12 @@ module Gruff
       # Same with @hide_legend
       @top_margin +
         (hide_title? ? @title_margin : @title_caps_height + @title_margin) +
-        ((@hide_legend || @legend_at_bottom) ? @legend_margin : @legend_caps_height + @legend_margin)
+        ((@hide_legend || @legend_at_bottom) ? @legend_margin : calculate_legend_height + @legend_margin)
     end
 
     def setup_bottom_margin
       graph_bottom_margin = hide_bottom_label_area? ? @bottom_margin : @bottom_margin + @marker_caps_height + LABEL_MARGIN
-      graph_bottom_margin += (@legend_caps_height + @legend_margin) if @legend_at_bottom
+      graph_bottom_margin += (calculate_legend_height + @legend_margin) if @legend_at_bottom
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 : @marker_caps_height + LABEL_MARGIN
       # FIXME: Consider chart types other than bar
@@ -905,6 +903,31 @@ module Gruff
       end
 
       label_widths
+    end
+
+    def calculate_legend_height
+      return 0.0 if @hide_legend
+
+      legend_labels = store.data.map(&:label)
+      legend_square_width = @legend_box_size
+      label_widths = calculate_legend_label_widths_for_each_line(legend_labels, legend_square_width)
+      legend_height = 0.0
+
+      legend_labels.each_with_index do |legend_label, _index|
+        next if legend_label.empty?
+
+        label_widths.first.shift
+        if label_widths.first.empty?
+          label_widths.shift
+          line_height = [@legend_caps_height, legend_square_width].max + @legend_margin
+          unless label_widths.empty?
+            # Wrap to next line and shrink available graph dimensions
+            legend_height += line_height
+          end
+        end
+      end
+
+      legend_height + @legend_caps_height
     end
 
     # Returns the height of the capital letter 'X' for the current font and
