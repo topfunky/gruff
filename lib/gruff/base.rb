@@ -672,7 +672,7 @@ module Gruff
       font_weight = @bold_title ? Magick::BoldWeight : Magick::NormalWeight
       font_size = @title_font_size
 
-      metrics = Renderer::Text.metrics(@title, font_size, font_weight)
+      metrics = Renderer::Text.metrics(@title, font, font_size, font_weight)
       if metrics.width > @raw_columns
         font_size = font_size * (@raw_columns / metrics.width) * 0.95
       end
@@ -936,7 +936,7 @@ module Gruff
     # Not scaled since it deals with dimensions that the regular scaling will
     # handle.
     def calculate_caps_height(font_size)
-      metrics = Renderer::Text.metrics('X', font_size)
+      metrics = Renderer::Text.metrics('X', @font, font_size)
       metrics.height
     end
 
@@ -948,7 +948,7 @@ module Gruff
       text = text.to_s
       return 0 if text.empty?
 
-      metrics = Renderer::Text.metrics(text, font_size)
+      metrics = Renderer::Text.metrics(text, @font, font_size)
       metrics.width
     end
 

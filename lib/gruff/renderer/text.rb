@@ -5,9 +5,6 @@ module Gruff
   class Renderer::Text
     using Magick::GruffAnnotate
 
-    FONT_BOLD = File.expand_path(File.join(__FILE__, '../../../../assets/fonts/Roboto-Bold.ttf'))
-    FONT_REGULAR = File.expand_path(File.join(__FILE__, '../../../../assets/fonts/Roboto-Regular.ttf'))
-
     def initialize(text, font:, size:, color:, weight: Magick::NormalWeight, rotation: nil)
       @text = text.to_s
       @font = font
@@ -37,11 +34,7 @@ module Gruff
       draw.rotation = @rotation if @rotation
       draw.fill = @font_color
       draw.stroke = 'transparent'
-      if @font
-        draw.font = @font
-      else
-        draw.font = (@font_weight == Magick::BoldWeight) ? FONT_BOLD : FONT_REGULAR
-      end
+      draw.font = @font || Renderer::Text.default_font(@font_weight)
       draw.font_weight = @font_weight
       draw.pointsize = @font_size * scale
       draw.gravity = gravity
@@ -52,10 +45,11 @@ module Gruff
       draw.rotation = -@rotation if @rotation
     end
 
-    def self.metrics(text, size, font_weight = Magick::NormalWeight)
+    def self.metrics(text, font, size, font_weight = Magick::NormalWeight)
       draw  = Renderer.instance.draw
       image = Renderer.instance.image
 
+      draw.font = font || Renderer::Text.default_font(font_weight)
       draw.font_weight = font_weight
       draw.pointsize = size
 
@@ -66,6 +60,13 @@ module Gruff
       text = text.to_s.gsub(/(%+)/) { ('%' * Regexp.last_match(1).size * 2).to_s }
 
       draw.get_type_metrics(image, text)
+    end
+
+    FONT_BOLD = File.expand_path(File.join(__FILE__, '../../../../assets/fonts/Roboto-Bold.ttf'))
+    FONT_REGULAR = File.expand_path(File.join(__FILE__, '../../../../assets/fonts/Roboto-Regular.ttf'))
+
+    def self.default_font(font_weight)
+      (font_weight == Magick::BoldWeight) ? FONT_BOLD : FONT_REGULAR
     end
   end
 end
