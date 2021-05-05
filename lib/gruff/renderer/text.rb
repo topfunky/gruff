@@ -5,6 +5,9 @@ module Gruff
   class Renderer::Text
     using Magick::GruffAnnotate
 
+    FONT_BOLD = File.expand_path(File.join(__FILE__, '../../../../assets/fonts/Roboto-Bold.ttf'))
+    FONT_REGULAR = File.expand_path(File.join(__FILE__, '../../../../assets/fonts/Roboto-Regular.ttf'))
+
     def initialize(text, font:, size:, color:, weight: Magick::NormalWeight, rotation: nil)
       @text = text.to_s
       @font = font
@@ -34,7 +37,11 @@ module Gruff
       draw.rotation = @rotation if @rotation
       draw.fill = @font_color
       draw.stroke = 'transparent'
-      draw.font = @font if @font
+      if @font
+        draw.font = @font
+      else
+        draw.font = (@font_weight == Magick::BoldWeight) ? FONT_BOLD : FONT_REGULAR
+      end
       draw.font_weight = @font_weight
       draw.pointsize = @font_size * scale
       draw.gravity = gravity

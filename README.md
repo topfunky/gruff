@@ -28,6 +28,9 @@ Or install it yourself as:
 $ gem install gruff
 ```
 
+## Font
+Gruff uses [Roboto](https://fonts.google.com/specimen/Roboto) font as default font which is licensed under the Apache License, Version 2.0.
+
 ## Usage
 
 ```ruby
