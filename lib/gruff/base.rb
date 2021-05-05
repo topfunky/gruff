@@ -214,8 +214,8 @@ module Gruff
       @sort = false
       @sorted_drawing = false
       @title = nil
-      @title_font = nil
 
+      @title_font = nil
       @font = nil
       @bold_title = true
 
