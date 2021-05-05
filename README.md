@@ -133,7 +133,7 @@ http://www.rubydoc.info/github/topfunky/gruff/frames
 We aim to support all Ruby implementations supporting Ruby language level 1.9.3
 or later.  Currently we are running CI for MRI, JRuby, and Rubinius.
 
-## Development Setup
+## Development
 1. Build docker image
 ```sh
 $ ./docker/build.sh
@@ -148,6 +148,12 @@ $ ./docker/launch.sh
 ```sh
 $ bundle install
 $ bundle exec rake
+```
+
+If you have made changes that involve updating the expected image, you need to update the image with the following command after running tests.
+
+```sh
+$ bundle exec rake test:image:update
 ```
 
 ## Contributing
