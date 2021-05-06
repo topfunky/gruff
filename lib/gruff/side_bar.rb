@@ -73,6 +73,9 @@ protected
 
 private
 
+  # Value to avoid completely overwriting the coordinate axis
+  AXIS_MARGIN = 0.5
+
   def draw_bars
     # Setup spacing.
     #
@@ -106,7 +109,7 @@ private
         height[point_index] += (data_point * @graph_width)
 
         rect_renderer = Gruff::Renderer::Rectangle.new(color: data_row.color)
-        rect_renderer.render(left_x, left_y, right_x, right_y)
+        rect_renderer.render(left_x + AXIS_MARGIN, left_y, right_x + AXIS_MARGIN, right_y)
 
         # Calculate center based on bar_width and current row
 
