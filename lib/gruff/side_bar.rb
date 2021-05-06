@@ -81,9 +81,11 @@ private
     #
     bars_width = (@graph_height - calculate_spacing) / column_count.to_f
     bar_width = bars_width / store.length
-    height = Array.new(column_count, 0)
-    length = Array.new(column_count, @graph_left)
     padding = (bar_width * (1 - @bar_spacing)) / 2
+
+    # Setup the BarConversion Object
+    conversion = Gruff::BarConversion.new(top: @graph_right, bottom: @graph_left)
+    conversion.mode = 1
 
     # if we're a side stacked bar then we don't need to draw ourself at all
     # because sometimes (due to different heights/min/max) you can actually
@@ -94,19 +96,10 @@ private
       data_row.points.each_with_index do |data_point, point_index|
         group_spacing = @group_spacing * @scale * point_index
 
-        # Using the original calculations from the stacked bar chart
-        # to get the difference between
-        # part of the bart chart we wish to stack.
-        temp1 = @graph_left + (@graph_width - data_point * @graph_width - height[point_index])
-        temp2 = @graph_left + @graph_width - height[point_index]
-        difference = temp2 - temp1
-
-        left_x = length[point_index] - 1
         left_y = @graph_top + (bars_width * point_index) + (bar_width * row_index) + padding + group_spacing
-        right_x = left_x + difference
         right_y = left_y + bar_width * @bar_spacing
 
-        height[point_index] += (data_point * @graph_width)
+        right_x, left_x = conversion.get_top_bottom_scaled(data_point)
 
         rect_renderer = Gruff::Renderer::Rectangle.new(color: data_row.color)
         rect_renderer.render(left_x + AXIS_MARGIN, left_y, right_x + AXIS_MARGIN, right_y)
