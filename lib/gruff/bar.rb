@@ -83,6 +83,9 @@ protected
     hide_labels?
   end
 
+  # Value to avoid completely overwriting the coordinate axis
+  AXIS_MARGIN = 0.5
+
   def draw_bars
     # Setup spacing.
     #
@@ -126,7 +129,7 @@ protected
 
         # create new bar
         rect_renderer = Gruff::Renderer::Rectangle.new(color: data_row.color)
-        rect_renderer.render(left_x, left_y, right_x, right_y)
+        rect_renderer.render(left_x, left_y - AXIS_MARGIN, right_x, right_y - AXIS_MARGIN)
 
         # Calculate center based on bar_width and current row
         label_center = @graph_left + group_spacing + (store.length * bar_width * point_index) + (store.length * bar_width / 2.0)
