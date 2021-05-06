@@ -15,12 +15,15 @@
 class Gruff::BarConversion
   attr_writer :mode
   attr_writer :zero
-  attr_writer :graph_top
-  attr_writer :graph_height
   attr_writer :minimum_value
   attr_writer :spread
 
-  def get_left_y_right_y_scaled(data_point)
+  def initialize(top:, bottom:)
+    @graph_top = top
+    @graph_height = bottom - top
+  end
+
+  def get_top_bottom_scaled(data_point)
     result = []
 
     case @mode

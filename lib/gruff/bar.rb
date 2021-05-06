@@ -96,9 +96,7 @@ protected
     padding = (bar_width * (1 - @bar_spacing)) / 2
 
     # Setup the BarConversion Object
-    conversion = Gruff::BarConversion.new
-    conversion.graph_height = @graph_height
-    conversion.graph_top = @graph_top
+    conversion = Gruff::BarConversion.new(top: @graph_top, bottom: @graph_bottom)
 
     # Set up the right mode [1,2,3] see BarConversion for further explanation
     if minimum_value >= 0
@@ -125,7 +123,7 @@ protected
         left_x = @graph_left + (bar_width * (row_index + point_index + ((store.length - 1) * point_index))) + padding + group_spacing
         right_x = left_x + bar_width * @bar_spacing
         # y
-        left_y, right_y = conversion.get_left_y_right_y_scaled(data_point)
+        left_y, right_y = conversion.get_top_bottom_scaled(data_point)
 
         # create new bar
         rect_renderer = Gruff::Renderer::Rectangle.new(color: data_row.color)
