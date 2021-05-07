@@ -156,10 +156,6 @@ module Gruff
     # Will be scaled down if graph is smaller than 800px wide.
     attr_writer :legend_box_size
 
-    # With Side Bars use the data label for the marker value to the left of the bar.
-    # Default is +false+.
-    attr_writer :use_data_label
-
     # If one numerical argument is given, the graph is drawn at 4/3 ratio
     # according to the given width (+800+ results in 800x600, +400+ gives 400x300,
     # etc.).
@@ -238,7 +234,6 @@ module Gruff
       @label_max_size = 0
       @label_truncation_style = :absolute
 
-      @use_data_label = false
       @x_axis_increment = nil
       @x_axis_label = @y_axis_label = nil
       @y_axis_increment = nil
