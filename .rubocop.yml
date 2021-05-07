@@ -107,6 +107,9 @@ Style/NumericPredicate:
 Style/OptionHash:
   Enabled: false
 
+Style/RedundantBegin:
+  Enabled: false
+
 Style/SingleLineBlockParams:
   Enabled: false
 
