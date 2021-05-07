@@ -84,8 +84,10 @@ private
     padding = (bar_width * (1 - @bar_spacing)) / 2
 
     # Setup the BarConversion Object
-    conversion = Gruff::BarConversion.new(top: @graph_right, bottom: @graph_left)
-    conversion.mode = 1
+    conversion = Gruff::BarConversion.new(
+      top: @graph_right, bottom: @graph_left,
+      minimum_value: minimum_value, maximum_value: maximum_value, spread: @spread
+    )
 
     # if we're a side stacked bar then we don't need to draw ourself at all
     # because sometimes (due to different heights/min/max) you can actually
@@ -99,7 +101,7 @@ private
         left_y = @graph_top + (bars_width * point_index) + (bar_width * row_index) + padding + group_spacing
         right_y = left_y + bar_width * @bar_spacing
 
-        right_x, left_x = conversion.get_top_bottom_scaled(data_point)
+        left_x, right_x = conversion.get_top_bottom_scaled(data_point).sort
 
         rect_renderer = Gruff::Renderer::Rectangle.new(color: data_row.color)
         rect_renderer.render(left_x + AXIS_MARGIN, left_y, right_x + AXIS_MARGIN, right_y)
@@ -114,8 +116,10 @@ private
           draw_label(label_center, point_index)
         end
         if @show_labels_for_bar_values
-          val = (@label_formatting || '%.2f') % store.data[row_index].points[point_index]
-          draw_value_label(right_x + 40, right_y - bar_width / 2, val.commify, true)
+          raw_value = store.data[row_index].points[point_index]
+          val = (@label_formatting || '%.2f') % raw_value
+          x = raw_value >= 0 ? right_x + 40 : left_x - 40
+          draw_value_label(x, right_y - bar_width / 2, val.commify, true)
         end
       end
     end
@@ -138,11 +142,11 @@ private
       line_renderer = Gruff::Renderer::Line.new(color: @marker_color, shadow_color: @marker_shadow_color)
       line_renderer.render(x, @graph_bottom, x, @graph_top)
 
-      diff = index - number_of_lines
-      marker_label = diff.abs * increment + minimum_value
-
       unless @hide_line_numbers
-        text_renderer = Gruff::Renderer::Text.new(marker_label, font: @font, size: @marker_font_size, color: @font_color)
+        diff = index - number_of_lines
+        marker_label = BigDecimal(diff.abs.to_s) * BigDecimal(increment.to_s) + BigDecimal(minimum_value.to_s)
+        label = label(marker_label, @increment)
+        text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @marker_font_size, color: @font_color)
         text_renderer.add_to_render_queue(0, 0, x, @graph_bottom + LABEL_MARGIN, Magick::CenterGravity)
       end
     end

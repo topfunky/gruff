@@ -14,13 +14,25 @@
 # @private
 class Gruff::BarConversion
   attr_writer :mode
-  attr_writer :zero
-  attr_writer :minimum_value
-  attr_writer :spread
 
-  def initialize(top:, bottom:)
+  def initialize(top:, bottom:, minimum_value:, maximum_value:, spread:)
     @graph_top = top
     @graph_height = bottom - top
+    @spread = spread
+    @minimum_value = minimum_value
+    @maximum_value = maximum_value
+
+    if minimum_value >= 0
+      # all bars go from zero to positive
+      @mode = 1
+    elsif maximum_value <= 0
+      # all bars go from 0 to negative
+      @mode = 2
+    else
+      # bars either go from zero to negative or to positive
+      @mode = 3
+      @zero = -minimum_value / @spread
+    end
   end
 
   def get_top_bottom_scaled(data_point)

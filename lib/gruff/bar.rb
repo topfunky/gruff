@@ -96,22 +96,10 @@ protected
     padding = (bar_width * (1 - @bar_spacing)) / 2
 
     # Setup the BarConversion Object
-    conversion = Gruff::BarConversion.new(top: @graph_top, bottom: @graph_bottom)
-
-    # Set up the right mode [1,2,3] see BarConversion for further explanation
-    if minimum_value >= 0
-      # all bars go from zero to positive
-      conversion.mode = 1
-    elsif maximum_value <= 0
-      # all bars go from 0 to negative
-      conversion.mode = 2
-    else
-      # bars either go from zero to negative or to positive
-      conversion.mode = 3
-      conversion.spread = @spread
-      conversion.minimum_value = minimum_value
-      conversion.zero = -minimum_value / @spread
-    end
+    conversion = Gruff::BarConversion.new(
+      top: @graph_top, bottom: @graph_bottom,
+      minimum_value: minimum_value, maximum_value: maximum_value, spread: @spread
+    )
 
     # iterate over all normalised data
     store.norm_data.each_with_index do |data_row, row_index|
