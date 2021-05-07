@@ -100,6 +100,13 @@ class TestGruffSideBar < GruffTestCase
     pass
   end
 
+  def test_use_data_label
+    g = setup_basic_graph(Gruff::SideBar, 800)
+    g.use_data_label = true
+
+    pass
+  end
+
   def test_negative
     g = Gruff::SideBar.new(800)
     g.title = 'Pos/Neg SideBar Graph Test'
