@@ -13,7 +13,7 @@ require 'gruff/version'
 
   helper/bar_conversion.rb
   helper/stacked_mixin
-  helper/bar_value_label_mixin
+  helper/bar_value_label
 
   themes
   area
