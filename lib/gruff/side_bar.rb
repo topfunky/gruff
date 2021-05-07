@@ -36,10 +36,6 @@ class Gruff::SideBar < Gruff::Base
   # Prevent drawing of column labels left of a side bar graph.  Default is +false+.
   attr_writer :hide_labels
 
-  # With Side Bars use the data label for the marker value to the left of the bar.
-  # Default is +false+.
-  attr_writer :use_data_label
-
   def initialize_ivars
     super
     @bar_spacing = 0.9
@@ -47,7 +43,6 @@ class Gruff::SideBar < Gruff::Base
     @label_formatting = nil
     @show_labels_for_bar_values = false
     @hide_labels = false
-    @use_data_label = false
   end
   private :initialize_ivars
 
@@ -58,6 +53,12 @@ class Gruff::SideBar < Gruff::Base
     return unless data_given?
 
     draw_bars
+  end
+
+  # With Side Bars use the data label for the marker value to the left of the bar.
+  # @deprecated
+  def use_data_label=(_value)
+    warn '#use_data_label is deprecated. It is no longer effective.'
   end
 
 protected
@@ -110,14 +111,10 @@ private
         rect_renderer.render(left_x + AXIS_MARGIN, left_y, right_x + AXIS_MARGIN, right_y)
 
         # Calculate center based on bar_width and current row
+        label_center = left_y + bars_width / 2
 
-        if @use_data_label
-          label_center = left_y + bar_width / 2
-          draw_label(label_center, row_index, store.norm_data[row_index].label)
-        else
-          label_center = left_y + bars_width / 2
-          draw_label(label_center, point_index)
-        end
+        # Subtract half a bar width to center left if requested
+        draw_label(label_center, point_index)
         if @show_labels_for_bar_values
           bar_value_label = Gruff::BarValueLabel::SideBar.new([left_x, left_y, right_x, right_y], store.data[row_index].points[point_index])
           bar_value_label.prepare_rendering(@label_formatting, bar_width) do |x, y, text|
@@ -158,11 +155,9 @@ private
   ##
   # Draw on the Y axis instead of the X
 
-  def draw_label(y_offset, index, label = nil)
+  def draw_label(y_offset, index)
     draw_unique_label(index) do
-      lbl = @use_data_label ? label : @labels[index]
-
-      text_renderer = Gruff::Renderer::Text.new(lbl, font: @font, size: @marker_font_size, color: @font_color)
+      text_renderer = Gruff::Renderer::Text.new(@labels[index], font: @font, size: @marker_font_size, color: @font_color)
       text_renderer.add_to_render_queue(@graph_left - LABEL_MARGIN, 1.0, 0.0, y_offset, Magick::EastGravity)
     end
   end
