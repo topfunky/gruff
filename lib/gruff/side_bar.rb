@@ -19,8 +19,6 @@
 #   g.write('sidebar.png')
 #
 class Gruff::SideBar < Gruff::Base
-  using String::GruffCommify
-
   # Spacing factor applied between bars.
   attr_writer :bar_spacing
 
@@ -121,10 +119,10 @@ private
           draw_label(label_center, point_index)
         end
         if @show_labels_for_bar_values
-          raw_value = store.data[row_index].points[point_index]
-          val = (@label_formatting || '%.2f') % raw_value
-          x = raw_value >= 0 ? right_x + 40 : left_x - 40
-          draw_value_label(x, right_y - bar_width / 2, val.commify, true)
+          bar_value_label = Gruff::BarValueLabel::SideBar.new([left_x, left_y, right_x, right_y], store.data[row_index].points[point_index])
+          bar_value_label.prepare_rendering(@label_formatting, bar_width) do |x, y, text|
+            draw_value_label(x, y, text, true)
+          end
         end
       end
     end

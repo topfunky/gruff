@@ -12,7 +12,6 @@
 #
 class Gruff::StackedBar < Gruff::Base
   include StackedMixin
-  include BarValueLabelMixin
 
   # Spacing factor applied between bars.
   attr_writer :bar_spacing
@@ -54,7 +53,7 @@ class Gruff::StackedBar < Gruff::Base
     padding = (bar_width * (1 - @bar_spacing)) / 2
 
     height = Array.new(column_count, 0)
-    bar_value_label = BarValueLabel.new(column_count, bar_width)
+    stack_bar_value_label = Gruff::BarValueLabel::StackedBar.new
 
     store.norm_data.each_with_index do |data_row, row_index|
       data_row.points.each_with_index do |data_point, point_index|
@@ -78,13 +77,13 @@ class Gruff::StackedBar < Gruff::Base
         label_center = left_x + bar_width * @bar_spacing / 2.0
         draw_label(label_center, point_index)
 
-        bar_value_label.coordinates[point_index] = [left_x, left_y, right_x, right_y]
-        bar_value_label.values[point_index] += store.data[row_index].points[point_index]
+        bar_value_label = Gruff::BarValueLabel::Bar.new([left_x, left_y, right_x, right_y], store.data[row_index].points[point_index])
+        stack_bar_value_label.add(bar_value_label, point_index)
       end
     end
 
     if @show_labels_for_bar_values
-      bar_value_label.prepare_rendering(@label_formatting) do |x, y, text|
+      stack_bar_value_label.prepare_rendering(@label_formatting, bar_width) do |x, y, text|
         draw_value_label(x, y, text, true)
       end
     end

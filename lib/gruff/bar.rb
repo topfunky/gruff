@@ -123,10 +123,10 @@ protected
         # Subtract half a bar width to center left if requested
         draw_label(label_center, point_index)
         if @show_labels_for_bar_values
-          raw_value = store.data[row_index].points[point_index]
-          val = (@label_formatting || '%.2f') % raw_value
-          y = raw_value >= 0 ? left_y - 30 : left_y + 12
-          draw_value_label(left_x + (right_x - left_x) / 2, y, val.commify, true)
+          bar_value_label = Gruff::BarValueLabel::Bar.new([left_x, left_y, right_x, right_y], store.data[row_index].points[point_index])
+          bar_value_label.prepare_rendering(@label_formatting, bar_width) do |x, y, text|
+            draw_value_label(x, y, text, true)
+          end
         end
       end
     end
