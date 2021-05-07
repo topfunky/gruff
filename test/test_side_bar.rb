@@ -99,4 +99,36 @@ class TestGruffSideBar < GruffTestCase
 
     pass
   end
+
+  def test_negative
+    g = Gruff::SideBar.new(800)
+    g.title = 'Pos/Neg SideBar Graph Test'
+    g.labels = {
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30'
+    }
+    g.data(:apples, [-1, 0, 4, -4])
+    g.data(:peaches, [10, 8, 6, 3])
+    g.show_labels_for_bar_values = true
+    g.write('test/output/side_bar_pos_neg.png')
+    assert_same_image('test/expected/side_bar_pos_neg.png', 'test/output/side_bar_pos_neg.png')
+  end
+
+  def test_all_negative
+    g = Gruff::SideBar.new(800)
+    g.title = 'All Neg SideBar Graph Test'
+    g.labels = {
+      0 => '5/6',
+      1 => '5/15',
+      2 => '5/24',
+      3 => '5/30'
+    }
+    g.data(:apples, [-1, -5, -20, -4])
+    g.data(:peaches, [-10, -8, -6, -3])
+    g.show_labels_for_bar_values = true
+    g.write('test/output/side_bar_all_neg.png')
+    assert_same_image('test/expected/side_bar_all_neg.png', 'test/output/side_bar_all_neg.png')
+  end
 end
