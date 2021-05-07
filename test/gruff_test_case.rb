@@ -4,6 +4,9 @@ $:.unshift(File.dirname(__FILE__) + '/../lib/')
 
 RMAGICK_BYPASS_VERSION_TEST = true
 
+require 'simplecov'
+SimpleCov.start
+
 require 'gruff'
 require 'fileutils'
 

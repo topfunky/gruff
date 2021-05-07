@@ -1,6 +1,7 @@
 *~
 /.idea/
 /pkg/
+/coverage/
 /vendor/
 /test/output/
 /test/output_java/
