@@ -38,6 +38,10 @@ class Gruff::SideBar < Gruff::Base
   # Prevent drawing of column labels left of a side bar graph.  Default is +false+.
   attr_writer :hide_labels
 
+  # With Side Bars use the data label for the marker value to the left of the bar.
+  # Default is +false+.
+  attr_writer :use_data_label
+
   def initialize_ivars
     super
     @bar_spacing = 0.9
@@ -45,6 +49,7 @@ class Gruff::SideBar < Gruff::Base
     @label_formatting = nil
     @show_labels_for_bar_values = false
     @hide_labels = false
+    @use_data_label = false
   end
   private :initialize_ivars
 
