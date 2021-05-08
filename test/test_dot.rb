@@ -244,6 +244,21 @@ class TestGruffDot < GruffTestCase
     assert_same_image('test/expected/enhancements_dot.png', 'test/output/enhancements_dot.png')
   end
 
+  def test_set_label_max_size_and_label_truncation_style
+    g = setup_basic_graph(400)
+    g.labels = {
+      0 => 'January was a cold one',
+      1 => 'February is little better',
+      2 => 'March will bring me hares',
+      3 => 'April and I\'m a fool'
+    }
+    g.title = 'Label truncation style'
+    g.label_max_size = 6
+    g.label_truncation_style = :trailing_dots
+    g.write('test/output/dot_set_trailing_dots_trunc.png')
+    assert_same_image('test/expected/dot_set_trailing_dots_trunc.png', 'test/output/dot_set_trailing_dots_trunc.png')
+  end
+
 protected
 
   def setup_basic_graph(size = 800)
