@@ -61,6 +61,9 @@ class TestGruffScatter < Minitest::Test
       Time.at(value).strftime('%d.%m.%Y')
     end
     g.y_axis_increment = 1
+    g.y_axis_label_format = lambda do |value|
+      sprintf('%.1f', value)
+    end
 
     # Fake data (100 days, random times of day between 5 and 16)
     srand 872
