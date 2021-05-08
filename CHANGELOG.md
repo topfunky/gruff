@@ -1,5 +1,17 @@
 # Change Log
 
+## 0.13.0
+- Allow to customize label value with lambda (#510)
+- Rename enable_vertical_line_markers attribute to show_vertical_markers (#509)
+- Fix error that cause ArgumentError with x_axis_increment in Gruff::Scatter (#506)
+- Fix draw_label that it should follow label_truncation_style setting (#505)
+- Deprecate use_data_label attribute from SideBar (#504)
+- Add negative values graph support in Gruff::SideBar (#499)
+- Add margin of axis in order to avoid overwriting the coordinate axes (#497)
+- Fix get_type_metrics error (#496)
+- Embed Roboto as default font (#495)
+- Fix legend rendering position when it enable legend_at_bottom (#492)
+
 ## 0.12.2
 - Avoid SEGV caused with '%S' in Draw#get_type_metrics by old ImageMagick (6.9.9 or below)  (#490)
 
