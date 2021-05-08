@@ -35,10 +35,6 @@ class Gruff::Scatter < Gruff::Base
   attr_writer :x_label_margin
   attr_writer :use_vertical_x_labels
 
-  # Allow passing lambdas to format labels.
-  attr_writer :y_axis_label_format
-  attr_writer :x_axis_label_format
-
   def initialize_store
     @store = Gruff::Store.new(Gruff::Store::XYData)
   end
@@ -56,9 +52,7 @@ class Gruff::Scatter < Gruff::Base
     @maximum_x_value = @minimum_x_value = nil
     @stroke_width = nil
     @use_vertical_x_labels = false
-    @x_axis_label_format = nil
     @x_label_margin = nil
-    @y_axis_label_format = nil
   end
   private :initialize_ivars
 
@@ -218,27 +212,11 @@ private
         y_offset = @graph_bottom + (@x_label_margin || LABEL_MARGIN)
         x_offset = get_x_coord(index.to_f, increment_x_scaled, @graph_left)
 
-        label = vertical_label(marker_label, @x_increment)
+        label = x_axis_label(marker_label, @x_increment)
         rotation = -90.0 if @use_vertical_x_labels
         text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @marker_font_size, color: @font_color, rotation: rotation)
         text_renderer.add_to_render_queue(1.0, 1.0, x_offset, y_offset)
       end
-    end
-  end
-
-  def label(value, increment)
-    if @y_axis_label_format
-      @y_axis_label_format.call(value)
-    else
-      super
-    end
-  end
-
-  def vertical_label(value, increment)
-    if @x_axis_label_format
-      @x_axis_label_format.call(value)
-    else
-      label(value, increment)
     end
   end
 

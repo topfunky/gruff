@@ -25,7 +25,7 @@ class Gruff::SideBar < Gruff::Base
   # Spacing factor applied between a group of bars belonging to the same label.
   attr_writer :group_spacing
 
-  # Set the number output format for labels using sprintf.
+  # Set the number output format string or lambda.
   # Default is +"%.2f"+.
   attr_writer :label_formatting
 
@@ -145,7 +145,7 @@ private
       unless @hide_line_numbers
         diff = index - number_of_lines
         marker_label = BigDecimal(diff.abs.to_s) * BigDecimal(increment.to_s) + BigDecimal(minimum_value.to_s)
-        label = label(marker_label, @increment)
+        label = x_axis_label(marker_label, @increment)
         text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @marker_font_size, color: @font_color)
         text_renderer.add_to_render_queue(0, 0, x, @graph_bottom + LABEL_MARGIN, Magick::CenterGravity)
       end

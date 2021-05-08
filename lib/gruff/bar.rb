@@ -16,15 +16,13 @@
 #   g.write('bar.png')
 #
 class Gruff::Bar < Gruff::Base
-  using String::GruffCommify
-
   # Spacing factor applied between bars.
   attr_writer :bar_spacing
 
   # Spacing factor applied between a group of bars belonging to the same label.
   attr_writer :group_spacing
 
-  # Set the number output format for labels using sprintf.
+  # Set the number output format string or lambda.
   # Default is +"%.2f"+.
   attr_writer :label_formatting
 
