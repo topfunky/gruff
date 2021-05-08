@@ -64,6 +64,21 @@ class TestGruffStackedBar < GruffTestCase
     assert_same_image('test/expected/stacked_bar_no_line_markers.png', 'test/output/stacked_bar_no_line_markers.png')
   end
 
+  def test_label_format
+    g = setup_basic_graph(400)
+    g.title = 'Label format'
+    g.show_labels_for_bar_values = true
+    g.label_formatting = lambda do |value|
+      "V-#{value.to_i}"
+    end
+    g.y_axis_label_format = lambda do |value|
+      "Y-#{value.to_i}"
+    end
+
+    g.write('test/output/stacked_bar_label_format.png')
+    assert_same_image('test/expected/stacked_bar_label_format.png', 'test/output/stacked_bar_label_format.png')
+  end
+
 protected
 
   def setup_basic_graph(size = 800)

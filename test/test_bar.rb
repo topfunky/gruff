@@ -504,6 +504,21 @@ class TestGruffBar < GruffTestCase
     assert_same_image('test/expected/bar_value_labels.png', 'test/output/bar_value_labels.png')
   end
 
+  def test_label_format
+    g = setup_basic_graph
+    g.title = 'Label format'
+    g.show_labels_for_bar_values = true
+    g.label_formatting = lambda do |value|
+      "V-#{value.to_i}"
+    end
+    g.y_axis_label_format = lambda do |value|
+      "Y-#{value.to_i}"
+    end
+
+    g.write('test/output/bar_label_format.png')
+    assert_same_image('test/expected/bar_label_format.png', 'test/output/bar_label_format.png')
+  end
+
   def test_group_spacing
     g = setup_basic_graph
     g.group_spacing = 100

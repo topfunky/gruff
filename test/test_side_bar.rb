@@ -66,6 +66,27 @@ class TestGruffSideBar < GruffTestCase
     assert_same_image('test/expected/side_bar_labels.png', 'test/output/side_bar_labels.png')
   end
 
+  def test_label_format
+    g = Gruff::SideBar.new('400x300')
+    g.title = 'Label format'
+    g.data('Grapes', [8])
+    g.data('Apples', [24])
+    g.data('Oranges', [32])
+    g.data('Watermelon', [8])
+    g.data('Peaches', [12])
+    g.labels = { 0 => '2003', 2 => '2004', 4 => '2005' }
+    g.show_labels_for_bar_values = true
+    g.label_formatting = lambda do |value|
+      "V-#{value.to_i}"
+    end
+    g.x_axis_label_format = lambda do |value|
+      "X-#{value.to_i}"
+    end
+
+    g.write('test/output/side_bar_label_format.png')
+    assert_same_image('test/expected/side_bar_label_format.png', 'test/output/side_bar_label_format.png')
+  end
+
   def test_no_labels
     g = setup_basic_graph(Gruff::SideBar, 400)
     g.title = 'No Labels'

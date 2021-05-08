@@ -19,7 +19,7 @@ class Gruff::StackedBar < Gruff::Base
   # Number of pixels between bar segments.
   attr_writer :segment_spacing
 
-  # Set the number output format for labels using sprintf.
+  # Set the number output format string or lambda.
   # Default is +"%.2f"+.
   attr_writer :label_formatting
 

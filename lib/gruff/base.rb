@@ -156,6 +156,12 @@ module Gruff
     # Will be scaled down if graph is smaller than 800px wide.
     attr_writer :legend_box_size
 
+    # Allow passing lambdas to format labels for x axis.
+    attr_writer :x_axis_label_format
+
+    # Allow passing lambdas to format labels for y axis.
+    attr_writer :y_axis_label_format
+
     # If one numerical argument is given, the graph is drawn at 4/3 ratio
     # according to the given width (+800+ results in 800x600, +400+ gives 400x300,
     # etc.).
@@ -237,6 +243,9 @@ module Gruff
       @x_axis_increment = nil
       @x_axis_label = @y_axis_label = nil
       @y_axis_increment = nil
+
+      @x_axis_label_format = nil
+      @y_axis_label_format = nil
     end
     protected :initialize_ivars
 
@@ -598,7 +607,7 @@ module Gruff
 
         unless @hide_line_numbers
           marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) + BigDecimal(minimum_value.to_s)
-          label = label(marker_label, @increment)
+          label = y_axis_label(marker_label, @increment)
           text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @marker_font_size, color: @font_color)
           text_renderer.add_to_render_queue(@graph_left - LABEL_MARGIN, 1.0, 0.0, y, Magick::EastGravity)
         end
@@ -814,7 +823,7 @@ module Gruff
         if @has_left_labels
           @labels.values.reduce('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }
         else
-          label(maximum_value.to_f, @increment)
+          y_axis_label(maximum_value.to_f, @increment)
         end
       end
       longest_left_label_width = calculate_width(@marker_font_size, truncate_label_text(text))
@@ -886,6 +895,22 @@ module Gruff
       parts = label.split('.')
       parts[0] = parts[0].commify
       parts.join('.')
+    end
+
+    def x_axis_label(value, increment)
+      if @x_axis_label_format
+        @x_axis_label_format.call(value)
+      else
+        label(value, increment)
+      end
+    end
+
+    def y_axis_label(value, increment)
+      if @y_axis_label_format
+        @y_axis_label_format.call(value)
+      else
+        label(value, increment)
+      end
     end
 
     def calculate_legend_label_widths_for_each_line(legend_labels, legend_square_width)
