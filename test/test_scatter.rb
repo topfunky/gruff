@@ -309,6 +309,15 @@ class TestGruffScatter < Minitest::Test
     pass
   end
 
+  def test_x_axis_increment
+    g = Gruff::Scatter.new
+    g.data(:apples, [1, 2, 3, 4], [4, 3, 2, 1])
+    g.data('oranges', [5, 7, 8], [4, 1, 7])
+    g.x_axis_increment = 2
+    g.write('test/output/scatter_x_axis_increment.png')
+    assert_same_image('test/expected/scatter_x_axis_increment.png', 'test/output/scatter_x_axis_increment.png')
+  end
+
 protected
 
   def setup_basic_graph(size = 800)

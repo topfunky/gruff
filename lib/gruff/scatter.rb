@@ -191,7 +191,7 @@ private
       calculate_spread
       normalize
 
-      self.marker_count = (@x_spread / @x_axis_increment).to_i
+      @marker_x_count = (@x_spread / @x_axis_increment).to_i
       @x_increment = @x_axis_increment
     end
     increment_x_scaled = @graph_width.to_f / (@x_spread / @x_increment)
