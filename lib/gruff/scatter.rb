@@ -207,7 +207,7 @@ private
       end
 
       unless @hide_line_numbers
-        marker_label = index * @x_increment + @minimum_x_value.to_f
+        marker_label = BigDecimal(index.to_s) * BigDecimal(@x_increment.to_s) + BigDecimal(@minimum_x_value.to_s)
         y_offset = @graph_bottom + (@x_label_margin || LABEL_MARGIN)
         x_offset = get_x_coord(index.to_f, increment_x_scaled, @graph_left)
 
