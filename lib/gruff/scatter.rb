@@ -28,8 +28,8 @@ class Gruff::Scatter < Gruff::Base
   # This is useful when working with a small range of high values (for example, a date range of months, while seconds as units).
   attr_writer :disable_significant_rounding_x_axis
 
-  # Allow enabling vertical lines. When you have a lot of data, they can work great.
-  attr_writer :enable_vertical_line_markers
+  # Allow for vertical marker lines.
+  attr_writer :show_vertical_markers
 
   # Allow using vertical labels in the X axis (and setting the label margin).
   attr_writer :x_label_margin
@@ -51,7 +51,7 @@ class Gruff::Scatter < Gruff::Base
     @baseline_x_value = @baseline_y_value = nil
     @circle_radius = nil
     @disable_significant_rounding_x_axis = false
-    @enable_vertical_line_markers = false
+    @show_vertical_markers = false
     @marker_x_count = nil
     @maximum_x_value = @minimum_x_value = nil
     @stroke_width = nil
@@ -61,6 +61,13 @@ class Gruff::Scatter < Gruff::Base
     @y_axis_label_format = nil
   end
   private :initialize_ivars
+
+  # Allow enabling vertical lines. When you have a lot of data, they can work great.
+  # @deprecated Please use +show_vertical_markers+ attribute instead.
+  def enable_vertical_line_markers=(value)
+    warn '#enable_vertical_line_markers= is deprecated. Please use `show_vertical_markers` attribute instead'
+    @show_vertical_markers = value
+  end
 
   def draw
     super
@@ -199,7 +206,7 @@ private
     # Draw vertical line markers and annotate with numbers
     (0..@marker_x_count).each do |index|
       # TODO: Fix the vertical lines, and enable them by default. Not pretty when they don't match up with top y-axis line
-      if @enable_vertical_line_markers
+      if @show_vertical_markers
         x = @graph_left + @graph_width - index.to_f * increment_x_scaled
 
         line_renderer = Gruff::Renderer::Line.new(color: @marker_color, shadow_color: @marker_shadow_color)
