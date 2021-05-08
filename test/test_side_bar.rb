@@ -138,4 +138,21 @@ class TestGruffSideBar < GruffTestCase
     g.write('test/output/side_bar_all_neg.png')
     assert_same_image('test/expected/side_bar_all_neg.png', 'test/output/side_bar_all_neg.png')
   end
+
+  def test_set_label_max_size_and_label_truncation_style
+    g = Gruff::SideBar.new(800)
+    g.title = 'Label truncation style'
+    g.labels = {
+      0 => 'January was a cold one',
+      1 => 'February is little better',
+      2 => 'March will bring me hares',
+      3 => 'April and I\'m a fool'
+    }
+    g.label_max_size = 6
+    g.label_truncation_style = :trailing_dots
+    g.data(:apples, [-1, 0, 4, -4])
+    g.data(:peaches, [10, 8, 6, 3])
+    g.write('test/output/side_bar_set_trailing_dots_trunc.png')
+    assert_same_image('test/expected/side_bar_set_trailing_dots_trunc.png', 'test/output/side_bar_set_trailing_dots_trunc.png')
+  end
 end

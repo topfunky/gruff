@@ -687,9 +687,8 @@ module Gruff
         # TODO: See if index.odd? is the best stragegy
         y_offset += @label_stagger_height if index.odd?
 
-        label_text = truncate_label_text(@labels[index].to_s)
-
         if x_offset >= @graph_left && x_offset <= @graph_right
+          label_text = truncate_label_text(@labels[index])
           text_renderer = Gruff::Renderer::Text.new(label_text, font: @font, size: @marker_font_size, color: @font_color)
           text_renderer.add_to_render_queue(1.0, 1.0, x_offset, y_offset, gravity)
         end
@@ -814,7 +813,7 @@ module Gruff
           label(maximum_value.to_f, @increment)
         end
       end
-      longest_left_label_width = calculate_width(@marker_font_size, text)
+      longest_left_label_width = calculate_width(@marker_font_size, truncate_label_text(text))
       longest_left_label_width *= 1.25 if @has_left_labels
 
       # Shift graph if left line numbers are hidden
@@ -841,6 +840,7 @@ module Gruff
     end
 
     def truncate_label_text(text)
+      text = text.to_s
       return text if text.size <= @label_max_size
 
       if @label_truncation_style == :trailing_dots
