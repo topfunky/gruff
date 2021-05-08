@@ -668,14 +668,44 @@ class TestGruffLine < GruffTestCase
 
     g.labels = { 0 => '2003', 2 => '2004', 4 => '2005' }
     g.baseline_value = 5
+    g.baseline_color = 'green'
 
-    g.write('line_baseline.png')
+    g.write('test/output/line_baseline.png')
+    assert_same_image('test/expected/line_baseline.png', 'test/output/line_baseline.png')
+
+    assert_equal(5, g.baseline_value)
+    assert_equal('green', g.baseline_color)
+  end
+
+  def test_show_vertical_markers
+    g = Gruff::Line.new
+    g.title = 'Show vertical markers'
+
+    g.data('Apples', [3, 2, 3, 4, 4, 3])
+    g.data('Oranges', [4, 8, 7, 9, 8, 9])
+    g.data('Watermelon', [2, 3, 4, 5, 6, 8])
+    g.data('Peaches', [9, 9, 10, 8, 7, 9])
+
+    g.labels = { 0 => '2003', 2 => '2004', 4 => '2005' }
+    g.show_vertical_markers = true
+    g.marker_shadow_color = '#888888'
+
+    g.write('test/output/line_show_vertical_markers.png')
+    assert_same_image('test/expected/line_show_vertical_markers.png', 'test/output/line_show_vertical_markers.png')
+  end
+
+  def test_sorted_drawing
+    g = setup_basic_graph('800x400')
+    g.title = 'Sorted drawing'
+    g.sorted_drawing = true
+    g.write('test/output/line_sorted_drawing.png')
+    assert_same_image('test/expected/line_sorted_drawing.png', 'test/output/line_sorted_drawing.png')
   end
 
   def test_webp
     g = setup_basic_graph('800x400')
     g.title = 'Line Chart WEBP'
-    g.write('line_webp.webp')
+    g.write('test/output/line_webp.webp')
   rescue Magick::ImageMagickError
     # assert_match(/no encode delegate for this image format .*\.webp/, $!.message)
   end
