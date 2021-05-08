@@ -688,9 +688,7 @@ module Gruff
         y_offset += @label_stagger_height if index.odd?
 
         if x_offset >= @graph_left && x_offset <= @graph_right
-          label_text = truncate_label_text(@labels[index])
-          text_renderer = Gruff::Renderer::Text.new(label_text, font: @font, size: @marker_font_size, color: @font_color)
-          text_renderer.add_to_render_queue(1.0, 1.0, x_offset, y_offset, gravity)
+          draw_label_at(1.0, 1.0, x_offset, y_offset, @labels[index], gravity)
         end
       end
     end
@@ -703,6 +701,12 @@ module Gruff
         yield
         @labels_seen[index] = 1
       end
+    end
+
+    def draw_label_at(width, height, x, y, text, gravity = Magick::NorthGravity)
+      label_text = truncate_label_text(text)
+      text_renderer = Gruff::Renderer::Text.new(label_text, font: @font, size: @marker_font_size, color: @font_color)
+      text_renderer.add_to_render_queue(width, height, x, y, gravity)
     end
 
     # Draws the data value over the data point in bar graphs
