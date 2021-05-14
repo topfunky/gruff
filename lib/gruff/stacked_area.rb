@@ -12,13 +12,11 @@
 #
 class Gruff::StackedArea < Gruff::Base
   include StackedMixin
-  attr_writer :last_series_goes_on_bottom
 
-  def initialize_ivars
-    super
-    @last_series_goes_on_bottom = false
+  # @deprecated
+  def last_series_goes_on_bottom=(_value)
+    warn '#last_series_goes_on_bottom is deprecated. It is no longer effective.'
   end
-  private :initialize_ivars
 
   def draw
     calculate_maximum_by_stack
@@ -31,8 +29,7 @@ class Gruff::StackedArea < Gruff::Base
     height = Array.new(column_count, 0)
 
     data_points = nil
-    iterator = @last_series_goes_on_bottom ? :reverse_each : :each
-    store.norm_data.public_send(iterator) do |data_row|
+    store.norm_data.each do |data_row|
       prev_data_points = data_points
       data_points = []
 
