@@ -38,12 +38,13 @@ class Gruff::Spider < Gruff::Base
     @hide_axes = false
     @hide_text = false
     @rotation = 0
+
+    @hide_line_markers = true
+    @hide_line_markers.freeze
   end
   private :initialize_attributes
 
   def draw
-    @hide_line_markers = true
-
     super
 
     return unless data_given?

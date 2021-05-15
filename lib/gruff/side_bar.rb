@@ -43,11 +43,11 @@ class Gruff::SideBar < Gruff::Base
     @label_formatting = nil
     @show_labels_for_bar_values = false
     @hide_labels = false
+    @has_left_labels = true
   end
   private :initialize_attributes
 
   def draw
-    @has_left_labels = true
     super
 
     return unless data_given?

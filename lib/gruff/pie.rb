@@ -40,6 +40,9 @@ class Gruff::Pie < Gruff::Base
     @hide_labels_less_than = 0.0
     @text_offset_percentage = DEFAULT_TEXT_OFFSET_PERCENTAGE
     @show_values_as_labels = false
+
+    @hide_line_markers = true
+    @hide_line_markers.freeze
   end
   private :initialize_attributes
 
@@ -53,8 +56,6 @@ class Gruff::Pie < Gruff::Base
   end
 
   def draw
-    hide_line_markers
-
     super
 
     return unless data_given?
@@ -83,10 +84,6 @@ private
   end
 
   # General Helper Methods
-
-  def hide_line_markers
-    @hide_line_markers = true
-  end
 
   def update_chart_degrees_with(degrees)
     @chart_degrees = chart_degrees + degrees
