@@ -19,7 +19,7 @@ class TestGruffScatter < Minitest::Test
     assert_same_image('test/expected/scatter_basic.png', 'test/output/scatter_basic.png')
   end
 
-  #~ # Done
+  # Done
   def test_many_datapoints
     srand 135
     g = Gruff::Scatter.new
@@ -190,12 +190,12 @@ class TestGruffScatter < Minitest::Test
   end
 
   # TODO: Implement baselines on x and y axis
-  #~ def test_baseline_larger_than_data
-  #~ g = setup_basic_graph(400)
-  #~ g.title = "Baseline Larger Than Data"
-  #~ g.baseline_value = 150
-  #~ g.write("test/output/scatter_large_baseline.png")
-  #~ end
+  # def test_baseline_larger_than_data
+  #   g = setup_basic_graph(400)
+  #   g.title = "Baseline Larger Than Data"
+  #   g.baseline_value = 150
+  #   g.write("test/output/scatter_large_baseline.png")
+  # end
 
   # Done
   def test_wide_graph
