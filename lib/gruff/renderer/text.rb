@@ -5,12 +5,9 @@ module Gruff
   class Renderer::Text
     using Magick::GruffAnnotate
 
-    def initialize(text, font:, size:, color:, weight: Magick::NormalWeight, rotation: nil)
+    def initialize(text, font:, rotation: nil)
       @text = text.to_s
       @font = font
-      @font_size = size
-      @font_color = color
-      @font_weight = weight
       @rotation = rotation
     end
 
@@ -32,11 +29,11 @@ module Gruff
       scale = Renderer.instance.scale
 
       draw.rotation = @rotation if @rotation
-      draw.fill = @font_color
+      draw.fill = @font.color
       draw.stroke = 'transparent'
-      draw.font = @font || Renderer::Text.default_font(@font_weight)
-      draw.font_weight = @font_weight
-      draw.pointsize = @font_size * scale
+      draw.font = @font.file_path
+      draw.font_weight = @font.weight
+      draw.pointsize = @font.size * scale
       draw.gravity = gravity
       draw.annotate_scaled(image,
                            width, height,
@@ -45,13 +42,13 @@ module Gruff
       draw.rotation = -@rotation if @rotation
     end
 
-    def self.metrics(text, font, size, font_weight = Magick::NormalWeight)
+    def self.metrics(text, font)
       draw  = Renderer.instance.draw
       image = Renderer.instance.image
 
-      draw.font = font || Renderer::Text.default_font(font_weight)
-      draw.font_weight = font_weight
-      draw.pointsize = size
+      draw.font = font.file_path
+      draw.font_weight = font.weight
+      draw.pointsize = font.size
 
       # The old ImageMagick causes SEGV with string which has '%' + alphabet (eg. '%S').
       # This format is used to embed value into a string using image properties.
@@ -60,13 +57,6 @@ module Gruff
       text = text.to_s.gsub(/(%+)/) { ('%' * Regexp.last_match(1).size * 2).to_s }
 
       draw.get_type_metrics(image, text)
-    end
-
-    FONT_BOLD = File.expand_path(File.join(__FILE__, '../../../../assets/fonts/Roboto-Bold.ttf'))
-    FONT_REGULAR = File.expand_path(File.join(__FILE__, '../../../../assets/fonts/Roboto-Regular.ttf'))
-
-    def self.default_font(font_weight)
-      (font_weight == Magick::BoldWeight) ? FONT_BOLD : FONT_REGULAR
     end
   end
 end

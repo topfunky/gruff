@@ -64,7 +64,7 @@ protected
 
       unless @hide_line_numbers
         label = y_axis_label(marker_label, @increment)
-        text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @marker_font_size, color: @font_color)
+        text_renderer = Gruff::Renderer::Text.new(label, font: @marker_font)
         text_renderer.add_to_render_queue(0, 0, x, @graph_bottom + (LABEL_MARGIN * 1.5), Magick::CenterGravity)
       end
     end

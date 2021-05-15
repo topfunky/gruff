@@ -40,6 +40,7 @@ class Gruff::Pie < Gruff::Base
     @hide_labels_less_than = 0.0
     @text_offset_percentage = DEFAULT_TEXT_OFFSET_PERCENTAGE
     @show_values_as_labels = false
+    @marker_font.bold = true
 
     @hide_line_markers = true
     @hide_line_markers.freeze
@@ -166,7 +167,7 @@ private
   # Drawing-Related Methods
 
   def draw_label(x, y, value)
-    text_renderer = Gruff::Renderer::Text.new(value, font: @font, size: @marker_font_size, color: @font_color, weight: Magick::BoldWeight)
+    text_renderer = Gruff::Renderer::Text.new(value, font: @marker_font)
     text_renderer.add_to_render_queue(0, 0, x, y, Magick::CenterGravity)
   end
 

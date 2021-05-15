@@ -38,6 +38,7 @@ class Gruff::Spider < Gruff::Base
     @hide_axes = false
     @hide_text = false
     @rotation = 0
+    @legend_font.bold = true
 
     @hide_line_markers = true
     @hide_line_markers.freeze
@@ -79,7 +80,7 @@ private
     y = y_offset + ((radius + r_offset) * Math.sin(angle))
 
     # Draw label
-    text_renderer = Gruff::Renderer::Text.new(amount, font: @font, size: @legend_font_size, color: @marker_color, weight: Magick::BoldWeight)
+    text_renderer = Gruff::Renderer::Text.new(amount, font: @legend_font)
     text_renderer.add_to_render_queue(0, 0, x, y, Magick::CenterGravity)
   end
 

@@ -30,18 +30,20 @@ module Gruff
           @rows = [@rows, legend_height].max
           @columns += calculate_legend_width + @left_margin
         else
-          @rows += store.length * calculate_caps_height(scale_fontsize(@legend_font_size)) * 1.7
+          font = @legend_font.dup
+          font.size = scale_fontsize(font.size)
+          @rows += store.length * calculate_caps_height(font) * 1.7
         end
 
-        Gruff::Renderer.setup(@columns, @rows, @font, @scale, @theme_options)
+        Gruff::Renderer.setup(@columns, @rows, @scale, @theme_options)
       end
 
       def calculate_line_height
-        calculate_caps_height(@legend_font_size) * 1.7
+        calculate_caps_height(@legend_font) * 1.7
       end
 
       def calculate_legend_width
-        width = @legend_labels.map { |label| calculate_width(@legend_font_size, label) }.max
+        width = @legend_labels.map { |label| calculate_width(@legend_font, label) }.max
         scale_fontsize(width + 40 * 1.7)
       end
 
@@ -67,7 +69,7 @@ module Gruff
         @legend_labels.each_with_index do |legend_label, index|
           # Draw label
           label = truncate_legend_label(legend_label)
-          text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @legend_font_size, color: @font_color)
+          text_renderer = Gruff::Renderer::Text.new(label, font: @legend_font)
           x_offset = current_x_offset + (legend_square_width * 1.7)
           text_renderer.add_to_render_queue(@raw_columns, 1.0, x_offset, current_y_offset, Magick::WestGravity)
 
@@ -90,9 +92,10 @@ module Gruff
       def truncate_legend_label(label)
         truncated_label = label.to_s
 
-        font_size = scale_fontsize(@legend_font_size)
+        font = @legend_font.dup
+        font.size = scale_fontsize(font.size)
         max_width = @columns - @legend_left_margin - @right_margin
-        while calculate_width(font_size, truncated_label) > max_width && truncated_label.length > 1
+        while calculate_width(font, truncated_label) > max_width && truncated_label.length > 1
           truncated_label = truncated_label[0..truncated_label.length - 2]
         end
         truncated_label + (truncated_label.length < label.to_s.length ? '...' : '')

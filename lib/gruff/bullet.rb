@@ -30,7 +30,8 @@ class Gruff::Bullet < Gruff::Base
   def initialize_attributes
     super
 
-    @title_font_size = 20
+    @title_font.size = 20
+    @title_font.bold = false
   end
   private :initialize_attributes
 
@@ -51,7 +52,7 @@ class Gruff::Bullet < Gruff::Base
 
     draw_title
 
-    title_width  = calculate_width(@title_font_size, @title)
+    title_width  = calculate_width(@title_font, @title)
     margin       = 30.0
     thickness    = @raw_rows / 6.0
     right_margin = margin
@@ -76,12 +77,12 @@ class Gruff::Bullet < Gruff::Base
       target_x = graph_left + graph_width * (@options[:target] / maximum_value)
       half_thickness = thickness / 2.0
 
-      rect_renderer = Gruff::Renderer::Rectangle.new(color: @font_color)
+      rect_renderer = Gruff::Renderer::Rectangle.new(color: @marker_color)
       rect_renderer.render(target_x, half_thickness, target_x + half_thickness, thickness * 2 + half_thickness)
     end
 
     # Value
-    rect_renderer = Gruff::Renderer::Rectangle.new(color: @font_color)
+    rect_renderer = Gruff::Renderer::Rectangle.new(color: @marker_color)
     rect_renderer.render(graph_left, thickness, graph_left + graph_width * (@value / maximum_value), thickness * 2)
   end
 
@@ -90,9 +91,9 @@ private
   def draw_title
     return if hide_title?
 
-    font_height = calculate_caps_height(scale_fontsize(@title_font_size))
+    font_height = calculate_caps_height(@title_font)
 
-    text_renderer = Gruff::Renderer::Text.new(@title, font: @font, size: @title_font_size, color: @font_color)
+    text_renderer = Gruff::Renderer::Text.new(@title, font: @title_font)
     text_renderer.add_to_render_queue(1.0, 1.0, font_height / 2, font_height / 2, Magick::NorthWestGravity)
   end
 end

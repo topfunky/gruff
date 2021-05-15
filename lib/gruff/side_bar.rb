@@ -146,7 +146,7 @@ private
         diff = index - number_of_lines
         marker_label = BigDecimal(diff.abs.to_s) * BigDecimal(increment.to_s) + BigDecimal(minimum_value.to_s)
         label = x_axis_label(marker_label, @increment)
-        text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @marker_font_size, color: @font_color)
+        text_renderer = Gruff::Renderer::Text.new(label, font: @marker_font)
         text_renderer.add_to_render_queue(0, 0, x, @graph_bottom + LABEL_MARGIN, Magick::CenterGravity)
       end
     end

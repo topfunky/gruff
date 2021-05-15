@@ -214,7 +214,7 @@ private
 
         label = x_axis_label(marker_label, @x_increment)
         rotation = -90.0 if @use_vertical_x_labels
-        text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @marker_font_size, color: @font_color, rotation: rotation)
+        text_renderer = Gruff::Renderer::Text.new(label, font: @marker_font, rotation: rotation)
         text_renderer.add_to_render_queue(1.0, 1.0, x_offset, y_offset)
       end
     end
