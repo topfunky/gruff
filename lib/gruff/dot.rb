@@ -14,8 +14,13 @@
 #   g.write('dot.png')
 #
 class Gruff::Dot < Gruff::Base
-  def draw
+  def initialize_attributes
+    super
     @has_left_labels = true
+  end
+  private :initialize_attributes
+
+  def draw
     super
 
     return unless data_given?
