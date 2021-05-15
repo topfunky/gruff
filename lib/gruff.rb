@@ -9,6 +9,7 @@ require 'gruff/version'
   patch/rmagick
   patch/string
 
+  font
   base
 
   helper/bar_conversion.rb

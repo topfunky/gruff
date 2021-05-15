@@ -25,8 +25,8 @@ module Gruff
         @hide_title = true
         @hide_line_numbers = true
 
-        @marker_font_size = 50.0
-        @legend_font_size = 60.0
+        @marker_font.size = 50.0
+        @legend_font.size = 60.0
 
         @minimum_value = 0.0
       end

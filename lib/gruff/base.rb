@@ -93,15 +93,6 @@ module Gruff
     # Set the large title of the graph displayed at the top.
     attr_writer :title
 
-    # Same as {#font=} but for the title.
-    attr_writer :title_font
-
-    # Specifies whether to draw the title bolded or not. Default is +true+.
-    attr_writer :bold_title
-
-    # Specifies the text color.
-    attr_writer :font_color
-
     # Prevent drawing of line markers. Default is +false+.
     attr_writer :hide_line_markers
 
@@ -118,20 +109,8 @@ module Gruff
     # to +"No Data."+.
     attr_writer :no_data_message
 
-    # Set the font size of the large title at the top of the graph. Default is +36+.
-    attr_writer :title_font_size
-
-    # Optionally set the size of the font. Based on an 800x600px graph.
-    # Default is +20+.
-    #
-    # Will be scaled down if the graph is smaller than 800px wide.
-    attr_writer :legend_font_size
-
     # Display the legend under the graph. Default is +false+.
     attr_writer :legend_at_bottom
-
-    # The font size of the labels around the graph. Default is +21+.
-    attr_writer :marker_font_size
 
     # Set the color of the auxiliary lines.
     attr_writer :marker_color
@@ -217,13 +196,9 @@ module Gruff
       @sorted_drawing = false
       @title = nil
 
-      @title_font = nil
-      @font = nil
-      @bold_title = true
-
-      @marker_font_size = 21.0
-      @legend_font_size = 20.0
-      @title_font_size = 36.0
+      @title_font = Gruff::Font.new(size: 36.0, bold: true)
+      @marker_font = Gruff::Font.new(size: 21.0)
+      @legend_font = Gruff::Font.new(size: 20.0)
 
       @top_margin = @bottom_margin = @left_margin = @right_margin = DEFAULT_MARGIN
       @legend_margin = LEGEND_MARGIN
@@ -262,8 +237,62 @@ module Gruff
     # @param font_path [String] The path to font.
     #
     def font=(font_path)
-      @font = font_path
-      Gruff::Renderer.font = @font
+      @title_font.path = font_path unless @title_font.path
+      @marker_font.path = font_path
+      @legend_font.path = font_path
+    end
+
+    # Same as {#font=} but for the title.
+    #
+    # @param font_path [String] The path to font.
+    #
+    def title_font=(font_path)
+      @title_font.path = font_path
+    end
+
+    # Set the font size of the large title at the top of the graph. Default is +36+.
+    #
+    # @param value [Numeric] title font size
+    #
+    def title_font_size=(value)
+      @title_font.size = value
+    end
+
+    # The font size of the labels around the graph. Default is +21+.
+    #
+    # @param value [Numeric] marker font size
+    #
+    def marker_font_size=(value)
+      @marker_font.size = value
+    end
+
+    # Optionally set the size of the font. Based on an 800x600px graph.
+    # Default is +20+.
+    #
+    # Will be scaled down if the graph is smaller than 800px wide.
+    #
+    # @param value [Numeric] legend font size
+    #
+    def legend_font_size=(value)
+      @legend_font.size = value
+    end
+
+    # Specifies whether to draw the title bolded or not. Default is +true+.
+    #
+    # @param value [Boolean] specifies whether to draw the title bolded or not.
+    #
+    def bold_title=(value)
+      @title_font.bold = value
+    end
+
+    # Specifies the text color.
+    #
+    # @param value [String] color
+    #
+    def font_color=(value)
+      @title_font.color = value
+      @marker_font.color = value
+      @legend_font.color = value
     end
 
     # Add a color to the list of available colors for lines.
@@ -332,12 +361,13 @@ module Gruff
       }
       @theme_options = defaults.merge options
 
-      @colors = @theme_options[:colors]
-      @marker_color = @theme_options[:marker_color]
-      @marker_shadow_color = @theme_options[:marker_shadow_color]
-      @font_color = @theme_options[:font_color] || @marker_color
+      self.marker_color = @theme_options[:marker_color]
+      self.font_color = @theme_options[:font_color] || @marker_color
 
-      Gruff::Renderer.setup(@columns, @rows, @font, @scale, @theme_options)
+      @colors = @theme_options[:colors]
+      @marker_shadow_color = @theme_options[:marker_shadow_color]
+
+      Gruff::Renderer.setup(@columns, @rows, @scale, @theme_options)
     end
 
     # Apply Apple's keynote theme.
@@ -581,13 +611,13 @@ module Gruff
         x_axis_label_y_coordinate = @graph_bottom + LABEL_MARGIN + @marker_caps_height
 
         # TODO: Center between graph area
-        text_renderer = Gruff::Renderer::Text.new(@x_axis_label, font: @font, size: @marker_font_size, color: @font_color)
+        text_renderer = Gruff::Renderer::Text.new(@x_axis_label, font: @marker_font)
         text_renderer.add_to_render_queue(@raw_columns, 1.0, 0.0, x_axis_label_y_coordinate)
       end
 
       if @y_axis_label
         # Y Axis, rotated vertically
-        text_renderer = Gruff::Renderer::Text.new(@y_axis_label, font: @font, size: @marker_font_size, color: @font_color, rotation: -90)
+        text_renderer = Gruff::Renderer::Text.new(@y_axis_label, font: @marker_font, rotation: -90)
         text_renderer.add_to_render_queue(1.0, @raw_rows, @left_margin + @marker_caps_height / 2.0, 0.0, Magick::CenterGravity)
       end
     end
@@ -608,7 +638,7 @@ module Gruff
         unless @hide_line_numbers
           marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) + BigDecimal(minimum_value.to_s)
           label = y_axis_label(marker_label, @increment)
-          text_renderer = Gruff::Renderer::Text.new(label, font: @font, size: @marker_font_size, color: @font_color)
+          text_renderer = Gruff::Renderer::Text.new(label, font: @marker_font)
           text_renderer.add_to_render_queue(@graph_left - LABEL_MARGIN, 1.0, 0.0, y, Magick::EastGravity)
         end
       end
@@ -641,7 +671,7 @@ module Gruff
         next if legend_label.empty?
 
         # Draw label
-        text_renderer = Gruff::Renderer::Text.new(legend_label, font: @font, size: @legend_font_size, color: @font_color)
+        text_renderer = Gruff::Renderer::Text.new(legend_label, font: @legend_font)
         text_renderer.add_to_render_queue(@raw_columns, 1.0, current_x_offset + (legend_square_width * 1.7), current_y_offset, Magick::WestGravity)
 
         # Now draw box with color of this dataset
@@ -651,7 +681,7 @@ module Gruff
                              current_x_offset + legend_square_width,
                              current_y_offset + legend_square_width / 2.0)
 
-        width = calculate_width(@legend_font_size, legend_label)
+        width = calculate_width(@legend_font, legend_label)
         current_x_offset += width + (legend_square_width * 2.7)
         label_widths.first.shift
 
@@ -672,15 +702,12 @@ module Gruff
     def draw_title
       return if hide_title?
 
-      font = @title_font || @font
-      font_weight = @bold_title ? Magick::BoldWeight : Magick::NormalWeight
-      font_size = @title_font_size
-
-      metrics = Renderer::Text.metrics(@title, font, font_size, font_weight)
+      metrics = Renderer::Text.metrics(@title, @title_font)
       if metrics.width > @raw_columns
-        font_size = font_size * (@raw_columns / metrics.width) * 0.95
+        @title_font.size = @title_font.size * (@raw_columns / metrics.width) * 0.95
       end
-      text_renderer = Gruff::Renderer::Text.new(@title, font: font, size: font_size, color: @font_color, weight: font_weight)
+
+      text_renderer = Gruff::Renderer::Text.new(@title, font: @title_font)
       text_renderer.add_to_render_queue(@raw_columns, 1.0, 0, @top_margin)
     end
 
@@ -714,7 +741,7 @@ module Gruff
 
     def draw_label_at(width, height, x, y, text, gravity = Magick::NorthGravity)
       label_text = truncate_label_text(text)
-      text_renderer = Gruff::Renderer::Text.new(label_text, font: @font, size: @marker_font_size, color: @font_color)
+      text_renderer = Gruff::Renderer::Text.new(label_text, font: @marker_font)
       text_renderer.add_to_render_queue(width, height, x, y, gravity)
     end
 
@@ -722,13 +749,16 @@ module Gruff
     def draw_value_label(x_offset, y_offset, data_point, bar_value = false)
       return if @hide_line_markers && !bar_value
 
-      text_renderer = Gruff::Renderer::Text.new(data_point, font: @font, size: @marker_font_size, color: @font_color)
+      text_renderer = Gruff::Renderer::Text.new(data_point, font: @marker_font)
       text_renderer.add_to_render_queue(1.0, 1.0, x_offset, y_offset)
     end
 
     # Shows an error message because you have no data.
     def draw_no_data
-      text_renderer = Gruff::Renderer::Text.new(@no_data_message, font: @font, size: 80, color: @font_color)
+      font = @title_font.dup
+      font.size = 80
+      font.bold = false
+      text_renderer = Gruff::Renderer::Text.new(@no_data_message, font: font)
       text_renderer.render(@raw_columns, @raw_rows, 0, 0, Magick::CenterGravity)
     end
 
@@ -794,15 +824,15 @@ module Gruff
   private
 
     def setup_marker_caps_height
-      hide_bottom_label_area? ? 0 : calculate_caps_height(@marker_font_size)
+      hide_bottom_label_area? ? 0 : calculate_caps_height(@marker_font)
     end
 
     def setup_title_caps_height
-      hide_title? ? 0 : calculate_caps_height(@title_font_size) * @title.lines.to_a.size
+      hide_title? ? 0 : calculate_caps_height(@title_font) * @title.lines.to_a.size
     end
 
     def setup_legend_caps_height
-      @hide_legend ? 0 : calculate_caps_height(@legend_font_size)
+      @hide_legend ? 0 : calculate_caps_height(@legend_font)
     end
 
     def graph_right_margin
@@ -813,7 +843,7 @@ module Gruff
       # Make space for half the width of the rightmost column label.
       # Might be greater than the number of columns if between-style bar markers are used.
       last_label = @labels.keys.max.to_i
-      (last_label >= (column_count - 1) && @center_labels_over_point) ? calculate_width(@marker_font_size, @labels[last_label]) / 2.0 : 0
+      (last_label >= (column_count - 1) && @center_labels_over_point) ? calculate_width(@marker_font, @labels[last_label]) / 2.0 : 0
     end
 
     def setup_left_margin
@@ -826,7 +856,7 @@ module Gruff
           y_axis_label(maximum_value.to_f, @increment)
         end
       end
-      longest_left_label_width = calculate_width(@marker_font_size, truncate_label_text(text))
+      longest_left_label_width = calculate_width(@marker_font, truncate_label_text(text))
       longest_left_label_width *= 1.25 if @has_left_labels
 
       # Shift graph if left line numbers are hidden
@@ -917,7 +947,7 @@ module Gruff
       # May fix legend drawing problem at small sizes
       label_widths = [[]] # Used to calculate line wrap
       legend_labels.each do |label|
-        width = calculate_width(@legend_font_size, label)
+        width = calculate_width(@legend_font, label)
         label_width = width + legend_square_width * 2.7
         label_widths.last.push label_width
 
@@ -959,8 +989,8 @@ module Gruff
     #
     # Not scaled since it deals with dimensions that the regular scaling will
     # handle.
-    def calculate_caps_height(font_size)
-      metrics = Renderer::Text.metrics('X', @font, font_size)
+    def calculate_caps_height(font)
+      metrics = Renderer::Text.metrics('X', font)
       metrics.height
     end
 
@@ -968,11 +998,11 @@ module Gruff
     #
     # Not scaled since it deals with dimensions that the regular
     # scaling will handle.
-    def calculate_width(font_size, text)
+    def calculate_width(font, text)
       text = text.to_s
       return 0 if text.empty?
 
-      metrics = Renderer::Text.metrics(text, @font, font_size)
+      metrics = Renderer::Text.metrics(text, font)
       metrics.width
     end
 

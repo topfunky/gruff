@@ -9,9 +9,8 @@ module Gruff
 
     attr_accessor :draw, :image, :scale, :text_renderers
 
-    def self.setup(columns, rows, font, scale, theme_options)
+    def self.setup(columns, rows, scale, theme_options)
       draw = Magick::Draw.new
-      draw.font = font if font
       # Scale down from 800x600 used to calculate drawing.
       draw.scale(scale, scale)
 
@@ -30,11 +29,6 @@ module Gruff
 
     def self.background_image=(image)
       Renderer.instance.image = image
-    end
-
-    def self.font=(font)
-      draw = Renderer.instance.draw
-      draw.font = font if font
     end
 
     def self.finish

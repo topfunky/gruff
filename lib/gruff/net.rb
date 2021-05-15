@@ -38,6 +38,7 @@ class Gruff::Net < Gruff::Base
     @dot_radius = nil
     @hide_line_numbers = true
     @sorted_drawing = true
+    @marker_font.bold = true
   end
   private :initialize_attributes
 
@@ -107,7 +108,7 @@ private
     y = y_offset - (radius + LABEL_MARGIN) * Math.cos(deg2rad(angle))
 
     # Draw label
-    text_renderer = Gruff::Renderer::Text.new(amount, font: @font, size: 20, color: @marker_color, weight: Magick::BoldWeight)
+    text_renderer = Gruff::Renderer::Text.new(amount, font: @marker_font)
     text_renderer.add_to_render_queue(0, 0, x, y, Magick::CenterGravity)
   end
 end
