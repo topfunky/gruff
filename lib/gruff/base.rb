@@ -181,7 +181,7 @@ module Gruff
       @rows.freeze
 
       initialize_graph_scale
-      initialize_ivars
+      initialize_attributes
       initialize_store
 
       self.theme = Themes::KEYNOTE
@@ -209,7 +209,7 @@ module Gruff
     #
     # This makes it possible to set defaults in a subclass but still allow
     # developers to change this values in their program.
-    def initialize_ivars
+    def initialize_attributes
       @marker_count = nil
       @maximum_value = @minimum_value = nil
       @labels = {}
@@ -247,7 +247,7 @@ module Gruff
       @x_axis_label_format = nil
       @y_axis_label_format = nil
     end
-    protected :initialize_ivars
+    protected :initialize_attributes
 
     # Sets the top, bottom, left and right margins to +margin+.
     #

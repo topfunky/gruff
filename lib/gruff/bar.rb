@@ -33,7 +33,7 @@ class Gruff::Bar < Gruff::Base
   # Prevent drawing of column labels below a bar graph.  Default is +false+.
   attr_writer :hide_labels
 
-  def initialize_ivars
+  def initialize_attributes
     super
     @spacing_factor = 0.9
     @group_spacing = 10
@@ -41,7 +41,7 @@ class Gruff::Bar < Gruff::Base
     @show_labels_for_bar_values = false
     @hide_labels = false
   end
-  private :initialize_ivars
+  private :initialize_attributes
 
   def draw
     # Labels will be centered over the left of the bar if

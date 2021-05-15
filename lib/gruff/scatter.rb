@@ -40,7 +40,7 @@ class Gruff::Scatter < Gruff::Base
   end
   private :initialize_store
 
-  def initialize_ivars
+  def initialize_attributes
     super
 
     @baseline_x_color = @baseline_y_color = 'red'
@@ -54,7 +54,7 @@ class Gruff::Scatter < Gruff::Base
     @use_vertical_x_labels = false
     @x_label_margin = nil
   end
-  private :initialize_ivars
+  private :initialize_attributes
 
   # Allow enabling vertical lines. When you have a lot of data, they can work great.
   # @deprecated Please use +show_vertical_markers+ attribute instead.

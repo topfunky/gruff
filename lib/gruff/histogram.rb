@@ -28,13 +28,13 @@ class Gruff::Histogram < Gruff::Bar
     @data = []
   end
 
-  def initialize_ivars
+  def initialize_attributes
     super
     @bin_width = 10
     @minimum_bin = nil
     @maximum_bin = nil
   end
-  private :initialize_ivars
+  private :initialize_attributes
 
   def data(name, data_points = [], color = nil)
     @data << [name, data_points, color]

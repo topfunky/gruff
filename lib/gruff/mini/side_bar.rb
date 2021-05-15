@@ -25,7 +25,7 @@ module Gruff
     class SideBar < Gruff::SideBar
       include Gruff::Mini::Legend
 
-      def initialize_ivars
+      def initialize_attributes
         super
         @hide_legend = true
         @hide_title = true
@@ -34,7 +34,7 @@ module Gruff
         @marker_font_size = 50.0
         @legend_font_size = 50.0
       end
-      private :initialize_ivars
+      private :initialize_attributes
 
       def draw
         expand_canvas_for_vertical_legend

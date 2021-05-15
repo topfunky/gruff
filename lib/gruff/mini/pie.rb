@@ -17,7 +17,7 @@ module Gruff
     class Pie < Gruff::Pie
       include Gruff::Mini::Legend
 
-      def initialize_ivars
+      def initialize_attributes
         super
 
         @hide_legend = true
@@ -27,7 +27,7 @@ module Gruff
         @marker_font_size = 60.0
         @legend_font_size = 60.0
       end
-      private :initialize_ivars
+      private :initialize_attributes
 
       def draw
         expand_canvas_for_vertical_legend

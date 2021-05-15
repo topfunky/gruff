@@ -18,7 +18,7 @@ module Gruff
     class Bar < Gruff::Bar
       include Gruff::Mini::Legend
 
-      def initialize_ivars
+      def initialize_attributes
         super
 
         @hide_legend = true
@@ -30,7 +30,7 @@ module Gruff
 
         @minimum_value = 0.0
       end
-      private :initialize_ivars
+      private :initialize_attributes
 
       def draw
         expand_canvas_for_vertical_legend

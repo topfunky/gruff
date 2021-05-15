@@ -32,14 +32,14 @@ class Gruff::Spider < Gruff::Base
     @max_value = max_value
   end
 
-  def initialize_ivars
+  def initialize_attributes
     super
     @hide_legend = true
     @hide_axes = false
     @hide_text = false
     @rotation = 0
   end
-  private :initialize_ivars
+  private :initialize_attributes
 
   def draw
     @hide_line_markers = true

@@ -30,7 +30,7 @@ class Gruff::Net < Gruff::Base
   attr_writer :line_width
   attr_writer :dot_radius
 
-  def initialize_ivars
+  def initialize_attributes
     super
 
     @hide_dots = false
@@ -39,7 +39,7 @@ class Gruff::Net < Gruff::Base
     @hide_line_numbers = true
     @sorted_drawing = true
   end
-  private :initialize_ivars
+  private :initialize_attributes
 
   def draw
     super

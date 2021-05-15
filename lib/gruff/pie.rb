@@ -34,14 +34,14 @@ class Gruff::Pie < Gruff::Base
   end
   private :initialize_store
 
-  def initialize_ivars
+  def initialize_attributes
     super
     @zero_degree = 0.0
     @hide_labels_less_than = 0.0
     @text_offset_percentage = DEFAULT_TEXT_OFFSET_PERCENTAGE
     @show_values_as_labels = false
   end
-  private :initialize_ivars
+  private :initialize_attributes
 
   def options
     {

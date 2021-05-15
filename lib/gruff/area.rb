@@ -20,13 +20,13 @@ class Gruff::Area < Gruff::Base
   # Specifies the stroke width in line around area graph. Default is +2.0+.
   attr_writer :stroke_width
 
-  def initialize_ivars
+  def initialize_attributes
     super
     @sorted_drawing = true
     @fill_opacity = 0.85
     @stroke_width = 2.0
   end
-  private :initialize_ivars
+  private :initialize_attributes
 
   def draw
     super

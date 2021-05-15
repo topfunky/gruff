@@ -27,12 +27,12 @@ class Gruff::Bullet < Gruff::Base
     self.theme = Gruff::Themes::GREYSCALE
   end
 
-  def initialize_ivars
+  def initialize_attributes
     super
 
     @title_font_size = 20
   end
-  private :initialize_ivars
+  private :initialize_attributes
 
   def data(value, maximum_value, options = {})
     @value = value.to_f

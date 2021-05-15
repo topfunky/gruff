@@ -30,7 +30,7 @@ class Gruff::StackedBar < Gruff::Base
   # Prevent drawing of column labels below a stacked bar graph.  Default is +false+.
   attr_writer :hide_labels
 
-  def initialize_ivars
+  def initialize_attributes
     super
     @bar_spacing = 0.9
     @segment_spacing = 2
@@ -38,7 +38,7 @@ class Gruff::StackedBar < Gruff::Base
     @show_labels_for_bar_values = false
     @hide_labels = false
   end
-  private :initialize_ivars
+  private :initialize_attributes
 
   # Draws a bar graph, but multiple sets are stacked on top of each other.
   def draw

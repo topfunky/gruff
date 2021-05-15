@@ -83,7 +83,7 @@ class Gruff::Line < Gruff::Base
   end
   private :initialize_store
 
-  def initialize_ivars
+  def initialize_attributes
     super
     @reference_lines = {}
     @reference_line_default_color = 'red'
@@ -99,7 +99,7 @@ class Gruff::Line < Gruff::Base
 
     @show_vertical_markers = false
   end
-  private :initialize_ivars
+  private :initialize_attributes
 
   # This method allows one to plot a dataset with both X and Y data.
   #
