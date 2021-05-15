@@ -186,7 +186,7 @@ class Gruff::Line < Gruff::Base
         x = @graph_left + @graph_width - column.to_f * @x_increment
 
         Gruff::Renderer::Line.new(color: @marker_color).render(x, @graph_bottom, x, @graph_top)
-        #If the user specified a marker shadow color, draw a shadow just below it
+        # If the user specified a marker shadow color, draw a shadow just below it
         if @marker_shadow_color
           Gruff::Renderer::Line.new(color: @marker_shadow_color).render(x + 1, @graph_bottom, x + 1, @graph_top)
         end
@@ -200,7 +200,7 @@ class Gruff::Line < Gruff::Base
 
       data_row.coordinates.each_with_index do |(x_data, y_data), index|
         if x_data.nil?
-          #use the old method: equally spaced points along the x-axis
+          # use the old method: equally spaced points along the x-axis
           new_x = @graph_left + (@x_increment * index)
           draw_label(new_x, index)
         else

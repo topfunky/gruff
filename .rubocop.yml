@@ -23,9 +23,6 @@ Layout/ClassStructure:
 Layout/FirstMethodArgumentLineBreak:
   Enabled: false
 
-Layout/LeadingCommentSpace:
-  Enabled: false
-
 Layout/LineLength:
   Max: 150
 
