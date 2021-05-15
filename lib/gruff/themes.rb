@@ -16,7 +16,7 @@ module Gruff
       marker_color: 'white',
       font_color: 'white',
       background_colors: %w[black #4a465a]
-    }
+    }.freeze
 
     # A color scheme plucked from the colors on the popular usability blog.
     THIRTYSEVEN_SIGNALS = {
@@ -32,7 +32,7 @@ module Gruff
       marker_color: 'black',
       font_color: 'black',
       background_colors: %w[#d1edf5 white]
-    }
+    }.freeze
 
     # A color scheme from the colors used on the 2005 Rails keynote
     # presentation at RubyConf.
@@ -49,7 +49,7 @@ module Gruff
       marker_color: 'white',
       font_color: 'white',
       background_colors: %w[#0083a3 #0083a3]
-    }
+    }.freeze
 
     # A color scheme similar to that used on the popular podcast site.
     ODEO = {
@@ -65,7 +65,7 @@ module Gruff
       marker_color: 'white',
       font_color: 'white',
       background_colors: %w[#ff47a4 #ff1f81]
-    }
+    }.freeze
 
     # A pastel theme
     PASTEL = {
@@ -81,7 +81,7 @@ module Gruff
       marker_color: '#aea9a9', # Grey
       font_color: 'black',
       background_colors: 'white'
-    }
+    }.freeze
 
     # A greyscale theme
     GREYSCALE = {
@@ -96,6 +96,6 @@ module Gruff
       marker_color: '#aea9a9', # Grey
       font_color: 'black',
       background_colors: 'white'
-    }
+    }.freeze
   end
 end
