@@ -59,9 +59,6 @@ Style/Copyright:
 Style/Documentation:
   Enabled: true
 
-Style/Encoding:
-  Enabled: false
-
 Style/FormatString:
   EnforcedStyle: sprintf
 
