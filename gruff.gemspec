@@ -10,7 +10,6 @@ Gem::Specification.new do |s|
   s.name = 'gruff'
   s.version = Gruff::VERSION
   s.authors = ['Geoffrey Grosenbach', 'Uwe Kubosch']
-  s.date = Date.today.to_s
   s.description = 'Beautiful graphs for one or multiple datasets. Can be used on websites or in documents.'
   s.email = 'boss@topfunky.com'
   s.files = `git ls-files`.split.reject do |f|
