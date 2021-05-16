@@ -28,6 +28,12 @@ class Gruff::Histogram < Gruff::Bar
     @data = []
   end
 
+  def data(name, data_points = [], color = nil)
+    @data << [name, data_points, color]
+  end
+
+private
+
   def initialize_attributes
     super
     @bin_width = 10
@@ -36,11 +42,7 @@ class Gruff::Histogram < Gruff::Bar
   end
   private :initialize_attributes
 
-  def data(name, data_points = [], color = nil)
-    @data << [name, data_points, color]
-  end
-
-  def draw
+  def setup_data
     @data.each do |(name, data_points, color)|
       bins, freqs = HistogramArray.new(data_points).histogram(bin_width: @bin_width, min: @minimum_bin, max: @maximum_bin)
       bins.each_with_index do |bin, index|
