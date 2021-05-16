@@ -40,7 +40,7 @@ private
     @hide_axes = false
     @hide_text = false
     @rotation = 0
-    @legend_font.bold = true
+    @marker_font.bold = true
 
     @hide_line_markers = true
     @hide_line_markers.freeze
@@ -74,9 +74,7 @@ private
     x = x_offset + ((radius + r_offset) * Math.cos(angle))
     y = y_offset + ((radius + r_offset) * Math.sin(angle))
 
-    # Draw label
-    text_renderer = Gruff::Renderer::Text.new(amount, font: @legend_font)
-    text_renderer.add_to_render_queue(0, 0, x, y, Magick::CenterGravity)
+    draw_label_at(1.0, 1.0, x, y, amount, Magick::CenterGravity)
   end
 
   def draw_axes(center_x, center_y, radius, additive_angle, line_color = nil)
