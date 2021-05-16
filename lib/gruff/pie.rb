@@ -140,7 +140,7 @@ private
     if slice.percentage >= @hide_labels_less_than
       x, y = label_coordinates_for slice
 
-      draw_label(x, y, slice.label)
+      draw_label_at(1.0, 1.0, x, y, slice.label, Magick::CenterGravity)
     end
   end
 
@@ -156,13 +156,6 @@ private
 
   def y_label_coordinate(angle)
     center_y + (radius_offset * Math.sin(deg2rad(angle)))
-  end
-
-  # Drawing-Related Methods
-
-  def draw_label(x, y, value)
-    text_renderer = Gruff::Renderer::Text.new(value, font: @marker_font)
-    text_renderer.add_to_render_queue(0, 0, x, y, Magick::CenterGravity)
   end
 
   # Helper Classes

@@ -18,11 +18,9 @@ namespace :test do
   task :"image:update" do
     require 'rmagick'
     require 'fileutils'
-    require 'parallel'
 
     update_expected_images = lambda do |expect_dir, output_dir|
-      files = Dir.glob("#{output_dir}/*.png")
-      Parallel.each(files) do |output_path|
+      Dir.glob("#{output_dir}/*.png").each do |output_path|
         file_name = File.basename(output_path)
         expected_path = "#{expect_dir}/#{file_name}"
 
@@ -31,7 +29,18 @@ namespace :test do
 
         if File.exist?(expected_path)
           expected_image = Magick::Image.read(expected_path).first
-          _, error = expected_image.compare_channel(output_image, Magick::PeakAbsoluteErrorMetric)
+          retry_count = 0
+          begin
+            _, error = expected_image.compare_channel(output_image, Magick::PeakAbsoluteErrorMetric)
+          rescue StandardError => e
+            GC.start
+            if retry_count < 1
+              retry_count += 1
+              retry
+            else
+              raise e
+            end
+          end
         end
 
         if error != 0.0

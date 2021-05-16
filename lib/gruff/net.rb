@@ -102,8 +102,6 @@ private
     x = x_offset + (radius + LABEL_MARGIN) * Math.sin(deg2rad(angle))
     y = y_offset - (radius + LABEL_MARGIN) * Math.cos(deg2rad(angle))
 
-    # Draw label
-    text_renderer = Gruff::Renderer::Text.new(amount, font: @marker_font)
-    text_renderer.add_to_render_queue(0, 0, x, y, Magick::CenterGravity)
+    draw_label_at(1.0, 1.0, x, y, amount, Magick::CenterGravity)
   end
 end
