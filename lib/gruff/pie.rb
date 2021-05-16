@@ -29,10 +29,11 @@ class Gruff::Pie < Gruff::Base
   ## Use values instead of percentages.
   attr_writer :show_values_as_labels
 
+private
+
   def initialize_store
     @store = Gruff::Store.new(Gruff::Store::CustomData)
   end
-  private :initialize_store
 
   def initialize_attributes
     super
@@ -45,7 +46,6 @@ class Gruff::Pie < Gruff::Base
     @hide_line_markers = true
     @hide_line_markers.freeze
   end
-  private :initialize_attributes
 
   def options
     {
@@ -56,11 +56,7 @@ class Gruff::Pie < Gruff::Base
     }
   end
 
-  def draw
-    super
-
-    return unless data_given?
-
+  def draw_graph
     slices.each do |slice|
       if slice.value > 0
         Gruff::Renderer::Ellipse.new(color: slice.color, width: radius)
@@ -70,8 +66,6 @@ class Gruff::Pie < Gruff::Base
       end
     end
   end
-
-private
 
   def slices
     @slices ||= begin

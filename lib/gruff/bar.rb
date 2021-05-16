@@ -33,28 +33,6 @@ class Gruff::Bar < Gruff::Base
   # Prevent drawing of column labels below a bar graph.  Default is +false+.
   attr_writer :hide_labels
 
-  def initialize_attributes
-    super
-    @spacing_factor = 0.9
-    @group_spacing = 10
-    @label_formatting = nil
-    @show_labels_for_bar_values = false
-    @hide_labels = false
-  end
-  private :initialize_attributes
-
-  def draw
-    # Labels will be centered over the left of the bar if
-    # there are more labels than columns. This is basically the same
-    # as where it would be for a line graph.
-    @center_labels_over_point = (@labels.keys.length > column_count)
-
-    super
-    return unless data_given?
-
-    draw_bars
-  end
-
   # Can be used to adjust the spaces between the bars.
   # Accepts values between 0.00 and 1.00 where 0.00 means no spacing at all
   # and 1 means that each bars' width is nearly 0 (so each bar is a simple
@@ -67,7 +45,25 @@ class Gruff::Bar < Gruff::Base
     @spacing_factor = (1 - space_percent)
   end
 
-protected
+private
+
+  def initialize_attributes
+    super
+    @spacing_factor = 0.9
+    @group_spacing = 10
+    @label_formatting = nil
+    @show_labels_for_bar_values = false
+    @hide_labels = false
+  end
+
+  def setup_drawing
+    # Labels will be centered over the left of the bar if
+    # there are more labels than columns. This is basically the same
+    # as where it would be for a line graph.
+    @center_labels_over_point = (@labels.keys.length > column_count)
+
+    super
+  end
 
   def hide_labels?
     @hide_labels
@@ -84,7 +80,7 @@ protected
   # Value to avoid completely overwriting the coordinate axis
   AXIS_MARGIN = 0.5
 
-  def draw_bars
+  def draw_graph
     # Setup spacing.
     #
     # Columns sit side-by-side.

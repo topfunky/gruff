@@ -30,6 +30,8 @@ class Gruff::Net < Gruff::Base
   attr_writer :line_width
   attr_writer :dot_radius
 
+private
+
   def initialize_attributes
     super
 
@@ -40,13 +42,8 @@ class Gruff::Net < Gruff::Base
     @sorted_drawing = true
     @marker_font.bold = true
   end
-  private :initialize_attributes
 
-  def draw
-    super
-
-    return unless data_given?
-
+  def draw_graph
     store.norm_data.each do |data_row|
       data_row.points.each_with_index do |data_point, index|
         next if data_point.nil?
@@ -72,8 +69,6 @@ class Gruff::Net < Gruff::Base
       end
     end
   end
-
-private
 
   def setup_drawing
     super

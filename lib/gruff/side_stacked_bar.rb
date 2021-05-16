@@ -39,6 +39,8 @@ class Gruff::SideStackedBar < Gruff::SideBar
   # Prevent drawing of column labels left of a side stacked bar graph.  Default is +false+.
   attr_writer :hide_labels
 
+private
+
   def initialize_attributes
     super
     @bar_spacing = 0.9
@@ -48,14 +50,11 @@ class Gruff::SideStackedBar < Gruff::SideBar
     @hide_labels = false
     @has_left_labels = true
   end
-  private :initialize_attributes
 
-  def draw
+  def setup_data
     calculate_maximum_by_stack
     super
   end
-
-protected
 
   def hide_labels?
     @hide_labels
@@ -69,9 +68,7 @@ protected
     @hide_line_markers
   end
 
-private
-
-  def draw_bars
+  def draw_graph
     # Setup spacing.
     #
     # Columns sit stacked.

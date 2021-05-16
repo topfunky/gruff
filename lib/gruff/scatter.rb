@@ -35,54 +35,11 @@ class Gruff::Scatter < Gruff::Base
   attr_writer :x_label_margin
   attr_writer :use_vertical_x_labels
 
-  def initialize_store
-    @store = Gruff::Store.new(Gruff::Store::XYData)
-  end
-  private :initialize_store
-
-  def initialize_attributes
-    super
-
-    @baseline_x_color = @baseline_y_color = 'red'
-    @baseline_x_value = @baseline_y_value = nil
-    @circle_radius = nil
-    @disable_significant_rounding_x_axis = false
-    @show_vertical_markers = false
-    @marker_x_count = nil
-    @maximum_x_value = @minimum_x_value = nil
-    @stroke_width = nil
-    @use_vertical_x_labels = false
-    @x_label_margin = nil
-  end
-  private :initialize_attributes
-
   # Allow enabling vertical lines. When you have a lot of data, they can work great.
   # @deprecated Please use +show_vertical_markers+ attribute instead.
   def enable_vertical_line_markers=(value)
     warn '#enable_vertical_line_markers= is deprecated. Please use `show_vertical_markers` attribute instead'
     @show_vertical_markers = value
-  end
-
-  def draw
-    super
-    return unless data_given?
-
-    # Check to see if more than one datapoint was given. NaN can result otherwise.
-    @x_increment = (@x_spread > 1) ? (@graph_width / (@x_spread - 1).to_f) : @graph_width
-
-    store.norm_data.each do |data_row|
-      data_row.coordinates.each do |x_value, y_value|
-        next if y_value.nil? || x_value.nil?
-
-        new_x = get_x_coord(x_value, @graph_width, @graph_left)
-        new_y = @graph_top + (@graph_height - y_value * @graph_height)
-
-        # Reset each time to avoid thin-line errors
-        stroke_width  = @stroke_width  || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4), 5.0)
-        circle_radius = @circle_radius || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 2.5), 5.0)
-        Gruff::Renderer::Circle.new(color: data_row.color, width: stroke_width).render(new_x, new_y, new_x - circle_radius, new_y)
-      end
-    end
   end
 
   # The first parameter is the name of the dataset.  The next two are the
@@ -137,6 +94,44 @@ class Gruff::Scatter < Gruff::Base
   alias dataxy data
 
 private
+
+  def initialize_store
+    @store = Gruff::Store.new(Gruff::Store::XYData)
+  end
+
+  def initialize_attributes
+    super
+
+    @baseline_x_color = @baseline_y_color = 'red'
+    @baseline_x_value = @baseline_y_value = nil
+    @circle_radius = nil
+    @disable_significant_rounding_x_axis = false
+    @show_vertical_markers = false
+    @marker_x_count = nil
+    @maximum_x_value = @minimum_x_value = nil
+    @stroke_width = nil
+    @use_vertical_x_labels = false
+    @x_label_margin = nil
+  end
+
+  def draw_graph
+    # Check to see if more than one datapoint was given. NaN can result otherwise.
+    @x_increment = (@x_spread > 1) ? (@graph_width / (@x_spread - 1).to_f) : @graph_width
+
+    store.norm_data.each do |data_row|
+      data_row.coordinates.each do |x_value, y_value|
+        next if y_value.nil? || x_value.nil?
+
+        new_x = get_x_coord(x_value, @graph_width, @graph_left)
+        new_y = @graph_top + (@graph_height - y_value * @graph_height)
+
+        # Reset each time to avoid thin-line errors
+        stroke_width  = @stroke_width  || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4), 5.0)
+        circle_radius = @circle_radius || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 2.5), 5.0)
+        Gruff::Renderer::Circle.new(color: data_row.color, width: stroke_width).render(new_x, new_y, new_x - circle_radius, new_y)
+      end
+    end
+  end
 
   def setup_data
     # Update the global min/max values for the x data

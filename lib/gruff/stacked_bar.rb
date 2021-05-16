@@ -30,6 +30,8 @@ class Gruff::StackedBar < Gruff::Base
   # Prevent drawing of column labels below a stacked bar graph.  Default is +false+.
   attr_writer :hide_labels
 
+private
+
   def initialize_attributes
     super
     @bar_spacing = 0.9
@@ -38,14 +40,14 @@ class Gruff::StackedBar < Gruff::Base
     @show_labels_for_bar_values = false
     @hide_labels = false
   end
-  private :initialize_attributes
 
-  # Draws a bar graph, but multiple sets are stacked on top of each other.
-  def draw
+  def setup_data
     calculate_maximum_by_stack
     super
-    return unless data_given?
+  end
 
+  # Draws a bar graph, but multiple sets are stacked on top of each other.
+  def draw_graph
     # Setup spacing.
     #
     # Columns sit stacked.
@@ -88,8 +90,6 @@ class Gruff::StackedBar < Gruff::Base
       end
     end
   end
-
-protected
 
   def hide_labels?
     @hide_labels
