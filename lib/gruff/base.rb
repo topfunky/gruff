@@ -488,13 +488,14 @@ module Gruff
 
     # Draw a graph.
     def draw
+      setup_data
+
       # Maybe should be done in one of the following functions for more granularity.
       unless data_given?
         draw_no_data
         return
       end
 
-      setup_data
       setup_drawing
 
       draw_legend
