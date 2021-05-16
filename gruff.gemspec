@@ -34,7 +34,6 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.4.0'
 
   s.add_development_dependency 'rake'
-  s.add_development_dependency 'parallel'
   s.add_development_dependency 'minitest-reporters'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'yard', '~> 0.9.25'
