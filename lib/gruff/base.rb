@@ -486,11 +486,7 @@ module Gruff
       end
     end
 
-  protected
-
-    # Overridden by subclasses to do the actual plotting of the graph.
-    #
-    # Subclasses should start by calling super() for this method.
+    # Draw a graph.
     def draw
       # Maybe should be done in one of the following functions for more granularity.
       unless data_given?
@@ -505,7 +501,10 @@ module Gruff
       draw_line_markers
       draw_axis_labels
       draw_title
+      draw_graph
     end
+
+  protected
 
     # Perform data manipulation before calculating chart measurements
     def setup_data # :nodoc:
@@ -760,6 +759,10 @@ module Gruff
       font.bold = false
       text_renderer = Gruff::Renderer::Text.new(@no_data_message, font: font)
       text_renderer.render(@raw_columns, @raw_rows, 0, 0, Magick::CenterGravity)
+    end
+
+    def draw_graph
+      raise 'Should implement this method at inherited class.'
     end
 
     # Resets everything to defaults (except data).

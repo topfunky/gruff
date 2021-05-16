@@ -32,6 +32,8 @@ class Gruff::Spider < Gruff::Base
     @max_value = max_value
   end
 
+private
+
   def initialize_attributes
     super
     @hide_legend = true
@@ -43,13 +45,8 @@ class Gruff::Spider < Gruff::Base
     @hide_line_markers = true
     @hide_line_markers.freeze
   end
-  private :initialize_attributes
 
-  def draw
-    super
-
-    return unless data_given?
-
+  def draw_graph
     # Setup basic positioning
     radius = @graph_height / 2.0
     center_x = @graph_left + (@graph_width / 2.0)
@@ -65,8 +62,6 @@ class Gruff::Spider < Gruff::Base
     # Draw polygon
     draw_polygon(center_x, center_y, additive_angle)
   end
-
-private
 
   def normalize_points(value)
     value * @unit_length

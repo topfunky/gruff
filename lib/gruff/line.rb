@@ -78,29 +78,6 @@ class Gruff::Line < Gruff::Base
     end
   end
 
-  def initialize_store
-    @store = Gruff::Store.new(Gruff::Store::XYData)
-  end
-  private :initialize_store
-
-  def initialize_attributes
-    super
-    @reference_lines = {}
-    @reference_line_default_color = 'red'
-    @reference_line_default_width = 5
-
-    @hide_dots = @hide_lines = false
-    @maximum_x_value = nil
-    @minimum_x_value = nil
-
-    @line_width = nil
-    @dot_radius = nil
-    @dot_style = 'circle'
-
-    @show_vertical_markers = false
-  end
-  private :initialize_attributes
-
   # This method allows one to plot a dataset with both X and Y data.
   #
   # @overload dataxy(name, x_data_points = [], y_data_points = [], color = nil)
@@ -152,6 +129,29 @@ class Gruff::Line < Gruff::Base
     store.add(name, y_data_points, color, x_data_points)
   end
 
+private
+
+  def initialize_store
+    @store = Gruff::Store.new(Gruff::Store::XYData)
+  end
+
+  def initialize_attributes
+    super
+    @reference_lines = {}
+    @reference_line_default_color = 'red'
+    @reference_line_default_width = 5
+
+    @hide_dots = @hide_lines = false
+    @maximum_x_value = nil
+    @minimum_x_value = nil
+
+    @line_width = nil
+    @dot_radius = nil
+    @dot_style = 'circle'
+
+    @show_vertical_markers = false
+  end
+
   def draw_reference_line(reference_line, left, right, top, bottom)
     color = reference_line[:color] || @reference_line_default_color
     width = reference_line[:width] || @reference_line_default_width
@@ -168,11 +168,7 @@ class Gruff::Line < Gruff::Base
     draw_reference_line(reference_line, index, index, @graph_top, @graph_top + @graph_height)
   end
 
-  def draw
-    super
-
-    return unless data_given?
-
+  def draw_graph
     # Check to see if more than one datapoint was given. NaN can result otherwise.
     @x_increment = (column_count > 1) ? (@graph_width / (column_count - 1).to_f) : @graph_width
 
@@ -234,8 +230,6 @@ class Gruff::Line < Gruff::Base
       end
     end
   end
-
-private
 
   def setup_data
     # Update the global min/max values for the x data

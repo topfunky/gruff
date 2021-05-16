@@ -19,11 +19,9 @@
 #   g.write('bezier.png')
 #
 class Gruff::Bezier < Gruff::Base
-  def draw
-    super
+private
 
-    return unless data_given?
-
+  def draw_graph
     x_increment = @graph_width / (column_count - 1).to_f
 
     store.norm_data.each do |data_row|

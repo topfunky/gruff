@@ -18,12 +18,14 @@ class Gruff::StackedArea < Gruff::Base
     warn '#last_series_goes_on_bottom is deprecated. It is no longer effective.'
   end
 
-  def draw
+private
+
+  def setup_data
     calculate_maximum_by_stack
     super
+  end
 
-    return unless data_given?
-
+  def draw_graph
     x_increment = @graph_width / (column_count - 1).to_f
 
     height = Array.new(column_count, 0)

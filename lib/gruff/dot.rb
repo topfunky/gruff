@@ -14,17 +14,14 @@
 #   g.write('dot.png')
 #
 class Gruff::Dot < Gruff::Base
+private
+
   def initialize_attributes
     super
     @has_left_labels = true
   end
-  private :initialize_attributes
 
-  def draw
-    super
-
-    return unless data_given?
-
+  def draw_graph
     # Setup spacing.
     #
     spacing_factor = 1.0
@@ -48,8 +45,6 @@ class Gruff::Dot < Gruff::Base
       end
     end
   end
-
-protected
 
   # Instead of base class version, draws vertical background lines and label
   def draw_line_markers
