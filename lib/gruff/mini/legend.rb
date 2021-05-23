@@ -3,6 +3,7 @@
 module Gruff
   module Mini
     # A module to handle the small legend.
+    # @private
     module Legend
       attr_accessor :hide_mini_legend, :legend_position
 

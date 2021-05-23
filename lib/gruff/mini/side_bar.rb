@@ -23,6 +23,8 @@ module Gruff
   module Mini
     # A class for drawing a small side bar graph.
     class SideBar < Gruff::SideBar
+    private
+
       include Gruff::Mini::Legend
 
       def initialize_attributes
@@ -34,13 +36,14 @@ module Gruff
         @marker_font.size = 50.0
         @legend_font.size = 50.0
       end
-      private :initialize_attributes
 
-      def draw
+      def setup_data
         expand_canvas_for_vertical_legend
-
         super
+      end
 
+      def draw_graph
+        super
         draw_vertical_legend
       end
     end
