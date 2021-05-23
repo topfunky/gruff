@@ -120,7 +120,7 @@ Style/DocumentDynamicEvalDefinition:
   Exclude:
     - 'test/gruff_test_case.rb'
 
-# Offense count: 103
+# Offense count: 96
 # Configuration parameters: RequireForNonPublicMethods.
 Style/DocumentationMethod:
   Enabled: false

@@ -15,6 +15,8 @@ module Gruff
   module Mini
     # A class for drawing a small pie graph.
     class Pie < Gruff::Pie
+    private
+
       include Gruff::Mini::Legend
 
       def initialize_attributes
@@ -27,13 +29,14 @@ module Gruff
         @marker_font.size = 60.0
         @legend_font.size = 60.0
       end
-      private :initialize_attributes
 
-      def draw
+      def setup_data
         expand_canvas_for_vertical_legend
-
         super
+      end
 
+      def draw_graph
+        super
         draw_vertical_legend
       end
     end
