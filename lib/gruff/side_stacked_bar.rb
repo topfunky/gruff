@@ -115,7 +115,7 @@ private
 
     if @show_labels_for_bar_values
       stack_bar_value_label.prepare_rendering(@label_formatting, bar_width) do |x, y, text|
-        draw_value_label(x, y, text, true)
+        draw_value_label(x, y, text)
       end
     end
   end

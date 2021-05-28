@@ -136,13 +136,6 @@ Style/MissingRespondToMissing:
   Exclude:
     - 'lib/gruff/scene.rb'
 
-# Offense count: 1
-# Configuration parameters: AllowedMethods.
-# AllowedMethods: respond_to_missing?
-Style/OptionalBooleanParameter:
-  Exclude:
-    - 'lib/gruff/base.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Style/StringConcatenation:
