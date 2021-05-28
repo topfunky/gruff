@@ -82,11 +82,6 @@ private
       minimum_value: minimum_value, maximum_value: maximum_value, spread: @spread
     )
 
-    # if we're a side stacked bar then we don't need to draw ourself at all
-    # because sometimes (due to different heights/min/max) you can actually
-    # see both graphs and it looks like crap
-    return if is_a?(Gruff::SideStackedBar)
-
     store.norm_data.each_with_index do |data_row, row_index|
       data_row.points.each_with_index do |data_point, point_index|
         group_spacing = @group_spacing * @scale * point_index
