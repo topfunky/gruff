@@ -132,18 +132,20 @@ class Gruff::Layer
 
   # Choose the appropriate filename for this layer, based on the input
   def update(value)
-    @selected_filename =  case value.to_s
-                          when /^(true|false)$/
-                            select_boolean value
-                          when /^(\w|\s)+$/
-                            select_string value
-                          when /^-?(\d+\.)?\d+$/
-                            select_numeric value
-                          when /(\d\d):(\d\d):\d\d/
-                            select_time "#{Regexp.last_match(1)}#{Regexp.last_match(2)}"
-                          else
-                            select_default
-                          end
+    @selected_filename = begin
+      case value.to_s
+      when /^(true|false)$/
+        select_boolean value
+      when /^(\w|\s)+$/
+        select_string value
+      when /^-?(\d+\.)?\d+$/
+        select_numeric value
+      when /(\d\d):(\d\d):\d\d/
+        select_time "#{Regexp.last_match(1)}#{Regexp.last_match(2)}"
+      else
+        select_default
+      end
+    end
     # Finally, try to use 'default' if we're still blank
     @selected_filename ||= select_default
   end
