@@ -746,8 +746,8 @@ module Gruff
     end
 
     # Draws the data value over the data point in bar graphs
-    def draw_value_label(x_offset, y_offset, data_point, bar_value = false)
-      return if @hide_line_markers && !bar_value
+    def draw_value_label(x_offset, y_offset, data_point)
+      return if @hide_line_markers
 
       text_renderer = Gruff::Renderer::Text.new(data_point, font: @marker_font)
       text_renderer.add_to_render_queue(1.0, 1.0, x_offset, y_offset)

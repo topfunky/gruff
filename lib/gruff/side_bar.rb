@@ -107,7 +107,7 @@ private
         if @show_labels_for_bar_values
           bar_value_label = Gruff::BarValueLabel::SideBar.new([left_x, left_y, right_x, right_y], store.data[row_index].points[point_index])
           bar_value_label.prepare_rendering(@label_formatting, bar_width) do |x, y, text|
-            draw_value_label(x, y, text, true)
+            draw_value_label(x, y, text)
           end
         end
       end
