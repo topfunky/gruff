@@ -18,6 +18,9 @@ class Gruff::Pie < Gruff::Base
   # or at another angle. Default is +0.0+, which starts at 3 o'clock.
   attr_writer :zero_degree
 
+  # Set the number output format lambda.
+  attr_writer :label_formatting
+
   # Do not show labels for slices that are less than this percent. Use 0 to always show all labels.
   # Defaults to +0+.
   attr_writer :hide_labels_less_than
@@ -45,6 +48,8 @@ private
 
     @hide_line_markers = true
     @hide_line_markers.freeze
+
+    @label_formatting = ->(value, percentage) { @show_values_as_labels ? value.to_s : "#{percentage}%" }
   end
 
   def draw_graph
@@ -60,7 +65,7 @@ private
 
   def slices
     @slices ||= begin
-      slices = store.data.map { |data| Gruff::Pie::PieSlice.new(data) }
+      slices = store.data.map { |data| Gruff::Pie::PieSlice.new(data.label, data.points.first, data.color) }
 
       slices.sort_by(&:value) if @sort
 
@@ -126,8 +131,7 @@ private
   def process_label_for(slice)
     if slice.percentage >= @hide_labels_less_than
       x, y = label_coordinates_for slice
-      label = @show_values_as_labels ? slice.value.to_s : "#{slice.percentage}%"
-
+      label = @label_formatting.call(slice.value, slice.percentage)
       draw_label_at(1.0, 1.0, x, y, label, Magick::CenterGravity)
     end
   end
@@ -149,33 +153,21 @@ private
   # Helper Classes
   #
   # @private
-  class PieSlice < Struct.new(:data_array)
+  class PieSlice < Struct.new(:label, :value, :color)
     attr_accessor :total
 
-    def name
-      data_array[0]
-    end
-
-    def value
-      data_array[1].first
-    end
-
-    def color
-      data_array[2]
-    end
-
     def percentage
-      @percentage ||= (size * 100.0).round
+      (size * 100.0).round
     end
 
     def degrees
-      @degrees ||= size * 360.0
+      size * 360.0
     end
 
   private
 
     def size
-      @size ||= value / total
+      value / total
     end
   end
 end
