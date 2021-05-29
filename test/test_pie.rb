@@ -174,19 +174,6 @@ class TestGruffPie < GruffTestCase
     assert_same_image('test/expected/pie_adjusted_text_offset_percentage.png', 'test/output/pie_adjusted_text_offset_percentage.png')
   end
 
-  def test_subclassed_pie_with_custom_labels
-    CustomLabeledPie.new(800).tap do |graph|
-      graph.title = 'Subclassed Pie with Custom Lables'
-
-      @datasets.map { |set| set << set.join(': ') }.each do |data|
-        graph.data(data[0], data[1], label: data[2])
-      end
-
-      graph.write('test/output/pie_subclass_custom_labels.png')
-      assert_same_image('test/expected/pie_subclass_custom_labels.png', 'test/output/pie_subclass_custom_labels.png')
-    end
-  end
-
 protected
 
   def setup_basic_graph(size = 800)
@@ -197,24 +184,5 @@ protected
     end
 
     g
-  end
-
-  # Example Gruff::Pie Subclass demonstrating custom labels
-  class CustomLabeledPie < Gruff::Pie
-    def data(name, data_points = [], options = {})
-      store.add(name, data_points, options[:color], options[:label])
-    end
-
-  private
-
-    def slice_class
-      CustomLabeledSlice
-    end
-
-    class CustomLabeledSlice < ::Gruff::Pie::PieSlice
-      def label
-        data_array.custom || super
-      end
-    end
   end
 end
