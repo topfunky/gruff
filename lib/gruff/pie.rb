@@ -47,15 +47,6 @@ private
     @hide_line_markers.freeze
   end
 
-  def options
-    {
-      zero_degree: @zero_degree,
-      hide_labels_less_than: @hide_labels_less_than,
-      text_offset_percentage: @text_offset_percentage,
-      show_values_as_labels: @show_values_as_labels
-    }
-  end
-
   def draw_graph
     slices.each do |slice|
       if slice.value > 0
@@ -69,7 +60,7 @@ private
 
   def slices
     @slices ||= begin
-      slices = store.data.map { |data| slice_class.new(data, options) }
+      slices = store.data.map { |data| Gruff::Pie::PieSlice.new(data) }
 
       slices.sort_by(&:value) if @sort
 
@@ -82,10 +73,6 @@ private
 
   def update_chart_degrees_with(degrees)
     @chart_degrees = chart_degrees + degrees
-  end
-
-  def slice_class
-    PieSlice
   end
 
   # Spatial Value-Related Methods
@@ -139,8 +126,9 @@ private
   def process_label_for(slice)
     if slice.percentage >= @hide_labels_less_than
       x, y = label_coordinates_for slice
+      label = @show_values_as_labels ? slice.value.to_s : "#{slice.percentage}%"
 
-      draw_label_at(1.0, 1.0, x, y, slice.label, Magick::CenterGravity)
+      draw_label_at(1.0, 1.0, x, y, label, Magick::CenterGravity)
     end
   end
 
@@ -161,7 +149,7 @@ private
   # Helper Classes
   #
   # @private
-  class PieSlice < Struct.new(:data_array, :options)
+  class PieSlice < Struct.new(:data_array)
     attr_accessor :total
 
     def name
@@ -176,10 +164,6 @@ private
       data_array[2]
     end
 
-    def size
-      @size ||= value / total
-    end
-
     def percentage
       @percentage ||= (size * 100.0).round
     end
@@ -188,8 +172,10 @@ private
       @degrees ||= size * 360.0
     end
 
-    def label
-      options[:show_values_as_labels] ? value.to_s : "#{percentage}%"
+  private
+
+    def size
+      @size ||= value / total
     end
   end
 end
