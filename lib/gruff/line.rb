@@ -37,6 +37,9 @@ class Gruff::Line < Gruff::Base
   # accessors for support of xy data.
   attr_writer :maximum_x_value
 
+  # The number of vertical lines shown.
+  attr_writer :marker_x_count
+
   # Get the value if somebody has defined it.
   def baseline_value
     if @reference_lines.key?(:baseline)
@@ -144,6 +147,7 @@ private
     @hide_dots = @hide_lines = false
     @maximum_x_value = nil
     @minimum_x_value = nil
+    @marker_x_count = nil
 
     @line_width = nil
     @dot_radius = nil
@@ -175,18 +179,6 @@ private
     @reference_lines.each_value do |curr_reference_line|
       draw_horizontal_reference_line(curr_reference_line) if curr_reference_line.key?(:norm_value)
       draw_vertical_reference_line(curr_reference_line) if curr_reference_line.key?(:index)
-    end
-
-    if @show_vertical_markers
-      (0..column_count).each do |column|
-        x = @graph_left + @graph_width - column.to_f * @x_increment
-
-        Gruff::Renderer::Line.new(color: @marker_color).render(x, @graph_bottom, x, @graph_top)
-        # If the user specified a marker shadow color, draw a shadow just below it
-        if @marker_shadow_color
-          Gruff::Renderer::Line.new(color: @marker_shadow_color).render(x + 1, @graph_bottom, x + 1, @graph_top)
-        end
-      end
     end
 
     store.norm_data.each do |data_row|
@@ -253,6 +245,11 @@ private
     super
   end
 
+  def setup_drawing
+    @marker_x_count ||= column_count - 1
+    super
+  end
+
   def normalize
     return unless data_given?
 
@@ -269,6 +266,24 @@ private
 
   def sort_norm_data
     super unless store.data.any?(&:x_points)
+  end
+
+  def draw_line_markers
+    # do all of the stuff for the horizontal lines on the y-axis
+    super
+    return if @hide_line_markers
+
+    (0..@marker_x_count).each do |index|
+      if @show_vertical_markers
+        x = @graph_left + @graph_width - index * @graph_width / @marker_x_count
+
+        Gruff::Renderer::Line.new(color: @marker_color).render(x, @graph_bottom, x, @graph_top)
+        # If the user specified a marker shadow color, draw a shadow just below it
+        if @marker_shadow_color
+          Gruff::Renderer::Line.new(color: @marker_shadow_color).render(x + 1, @graph_bottom, x + 1, @graph_top)
+        end
+      end
+    end
   end
 
   def get_x_coord(x_data_point, width, offset)

@@ -694,6 +694,24 @@ class TestGruffLine < GruffTestCase
     assert_same_image('test/expected/line_show_vertical_markers.png', 'test/output/line_show_vertical_markers.png')
   end
 
+  def test_marker_x_count
+    g = Gruff::Line.new
+    g.title = 'Marker x count'
+
+    g.data('Apples', [3, 2, 3, 4, 4, 3])
+    g.data('Oranges', [4, 8, 7, 9, 8, 9])
+    g.data('Watermelon', [2, 3, 4, 5, 6, 8])
+    g.data('Peaches', [9, 9, 10, 8, 7, 9])
+
+    g.labels = { 0 => '2003', 2 => '2004', 4 => '2005' }
+    g.show_vertical_markers = true
+    g.marker_x_count = 10
+    g.marker_shadow_color = '#888888'
+
+    g.write('test/output/line_marker_x_count.png')
+    assert_same_image('test/expected/line_marker_x_count.png', 'test/output/line_marker_x_count.png')
+  end
+
   def test_sorted_drawing
     g = setup_basic_graph('800x400')
     g.title = 'Sorted drawing'
