@@ -174,6 +174,17 @@ class TestGruffPie < GruffTestCase
     assert_same_image('test/expected/pie_adjusted_text_offset_percentage.png', 'test/output/pie_adjusted_text_offset_percentage.png')
   end
 
+  def test_label_format
+    g = setup_basic_graph
+    g.title = 'Label format'
+    g.label_formatting = lambda do |value, percentage|
+      "#{value} (#{percentage}%)"
+    end
+
+    g.write('test/output/pie_label_format.png')
+    assert_same_image('test/expected/pie_label_format.png', 'test/output/pie_label_format.png')
+  end
+
 protected
 
   def setup_basic_graph(size = 800)
