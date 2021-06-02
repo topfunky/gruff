@@ -19,21 +19,24 @@
 #   g.write('sidebar.png')
 #
 class Gruff::SideBar < Gruff::Base
-  # Spacing factor applied between bars.
+  # Spacing factor applied between bars. Default is +0.9+.
+  # @param value [Numeric] spacing factor value.
   attr_writer :bar_spacing
 
-  # Spacing factor applied between a group of bars belonging to the same label.
+  # Spacing factor applied between a group of bars belonging to the same label. Default is +10+.
+  # @param value [Numeric] spacing factor value.
   attr_writer :group_spacing
 
-  # Set the number output format string or lambda.
-  # Default is +"%.2f"+.
+  # Set the number output format string or lambda. Default is +%.2f+.
+  # @param value [String, Proc] format string or lambda.
   attr_writer :label_formatting
 
-  # Output the values for the bars on a bar graph.
-  # Default is +false+.
+  # Output the values for the bars on a bar graph. Default is +false+.
+  # @param value [Boolean] specifies whether to draw the values on a bar graph.
   attr_writer :show_labels_for_bar_values
 
   # Prevent drawing of column labels left of a side bar graph.  Default is +false+.
+  # @param value [Boolean] specifies whether to prevent drawing of column labels.
   attr_writer :hide_labels
 
   # With Side Bars use the data label for the marker value to the left of the bar.

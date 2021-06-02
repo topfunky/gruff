@@ -141,6 +141,7 @@ module Gruff
     # Allow passing lambdas to format labels for y axis.
     attr_writer :y_axis_label_format
 
+    # Initializes a canvas to draw a graph.
     # If one numerical argument is given, the graph is drawn at 4/3 ratio
     # according to the given width (+800+ results in 800x600, +400+ gives 400x300,
     # etc.).

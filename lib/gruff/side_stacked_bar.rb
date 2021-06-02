@@ -22,21 +22,24 @@
 class Gruff::SideStackedBar < Gruff::SideBar
   include StackedMixin
 
-  # Spacing factor applied between bars.
+  # Spacing factor applied between bars. Default is +0.9+.
+  # @param value [Numeric] spacing factor value.
   attr_writer :bar_spacing
 
-  # Number of pixels between bar segments.
+  # Number of pixels between bar segments. Default is +2.0+.
+  # @param value [Numeric] spacing value between bar segments.
   attr_writer :segment_spacing
 
-  # Set the number output format string or lambda.
-  # Default is +"%.2f"+.
+  # Set the number output format string or lambda. Default is +%.2f+.
+  # @param value [String, Proc] format string or lambda.
   attr_writer :label_formatting
 
-  # Output the values for the bars on a bar graph.
-  # Default is +false+.
+  # Output the values for the bars on a bar graph. Default is +false+.
+  # @param value [Boolean] specifies whether to draw the values on a bar graph.
   attr_writer :show_labels_for_bar_values
 
   # Prevent drawing of column labels left of a side stacked bar graph.  Default is +false+.
+  # @param value [Boolean] specifies whether to prevent drawing of column labels.
   attr_writer :hide_labels
 
 private

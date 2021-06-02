@@ -15,9 +15,11 @@
 #
 class Gruff::Area < Gruff::Base
   # Specifies the filling opacity in area graph. Default is +0.85+.
+  # @param value [Numeric] an opacity
   attr_writer :fill_opacity
 
   # Specifies the stroke width in line around area graph. Default is +2.0+.
+  # @param value [Numeric] a stroke width
   attr_writer :stroke_width
 
 private
