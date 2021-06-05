@@ -139,24 +139,23 @@ http://www.rubydoc.info/github/topfunky/gruff/frames
 ## Development
 1. Build docker image
 ```sh
-$ ./docker/build.sh
+$ ./docker-build.sh
 ```
 
 2. Launch docker image
 ```sh
-$ ./docker/launch.sh
+$ ./docker-launch.sh
 ```
 
 3. Run tests
 ```sh
-$ bundle install
-$ bundle exec rake
+$ rake
 ```
 
 If you have made changes that involve updating the expected image, you need to update the image with the following command after running tests.
 
 ```sh
-$ bundle exec rake test:image:update
+$ rake test:image:update
 ```
 
 ## Contributing
