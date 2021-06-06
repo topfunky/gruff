@@ -182,7 +182,7 @@ private
       end
     else
       # TODO: Make this work for negative values
-      @maximum_x_value = [@maximum_x_value, @x_axis_increment, store.max_x].max
+      @maximum_x_value = [@maximum_x_value.ceil, @x_axis_increment].max
       @minimum_x_value = @minimum_x_value.floor
       calculate_spread
       normalize
