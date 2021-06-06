@@ -3,27 +3,23 @@
 module Gruff
   # @private
   class Store
-    attr_reader :data, :norm_data
+    attr_reader :data
 
     def initialize(data_class)
       @data_class = data_class
       @data = []
-      @norm_data = []
-      @normalized = false
     end
 
     def add(*args)
       @data << @data_class.new(*args)
     end
 
-    def normalize(**keywords)
-      unless @normalized
-        @data.each do |data_row|
-          @norm_data << data_row.normalize(**keywords)
-        end
+    def norm_data
+      @norm_data || []
+    end
 
-        @normalized = true
-      end
+    def normalize(**keywords)
+      @norm_data = @data.map { |data_row| data_row.normalize(**keywords) }
     end
 
     def empty?
