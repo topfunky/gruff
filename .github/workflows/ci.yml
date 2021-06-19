@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-18.04
+    timeout-minutes: 20
+    name: Lint
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby 2.4
+      uses: ruby/setup-ruby@master
+      with:
+        ruby-version: '2.4'
+    - name: Install dependencies
+      run: bundle install --path=vendor/bundle --jobs 4 --retry 3
+    - name: Run tests
+      run: bundle exec rubocop
+
+
+  test:
+    runs-on: ubuntu-18.04
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        ruby-version: ['2.4', '2.5', '2.6', '2.7', '3.0']
+    name: Ruby ${{ matrix.ruby-version }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@master
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Install dependencies
+      run: bundle install --path=vendor/bundle --jobs 4 --retry 3
+    - name: Run tests
+      run: bundle exec rake
