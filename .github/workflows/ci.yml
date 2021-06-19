@@ -8,7 +8,7 @@ on:
 
 jobs:
   lint:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     timeout-minutes: 20
     name: Lint
     steps:
@@ -25,7 +25,7 @@ jobs:
 
 
   test-ruby:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     timeout-minutes: 20
     strategy:
       matrix:
@@ -44,7 +44,7 @@ jobs:
       run: bundle exec rake
 
   test-jruby:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     timeout-minutes: 20
     strategy:
       matrix:

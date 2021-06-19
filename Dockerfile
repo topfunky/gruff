@@ -1,7 +1,8 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
-RUN apt update && \
-    apt install -y gcc git pkg-config ruby ruby-dev libmagickwand-dev && \
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt update  --fix-missing && \
+    apt install -y tzdata make gcc git pkg-config ruby ruby-dev libmagickwand-dev && \
     apt clean && \
     rm -rf /var/lib/apt/lists/* && \
     gem install bundler

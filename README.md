@@ -149,13 +149,13 @@ $ ./docker-launch.sh
 
 3. Run tests
 ```sh
-$ rake
+$ bundle exec rake
 ```
 
 If you have made changes that involve updating the expected image, you need to update the image with the following command after running tests.
 
 ```sh
-$ rake test:image:update
+$ bundle exec rake test:image:update
 ```
 
 ## Contributing

@@ -28,9 +28,9 @@ namespace :test do
         output_image = Magick::Image.read(output_path).first
 
         if File.exist?(expected_path)
-          expected_image = Magick::Image.read(expected_path).first
           retry_count = 0
           begin
+            expected_image = Magick::Image.read(expected_path).first
             _, error = expected_image.compare_channel(output_image, Magick::PeakAbsoluteErrorMetric)
           rescue StandardError => e
             GC.start
