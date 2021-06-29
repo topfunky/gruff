@@ -13,6 +13,8 @@ jobs:
     name: Lint
     steps:
     - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
     - name: Set up Ruby 2.4
       uses: ruby/setup-ruby@master
       with:
@@ -20,9 +22,10 @@ jobs:
         bundler-cache: true
     - name: Install dependencies
       run: bundle install --path=vendor/bundle --jobs 4 --retry 3
+    - name: RuboCop Problem Matchers
+      uses: r7kamura/rubocop-problem-matchers-action@v1.1.0
     - name: Run tests
       run: bundle exec rubocop
-
 
   test-ruby:
     runs-on: ubuntu-18.04
