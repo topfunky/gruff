@@ -107,8 +107,4 @@ private
 
     Gruff::Renderer::Polygon.new(renderer, color: color || @marker_color, opacity: 0.4).render(points)
   end
-
-  def sums_for_spider
-    store.data.sum { |data_row| data_row.points.first }
-  end
 end
