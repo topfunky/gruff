@@ -1,5 +1,15 @@
 # Change Log
 
+## 0.14.0
+- Update rails template (#547)
+- Remove singleton in order to support multi-thread processing (#546)
+- Fix bug in Gruff::Scatter that X coordinate value is wrong if set value in x_axis_increment (#534)
+- Add marker_x_count attribute in Gruff::Line (#532)
+- Add label_formatting attribute in Gruff::Pie (#531)
+- Removed the ability to inject custom PieSlice classes from the outside (#530)
+- Remove Gruff::PhotoBar (#513)
+- Deprecate last_series_goes_on_bottom attribute in Gruff::StackedArea (#512)
+
 ## 0.13.0
 - Allow to customize label value with lambda (#510)
 - Rename enable_vertical_line_markers attribute to show_vertical_markers (#509)
