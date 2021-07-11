@@ -26,7 +26,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
     g.labels = {0 => '2004', 2 => '2005', 4 => '2006'}
 
-    send_data(g.to_blob, :disposition => 'inline', :type => 'image/png', :filename => "gruff.png")
+    send_data(g.to_image.to_blob, :disposition => 'inline', :type => 'image/png', :filename => "gruff.png")
   end
 
 end
