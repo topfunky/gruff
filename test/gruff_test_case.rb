@@ -102,7 +102,7 @@ protected
   def graph_sized(filename, sizes = ['', 400])
     class_name = self.class.name.gsub(/^TestGruff/, '')
     Array(sizes).each do |size|
-      g = instance_eval("Gruff::#{class_name}.new #{size}")
+      g = instance_eval("Gruff::#{class_name}.new #{size}", __FILE__, __LINE__)
       g.title = "#{class_name} Graph"
       yield g
       write_test_file g, "#{filename}_#{size}.png"
@@ -137,7 +137,7 @@ protected
       case args[0]
       when Integer, String
         size = args[0]
-        klass = eval("Gruff::#{self.class.name.gsub(/^TestGruff/, '')}")
+        klass = eval("Gruff::#{self.class.name.gsub(/^TestGruff/, '')}", binding, __FILE__, __LINE__)
       else
         klass = args[0]
       end

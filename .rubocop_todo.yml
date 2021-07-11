@@ -110,12 +110,6 @@ Style/DocumentDynamicEvalDefinition:
 Style/DocumentationMethod:
   Enabled: false
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/EvalWithLocation:
-  Exclude:
-    - 'test/gruff_test_case.rb'
-
 # Offense count: 1
 Style/MissingRespondToMissing:
   Exclude:
