@@ -73,12 +73,6 @@ Naming/VariableNumber:
     - 'test/test_bezier.rb'
     - 'test/test_line.rb'
 
-# Offense count: 1
-# Configuration parameters: MinSize.
-Performance/CollectionLiteralInLoop:
-  Exclude:
-    - 'test/test_legend.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Performance/StringReplacement:
