@@ -1,45 +1,30 @@
 # frozen_string_literal: true
 
-require 'singleton'
-
 module Gruff
   # @private
   class Renderer
-    include Singleton
+    attr_accessor :text_renderers
+    attr_reader :draw, :image, :scale
 
-    attr_accessor :draw, :image, :scale, :text_renderers
+    def initialize(columns, rows, scale, theme_options)
+      @draw = Magick::Draw.new
+      @text_renderers = []
 
-    def self.setup(columns, rows, scale, theme_options)
-      draw = Magick::Draw.new
-      # Scale down from 800x600 used to calculate drawing.
-      draw.scale(scale, scale)
-
-      image = Renderer.instance.background(columns, rows, scale, theme_options)
-
-      Renderer.instance.draw  = draw
-      Renderer.instance.scale = scale
-      Renderer.instance.image = image
-      Renderer.instance.text_renderers = []
+      @scale = scale
+      @draw.scale(scale, scale)
+      @image = background(columns, rows, scale, theme_options)
     end
 
-    def self.setup_transparent_background(columns, rows)
-      image = Renderer.instance.render_transparent_background(columns, rows)
-      Renderer.instance.image = image
-    end
+    def finish
+      @draw.draw(@image)
 
-    def self.background_image=(image)
-      Renderer.instance.image = image
-    end
-
-    def self.finish
-      draw  = Renderer.instance.draw
-      image = Renderer.instance.image
-
-      draw.draw(image)
-
-      Renderer.instance.text_renderers.each do |renderer|
+      @text_renderers.each do |renderer|
         renderer.render(renderer.width, renderer.height, renderer.x, renderer.y, renderer.gravity)
       end
+    end
+
+    def background_image=(image)
+      @image = image
     end
 
     def background(columns, rows, scale, theme_options)
@@ -51,6 +36,10 @@ module Gruff
       else
         image_background(scale, *theme_options[:background_image])
       end
+    end
+
+    def transparent_background(columns, rows)
+      @image = render_transparent_background(columns, rows)
     end
 
     # Make a new image at the current size with a solid +color+.
@@ -94,6 +83,8 @@ module Gruff
         raise e
       end
     end
+
+  private
 
     # Use with a theme to use an image (800x600 original) background.
     def image_background(scale, image_path)

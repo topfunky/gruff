@@ -102,7 +102,7 @@ private
         # that shouldn't even be there being drawn on top of the existing
         # bar - this is bad
         if data_point != 0
-          rect_renderer = Gruff::Renderer::Rectangle.new(color: data_row.color)
+          rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: data_row.color)
           rect_renderer.render(left_x, left_y, right_x, right_y)
           # Calculate center based on bar_width and current row
         end

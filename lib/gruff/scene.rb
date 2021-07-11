@@ -52,7 +52,7 @@ class Gruff::Scene < Gruff::Base
     # Join all the custom paths and filter out the empty ones
     image_paths = @layers.map(&:path).reject(&:empty?)
     images = Magick::ImageList.new(*image_paths)
-    Gruff::Renderer.background_image = images.flatten_images
+    renderer.background_image = images.flatten_images
   end
 
   def layers=(ordered_list)

@@ -55,7 +55,7 @@ private
   def draw_graph
     slices.each do |slice|
       if slice.value > 0
-        Gruff::Renderer::Ellipse.new(color: slice.color, width: radius)
+        Gruff::Renderer::Ellipse.new(renderer, color: slice.color, width: radius)
                                 .render(center_x, center_y, radius / 2.0, radius / 2.0, chart_degrees, chart_degrees + slice.degrees + 0.5)
         process_label_for slice
         update_chart_degrees_with slice.degrees

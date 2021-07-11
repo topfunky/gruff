@@ -367,7 +367,7 @@ module Gruff
       @colors = @theme_options[:colors]
       @marker_shadow_color = @theme_options[:marker_shadow_color]
 
-      Gruff::Renderer.setup(@columns, @rows, @scale, @theme_options)
+      @renderer = Gruff::Renderer.new(@columns, @rows, @scale, @theme_options)
     end
 
     # Apply Apple's keynote theme.
@@ -469,8 +469,8 @@ module Gruff
     def to_image
       @to_image ||= begin
         draw
-        Gruff::Renderer.finish
-        Gruff::Renderer.instance.image
+        renderer.finish
+        renderer.image
       end
     end
 
@@ -506,6 +506,8 @@ module Gruff
     end
 
   protected
+
+    attr_reader :renderer
 
     # Perform data manipulation before calculating chart measurements
     def setup_data # :nodoc:
@@ -611,13 +613,13 @@ module Gruff
         x_axis_label_y_coordinate = @graph_bottom + LABEL_MARGIN + @marker_caps_height
 
         # TODO: Center between graph area
-        text_renderer = Gruff::Renderer::Text.new(@x_axis_label, font: @marker_font)
+        text_renderer = Gruff::Renderer::Text.new(renderer, @x_axis_label, font: @marker_font)
         text_renderer.add_to_render_queue(@raw_columns, 1.0, 0.0, x_axis_label_y_coordinate)
       end
 
       if @y_axis_label
         # Y Axis, rotated vertically
-        text_renderer = Gruff::Renderer::Text.new(@y_axis_label, font: @marker_font, rotation: -90)
+        text_renderer = Gruff::Renderer::Text.new(renderer, @y_axis_label, font: @marker_font, rotation: -90)
         text_renderer.add_to_render_queue(1.0, @raw_rows, @left_margin + @marker_caps_height / 2.0, 0.0, Magick::CenterGravity)
       end
     end
@@ -632,13 +634,13 @@ module Gruff
       (0..marker_count).each do |index|
         y = @graph_top + @graph_height - index.to_f * increment_scaled
 
-        line_renderer = Gruff::Renderer::Line.new(color: @marker_color, shadow_color: @marker_shadow_color)
+        line_renderer = Gruff::Renderer::Line.new(renderer, color: @marker_color, shadow_color: @marker_shadow_color)
         line_renderer.render(@graph_left, y, @graph_right, y)
 
         unless @hide_line_numbers
           marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) + BigDecimal(minimum_value.to_s)
           label = y_axis_label(marker_label, @increment)
-          text_renderer = Gruff::Renderer::Text.new(label, font: @marker_font)
+          text_renderer = Gruff::Renderer::Text.new(renderer, label, font: @marker_font)
           text_renderer.add_to_render_queue(@graph_left - LABEL_MARGIN, 1.0, 0.0, y, Magick::EastGravity)
         end
       end
@@ -671,11 +673,11 @@ module Gruff
         next if legend_label.empty?
 
         # Draw label
-        text_renderer = Gruff::Renderer::Text.new(legend_label, font: @legend_font)
+        text_renderer = Gruff::Renderer::Text.new(renderer, legend_label, font: @legend_font)
         text_renderer.add_to_render_queue(@raw_columns, 1.0, current_x_offset + (legend_square_width * 1.7), current_y_offset, Magick::WestGravity)
 
         # Now draw box with color of this dataset
-        rect_renderer = Gruff::Renderer::Rectangle.new(color: store.data[index].color)
+        rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: store.data[index].color)
         rect_renderer.render(current_x_offset,
                              current_y_offset - legend_square_width / 2.0,
                              current_x_offset + legend_square_width,
@@ -702,12 +704,12 @@ module Gruff
     def draw_title
       return if hide_title?
 
-      metrics = Renderer::Text.metrics(@title, @title_font)
+      metrics = Gruff::Renderer::Text.new(renderer, @title, font: @title_font).metrics
       if metrics.width > @raw_columns
         @title_font.size = @title_font.size * (@raw_columns / metrics.width) * 0.95
       end
 
-      text_renderer = Gruff::Renderer::Text.new(@title, font: @title_font)
+      text_renderer = Gruff::Renderer::Text.new(renderer, @title, font: @title_font)
       text_renderer.add_to_render_queue(@raw_columns, 1.0, 0, @top_margin)
     end
 
@@ -741,7 +743,7 @@ module Gruff
 
     def draw_label_at(width, height, x, y, text, gravity = Magick::NorthGravity)
       label_text = truncate_label_text(text)
-      text_renderer = Gruff::Renderer::Text.new(label_text, font: @marker_font)
+      text_renderer = Gruff::Renderer::Text.new(renderer, label_text, font: @marker_font)
       text_renderer.add_to_render_queue(width, height, x, y, gravity)
     end
 
@@ -749,7 +751,7 @@ module Gruff
     def draw_value_label(x_offset, y_offset, data_point)
       return if @hide_line_markers
 
-      text_renderer = Gruff::Renderer::Text.new(data_point, font: @marker_font)
+      text_renderer = Gruff::Renderer::Text.new(renderer, data_point, font: @marker_font)
       text_renderer.add_to_render_queue(1.0, 1.0, x_offset, y_offset)
     end
 
@@ -758,7 +760,7 @@ module Gruff
       font = @title_font.dup
       font.size = 80
       font.bold = false
-      text_renderer = Gruff::Renderer::Text.new(@no_data_message, font: font)
+      text_renderer = Gruff::Renderer::Text.new(renderer, @no_data_message, font: font)
       text_renderer.render(@raw_columns, @raw_rows, 0, 0, Magick::CenterGravity)
     end
 
@@ -996,7 +998,7 @@ module Gruff
     # Not scaled since it deals with dimensions that the regular scaling will
     # handle.
     def calculate_caps_height(font)
-      metrics = Renderer::Text.metrics('X', font)
+      metrics = Gruff::Renderer::Text.new(renderer, 'X', font: font).metrics
       metrics.height
     end
 
@@ -1008,7 +1010,7 @@ module Gruff
       text = text.to_s
       return 0 if text.empty?
 
-      metrics = Renderer::Text.metrics(text, font)
+      metrics = Gruff::Renderer::Text.new(renderer, text, font: font).metrics
       metrics.width
     end
 

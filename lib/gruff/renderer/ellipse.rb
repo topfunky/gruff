@@ -3,20 +3,19 @@
 module Gruff
   # @private
   class Renderer::Ellipse
-    def initialize(color:, width: 1.0)
+    def initialize(renderer, color:, width: 1.0)
+      @renderer = renderer
       @color = color
       @width = width
     end
 
     def render(origin_x, origin_y, width, height, arc_start, arc_end)
-      draw = Renderer.instance.draw
-
-      draw.push
-      draw.stroke_width(@width)
-      draw.stroke(@color)
-      draw.fill('transparent')
-      draw.ellipse(origin_x, origin_y, width, height, arc_start, arc_end)
-      draw.pop
+      @renderer.draw.push
+      @renderer.draw.stroke_width(@width)
+      @renderer.draw.stroke(@color)
+      @renderer.draw.fill('transparent')
+      @renderer.draw.ellipse(origin_x, origin_y, width, height, arc_start, arc_end)
+      @renderer.draw.pop
     end
   end
 end

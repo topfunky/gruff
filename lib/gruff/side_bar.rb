@@ -91,7 +91,7 @@ private
 
         left_x, right_x = conversion.get_top_bottom_scaled(data_point).sort
 
-        rect_renderer = Gruff::Renderer::Rectangle.new(color: data_row.color)
+        rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: data_row.color)
         rect_renderer.render(left_x + AXIS_MARGIN, left_y, right_x + AXIS_MARGIN, right_y)
 
         # Calculate center based on bar_width and current row
@@ -123,14 +123,14 @@ private
       line_diff = (@graph_right - @graph_left) / number_of_lines
       x = @graph_right - (line_diff * index) - 1
 
-      line_renderer = Gruff::Renderer::Line.new(color: @marker_color, shadow_color: @marker_shadow_color)
+      line_renderer = Gruff::Renderer::Line.new(renderer, color: @marker_color, shadow_color: @marker_shadow_color)
       line_renderer.render(x, @graph_bottom, x, @graph_top)
 
       unless @hide_line_numbers
         diff = index - number_of_lines
         marker_label = BigDecimal(diff.abs.to_s) * BigDecimal(increment.to_s) + BigDecimal(minimum_value.to_s)
         label = x_axis_label(marker_label, @increment)
-        text_renderer = Gruff::Renderer::Text.new(label, font: @marker_font)
+        text_renderer = Gruff::Renderer::Text.new(renderer, label, font: @marker_font)
         text_renderer.add_to_render_queue(0, 0, x, @graph_bottom + LABEL_MARGIN, Magick::CenterGravity)
       end
     end

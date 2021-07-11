@@ -3,20 +3,19 @@
 module Gruff
   # @private
   class Renderer::Circle
-    def initialize(color:, width: 1.0)
+    def initialize(renderer, color:, width: 1.0)
+      @renderer = renderer
       @color = color
       @width = width
     end
 
     def render(origin_x, origin_y, perim_x, perim_y)
-      draw = Renderer.instance.draw
-
-      draw.push
-      draw.fill(@color)
-      draw.stroke(@color)
-      draw.stroke_width(@width)
-      draw.circle(origin_x, origin_y, perim_x, perim_y)
-      draw.pop
+      @renderer.draw.push
+      @renderer.draw.fill(@color)
+      @renderer.draw.stroke(@color)
+      @renderer.draw.stroke_width(@width)
+      @renderer.draw.circle(origin_x, origin_y, perim_x, perim_y)
+      @renderer.draw.pop
     end
   end
 end

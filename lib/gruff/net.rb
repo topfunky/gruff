@@ -60,10 +60,10 @@ private
         end_x = @center_x + Math.sin(next_rad_pos) * next_point_distance
         end_y = @center_y - Math.cos(next_rad_pos) * next_point_distance
 
-        Gruff::Renderer::Line.new(color: data_row.color, width: @stroke_width).render(start_x, start_y, end_x, end_y)
+        Gruff::Renderer::Line.new(renderer, color: data_row.color, width: @stroke_width).render(start_x, start_y, end_x, end_y)
 
         unless @hide_dots
-          circle_renderer = Gruff::Renderer::Circle.new(color: data_row.color, width: @stroke_width)
+          circle_renderer = Gruff::Renderer::Circle.new(renderer, color: data_row.color, width: @stroke_width)
           circle_renderer.render(start_x, start_y, start_x - @circle_radius, start_y)
         end
       end
@@ -88,7 +88,7 @@ private
     (0..column_count - 1).each do |index|
       rad_pos = index * Math::PI * 2 / column_count
 
-      Gruff::Renderer::Line.new(color: @marker_color)
+      Gruff::Renderer::Line.new(renderer, color: @marker_color)
                            .render(@center_x, @center_y, @center_x + Math.sin(rad_pos) * @radius, @center_y - Math.cos(rad_pos) * @radius)
 
       marker_label = @labels[index] ? @labels[index].to_s : '000'

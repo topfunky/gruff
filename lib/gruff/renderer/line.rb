@@ -5,7 +5,8 @@ module Gruff
   class Renderer::Line
     EPSILON = 0.001
 
-    def initialize(color:, width: nil, shadow_color: nil)
+    def initialize(renderer, color:, width: nil, shadow_color: nil)
+      @renderer = renderer
       @color = color
       @width = width
       @shadow_color = shadow_color
@@ -30,14 +31,12 @@ module Gruff
         end_y += EPSILON
       end
 
-      draw = Renderer.instance.draw
-
-      draw.push
-      draw.stroke(color)
-      draw.fill(color)
-      draw.stroke_width(@width) if @width
-      draw.line(start_x, start_y, end_x, end_y)
-      draw.pop
+      @renderer.draw.push
+      @renderer.draw.stroke(color)
+      @renderer.draw.fill(color)
+      @renderer.draw.stroke_width(@width) if @width
+      @renderer.draw.line(start_x, start_y, end_x, end_y)
+      @renderer.draw.pop
     end
   end
 end

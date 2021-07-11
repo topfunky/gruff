@@ -108,7 +108,7 @@ private
         left_y, right_y = conversion.get_top_bottom_scaled(data_point)
 
         # create new bar
-        rect_renderer = Gruff::Renderer::Rectangle.new(color: data_row.color)
+        rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: data_row.color)
         rect_renderer.render(left_x, left_y - AXIS_MARGIN, right_x, right_y - AXIS_MARGIN)
 
         # Calculate center based on bar_width and current row

@@ -5,7 +5,8 @@ module Gruff
   class Renderer::Text
     using Magick::GruffAnnotate
 
-    def initialize(text, font:, rotation: nil)
+    def initialize(renderer, text, font:, rotation: nil)
+      @renderer = renderer
       @text = text.to_s
       @font = font
       @rotation = rotation
@@ -20,43 +21,36 @@ module Gruff
       @y = y
       @gravity = gravity
 
-      Renderer.instance.text_renderers << self
+      @renderer.text_renderers << self
     end
 
     def render(width, height, x, y, gravity = Magick::NorthGravity)
-      draw  = Renderer.instance.draw
-      image = Renderer.instance.image
-      scale = Renderer.instance.scale
-
-      draw.rotation = @rotation if @rotation
-      draw.fill = @font.color
-      draw.stroke = 'transparent'
-      draw.font = @font.file_path
-      draw.font_weight = @font.weight
-      draw.pointsize = @font.size * scale
-      draw.gravity = gravity
-      draw.annotate_scaled(image,
-                           width, height,
-                           x, y,
-                           @text, scale)
-      draw.rotation = -@rotation if @rotation
+      @renderer.draw.rotation = @rotation if @rotation
+      @renderer.draw.fill = @font.color
+      @renderer.draw.stroke = 'transparent'
+      @renderer.draw.font = @font.file_path
+      @renderer.draw.font_weight = @font.weight
+      @renderer.draw.pointsize = @font.size * @renderer.scale
+      @renderer.draw.gravity = gravity
+      @renderer.draw.annotate_scaled(@renderer.image,
+                                     width, height,
+                                     x, y,
+                                     @text, @renderer.scale)
+      @renderer.draw.rotation = -@rotation if @rotation
     end
 
-    def self.metrics(text, font)
-      draw  = Renderer.instance.draw
-      image = Renderer.instance.image
-
-      draw.font = font.file_path
-      draw.font_weight = font.weight
-      draw.pointsize = font.size
+    def metrics
+      @renderer.draw.font = @font.file_path
+      @renderer.draw.font_weight = @font.weight
+      @renderer.draw.pointsize = @font.size
 
       # The old ImageMagick causes SEGV with string which has '%' + alphabet (eg. '%S').
       # This format is used to embed value into a string using image properties.
       # However, gruff use plain image as canvas which does not have any property.
       # So, in here, it just escape % in order to avoid SEGV.
-      text = text.to_s.gsub(/(%+)/) { ('%' * Regexp.last_match(1).size * 2).to_s }
+      text = @text.to_s.gsub(/(%+)/) { ('%' * Regexp.last_match(1).size * 2).to_s }
 
-      draw.get_type_metrics(image, text)
+      @renderer.draw.get_type_metrics(@renderer.image, text)
     end
   end
 end

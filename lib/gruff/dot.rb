@@ -36,10 +36,10 @@ private
         y_pos = @graph_top + (items_width * point_index) + padding + (items_width.to_f / 2.0).round
 
         if row_index == 0
-          Gruff::Renderer::Line.new(color: @marker_color).render(@graph_left, y_pos, @graph_left + @graph_width, y_pos)
+          Gruff::Renderer::Line.new(renderer, color: @marker_color).render(@graph_left, y_pos, @graph_left + @graph_width, y_pos)
         end
 
-        Gruff::Renderer::Circle.new(color: data_row.color).render(x_pos, y_pos, x_pos + (item_width.to_f / 3.0).round, y_pos)
+        Gruff::Renderer::Circle.new(renderer, color: data_row.color).render(x_pos, y_pos, x_pos + (item_width.to_f / 3.0).round, y_pos)
 
         draw_label(y_pos, point_index)
       end
@@ -54,12 +54,12 @@ private
       marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) + BigDecimal(minimum_value.to_s)
       x = @graph_left + (marker_label - minimum_value) * @graph_width / @spread
 
-      line_renderer = Gruff::Renderer::Line.new(color: @marker_color, shadow_color: @marker_shadow_color)
+      line_renderer = Gruff::Renderer::Line.new(renderer, color: @marker_color, shadow_color: @marker_shadow_color)
       line_renderer.render(x, @graph_bottom, x, @graph_bottom + 5)
 
       unless @hide_line_numbers
         label = y_axis_label(marker_label, @increment)
-        text_renderer = Gruff::Renderer::Text.new(label, font: @marker_font)
+        text_renderer = Gruff::Renderer::Text.new(renderer, label, font: @marker_font)
         text_renderer.add_to_render_queue(0, 0, x, @graph_bottom + (LABEL_MARGIN * 1.5), Magick::CenterGravity)
       end
     end
