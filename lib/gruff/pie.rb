@@ -87,12 +87,7 @@ private
   end
 
   attr_reader :graph_height
-
   attr_reader :graph_width
-
-  def diameter
-    graph_height
-  end
 
   def half_width
     graph_width / 2.0
