@@ -29,8 +29,9 @@ class TestGruffLegend < GruffTestCase
   end
 
   def full_suite_for(name, type, legend_at_bottom: false)
+    font_sizes = [nil, 4, 16, 30].freeze
     [800, 400].each do |width|
-      [nil, 4, 16, 30].each do |font_size|
+      font_sizes.each do |font_size|
         g = type.new(width)
         g.title = "Wrapped Legend Bar Test #{font_size}pts #{width}px"
         g.labels = @sample_labels
