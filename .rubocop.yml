@@ -43,6 +43,9 @@ Lint/ConstantResolution:
 Lint/NumberConversion:
   Enabled: false
 
+Naming/MethodParameterName:
+  Enabled: false
+
 Style/AccessorGrouping:
   Enabled: false
 
