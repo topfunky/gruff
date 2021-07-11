@@ -128,7 +128,7 @@ private
         # Reset each time to avoid thin-line errors
         stroke_width  = @stroke_width  || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4), 5.0)
         circle_radius = @circle_radius || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 2.5), 5.0)
-        Gruff::Renderer::Circle.new(color: data_row.color, width: stroke_width).render(new_x, new_y, new_x - circle_radius, new_y)
+        Gruff::Renderer::Circle.new(renderer, color: data_row.color, width: stroke_width).render(new_x, new_y, new_x - circle_radius, new_y)
       end
     end
   end
@@ -198,7 +198,7 @@ private
       if @show_vertical_markers
         x = @graph_left + @graph_width - index.to_f * increment_x_scaled
 
-        line_renderer = Gruff::Renderer::Line.new(color: @marker_color, shadow_color: @marker_shadow_color)
+        line_renderer = Gruff::Renderer::Line.new(renderer, color: @marker_color, shadow_color: @marker_shadow_color)
         line_renderer.render(x, @graph_top, x, @graph_bottom)
       end
 
@@ -209,7 +209,7 @@ private
 
         label = x_axis_label(marker_label, @x_increment)
         rotation = -90.0 if @use_vertical_x_labels
-        text_renderer = Gruff::Renderer::Text.new(label, font: @marker_font, rotation: rotation)
+        text_renderer = Gruff::Renderer::Text.new(renderer, label, font: @marker_font, rotation: rotation)
         text_renderer.add_to_render_queue(1.0, 1.0, x_offset, y_offset)
       end
     end

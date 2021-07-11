@@ -52,7 +52,7 @@ private
       poly_points << @graph_left
       poly_points << @graph_bottom - 1
 
-      Gruff::Renderer::Polygon.new(color: data_row.color, width: @stroke_width, opacity: @fill_opacity).render(poly_points)
+      Gruff::Renderer::Polygon.new(renderer, color: data_row.color, width: @stroke_width, opacity: @fill_opacity).render(poly_points)
     end
   end
 end

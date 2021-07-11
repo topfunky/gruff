@@ -3,22 +3,21 @@
 module Gruff
   # @private
   class Renderer::Polygon
-    def initialize(color:, width: 1.0, opacity: 1.0)
+    def initialize(renderer, color:, width: 1.0, opacity: 1.0)
+      @renderer = renderer
       @color = color
       @width = width
       @opacity = opacity
     end
 
     def render(points)
-      draw = Renderer.instance.draw
-
-      draw.push
-      draw.stroke_width(@width)
-      draw.stroke(@color)
-      draw.fill(@color)
-      draw.fill_opacity(@opacity)
-      draw.polygon(*points)
-      draw.pop
+      @renderer.draw.push
+      @renderer.draw.stroke_width(@width)
+      @renderer.draw.stroke(@color)
+      @renderer.draw.fill(@color)
+      @renderer.draw.fill_opacity(@opacity)
+      @renderer.draw.polygon(*points)
+      @renderer.draw.pop
     end
   end
 end

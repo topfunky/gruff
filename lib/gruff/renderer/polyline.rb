@@ -3,20 +3,19 @@
 module Gruff
   # @private
   class Renderer::Polyline
-    def initialize(color:, width:)
+    def initialize(renderer, color:, width:)
+      @renderer = renderer
       @color = color
       @width = width
     end
 
     def render(points)
-      draw = Renderer.instance.draw
-
-      draw.push
-      draw.stroke(@color)
-      draw.fill('transparent')
-      draw.stroke_width(@width)
-      draw.polyline(*points)
-      draw.pop
+      @renderer.draw.push
+      @renderer.draw.stroke(@color)
+      @renderer.draw.fill('transparent')
+      @renderer.draw.stroke_width(@width)
+      @renderer.draw.polyline(*points)
+      @renderer.draw.pop
     end
   end
 end

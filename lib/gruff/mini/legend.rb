@@ -36,7 +36,7 @@ module Gruff
           @rows += store.length * calculate_caps_height(font) * 1.7
         end
 
-        Gruff::Renderer.setup(@columns, @rows, @scale, @theme_options)
+        @renderer = Gruff::Renderer.new(@columns, @rows, @scale, @theme_options)
       end
 
       def calculate_line_height
@@ -70,12 +70,12 @@ module Gruff
         @legend_labels.each_with_index do |legend_label, index|
           # Draw label
           label = truncate_legend_label(legend_label)
-          text_renderer = Gruff::Renderer::Text.new(label, font: @legend_font)
+          text_renderer = Gruff::Renderer::Text.new(renderer, label, font: @legend_font)
           x_offset = current_x_offset + (legend_square_width * 1.7)
           text_renderer.add_to_render_queue(@raw_columns, 1.0, x_offset, current_y_offset, Magick::WestGravity)
 
           # Now draw box with color of this dataset
-          rect_renderer = Gruff::Renderer::Rectangle.new(color: store.data[index].color)
+          rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: store.data[index].color)
           rect_renderer.render(current_x_offset,
                                current_y_offset - legend_square_width / 2.0,
                                current_x_offset + legend_square_width,

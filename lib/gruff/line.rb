@@ -159,7 +159,7 @@ private
   def draw_reference_line(reference_line, left, right, top, bottom)
     color = reference_line[:color] || @reference_line_default_color
     width = reference_line[:width] || @reference_line_default_width
-    Gruff::Renderer::DashLine.new(color: color, width: width).render(left, top, right, bottom)
+    Gruff::Renderer::DashLine.new(renderer, color: color, width: width).render(left, top, right, bottom)
   end
 
   def draw_horizontal_reference_line(reference_line)
@@ -209,12 +209,12 @@ private
         circle_radius = @dot_radius || clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 2.5), 5.0)
 
         if !@hide_lines && prev_x && prev_y
-          Gruff::Renderer::Line.new(color: data_row.color, width: stroke_width)
+          Gruff::Renderer::Line.new(renderer, color: data_row.color, width: stroke_width)
                                .render(prev_x, prev_y, new_x, new_y)
         end
 
         if one_point || !@hide_dots
-          Gruff::Renderer::Dot.new(@dot_style, color: data_row.color, width: stroke_width).render(new_x, new_y, circle_radius)
+          Gruff::Renderer::Dot.new(renderer, @dot_style, color: data_row.color, width: stroke_width).render(new_x, new_y, circle_radius)
         end
 
         prev_x = new_x
@@ -277,10 +277,10 @@ private
       if @show_vertical_markers
         x = @graph_left + @graph_width - index * @graph_width / @marker_x_count
 
-        Gruff::Renderer::Line.new(color: @marker_color).render(x, @graph_bottom, x, @graph_top)
+        Gruff::Renderer::Line.new(renderer, color: @marker_color).render(x, @graph_bottom, x, @graph_top)
         # If the user specified a marker shadow color, draw a shadow just below it
         if @marker_shadow_color
-          Gruff::Renderer::Line.new(color: @marker_shadow_color).render(x + 1, @graph_bottom, x + 1, @graph_top)
+          Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color).render(x + 1, @graph_bottom, x + 1, @graph_top)
         end
       end
     end

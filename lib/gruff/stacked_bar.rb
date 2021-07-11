@@ -72,7 +72,7 @@ private
         # update the total height of the current stacked bar
         height[point_index] += (data_point * @graph_height)
 
-        rect_renderer = Gruff::Renderer::Rectangle.new(color: data_row.color)
+        rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: data_row.color)
         rect_renderer.render(left_x, left_y, right_x, right_y)
 
         # Calculate center based on bar_width and current row

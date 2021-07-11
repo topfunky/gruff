@@ -63,7 +63,7 @@ private
       poly_points << data_points[0]
       poly_points << data_points[1]
 
-      Gruff::Renderer::Polygon.new(color: data_row.color).render(poly_points)
+      Gruff::Renderer::Polygon.new(renderer, color: data_row.color).render(poly_points)
     end
   end
 end

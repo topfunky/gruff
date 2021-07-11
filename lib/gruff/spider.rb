@@ -20,7 +20,7 @@ class Gruff::Spider < Gruff::Base
   attr_writer :rotation
 
   def transparent_background=(value)
-    Gruff::Renderer.setup_transparent_background(@columns, @rows) if value
+    renderer.transparent_background(@columns, @rows) if value
   end
 
   def hide_text=(value)
@@ -86,7 +86,7 @@ private
       x_offset = radius * Math.cos(current_angle)
       y_offset = radius * Math.sin(current_angle)
 
-      Gruff::Renderer::Line.new(color: line_color || data_row.color, width: 5.0)
+      Gruff::Renderer::Line.new(renderer, color: line_color || data_row.color, width: 5.0)
                            .render(center_x, center_y, center_x + x_offset, center_y + y_offset)
 
       draw_label(center_x, center_y, current_angle, radius, data_row.label.to_s) unless @hide_text
@@ -105,7 +105,7 @@ private
       current_angle += additive_angle
     end
 
-    Gruff::Renderer::Polygon.new(color: color || @marker_color, opacity: 0.4).render(points)
+    Gruff::Renderer::Polygon.new(renderer, color: color || @marker_color, opacity: 0.4).render(points)
   end
 
   def sums_for_spider

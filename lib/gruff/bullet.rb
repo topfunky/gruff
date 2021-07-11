@@ -61,7 +61,7 @@ class Gruff::Bullet < Gruff::Base
     graph_height = thickness * 3.0
 
     # Background
-    rect_renderer = Gruff::Renderer::Rectangle.new(color: @colors[0])
+    rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: @colors[0])
     rect_renderer.render(graph_left, 0, graph_left + graph_width, graph_height)
 
     [:high, :low].each_with_index do |indicator, index|
@@ -69,7 +69,7 @@ class Gruff::Bullet < Gruff::Base
 
       indicator_width_x = graph_left + graph_width * (@options[indicator] / maximum_value)
 
-      rect_renderer = Gruff::Renderer::Rectangle.new(color: @colors[index + 1])
+      rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: @colors[index + 1])
       rect_renderer.render(graph_left, 0, indicator_width_x, graph_height)
     end
 
@@ -77,12 +77,12 @@ class Gruff::Bullet < Gruff::Base
       target_x = graph_left + graph_width * (@options[:target] / maximum_value)
       half_thickness = thickness / 2.0
 
-      rect_renderer = Gruff::Renderer::Rectangle.new(color: @marker_color)
+      rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: @marker_color)
       rect_renderer.render(target_x, half_thickness, target_x + half_thickness, thickness * 2 + half_thickness)
     end
 
     # Value
-    rect_renderer = Gruff::Renderer::Rectangle.new(color: @marker_color)
+    rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: @marker_color)
     rect_renderer.render(graph_left, thickness, graph_left + graph_width * (@value / maximum_value), thickness * 2)
   end
 
@@ -93,7 +93,7 @@ private
 
     font_height = calculate_caps_height(@title_font)
 
-    text_renderer = Gruff::Renderer::Text.new(@title, font: @title_font)
+    text_renderer = Gruff::Renderer::Text.new(renderer, @title, font: @title_font)
     text_renderer.add_to_render_queue(1.0, 1.0, font_height / 2, font_height / 2, Magick::NorthWestGravity)
   end
 end
