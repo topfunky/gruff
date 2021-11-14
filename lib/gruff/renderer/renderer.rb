@@ -44,8 +44,8 @@ module Gruff
 
     # Make a new image at the current size with a solid +color+.
     def solid_background(columns, rows, color)
-      Magick::Image.new(columns, rows) do
-        self.background_color = color
+      Magick::Image.new(columns, rows) do |img|
+        img.background_color = color
       end
     end
 
@@ -97,8 +97,8 @@ module Gruff
 
     # Use with a theme to make a transparent background
     def render_transparent_background(columns, rows)
-      Magick::Image.new(columns, rows) do
-        self.background_color = 'transparent'
+      Magick::Image.new(columns, rows) do |img|
+        img.background_color = 'transparent'
       end
     end
   end
