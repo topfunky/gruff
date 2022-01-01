@@ -118,12 +118,14 @@ class Gruff::Line < Gruff::Base
   def dataxy(name, x_data_points = [], y_data_points = [], color = nil)
     # make sure it's an array
     x_data_points = Array(x_data_points)
-    y_data_points = Array(y_data_points)
 
     raise ArgumentError, 'x_data_points is nil!' if x_data_points.empty?
 
     if x_data_points.all? { |p| p.is_a?(Array) && p.size == 2 }
+      color = y_data_points if y_data_points.is_a?(String)
       x_data_points, y_data_points = x_data_points.transpose
+    else
+      y_data_points = Array(y_data_points)
     end
 
     raise ArgumentError, 'x_data_points.length != y_data_points.length!' if x_data_points.length != y_data_points.length
