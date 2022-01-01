@@ -2,7 +2,7 @@
 
 require_relative 'gruff_test_case'
 
-class TestGruffLine < GruffTestCase
+class TestGruffLine < GruffTestCase # rubocop:disable Metrics/ClassLength
   def test_should_render_with_transparent_theme
     g = Gruff::Line.new(400)
     g.title = 'Transparent Background'
@@ -574,6 +574,17 @@ class TestGruffLine < GruffTestCase
     assert_same_image('test/expected/line_xy.png', 'test/output/line_xy.png')
   end
 
+  def test_xy_data_color
+    g = Gruff::Line.new
+    g.title = 'X/Y Dataset'
+    g.dataxy('Apples', [1, 3, 4, 5, 6, 10], [1, 2, 3, 4, 4, 3], 'lightblue')
+    g.dataxy('Bapples', [1, 3, 4, 5, 7, 9], [1, 1, 2, 2, 3, 3], '#22259F')
+    g.data('Capples', [1, 1, 2, 2, 3, 3], '#A2EA00')
+    g.labels = { 0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006', 8 => '2007', 10 => '2008' }
+    g.write('test/output/line_xy_color.png')
+    assert_same_image('test/expected/line_xy_color.png', 'test/output/line_xy_color.png')
+  end
+
   def test_xy_data_pairs
     g = Gruff::Line.new
     g.title = 'X/Y Dataset Pairs'
@@ -585,6 +596,19 @@ class TestGruffLine < GruffTestCase
     g.labels = { 0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006', 8 => '2007', 10 => '2008', 12 => '2009' }
     g.write('test/output/line_xy_pairs.png')
     assert_same_image('test/expected/line_xy_pairs.png', 'test/output/line_xy_pairs.png')
+  end
+
+  def test_xy_data_pairs_color
+    g = Gruff::Line.new
+    g.title = 'X/Y Dataset Pairs'
+    g.dataxy('Apples', [[1, 1], [3, 2], [4, 3], [5, 4], [6, 4], [10, 3]], 'lightblue')
+    g.dataxy('Bapples', [[1, 1], [3, 1], [4, 2], [5, 2], [7, 3], [9, 3]], '#22259F')
+    g.data('Capples', [1, 1, 2, 2, 3, 3], '#A2EA00')
+    g.dataxy('Dapples', [[1, 1], [2, 2], [5, 6], [13, 13], [15, nil], [2, 17], [3, nil], [3, 17], [13, nil], [3, 18], [5, nil], [2, 18]], 'red')
+    g.dataxy('Eapples', [[1, 1], [2, 3], [5, 8], [13, 21], [13, 8], [5, 3], [2, 1], [1, 1]])
+    g.labels = { 0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006', 8 => '2007', 10 => '2008', 12 => '2009' }
+    g.write('test/output/line_xy_pairs_color.png')
+    assert_same_image('test/expected/line_xy_pairs_color.png', 'test/output/line_xy_pairs_color.png')
   end
 
   def test_jruby_error
