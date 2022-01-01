@@ -9,6 +9,8 @@ module Gruff
         super(label.to_s, Array(y_points), color, x_points)
       end
 
+      alias points y_points
+
       def x_points
         self[:x_points] || Array.new(y_points.length)
       end
