@@ -266,10 +266,6 @@ private
     end
   end
 
-  def sort_norm_data
-    super unless store.data.any?(&:x_points)
-  end
-
   def draw_line_markers
     # do all of the stuff for the horizontal lines on the y-axis
     super
