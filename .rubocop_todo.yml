@@ -6,12 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 98
-# Cop supports --auto-correct.
-# Configuration parameters: InspectBlocks.
-Layout/RedundantLineBreak:
-  Enabled: false
-
 # Offense count: 3
 # Cop supports --auto-correct.
 Layout/SingleLineBlockChain:
@@ -19,11 +13,6 @@ Layout/SingleLineBlockChain:
     - 'lib/gruff/mini/legend.rb'
     - 'lib/gruff/scene.rb'
     - 'test/test_line.rb'
-
-# Offense count: 69
-# Cop supports --auto-correct.
-Lint/AmbiguousOperatorPrecedence:
-  Enabled: false
 
 # Offense count: 13
 Lint/FloatComparison:

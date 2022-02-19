@@ -34,6 +34,12 @@ Layout/MultilineMethodArgumentLineBreaks:
 Layout/MultilineAssignmentLayout:
   EnforcedStyle: same_line
 
+Layout/RedundantLineBreak:
+  Enabled: false
+
+Lint/AmbiguousOperatorPrecedence:
+  Enabled: false
+
 Lint/AssignmentInCondition:
   Enabled: false
 
