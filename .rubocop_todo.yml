@@ -80,11 +80,6 @@ Performance/StringReplacement:
     - 'lib/gruff/scene.rb'
 
 # Offense count: 1
-Rake/Desc:
-  Exclude:
-    - 'Rakefile'
-
-# Offense count: 1
 Security/Eval:
   Exclude:
     - 'test/gruff_test_case.rb'
