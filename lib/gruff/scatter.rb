@@ -148,7 +148,7 @@ private
     super
   end
 
-  def calculate_spread #:nodoc:
+  def calculate_spread
     super
     @x_spread = @maximum_x_value.to_f - @minimum_x_value.to_f
     @x_spread = @x_spread > 0 ? @x_spread : 1
@@ -215,7 +215,7 @@ private
     end
   end
 
-  def get_x_coord(x_data_point, width, offset) #:nodoc:
+  def get_x_coord(x_data_point, width, offset)
     x_data_point * width + offset
   end
 end
