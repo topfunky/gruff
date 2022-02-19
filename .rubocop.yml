@@ -5,7 +5,7 @@ require:
 
 AllCops:
     EnabledByDefault: true
-    TargetRubyVersion: 2.4
+    TargetRubyVersion: 2.5
     Exclude:
         - 'vendor/bundle/**/*'
         - 'rails_generators/gruff/**/*'
