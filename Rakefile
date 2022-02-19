@@ -15,7 +15,7 @@ Rake::TestTask.new
 
 namespace :test do
   desc 'Update expected image with output'
-  task :"image:update" do
+  task :'image:update' do
     require 'rmagick'
     require 'fileutils'
 
