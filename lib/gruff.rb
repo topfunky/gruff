@@ -1,62 +1,74 @@
 # frozen_string_literal: true
 
 require 'rmagick'
+
+require 'gruff/patch/rmagick'
+require 'gruff/patch/string'
+require 'gruff/renderer/renderer'
+require 'gruff/store/store'
+require 'gruff/font'
+require 'gruff/base'
 require 'gruff/version'
 
-# Extra full path added to fix loading errors on some installations.
+##
+# = Gruff. Graphs.
+#
+module Gruff
+  # @private
+  def self.libpath(path)
+    File.join(__dir__, 'gruff', path)
+  end
 
-%w[
-  patch/rmagick
-  patch/string
+  autoload :BarConversion, Gruff.libpath('helper/bar_conversion')
+  autoload :BarValueLabel, Gruff.libpath('helper/bar_value_label')
+  class Base
+    autoload :StackedMixin, Gruff.libpath('helper/stacked_mixin')
+  end
 
-  font
-  base
+  autoload :AccumulatorBar, Gruff.libpath('accumulator_bar')
+  autoload :Area, Gruff.libpath('area')
+  autoload :Bar, Gruff.libpath('bar')
+  autoload :Bezier, Gruff.libpath('bezier')
+  autoload :Bullet, Gruff.libpath('bullet')
+  autoload :Dot, Gruff.libpath('dot')
+  autoload :Histogram, Gruff.libpath('histogram')
+  autoload :Line, Gruff.libpath('line')
+  autoload :Net, Gruff.libpath('net')
+  autoload :Pie, Gruff.libpath('pie')
+  autoload :Scatter, Gruff.libpath('scatter')
+  autoload :Scene, Gruff.libpath('scene')
+  autoload :SideBar, Gruff.libpath('side_bar')
+  autoload :SideStackedBar, Gruff.libpath('side_stacked_bar')
+  autoload :Spider, Gruff.libpath('spider')
+  autoload :StackedArea, Gruff.libpath('stacked_area')
+  autoload :StackedBar, Gruff.libpath('stacked_bar')
 
-  helper/bar_conversion.rb
-  helper/stacked_mixin
-  helper/bar_value_label
+  autoload :Layer, Gruff.libpath('scene')
+  autoload :Themes, Gruff.libpath('themes')
 
-  themes
-  area
-  bar
-  bezier
-  bullet
-  dot
-  histogram
-  line
-  net
-  pie
-  scatter
-  spider
-  side_bar
-  stacked_area
-  stacked_bar
-  side_stacked_bar
-  accumulator_bar
+  class Renderer
+    autoload :Bezier, Gruff.libpath('renderer/bezier')
+    autoload :Circle, Gruff.libpath('renderer/circle')
+    autoload :DashLine, Gruff.libpath('renderer/dash_line')
+    autoload :Dot, Gruff.libpath('renderer/dot')
+    autoload :Ellipse, Gruff.libpath('renderer/ellipse')
+    autoload :Line, Gruff.libpath('renderer/line')
+    autoload :Polygon, Gruff.libpath('renderer/polygon')
+    autoload :Polyline, Gruff.libpath('renderer/polyline')
+    autoload :Rectangle, Gruff.libpath('renderer/rectangle')
+    autoload :Text, Gruff.libpath('renderer/text')
+  end
 
-  scene
+  class Store
+    autoload :BasicData, Gruff.libpath('store/basic_data')
+    autoload :CustomData, Gruff.libpath('store/custom_data')
+    autoload :XYData, Gruff.libpath('store/xy_data')
+  end
 
-  renderer/renderer
-  renderer/rectangle
-  renderer/circle
-  renderer/dash_line
-  renderer/line
-  renderer/polyline
-  renderer/polygon
-  renderer/bezier
-  renderer/ellipse
-  renderer/dot
-  renderer/text
-
-  store/store
-  store/basic_data
-  store/custom_data
-  store/xy_data
-
-  mini/legend
-  mini/bar
-  mini/pie
-  mini/side_bar
-].each do |filename|
-  require "gruff/#{filename}"
+  module Mini
+    autoload :Bar, Gruff.libpath('mini/bar')
+    autoload :Legend, Gruff.libpath('mini/legend')
+    autoload :Pie, Gruff.libpath('mini/pie')
+    autoload :SideBar, Gruff.libpath('mini/side_bar')
+  end
 end
