@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-$:.unshift(File.dirname(__FILE__) + '/../lib/')
+$:.unshift("#{File.dirname(__FILE__)}/../lib/")
 
 RMAGICK_BYPASS_VERSION_TEST = true
 
@@ -12,7 +12,7 @@ require 'fileutils'
 
 TEST_OUTPUT_DIR = File.dirname(__FILE__) + "/output#{'_java' if RUBY_PLATFORM == 'java'}"
 FileUtils.mkdir_p(TEST_OUTPUT_DIR)
-FileUtils.rm_f Dir[TEST_OUTPUT_DIR + '/*']
+FileUtils.rm_f Dir["#{TEST_OUTPUT_DIR}/*"]
 
 require 'minitest/autorun'
 require 'minitest/reporters'
