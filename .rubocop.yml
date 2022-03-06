@@ -10,6 +10,9 @@ AllCops:
         - 'vendor/bundle/**/*'
         - 'rails_generators/gruff/**/*'
 
+Metrics:
+  Enabled: false
+
 Gemspec/OrderedDependencies:
   Enabled: false
 

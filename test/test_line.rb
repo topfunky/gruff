@@ -2,7 +2,7 @@
 
 require_relative 'gruff_test_case'
 
-class TestGruffLine < GruffTestCase # rubocop:disable Metrics/ClassLength
+class TestGruffLine < GruffTestCase
   def test_should_render_with_transparent_theme
     g = Gruff::Line.new(400)
     g.title = 'Transparent Background'
