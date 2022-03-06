@@ -79,6 +79,9 @@ Style/Documentation:
 Style/DocumentationMethod:
   Enabled: false
 
+Style/DocumentDynamicEvalDefinition:
+  Enabled: false
+
 Style/FormatString:
   EnforcedStyle: sprintf
 
