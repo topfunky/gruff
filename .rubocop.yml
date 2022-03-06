@@ -76,6 +76,9 @@ Style/DisableCopsWithinSourceCodeDirective:
 Style/Documentation:
   Enabled: true
 
+Style/DocumentationMethod:
+  Enabled: false
+
 Style/FormatString:
   EnforcedStyle: sprintf
 
