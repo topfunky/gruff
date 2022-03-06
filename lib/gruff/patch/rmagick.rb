@@ -23,7 +23,6 @@ module Magick
         def fill=(fill)
           fill = { white: '#FFFFFF' }[fill.to_sym] || fill
           @draw.fill = Magick4J.ColorDatabase.query_default(fill)
-          self
         end
       end
     end
