@@ -73,12 +73,20 @@ class Gruff::Scene < Gruff::Base
     case method_name.to_s
     when /^(\w+)_group=$/
       add_group Regexp.last_match(1), *args
-      return
     when /^(\w+)=$/
       set_input Regexp.last_match(1), args.first
-      return
+    else
+      super
     end
-    super
+  end
+
+  def respond_to_missing?(method_sym, include_private)
+    case method_sym.to_s
+    when /^(\w+)_group=$/, /^(\w+)=$/
+      true
+    else
+      super
+    end
   end
 
 private
