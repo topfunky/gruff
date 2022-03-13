@@ -40,6 +40,9 @@ Layout/MultilineAssignmentLayout:
 Layout/RedundantLineBreak:
   Enabled: false
 
+Layout/SingleLineBlockChain:
+  Enabled: false
+
 Lint/AmbiguousOperatorPrecedence:
   Enabled: false
 
