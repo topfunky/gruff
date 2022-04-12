@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 20
     name: Lint
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         ref: ${{ github.event.pull_request.head.sha }}
     - name: Set up Ruby 2.5
@@ -35,7 +35,7 @@ jobs:
         ruby-version: ['2.5', '2.6', '2.7', '3.0', '3.1']
     name: Ruby ${{ matrix.ruby-version }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Ruby
       uses: ruby/setup-ruby@master
       with:
@@ -54,7 +54,7 @@ jobs:
         ruby-version: ['9.2.20.0', '9.3.2.0']
     name: JRuby ${{ matrix.ruby-version }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Ruby
       uses: ruby/setup-ruby@master
       with:
