@@ -116,7 +116,7 @@ private
 
   def draw_graph
     # Check to see if more than one datapoint was given. NaN can result otherwise.
-    @x_increment = (@x_spread > 1) ? (@graph_width / (@x_spread - 1).to_f) : @graph_width
+    @x_increment = @x_spread > 1 ? (@graph_width / (@x_spread - 1).to_f) : @graph_width
 
     store.norm_data.each do |data_row|
       data_row.coordinates.each do |x_value, y_value|
@@ -176,7 +176,7 @@ private
         end
         @marker_x_count ||= 4
       end
-      @x_increment = (@x_spread > 0) ? (@x_spread / @marker_x_count) : 1
+      @x_increment = @x_spread > 0 ? (@x_spread / @marker_x_count) : 1
       unless @disable_significant_rounding_x_axis
         @x_increment = significant(@x_increment)
       end

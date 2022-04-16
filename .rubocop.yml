@@ -118,8 +118,5 @@ Style/SingleLineBlockParams:
 Style/StructInheritance:
   Enabled: false
 
-Style/TernaryParentheses:
-  Enabled: false
-
 Performance/ChainArrayAllocation:
   Enabled: false

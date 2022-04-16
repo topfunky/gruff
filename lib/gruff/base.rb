@@ -783,7 +783,7 @@ module Gruff
     end
 
     def clip_value_if_greater_than(value, max_value) # :nodoc:
-      (value > max_value) ? max_value : value
+      value > max_value ? max_value : value
     end
 
     def significant(i) # :nodoc:
@@ -849,7 +849,7 @@ module Gruff
       # Make space for half the width of the rightmost column label.
       # Might be greater than the number of columns if between-style bar markers are used.
       last_label = @labels.keys.max.to_i
-      (last_label >= (column_count - 1) && @center_labels_over_point) ? calculate_width(@marker_font, @labels[last_label]) / 2.0 : 0
+      last_label >= (column_count - 1) && @center_labels_over_point ? calculate_width(@marker_font, @labels[last_label]) / 2.0 : 0
     end
 
     def setup_left_margin
@@ -857,7 +857,7 @@ module Gruff
 
       text = begin
         if @has_left_labels
-          @labels.values.reduce('') { |value, memo| (value.to_s.length > memo.to_s.length) ? value : memo }
+          @labels.values.reduce('') { |value, memo| value.to_s.length > memo.to_s.length ? value : memo }
         else
           y_axis_label(maximum_value.to_f, @increment)
         end
@@ -876,7 +876,7 @@ module Gruff
       # Same with @hide_legend
       @top_margin +
         (hide_title? ? @title_margin : @title_caps_height + @title_margin) +
-        ((@hide_legend || @legend_at_bottom) ? @legend_margin : calculate_legend_height + @legend_margin)
+        (@hide_legend || @legend_at_bottom ? @legend_margin : calculate_legend_height + @legend_margin)
     end
 
     def setup_bottom_margin
@@ -1019,7 +1019,7 @@ module Gruff
         # Try to use a number of horizontal lines that will come out even.
         #
         # TODO Do the same for larger numbers...100, 75, 50, 25
-        @increment = (@spread > 0 && marker_count > 0) ? significant(@spread / marker_count) : 1
+        @increment = @spread > 0 && marker_count > 0 ? significant(@spread / marker_count) : 1
       else
         # TODO: Make this work for negative values
         self.marker_count = (@spread / @y_axis_increment).to_i
