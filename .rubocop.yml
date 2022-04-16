@@ -1,4 +1,3 @@
-inherit_from: .rubocop_todo.yml
 require:
   - rubocop-performance
   - rubocop-rake
@@ -49,10 +48,19 @@ Lint/AmbiguousOperatorPrecedence:
 Lint/ConstantResolution:
   Enabled: false
 
+Lint/FloatComparison:
+  Enabled: false
+
 Lint/NumberConversion:
   Enabled: false
 
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
 Naming/MethodParameterName:
+  Enabled: false
+
+Naming/VariableNumber:
   Enabled: false
 
 Style/AccessorGrouping:
@@ -119,4 +127,7 @@ Style/StructInheritance:
   Enabled: false
 
 Performance/ChainArrayAllocation:
+  Enabled: false
+
+Performance/StringReplacement:
   Enabled: false
