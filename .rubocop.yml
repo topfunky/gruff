@@ -79,9 +79,6 @@ Style/DocumentDynamicEvalDefinition:
 Style/FormatString:
   EnforcedStyle: sprintf
 
-Style/FormatStringToken:
-  Enabled: false
-
 Style/GuardClause:
   Enabled: false
 
