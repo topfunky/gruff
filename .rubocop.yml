@@ -61,9 +61,6 @@ Style/AccessorGrouping:
 Style/ClassAndModuleChildren:
   Enabled: false
 
-Style/ConditionalAssignment:
-  Enabled: false
-
 Style/ConstantVisibility:
   Enabled: false
 

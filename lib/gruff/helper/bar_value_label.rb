@@ -18,10 +18,12 @@ module Gruff::BarValueLabel
   class Bar < Base
     def prepare_rendering(format, _bar_width = 0)
       left_x, left_y, right_x, _right_y = @coordinate
-      if format.is_a?(Proc)
-        val = format.call(@value)
-      else
-        val = sprintf(format || '%.2f', @value).commify
+      val = begin
+        if format.is_a?(Proc)
+          format.call(@value)
+        else
+          sprintf(format || '%.2f', @value).commify
+        end
       end
 
       y = @value >= 0 ? left_y - 30 : left_y + 12
@@ -33,12 +35,13 @@ module Gruff::BarValueLabel
   class SideBar < Base
     def prepare_rendering(format, bar_width = 0)
       left_x, _left_y, right_x, right_y = @coordinate
-      if format.is_a?(Proc)
-        val = format.call(@value)
-      else
-        val = sprintf(format || '%.2f', @value).commify
+      val = begin
+        if format.is_a?(Proc)
+          format.call(@value)
+        else
+          sprintf(format || '%.2f', @value).commify
+        end
       end
-
       x = @value >= 0 ? right_x + 40 : left_x - 40
       yield x, right_y - bar_width / 2, val
     end
