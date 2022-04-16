@@ -130,9 +130,6 @@ Style/SpecialGlobalVars:
 Style/StructInheritance:
   Enabled: false
 
-Style/SymbolArray:
-  Enabled: false
-
 Style/TernaryParentheses:
   Enabled: false
 
