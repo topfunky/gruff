@@ -169,10 +169,9 @@ class TestGruffLine < GruffTestCase
     g.title = 'More Sets Than in Color Array'
     @datasets.each do |data|
       g.data(data[0], data[1])
-    end
-    @datasets.each do |data|
       g.data("#{data[0]}-B", data[1].map { |d| d + 20 })
     end
+
     g.replace_colors(
       %w[
         #0779e4

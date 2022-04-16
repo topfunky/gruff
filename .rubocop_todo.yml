@@ -36,8 +36,3 @@ Naming/VariableNumber:
 Performance/StringReplacement:
   Exclude:
     - 'lib/gruff/scene.rb'
-
-# Offense count: 1
-Style/CombinableLoops:
-  Exclude:
-    - 'test/test_line.rb'
