@@ -722,7 +722,7 @@ module Gruff
 
         # TESTME
         # FIXME: Consider chart types other than bar
-        # TODO: See if index.odd? is the best stragegy
+        # TODO: See if index.odd? is the best strategy
         y_offset += @label_stagger_height if index.odd?
 
         if x_offset >= @graph_left && x_offset <= @graph_right
