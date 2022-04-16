@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-$:.unshift("#{File.dirname(__FILE__)}/../lib/")
+$LOAD_PATH.unshift("#{File.dirname(__FILE__)}/../lib/")
 
 RMAGICK_BYPASS_VERSION_TEST = true
 
