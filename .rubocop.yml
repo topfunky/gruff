@@ -46,9 +46,6 @@ Layout/SingleLineBlockChain:
 Lint/AmbiguousOperatorPrecedence:
   Enabled: false
 
-Lint/AssignmentInCondition:
-  Enabled: false
-
 Lint/ConstantResolution:
   Enabled: false
 

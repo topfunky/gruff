@@ -98,7 +98,7 @@ private
   def set_input(input_name, input_value)
     if !@groups[input_name].nil?
       @groups[input_name].send_updates(input_value)
-    elsif chosen_layer = @layers.find { |layer| layer.name == input_name }
+    elsif (chosen_layer = @layers.find { |layer| layer.name == input_name })
       chosen_layer.update input_value
     end
   end
