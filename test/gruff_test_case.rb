@@ -137,7 +137,7 @@ protected
       case args[0]
       when Integer, String
         size = args[0]
-        klass = eval("Gruff::#{self.class.name.gsub(/^TestGruff/, '')}", binding, __FILE__, __LINE__)
+        klass = instance_eval("Gruff::#{self.class.name.gsub(/^TestGruff/, '')}", __FILE__, __LINE__)
       else
         klass = args[0]
       end
