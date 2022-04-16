@@ -914,7 +914,7 @@ module Gruff
             sprintf('%0.2f', value)
           elsif increment >= 0.01 || (increment * 1000) == (increment * 1000).to_i.to_f
             sprintf('%0.3f', value)
-          elsif increment >= 0.001 || (increment * 10000) == (increment * 10000).to_i.to_f
+          elsif increment >= 0.001 || (increment * 10_000) == (increment * 10_000).to_i.to_f
             sprintf('%0.4f', value)
           else
             value.to_s

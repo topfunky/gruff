@@ -151,7 +151,7 @@ class TestGruffPie < GruffTestCase
   end
 
   def test_tiny_simple_pie
-    r = Random.new(297427)
+    r = Random.new(297_427)
     @datasets = (1..5).map { ['Auto', [r.rand(100)]] }
 
     g = setup_basic_graph 200

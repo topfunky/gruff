@@ -45,7 +45,7 @@ class TestGruffBar < GruffTestCase
     g = Gruff::Bar.new(600)
     g.title = 'Formatted numbers'
     g.marker_count = 8
-    g.data('data', [4025, 1024, 50257, 703672, 1580456])
+    g.data('data', [4025, 1024, 50_257, 703_672, 1_580_456])
     g.write('test/output/bar_formatted_numbers.png')
     assert_same_image('test/expected/bar_formatted_numbers.png', 'test/output/bar_formatted_numbers.png')
   end

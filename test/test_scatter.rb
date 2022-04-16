@@ -67,7 +67,7 @@ class TestGruffScatter < Minitest::Test
 
     # Fake data (100 days, random times of day between 5 and 16)
     srand 872
-    r = Random.new(269155)
+    r = Random.new(269_155)
     time = Time.mktime(2000, 1, 1)
     y_values = (0..100).map { 5 + r.rand(12) }
     x_values = (0..100).map { |i| time.to_i + i * 3600 * 24 }
