@@ -121,6 +121,16 @@ class TestGruffSideStackedBar < GruffTestCase
     pass
   end
 
+  def test_overlap_coordinate_axes
+    g = Gruff::SideStackedBar.new
+    g.title = 'Zero point'
+    g.data :A, [25, 0, 79, 0]
+    g.data :B, [68, 70, 90, 95]
+    g.data :C, [36, 40, 46, 57]
+    g.write('test/output/side_stacked_bar_overlap_coordinate_axes.png')
+    assert_same_image('test/expected/side_stacked_bar_overlap_coordinate_axes.png', 'test/output/side_stacked_bar_overlap_coordinate_axes.png')
+  end
+
 protected
 
   def setup_basic_graph(size = 800)
