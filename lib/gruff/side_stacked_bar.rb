@@ -87,6 +87,7 @@ private
                                   height[point_index]) + 1
         temp2 = @graph_left + @graph_width - height[point_index] - 1
         difference = temp2 - temp1
+        difference = 0 if row_index == 0 && difference < 0
 
         left_x = length[point_index]
         left_y = @graph_top + (bar_width * point_index) + padding
