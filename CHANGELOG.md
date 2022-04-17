@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.15.0
+- Fix SideStackedBar which bars overlap on the coordinate axes if data contains 0 (#558)
+- Lazy loading library to reduce memory usage (#556)
+- Drop Ruby 2.4 support (#554)
+- Fix sort drawing in Gruff::Line (#553)
+- Fix color value handling in Line#dataxy method (#552)
+
 ## 0.14.0
 - Update rails template (#547)
 - Remove singleton in order to support multi-thread processing (#546)
