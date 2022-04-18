@@ -185,6 +185,21 @@ class TestGruffPie < GruffTestCase
     assert_same_image('test/expected/pie_label_format.png', 'test/output/pie_label_format.png')
   end
 
+  def test_zero_degree
+    g = setup_basic_graph
+    g.title = 'zero_degree'
+    g.zero_degree = 90
+  end
+
+  def test_start_degree
+    g = setup_basic_graph
+    g.title = 'start_degree'
+    g.start_degree = 90
+
+    g.write('test/output/pie_start_degree.png')
+    assert_same_image('test/expected/pie_start_degree.png', 'test/output/pie_start_degree.png')
+  end
+
 protected
 
   def setup_basic_graph(size = 800)

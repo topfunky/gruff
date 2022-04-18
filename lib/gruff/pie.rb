@@ -9,14 +9,14 @@
 #   g.data 'Hamburgers', 50
 #   g.write("pie_keynote.png")
 #
-# To control where the pie chart starts creating slices, use {#zero_degree=}.
+# To control where the pie chart starts creating slices, use {#start_degree=}.
 #
 class Gruff::Pie < Gruff::Base
   DEFAULT_TEXT_OFFSET_PERCENTAGE = 0.15
 
   # Can be used to make the pie start cutting slices at the top (-90.0)
-  # or at another angle. Default is +0.0+, which starts at 3 o'clock.
-  attr_writer :zero_degree
+  # or at another angle. Default is +-90.0+, which starts at 3 o'clock.
+  attr_writer :start_degree
 
   # Set the number output format lambda.
   attr_writer :label_formatting
@@ -32,6 +32,18 @@ class Gruff::Pie < Gruff::Base
   ## Use values instead of percentages.
   attr_writer :show_values_as_labels
 
+  # Set to +true+ if you want the data sets sorted with largest avg values drawn
+  # first. Default is +true+.
+  attr_writer :sort
+
+  # Can be used to make the pie start cutting slices at the top (-90.0)
+  # or at another angle. Default is +-90.0+, which starts at 3 o'clock.
+  # @deprecated Please use +zero_degree+ attribute instead.
+  def zero_degree=(value)
+    warn '#zero_degree= is deprecated. Please use `start_degree` attribute instead'
+    @start_degree = value
+  end
+
 private
 
   def initialize_store
@@ -40,11 +52,12 @@ private
 
   def initialize_attributes
     super
-    @zero_degree = 0.0
+    @start_degree = -90.0
     @hide_labels_less_than = 0.0
     @text_offset_percentage = DEFAULT_TEXT_OFFSET_PERCENTAGE
     @show_values_as_labels = false
     @marker_font.bold = true
+    @sort = true
 
     @hide_line_markers = true
     @hide_line_markers.freeze
@@ -83,7 +96,7 @@ private
   # Spatial Value-Related Methods
 
   def chart_degrees
-    @chart_degrees ||= @zero_degree
+    @chart_degrees ||= @start_degree
   end
 
   attr_reader :graph_height
