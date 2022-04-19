@@ -103,7 +103,7 @@ private
         # Use incremented x and scaled y
         # x
         left_x = @graph_left + (bar_width * (row_index + point_index + ((store.length - 1) * point_index))) + padding + group_spacing
-        right_x = left_x + bar_width * @bar_spacing
+        right_x = left_x + (bar_width * @bar_spacing)
         # y
         left_y, right_y = conversion.get_top_bottom_scaled(data_point)
 

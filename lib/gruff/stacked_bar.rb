@@ -64,9 +64,9 @@ private
         # Use incremented x and scaled y
         left_x = @graph_left + (bar_width * point_index) + padding
         left_y = @graph_top + (@graph_height -
-                               data_point * @graph_height -
+                               (data_point * @graph_height) -
                                height[point_index]) + @segment_spacing
-        right_x = left_x + bar_width * @bar_spacing
+        right_x = left_x + (bar_width * @bar_spacing)
         right_y = @graph_top + @graph_height - height[point_index]
 
         # update the total height of the current stacked bar
@@ -76,7 +76,7 @@ private
         rect_renderer.render(left_x, left_y, right_x, right_y)
 
         # Calculate center based on bar_width and current row
-        label_center = left_x + bar_width * @bar_spacing / 2.0
+        label_center = left_x + (bar_width * @bar_spacing / 2.0)
         draw_label(label_center, point_index)
 
         bar_value_label = Gruff::BarValueLabel::Bar.new([left_x, left_y, right_x, right_y], store.data[row_index].points[point_index])

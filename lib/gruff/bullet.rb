@@ -67,23 +67,23 @@ class Gruff::Bullet < Gruff::Base
     %i[high low].each_with_index do |indicator, index|
       next unless @options.key?(indicator)
 
-      indicator_width_x = graph_left + graph_width * (@options[indicator] / maximum_value)
+      indicator_width_x = graph_left + (graph_width * (@options[indicator] / maximum_value))
 
       rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: @colors[index + 1])
       rect_renderer.render(graph_left, 0, indicator_width_x, graph_height)
     end
 
     if @options.key?(:target)
-      target_x = graph_left + graph_width * (@options[:target] / maximum_value)
+      target_x = graph_left + (graph_width * (@options[:target] / maximum_value))
       half_thickness = thickness / 2.0
 
       rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: @marker_color)
-      rect_renderer.render(target_x, half_thickness, target_x + half_thickness, thickness * 2 + half_thickness)
+      rect_renderer.render(target_x, half_thickness, target_x + half_thickness, (thickness * 2) + half_thickness)
     end
 
     # Value
     rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: @marker_color)
-    rect_renderer.render(graph_left, thickness, graph_left + graph_width * (@value / maximum_value), thickness * 2)
+    rect_renderer.render(graph_left, thickness, graph_left + (graph_width * (@value / maximum_value)), thickness * 2)
   end
 
 private

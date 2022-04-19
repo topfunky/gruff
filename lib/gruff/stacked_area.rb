@@ -38,7 +38,7 @@ private
       data_row.points.each_with_index do |data_point, index|
         # Use incremented x and scaled y
         new_x = @graph_left + (x_increment * index)
-        new_y = @graph_top + (@graph_height - data_point * @graph_height - height[index])
+        new_y = @graph_top + (@graph_height - (data_point * @graph_height) - height[index])
 
         height[index] += (data_point * @graph_height)
 
@@ -50,15 +50,15 @@ private
 
       poly_points = data_points.dup
       if prev_data_points
-        (prev_data_points.length / 2 - 1).downto(0) do |i|
+        ((prev_data_points.length / 2) - 1).downto(0) do |i|
           poly_points << prev_data_points[2 * i]
-          poly_points << prev_data_points[2 * i + 1]
+          poly_points << prev_data_points[(2 * i) + 1]
         end
       else
         poly_points << @graph_right
-        poly_points << @graph_bottom - 1
+        poly_points << (@graph_bottom - 1)
         poly_points << @graph_left
-        poly_points << @graph_bottom - 1
+        poly_points << (@graph_bottom - 1)
       end
       poly_points << data_points[0]
       poly_points << data_points[1]

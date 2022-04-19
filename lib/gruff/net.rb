@@ -50,15 +50,15 @@ private
 
         rad_pos = index * Math::PI * 2 / column_count
         point_distance = data_point * @radius
-        start_x = @center_x + Math.sin(rad_pos) * point_distance
-        start_y = @center_y - Math.cos(rad_pos) * point_distance
+        start_x = @center_x + (Math.sin(rad_pos) * point_distance)
+        start_y = @center_y - (Math.cos(rad_pos) * point_distance)
 
         next_index = index + 1 < data_row.points.length ? index + 1 : 0
 
         next_rad_pos = next_index * Math::PI * 2 / column_count
         next_point_distance = data_row.points[next_index] * @radius
-        end_x = @center_x + Math.sin(next_rad_pos) * next_point_distance
-        end_y = @center_y - Math.cos(next_rad_pos) * next_point_distance
+        end_x = @center_x + (Math.sin(next_rad_pos) * next_point_distance)
+        end_y = @center_y - (Math.cos(next_rad_pos) * next_point_distance)
 
         Gruff::Renderer::Line.new(renderer, color: data_row.color, width: @stroke_width).render(start_x, start_y, end_x, end_y)
 
@@ -89,7 +89,7 @@ private
       rad_pos = index * Math::PI * 2 / column_count
 
       Gruff::Renderer::Line.new(renderer, color: @marker_color)
-                           .render(@center_x, @center_y, @center_x + Math.sin(rad_pos) * @radius, @center_y - Math.cos(rad_pos) * @radius)
+                           .render(@center_x, @center_y, @center_x + (Math.sin(rad_pos) * @radius), @center_y - (Math.cos(rad_pos) * @radius))
 
       marker_label = @labels[index] ? @labels[index].to_s : '000'
       draw_label(@center_x, @center_y, rad_pos * 360 / (2 * Math::PI), @radius + @circle_radius, marker_label)
@@ -99,8 +99,8 @@ private
   def draw_label(center_x, center_y, angle, radius, amount)
     x_offset = center_x # + 15 # The label points need to be tweaked slightly
     y_offset = center_y # + 0  # This one doesn't though
-    x = x_offset + (radius + LABEL_MARGIN) * Math.sin(deg2rad(angle))
-    y = y_offset - (radius + LABEL_MARGIN) * Math.cos(deg2rad(angle))
+    x = x_offset + ((radius + LABEL_MARGIN) * Math.sin(deg2rad(angle)))
+    y = y_offset - ((radius + LABEL_MARGIN) * Math.cos(deg2rad(angle)))
 
     draw_label_at(1.0, 1.0, x, y, amount, Magick::CenterGravity)
   end

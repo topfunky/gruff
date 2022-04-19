@@ -19,7 +19,7 @@ private
   def setup_data
     raise(Gruff::IncorrectNumberOfDatasetsException) unless store.length == 1
 
-    accum_array = store.data.first.points[0..-2].reduce([0]) { |a, v| a << a.last + v }
+    accum_array = store.data.first.points[0..-2].reduce([0]) { |a, v| a << (a.last + v) }
     data 'Accumulator', accum_array
     set_colors
     store.reverse!

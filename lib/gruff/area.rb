@@ -38,7 +38,7 @@ private
       data_row.points.each_with_index do |data_point, index|
         # Use incremented x and scaled y
         new_x = @graph_left + (x_increment * index)
-        new_y = @graph_top + (@graph_height - data_point * @graph_height)
+        new_y = @graph_top + (@graph_height - (data_point * @graph_height))
 
         poly_points << new_x
         poly_points << new_y
@@ -48,9 +48,9 @@ private
 
       # Add closing points, draw polygon
       poly_points << @graph_right
-      poly_points << @graph_bottom - 1
+      poly_points << (@graph_bottom - 1)
       poly_points << @graph_left
-      poly_points << @graph_bottom - 1
+      poly_points << (@graph_bottom - 1)
 
       Gruff::Renderer::Polygon.new(renderer, color: data_row.color, width: @stroke_width, opacity: @fill_opacity).render(poly_points)
     end

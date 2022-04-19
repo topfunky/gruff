@@ -21,7 +21,7 @@ module Gruff
 
         @legend_labels = store.data.map(&:label)
 
-        legend_height = scale_fontsize(store.length * calculate_line_height + @top_margin + @bottom_margin)
+        legend_height = scale_fontsize((store.length * calculate_line_height) + @top_margin + @bottom_margin)
 
         @original_rows = @raw_rows
         @original_columns = @raw_columns
@@ -45,7 +45,7 @@ module Gruff
 
       def calculate_legend_width
         width = @legend_labels.map { |label| calculate_width(@legend_font, label) }.max
-        scale_fontsize(width + 40 * 1.7)
+        scale_fontsize(width + (40 * 1.7))
       end
 
       ##
@@ -77,9 +77,9 @@ module Gruff
           # Now draw box with color of this dataset
           rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: store.data[index].color)
           rect_renderer.render(current_x_offset,
-                               current_y_offset - legend_square_width / 2.0,
+                               current_y_offset - (legend_square_width / 2.0),
                                current_x_offset + legend_square_width,
-                               current_y_offset + legend_square_width / 2.0)
+                               current_y_offset + (legend_square_width / 2.0))
 
           current_y_offset += calculate_line_height
         end

@@ -100,8 +100,8 @@ private
     current_angle = @rotation * Math::PI / 180.0
 
     store.data.each do |data_row|
-      points << center_x + normalize_points(data_row.points.first) * Math.cos(current_angle)
-      points << center_y + normalize_points(data_row.points.first) * Math.sin(current_angle)
+      points << (center_x + (normalize_points(data_row.points.first) * Math.cos(current_angle)))
+      points << (center_y + (normalize_points(data_row.points.first) * Math.sin(current_angle)))
       current_angle += additive_angle
     end
 

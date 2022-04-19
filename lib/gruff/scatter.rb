@@ -123,7 +123,7 @@ private
         next if y_value.nil? || x_value.nil?
 
         new_x = get_x_coord(x_value, @graph_width, @graph_left)
-        new_y = @graph_top + (@graph_height - y_value * @graph_height)
+        new_y = @graph_top + (@graph_height - (y_value * @graph_height))
 
         # Reset each time to avoid thin-line errors
         stroke_width  = @stroke_width  || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4), 5.0)
@@ -196,14 +196,14 @@ private
     (0..@marker_x_count).each do |index|
       # TODO: Fix the vertical lines, and enable them by default. Not pretty when they don't match up with top y-axis line
       if @show_vertical_markers
-        x = @graph_left + @graph_width - index.to_f * increment_x_scaled
+        x = @graph_left + @graph_width - (index.to_f * increment_x_scaled)
 
         line_renderer = Gruff::Renderer::Line.new(renderer, color: @marker_color, shadow_color: @marker_shadow_color)
         line_renderer.render(x, @graph_top, x, @graph_bottom)
       end
 
       unless @hide_line_numbers
-        marker_label = BigDecimal(index.to_s) * BigDecimal(@x_increment.to_s) + BigDecimal(@minimum_x_value.to_s)
+        marker_label = (BigDecimal(index.to_s) * BigDecimal(@x_increment.to_s)) + BigDecimal(@minimum_x_value.to_s)
         y_offset = @graph_bottom + (@x_label_margin || LABEL_MARGIN)
         x_offset = get_x_coord(index.to_f, increment_x_scaled, @graph_left)
 
@@ -216,6 +216,6 @@ private
   end
 
   def get_x_coord(x_data_point, width, offset)
-    x_data_point * width + offset
+    (x_data_point * width) + offset
   end
 end

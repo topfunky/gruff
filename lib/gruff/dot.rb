@@ -51,8 +51,8 @@ private
     return if @hide_line_markers
 
     (0..marker_count).each do |index|
-      marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) + BigDecimal(minimum_value.to_s)
-      x = @graph_left + (marker_label - minimum_value) * @graph_width / @spread
+      marker_label = (BigDecimal(index.to_s) * BigDecimal(@increment.to_s)) + BigDecimal(minimum_value.to_s)
+      x = @graph_left + ((marker_label - minimum_value) * @graph_width / @spread)
 
       line_renderer = Gruff::Renderer::Line.new(renderer, color: @marker_color, shadow_color: @marker_shadow_color)
       line_renderer.render(x, @graph_bottom, x, @graph_bottom + 5)

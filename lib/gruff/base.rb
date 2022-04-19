@@ -620,7 +620,7 @@ module Gruff
       if @y_axis_label
         # Y Axis, rotated vertically
         text_renderer = Gruff::Renderer::Text.new(renderer, @y_axis_label, font: @marker_font, rotation: -90)
-        text_renderer.add_to_render_queue(1.0, @raw_rows, @left_margin + @marker_caps_height / 2.0, 0.0, Magick::CenterGravity)
+        text_renderer.add_to_render_queue(1.0, @raw_rows, @left_margin + (@marker_caps_height / 2.0), 0.0, Magick::CenterGravity)
       end
     end
 
@@ -632,13 +632,13 @@ module Gruff
 
       # Draw horizontal line markers and annotate with numbers
       (0..marker_count).each do |index|
-        y = @graph_top + @graph_height - index.to_f * increment_scaled
+        y = @graph_top + @graph_height - (index.to_f * increment_scaled)
 
         line_renderer = Gruff::Renderer::Line.new(renderer, color: @marker_color, shadow_color: @marker_shadow_color)
         line_renderer.render(@graph_left, y, @graph_right, y)
 
         unless @hide_line_numbers
-          marker_label = BigDecimal(index.to_s) * BigDecimal(@increment.to_s) + BigDecimal(minimum_value.to_s)
+          marker_label = (BigDecimal(index.to_s) * BigDecimal(@increment.to_s)) + BigDecimal(minimum_value.to_s)
           label = y_axis_label(marker_label, @increment)
           text_renderer = Gruff::Renderer::Text.new(renderer, label, font: @marker_font)
           text_renderer.add_to_render_queue(@graph_left - LABEL_MARGIN, 1.0, 0.0, y, Magick::EastGravity)
@@ -679,9 +679,9 @@ module Gruff
         # Now draw box with color of this dataset
         rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: store.data[index].color)
         rect_renderer.render(current_x_offset,
-                             current_y_offset - legend_square_width / 2.0,
+                             current_y_offset - (legend_square_width / 2.0),
                              current_x_offset + legend_square_width,
-                             current_y_offset + legend_square_width / 2.0)
+                             current_y_offset + (legend_square_width / 2.0))
 
         width = calculate_width(@legend_font, legend_label)
         current_x_offset += width + (legend_square_width * 2.7)
@@ -866,9 +866,9 @@ module Gruff
       longest_left_label_width *= 1.25 if @has_left_labels
 
       # Shift graph if left line numbers are hidden
-      line_number_width = @hide_line_numbers && !@has_left_labels ? 0.0 : (longest_left_label_width + LABEL_MARGIN * 2)
+      line_number_width = @hide_line_numbers && !@has_left_labels ? 0.0 : (longest_left_label_width + (LABEL_MARGIN * 2))
 
-      @left_margin + line_number_width + (@y_axis_label.nil? ? 0.0 : @marker_caps_height + LABEL_MARGIN * 2)
+      @left_margin + line_number_width + (@y_axis_label.nil? ? 0.0 : @marker_caps_height + (LABEL_MARGIN * 2))
     end
 
     def setup_top_margin
@@ -956,7 +956,7 @@ module Gruff
       label_widths = [[]] # Used to calculate line wrap
       legend_labels.each do |label|
         width = calculate_width(@legend_font, label)
-        label_width = width + legend_square_width * 2.7
+        label_width = width + (legend_square_width * 2.7)
         label_widths.last.push label_width
 
         if label_widths.last.sum > (@raw_columns * 0.9)

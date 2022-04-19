@@ -70,7 +70,7 @@ class TestGruffScatter < Minitest::Test
     r = Random.new(269_155)
     time = Time.mktime(2000, 1, 1)
     y_values = (0..100).map { 5 + r.rand(12) }
-    x_values = (0..100).map { |i| time.to_i + i * 3600 * 24 }
+    x_values = (0..100).map { |i| time.to_i + (i * 3600 * 24) }
     g.data('many points', x_values, y_values)
     g.write('test/output/scatter_custom_label_format.png')
     assert_same_image('test/expected/scatter_custom_label_format.png', 'test/output/scatter_custom_label_format.png')

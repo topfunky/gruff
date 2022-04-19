@@ -87,7 +87,7 @@ private
         group_spacing = @group_spacing * @scale * point_index
 
         left_y = @graph_top + (bars_width * point_index) + (bar_width * row_index) + padding + group_spacing
-        right_y = left_y + bar_width * @bar_spacing
+        right_y = left_y + (bar_width * @bar_spacing)
 
         left_x, right_x = conversion.get_top_bottom_scaled(data_point).sort
 
@@ -95,7 +95,7 @@ private
         rect_renderer.render(left_x + AXIS_MARGIN, left_y, right_x + AXIS_MARGIN, right_y)
 
         # Calculate center based on bar_width and current row
-        label_center = left_y + bars_width / 2
+        label_center = left_y + (bars_width / 2)
 
         # Subtract half a bar width to center left if requested
         draw_label(label_center, point_index)
@@ -128,7 +128,7 @@ private
 
       unless @hide_line_numbers
         diff = index - number_of_lines
-        marker_label = BigDecimal(diff.abs.to_s) * BigDecimal(increment.to_s) + BigDecimal(minimum_value.to_s)
+        marker_label = (BigDecimal(diff.abs.to_s) * BigDecimal(increment.to_s)) + BigDecimal(minimum_value.to_s)
         label = x_axis_label(marker_label, @increment)
         text_renderer = Gruff::Renderer::Text.new(renderer, label, font: @marker_font)
         text_renderer.add_to_render_queue(0, 0, x, @graph_bottom + LABEL_MARGIN, Magick::CenterGravity)

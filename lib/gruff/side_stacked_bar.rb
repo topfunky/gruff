@@ -83,7 +83,7 @@ private
         ## using the original calculations from the stacked bar chart to get the difference between
         ## part of the bart chart we wish to stack.
         temp1 = @graph_left + (@graph_width -
-                                  data_point * @graph_width -
+                                  (data_point * @graph_width) -
                                   height[point_index]) + 1
         temp2 = @graph_left + @graph_width - height[point_index] - 1
         difference = temp2 - temp1
@@ -92,9 +92,9 @@ private
         left_x = length[point_index]
         left_y = @graph_top + (bar_width * point_index) + padding
         right_x = left_x + difference - @segment_spacing
-        right_y = left_y + bar_width * @bar_spacing
+        right_y = left_y + (bar_width * @bar_spacing)
         length[point_index] += difference
-        height[point_index] += (data_point * @graph_width - 2)
+        height[point_index] += ((data_point * @graph_width) - 2)
 
         bar_value_label = Gruff::BarValueLabel::SideBar.new([left_x, left_y, right_x, right_y], store.data[row_index].points[point_index])
         stack_bar_value_label.add(bar_value_label, point_index)
@@ -109,7 +109,7 @@ private
         end
         # we still need to draw the labels
         # Calculate center based on bar_width and current row
-        label_center = left_y + bar_width / 2
+        label_center = left_y + (bar_width / 2)
         draw_label(label_center, point_index)
       end
     end

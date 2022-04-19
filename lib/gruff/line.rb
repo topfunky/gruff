@@ -165,7 +165,7 @@ private
   end
 
   def draw_horizontal_reference_line(reference_line)
-    level = @graph_top + (@graph_height - reference_line[:norm_value] * @graph_height)
+    level = @graph_top + (@graph_height - (reference_line[:norm_value] * @graph_height))
     draw_reference_line(reference_line, @graph_left, @graph_left + @graph_width, level, level)
   end
 
@@ -196,7 +196,7 @@ private
         else
           new_x = get_x_coord(x_data, @graph_width, @graph_left)
           @labels.each do |label_pos, _|
-            draw_label(@graph_left + ((label_pos - @minimum_x_value) * @graph_width) / (@maximum_x_value - @minimum_x_value), label_pos)
+            draw_label(@graph_left + (((label_pos - @minimum_x_value) * @graph_width) / (@maximum_x_value - @minimum_x_value)), label_pos)
           end
         end
         unless y_data # we can't draw a line for a null data point, we can still label the axis though
@@ -204,7 +204,7 @@ private
           next
         end
 
-        new_y = @graph_top + (@graph_height - y_data * @graph_height)
+        new_y = @graph_top + (@graph_height - (y_data * @graph_height))
 
         # Reset each time to avoid thin-line errors
         stroke_width  = @line_width || clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 4), 5.0)
@@ -273,7 +273,7 @@ private
 
     (0..@marker_x_count).each do |index|
       if @show_vertical_markers
-        x = @graph_left + @graph_width - index * @graph_width / @marker_x_count
+        x = @graph_left + @graph_width - (index * @graph_width / @marker_x_count)
 
         Gruff::Renderer::Line.new(renderer, color: @marker_color).render(x, @graph_bottom, x, @graph_top)
         # If the user specified a marker shadow color, draw a shadow just below it
@@ -285,7 +285,7 @@ private
   end
 
   def get_x_coord(x_data_point, width, offset)
-    x_data_point * width + offset
+    (x_data_point * width) + offset
   end
 
   def contains_one_point_only?(data_row)

@@ -27,7 +27,7 @@ module Gruff::BarValueLabel
       end
 
       y = @value >= 0 ? left_y - 30 : left_y + 12
-      yield left_x + (right_x - left_x) / 2, y, val
+      yield left_x + ((right_x - left_x) / 2), y, val
     end
   end
 
@@ -43,7 +43,7 @@ module Gruff::BarValueLabel
         end
       end
       x = @value >= 0 ? right_x + 40 : left_x - 40
-      yield x, right_y - bar_width / 2, val
+      yield x, right_y - (bar_width / 2), val
     end
   end
 

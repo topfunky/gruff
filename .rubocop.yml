@@ -42,9 +42,6 @@ Layout/RedundantLineBreak:
 Layout/SingleLineBlockChain:
   Enabled: false
 
-Lint/AmbiguousOperatorPrecedence:
-  Enabled: false
-
 Lint/ConstantResolution:
   Enabled: false
 
