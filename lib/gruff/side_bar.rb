@@ -36,6 +36,10 @@ class Gruff::SideBar < Gruff::Base
   # Prevent drawing of column labels left of a side bar graph.  Default is +false+.
   attr_writer :hide_labels
 
+  # Value to avoid completely overwriting the coordinate axis
+  AXIS_MARGIN = 0.5
+  private_constant :AXIS_MARGIN
+
   # With Side Bars use the data label for the marker value to the left of the bar.
   # @deprecated
   def use_data_label=(_value)
@@ -65,9 +69,6 @@ private
   def hide_bottom_label_area?
     @hide_line_markers
   end
-
-  # Value to avoid completely overwriting the coordinate axis
-  AXIS_MARGIN = 0.5
 
   def draw_graph
     # Setup spacing.

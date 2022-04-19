@@ -19,17 +19,17 @@ class Gruff::Spider < Gruff::Base
   attr_writer :hide_axes
   attr_writer :rotation
 
+  def initialize(max_value, target_width = 800)
+    super(target_width)
+    @max_value = max_value
+  end
+
   def transparent_background=(value)
     renderer.transparent_background(@columns, @rows) if value
   end
 
   def hide_text=(value)
     @hide_title = @hide_text = value
-  end
-
-  def initialize(max_value, target_width = 800)
-    super(target_width)
-    @max_value = max_value
   end
 
 private

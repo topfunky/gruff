@@ -40,6 +40,23 @@ class Gruff::Line < Gruff::Base
   # The number of vertical lines shown.
   attr_writer :marker_x_count
 
+  # Call with target pixel width of graph (+800+, +400+, +300+), and/or +false+ to omit lines (points only).
+  #
+  #   g = Gruff::Line.new(400) # 400px wide with lines
+  #   g = Gruff::Line.new(400, false) # 400px wide, no lines (for backwards compatibility)
+  #   g = Gruff::Line.new(false) # Defaults to 800px wide, no lines (for backwards compatibility)
+  #
+  # The preferred way is to call {#hide_dots=} or {#hide_lines=} instead.
+  def initialize(*args)
+    raise ArgumentError, 'Wrong number of arguments' if args.length > 2
+
+    if args.empty? || (!args.first.is_a?(Numeric) && !args.first.is_a?(String))
+      super()
+    else
+      super args.shift
+    end
+  end
+
   # Get the value if somebody has defined it.
   def baseline_value
     if @reference_lines.key?(:baseline)
@@ -62,23 +79,6 @@ class Gruff::Line < Gruff::Base
   def baseline_color=(new_value)
     @reference_lines[:baseline] ||= {}
     @reference_lines[:baseline][:color] = new_value
-  end
-
-  # Call with target pixel width of graph (+800+, +400+, +300+), and/or +false+ to omit lines (points only).
-  #
-  #   g = Gruff::Line.new(400) # 400px wide with lines
-  #   g = Gruff::Line.new(400, false) # 400px wide, no lines (for backwards compatibility)
-  #   g = Gruff::Line.new(false) # Defaults to 800px wide, no lines (for backwards compatibility)
-  #
-  # The preferred way is to call {#hide_dots=} or {#hide_lines=} instead.
-  def initialize(*args)
-    raise ArgumentError, 'Wrong number of arguments' if args.length > 2
-
-    if args.empty? || (!args.first.is_a?(Numeric) && !args.first.is_a?(String))
-      super()
-    else
-      super args.shift
-    end
   end
 
   # This method allows one to plot a dataset with both X and Y data.

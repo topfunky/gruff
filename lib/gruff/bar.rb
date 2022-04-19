@@ -33,6 +33,10 @@ class Gruff::Bar < Gruff::Base
   # Prevent drawing of column labels below a bar graph.  Default is +false+.
   attr_writer :hide_labels
 
+  # Value to avoid completely overwriting the coordinate axis
+  AXIS_MARGIN = 0.5
+  private_constant :AXIS_MARGIN
+
   # Can be used to adjust the spaces between the bars.
   # Accepts values between 0.00 and 1.00 where 0.00 means no spacing at all
   # and 1 means that each bars' width is nearly 0 (so each bar is a simple
@@ -76,9 +80,6 @@ private
   def hide_bottom_label_area?
     hide_labels?
   end
-
-  # Value to avoid completely overwriting the coordinate axis
-  AXIS_MARGIN = 0.5
 
   def draw_graph
     # Setup spacing.
