@@ -791,6 +791,16 @@ class TestGruffLine < GruffTestCase
     pass
   end
 
+  def test_duck_typing
+    g = Gruff::Line.new
+    g.dataxy('foo', [1, 2, 3, 4, 5], [21, 22, 23, 24, 25])
+    g.dataxy('bar', GruffCustomData.new([6, 7, 8, 9, 10]), GruffCustomData.new([26, 27, 28, 29, 30]))
+
+    g.data :Bob, GruffCustomData.new([50, 19, 31, 89, 20, 54, 37, 65]), '#33A6B8'
+    g.write('test/output/line_duck_typing.png')
+    assert_same_image('test/expected/line_duck_typing.png', 'test/output/line_duck_typing.png')
+  end
+
 private
 
   # TODO: Reset data after each theme

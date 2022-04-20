@@ -29,7 +29,7 @@ class Gruff::Histogram < Gruff::Bar
   end
 
   def data(name, data_points = [], color = nil)
-    @data << [name, data_points, color]
+    @data << [name, Array(data_points), color]
   end
 
 private
