@@ -16,12 +16,14 @@ class TestMiniPie < GruffTestCase
     assert_same_image('test/expected/mini_pie_right_legend.png', 'test/output/mini_pie_right_legend.png')
   end
 
-  # def test_code_sample
-  #   g = Gruff::Mini::Pie.new(200)
-  #   g.data "Car", 200
-  #   g.data "Food", 500
-  #   g.data "Art", 1000
-  #   g.data "Music", 16
-  #   g.write "mini_pie.png"
-  # end
+  def test_duck_typing
+    g = Gruff::Mini::Pie.new(200)
+    g.data :A, GruffCustomData.new([25]), '#113285'
+    g.data :B, GruffCustomData.new([20]), '#86A697'
+    g.data :C, GruffCustomData.new([55]), '#E03C8A'
+
+    g.data :Bob, GruffCustomData.new([50, 19, 31, 89, 20, 54, 37, 65]), '#33A6B8'
+    g.write('test/output/mini_pie_duck_typing.png')
+    assert_same_image('test/expected/mini_pie_duck_typing.png', 'test/output/mini_pie_duck_typing.png')
+  end
 end

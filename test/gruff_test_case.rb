@@ -35,6 +35,16 @@ class Gruff::Base
   end
 end
 
+class GruffCustomData
+  def initialize(data)
+    @data = data
+  end
+
+  def to_a
+    @data
+  end
+end
+
 class GruffTestCase < Minitest::Test
   def setup
     srand 42

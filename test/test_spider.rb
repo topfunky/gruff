@@ -270,6 +270,14 @@ class TestGruffSpider < GruffTestCase
     assert_same_image('test/expected/spider_rotation.png', 'test/output/spider_rotation.png')
   end
 
+  def test_duck_typing
+    g = Gruff::Spider.new(20)
+    g.data :Strength, GruffCustomData.new([18]), '#113285'
+    g.data :Dexterity, GruffCustomData.new([10]), '#86A697'
+    g.write('test/output/spider_duck_typing.png')
+    assert_same_image('test/expected/spider_duck_typing.png', 'test/output/spider_duck_typing.png')
+  end
+
 protected
 
   def setup_basic_graph(size = 800, max = 20)

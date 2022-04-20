@@ -321,6 +321,15 @@ class TestGruffScatter < Minitest::Test
     assert_same_image('test/expected/scatter_x_axis_increment.png', 'test/output/scatter_x_axis_increment.png')
   end
 
+  def test_duck_typing
+    g = Gruff::Scatter.new
+    g.dataxy('foo', GruffCustomData.new([1, 2, 3, 4, 5]), GruffCustomData.new([21, 22, 23, 24, 25]), '#113285')
+    g.dataxy('bar', GruffCustomData.new([6, 7, 8, 9, 10]), GruffCustomData.new([26, 27, 28, 29, 30]), '#86A697')
+
+    g.write('test/output/scatter_duck_typing.png')
+    assert_same_image('test/expected/scatter_duck_typing.png', 'test/output/scatter_duck_typing.png')
+  end
+
 protected
 
   def setup_basic_graph(size = 800)

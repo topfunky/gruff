@@ -46,4 +46,11 @@ class TestGruffAccumulatorBar < GruffTestCase
       g.write('test/output/_SHOULD_NOT_ACTUALLY_BE_WRITTEN.png')
     end
   end
+
+  def test_duck_typing
+    g = Gruff::AccumulatorBar.new
+    g.data :Bob, GruffCustomData.new([50, 19, 31, 89, 20, 54, 37, 65]), '#33A6B8'
+    g.write('test/output/accum_bar_duck_typing.png')
+    assert_same_image('test/expected/accum_bar_duck_typing.png', 'test/output/accum_bar_duck_typing.png')
+  end
 end
