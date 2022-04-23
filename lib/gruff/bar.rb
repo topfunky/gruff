@@ -96,6 +96,8 @@ private
       minimum_value: minimum_value, maximum_value: maximum_value, spread: @spread
     )
 
+    proc_text_metrics = ->(text) { text_metrics(@marker_font, text) }
+
     # iterate over all normalised data
     store.norm_data.each_with_index do |data_row, row_index|
       data_row.points.each_with_index do |data_point, point_index|
@@ -119,8 +121,8 @@ private
         draw_label(label_center, point_index)
         if @show_labels_for_bar_values
           bar_value_label = Gruff::BarValueLabel::Bar.new([left_x, left_y, right_x, right_y], store.data[row_index].points[point_index])
-          bar_value_label.prepare_rendering(@label_formatting, bar_width) do |x, y, text|
-            draw_value_label(x, y, text)
+          bar_value_label.prepare_rendering(@label_formatting, proc_text_metrics) do |x, y, text, _text_width, text_height|
+            draw_value_label(bar_width * @bar_spacing, text_height, x, y, text)
           end
         end
       end

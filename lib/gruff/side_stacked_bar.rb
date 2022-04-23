@@ -115,8 +115,9 @@ private
     end
 
     if @show_labels_for_bar_values
-      stack_bar_value_label.prepare_rendering(@label_formatting, bar_width) do |x, y, text|
-        draw_value_label(x, y, text)
+      proc_text_metrics = ->(text) { text_metrics(@marker_font, text) }
+      stack_bar_value_label.prepare_rendering(@label_formatting, proc_text_metrics) do |x, y, text, text_width, _text_height|
+        draw_value_label(text_width, bar_width * @bar_spacing, x, y, text)
       end
     end
   end

@@ -704,7 +704,7 @@ module Gruff
     def draw_title
       return if hide_title?
 
-      metrics = Gruff::Renderer::Text.new(renderer, @title, font: @title_font).metrics
+      metrics = text_metrics(@title_font, @title)
       if metrics.width > @raw_columns
         @title_font.size = @title_font.size * (@raw_columns / metrics.width) * 0.95
       end
@@ -748,11 +748,10 @@ module Gruff
     end
 
     # Draws the data value over the data point in bar graphs
-    def draw_value_label(x_offset, y_offset, data_point)
+    def draw_value_label(width, height, x_offset, y_offset, data_point, gravity = Magick::CenterGravity)
       return if @hide_line_markers
 
-      text_renderer = Gruff::Renderer::Text.new(renderer, data_point, font: @marker_font)
-      text_renderer.add_to_render_queue(1.0, 1.0, x_offset, y_offset)
+      draw_label_at(width, height, x_offset, y_offset, data_point, gravity)
     end
 
     # Shows an error message because you have no data.
@@ -998,7 +997,18 @@ module Gruff
     # Not scaled since it deals with dimensions that the regular scaling will
     # handle.
     def calculate_caps_height(font)
-      metrics = Gruff::Renderer::Text.new(renderer, 'X', font: font).metrics
+      calculate_height(font, 'X')
+    end
+
+    # Returns the height of a string at this point size.
+    #
+    # Not scaled since it deals with dimensions that the regular scaling will
+    # handle.
+    def calculate_height(font, text)
+      text = text.to_s
+      return 0 if text.empty?
+
+      metrics = text_metrics(font, text)
       metrics.height
     end
 
@@ -1010,8 +1020,12 @@ module Gruff
       text = text.to_s
       return 0 if text.empty?
 
-      metrics = Gruff::Renderer::Text.new(renderer, text, font: font).metrics
+      metrics = text_metrics(font, text)
       metrics.width
+    end
+
+    def text_metrics(font, text)
+      Gruff::Renderer::Text.new(renderer, text, font: font).metrics
     end
 
     def calculate_increment
