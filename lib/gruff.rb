@@ -2,13 +2,13 @@
 
 require 'rmagick'
 
-require 'gruff/patch/rmagick'
-require 'gruff/patch/string'
-require 'gruff/renderer/renderer'
-require 'gruff/store/store'
-require 'gruff/font'
-require 'gruff/base'
-require 'gruff/version'
+require_relative 'gruff/patch/rmagick'
+require_relative 'gruff/patch/string'
+require_relative 'gruff/renderer/renderer'
+require_relative 'gruff/store/store'
+require_relative 'gruff/font'
+require_relative 'gruff/base'
+require_relative 'gruff/version'
 
 ##
 # = Gruff. Graphs.
