@@ -16,7 +16,25 @@ module Gruff::BarValueLabel
 
   # @private
   class Bar < Base
-    def prepare_rendering(format, _bar_width = 0)
+    def prepare_rendering(format, proc_text_metrics)
+      left_x, left_y, _right_x, _right_y = @coordinate
+      val = begin
+        if format.is_a?(Proc)
+          format.call(@value)
+        else
+          sprintf(format || '%.2f', @value).commify
+        end
+      end
+
+      metrics = proc_text_metrics.call(val)
+      y = @value >= 0 ? left_y - metrics.height - 5 : left_y + 5
+      yield left_x, y, val, metrics.width, metrics.height
+    end
+  end
+
+  # @private
+  class SideBar < Base
+    def prepare_rendering(format, proc_text_metrics)
       left_x, left_y, right_x, _right_y = @coordinate
       val = begin
         if format.is_a?(Proc)
@@ -26,24 +44,9 @@ module Gruff::BarValueLabel
         end
       end
 
-      y = @value >= 0 ? left_y - 30 : left_y + 12
-      yield left_x + ((right_x - left_x) / 2), y, val
-    end
-  end
-
-  # @private
-  class SideBar < Base
-    def prepare_rendering(format, bar_width = 0)
-      left_x, _left_y, right_x, right_y = @coordinate
-      val = begin
-        if format.is_a?(Proc)
-          format.call(@value)
-        else
-          sprintf(format || '%.2f', @value).commify
-        end
-      end
-      x = @value >= 0 ? right_x + 40 : left_x - 40
-      yield x, right_y - (bar_width / 2), val
+      metrics = proc_text_metrics.call(val)
+      x = @value >= 0 ? right_x + 10 : left_x - metrics.width - 10
+      yield x, left_y, val, metrics.width, metrics.height
     end
   end
 
@@ -59,12 +62,12 @@ module Gruff::BarValueLabel
       @bars[index] = bars
     end
 
-    def prepare_rendering(format, bar_width = 0, &block)
+    def prepare_rendering(format, proc_text_metrics, &block)
       @bars.each do |bars|
         value = bars.sum(&:value)
         bar = bars.last
         bar_value_label = bar.class.new(bar.coordinate, value)
-        bar_value_label.prepare_rendering(format, bar_width, &block)
+        bar_value_label.prepare_rendering(format, proc_text_metrics, &block)
       end
     end
   end
