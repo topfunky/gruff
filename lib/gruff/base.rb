@@ -590,10 +590,6 @@ module Gruff
     # Calculates size of drawable area, general font dimensions, etc.
 
     def setup_graph_measurements
-      @marker_caps_height = setup_marker_caps_height
-      @title_caps_height = setup_title_caps_height
-      @legend_caps_height = setup_legend_caps_height
-
       margin_on_right = graph_right_margin
       @graph_right = @raw_columns - margin_on_right
       @graph_left = setup_left_margin
@@ -610,7 +606,7 @@ module Gruff
         # X Axis
         # Centered vertically and horizontally by setting the
         # height to 1.0 and the width to the width of the graph.
-        x_axis_label_y_coordinate = @graph_bottom + LABEL_MARGIN + @marker_caps_height
+        x_axis_label_y_coordinate = @graph_bottom + LABEL_MARGIN + marker_caps_height
 
         # TODO: Center between graph area
         text_renderer = Gruff::Renderer::Text.new(renderer, @x_axis_label, font: @marker_font)
@@ -620,7 +616,7 @@ module Gruff
       if @y_axis_label
         # Y Axis, rotated vertically
         text_renderer = Gruff::Renderer::Text.new(renderer, @y_axis_label, font: @marker_font, rotation: -90)
-        text_renderer.add_to_render_queue(1.0, @raw_rows, @left_margin + (@marker_caps_height / 2.0), 0.0, Magick::CenterGravity)
+        text_renderer.add_to_render_queue(1.0, @raw_rows, @left_margin + (marker_caps_height / 2.0), 0.0, Magick::CenterGravity)
       end
     end
 
@@ -663,9 +659,9 @@ module Gruff
       current_x_offset = center(label_widths.first.sum)
       current_y_offset = begin
         if @legend_at_bottom
-          @graph_bottom + @legend_margin + @legend_caps_height + LABEL_MARGIN
+          @graph_bottom + @legend_margin + legend_caps_height + LABEL_MARGIN
         else
-          hide_title? ? @top_margin + @title_margin : @top_margin + @title_margin + @title_caps_height
+          hide_title? ? @top_margin + @title_margin : @top_margin + @title_margin + title_caps_height
         end
       end
 
@@ -691,7 +687,7 @@ module Gruff
         if label_widths.first.empty?
           label_widths.shift
           current_x_offset = center(label_widths.first.sum) unless label_widths.empty?
-          line_height = [@legend_caps_height, legend_square_width].max + @legend_margin
+          line_height = [legend_caps_height, legend_square_width].max + @legend_margin
           unless label_widths.empty?
             # Wrap to next line and shrink available graph dimensions
             current_y_offset += line_height
@@ -828,15 +824,15 @@ module Gruff
 
   private
 
-    def setup_marker_caps_height
+    def marker_caps_height
       hide_bottom_label_area? ? 0 : calculate_caps_height(@marker_font)
     end
 
-    def setup_title_caps_height
+    def title_caps_height
       hide_title? ? 0 : calculate_caps_height(@title_font) * @title.lines.to_a.size
     end
 
-    def setup_legend_caps_height
+    def legend_caps_height
       @hide_legend ? 0 : calculate_caps_height(@legend_font)
     end
 
@@ -867,22 +863,22 @@ module Gruff
       # Shift graph if left line numbers are hidden
       line_number_width = @hide_line_numbers && !@has_left_labels ? 0.0 : (longest_left_label_width + (LABEL_MARGIN * 2))
 
-      @left_margin + line_number_width + (@y_axis_label.nil? ? 0.0 : @marker_caps_height + (LABEL_MARGIN * 2))
+      @left_margin + line_number_width + (@y_axis_label.nil? ? 0.0 : marker_caps_height + (LABEL_MARGIN * 2))
     end
 
     def setup_top_margin
       # When @hide title, leave a title_margin space for aesthetics.
       # Same with @hide_legend
       @top_margin +
-        (hide_title? ? @title_margin : @title_caps_height + @title_margin) +
+        (hide_title? ? @title_margin : title_caps_height + @title_margin) +
         (@hide_legend || @legend_at_bottom ? @legend_margin : calculate_legend_height + @legend_margin)
     end
 
     def setup_bottom_margin
-      graph_bottom_margin = hide_bottom_label_area? ? @bottom_margin : @bottom_margin + @marker_caps_height + LABEL_MARGIN
+      graph_bottom_margin = hide_bottom_label_area? ? @bottom_margin : @bottom_margin + marker_caps_height + LABEL_MARGIN
       graph_bottom_margin += (calculate_legend_height + @legend_margin) if @legend_at_bottom
 
-      x_axis_label_height = @x_axis_label.nil? ? 0.0 : @marker_caps_height + LABEL_MARGIN
+      x_axis_label_height = @x_axis_label.nil? ? 0.0 : marker_caps_height + LABEL_MARGIN
       # FIXME: Consider chart types other than bar
       @raw_rows - graph_bottom_margin - x_axis_label_height - @label_stagger_height
     end
@@ -980,7 +976,7 @@ module Gruff
         label_widths.first.shift
         if label_widths.first.empty?
           label_widths.shift
-          line_height = [@legend_caps_height, legend_square_width].max + @legend_margin
+          line_height = [legend_caps_height, legend_square_width].max + @legend_margin
           unless label_widths.empty?
             # Wrap to next line and shrink available graph dimensions
             legend_height += line_height
@@ -988,7 +984,7 @@ module Gruff
         end
       end
 
-      legend_height + @legend_caps_height
+      legend_height + legend_caps_height
     end
 
     # Returns the height of the capital letter 'X' for the current font and
