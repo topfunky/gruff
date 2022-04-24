@@ -600,7 +600,7 @@ module Gruff
       @graph_top = setup_top_margin
       @graph_bottom = setup_bottom_margin
 
-      @graph_width = @raw_columns - @graph_left - margin_on_right
+      @graph_width = @graph_right - @graph_left
       @graph_height = @graph_bottom - @graph_top
     end
 
