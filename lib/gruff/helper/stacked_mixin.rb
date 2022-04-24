@@ -16,7 +16,9 @@ module Gruff::Base::StackedMixin
 
     max_hash.each_key do |key|
       self.maximum_value = max_hash[key] if max_hash[key] > maximum_value
+      self.minimum_value = max_hash[key] if max_hash[key] < minimum_value
     end
-    self.minimum_value = 0
+
+    raise "Can't handle negative values in stacked graph" if minimum_value < 0
   end
 end

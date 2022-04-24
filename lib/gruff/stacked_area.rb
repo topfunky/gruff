@@ -20,6 +20,11 @@ class Gruff::StackedArea < Gruff::Base
 
 private
 
+  def initialize_attributes
+    super
+    @minimum_value = 0.0
+  end
+
   def setup_data
     calculate_maximum_by_stack
     super

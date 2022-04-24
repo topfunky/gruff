@@ -565,7 +565,7 @@ module Gruff
       store.normalize(minimum: minimum_value, spread: @spread)
     end
 
-    def calculate_spread # :nodoc:
+    def calculate_spread
       @spread = maximum_value.to_f - minimum_value.to_f
       @spread = @spread > 0 ? @spread : 1
     end

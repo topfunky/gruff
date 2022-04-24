@@ -49,6 +49,7 @@ private
     @show_labels_for_bar_values = false
     @hide_labels = false
     @has_left_labels = true
+    @minimum_value = 0.0
   end
 
   def setup_data
