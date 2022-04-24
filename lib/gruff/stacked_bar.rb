@@ -56,21 +56,25 @@ private
     padding = (bar_width * (1 - @bar_spacing)) / 2
 
     height = Array.new(column_count, 0)
+    length = Array.new(column_count, @graph_bottom)
     stack_bar_value_label = Gruff::BarValueLabel::StackedBar.new
 
     store.norm_data.each_with_index do |data_row, row_index|
       data_row.points.each_with_index do |data_point, point_index|
-        next if data_point == 0
+        temp1 = @graph_top + (@graph_height - (data_point * @graph_height) - height[point_index])
+        temp2 = @graph_top + @graph_height - height[point_index]
+        difference = temp2 - temp1
+        difference = 0 if difference < 0
 
         # Use incremented x and scaled y
         left_x = @graph_left + (bar_width * point_index) + padding
-        left_y = @graph_top + (@graph_height -
-                               (data_point * @graph_height) -
-                               height[point_index]) + @segment_spacing
+        left_y = length[point_index] - difference
         right_x = left_x + (bar_width * @bar_spacing)
-        right_y = @graph_top + @graph_height - height[point_index]
+        right_y = length[point_index]
+        right_y -= @segment_spacing if row_index != store.columns - 1
 
         # update the total height of the current stacked bar
+        length[point_index] -= difference
         height[point_index] += (data_point * @graph_height)
 
         rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: data_row.color)
