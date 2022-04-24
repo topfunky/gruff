@@ -36,7 +36,6 @@ module Gruff
   autoload :Net, Gruff.libpath('net')
   autoload :Pie, Gruff.libpath('pie')
   autoload :Scatter, Gruff.libpath('scatter')
-  autoload :Scene, Gruff.libpath('scene')
   autoload :SideBar, Gruff.libpath('side_bar')
   autoload :SideStackedBar, Gruff.libpath('side_stacked_bar')
   autoload :Spider, Gruff.libpath('spider')
