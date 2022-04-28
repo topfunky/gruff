@@ -106,6 +106,6 @@ private
   end
 
   def hide_bottom_label_area?
-    hide_labels? && @x_axis_label.nil?
+    hide_labels? && @x_axis_label.nil? && @legend_at_bottom == false
   end
 end

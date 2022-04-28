@@ -67,7 +67,7 @@ private
   end
 
   def hide_bottom_label_area?
-    @hide_line_markers && @x_axis_label.nil?
+    @hide_line_markers && @x_axis_label.nil? && @legend_at_bottom == false
   end
 
   def setup_graph_measurements
