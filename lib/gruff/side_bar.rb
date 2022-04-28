@@ -63,11 +63,11 @@ private
   end
 
   def hide_left_label_area?
-    hide_labels?
+    hide_labels? && @y_axis_label.nil?
   end
 
   def hide_bottom_label_area?
-    @hide_line_markers
+    @hide_line_markers && @x_axis_label.nil?
   end
 
   def setup_graph_measurements

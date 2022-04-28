@@ -549,6 +549,16 @@ class TestGruffBar < GruffTestCase
     assert_same_image('test/expected/bar_marker_shadow.png', 'test/output/bar_marker_shadow.png')
   end
 
+  def test_axis_label_with_hide_line_markers
+    g = setup_basic_graph
+    g.title = 'Axis Label with Hide Line Markers'
+    g.hide_line_markers = true
+    g.x_axis_label = 'x_axis_label'
+    g.y_axis_label = 'y_axis_label'
+    g.write('test/output/bar_axis_label_with_hide_line_markers.png')
+    assert_same_image('test/expected/bar_axis_label_with_hide_line_markers.png', 'test/output/bar_axis_label_with_hide_line_markers.png')
+  end
+
   def test_draw_twice
     g = setup_basic_graph
     g.show_labels_for_bar_values = true

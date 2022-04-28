@@ -177,6 +177,16 @@ class TestGruffSideBar < GruffTestCase
     assert_same_image('test/expected/side_bar_set_trailing_dots_trunc.png', 'test/output/side_bar_set_trailing_dots_trunc.png')
   end
 
+  def test_axis_label_with_hide_line_markers
+    g = setup_basic_graph(Gruff::SideBar, 800)
+    g.title = 'Axis Label with Hide Line Markers'
+    g.hide_line_markers = true
+    g.x_axis_label = 'x_axis_label'
+    g.y_axis_label = 'y_axis_label'
+    g.write('test/output/side_bar_axis_label_with_hide_line_markers.png')
+    assert_same_image('test/expected/side_bar_axis_label_with_hide_line_markers.png', 'test/output/side_bar_axis_label_with_hide_line_markers.png')
+  end
+
   def test_duck_typing
     g = Gruff::SideBar.new
     g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88], '#113285'

@@ -579,11 +579,11 @@ module Gruff
     end
 
     def hide_left_label_area?
-      @hide_line_markers
+      @hide_line_markers && @y_axis_label.nil?
     end
 
     def hide_bottom_label_area?
-      @hide_line_markers
+      @hide_line_markers && @x_axis_label.nil?
     end
 
     ##
