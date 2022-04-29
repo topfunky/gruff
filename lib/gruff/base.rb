@@ -848,7 +848,7 @@ module Gruff
       longest_left_label_width *= 1.25 if @has_left_labels
 
       # Shift graph if left line numbers are hidden
-      line_number_width = @hide_line_numbers && !@has_left_labels ? 0.0 : (longest_left_label_width + (LABEL_MARGIN * 2))
+      line_number_width = !@has_left_labels && (@hide_line_markers || @hide_line_numbers) ? 0.0 : (longest_left_label_width + (LABEL_MARGIN * 2))
 
       @left_margin + line_number_width + (@y_axis_label.nil? ? 0.0 : marker_caps_height + (LABEL_MARGIN * 2))
     end
