@@ -607,7 +607,6 @@ module Gruff
         # Centered vertically and horizontally by setting the
         # height to 1.0 and the width to the width of the graph.
         x_axis_label_y_coordinate = @graph_bottom + LABEL_MARGIN + marker_caps_height
-        x_axis_label_y_coordinate += @legend_margin + legend_caps_height if @legend_at_bottom
 
         # TODO: Center between graph area
         text_renderer = Gruff::Renderer::Text.new(renderer, @x_axis_label, font: @marker_font)
@@ -660,7 +659,7 @@ module Gruff
       current_x_offset = center(label_widths.first.sum)
       current_y_offset = begin
         if @legend_at_bottom
-          @graph_bottom + @legend_margin + legend_caps_height + LABEL_MARGIN
+          @graph_bottom + @legend_margin + legend_caps_height + LABEL_MARGIN + (@x_axis_label ? LABEL_MARGIN + marker_caps_height : 0)
         else
           hide_title? ? @top_margin + @title_margin : @top_margin + @title_margin + title_caps_height
         end
