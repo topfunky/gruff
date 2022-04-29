@@ -600,7 +600,7 @@ module Gruff
         # X Axis
         # Centered vertically and horizontally by setting the
         # height to 1.0 and the width to the width of the graph.
-        x_axis_label_y_coordinate = @graph_bottom + LABEL_MARGIN + marker_caps_height
+        x_axis_label_y_coordinate = @graph_bottom + (LABEL_MARGIN * 2) + marker_caps_height
 
         text_renderer = Gruff::Renderer::Text.new(renderer, @x_axis_label, font: @marker_font)
         text_renderer.add_to_render_queue(@raw_columns, 1.0, 0.0, x_axis_label_y_coordinate)
@@ -652,7 +652,7 @@ module Gruff
       current_x_offset = center(label_widths.first.sum)
       current_y_offset = begin
         if @legend_at_bottom
-          @graph_bottom + @legend_margin + legend_caps_height + LABEL_MARGIN + (@x_axis_label ? LABEL_MARGIN + marker_caps_height : 0)
+          @graph_bottom + @legend_margin + legend_caps_height + LABEL_MARGIN + (@x_axis_label ? (LABEL_MARGIN * 2) + marker_caps_height : 0)
         else
           hide_title? ? @top_margin + @title_margin : @top_margin + @title_margin + title_caps_height
         end
@@ -847,7 +847,7 @@ module Gruff
       longest_left_label_width = calculate_width(@marker_font, truncate_label_text(text))
 
       # Shift graph if left line numbers are hidden
-      line_number_width = !@has_left_labels && (@hide_line_markers || @hide_line_numbers) ? 0.0 : (longest_left_label_width + (LABEL_MARGIN * 2))
+      line_number_width = !@has_left_labels && (@hide_line_markers || @hide_line_numbers) ? 0.0 : (longest_left_label_width + LABEL_MARGIN)
 
       @left_margin + line_number_width + (@y_axis_label.nil? ? 0.0 : marker_caps_height + (LABEL_MARGIN * 2))
     end
@@ -864,7 +864,7 @@ module Gruff
       graph_bottom_margin = hide_bottom_label_area? ? @bottom_margin : @bottom_margin + marker_caps_height + LABEL_MARGIN
       graph_bottom_margin += (calculate_legend_height + @legend_margin) if @legend_at_bottom
 
-      x_axis_label_height = @x_axis_label.nil? ? 0.0 : marker_caps_height + LABEL_MARGIN
+      x_axis_label_height = @x_axis_label.nil? ? 0.0 : marker_caps_height + (LABEL_MARGIN * 2)
       @raw_rows - graph_bottom_margin - x_axis_label_height - @label_stagger_height
     end
 
