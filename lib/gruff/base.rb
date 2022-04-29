@@ -54,11 +54,6 @@ module Gruff
     #   { 0 => 2005, 3 => 2006, 5 => 2007, 7 => 2008 }
     attr_writer :labels
 
-    # Used internally for spacing.
-    #
-    # By default, labels are centered over the point they represent.
-    attr_writer :center_labels_over_point
-
     # Used internally for horizontal graph types. Default is +false+.
     attr_writer :has_left_labels
 
@@ -209,7 +204,6 @@ module Gruff
       @no_data_message = 'No Data'
 
       @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = @legend_at_bottom = false
-      @center_labels_over_point = true
       @has_left_labels = false
       @label_stagger_height = 0
       @label_max_size = 0
@@ -837,7 +831,7 @@ module Gruff
       # Make space for half the width of the rightmost column label.
       # Might be greater than the number of columns if between-style bar markers are used.
       last_label = @labels.keys.max.to_i
-      last_label >= (column_count - 1) && @center_labels_over_point ? calculate_width(@marker_font, @labels[last_label]) / 2.0 : 0
+      last_label >= (column_count - 1) ? calculate_width(@marker_font, @labels[last_label]) / 2.0 : 0
     end
 
     def setup_left_margin
