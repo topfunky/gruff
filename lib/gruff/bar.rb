@@ -60,6 +60,15 @@ private
     @hide_labels = false
   end
 
+  def setup_drawing
+    # Labels will be centered over the left of the bar if
+    # there are more labels than columns. This is basically the same
+    # as where it would be for a line graph.
+    @center_labels_over_point = (@labels.keys.length > column_count)
+
+    super
+  end
+
   def hide_labels?
     @hide_labels
   end
@@ -134,6 +143,9 @@ private
         end
       end
     end
+
+    # Draw the last label if requested
+    draw_label(@graph_right, column_count, Magick::NorthWestGravity) if @center_labels_over_point
   end
 
   def calculate_spacing
