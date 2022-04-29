@@ -83,7 +83,7 @@ private
     degree = angle / Math::PI * 180.0
     metrics = text_metrics(@marker_font, amount)
 
-    r_offset = 15 # The distance out from the center of the pie to get point
+    r_offset = LABEL_MARGIN # The distance out from the center of the pie to get point
     x_offset = center_x # The label points need to be tweaked slightly
 
     x_offset -= begin
