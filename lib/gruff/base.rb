@@ -845,7 +845,6 @@ module Gruff
         end
       end
       longest_left_label_width = calculate_width(@marker_font, truncate_label_text(text))
-      longest_left_label_width *= 1.25 if @has_left_labels
 
       # Shift graph if left line numbers are hidden
       line_number_width = !@has_left_labels && (@hide_line_markers || @hide_line_numbers) ? 0.0 : (longest_left_label_width + (LABEL_MARGIN * 2))

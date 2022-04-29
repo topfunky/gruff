@@ -32,7 +32,7 @@ namespace :test do
             _, error = expected_image.compare_channel(output_image, Magick::PeakAbsoluteErrorMetric)
           rescue StandardError => e
             GC.start
-            if retry_count < 1
+            if retry_count < 5
               retry_count += 1
               retry
             else
