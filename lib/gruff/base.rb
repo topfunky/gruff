@@ -837,7 +837,11 @@ module Gruff
       # Make space for half the width of the rightmost column label.
       # Might be greater than the number of columns if between-style bar markers are used.
       last_label = @labels.keys.max.to_i
-      last_label >= (column_count - 1) && @center_labels_over_point ? calculate_width(@marker_font, @labels[last_label]) / 2.0 : 0
+      if last_label >= (column_count - 1) && @center_labels_over_point
+        calculate_width(@marker_font, truncate_label_text(@labels[last_label])) / 2.0
+      else
+        0
+      end
     end
 
     def setup_left_margin
