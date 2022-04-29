@@ -81,6 +81,22 @@ private
     hide_labels? && @x_axis_label.nil? && @legend_at_bottom == false
   end
 
+  def setup_graph_measurements
+    super
+    return if @hide_line_markers
+
+    if @show_labels_for_bar_values
+      proc_text_metrics = ->(text) { text_metrics(@marker_font, text) }
+
+      if maximum_value >= 0
+        _, metrics = Gruff::BarValueLabel.metrics(maximum_value, @label_formatting, proc_text_metrics)
+        @graph_top += metrics.height
+      end
+
+      @graph_height = @graph_bottom - @graph_top
+    end
+  end
+
   def draw_graph
     # Setup spacing.
     #
