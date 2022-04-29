@@ -46,6 +46,18 @@ private
     @hide_line_markers.freeze
   end
 
+  def setup_graph_measurements
+    super
+
+    @graph_left += LABEL_MARGIN
+    @graph_top += LABEL_MARGIN
+    @graph_right -= LABEL_MARGIN
+    @graph_bottom -= LABEL_MARGIN
+
+    @graph_width = @graph_right - @graph_left
+    @graph_height = @graph_bottom - @graph_top
+  end
+
   def draw_graph
     # Setup basic positioning
     radius = @graph_height / 2.0
@@ -68,13 +80,28 @@ private
   end
 
   def draw_label(center_x, center_y, angle, radius, amount)
-    r_offset = 50            # The distance out from the center of the pie to get point
-    x_offset = center_x      # The label points need to be tweaked slightly
-    y_offset = center_y + 0  # This one doesn't though
+    degree = angle / Math::PI * 180.0
+    metrics = text_metrics(@marker_font, amount)
+
+    r_offset = 15 # The distance out from the center of the pie to get point
+    x_offset = center_x # The label points need to be tweaked slightly
+
+    x_offset -= begin
+      case degree
+      when 0..45, 315..360
+        0
+      when 135..225
+        metrics.width
+      else
+        metrics.width / 2
+      end
+    end
+
+    y_offset = center_y - (metrics.height / 2) # This one doesn't though
     x = x_offset + ((radius + r_offset) * Math.cos(angle))
     y = y_offset + ((radius + r_offset) * Math.sin(angle))
 
-    draw_label_at(1.0, 1.0, x, y, amount, Magick::CenterGravity)
+    draw_label_at(metrics.width, metrics.height, x, y, amount, Magick::CenterGravity)
   end
 
   def draw_axes(center_x, center_y, radius, additive_angle, line_color = nil)
