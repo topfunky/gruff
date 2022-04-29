@@ -65,7 +65,7 @@ private
     height = Array.new(column_count, 0)
     length = Array.new(column_count, @graph_left)
     padding = (bar_width * (1 - @bar_spacing)) / 2
-    stack_bar_value_label = Gruff::BarValueLabel::StackedBar.new
+    stack_bar_value_labels = Gruff::BarValueLabel::StackedBar.new
 
     store.norm_data.each_with_index do |data_row, row_index|
       data_row.points.each_with_index do |data_point, point_index|
@@ -85,7 +85,7 @@ private
         height[point_index] += (data_point * @graph_width)
 
         bar_value_label = Gruff::BarValueLabel::SideBar.new([left_x, left_y, right_x, right_y], store.data[row_index].points[point_index])
-        stack_bar_value_label.add(bar_value_label, point_index)
+        stack_bar_value_labels.add(bar_value_label, point_index)
 
         # if a data point is 0 it can result in weird really thing lines
         # that shouldn't even be there being drawn on top of the existing
@@ -104,7 +104,7 @@ private
 
     if @show_labels_for_bar_values
       proc_text_metrics = ->(text) { text_metrics(@marker_font, text) }
-      stack_bar_value_label.prepare_rendering(@label_formatting, proc_text_metrics) do |x, y, text, text_width, _text_height|
+      stack_bar_value_labels.prepare_rendering(@label_formatting, proc_text_metrics) do |x, y, text, text_width, _text_height|
         draw_value_label(text_width, bar_width * @bar_spacing, x, y, text)
       end
     end

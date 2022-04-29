@@ -73,7 +73,7 @@ private
 
     height = Array.new(column_count, 0)
     length = Array.new(column_count, @graph_bottom)
-    stack_bar_value_label = Gruff::BarValueLabel::StackedBar.new
+    stack_bar_value_labels = Gruff::BarValueLabel::StackedBar.new
 
     store.norm_data.each_with_index do |data_row, row_index|
       data_row.points.each_with_index do |data_point, point_index|
@@ -101,13 +101,13 @@ private
         draw_label(label_center, point_index)
 
         bar_value_label = Gruff::BarValueLabel::Bar.new([left_x, left_y, right_x, right_y], store.data[row_index].points[point_index])
-        stack_bar_value_label.add(bar_value_label, point_index)
+        stack_bar_value_labels.add(bar_value_label, point_index)
       end
     end
 
     if @show_labels_for_bar_values
       proc_text_metrics = ->(text) { text_metrics(@marker_font, text) }
-      stack_bar_value_label.prepare_rendering(@label_formatting, proc_text_metrics) do |x, y, text, _text_width, text_height|
+      stack_bar_value_labels.prepare_rendering(@label_formatting, proc_text_metrics) do |x, y, text, _text_width, text_height|
         draw_value_label(bar_width * @bar_spacing, text_height, x, y, text)
       end
     end
