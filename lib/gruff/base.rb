@@ -608,7 +608,6 @@ module Gruff
         # height to 1.0 and the width to the width of the graph.
         x_axis_label_y_coordinate = @graph_bottom + LABEL_MARGIN + marker_caps_height
 
-        # TODO: Center between graph area
         text_renderer = Gruff::Renderer::Text.new(renderer, @x_axis_label, font: @marker_font)
         text_renderer.add_to_render_queue(@raw_columns, 1.0, 0.0, x_axis_label_y_coordinate)
       end
@@ -710,15 +709,9 @@ module Gruff
     end
 
     # Draws column labels below graph, centered over x_offset
-    #--
-    # TODO Allow WestGravity as an option
     def draw_label(x_offset, index, gravity = Magick::NorthGravity)
       draw_unique_label(index) do
         y_offset = @graph_bottom + LABEL_MARGIN
-
-        # TESTME
-        # FIXME: Consider chart types other than bar
-        # TODO: See if index.odd? is the best strategy
         y_offset += @label_stagger_height if index.odd?
 
         if x_offset >= @graph_left && x_offset <= @graph_right
@@ -879,7 +872,6 @@ module Gruff
       graph_bottom_margin += (calculate_legend_height + @legend_margin) if @legend_at_bottom
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 : marker_caps_height + LABEL_MARGIN
-      # FIXME: Consider chart types other than bar
       @raw_rows - graph_bottom_margin - x_axis_label_height - @label_stagger_height
     end
 
