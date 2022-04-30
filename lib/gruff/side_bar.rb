@@ -40,6 +40,11 @@ class Gruff::SideBar < Gruff::Base
   AXIS_MARGIN = 0.5
   private_constant :AXIS_MARGIN
 
+  def initialize(*)
+    super
+    @has_left_labels = true
+  end
+
   # With Side Bars use the data label for the marker value to the left of the bar.
   # @deprecated
   def use_data_label=(_value)
@@ -55,7 +60,6 @@ private
     @label_formatting = nil
     @show_labels_for_bar_values = false
     @hide_labels = false
-    @has_left_labels = true
   end
 
   def hide_labels?

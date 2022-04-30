@@ -54,9 +54,6 @@ module Gruff
     #   { 0 => 2005, 3 => 2006, 5 => 2007, 7 => 2008 }
     attr_writer :labels
 
-    # Used internally for horizontal graph types. Default is +false+.
-    attr_writer :has_left_labels
-
     # Set a label for the bottom of the graph.
     attr_writer :x_axis_label
 
@@ -154,6 +151,7 @@ module Gruff
       @columns.freeze
       @rows.freeze
 
+      @has_left_labels = false
       @center_labels_over_point = true
 
       initialize_graph_scale
@@ -206,7 +204,6 @@ module Gruff
       @no_data_message = 'No Data'
 
       @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = @legend_at_bottom = false
-      @has_left_labels = false
       @label_stagger_height = 0
       @label_max_size = 0
       @label_truncation_style = :absolute
