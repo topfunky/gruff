@@ -272,6 +272,9 @@ class TestGruffSpider < GruffTestCase
 
   def test_duck_typing
     g = Gruff::Spider.new(20)
+    @datasets.each do |data|
+      g.data(data[0], data[1])
+    end
     g.data :Strength, GruffCustomData.new([18]), '#113285'
     g.data :Dexterity, GruffCustomData.new([10]), '#86A697'
     g.write('test/output/spider_duck_typing.png')
