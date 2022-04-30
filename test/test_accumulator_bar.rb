@@ -13,7 +13,7 @@ class TestGruffAccumulatorBar < GruffTestCase
   end
 
   def test_accumulator
-    g = Gruff::AccumulatorBar.new 500
+    g = Gruff::AccumulatorBar.new
     g.title = 'Your Savings'
     g.hide_legend = true
 
