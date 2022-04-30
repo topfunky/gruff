@@ -58,6 +58,12 @@ private
     @graph_height = @graph_bottom - @graph_top
   end
 
+  def setup_data
+    raise(Gruff::IncorrectNumberOfDatasetsException, 'Requires 3 or more data sets') if store.length < 3
+
+    super
+  end
+
   def draw_graph
     # Setup basic positioning
     radius = @graph_height / 2.0

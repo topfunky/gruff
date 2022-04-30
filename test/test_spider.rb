@@ -270,6 +270,15 @@ class TestGruffSpider < GruffTestCase
     assert_same_image('test/expected/spider_rotation.png', 'test/output/spider_rotation.png')
   end
 
+  def test_less_many_args
+    assert_raises(Gruff::IncorrectNumberOfDatasetsException) do
+      g = Gruff::Spider.new(20)
+      g.data 'First', [1, 1, 1]
+      g.data 'Two', [1, 1, 1]
+      g.write('test/output/_SHOULD_NOT_ACTUALLY_BE_WRITTEN.png')
+    end
+  end
+
   def test_duck_typing
     g = Gruff::Spider.new(20)
     @datasets.each do |data|
