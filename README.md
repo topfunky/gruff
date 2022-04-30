@@ -133,7 +133,7 @@ http://www.rubydoc.info/github/topfunky/gruff/frames
 
 ## Supported Ruby Versions
 
-- Ruby 2.4 or later
+- Ruby 2.5 or later
 - JRuby 9.2.x or later
 
 ## Development
