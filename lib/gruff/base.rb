@@ -54,11 +54,6 @@ module Gruff
     #   { 0 => 2005, 3 => 2006, 5 => 2007, 7 => 2008 }
     attr_writer :labels
 
-    # Used internally for spacing.
-    #
-    # By default, labels are centered over the point they represent.
-    attr_writer :center_labels_over_point
-
     # Used internally for horizontal graph types. Default is +false+.
     attr_writer :has_left_labels
 
@@ -159,6 +154,8 @@ module Gruff
       @columns.freeze
       @rows.freeze
 
+      @center_labels_over_point = true
+
       initialize_graph_scale
       initialize_attributes
       initialize_store
@@ -209,7 +206,6 @@ module Gruff
       @no_data_message = 'No Data'
 
       @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = @legend_at_bottom = false
-      @center_labels_over_point = true
       @has_left_labels = false
       @label_stagger_height = 0
       @label_max_size = 0
