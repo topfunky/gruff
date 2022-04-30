@@ -3,6 +3,7 @@
 # @private
 module String::GruffCommify
   THOUSAND_SEPARATOR = ','
+  private_constant :THOUSAND_SEPARATOR
 
   refine String do
     # Taken from http://codesnippets.joyent.com/posts/show/330

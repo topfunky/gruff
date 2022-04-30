@@ -3,7 +3,10 @@
 # Handle font setting to draw texts
 class Gruff::Font
   BOLD_PATH = File.expand_path(File.join(__FILE__, '../../../assets/fonts/Roboto-Bold.ttf')).freeze
+  private_constant :BOLD_PATH
+
   REGULAR_PATH = File.expand_path(File.join(__FILE__, '../../../assets/fonts/Roboto-Regular.ttf')).freeze
+  private_constant :REGULAR_PATH
 
   # Get/set font path.
   attr_accessor :path
