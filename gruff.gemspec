@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.authors = ['Geoffrey Grosenbach', 'Uwe Kubosch']
   s.description = 'Beautiful graphs for one or multiple datasets. Can be used on websites or in documents.'
   s.email = 'boss@topfunky.com'
-  s.files = `git ls-files`.split.grep_v(/^test|^docker|^Rakefile/i)
+  s.files = `git ls-files`.split.grep_v(/^test|^docker|^before_install_linux.sh|^Rakefile/i)
   s.homepage = 'https://github.com/topfunky/gruff'
   s.require_paths = %w[lib]
   s.summary = 'Beautiful graphs for one or multiple datasets.'
