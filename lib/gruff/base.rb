@@ -667,19 +667,24 @@ module Gruff
       legend_labels.each_with_index do |legend_label, index|
         next if legend_label.empty?
 
+        legend_label_width = calculate_width(@legend_font, legend_label)
+
         # Draw label
         text_renderer = Gruff::Renderer::Text.new(renderer, legend_label, font: @legend_font)
-        text_renderer.add_to_render_queue(@raw_columns, 1.0, current_x_offset + (legend_square_width * 1.7), current_y_offset, Magick::WestGravity)
+        text_renderer.add_to_render_queue(legend_label_width,
+                                          legend_square_width,
+                                          current_x_offset + (legend_square_width * 1.7),
+                                          current_y_offset,
+                                          Magick::CenterGravity)
 
         # Now draw box with color of this dataset
         rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: store.data[index].color)
         rect_renderer.render(current_x_offset,
-                             current_y_offset - (legend_square_width / 2.0),
+                             current_y_offset,
                              current_x_offset + legend_square_width,
-                             current_y_offset + (legend_square_width / 2.0))
+                             current_y_offset + legend_square_width)
 
-        width = calculate_width(@legend_font, legend_label)
-        current_x_offset += width + (legend_square_width * 2.7)
+        current_x_offset += legend_label_width + (legend_square_width * 2.7)
         label_widths.first.shift
 
         # Handle wrapping
@@ -979,7 +984,7 @@ module Gruff
         end
       end
 
-      legend_height + legend_caps_height
+      legend_height + [legend_caps_height, legend_square_width].max
     end
 
     # Returns the height of the capital letter 'X' for the current font and
