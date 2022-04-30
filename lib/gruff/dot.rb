@@ -14,12 +14,12 @@
 #   g.write('dot.png')
 #
 class Gruff::Dot < Gruff::Base
-private
-
-  def initialize_attributes
+  def initialize(*)
     super
     @has_left_labels = true
   end
+
+private
 
   def draw_graph
     # Setup spacing.
