@@ -80,7 +80,7 @@ private
   end
 
   def draw_label(center_x, center_y, angle, radius, amount)
-    degree = angle / Math::PI * 180.0
+    degree = rad2deg(angle)
     metrics = text_metrics(@marker_font, amount)
 
     r_offset = LABEL_MARGIN # The distance out from the center of the pie to get point
@@ -107,7 +107,7 @@ private
   def draw_axes(center_x, center_y, radius, additive_angle, line_color = nil)
     return if @hide_axes
 
-    current_angle = @rotation * Math::PI / 180.0
+    current_angle = deg2rad(@rotation)
 
     store.data.each do |data_row|
       x_offset = radius * Math.cos(current_angle)
@@ -124,7 +124,7 @@ private
 
   def draw_polygon(center_x, center_y, additive_angle, color = nil)
     points = []
-    current_angle = @rotation * Math::PI / 180.0
+    current_angle = deg2rad(@rotation)
 
     store.data.each do |data_row|
       points << (center_x + (normalize_points(data_row.points.first) * Math.cos(current_angle)))

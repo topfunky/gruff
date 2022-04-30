@@ -1030,9 +1030,13 @@ module Gruff
       end
     end
 
-    # Used for degree => radian conversions
+    # Used for degree <=> radian conversions
     def deg2rad(angle)
-      angle * (Math::PI / 180.0)
+      (angle * Math::PI) / 180.0
+    end
+
+    def rad2deg(angle)
+      (angle / Math::PI) * 180.0
     end
   end
 
