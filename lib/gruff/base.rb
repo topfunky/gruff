@@ -60,10 +60,10 @@ module Gruff
     # Set a label for the left side of the graph.
     attr_writer :y_axis_label
 
-    # Allow passing lambdas to format labels for x axis.
+    # Allow passing lambda to format labels for x axis.
     attr_writer :x_axis_label_format
 
-    # Allow passing lambdas to format labels for y axis.
+    # Allow passing lambda to format labels for y axis.
     attr_writer :y_axis_label_format
 
     # Set increment of the vertical marking lines.
