@@ -152,8 +152,8 @@ private
       line_diff = (@graph_right - @graph_left) / number_of_lines
       x = @graph_right - (line_diff * index) - 1
 
-      line_renderer = Gruff::Renderer::Line.new(renderer, color: @marker_color, shadow_color: @marker_shadow_color)
-      line_renderer.render(x, @graph_bottom, x, @graph_top)
+      Gruff::Renderer::Line.new(renderer, color: @marker_color).render(x, @graph_bottom, x, @graph_top)
+      Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color).render(x, @graph_bottom + 1, x, @graph_top + 1) if @marker_shadow_color
 
       unless @hide_line_numbers
         diff = index - number_of_lines

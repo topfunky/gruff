@@ -276,10 +276,7 @@ private
       x = @graph_left + @graph_width - (index * @graph_width / @marker_x_count)
 
       Gruff::Renderer::Line.new(renderer, color: @marker_color).render(x, @graph_bottom, x, @graph_top)
-      # If the user specified a marker shadow color, draw a shadow just below it
-      if @marker_shadow_color
-        Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color).render(x + 1, @graph_bottom, x + 1, @graph_top)
-      end
+      Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color).render(x + 1, @graph_bottom, x + 1, @graph_top) if @marker_shadow_color
     end
   end
 

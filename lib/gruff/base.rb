@@ -622,8 +622,8 @@ module Gruff
       (0..marker_count).each do |index|
         y = @graph_top + @graph_height - (index * increment_scaled)
 
-        line_renderer = Gruff::Renderer::Line.new(renderer, color: @marker_color, shadow_color: @marker_shadow_color)
-        line_renderer.render(@graph_left, y, @graph_right, y)
+        Gruff::Renderer::Line.new(renderer, color: @marker_color).render(@graph_left, y, @graph_right, y)
+        Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color).render(@graph_left, y + 1, @graph_right, y + 1) if @marker_shadow_color
 
         unless @hide_line_numbers
           marker_label = (BigDecimal(index.to_s) * BigDecimal(@increment.to_s)) + BigDecimal(minimum_value.to_s)

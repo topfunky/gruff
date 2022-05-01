@@ -5,16 +5,14 @@ module Gruff
   class Renderer::Line
     EPSILON = 0.001
 
-    def initialize(renderer, color:, width: nil, shadow_color: nil)
+    def initialize(renderer, color:, width: nil)
       @renderer = renderer
       @color = color
       @width = width
-      @shadow_color = shadow_color
     end
 
     def render(start_x, start_y, end_x, end_y)
       render_line(start_x, start_y, end_x, end_y, @color)
-      render_line(start_x, start_y + 1, end_x, end_y + 1, @shadow_color) if @shadow_color
     end
 
   private
