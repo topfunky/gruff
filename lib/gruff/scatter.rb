@@ -115,9 +115,6 @@ private
   end
 
   def draw_graph
-    # Check to see if more than one datapoint was given. NaN can result otherwise.
-    @x_increment = @x_spread > 1 ? @graph_width / (@x_spread - 1) : @graph_width
-
     store.norm_data.each do |data_row|
       data_row.coordinates.each do |x_value, y_value|
         next if y_value.nil? || x_value.nil?
@@ -134,16 +131,18 @@ private
   end
 
   def setup_data
+    # TODO: Need to get x-axis labels working. Current behavior will be to not allow.
+    @labels = {}
+
     # Update the global min/max values for the x data
     @maximum_x_value = (@maximum_x_value || store.max_x).to_f
     @minimum_x_value = (@minimum_x_value || store.min_x).to_f
 
-    super
-  end
-
-  def setup_drawing
-    # TODO: Need to get x-axis labels working. Current behavior will be to not allow.
-    @labels = {}
+    if @x_axis_increment
+      # TODO: Make this work for negative values
+      @maximum_x_value = [@maximum_x_value.ceil, @x_axis_increment.to_f].max
+      @minimum_x_value = @minimum_x_value.floor
+    end
 
     super
   end
@@ -165,21 +164,7 @@ private
     super
     return if @hide_line_markers
 
-    if @x_axis_increment.nil?
-      @x_increment = @x_spread > 0 ? (@x_spread / marker_x_count) : 1
-      unless @disable_significant_rounding_x_axis
-        @x_increment = significant(@x_increment)
-      end
-    else
-      # TODO: Make this work for negative values
-      @maximum_x_value = [@maximum_x_value.ceil, @x_axis_increment].max
-      @minimum_x_value = @minimum_x_value.floor
-      calculate_spread
-      normalize
-
-      @x_increment = @x_axis_increment
-    end
-    increment_x_scaled = @graph_width / (@x_spread / @x_increment)
+    increment_x_scaled = @graph_width / (@x_spread / x_increment)
 
     # Draw vertical line markers and annotate with numbers
     (0..marker_x_count).each do |index|
@@ -192,11 +177,11 @@ private
       end
 
       unless @hide_line_numbers
-        marker_label = (BigDecimal(index.to_s) * BigDecimal(@x_increment.to_s)) + BigDecimal(@minimum_x_value.to_s)
+        marker_label = (BigDecimal(index.to_s) * BigDecimal(x_increment.to_s)) + BigDecimal(@minimum_x_value.to_s)
         y_offset = @graph_bottom + (@x_label_margin || LABEL_MARGIN)
         x_offset = get_x_coord(index, increment_x_scaled, @graph_left)
 
-        label = x_axis_label(marker_label, @x_increment)
+        label = x_axis_label(marker_label, x_increment)
         rotation = -90.0 if @use_vertical_x_labels
         text_renderer = Gruff::Renderer::Text.new(renderer, label, font: @marker_font, rotation: rotation)
         text_renderer.add_to_render_queue(1.0, 1.0, x_offset, y_offset)
@@ -222,6 +207,21 @@ private
       else
         (@x_spread / @x_axis_increment).to_i
       end
+    end
+  end
+
+  def x_increment
+    @x_increment ||= begin
+      if @x_axis_increment.nil?
+        increment = @x_spread > 0 ? (@x_spread / marker_x_count) : 1
+        unless @disable_significant_rounding_x_axis
+          increment = significant(increment)
+        end
+      else
+        increment = @x_axis_increment
+      end
+
+      increment
     end
   end
 end
