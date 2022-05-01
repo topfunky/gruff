@@ -31,7 +31,7 @@ private
   end
 
   def draw_graph
-    x_increment = @graph_width / (column_count - 1).to_f
+    x_increment = @graph_width / (column_count - 1)
 
     height = Array.new(column_count, 0)
 

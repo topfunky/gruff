@@ -116,7 +116,7 @@ private
 
   def draw_graph
     # Check to see if more than one datapoint was given. NaN can result otherwise.
-    @x_increment = @x_spread > 1 ? (@graph_width / (@x_spread - 1).to_f) : @graph_width
+    @x_increment = @x_spread > 1 ? @graph_width / (@x_spread - 1) : @graph_width
 
     store.norm_data.each do |data_row|
       data_row.coordinates.each do |x_value, y_value|
@@ -135,8 +135,8 @@ private
 
   def setup_data
     # Update the global min/max values for the x data
-    @maximum_x_value ||= store.max_x
-    @minimum_x_value ||= store.min_x
+    @maximum_x_value = (@maximum_x_value || store.max_x).to_f
+    @minimum_x_value = (@minimum_x_value || store.min_x).to_f
 
     super
   end
@@ -190,13 +190,13 @@ private
       @marker_x_count = (@x_spread / @x_axis_increment).to_i
       @x_increment = @x_axis_increment
     end
-    increment_x_scaled = @graph_width.to_f / (@x_spread / @x_increment)
+    increment_x_scaled = @graph_width / (@x_spread / @x_increment)
 
     # Draw vertical line markers and annotate with numbers
     (0..@marker_x_count).each do |index|
       # TODO: Fix the vertical lines, and enable them by default. Not pretty when they don't match up with top y-axis line
       if @show_vertical_markers
-        x = @graph_left + @graph_width - (index.to_f * increment_x_scaled)
+        x = @graph_left + @graph_width - (index * increment_x_scaled)
 
         line_renderer = Gruff::Renderer::Line.new(renderer, color: @marker_color, shadow_color: @marker_shadow_color)
         line_renderer.render(x, @graph_top, x, @graph_bottom)
@@ -205,7 +205,7 @@ private
       unless @hide_line_numbers
         marker_label = (BigDecimal(index.to_s) * BigDecimal(@x_increment.to_s)) + BigDecimal(@minimum_x_value.to_s)
         y_offset = @graph_bottom + (@x_label_margin || LABEL_MARGIN)
-        x_offset = get_x_coord(index.to_f, increment_x_scaled, @graph_left)
+        x_offset = get_x_coord(index, increment_x_scaled, @graph_left)
 
         label = x_axis_label(marker_label, @x_increment)
         rotation = -90.0 if @use_vertical_x_labels

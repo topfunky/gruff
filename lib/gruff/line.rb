@@ -227,12 +227,12 @@ private
 
   def setup_data
     # Update the global min/max values for the x data
-    @maximum_x_value ||= store.max_x
-    @minimum_x_value ||= store.min_x
+    @maximum_x_value = (@maximum_x_value || store.max_x).to_f
+    @minimum_x_value = (@minimum_x_value || store.min_x).to_f
 
     # Deal with horizontal reference line values that exceed the existing minimum & maximum values.
-    possible_maximums = [maximum_value.to_f]
-    possible_minimums = [minimum_value.to_f]
+    possible_maximums = [maximum_value]
+    possible_minimums = [minimum_value]
 
     @reference_lines.each_value do |curr_reference_line|
       if curr_reference_line.key?(:value)
@@ -255,14 +255,14 @@ private
   def normalize
     return unless data_given?
 
-    spread_x = @maximum_x_value.to_f - @minimum_x_value.to_f
+    spread_x = @maximum_x_value - @minimum_x_value
     store.normalize(minimum_x: @minimum_x_value, spread_x: spread_x, minimum_y: minimum_value, spread_y: @spread)
 
     @reference_lines.each_value do |curr_reference_line|
       # We only care about horizontal markers ... for normalization.
       # Vertical markers won't have a :value, they will have an :index
 
-      curr_reference_line[:norm_value] = ((curr_reference_line[:value].to_f - minimum_value) / @spread.to_f) if curr_reference_line.key?(:value)
+      curr_reference_line[:norm_value] = ((curr_reference_line[:value].to_f - minimum_value) / @spread) if curr_reference_line.key?(:value)
     end
   end
 

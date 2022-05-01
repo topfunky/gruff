@@ -26,7 +26,7 @@ private
     #
     spacing_factor = 1.0
 
-    items_width = @graph_height / column_count.to_f
+    items_width = @graph_height / column_count
     item_width = items_width * spacing_factor / store.length
     padding = (items_width * (1 - spacing_factor)) / 2
 

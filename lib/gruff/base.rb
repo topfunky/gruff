@@ -422,7 +422,7 @@ module Gruff
     #
     # Set it after you have given all your data to the graph object.
     def minimum_value
-      @minimum_value || store.min
+      (@minimum_value || store.min).to_f
     end
     attr_writer :minimum_value
 
@@ -432,7 +432,7 @@ module Gruff
     # If you use this, you must set it after you have given all your data to
     # the graph object.
     def maximum_value
-      @maximum_value || store.max
+      (@maximum_value || store.max).to_f
     end
     attr_writer :maximum_value
 
@@ -505,8 +505,8 @@ module Gruff
     # Perform data manipulation before calculating chart measurements
     def setup_data # :nodoc:
       if @y_axis_increment && !@hide_line_markers
-        self.maximum_value = [@y_axis_increment, maximum_value, (maximum_value.to_f / @y_axis_increment).round * @y_axis_increment].max
-        self.minimum_value = [minimum_value, (minimum_value.to_f / @y_axis_increment).round * @y_axis_increment].min
+        self.maximum_value = [@y_axis_increment, maximum_value, (maximum_value / @y_axis_increment).round * @y_axis_increment].max
+        self.minimum_value = [minimum_value, (minimum_value / @y_axis_increment).round * @y_axis_increment].min
       end
     end
 
@@ -545,7 +545,7 @@ module Gruff
       @marker_count ||= begin
         count = nil
         (3..7).each do |lines|
-          if @spread.to_f % lines == 0.0
+          if @spread % lines == 0.0
             count = lines and break
           end
         end
@@ -559,7 +559,7 @@ module Gruff
     end
 
     def calculate_spread
-      @spread = maximum_value.to_f - minimum_value.to_f
+      @spread = maximum_value - minimum_value
       @spread = @spread > 0 ? @spread : 1
     end
 
@@ -616,11 +616,11 @@ module Gruff
     def draw_line_markers
       return if @hide_line_markers
 
-      increment_scaled = @graph_height.to_f / (@spread / @increment)
+      increment_scaled = @graph_height / (@spread / @increment)
 
       # Draw horizontal line markers and annotate with numbers
       (0..marker_count).each do |index|
-        y = @graph_top + @graph_height - (index.to_f * increment_scaled)
+        y = @graph_top + @graph_height - (index * increment_scaled)
 
         line_renderer = Gruff::Renderer::Line.new(renderer, color: @marker_color, shadow_color: @marker_shadow_color)
         line_renderer.render(@graph_left, y, @graph_right, y)
@@ -849,7 +849,7 @@ module Gruff
         if @has_left_labels
           @labels.values.reduce('') { |value, memo| value.to_s.length > memo.to_s.length ? value : memo }
         else
-          y_axis_label(maximum_value.to_f, @increment)
+          y_axis_label(maximum_value, @increment)
         end
       end
       longest_left_label_width = calculate_width(@marker_font, truncate_label_text(text))
@@ -907,7 +907,7 @@ module Gruff
           else
             value.to_s
           end
-        elsif (@spread.to_f % (marker_count.to_f == 0 ? 1 : marker_count.to_f) == 0) || !@y_axis_increment.nil?
+        elsif (@spread % (marker_count == 0 ? 1 : marker_count) == 0) || !@y_axis_increment.nil?
           value.to_i.to_s
         elsif @spread > 10.0
           sprintf('%0i', value)

@@ -68,7 +68,7 @@ private
     # Setup spacing.
     #
     # Columns sit stacked.
-    bar_width = @graph_width / column_count.to_f
+    bar_width = @graph_width / column_count
     padding = (bar_width * (1 - @bar_spacing)) / 2
 
     height = Array.new(column_count, 0)

@@ -99,7 +99,7 @@ private
   def draw_graph
     # Setup spacing.
     #
-    bars_width = (@graph_height - calculate_spacing) / column_count.to_f
+    bars_width = (@graph_height - calculate_spacing) / column_count
     bar_width = bars_width / store.length
     padding = (bar_width * (1 - @bar_spacing)) / 2
 
@@ -147,7 +147,7 @@ private
     number_of_lines = 1 if number_of_lines == 0
 
     # TODO: Round maximum marker value to a round number like 100, 0.1, 0.5, etc.
-    increment = significant(@spread.to_f / number_of_lines)
+    increment = significant(@spread / number_of_lines)
     (0..number_of_lines).each do |index|
       line_diff = (@graph_right - @graph_left) / number_of_lines
       x = @graph_right - (line_diff * index) - 1

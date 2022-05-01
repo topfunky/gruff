@@ -103,7 +103,7 @@ private
     # Columns sit side-by-side.
     @bar_spacing ||= @spacing_factor # space between the bars
 
-    bar_width = (@graph_width - calculate_spacing) / (column_count * store.length).to_f
+    bar_width = (@graph_width - calculate_spacing) / (column_count * store.length)
     padding = (bar_width * (1 - @bar_spacing)) / 2
 
     # Setup the BarConversion Object
