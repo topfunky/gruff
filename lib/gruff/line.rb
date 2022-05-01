@@ -270,16 +270,15 @@ private
     # do all of the stuff for the horizontal lines on the y-axis
     super
     return if @hide_line_markers
+    return unless @show_vertical_markers
 
     (0..@marker_x_count).each do |index|
-      if @show_vertical_markers
-        x = @graph_left + @graph_width - (index * @graph_width / @marker_x_count)
+      x = @graph_left + @graph_width - (index * @graph_width / @marker_x_count)
 
-        Gruff::Renderer::Line.new(renderer, color: @marker_color).render(x, @graph_bottom, x, @graph_top)
-        # If the user specified a marker shadow color, draw a shadow just below it
-        if @marker_shadow_color
-          Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color).render(x + 1, @graph_bottom, x + 1, @graph_top)
-        end
+      Gruff::Renderer::Line.new(renderer, color: @marker_color).render(x, @graph_bottom, x, @graph_top)
+      # If the user specified a marker shadow color, draw a shadow just below it
+      if @marker_shadow_color
+        Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color).render(x + 1, @graph_bottom, x + 1, @graph_top)
       end
     end
   end
