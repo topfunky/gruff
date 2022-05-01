@@ -940,9 +940,7 @@ module Gruff
     end
 
     def calculate_legend_label_widths_for_each_line(legend_labels, legend_square_width)
-      # May fix legend drawing problem at small sizes
-      label_widths = [[]] # Used to calculate line wrap
-      legend_labels.each do |label|
+      legend_labels.each_with_object([[]]) do |label, label_widths|
         width = calculate_width(@legend_font, label)
         label_width = width + (legend_square_width * 2.7)
         label_widths.last.push label_width
@@ -951,8 +949,6 @@ module Gruff
           label_widths.push [label_widths.last.pop]
         end
       end
-
-      label_widths
     end
 
     def calculate_legend_height
