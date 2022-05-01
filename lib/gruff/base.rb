@@ -959,25 +959,10 @@ module Gruff
       return 0.0 if @hide_legend
 
       legend_labels = store.data.map(&:label)
-      legend_square_width = @legend_box_size
-      label_widths = calculate_legend_label_widths_for_each_line(legend_labels, legend_square_width)
-      legend_height = 0.0
+      label_widths = calculate_legend_label_widths_for_each_line(legend_labels, @legend_box_size)
+      line_height = [legend_caps_height, @legend_box_size].max
 
-      legend_labels.each_with_index do |legend_label, _index|
-        next if legend_label.empty?
-
-        label_widths.first.shift
-        if label_widths.first.empty?
-          label_widths.shift
-          line_height = [legend_caps_height, legend_square_width].max + @legend_margin
-          unless label_widths.empty?
-            # Wrap to next line and shrink available graph dimensions
-            legend_height += line_height
-          end
-        end
-      end
-
-      legend_height + [legend_caps_height, legend_square_width].max
+      (line_height * label_widths.count) + (@legend_margin * (label_widths.count - 1))
     end
 
     # Returns the height of the capital letter 'X' for the current font and
