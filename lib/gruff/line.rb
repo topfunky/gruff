@@ -192,11 +192,13 @@ private
         if x_data.nil?
           # use the old method: equally spaced points along the x-axis
           new_x = @graph_left + (@x_increment * index)
-          draw_label(new_x, index)
+          draw_label(new_x, index) unless @hide_line_numbers
         else
           new_x = get_x_coord(x_data, @graph_width, @graph_left)
-          @labels.each do |label_pos, _|
-            draw_label(@graph_left + (((label_pos - @minimum_x_value) * @graph_width) / (@maximum_x_value - @minimum_x_value)), label_pos)
+          unless @hide_line_numbers
+            @labels.each do |label_pos, _|
+              draw_label(@graph_left + (((label_pos - @minimum_x_value) * @graph_width) / (@maximum_x_value - @minimum_x_value)), label_pos)
+            end
           end
         end
         unless y_data # we can't draw a line for a null data point, we can still label the axis though
