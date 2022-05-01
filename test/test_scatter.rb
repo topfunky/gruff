@@ -272,6 +272,35 @@ class TestGruffScatter < Minitest::Test
     assert_same_image('test/expected/scatter_xy.png', 'test/output/scatter_xy.png')
   end
 
+  def test_show_vertical_markers
+    g = Gruff::Scatter.new
+    g.title = 'Show vertical markers'
+
+    g.dataxy('Apples', [1, 3, 4, 5, 6, 10], [1, 2, 3, 4, 4, 3])
+    g.dataxy('Bapples', [1, 3, 4, 5, 7, 9], [1, 1, 2, 2, 3, 3])
+
+    g.show_vertical_markers = true
+    g.marker_shadow_color = '#888888'
+
+    g.write('test/output/scatter_show_vertical_markers.png')
+    assert_same_image('test/expected/scatter_show_vertical_markers.png', 'test/output/scatter_show_vertical_markers.png')
+  end
+
+  def test_hide_line_numbers
+    g = Gruff::Scatter.new
+    g.title = 'Show vertical markers'
+
+    g.dataxy('Apples', [1, 3, 4, 5, 6, 10], [1, 2, 3, 4, 4, 3])
+    g.dataxy('Bapples', [1, 3, 4, 5, 7, 9], [1, 1, 2, 2, 3, 3])
+
+    g.show_vertical_markers = true
+    g.hide_line_numbers = true
+    g.marker_shadow_color = '#888888'
+
+    g.write('test/output/scatter_hide_line_numbers.png')
+    assert_same_image('test/expected/scatter_hide_line_numbers.png', 'test/output/scatter_hide_line_numbers.png')
+  end
+
   def test_data_duck_typing
     g = Gruff::Scatter.new
 
