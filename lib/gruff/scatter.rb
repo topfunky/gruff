@@ -166,17 +166,7 @@ private
     return if @hide_line_markers
 
     if @x_axis_increment.nil?
-      # TODO: Do the same for larger numbers...100, 75, 50, 25
-      if @marker_x_count.nil?
-        (3..7).each do |lines|
-          if @x_spread % lines == 0.0
-            @marker_x_count = lines
-            break
-          end
-        end
-        @marker_x_count ||= 4
-      end
-      @x_increment = @x_spread > 0 ? (@x_spread / @marker_x_count) : 1
+      @x_increment = @x_spread > 0 ? (@x_spread / marker_x_count) : 1
       unless @disable_significant_rounding_x_axis
         @x_increment = significant(@x_increment)
       end
@@ -187,13 +177,12 @@ private
       calculate_spread
       normalize
 
-      @marker_x_count = (@x_spread / @x_axis_increment).to_i
       @x_increment = @x_axis_increment
     end
     increment_x_scaled = @graph_width / (@x_spread / @x_increment)
 
     # Draw vertical line markers and annotate with numbers
-    (0..@marker_x_count).each do |index|
+    (0..marker_x_count).each do |index|
       # TODO: Fix the vertical lines, and enable them by default. Not pretty when they don't match up with top y-axis line
       if @show_vertical_markers
         x = @graph_left + @graph_width - (index * increment_x_scaled)
@@ -217,5 +206,22 @@ private
 
   def get_x_coord(x_data_point, width, offset)
     (x_data_point * width) + offset
+  end
+
+  def marker_x_count
+    # TODO: Do the same for larger numbers...100, 75, 50, 25
+    @marker_x_count ||= begin
+      if @x_axis_increment.nil?
+        count = nil
+        (3..7).each do |lines|
+          if @x_spread % lines == 0.0
+            count = lines and break
+          end
+        end
+        count || 4
+      else
+        (@x_spread / @x_axis_increment).to_i
+      end
+    end
   end
 end
