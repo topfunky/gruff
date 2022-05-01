@@ -646,9 +646,9 @@ module Gruff
 
       legend_labels = store.data.map(&:label)
       legend_square_width = @legend_box_size # small square with color of this item
-      label_widths = calculate_legend_label_widths_for_each_line(legend_labels, legend_square_width)
+      legend_label_lines = calculate_legend_label_widths_for_each_line(legend_labels, legend_square_width)
+      line_height = [legend_caps_height, legend_square_width].max + @legend_margin
 
-      current_x_offset = center(label_widths.first.sum)
       current_y_offset = begin
         if @legend_at_bottom
           @graph_bottom + @legend_margin + legend_caps_height + LABEL_MARGIN + (@x_axis_label ? (LABEL_MARGIN * 2) + marker_caps_height : 0)
@@ -657,39 +657,35 @@ module Gruff
         end
       end
 
-      legend_labels.each_with_index do |legend_label, index|
-        next if legend_label.empty?
+      index = 0
+      legend_label_lines.each do |(legend_labels_width, legend_labels_line)|
+        current_x_offset = center(legend_labels_width)
 
-        legend_label_width = calculate_width(@legend_font, legend_label)
+        legend_labels_line.each do |legend_label|
+          unless legend_label.empty?
+            legend_label_width = calculate_width(@legend_font, legend_label)
 
-        # Draw label
-        text_renderer = Gruff::Renderer::Text.new(renderer, legend_label, font: @legend_font)
-        text_renderer.add_to_render_queue(legend_label_width,
-                                          legend_square_width,
-                                          current_x_offset + (legend_square_width * 1.7),
-                                          current_y_offset,
-                                          Magick::CenterGravity)
+            # Draw label
+            text_renderer = Gruff::Renderer::Text.new(renderer, legend_label, font: @legend_font)
+            text_renderer.add_to_render_queue(legend_label_width,
+                                              legend_square_width,
+                                              current_x_offset + (legend_square_width * 1.7),
+                                              current_y_offset,
+                                              Magick::CenterGravity)
 
-        # Now draw box with color of this dataset
-        rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: store.data[index].color)
-        rect_renderer.render(current_x_offset,
-                             current_y_offset,
-                             current_x_offset + legend_square_width,
-                             current_y_offset + legend_square_width)
+            # Now draw box with color of this dataset
+            rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: store.data[index].color)
+            rect_renderer.render(current_x_offset,
+                                 current_y_offset,
+                                 current_x_offset + legend_square_width,
+                                 current_y_offset + legend_square_width)
 
-        current_x_offset += legend_label_width + (legend_square_width * 2.7)
-        label_widths.first.shift
-
-        # Handle wrapping
-        if label_widths.first.empty?
-          label_widths.shift
-          current_x_offset = center(label_widths.first.sum) unless label_widths.empty?
-          line_height = [legend_caps_height, legend_square_width].max + @legend_margin
-          unless label_widths.empty?
-            # Wrap to next line and shrink available graph dimensions
-            current_y_offset += line_height
+            current_x_offset += legend_label_width + (legend_square_width * 2.7)
           end
+          index += 1
         end
+
+        current_y_offset += line_height
       end
     end
 
@@ -940,25 +936,31 @@ module Gruff
     end
 
     def calculate_legend_label_widths_for_each_line(legend_labels, legend_square_width)
-      legend_labels.each_with_object([[]]) do |label, label_widths|
+      label_widths = [[]]
+      label_lines = [[]]
+      legend_labels.each do |label|
         width = calculate_width(@legend_font, label)
         label_width = width + (legend_square_width * 2.7)
         label_widths.last.push label_width
+        label_lines.last.push label
 
         if label_widths.last.sum > (@raw_columns * 0.9)
           label_widths.push [label_widths.last.pop]
+          label_lines.push [label_lines.last.pop]
         end
       end
+
+      label_widths.map(&:sum).zip(label_lines)
     end
 
     def calculate_legend_height
       return 0.0 if @hide_legend
 
       legend_labels = store.data.map(&:label)
-      label_widths = calculate_legend_label_widths_for_each_line(legend_labels, @legend_box_size)
+      legend_label_lines = calculate_legend_label_widths_for_each_line(legend_labels, @legend_box_size)
       line_height = [legend_caps_height, @legend_box_size].max
 
-      (line_height * label_widths.count) + (@legend_margin * (label_widths.count - 1))
+      (line_height * legend_label_lines.count) + (@legend_margin * (legend_label_lines.count - 1))
     end
 
     # Returns the height of the capital letter 'X' for the current font and
