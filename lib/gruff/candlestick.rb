@@ -99,7 +99,7 @@ private
   end
 
   def normalized_candlesticks
-    @candlesticks ||= store.norm_data.map { |data| Gruff::Candlestick::CandlestickData.new(data.label, *data.points) }
+    @candlesticks ||= store.norm_data.map { |data| Gruff::Candlestick::CandlestickData.new(*data.points) }
   end
 
   def calculate_spacing
@@ -107,6 +107,6 @@ private
   end
 
   # @private
-  class CandlestickData < Struct.new(:label, :low, :high, :open, :close)
+  class CandlestickData < Struct.new(:low, :high, :open, :close)
   end
 end
