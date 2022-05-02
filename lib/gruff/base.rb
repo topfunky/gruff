@@ -703,13 +703,14 @@ module Gruff
     end
 
     # Draws column labels below graph, centered over x_offset
-    def draw_label(x_offset, index, gravity = Magick::NorthGravity)
+    def draw_label(x_offset, index, gravity = Magick::NorthGravity, &block)
       draw_unique_label(index) do
         y_offset = @graph_bottom + LABEL_MARGIN
         y_offset += @label_stagger_height if index.odd?
 
         if x_offset >= @graph_left && x_offset <= @graph_right
           draw_label_at(1.0, 1.0, x_offset, y_offset, @labels[index], gravity)
+          yield if block
         end
       end
     end
