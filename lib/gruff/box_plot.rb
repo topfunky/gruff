@@ -49,9 +49,9 @@ private
     padding = width - bar_width
 
     normalized_boxes.each_with_index do |box, index|
-      left_x = @graph_left + (width * index) + (padding / 2)
+      left_x = @graph_left + (width * index) + (padding / 2.0)
       right_x = left_x + bar_width
-      center_x = (left_x + right_x) / 2
+      center_x = (left_x + right_x) / 2.0
 
       first_y, = conversion.get_top_bottom_scaled(box.first_quartile)
       third_y, = conversion.get_top_bottom_scaled(box.third_quartile)
@@ -61,8 +61,8 @@ private
       median_y, = conversion.get_top_bottom_scaled(box.median)
       Gruff::Renderer::Line.new(renderer, color: box.color, width: @stroke_width * 2).render(left_x, median_y, right_x, median_y)
 
-      minmax_left_x  = left_x + (bar_width / 4)
-      minmax_right_x = right_x - (bar_width / 4)
+      minmax_left_x  = left_x + (bar_width / 4.0)
+      minmax_right_x = right_x - (bar_width / 4.0)
       min_y, = conversion.get_top_bottom_scaled(box.lower_whisker)
       Gruff::Renderer::Line.new(renderer, color: box.color, width: @stroke_width).render(minmax_left_x, min_y, minmax_right_x, min_y)
       Gruff::Renderer::DashLine.new(renderer, color: box.color, width: @stroke_width, dasharray: [@stroke_width, @stroke_width * 2])

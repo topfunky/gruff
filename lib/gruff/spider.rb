@@ -103,7 +103,7 @@ private
       end
     end
 
-    y_offset = center_y - (metrics.height / 2) # This one doesn't though
+    y_offset = center_y - (metrics.height / 2.0) # This one doesn't though
     x = x_offset + ((radius + r_offset) * Math.cos(angle))
     y = y_offset + ((radius + r_offset) * Math.sin(angle))
 

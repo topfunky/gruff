@@ -104,7 +104,7 @@ private
     @bar_spacing ||= @spacing_factor # space between the bars
 
     bar_width = (@graph_width - calculate_spacing) / (column_count * store.length)
-    padding = (bar_width * (1 - @bar_spacing)) / 2
+    padding = (bar_width * (1 - @bar_spacing)) / 2.0
 
     # Setup the BarConversion Object
     conversion = Gruff::BarConversion.new(

@@ -124,7 +124,7 @@ private
         rect_renderer.render(left_x + AXIS_MARGIN, left_y, right_x + AXIS_MARGIN, right_y)
 
         # Calculate center based on bar_width and current row
-        label_center = left_y + (bars_width / 2)
+        label_center = left_y + (bars_width / 2.0)
 
         # Subtract half a bar width to center left if requested
         draw_label(label_center, point_index)

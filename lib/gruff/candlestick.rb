@@ -69,9 +69,9 @@ private
     padding = width - bar_width
 
     normalized_candlesticks.each_with_index do |candlestick, index|
-      left_x = @graph_left + (width * index) + (padding / 2)
+      left_x = @graph_left + (width * index) + (padding / 2.0)
       right_x = left_x + bar_width
-      center_x = (left_x + right_x) / 2
+      center_x = (left_x + right_x) / 2.0
       color = candlestick.close >= candlestick.open ? @up_color : @down_color
 
       draw_label(center_x, index) do

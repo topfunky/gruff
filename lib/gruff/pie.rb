@@ -141,7 +141,7 @@ private
   end
 
   def label_coordinates_for(slice)
-    angle = chart_degrees + (slice.degrees / 2)
+    angle = chart_degrees + (slice.degrees / 2.0)
 
     [x_label_coordinate(angle), y_label_coordinate(angle)]
   end
