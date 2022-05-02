@@ -48,9 +48,6 @@ Lint/FloatComparison:
 Lint/NumberConversion:
   Enabled: false
 
-Naming/MemoizedInstanceVariableName:
-  Enabled: false
-
 Naming/MethodParameterName:
   Enabled: false
 
