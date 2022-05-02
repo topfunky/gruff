@@ -3,11 +3,12 @@
 module Gruff
   # @private
   class Renderer::Dot
-    def initialize(renderer, style, color:, width: 1.0)
+    def initialize(renderer, style, color:, width: 1.0, opacity: 1.0)
       @renderer = renderer
       @style = style
       @color = color
       @width = width
+      @opacity = opacity
     end
 
     def render(new_x, new_y, circle_radius)
@@ -15,6 +16,7 @@ module Gruff
       @renderer.draw.stroke_width(@width)
       @renderer.draw.stroke(@color)
       @renderer.draw.fill(@color)
+      @renderer.draw.fill_opacity(@opacity)
       if @style.to_s == 'square'
         square(new_x, new_y, circle_radius)
       else
