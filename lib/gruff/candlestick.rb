@@ -106,6 +106,7 @@ private
     @scale * (column_count - 1)
   end
 
+  # @private
   class CandlestickData < Struct.new(:label, :low, :high, :open, :close)
   end
 end
