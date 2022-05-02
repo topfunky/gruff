@@ -1,5 +1,31 @@
 # Change Log
 
+## 0.16.0
+- Add Candlestick (#575)
+- Add BoxPlot (#574)
+- Raise exception if less data set was given in Gruff::Spider (#573)
+- Adjust default label offset value in Gruff::Pie
+- Remove has_left_labels from attribute (#571)
+- Remove center_labels_over_point from attribute (#570)
+- Adjust legend label / box position
+- Fix right margin when truncate the label
+- Adjust axis label position
+- Adjust left label margin
+- Fix axis label position with hide_line_markers
+- Fix margin of value label in Bar/StackedBar (#568)
+- Fix label position in Gruff::Spider (#567)
+- Fix axis label position with legend_at_bottom
+- Fix axis label position with hide_line_markers
+- Refactor: Remove instance variable usage
+- Remove Gruff::Scene (#566)
+- Fix exception with zero value in StackBar (#565)
+- Fix segment spacing in SideStackedBar (#564)
+- Fix margin of value label in SideBar/SideStackedBar (#563)
+- Raise exception if negative values were given in stacked graph (#562)
+- Fix centering in value label position (#561)
+- Fix duck typing support in Gruff::Histogram (#560)
+- Fix start drawing position to top in Pie and enabled sort option by default (#559)
+
 ## 0.15.0
 - Fix SideStackedBar which bars overlap on the coordinate axes if data contains 0 (#558)
 - Lazy loading library to reduce memory usage (#556)
