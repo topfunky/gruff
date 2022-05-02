@@ -132,6 +132,8 @@ class TestGruffSpider < GruffTestCase
   end
 
   def test_transparency
+    skip "This spec fails on ARM platform" if arm_platform?
+
     g = Gruff::Spider.new(20)
     g.title = 'Transparent background'
     g.hide_text = true
@@ -155,7 +157,7 @@ class TestGruffSpider < GruffTestCase
   end
 
   def test_overlay_2
-    skip if arm_platform?
+    skip "This spec fails on ARM platform" if arm_platform?
 
     g = Gruff::Spider.new(20)
     g.title = 'Transparent background'
