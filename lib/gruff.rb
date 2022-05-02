@@ -62,7 +62,6 @@ module Gruff
 
   class Store
     autoload :BasicData, Gruff.libpath('store/basic_data')
-    autoload :CustomData, Gruff.libpath('store/custom_data')
     autoload :XYData, Gruff.libpath('store/xy_data')
   end
 

@@ -46,10 +46,6 @@ class Gruff::Pie < Gruff::Base
 
 private
 
-  def initialize_store
-    @store = Gruff::Store.new(Gruff::Store::CustomData)
-  end
-
   def initialize_attributes
     super
     @start_degree = -90.0
