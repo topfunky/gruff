@@ -101,7 +101,7 @@ private
         end
         # we still need to draw the labels
         # Calculate center based on bar_width and current row
-        label_center = left_y + (bar_width / 2)
+        label_center = left_y + (bar_width / 2.0)
         draw_label(label_center, point_index)
       end
     end
