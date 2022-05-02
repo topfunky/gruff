@@ -80,8 +80,8 @@ private
 
         Gruff::Renderer::Line.new(renderer, color: @marker_color).render(center_x, @graph_bottom, center_x, @graph_top)
         if @marker_shadow_color
-          Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color).render(center_x + 1, @graph_bottom, center_x + 1,
-                                                                                  @graph_top)
+          Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color)
+                               .render(center_x + 1, @graph_bottom, center_x + 1, @graph_top)
         end
       end
 
