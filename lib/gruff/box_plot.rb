@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 #
-# Here's how to set up a Gruff::Histogram.
+# Here's how to set up a Gruff::BoxPlot.
 #
 #   g = Gruff::BoxPlot.new
 #   g.data "A", [2, 3, 5, 6, 8, 10, 11, 15, 17, 20, 28, 29, 33, 34, 45, 46, 49, 61]
