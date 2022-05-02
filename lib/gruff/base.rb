@@ -503,7 +503,7 @@ module Gruff
     attr_reader :renderer
 
     # Perform data manipulation before calculating chart measurements
-    def setup_data # :nodoc:
+    def setup_data
       if @y_axis_increment && !@hide_line_markers
         self.maximum_value = [@y_axis_increment, maximum_value, (maximum_value / @y_axis_increment).round * @y_axis_increment].max
         self.minimum_value = [minimum_value, (minimum_value / @y_axis_increment).round * @y_axis_increment].min
@@ -756,7 +756,7 @@ module Gruff
       @theme_options = {}
     end
 
-    def scale(value) # :nodoc:
+    def scale(value)
       value * @scale
     end
 
@@ -765,11 +765,11 @@ module Gruff
       value * @scale
     end
 
-    def clip_value_if_greater_than(value, max_value) # :nodoc:
+    def clip_value_if_greater_than(value, max_value)
       value > max_value ? max_value : value
     end
 
-    def significant(i) # :nodoc:
+    def significant(i)
       return 1.0 if i == 0 # Keep from going into infinite loop
 
       inc = BigDecimal(i.to_s)
