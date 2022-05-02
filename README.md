@@ -130,6 +130,9 @@ In progress!
 
 ![Box plot](https://raw.github.com/topfunky/gruff/master/test/expected/box_plot.png)
 
+### Candlestick
+
+![Candlestick](https://raw.github.com/topfunky/gruff/master/test/expected/candlestick.png)
 
 ## Documentation
 

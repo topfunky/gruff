@@ -31,6 +31,7 @@ module Gruff
   autoload :Bezier, Gruff.libpath('bezier')
   autoload :BoxPlot, Gruff.libpath('box_plot')
   autoload :Bullet, Gruff.libpath('bullet')
+  autoload :Candlestick, Gruff.libpath('candlestick')
   autoload :Dot, Gruff.libpath('dot')
   autoload :Histogram, Gruff.libpath('histogram')
   autoload :Line, Gruff.libpath('line')
