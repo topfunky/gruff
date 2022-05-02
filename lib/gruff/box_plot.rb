@@ -37,13 +37,6 @@ private
     @spacing_factor = 0.8
   end
 
-  def setup_data
-    self.maximum_value = (boxes.map(&:upper_outliers) + boxes.map(&:upper_whisker)).flatten.max unless @maximum_value
-    self.minimum_value = (boxes.map(&:lower_outliers) + boxes.map(&:lower_whisker)).flatten.min unless @minimum_value
-
-    super
-  end
-
   def draw_graph
     # Setup the BarConversion Object
     conversion = Gruff::BarConversion.new(
@@ -92,10 +85,6 @@ private
 
       draw_label(center_x, index)
     end
-  end
-
-  def boxes
-    @boxes ||= store.data.map { |data| Gruff::BoxPlot::BoxData.new(data.label, data.points, data.color) }
   end
 
   def normalized_boxes
