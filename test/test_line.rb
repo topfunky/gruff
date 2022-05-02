@@ -4,7 +4,7 @@ require_relative 'gruff_test_case'
 
 class TestGruffLine < GruffTestCase
   def test_should_render_with_transparent_theme
-    skip "This spec fails on ARM platform" if arm_platform?
+    skip 'This spec fails on ARM platform' if arm_platform?
 
     g = Gruff::Line.new(400)
     g.title = 'Transparent Background'
@@ -217,7 +217,7 @@ class TestGruffLine < GruffTestCase
   end
 
   def test_dot_style_square
-    skip "This spec fails on ARM platform" if arm_platform?
+    skip 'This spec fails on ARM platform' if arm_platform?
 
     g = Gruff::Line.new
     g.title = 'Square points'
