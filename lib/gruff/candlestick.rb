@@ -31,7 +31,7 @@ class Gruff::Candlestick < Gruff::Base
   # and 1 means that each bars' width is nearly 0 (so each bar is a simple
   # line with no x dimension).
   #
-  # Default value is +0.8+.
+  # Default value is +0.9+.
   def spacing_factor=(space_percent)
     raise ArgumentError, 'spacing_factor must be between 0.00 and 1.00' unless (space_percent >= 0) && (space_percent <= 1)
 
