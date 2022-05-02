@@ -144,6 +144,8 @@ class TestGruffArea < GruffTestCase
   end
 
   def test_duck_typing
+    skip if arm_platform?
+
     g = Gruff::Area.new
     g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88], '#113285'
     g.data :Charles, [80, 54, 67, 54, 68, 70, 90, 95], '#86A697'

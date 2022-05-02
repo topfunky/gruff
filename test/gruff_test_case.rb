@@ -99,6 +99,10 @@ class GruffTestCase < Minitest::Test
     File.join(File.dirname(__FILE__), 'fixtures')
   end
 
+  def arm_platform?
+    RUBY_PLATFORM.include?('aarch64')
+  end
+
 protected
 
   # Generate graphs at several sizes.

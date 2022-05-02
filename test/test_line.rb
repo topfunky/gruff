@@ -215,6 +215,8 @@ class TestGruffLine < GruffTestCase
   end
 
   def test_dot_style_square
+    skip if arm_platform?
+
     g = Gruff::Line.new
     g.title = 'Square points'
     g.labels = {

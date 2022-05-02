@@ -144,7 +144,7 @@ class TestGruffSpider < GruffTestCase
     assert_same_image('test/expected/spider_no_background.png', 'test/output/spider_no_background.png')
   end
 
-  def test_overlay
+  def test_overlay_1
     g = Gruff::Spider.new(20)
     g.title = 'George (blue) vs Sarah (white)'
     @datasets.each do |data|
@@ -152,6 +152,10 @@ class TestGruffSpider < GruffTestCase
     end
     g.write('test/output/spider_overlay_1.png')
     assert_same_image('test/expected/spider_overlay_1.png', 'test/output/spider_overlay_1.png')
+  end
+
+  def test_overlay_2
+    skip if arm_platform?
 
     g = Gruff::Spider.new(20)
     g.title = 'Transparent background'
