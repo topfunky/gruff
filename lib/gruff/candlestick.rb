@@ -78,11 +78,7 @@ private
         break if @hide_line_markers
         break unless @show_vertical_markers
 
-        Gruff::Renderer::Line.new(renderer, color: @marker_color).render(center_x, @graph_bottom, center_x, @graph_top)
-        if @marker_shadow_color
-          Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color)
-                               .render(center_x + 1, @graph_bottom, center_x + 1, @graph_top)
-        end
+        draw_marker_vertical_line(center_x)
       end
 
       open_y, = conversion.get_top_bottom_scaled(candlestick.open)

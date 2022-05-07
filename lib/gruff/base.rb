@@ -621,9 +621,7 @@ module Gruff
       # Draw horizontal line markers and annotate with numbers
       (0..marker_count).each do |index|
         y = @graph_top + @graph_height - (index * increment_scaled)
-
-        Gruff::Renderer::Line.new(renderer, color: @marker_color).render(@graph_left, y, @graph_right, y)
-        Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color).render(@graph_left, y + 1, @graph_right, y + 1) if @marker_shadow_color
+        draw_marker_horizontal_line(y)
 
         unless @hide_line_numbers
           marker_label = (BigDecimal(index.to_s) * BigDecimal(@increment.to_s)) + BigDecimal(minimum_value.to_s)
@@ -632,6 +630,16 @@ module Gruff
           text_renderer.add_to_render_queue(@graph_left - LABEL_MARGIN, 1.0, 0.0, y, Magick::EastGravity)
         end
       end
+    end
+
+    def draw_marker_horizontal_line(y)
+      Gruff::Renderer::Line.new(renderer, color: @marker_color).render(@graph_left, y, @graph_right, y)
+      Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color).render(@graph_left, y + 1, @graph_right, y + 1) if @marker_shadow_color
+    end
+
+    def draw_marker_vertical_line(x)
+      Gruff::Renderer::Line.new(renderer, color: @marker_color).render(x, @graph_bottom, x, @graph_top)
+      Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color).render(x + 1, @graph_bottom, x + 1, @graph_top) if @marker_shadow_color
     end
 
     # Return a calculation of center

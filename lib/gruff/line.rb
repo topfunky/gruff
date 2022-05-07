@@ -273,10 +273,7 @@ private
     return unless @show_vertical_markers
 
     (0..@marker_x_count).each do |index|
-      x = @graph_left + @graph_width - (index * @graph_width / @marker_x_count)
-
-      Gruff::Renderer::Line.new(renderer, color: @marker_color).render(x, @graph_bottom, x, @graph_top)
-      Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color).render(x + 1, @graph_bottom, x + 1, @graph_top) if @marker_shadow_color
+      draw_marker_vertical_line(@graph_left + @graph_width - (index * @graph_width / @marker_x_count))
     end
   end
 
