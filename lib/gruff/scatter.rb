@@ -170,10 +170,7 @@ private
     (0..marker_x_count).each do |index|
       # TODO: Fix the vertical lines, and enable them by default. Not pretty when they don't match up with top y-axis line
       if @show_vertical_markers
-        x = @graph_left + @graph_width - (index * increment_x_scaled)
-
-        Gruff::Renderer::Line.new(renderer, color: @marker_color).render(x, @graph_top, x, @graph_bottom)
-        Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color).render(x, @graph_top + 1, x, @graph_bottom + 1) if @marker_shadow_color
+        draw_marker_vertical_line(@graph_left + @graph_width - (index * increment_x_scaled))
       end
 
       unless @hide_line_numbers
