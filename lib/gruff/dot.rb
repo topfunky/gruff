@@ -53,9 +53,7 @@ private
     (0..marker_count).each do |index|
       marker_label = (BigDecimal(index.to_s) * BigDecimal(@increment.to_s)) + BigDecimal(minimum_value.to_s)
       x = @graph_left + ((marker_label - minimum_value) * @graph_width / @spread)
-
-      Gruff::Renderer::Line.new(renderer, color: @marker_color).render(x, @graph_bottom, x, @graph_bottom + 5)
-      Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color).render(x, @graph_bottom + 1, x, @graph_bottom + 6) if @marker_shadow_color
+      draw_marker_vertical_line(x, tick_mark_mode: true)
 
       unless @hide_line_numbers
         label = y_axis_label(marker_label, @increment)

@@ -637,9 +637,18 @@ module Gruff
       Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color).render(@graph_left, y + 1, @graph_right, y + 1) if @marker_shadow_color
     end
 
-    def draw_marker_vertical_line(x)
-      Gruff::Renderer::Line.new(renderer, color: @marker_color).render(x, @graph_bottom, x, @graph_top)
-      Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color).render(x + 1, @graph_bottom, x + 1, @graph_top) if @marker_shadow_color
+    def draw_marker_vertical_line(x, tick_mark_mode: false)
+      if tick_mark_mode
+        Gruff::Renderer::Line.new(renderer, color: @marker_color).render(x, @graph_bottom, x, @graph_bottom + 5)
+        if @marker_shadow_color
+          Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color).render(x + 1, @graph_bottom, x + 1, @graph_bottom + 5)
+        end
+      else
+        Gruff::Renderer::Line.new(renderer, color: @marker_color).render(x, @graph_bottom, x, @graph_top)
+        if @marker_shadow_color
+          Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color).render(x + 1, @graph_bottom, x + 1, @graph_top)
+        end
+      end
     end
 
     # Return a calculation of center
