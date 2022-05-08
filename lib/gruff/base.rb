@@ -842,7 +842,7 @@ module Gruff
     end
 
     def graph_right_margin
-      @hide_line_markers ? @right_margin : @right_margin + extra_room_for_long_label
+      hide_left_label_area? ? @right_margin : @right_margin + extra_room_for_long_label
     end
 
     def extra_room_for_long_label
