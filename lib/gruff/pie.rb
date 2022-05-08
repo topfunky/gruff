@@ -61,6 +61,11 @@ private
     @label_formatting = ->(value, percentage) { @show_values_as_labels ? value.to_s : "#{percentage}%" }
   end
 
+  def setup_drawing
+    @center_labels_over_point = false
+    super
+  end
+
   def draw_graph
     slices.each do |slice|
       if slice.value > 0

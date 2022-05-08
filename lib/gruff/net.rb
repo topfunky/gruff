@@ -43,6 +43,21 @@ private
     @marker_font.bold = true
   end
 
+  def setup_drawing
+    @center_labels_over_point = false
+    super
+  end
+
+  def setup_graph_measurements
+    super
+
+    @radius = @graph_height / 2.0
+    @circle_radius = @dot_radius || clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 2.5), 5.0)
+    @stroke_width  = @line_width || clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 4.0), 5.0)
+    @center_x = @graph_left + (@graph_width / 2.0)
+    @center_y = @graph_top + (@graph_height / 2.0) + 10
+  end
+
   def draw_graph
     store.norm_data.each do |data_row|
       data_row.points.each_with_index do |data_point, index|
@@ -68,16 +83,6 @@ private
         end
       end
     end
-  end
-
-  def setup_drawing
-    super
-
-    @radius = @graph_height / 2.0
-    @circle_radius = @dot_radius || clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 2.5), 5.0)
-    @stroke_width  = @line_width || clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 4), 5.0)
-    @center_x = @graph_left + (@graph_width / 2.0)
-    @center_y = @graph_top + (@graph_height / 2.0) + 10
   end
 
   # the lines connecting in the center, with the first line vertical

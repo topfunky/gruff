@@ -114,20 +114,9 @@ private
     @x_label_margin = nil
   end
 
-  def draw_graph
-    store.norm_data.each do |data_row|
-      data_row.coordinates.each do |x_value, y_value|
-        next if y_value.nil? || x_value.nil?
-
-        new_x = get_x_coord(x_value, @graph_width, @graph_left)
-        new_y = @graph_top + (@graph_height - (y_value * @graph_height))
-
-        # Reset each time to avoid thin-line errors
-        stroke_width  = @stroke_width  || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4), 5.0)
-        circle_radius = @circle_radius || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 2.5), 5.0)
-        Gruff::Renderer::Circle.new(renderer, color: data_row.color, width: stroke_width).render(new_x, new_y, new_x - circle_radius, new_y)
-      end
-    end
+  def setup_drawing
+    @center_labels_over_point = false
+    super
   end
 
   def setup_data
@@ -145,6 +134,22 @@ private
     end
 
     super
+  end
+
+  def draw_graph
+    store.norm_data.each do |data_row|
+      data_row.coordinates.each do |x_value, y_value|
+        next if y_value.nil? || x_value.nil?
+
+        new_x = get_x_coord(x_value, @graph_width, @graph_left)
+        new_y = @graph_top + (@graph_height - (y_value * @graph_height))
+
+        # Reset each time to avoid thin-line errors
+        stroke_width  = @stroke_width  || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4), 5.0)
+        circle_radius = @circle_radius || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 2.5), 5.0)
+        Gruff::Renderer::Circle.new(renderer, color: data_row.color, width: stroke_width).render(new_x, new_y, new_x - circle_radius, new_y)
+      end
+    end
   end
 
   def calculate_spread
