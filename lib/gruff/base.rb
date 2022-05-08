@@ -583,8 +583,7 @@ module Gruff
     # Calculates size of drawable area, general font dimensions, etc.
 
     def setup_graph_measurements
-      margin_on_right = graph_right_margin
-      @graph_right = @raw_columns - margin_on_right
+      @graph_right = setup_right_margin
       @graph_left = setup_left_margin
       @graph_top = setup_top_margin
       @graph_bottom = setup_bottom_margin
@@ -841,21 +840,6 @@ module Gruff
       @hide_legend ? 0 : calculate_caps_height(@legend_font)
     end
 
-    def graph_right_margin
-      @hide_line_markers ? @right_margin : @right_margin + extra_room_for_long_label
-    end
-
-    def extra_room_for_long_label
-      # Make space for half the width of the rightmost column label.
-      # Might be greater than the number of columns if between-style bar markers are used.
-      last_label = @labels.keys.max.to_i
-      if last_label >= (column_count - 1) && @center_labels_over_point
-        calculate_width(@marker_font, truncate_label_text(@labels[last_label])) / 2.0
-      else
-        0
-      end
-    end
-
     def setup_left_margin
       return @left_margin if hide_left_label_area?
 
@@ -872,6 +856,21 @@ module Gruff
       line_number_width = !@has_left_labels && (@hide_line_markers || @hide_line_numbers) ? 0.0 : (longest_left_label_width + LABEL_MARGIN)
 
       @left_margin + line_number_width + (@y_axis_label.nil? ? 0.0 : marker_caps_height + (LABEL_MARGIN * 2))
+    end
+
+    def setup_right_margin
+      @raw_columns - (@hide_line_markers ? @right_margin : @right_margin + extra_room_for_long_label)
+    end
+
+    def extra_room_for_long_label
+      # Make space for half the width of the rightmost column label.
+      # Might be greater than the number of columns if between-style bar markers are used.
+      last_label = @labels.keys.max.to_i
+      if last_label >= (column_count - 1) && @center_labels_over_point
+        calculate_width(@marker_font, truncate_label_text(@labels[last_label])) / 2.0
+      else
+        0
+      end
     end
 
     def setup_top_margin
