@@ -852,17 +852,31 @@ module Gruff
       end
       longest_left_label_width = calculate_width(@marker_font, truncate_label_text(text))
 
-      # Shift graph if left line numbers are hidden
-      line_number_width = !@has_left_labels && (@hide_line_markers || @hide_line_numbers) ? 0.0 : (longest_left_label_width + LABEL_MARGIN)
+      if !@has_left_labels && (@hide_line_markers || @hide_line_numbers)
+        label_width = extra_left_room_for_long_label
+        line_number_width = 0.0
+      else
+        label_width = 0.0
+        line_number_width = longest_left_label_width + LABEL_MARGIN
+      end
+      y_axis_label_width = @y_axis_label.nil? ? 0.0 : marker_caps_height + (LABEL_MARGIN * 2)
 
-      @left_margin + line_number_width + (@y_axis_label.nil? ? 0.0 : marker_caps_height + (LABEL_MARGIN * 2))
+      @left_margin + label_width + line_number_width + y_axis_label_width
     end
 
     def setup_right_margin
-      @raw_columns - (@hide_line_markers ? @right_margin : @right_margin + extra_room_for_long_label)
+      @raw_columns - (@hide_line_markers ? @right_margin : @right_margin + extra_right_room_for_long_label)
     end
 
-    def extra_room_for_long_label
+    def extra_left_room_for_long_label
+      if @center_labels_over_point
+        calculate_width(@marker_font, truncate_label_text(@labels[0].to_s)) / 2.0
+      else
+        0
+      end
+    end
+
+    def extra_right_room_for_long_label
       # Make space for half the width of the rightmost column label.
       # Might be greater than the number of columns if between-style bar markers are used.
       last_label = @labels.keys.max.to_i

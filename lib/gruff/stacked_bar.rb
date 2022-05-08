@@ -42,6 +42,15 @@ private
     @minimum_value = 0.0
   end
 
+  def setup_drawing
+    # Labels will be centered over the left of the bar if
+    # there are more labels than columns. This is basically the same
+    # as where it would be for a line graph.
+    @center_labels_over_point = (@labels.keys.length > column_count)
+
+    super
+  end
+
   def setup_data
     calculate_maximum_by_stack
     super

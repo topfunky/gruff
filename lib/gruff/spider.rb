@@ -46,6 +46,11 @@ private
     @hide_line_markers.freeze
   end
 
+  def setup_drawing
+    @center_labels_over_point = false
+    super
+  end
+
   def setup_graph_measurements
     super
 
