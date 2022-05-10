@@ -119,6 +119,3 @@ Style/StructInheritance:
 
 Performance/ChainArrayAllocation:
   Enabled: false
-
-Performance/StringReplacement:
-  Enabled: false
