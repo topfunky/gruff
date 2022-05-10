@@ -13,8 +13,6 @@
 #
 # @private
 class Gruff::BarConversion
-  attr_writer :mode
-
   def initialize(top:, bottom:, minimum_value:, maximum_value:, spread:)
     @graph_top = top
     @graph_height = bottom - top
@@ -52,9 +50,6 @@ class Gruff::BarConversion
       val = data_point - (@minimum_value / @spread)
       result[0] = @graph_top + (@graph_height * (1 - (val - @zero)))
       result[1] = @graph_top + (@graph_height * (1 - @zero))
-    else
-      result[0] = 0.0
-      result[1] = 0.0
     end
 
     result
