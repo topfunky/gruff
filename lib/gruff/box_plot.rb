@@ -91,6 +91,10 @@ private
     @normalized_boxes ||= store.norm_data.map { |data| Gruff::BoxPlot::BoxData.new(data.label, data.points, data.color) }
   end
 
+  def column_count
+    normalized_boxes.size
+  end
+
   def calculate_spacing
     @scale * (column_count - 1)
   end
