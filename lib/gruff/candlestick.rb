@@ -98,6 +98,10 @@ private
     @normalized_candlesticks ||= store.norm_data.map { |data| Gruff::Candlestick::CandlestickData.new(*data.points) }
   end
 
+  def column_count
+    normalized_candlesticks.size
+  end
+
   def calculate_spacing
     @scale * (column_count - 1)
   end
