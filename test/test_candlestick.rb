@@ -4,7 +4,29 @@ require_relative 'gruff_test_case'
 
 class TestCandlestick < GruffTestCase
   def test_candlestick
-    g = Gruff::Candlestick.new
+    g = setup_basic_graph
+    g.write('test/output/candlestick.png')
+    assert_same_image('test/expected/candlestick.png', 'test/output/candlestick.png')
+  end
+
+  def test_candlestick_spacing_factor
+    g = setup_basic_graph
+    g.spacing_factor = 0.25
+    g.write('test/output/candlestick_spacing_factor.png')
+    assert_same_image('test/expected/candlestick_spacing_factor.png', 'test/output/candlestick_spacing_factor.png')
+  end
+
+  def test_candlestick_show_vertical_markers
+    g = setup_basic_graph
+    g.show_vertical_markers = true
+    g.write('test/output/candlestick_show_vertical_markers.png')
+    assert_same_image('test/expected/candlestick_show_vertical_markers.png', 'test/output/candlestick_show_vertical_markers.png')
+  end
+
+private
+
+  def setup_basic_graph(size = 800)
+    g = Gruff::Candlestick.new(size)
     g.title = 'AAPL'
     g.data low: 79.30, high: 93.10, open: 79.44, close: 91.20
     g.data low: 89.14, high: 106.42, open: 91.28, close: 106.26
@@ -38,7 +60,6 @@ class TestCandlestick < GruffTestCase
       16 => '2021/10',
       20 => '2022/02'
     }
-    g.write('test/output/candlestick.png')
-    assert_same_image('test/expected/candlestick.png', 'test/output/candlestick.png')
+    g
   end
 end
