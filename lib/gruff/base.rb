@@ -54,6 +54,19 @@ module Gruff
     #   { 0 => 2005, 3 => 2006, 5 => 2007, 7 => 2008 }
     attr_writer :labels
 
+    # Truncates labels if longer than max specified.
+    attr_writer :label_max_size
+
+    # How truncated labels visually appear if they exceed {#label_max_size=}.
+    #
+    # - +:absolute+ - does not show trailing dots to indicate truncation. This is the default.
+    # - +:trailing_dots+ - shows trailing dots to indicate truncation (note that {#label_max_size=}
+    #   must be greater than 3).
+    attr_writer :label_truncation_style
+
+    # Height of staggering between labels (Bar graph only).
+    attr_writer :label_stagger_height
+
     # Set a label for the bottom of the graph.
     attr_writer :x_axis_label
 
@@ -71,19 +84,6 @@ module Gruff
 
     # Set increment of the horizontal marking lines.
     attr_writer :y_axis_increment
-
-    # Height of staggering between labels (Bar graph only).
-    attr_writer :label_stagger_height
-
-    # Truncates labels if longer than max specified.
-    attr_writer :label_max_size
-
-    # How truncated labels visually appear if they exceed {#label_max_size=}.
-    #
-    # - +:absolute+ - does not show trailing dots to indicate truncation. This is the default.
-    # - +:trailing_dots+ - shows trailing dots to indicate truncation (note that {#label_max_size=}
-    #   must be greater than 3).
-    attr_writer :label_truncation_style
 
     # Get or set the list of colors that will be used to draw the bars or lines.
     attr_accessor :colors
@@ -107,9 +107,6 @@ module Gruff
     # to +"No Data."+.
     attr_writer :no_data_message
 
-    # Display the legend under the graph. Default is +false+.
-    attr_writer :legend_at_bottom
-
     # Set the color of the auxiliary lines.
     attr_writer :marker_color
 
@@ -126,6 +123,9 @@ module Gruff
     # Set to +true+ if you want the data sets drawn with largest avg values drawn
     # first. This does not affect the legend. Default is +false+.
     attr_writer :sorted_drawing
+
+    # Display the legend under the graph. Default is +false+.
+    attr_writer :legend_at_bottom
 
     # Optionally set the size of the colored box by each item in the legend.
     # Default is +20.0+.
