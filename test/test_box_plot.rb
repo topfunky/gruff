@@ -19,6 +19,8 @@ class TestBoxPlot < GruffTestCase
   end
 
   def test_box_plot_spacing_factor
+    skip 'This spec fails on ARM platform' if arm_platform?
+
     g = Gruff::BoxPlot.new
     g.theme_pastel
     g.title = 'Box Plot spacing_factor'
@@ -33,6 +35,8 @@ class TestBoxPlot < GruffTestCase
   end
 
   def test_box_plot_outliers
+    skip 'This spec fails on ARM platform' if arm_platform?
+
     g = Gruff::BoxPlot.new
     g.theme_pastel
     g.title = 'Box Plot Sample'
