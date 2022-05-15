@@ -64,7 +64,7 @@ private
       minimum_value: minimum_value, maximum_value: maximum_value, spread: @spread
     )
 
-    width = (@graph_width - calculate_spacing) / normalized_candlesticks.size
+    width = (@graph_width - calculate_spacing) / column_count
     bar_width = width * @spacing_factor
     padding = width - bar_width
 
