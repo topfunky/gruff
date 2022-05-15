@@ -64,7 +64,7 @@ module Gruff
     #   must be greater than 3).
     attr_writer :label_truncation_style
 
-    # Height of staggering between labels (Bar graph only).
+    # Height of staggering between labels.
     attr_writer :label_stagger_height
 
     # Set a label for the bottom of the graph.
