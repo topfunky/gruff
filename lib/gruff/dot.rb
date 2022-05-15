@@ -68,7 +68,7 @@ private
 
   def draw_label(y_offset, index)
     draw_unique_label(index) do
-      draw_label_at(@graph_left - LABEL_MARGIN, 1.0, 0.0, y_offset, @labels[index], Magick::EastGravity)
+      draw_label_at(@graph_left - LABEL_MARGIN, 1.0, 0.0, y_offset, @labels[index], gravity: Magick::EastGravity)
     end
   end
 end

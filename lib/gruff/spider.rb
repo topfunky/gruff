@@ -112,7 +112,7 @@ private
     x = x_offset + ((radius + r_offset) * Math.cos(angle))
     y = y_offset + ((radius + r_offset) * Math.sin(angle))
 
-    draw_label_at(metrics.width, metrics.height, x, y, amount, Magick::CenterGravity)
+    draw_label_at(metrics.width, metrics.height, x, y, amount, gravity: Magick::CenterGravity)
   end
 
   def draw_axes(center_x, center_y, radius, additive_angle, line_color = nil)

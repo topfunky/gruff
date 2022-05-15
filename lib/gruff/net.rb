@@ -107,6 +107,6 @@ private
     x = x_offset + ((radius + LABEL_MARGIN) * Math.sin(deg2rad(angle)))
     y = y_offset - ((radius + LABEL_MARGIN) * Math.cos(deg2rad(angle)))
 
-    draw_label_at(1.0, 1.0, x, y, amount, Magick::CenterGravity)
+    draw_label_at(1.0, 1.0, x, y, amount, gravity: Magick::CenterGravity)
   end
 end

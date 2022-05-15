@@ -725,7 +725,7 @@ module Gruff
         y_offset += @label_stagger_height if index.odd?
 
         if x_offset >= @graph_left && x_offset <= @graph_right
-          draw_label_at(1.0, 1.0, x_offset, y_offset, @labels[index], gravity)
+          draw_label_at(1.0, 1.0, x_offset, y_offset, @labels[index], gravity: gravity)
           yield if block
         end
       end
@@ -741,17 +741,17 @@ module Gruff
       end
     end
 
-    def draw_label_at(width, height, x, y, text, gravity = Magick::NorthGravity)
+    def draw_label_at(width, height, x, y, text, gravity: Magick::NorthGravity)
       label_text = truncate_label_text(text)
       text_renderer = Gruff::Renderer::Text.new(renderer, label_text, font: @marker_font)
       text_renderer.add_to_render_queue(width, height, x, y, gravity)
     end
 
     # Draws the data value over the data point in bar graphs
-    def draw_value_label(width, height, x_offset, y_offset, data_point, gravity = Magick::CenterGravity)
+    def draw_value_label(width, height, x_offset, y_offset, data_point, gravity: Magick::CenterGravity)
       return if @hide_line_markers
 
-      draw_label_at(width, height, x_offset, y_offset, data_point, gravity)
+      draw_label_at(width, height, x_offset, y_offset, data_point, gravity: gravity)
     end
 
     # Shows an error message because you have no data.

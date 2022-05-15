@@ -141,7 +141,7 @@ private
     if slice.percentage >= @hide_labels_less_than
       x, y = label_coordinates_for slice
       label = @label_formatting.call(slice.value, slice.percentage)
-      draw_label_at(1.0, 1.0, x, y, label, Magick::CenterGravity)
+      draw_label_at(1.0, 1.0, x, y, label, gravity: Magick::CenterGravity)
     end
   end
 
