@@ -508,6 +508,8 @@ module Gruff
         self.maximum_value = [@y_axis_increment, maximum_value, (maximum_value / @y_axis_increment).round * @y_axis_increment].max
         self.minimum_value = [minimum_value, (minimum_value / @y_axis_increment).round * @y_axis_increment].min
       end
+
+      sort_data if @sort # Sort data with avg largest values set first (for display)
     end
 
     # Calculates size of drawable area and generates normalized data.
@@ -518,7 +520,6 @@ module Gruff
     def setup_drawing
       calculate_spread
       calculate_increment
-      sort_data if @sort # Sort data with avg largest values set first (for display)
       set_colors
       normalize
       setup_graph_measurements
