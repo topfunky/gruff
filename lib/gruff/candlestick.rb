@@ -38,6 +38,16 @@ class Gruff::Candlestick < Gruff::Base
     @spacing_factor = (1 - space_percent)
   end
 
+  # The sort feature is not supported in this graph.
+  def sort=(_value)
+    raise 'Not support #sort= in Gruff::Candlestick'
+  end
+
+  # The sort feature is not supported in this graph.
+  def sorted_drawing=(_value)
+    raise 'Not support #sorted_drawing= in Gruff::Candlestick'
+  end
+
   def data(low:, high:, open:, close:)
     super('', [low, high, open, close])
   end
@@ -53,7 +63,6 @@ private
     @up_color = '#579773'
     @down_color = '#eb5242'
 
-    @sort = false
     @hide_legend = true
   end
 
