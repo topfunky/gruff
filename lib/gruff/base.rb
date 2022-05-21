@@ -357,7 +357,7 @@ module Gruff
       self.marker_color = @theme_options[:marker_color]
       self.font_color = @theme_options[:font_color] || @marker_color
 
-      @colors = @theme_options[:colors]
+      @colors = @theme_options[:colors].dup
       @marker_shadow_color = @theme_options[:marker_shadow_color]
 
       @renderer = Gruff::Renderer.new(@columns, @rows, @scale, @theme_options)
