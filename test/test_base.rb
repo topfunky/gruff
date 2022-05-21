@@ -55,6 +55,15 @@ class TestGruffBase < GruffTestCase
     pass
   end
 
+  def test_bold_title
+    g = Gruff::Bar.new
+    g.title = 'Bar Graph With Manual Colors'
+    g.bold_title = true
+    g.data('foo', [0, 5, 8, 15])
+    g.write('test/output/base_bold_title.png')
+    assert_same_image('test/expected/base_bold_title.png', 'test/output/base_bold_title.png')
+  end
+
   def test_title_font_size
     g = Gruff::Bar.new
     g.title = 'Bar Graph With Manual Colors' * 2
@@ -70,6 +79,22 @@ class TestGruffBase < GruffTestCase
     g.data '', [10, 5, 4, 7, 2]
     g.write('test/output/legend_with_no_name.png')
     assert_same_image('test/expected/legend_with_no_name.png', 'test/output/legend_with_no_name.png')
+  end
+
+  def test_margins
+    g = Gruff::Bar.new
+    g.margins = 40
+    g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88]
+    g.data :Charles, [80, 54, 67, 54, 68, 70, 90, 95]
+    g.data :Julie, [22, 29, 35, 38, 36, 40, 46, 57]
+    g.data :Jane, [95, 95, 95, 90, 85, 80, 88, 100]
+    g.data :Philip, [90, 34, 23, 12, 78, 89, 98, 88]
+    g.data :Arthur, [5, 10, 13, 11, 6, 16, 22, 32]
+    g.data :Vincent, [5, 10, 13, 11, 6, 16, 22, 32]
+    g.data :Jake, [5, 10, 13, 11, 6, 16, 22, 32]
+    g.data :Stephen, [5, 10, 13, 11, 6, 16, 22, 32]
+    g.write('test/output/base_margins.png')
+    assert_same_image('test/expected/base_margins.png', 'test/output/base_margins.png')
   end
 
   def test_add_color
