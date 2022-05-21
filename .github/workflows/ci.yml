@@ -37,7 +37,7 @@ jobs:
       matrix:
         ruby-version: ['2.5', '2.6', '2.7', '3.0', '3.1']
         imagemagick-version:
-          - { full: 7.1.0-31, major-minor: '7.0' }
+          - { full: 7.1.0-35, major-minor: '7.0' }
     name: Ruby ${{ matrix.ruby-version }}
     steps:
     - uses: actions/checkout@v3

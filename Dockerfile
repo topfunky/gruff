@@ -13,7 +13,7 @@ ADD gruff.gemspec /tmp/gruff/gruff.gemspec
 ADD lib /tmp/gruff/lib/
 ADD before_install_linux.sh /tmp/gruff/before_install_linux.sh
 
-ENV IMAGEMAGICK_VERSION 7.1.0-31
+ENV IMAGEMAGICK_VERSION 7.1.0-35
 RUN bash /tmp/gruff/before_install_linux.sh
 RUN bundle install
 
