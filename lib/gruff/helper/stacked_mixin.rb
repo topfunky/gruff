@@ -21,4 +21,20 @@ module Gruff::Base::StackedMixin
 
     raise "Can't handle negative values in stacked graph" if minimum_value < 0
   end
+
+  def normalized_stacked_bars
+    @normalized_stacked_bars ||= begin
+      stacked_bars = Array.new(column_count) { [] }
+      store.norm_data.each_with_index do |data_row, row_index|
+        data_row.points.each_with_index do |data_point, point_index|
+          stacked_bars[point_index] << BarData.new(data_point, store.data[row_index].points[point_index], data_row.color)
+        end
+      end
+      stacked_bars
+    end
+  end
+
+  # @private
+  class BarData < Struct.new(:point, :value, :color)
+  end
 end
