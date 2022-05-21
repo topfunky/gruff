@@ -95,6 +95,8 @@ private
 
       top_y = 0
       stacked_bars.each do |bar|
+        next if bar.point == 0
+
         bottom_y, = conversion.get_top_bottom_scaled(total)
         bottom_y -= @segment_spacing
         top_y, = conversion.get_top_bottom_scaled(total + bar.point)
@@ -127,21 +129,5 @@ private
 
   def hide_bottom_label_area?
     hide_labels? && @x_axis_label.nil? && @legend_at_bottom == false
-  end
-
-  def normalized_stacked_bars
-    @normalized_stacked_bars ||= begin
-      stacked_bars = Array.new(column_count) { [] }
-      store.norm_data.each_with_index do |data_row, row_index|
-        data_row.points.each_with_index do |data_point, point_index|
-          stacked_bars[point_index] << BarData.new(data_point, store.data[row_index].points[point_index], data_row.color)
-        end
-      end
-      stacked_bars
-    end
-  end
-
-  # @private
-  class BarData < Struct.new(:point, :value, :color)
   end
 end

@@ -49,26 +49,4 @@ module Gruff::BarValueLabel
       yield x, left_y, val, metrics.width, metrics.height
     end
   end
-
-  # @private
-  class StackedBar
-    def initialize
-      @bars = []
-    end
-
-    def add(bar, index)
-      bars = @bars[index] || []
-      bars << bar
-      @bars[index] = bars
-    end
-
-    def prepare_rendering(format, proc_text_metrics, &block)
-      @bars.each do |bars|
-        value = bars.sum(&:value)
-        bar = bars.last
-        bar_value_label = bar.class.new(bar.coordinate, value)
-        bar_value_label.prepare_rendering(format, proc_text_metrics, &block)
-      end
-    end
-  end
 end

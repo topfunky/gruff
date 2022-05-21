@@ -66,50 +66,43 @@ private
     #
     # Columns sit stacked.
     bar_width = @graph_height / column_count
-    height = Array.new(column_count, 0)
-    length = Array.new(column_count, @graph_left)
     padding = (bar_width * (1 - @bar_spacing)) / 2
-    stack_bar_value_labels = Gruff::BarValueLabel::StackedBar.new
 
-    store.norm_data.each_with_index do |data_row, row_index|
-      data_row.points.each_with_index do |data_point, point_index|
-        ## using the original calculations from the stacked bar chart to get the difference between
-        ## part of the bart chart we wish to stack.
-        temp1 = @graph_left + (@graph_width - (data_point * @graph_width) - height[point_index])
-        temp2 = @graph_left + @graph_width - height[point_index]
-        difference = temp2 - temp1
-        difference = 0 if difference < 0
+    # Setup the BarConversion Object
+    conversion = Gruff::BarConversion.new(
+      top: @graph_right, bottom: @graph_left,
+      minimum_value: minimum_value, maximum_value: maximum_value, spread: @spread
+    )
 
-        left_x = length[point_index]
-        left_y = @graph_top + (bar_width * point_index) + padding
-        right_x = left_x + difference
-        right_x -= @segment_spacing if row_index != store.columns - 1
-        right_y = left_y + (bar_width * @bar_spacing)
-        length[point_index] += difference
-        height[point_index] += (data_point * @graph_width)
+    proc_text_metrics = ->(text) { text_metrics(@marker_font, text) }
 
-        bar_value_label = Gruff::BarValueLabel::SideBar.new([left_x, left_y, right_x, right_y], store.data[row_index].points[point_index])
-        stack_bar_value_labels.add(bar_value_label, point_index)
+    normalized_stacked_bars.each_with_index do |stacked_bars, stacked_index|
+      total = 0
+      left_y = @graph_top + (bar_width * stacked_index) + padding
+      right_y = left_y + (bar_width * @bar_spacing)
 
-        # if a data point is 0 it can result in weird really thing lines
-        # that shouldn't even be there being drawn on top of the existing
-        # bar - this is bad
-        if data_point != 0
-          rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: data_row.color)
-          rect_renderer.render(left_x, left_y, right_x, right_y)
-          # Calculate center based on bar_width and current row
-        end
-        # we still need to draw the labels
-        # Calculate center based on bar_width and current row
-        label_center = left_y + (bar_width / 2.0)
-        draw_label(label_center, point_index)
+      top_x = 0
+      stacked_bars.each do |bar|
+        next if bar.point == 0
+
+        bottom_x, = conversion.get_top_bottom_scaled(total)
+        bottom_x += @segment_spacing
+        top_x, = conversion.get_top_bottom_scaled(total + bar.point)
+
+        rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: bar.color)
+        rect_renderer.render(bottom_x, left_y, top_x, right_y)
+
+        total += bar.point
       end
-    end
 
-    if @show_labels_for_bar_values
-      proc_text_metrics = ->(text) { text_metrics(@marker_font, text) }
-      stack_bar_value_labels.prepare_rendering(@label_formatting, proc_text_metrics) do |x, y, text, text_width, _text_height|
-        draw_value_label(text_width, bar_width * @bar_spacing, x, y, text)
+      label_center = left_y + (bar_width / 2.0)
+      draw_label(label_center, stacked_index)
+
+      if @show_labels_for_bar_values
+        bar_value_label = Gruff::BarValueLabel::SideBar.new([@graph_left, left_y, top_x, right_y], stacked_bars.sum(&:value))
+        bar_value_label.prepare_rendering(@label_formatting, proc_text_metrics) do |x, y, text, text_width, _text_height|
+          draw_value_label(text_width, bar_width * @bar_spacing, x, y, text)
+        end
       end
     end
   end
