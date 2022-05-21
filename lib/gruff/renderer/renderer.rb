@@ -23,10 +23,6 @@ module Gruff
       end
     end
 
-    def background_image=(image)
-      @image = image
-    end
-
     def background(columns, rows, scale, theme_options)
       case theme_options[:background_colors]
       when Array
