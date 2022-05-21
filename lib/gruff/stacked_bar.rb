@@ -80,44 +80,39 @@ private
     bar_width = @graph_width / column_count
     padding = (bar_width * (1 - @bar_spacing)) / 2
 
-    height = Array.new(column_count, 0)
-    length = Array.new(column_count, @graph_bottom)
-    stack_bar_value_labels = Gruff::BarValueLabel::StackedBar.new
+    # Setup the BarConversion Object
+    conversion = Gruff::BarConversion.new(
+      top: @graph_top, bottom: @graph_bottom,
+      minimum_value: minimum_value, maximum_value: maximum_value, spread: @spread
+    )
 
-    store.norm_data.each_with_index do |data_row, row_index|
-      data_row.points.each_with_index do |data_point, point_index|
-        temp1 = @graph_top + (@graph_height - (data_point * @graph_height) - height[point_index])
-        temp2 = @graph_top + @graph_height - height[point_index]
-        difference = temp2 - temp1
-        difference = 0 if difference < 0
+    proc_text_metrics = ->(text) { text_metrics(@marker_font, text) }
 
-        # Use incremented x and scaled y
-        left_x = @graph_left + (bar_width * point_index) + padding
-        left_y = length[point_index] - difference
-        right_x = left_x + (bar_width * @bar_spacing)
-        right_y = length[point_index]
-        right_y -= @segment_spacing if row_index != store.columns - 1
+    normalised_stacked_bars.each_with_index do |stacked_bars, stacked_index|
+      total = 0
+      left_x = @graph_left + (bar_width * stacked_index) + padding
+      right_x = left_x + (bar_width * @bar_spacing)
 
-        # update the total height of the current stacked bar
-        length[point_index] -= difference
-        height[point_index] += (data_point * @graph_height)
+      top_y = 0
+      stacked_bars.each_with_index do |bar, _index|
+        bottom_y, = conversion.get_top_bottom_scaled(total)
+        bottom_y -= @segment_spacing
+        top_y, = conversion.get_top_bottom_scaled(total + bar.point)
 
-        rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: data_row.color)
-        rect_renderer.render(left_x, left_y, right_x, right_y)
+        rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: bar.color)
+        rect_renderer.render(left_x, bottom_y, right_x, top_y)
 
-        # Calculate center based on bar_width and current row
-        label_center = left_x + (bar_width * @bar_spacing / 2.0)
-        draw_label(label_center, point_index)
-
-        bar_value_label = Gruff::BarValueLabel::Bar.new([left_x, left_y, right_x, right_y], store.data[row_index].points[point_index])
-        stack_bar_value_labels.add(bar_value_label, point_index)
+        total += bar.point
       end
-    end
 
-    if @show_labels_for_bar_values
-      proc_text_metrics = ->(text) { text_metrics(@marker_font, text) }
-      stack_bar_value_labels.prepare_rendering(@label_formatting, proc_text_metrics) do |x, y, text, _text_width, text_height|
-        draw_value_label(bar_width * @bar_spacing, text_height, x, y, text)
+      label_center = left_x + (bar_width * @bar_spacing / 2.0)
+      draw_label(label_center, stacked_index)
+
+      if @show_labels_for_bar_values
+        bar_value_label = Gruff::BarValueLabel::Bar.new([left_x, top_y, right_x, @graph_bottom], stacked_bars.sum(&:value))
+        bar_value_label.prepare_rendering(@label_formatting, proc_text_metrics) do |x, y, text, _text_width, text_height|
+          draw_value_label(bar_width * @bar_spacing, text_height, x, y, text)
+        end
       end
     end
   end
@@ -132,5 +127,21 @@ private
 
   def hide_bottom_label_area?
     hide_labels? && @x_axis_label.nil? && @legend_at_bottom == false
+  end
+
+  def normalised_stacked_bars
+    @normalised_stacked_bars ||= begin
+      stacked_bars = Array.new(column_count) { [] }
+      store.norm_data.each_with_index do |data_row, row_index|
+        data_row.points.each_with_index do |data_point, point_index|
+          stacked_bars[point_index] << BarData.new(data_point, store.data[row_index].points[point_index], data_row.color)
+        end
+      end
+      stacked_bars
+    end
+  end
+
+  # @private
+  class BarData < Struct.new(:point, :value, :color)
   end
 end
