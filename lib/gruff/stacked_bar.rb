@@ -88,7 +88,7 @@ private
 
     proc_text_metrics = ->(text) { text_metrics(@marker_font, text) }
 
-    normalised_stacked_bars.each_with_index do |stacked_bars, stacked_index|
+    normalized_stacked_bars.each_with_index do |stacked_bars, stacked_index|
       total = 0
       left_x = @graph_left + (bar_width * stacked_index) + padding
       right_x = left_x + (bar_width * @bar_spacing)
@@ -129,8 +129,8 @@ private
     hide_labels? && @x_axis_label.nil? && @legend_at_bottom == false
   end
 
-  def normalised_stacked_bars
-    @normalised_stacked_bars ||= begin
+  def normalized_stacked_bars
+    @normalized_stacked_bars ||= begin
       stacked_bars = Array.new(column_count) { [] }
       store.norm_data.each_with_index do |data_row, row_index|
         data_row.points.each_with_index do |data_point, point_index|
