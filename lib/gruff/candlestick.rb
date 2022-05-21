@@ -83,12 +83,7 @@ private
       center_x = (left_x + right_x) / 2.0
       color = candlestick.close >= candlestick.open ? @up_color : @down_color
 
-      draw_label(center_x, index) do
-        break if @hide_line_markers
-        break unless @show_vertical_markers
-
-        draw_marker_vertical_line(center_x)
-      end
+      draw_label(center_x, index) { draw_marker_vertical_line(center_x) if show_marker_vertical_line? }
 
       open_y, = conversion.get_top_bottom_scaled(candlestick.open)
       close_y, = conversion.get_top_bottom_scaled(candlestick.close)
@@ -113,6 +108,10 @@ private
 
   def calculate_spacing
     @scale * (column_count - 1)
+  end
+
+  def show_marker_vertical_line?
+    !@hide_line_markers && @show_vertical_markers
   end
 
   # @private
