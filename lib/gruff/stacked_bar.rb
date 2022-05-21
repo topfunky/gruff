@@ -94,7 +94,7 @@ private
       right_x = left_x + (bar_width * @bar_spacing)
 
       top_y = 0
-      stacked_bars.each_with_index do |bar, _index|
+      stacked_bars.each do |bar|
         bottom_y, = conversion.get_top_bottom_scaled(total)
         bottom_y -= @segment_spacing
         top_y, = conversion.get_top_bottom_scaled(total + bar.point)
