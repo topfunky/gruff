@@ -27,8 +27,8 @@ class TestGruffBase < GruffTestCase
 
     g.minimum_value = 0
 
-    g.write('test/output/bar_object_labels.png')
-    assert_same_image('test/expected/bar_object_labels.png', 'test/output/bar_object_labels.png')
+    g.write('test/output/base_object_labels.png')
+    assert_same_image('test/expected/base_object_labels.png', 'test/output/base_object_labels.png')
   end
 
   def test_font
@@ -37,8 +37,8 @@ class TestGruffBase < GruffTestCase
     g.font = File.join(fixtures_dir, 'ComicNeue-Regular.ttf')
     g.title = 'Bar Graph With Manual Colors'
     g.data('Hello world!!!', [0, 5, 8, 15], '#990000')
-    g.write('test/output/bar_font.png')
-    assert_same_image('test/expected/bar_font.png', 'test/output/bar_font.png')
+    g.write('test/output/base_font.png')
+    assert_same_image('test/expected/base_font.png', 'test/output/base_font.png')
   end
 
   def test_empty_title
@@ -68,8 +68,8 @@ class TestGruffBase < GruffTestCase
     g = Gruff::Bar.new
     g.title = 'Bar Graph With Manual Colors' * 2
     g.data('foo', [0, 5, 8, 15])
-    g.write('test/output/bar_title_font_size.png')
-    assert_same_image('test/expected/bar_title_font_size.png', 'test/output/bar_title_font_size.png')
+    g.write('test/output/base_title_font_size.png')
+    assert_same_image('test/expected/base_title_font_size.png', 'test/output/base_title_font_size.png')
   end
 
   def test_legend_with_no_name
@@ -77,8 +77,8 @@ class TestGruffBase < GruffTestCase
     g.data nil, [1, 2, 3, 4, 5]
     g.data 'foo', [6, 7, 8, 9, 10]
     g.data '', [10, 5, 4, 7, 2]
-    g.write('test/output/legend_with_no_name.png')
-    assert_same_image('test/expected/legend_with_no_name.png', 'test/output/legend_with_no_name.png')
+    g.write('test/output/base_legend_with_no_name.png')
+    assert_same_image('test/expected/base_legend_with_no_name.png', 'test/output/base_legend_with_no_name.png')
   end
 
   def test_margins
