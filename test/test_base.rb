@@ -55,6 +55,14 @@ class TestGruffBase < GruffTestCase
     pass
   end
 
+  def test_multi_line_title
+    g = Gruff::Bar.new
+    g.title = ['Bar Graph', 'With Manual Colors']
+    g.data('foo', [0, 5, 8, 15])
+    g.write('test/output/base_multi_line_title.png')
+    assert_same_image('test/expected/base_multi_line_title.png', 'test/output/base_multi_line_title.png')
+  end
+
   def test_bold_title
     g = Gruff::Bar.new
     g.title = 'Bar Graph With Manual Colors'
