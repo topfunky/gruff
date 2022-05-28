@@ -11,26 +11,26 @@ module Gruff
       @opacity = opacity
     end
 
-    def render(new_x, new_y, circle_radius)
+    def render(new_x, new_y, radius)
       # @renderer.draw.push # TODO
       @renderer.draw.stroke_width(@width)
       @renderer.draw.stroke(@color)
       @renderer.draw.fill(@color)
       @renderer.draw.fill_opacity(@opacity)
       if @style.to_s == 'square'
-        square(new_x, new_y, circle_radius)
+        square(new_x, new_y, radius)
       else
-        circle(new_x, new_y, circle_radius)
+        circle(new_x, new_y, radius)
       end
       # @renderer.draw.pop # TODO
     end
 
-    def circle(new_x, new_y, circle_radius)
-      @renderer.draw.circle(new_x, new_y, new_x - circle_radius, new_y)
+    def circle(new_x, new_y, radius)
+      @renderer.draw.circle(new_x, new_y, new_x - radius, new_y)
     end
 
-    def square(new_x, new_y, circle_radius)
-      offset = (circle_radius * 0.8).to_i
+    def square(new_x, new_y, radius)
+      offset = (radius * 0.8).to_i
       corner1 = new_x - offset
       corner2 = new_y - offset
       corner3 = new_x + offset
