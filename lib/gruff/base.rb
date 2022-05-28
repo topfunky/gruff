@@ -45,15 +45,6 @@ module Gruff
     # Blank space below the legend. Default is +20+.
     attr_writer :legend_margin
 
-    # A hash of names for the individual columns, where the key is the array
-    # index for the column this label represents.
-    #
-    # Not all columns need to be named.
-    #
-    # @example
-    #   { 0 => 2005, 3 => 2006, 5 => 2007, 7 => 2008 }
-    attr_writer :labels
-
     # Truncates labels if longer than max specified.
     attr_writer :label_max_size
 
@@ -217,6 +208,30 @@ module Gruff
     end
     protected :initialize_attributes
 
+    # A hash of names for the individual columns, where the key is the array
+    # index for the column this label represents.
+    # Not all columns need to be named with hash.
+    #
+    # Or, an array corresponding to the data values.
+    #
+    # @param labels [Hash, Array] the labels.
+    #
+    # @example
+    #   g = Gruff::Bar.new
+    #   g.labels = { 0 => 2005, 3 => 2006, 5 => 2007, 7 => 2008 }
+    #
+    #   g = Gruff::Bar.new
+    #   g.labels = ['2005', nil, nil, '2006', nil, nil, '2007', nil, nil, '2008'] # same labels for columns
+    def labels=(labels)
+      if labels.is_a?(Array)
+        labels = labels.each_with_index.each_with_object({}) do |(label, index), hash|
+          hash[index] = label
+        end
+      end
+
+      @labels = labels
+    end
+
     # Sets the top, bottom, left and right margins to +margin+.
     #
     # @param margin [Numeric] The margin size.
@@ -320,7 +335,8 @@ module Gruff
     # You can set a theme manually. Assign a hash to this method before you
     # send your data.
     #
-    #   graph.theme = {
+    #   g = Gruff::Bar.new
+    #   g.theme = {
     #     colors: %w(orange purple green white red),
     #     marker_color: 'blue',
     #     background_colors: ['black', 'grey'],
