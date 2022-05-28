@@ -166,6 +166,20 @@ class TestGruffBase < GruffTestCase
     assert_equal(3, g.maximum_value)
   end
 
+  def test_labels_with_array
+    g = Gruff::Bar.new
+    g.data :bar, [6, 7, 8, 9, 10]
+    g.data :foo, [1, 2, 3, 4, 5]
+    g.labels = [
+      '2022-01-01',
+      nil,
+      '2022-03-01',
+      ''
+    ]
+    g.write('test/output/base_labels_with_array.png')
+    assert_same_image('test/expected/base_labels_with_array.png', 'test/output/base_labels_with_array.png')
+  end
+
   def test_to_image
     g = Gruff::Bar.new
     g.data :bar, [6, 7, 8, 9, 10]
