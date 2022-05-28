@@ -79,9 +79,6 @@ module Gruff
     # Get or set the list of colors that will be used to draw the bars or lines.
     attr_accessor :colors
 
-    # Set the large title of the graph displayed at the top.
-    attr_writer :title
-
     # Prevent drawing of line markers. Default is +false+.
     attr_writer :hide_line_markers
 
@@ -230,6 +227,26 @@ module Gruff
       end
 
       @labels = labels
+    end
+
+    # Set the large title of the graph displayed at the top.
+    # You can draw a multi-line title by putting a line break in the string
+    # or by setting an array as argument.
+    #
+    # @param labels [String, Array] the title.
+    #
+    # @example
+    #   g = Gruff::Bar.new
+    #   g.title = "The graph title"
+    #
+    #   g = Gruff::Bar.new
+    #   g.title = ['The first line of title', 'The second line of title']
+    def title=(title)
+      if title.is_a?(Array)
+        title = title.join("\n")
+      end
+
+      @title = title
     end
 
     # Sets the top, bottom, left and right margins to +margin+.
