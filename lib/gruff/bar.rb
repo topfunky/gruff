@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'helper/bar_mixin'
+
 #
 # Gruff::Bar provide a bar graph that presents categorical data
 # with rectangular bars.
@@ -16,6 +18,8 @@
 #   g.write('bar.png')
 #
 class Gruff::Bar < Gruff::Base
+  include BarMixin
+
   # Spacing factor applied between bars.
   attr_writer :bar_spacing
 
@@ -114,34 +118,33 @@ private
 
     proc_text_metrics = ->(text) { text_metrics(@marker_font, text) }
 
-    # iterate over all normalised data
-    store.norm_data.each_with_index do |data_row, row_index|
-      data_row.points.each_with_index do |data_point, point_index|
-        group_spacing = @group_spacing * @scale * point_index
+    group_spacing = @group_spacing * @scale
+    group_left_x = @graph_left
 
-        # Use incremented x and scaled y
-        # x
-        left_x = @graph_left + (bar_width * (row_index + point_index + ((store.length - 1) * point_index))) + padding + group_spacing
+    normalized_group_bars.each_with_index do |group_bars, group_index|
+      right_x = 0
+      group_bars.each_with_index do |bar, index|
+        left_x = group_left_x + (bar_width * index) + padding
         right_x = left_x + (bar_width * @bar_spacing)
-        # y
-        left_y, right_y = conversion.get_top_bottom_scaled(data_point)
 
-        # create new bar
-        rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: data_row.color)
-        rect_renderer.render(left_x, left_y - AXIS_MARGIN, right_x, right_y - AXIS_MARGIN)
+        top_y, bottom_y = conversion.get_top_bottom_scaled(bar.point)
+        if bar.point != 0
+          rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: bar.color)
+          rect_renderer.render(left_x, bottom_y - AXIS_MARGIN, right_x, top_y)
+        end
 
-        # Calculate center based on bar_width and current row
-        label_center = @graph_left + group_spacing + (store.length * bar_width * point_index) + (store.length * bar_width / 2.0)
-
-        # Subtract half a bar width to center left if requested
-        draw_label(label_center, point_index)
-        if @show_labels_for_bar_values
-          bar_value_label = Gruff::BarValueLabel::Bar.new([left_x, left_y, right_x, right_y], store.data[row_index].points[point_index])
+        if @show_labels_for_bar_values && bar.value
+          bar_value_label = Gruff::BarValueLabel::Bar.new([left_x, top_y, right_x, bottom_y], bar.value)
           bar_value_label.prepare_rendering(@label_formatting, proc_text_metrics) do |x, y, text, _text_width, text_height|
             draw_value_label(bar_width * @bar_spacing, text_height, x, y, text)
           end
         end
       end
+
+      label_center = group_left_x + ((right_x - group_left_x) / 2.0)
+      draw_label(label_center, group_index)
+
+      group_left_x = right_x + padding + group_spacing
     end
 
     # Draw the last label if requested

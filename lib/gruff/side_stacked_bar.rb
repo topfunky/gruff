@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'helper/stacked_mixin'
+
 #
 # New gruff graph type added to enable sideways stacking bar charts
 # (basically looks like a x/y flip of a standard stacking bar chart)

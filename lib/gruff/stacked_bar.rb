@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'helper/stacked_mixin'
+
 #
 # Here's how to set up a Gruff::StackedBar.
 #
