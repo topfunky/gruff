@@ -25,6 +25,7 @@ module Gruff
     end
 
     def render(width, height, x, y, gravity = Magick::NorthGravity)
+      @renderer.draw.push
       @renderer.draw.rotation = @rotation if @rotation
       @renderer.draw.fill = @font.color
       @renderer.draw.stroke = 'transparent'
@@ -37,9 +38,11 @@ module Gruff
                                      x, y,
                                      @text, @renderer.scale)
       @renderer.draw.rotation = -@rotation if @rotation
+      @renderer.draw.pop
     end
 
     def metrics
+      @renderer.draw.push
       @renderer.draw.font = @font.file_path
       @renderer.draw.font_weight = @font.weight
       @renderer.draw.pointsize = @font.size
@@ -50,7 +53,10 @@ module Gruff
       # So, in here, it just escape % in order to avoid SEGV.
       text = @text.to_s.gsub(/(%+)/) { ('%' * Regexp.last_match(1).size * 2).to_s }
 
-      @renderer.draw.get_type_metrics(@renderer.image, text)
+      metrics = @renderer.draw.get_type_metrics(@renderer.image, text)
+      @renderer.draw.pop
+
+      metrics
     end
   end
 end
