@@ -25,7 +25,7 @@ class Gruff::Line < Gruff::Base
   attr_writer :line_width
   attr_writer :dot_radius
 
-  # default is +'circle'+, other options include square.
+  # default is +'circle'+, other options include +square+ and +diamond+.
   attr_writer :dot_style
 
   # Hide parts of the graph to fit more data points, or for a different appearance.
