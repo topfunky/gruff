@@ -12,7 +12,7 @@ module Gruff
     end
 
     def render(new_x, new_y, radius)
-      # @renderer.draw.push # TODO
+      @renderer.draw.push
       @renderer.draw.stroke_width(@width)
       @renderer.draw.stroke(@color)
       @renderer.draw.fill(@color)
@@ -25,7 +25,7 @@ module Gruff
       else
         circle(new_x, new_y, radius)
       end
-      # @renderer.draw.pop # TODO
+      @renderer.draw.pop
     end
 
     def circle(new_x, new_y, radius)
