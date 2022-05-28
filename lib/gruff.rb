@@ -21,9 +21,6 @@ module Gruff
 
   autoload :BarConversion, Gruff.libpath('helper/bar_conversion')
   autoload :BarValueLabel, Gruff.libpath('helper/bar_value_label')
-  class Base
-    autoload :StackedMixin, Gruff.libpath('helper/stacked_mixin')
-  end
 
   autoload :AccumulatorBar, Gruff.libpath('accumulator_bar')
   autoload :Area, Gruff.libpath('area')

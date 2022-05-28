@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'helper/bar_mixin'
+
 # Graph with individual horizontal bars instead of vertical bars.
 #
 # Here's how to set up a Gruff::SideBar.
@@ -19,6 +21,8 @@
 #   g.write('sidebar.png')
 #
 class Gruff::SideBar < Gruff::Base
+  include BarMixin
+
   # Spacing factor applied between bars.
   attr_writer :bar_spacing
 
@@ -111,30 +115,33 @@ private
 
     proc_text_metrics = ->(text) { text_metrics(@marker_font, text) }
 
-    store.norm_data.each_with_index do |data_row, row_index|
-      data_row.points.each_with_index do |data_point, point_index|
-        group_spacing = @group_spacing * @scale * point_index
+    group_spacing = @group_spacing * @scale
+    group_left_y = @graph_top
 
-        left_y = @graph_top + (bars_width * point_index) + (bar_width * row_index) + padding + group_spacing
+    normalized_group_bars.each_with_index do |group_bars, group_index|
+      right_y = 0
+      group_bars.each_with_index do |bar, index|
+        left_y = group_left_y + (bar_width * index) + padding
         right_y = left_y + (bar_width * @bar_spacing)
 
-        left_x, right_x = conversion.get_top_bottom_scaled(data_point).sort
+        bottom_x, top_x = conversion.get_top_bottom_scaled(bar.point).sort
+        if bar.point != 0
+          rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: bar.color)
+          rect_renderer.render(bottom_x + AXIS_MARGIN, left_y, top_x, right_y)
+        end
 
-        rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: data_row.color)
-        rect_renderer.render(left_x + AXIS_MARGIN, left_y, right_x + AXIS_MARGIN, right_y)
-
-        # Calculate center based on bar_width and current row
-        label_center = left_y + (bars_width / 2.0)
-
-        # Subtract half a bar width to center left if requested
-        draw_label(label_center, point_index)
-        if @show_labels_for_bar_values
-          bar_value_label = Gruff::BarValueLabel::SideBar.new([left_x, left_y, right_x, right_y], store.data[row_index].points[point_index])
+        if @show_labels_for_bar_values && bar.value
+          bar_value_label = Gruff::BarValueLabel::SideBar.new([bottom_x, left_y, top_x, right_y], bar.value)
           bar_value_label.prepare_rendering(@label_formatting, proc_text_metrics) do |x, y, text, text_width, _text_height|
             draw_value_label(text_width, bar_width * @bar_spacing, x, y, text)
           end
         end
       end
+
+      label_center = group_left_y + (bars_width / 2.0)
+      draw_label(label_center, group_index)
+
+      group_left_y = right_y + padding + group_spacing
     end
   end
 
