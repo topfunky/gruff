@@ -17,8 +17,11 @@ module Gruff
       @renderer.draw.stroke(@color)
       @renderer.draw.fill(@color)
       @renderer.draw.fill_opacity(@opacity)
-      if @style.to_s == 'square'
+      case @style.to_sym
+      when :square
         square(new_x, new_y, radius)
+      when :diamond
+        diamond(new_x, new_y, radius)
       else
         circle(new_x, new_y, radius)
       end
@@ -36,6 +39,16 @@ module Gruff
       corner3 = new_x + offset
       corner4 = new_y + offset
       @renderer.draw.rectangle(corner1, corner2, corner3, corner4)
+    end
+
+    def diamond(new_x, new_y, radius)
+      offset = radius
+      polygon = []
+      polygon += [new_x - offset, new_y]
+      polygon += [new_x, new_y + offset]
+      polygon += [new_x + offset, new_y]
+      polygon += [new_x, new_y - offset]
+      @renderer.draw.polygon(*polygon)
     end
   end
 end

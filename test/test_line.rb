@@ -236,6 +236,25 @@ class TestGruffLine < GruffTestCase
     assert_same_image('test/expected/line_dot_style_square.png', 'test/output/line_dot_style_square.png')
   end
 
+  def test_dot_style_diamond
+    skip 'This spec fails on ARM platform' if arm_platform?
+
+    g = Gruff::Line.new
+    g.title = 'Diamond points'
+    g.labels = {
+      0 => 'June',
+      10 => 'July',
+      30 => 'August',
+      50 => 'September'
+    }
+    g.dot_style = :diamond
+    g.data('many points', (0..50).map { rand(100) })
+    g.x_axis_label = 'Months'
+
+    g.write('test/output/line_dot_style_diamond.png')
+    assert_same_image('test/expected/line_dot_style_diamond.png', 'test/output/line_dot_style_diamond.png')
+  end
+
   def test_similar_high_end_values
     @dataset = %w[29.43 29.459 29.498 29.53 29.548 29.589 29.619 29.66 29.689 29.849 29.878 29.74 29.769 29.79 29.808 29.828].map(&:to_f)
 
