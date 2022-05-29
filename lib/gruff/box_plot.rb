@@ -49,6 +49,8 @@ private
     padding = width - bar_width
 
     normalized_boxes.each_with_index do |box, index|
+      next if box.points.empty?
+
       left_x = @graph_left + (width * index) + (padding / 2.0)
       right_x = left_x + bar_width
       center_x = (left_x + right_x) / 2.0
