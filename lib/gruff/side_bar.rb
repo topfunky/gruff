@@ -83,8 +83,6 @@ private
     return if @hide_line_markers
 
     if @show_labels_for_bar_values
-      proc_text_metrics = ->(text) { text_metrics(@marker_font, text) }
-
       if maximum_value >= 0
         _, metrics = Gruff::BarValueLabel.metrics(maximum_value, @label_formatting, proc_text_metrics)
         @graph_right -= metrics.width
@@ -112,8 +110,6 @@ private
       top: @graph_right, bottom: @graph_left,
       minimum_value: minimum_value, maximum_value: maximum_value, spread: @spread
     )
-
-    proc_text_metrics = ->(text) { text_metrics(@marker_font, text) }
 
     group_spacing = @group_spacing * @scale
     group_left_y = @graph_top
@@ -181,5 +177,9 @@ private
 
   def calculate_spacing
     @scale * @group_spacing * (column_count - 1)
+  end
+
+  def proc_text_metrics
+    ->(text) { text_metrics(@marker_font, text) }
   end
 end

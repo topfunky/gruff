@@ -63,8 +63,6 @@ private
     return if @hide_line_markers
 
     if @show_labels_for_bar_values
-      proc_text_metrics = ->(text) { text_metrics(@marker_font, text) }
-
       if maximum_value >= 0
         _, metrics = Gruff::BarValueLabel.metrics(maximum_value, @label_formatting, proc_text_metrics)
         @graph_top += metrics.height
@@ -87,8 +85,6 @@ private
       top: @graph_top, bottom: @graph_bottom,
       minimum_value: minimum_value, maximum_value: maximum_value, spread: @spread
     )
-
-    proc_text_metrics = ->(text) { text_metrics(@marker_font, text) }
 
     normalized_stacked_bars.each_with_index do |stacked_bars, stacked_index|
       total = 0
@@ -131,5 +127,9 @@ private
 
   def hide_bottom_label_area?
     hide_labels? && @x_axis_label.nil? && @legend_at_bottom == false
+  end
+
+  def proc_text_metrics
+    ->(text) { text_metrics(@marker_font, text) }
   end
 end
