@@ -87,7 +87,7 @@ private
   end
 
   def normalize_points(value)
-    value * @unit_length
+    value.to_f * @unit_length
   end
 
   def draw_label(center_x, center_y, angle, radius, amount)

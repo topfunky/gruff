@@ -285,6 +285,17 @@ class TestGruffSpider < GruffTestCase
     end
   end
 
+  def test_empty_data
+    g = Gruff::Spider.new(10)
+    g.title = 'Contained Empty Data'
+    g.data :A, []
+    g.data :B, [5]
+    g.data :C, [3]
+
+    g.write('test/output/spider_empty_data.png')
+    assert_same_image('test/expected/spider_empty_data.png', 'test/output/spider_empty_data.png')
+  end
+
   def test_duck_typing
     g = Gruff::Spider.new(20)
     @datasets.each do |data|
