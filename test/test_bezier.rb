@@ -59,7 +59,8 @@ class TestBezier < GruffTestCase
   def test_empty_data
     g = Gruff::Bezier.new
     g.title = 'Contained Empty Data'
-    g.data 'Series 3', []
+    g.data 'A', []
+    g.data 'B', [+0.00, +0.09, +0.19, +0.29, +0.38, +0.47, +0.56, +0.64, +0.71, +0.78]
 
     g.write('test/output/bezier_empty_data.png')
     assert_same_image('test/expected/bezier_empty_data.png', 'test/output/bezier_empty_data.png')
