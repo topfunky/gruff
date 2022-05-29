@@ -832,6 +832,18 @@ class TestGruffLine < GruffTestCase
     pass
   end
 
+  def test_empty_data
+    g = Gruff::Dot.new
+    g.title = 'Contained Empty Data'
+    g.data('Apples', [3, 2, 3, 4, 4, 3])
+    g.data('Oranges', [])
+    g.data('Watermelon', [2, 3, 4, 5, 6, 8])
+    g.data('Peaches', [9, 9, 10, 8, 7, 9])
+
+    g.write('test/output/line_empty_data.png')
+    assert_same_image('test/expected/line_empty_data.png', 'test/output/line_empty_data.png')
+  end
+
   def test_duck_typing
     g = Gruff::Line.new
     g.dataxy('foo', [1, 2, 3, 4, 5], [21, 22, 23, 24, 25])

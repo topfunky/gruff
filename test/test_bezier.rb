@@ -56,6 +56,15 @@ class TestBezier < GruffTestCase
     assert_same_image('test/expected/bezier_4.png', 'test/output/bezier_4.png')
   end
 
+  def test_empty_data
+    g = Gruff::Bezier.new
+    g.title = 'Contained Empty Data'
+    g.data 'Series 3', []
+
+    g.write('test/output/bezier_empty_data.png')
+    assert_same_image('test/expected/bezier_empty_data.png', 'test/output/bezier_empty_data.png')
+  end
+
   def test_duck_typing
     g = Gruff::Bezier.new
     g.data :Bob, GruffCustomData.new([50, 19, 31, 89, 20, 54, 37, 65]), '#33A6B8'

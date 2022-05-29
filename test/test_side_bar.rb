@@ -197,6 +197,20 @@ class TestGruffSideBar < GruffTestCase
     assert_same_image('test/expected/side_bar_axis_label_with_legend_at_bottom.png', 'test/output/side_bar_axis_label_with_legend_at_bottom.png')
   end
 
+  def test_empty_data
+    g = Gruff::SideBar.new
+    g.title = 'Contained Empty Data'
+    g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88], '#113285'
+    g.data :Charles, [], '#86A697'
+    g.data :Julie, [22, 29, 35, 38, 36, 40, 46, 57], '#E03C8A'
+    g.data :Jane, [95, 95, 95, 90, 85, 80, 88, 100], '#72636E'
+    g.data :Philip, [90, 34, 23, 12, 78, 89, 98, 88], '#86C166'
+    g.data :Arthur, [5, 10, 13, 11, 6, 16, 22, 32], '#60373E'
+
+    g.write('test/output/side_bar_empty_data.png')
+    assert_same_image('test/expected/side_bar_empty_data.png', 'test/output/side_bar_empty_data.png')
+  end
+
   def test_duck_typing
     g = Gruff::SideBar.new
     g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88], '#113285'

@@ -259,6 +259,20 @@ class TestGruffDot < GruffTestCase
     assert_same_image('test/expected/dot_set_trailing_dots_trunc.png', 'test/output/dot_set_trailing_dots_trunc.png')
   end
 
+  def test_empty_data
+    g = Gruff::Dot.new
+    g.title = 'Contained Empty Data'
+    g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88], '#113285'
+    g.data :Charles, [], '#86A697'
+    g.data :Julie, [22, 29, 35, 38, 36, 40, 46, 57], '#E03C8A'
+    g.data :Jane, [95, 95, 95, 90, 85, 80, 88, 100], '#72636E'
+    g.data :Philip, [90, 34, 23, 12, 78, 89, 98, 88], '#86C166'
+    g.data :Arthur, [5, 10, 13, 11, 6, 16, 22, 32], '#60373E'
+
+    g.write('test/output/dot_empty_data.png')
+    assert_same_image('test/expected/dot_empty_data.png', 'test/output/dot_empty_data.png')
+  end
+
   def test_duck_typing
     g = Gruff::Dot.new
     g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88], '#113285'

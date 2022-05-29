@@ -47,6 +47,15 @@ class TestGruffAccumulatorBar < GruffTestCase
     end
   end
 
+  def test_empty_data
+    g = Gruff::AccumulatorBar.new
+    g.title = 'Contained Empty Data'
+    g.data :A, []
+
+    g.write('test/output/accum_bar_empty_data.png')
+    assert_same_image('test/expected/accum_bar_empty_data.png', 'test/output/accum_bar_empty_data.png')
+  end
+
   def test_duck_typing
     g = Gruff::AccumulatorBar.new
     g.data :Bob, GruffCustomData.new([50, 19, 31, 89, 20, 54, 37, 65]), '#33A6B8'
