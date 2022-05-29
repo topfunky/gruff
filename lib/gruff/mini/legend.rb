@@ -69,9 +69,9 @@ module Gruff
 
         @legend_labels.each_with_index do |legend_label, index|
           # Draw label
-          label = truncate_legend_label(legend_label)
-          text_renderer = Gruff::Renderer::Text.new(renderer, label, font: @legend_font)
           x_offset = current_x_offset + (legend_square_width * 1.7)
+          label = truncate_legend_label(legend_label, x_offset)
+          text_renderer = Gruff::Renderer::Text.new(renderer, label, font: @legend_font)
           text_renderer.add_to_render_queue(@raw_columns, 1.0, x_offset, current_y_offset, Magick::WestGravity)
 
           # Now draw box with color of this dataset
@@ -90,13 +90,13 @@ module Gruff
       #
       #   Department of Hu...
 
-      def truncate_legend_label(label)
+      def truncate_legend_label(label, x_offset)
         truncated_label = label.to_s
 
         font = @legend_font.dup
         font.size = scale_fontsize(font.size)
-        max_width = @columns - @legend_left_margin - @right_margin
-        while calculate_width(font, truncated_label) > max_width && truncated_label.length > 1
+        max_width = @columns - scale(x_offset) - @right_margin
+        while calculate_width(font, "#{truncated_label}...") > max_width && truncated_label.length > 1
           truncated_label = truncated_label[0..truncated_label.length - 2]
         end
         truncated_label + (truncated_label.length < label.to_s.length ? '...' : '')

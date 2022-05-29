@@ -11,6 +11,14 @@ class TestMiniBar < GruffTestCase
     assert_same_image('test/expected/mini_bar.png', 'test/output/mini_bar.png')
   end
 
+  def test_large_legend
+    g = Gruff::Mini::Bar.new(200)
+    g.data 'a' * 50, [25, 36, 86, 39, 25, 31, 79, 88], '#113285'
+    g.data 'b' * 50, [80, 54, 67, 54, 68, 70, 90, 95], '#86A697'
+    g.write('test/output/mini_bar_large_legend.png')
+    assert_same_image('test/expected/mini_bar_large_legend.png', 'test/output/mini_bar_large_legend.png')
+  end
+
   def test_duck_typing
     g = Gruff::Mini::Bar.new(200)
     g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88], '#113285'
