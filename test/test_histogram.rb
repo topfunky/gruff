@@ -24,6 +24,16 @@ class TestGruffHistogram < GruffTestCase
     assert_same_image('test/expected/histogram_minmax.png', 'test/output/histogram_minmax.png')
   end
 
+  def test_empty_data
+    g = Gruff::Histogram.new
+    g.title = 'Contained Empty Data'
+    g.data :A, []
+    g.data :B, [100, 100, 100, 100, 90, 90, 80, 30, 30, 30, 30, 30]
+
+    g.write('test/output/histogram_empty_data.png')
+    assert_same_image('test/expected/histogram_empty_data.png', 'test/output/histogram_empty_data.png')
+  end
+
   def test_duck_typing
     g = Gruff::Histogram.new
     g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88], '#113285'
