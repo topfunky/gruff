@@ -34,6 +34,7 @@ class Gruff::BarConversion
   end
 
   def get_top_bottom_scaled(data_point)
+    data_point = data_point.to_f
     result = []
 
     case @mode
