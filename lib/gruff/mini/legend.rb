@@ -21,7 +21,7 @@ module Gruff
 
         @legend_labels = store.data.map(&:label)
 
-        legend_height = scale_fontsize((store.length * calculate_line_height) + @top_margin + @bottom_margin)
+        legend_height = scale((store.length * calculate_line_height) + @top_margin + @bottom_margin)
 
         @original_rows = @raw_rows
         @original_columns = @raw_columns
