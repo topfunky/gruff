@@ -17,6 +17,7 @@ class Gruff::Dot < Gruff::Base
   def initialize(*)
     super
     @has_left_labels = true
+    @dot_style = 'circle'
   end
 
 private
@@ -39,7 +40,7 @@ private
           Gruff::Renderer::Line.new(renderer, color: @marker_color).render(@graph_left, y_pos, @graph_left + @graph_width, y_pos)
         end
 
-        Gruff::Renderer::Circle.new(renderer, color: data_row.color).render(x_pos, y_pos, x_pos + (item_width / 3.0), y_pos)
+        Gruff::Renderer::Dot.new(renderer, @dot_style, color: data_row.color).render(x_pos, y_pos, item_width / 3.0)
 
         draw_label(y_pos, point_index)
       end
