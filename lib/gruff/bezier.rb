@@ -25,6 +25,8 @@ private
     x_increment = @graph_width / (column_count - 1)
 
     store.norm_data.each do |data_row|
+      next if data_row[1].empty?
+
       poly_points = []
 
       data_row[1].each_with_index do |data_point, index|
@@ -43,14 +45,12 @@ private
         draw_label(new_x, index)
       end
 
-      unless poly_points.empty?
-        stroke_width = clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4), 5.0)
+      stroke_width = clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4), 5.0)
 
-        if RUBY_PLATFORM == 'java'
-          Gruff::Renderer::Polyline.new(renderer, color: data_row.color, width: stroke_width).render(poly_points)
-        else
-          Gruff::Renderer::Bezier.new(renderer, color: data_row.color, width: stroke_width).render(poly_points)
-        end
+      if RUBY_PLATFORM == 'java'
+        Gruff::Renderer::Polyline.new(renderer, color: data_row.color, width: stroke_width).render(poly_points)
+      else
+        Gruff::Renderer::Bezier.new(renderer, color: data_row.color, width: stroke_width).render(poly_points)
       end
     end
   end

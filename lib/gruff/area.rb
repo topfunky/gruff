@@ -33,6 +33,8 @@ private
     x_increment = @graph_width / (column_count - 1)
 
     store.norm_data.each do |data_row|
+      next if data_row.points.empty?
+
       poly_points = []
 
       data_row.points.each_with_index do |data_point, index|
@@ -46,15 +48,13 @@ private
         draw_label(new_x, index)
       end
 
-      unless poly_points.empty?
-        # Add closing points, draw polygon
-        poly_points << @graph_right
-        poly_points << (@graph_bottom - 1)
-        poly_points << @graph_left
-        poly_points << (@graph_bottom - 1)
+      # Add closing points, draw polygon
+      poly_points << @graph_right
+      poly_points << (@graph_bottom - 1)
+      poly_points << @graph_left
+      poly_points << (@graph_bottom - 1)
 
-        Gruff::Renderer::Polygon.new(renderer, color: data_row.color, width: @stroke_width, opacity: @fill_opacity).render(poly_points)
-      end
+      Gruff::Renderer::Polygon.new(renderer, color: data_row.color, width: @stroke_width, opacity: @fill_opacity).render(poly_points)
     end
   end
 end
