@@ -33,21 +33,19 @@ module Gruff
     end
 
     def square(new_x, new_y, radius)
-      offset = (radius * 0.8).to_i
-      corner1 = new_x - offset
-      corner2 = new_y - offset
-      corner3 = new_x + offset
-      corner4 = new_y + offset
+      corner1 = new_x - radius
+      corner2 = new_y - radius
+      corner3 = new_x + radius
+      corner4 = new_y + radius
       @renderer.draw.rectangle(corner1, corner2, corner3, corner4)
     end
 
     def diamond(new_x, new_y, radius)
-      offset = radius
       polygon = []
-      polygon += [new_x - offset, new_y]
-      polygon += [new_x, new_y + offset]
-      polygon += [new_x + offset, new_y]
-      polygon += [new_x, new_y - offset]
+      polygon += [new_x - radius, new_y]
+      polygon += [new_x, new_y + radius]
+      polygon += [new_x + radius, new_y]
+      polygon += [new_x, new_y - radius]
       @renderer.draw.polygon(*polygon)
     end
   end
