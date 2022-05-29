@@ -37,9 +37,8 @@ private
 
     height = Array.new(column_count, 0)
 
-    data_points = nil
+    prev_data_points = nil
     store.norm_data.each do |data_row|
-      prev_data_points = data_points
       data_points = []
 
       data_row.points.each_with_index do |data_point, index|
@@ -56,21 +55,25 @@ private
       end
 
       poly_points = data_points.dup
-      if prev_data_points
-        ((prev_data_points.length / 2) - 1).downto(0) do |i|
-          poly_points << prev_data_points[2 * i]
-          poly_points << prev_data_points[(2 * i) + 1]
+      unless poly_points.empty?
+        if prev_data_points
+          ((prev_data_points.length / 2) - 1).downto(0) do |i|
+            poly_points << prev_data_points[2 * i]
+            poly_points << prev_data_points[(2 * i) + 1]
+          end
+        else
+          poly_points << @graph_right
+          poly_points << (@graph_bottom - 1)
+          poly_points << @graph_left
+          poly_points << (@graph_bottom - 1)
         end
-      else
-        poly_points << @graph_right
-        poly_points << (@graph_bottom - 1)
-        poly_points << @graph_left
-        poly_points << (@graph_bottom - 1)
-      end
-      poly_points << data_points[0]
-      poly_points << data_points[1]
+        poly_points << data_points[0]
+        poly_points << data_points[1]
 
-      Gruff::Renderer::Polygon.new(renderer, color: data_row.color).render(poly_points)
+        Gruff::Renderer::Polygon.new(renderer, color: data_row.color).render(poly_points)
+
+        prev_data_points = data_points
+      end
     end
   end
 end
