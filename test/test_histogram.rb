@@ -29,6 +29,7 @@ class TestGruffHistogram < GruffTestCase
     g.title = 'Contained Empty Data'
     g.data :A, []
     g.data :B, [100, 100, 100, 100, 90, 90, 80, 30, 30, 30, 30, 30]
+    g.data :C, nil
 
     g.write('test/output/histogram_empty_data.png')
     assert_same_image('test/expected/histogram_empty_data.png', 'test/output/histogram_empty_data.png')

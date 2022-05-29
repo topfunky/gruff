@@ -290,7 +290,8 @@ class TestGruffSpider < GruffTestCase
     g.title = 'Contained Empty Data'
     g.data :A, []
     g.data :B, [5]
-    g.data :C, [3]
+    g.data :C, [8]
+    g.data :D, nil
 
     g.write('test/output/spider_empty_data.png')
     assert_same_image('test/expected/spider_empty_data.png', 'test/output/spider_empty_data.png')

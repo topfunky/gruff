@@ -837,7 +837,7 @@ class TestGruffLine < GruffTestCase
     g.title = 'Contained Empty Data'
     g.data('Apples', [3, 2, 3, 4, 4, 3])
     g.data('Oranges', [])
-    g.data('Watermelon', [2, 3, 4, 5, 6, 8])
+    g.data('Watermelon', nil)
     g.data('Peaches', [9, 9, 10, 8, 7, 9])
 
     g.write('test/output/line_empty_data.png')
