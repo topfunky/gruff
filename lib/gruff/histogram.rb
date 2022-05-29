@@ -44,11 +44,15 @@ private
 
   def setup_data
     @data.each do |(name, data_points, color)|
-      bins, freqs = HistogramArray.new(data_points).histogram(bin_width: @bin_width, min: @minimum_bin, max: @maximum_bin)
-      bins.each_with_index do |bin, index|
-        @labels[index] = bin
+      if data_points.empty?
+        store.add(name, [], color)
+      else
+        bins, freqs = HistogramArray.new(data_points).histogram(bin_width: @bin_width, min: @minimum_bin, max: @maximum_bin)
+        bins.each_with_index do |bin, index|
+          @labels[index] = bin
+        end
+        store.add(name, freqs, color)
       end
-      store.add(name, freqs, color)
     end
 
     super
