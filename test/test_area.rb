@@ -143,6 +143,17 @@ class TestGruffArea < GruffTestCase
     g.write('test/output/area_wide.png')
   end
 
+  def test_empty_data
+    g = Gruff::Area.new
+    g.title = 'Contained Empty Data'
+    g.data :Jimmy, [25, 36, 86, 39]
+    g.data :Charles, []
+    g.data :Julie, [22, 29, 35, 38]
+
+    g.write('test/output/area_empty_data.png')
+    assert_same_image('test/expected/area_empty_data.png', 'test/output/area_empty_data.png')
+  end
+
   def test_duck_typing
     skip 'This spec fails on ARM platform' if arm_platform?
 

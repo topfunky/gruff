@@ -46,13 +46,15 @@ private
         draw_label(new_x, index)
       end
 
-      # Add closing points, draw polygon
-      poly_points << @graph_right
-      poly_points << (@graph_bottom - 1)
-      poly_points << @graph_left
-      poly_points << (@graph_bottom - 1)
+      unless poly_points.empty?
+        # Add closing points, draw polygon
+        poly_points << @graph_right
+        poly_points << (@graph_bottom - 1)
+        poly_points << @graph_left
+        poly_points << (@graph_bottom - 1)
 
-      Gruff::Renderer::Polygon.new(renderer, color: data_row.color, width: @stroke_width, opacity: @fill_opacity).render(poly_points)
+        Gruff::Renderer::Polygon.new(renderer, color: data_row.color, width: @stroke_width, opacity: @fill_opacity).render(poly_points)
+      end
     end
   end
 end
