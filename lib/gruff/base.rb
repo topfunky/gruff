@@ -233,7 +233,7 @@ module Gruff
     # You can draw a multi-line title by putting a line break in the string
     # or by setting an array as argument.
     #
-    # @param labels [String, Array] the title.
+    # @param title [String, Array] the title.
     #
     # @example
     #   g = Gruff::Bar.new
