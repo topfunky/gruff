@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   s.require_paths = %w[lib]
   s.summary = 'Beautiful graphs for one or multiple datasets.'
   s.license = 'MIT'
-  s.test_files = s.files.grep(%r{^(test|spec|features)/})
   s.executables = s.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   s.specification_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
 
