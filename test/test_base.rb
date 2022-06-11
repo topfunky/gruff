@@ -199,4 +199,59 @@ class TestGruffBase < GruffTestCase
     g.data :bar, [6, 7, 8, 9, 10]
     assert_kind_of(String, g.to_blob)
   end
+
+  def test_label_rotation_1
+    g = Gruff::Line.new
+    g.data 'Apples', [1, 2, 3, 4]
+    g.data 'Oranges', [4, 8, 7, 9]
+    g.data 'Watermelon', [2, 3, 1, 5]
+    g.data 'Peaches', [9, 9, 10, 8]
+    g.labels = [
+      'a' * 10,
+      'b' * 10,
+      'c' * 10,
+      'd' * 10
+    ]
+    g.label_rotation = -30
+    g.write('test/output/base_label_rotation_1.png')
+    assert_same_image('test/expected/base_label_rotation_1.png', 'test/output/base_label_rotation_1.png')
+  end
+
+  def test_label_rotation_2
+    g = Gruff::Line.new
+    g.data 'Apples', [1, 2, 3, 4]
+    g.data 'Oranges', [4, 8, 7, 9]
+    g.data 'Watermelon', [2, 3, 1, 5]
+    g.data 'Peaches', [9, 9, 10, 8]
+    g.labels = [
+      'a' * 10,
+      'b' * 10,
+      'c' * 10,
+      'd' * 10
+    ]
+    g.label_rotation = 30
+    g.write('test/output/base_label_rotation_2.png')
+    assert_same_image('test/expected/base_label_rotation_2.png', 'test/output/base_label_rotation_2.png')
+  end
+
+  def test_label_rotation_legend_at_bottom_xy_axis_label
+    g = Gruff::Line.new
+    g.data 'Apples', [1, 2, 3, 4]
+    g.data 'Oranges', [4, 8, 7, 9]
+    g.data 'Watermelon', [2, 3, 1, 5]
+    g.data 'Peaches', [9, 9, 10, 8]
+    g.labels = [
+      'a' * 10,
+      'b' * 10,
+      'c' * 10,
+      'd' * 10
+    ]
+    g.label_rotation = -30
+    g.legend_at_bottom = true
+    g.x_axis_label = 'a' * 20
+    g.y_axis_label = 'b' * 20
+    g.write('test/output/base_label_rotation_legend_at_bottom_xy_axis_label.png')
+    assert_same_image('test/expected/base_label_rotation_legend_at_bottom_xy_axis_label.png',
+                      'test/output/base_label_rotation_legend_at_bottom_xy_axis_label.png')
+  end
 end

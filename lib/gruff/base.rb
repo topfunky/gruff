@@ -191,6 +191,7 @@ module Gruff
       @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = @legend_at_bottom = false
       @label_max_size = 0
       @label_truncation_style = :absolute
+      @label_rotation = 0
 
       @x_axis_increment = nil
       @x_axis_label = @y_axis_label = nil
@@ -223,6 +224,17 @@ module Gruff
       end
 
       @labels = labels
+    end
+
+    # Set a rotation for labels. You can use  Default is +0+.
+    # You can use a rotation between +0.0+ and +45.0+, or between +0.0+ and +-45.0+.
+    #
+    # @param rotation [Numeric] the rotation.
+    #
+    def label_rotation=(rotation)
+      raise ArgumentError, 'rotation must be between 0.0 and 45.0 or between 0.0 and -45.0' if rotation > 45.0 || rotation < -45.0
+
+      @label_rotation = rotation.to_f
     end
 
     # Height of staggering between labels.
@@ -634,7 +646,7 @@ module Gruff
         # X Axis
         # Centered vertically and horizontally by setting the
         # height to 1.0 and the width to the width of the graph.
-        x_axis_label_y_coordinate = @graph_bottom + (LABEL_MARGIN * 2) + marker_caps_height
+        x_axis_label_y_coordinate = @graph_bottom + (LABEL_MARGIN * 2) + labels_caps_height
 
         text_renderer = Gruff::Renderer::Text.new(renderer, @x_axis_label, font: @marker_font)
         text_renderer.add_to_render_queue(@raw_columns, 1.0, 0.0, x_axis_label_y_coordinate)
@@ -703,7 +715,7 @@ module Gruff
 
       current_y_offset = begin
         if @legend_at_bottom
-          @graph_bottom + @legend_margin + legend_caps_height + LABEL_MARGIN + (@x_axis_label ? (LABEL_MARGIN * 2) + marker_caps_height : 0)
+          @graph_bottom + @legend_margin + labels_caps_height + LABEL_MARGIN + (@x_axis_label ? (LABEL_MARGIN * 2) + marker_caps_height : 0)
         else
           hide_title? ? @top_margin + @title_margin : @top_margin + @title_margin + title_caps_height
         end
@@ -757,10 +769,22 @@ module Gruff
     # Draws column labels below graph, centered over x_offset
     def draw_label(x_offset, index, gravity = Magick::NorthGravity, &block)
       draw_unique_label(index) do
-        y_offset = @graph_bottom + LABEL_MARGIN
+        y_offset = @graph_bottom
 
         if x_offset >= @graph_left && x_offset <= @graph_right
-          draw_label_at(1.0, 1.0, x_offset, y_offset, @labels[index], gravity: gravity)
+          width = calculate_width(@marker_font, @labels[index], rotation: @label_rotation)
+          height = calculate_height(@marker_font, @labels[index], rotation: @label_rotation)
+          case @label_rotation
+          when 0
+            x_offset
+          when 0..45
+            x_offset += (width / 2.0)
+          when -45..0
+            x_offset -= (width / 2.0)
+          end
+          y_offset += (height / 2.0) > LABEL_MARGIN ? (height / 2.0) : LABEL_MARGIN
+
+          draw_label_at(1.0, 1.0, x_offset, y_offset, @labels[index], gravity: gravity, rotation: @label_rotation)
           yield if block
         end
       end
@@ -776,9 +800,9 @@ module Gruff
       end
     end
 
-    def draw_label_at(width, height, x, y, text, gravity: Magick::NorthGravity)
+    def draw_label_at(width, height, x, y, text, gravity: Magick::NorthGravity, rotation: 0)
       label_text = truncate_label_text(text)
-      text_renderer = Gruff::Renderer::Text.new(renderer, label_text, font: @marker_font)
+      text_renderer = Gruff::Renderer::Text.new(renderer, label_text, font: @marker_font, rotation: rotation)
       text_renderer.add_to_render_queue(width, height, x, y, gravity)
     end
 
@@ -862,6 +886,10 @@ module Gruff
       hide_bottom_label_area? ? 0 : calculate_caps_height(@marker_font)
     end
 
+    def labels_caps_height
+      hide_bottom_label_area? ? 0 : calculate_labels_height(@marker_font)
+    end
+
     def title_caps_height
       hide_title? ? 0 : calculate_caps_height(@title_font) * @title.lines.to_a.size
     end
@@ -891,7 +919,23 @@ module Gruff
       end
       y_axis_label_width = @y_axis_label.nil? ? 0.0 : marker_caps_height + (LABEL_MARGIN * 2)
 
-      @left_margin + label_width + line_number_width + y_axis_label_width
+      margin = @left_margin + label_width + line_number_width + y_axis_label_width
+
+      bottom_label_width = begin
+        width = calculate_width(@marker_font, @labels[0], rotation: @label_rotation)
+        width = begin
+          case @label_rotation
+          when 0
+            width / 2.0
+          when 0..45
+            0
+          when -45..0
+            width
+          end
+        end
+        @left_margin + width
+      end
+      margin < bottom_label_width ? bottom_label_width : margin
     end
 
     def setup_right_margin
@@ -911,7 +955,15 @@ module Gruff
       # Might be greater than the number of columns if between-style bar markers are used.
       last_label = @labels.keys.max.to_i
       if last_label >= (column_count - 1) && @center_labels_over_point
-        calculate_width(@marker_font, truncate_label_text(@labels[last_label])) / 2.0
+        width = calculate_width(@marker_font, truncate_label_text(@labels[last_label]), rotation: @label_rotation)
+        case @label_rotation
+        when 0
+          width / 2.0
+        when 0..45
+          width
+        when -45..0
+          0
+        end
       else
         0
       end
@@ -926,7 +978,7 @@ module Gruff
     end
 
     def setup_bottom_margin
-      graph_bottom_margin = hide_bottom_label_area? ? @bottom_margin : @bottom_margin + marker_caps_height + LABEL_MARGIN
+      graph_bottom_margin = hide_bottom_label_area? ? @bottom_margin : @bottom_margin + labels_caps_height + LABEL_MARGIN
       graph_bottom_margin += (calculate_legend_height + @legend_margin) if @legend_at_bottom
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 : marker_caps_height + (LABEL_MARGIN * 2)
@@ -1033,32 +1085,38 @@ module Gruff
       calculate_height(font, 'X')
     end
 
+    def calculate_labels_height(font)
+      @labels.values.map { |label| calculate_height(font, label, rotation: @label_rotation) }.max || marker_caps_height
+    end
+
     # Returns the height of a string at this point size.
     #
     # Not scaled since it deals with dimensions that the regular scaling will
     # handle.
-    def calculate_height(font, text)
+    def calculate_height(font, text, rotation: 0)
       text = text.to_s
       return 0 if text.empty?
 
-      metrics = text_metrics(font, text)
-      metrics.height
+      metrics = text_metrics(font, text, rotation: rotation)
+      # Calculate manually because it does not return the height after rotation.
+      (metrics.width * Math.sin(deg2rad(rotation))).abs + (metrics.height * Math.cos(deg2rad(rotation))).abs
     end
 
     # Returns the width of a string at this point size.
     #
     # Not scaled since it deals with dimensions that the regular
     # scaling will handle.
-    def calculate_width(font, text)
+    def calculate_width(font, text, rotation: 0)
       text = text.to_s
       return 0 if text.empty?
 
-      metrics = text_metrics(font, text)
-      metrics.width
+      metrics = text_metrics(font, text, rotation: rotation)
+      # Calculate manually because it does not return the width after rotation.
+      (metrics.width * Math.cos(deg2rad(rotation))).abs - (metrics.height * Math.sin(deg2rad(rotation))).abs
     end
 
-    def text_metrics(font, text)
-      Gruff::Renderer::Text.new(renderer, text, font: font).metrics
+    def text_metrics(font, text, rotation: 0)
+      Gruff::Renderer::Text.new(renderer, text, font: font, rotation: rotation).metrics
     end
 
     def calculate_increment
