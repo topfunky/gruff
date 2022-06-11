@@ -810,11 +810,6 @@ module Gruff
       value * @scale
     end
 
-    # Return a comparable fontsize for the current graph.
-    def scale_fontsize(value)
-      value * @scale
-    end
-
     def clip_value_if_greater_than(value, max_value)
       value > max_value ? max_value : value
     end

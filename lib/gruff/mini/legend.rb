@@ -32,7 +32,7 @@ module Gruff
           @columns += calculate_legend_width + @left_margin
         else
           font = @legend_font.dup
-          font.size = scale_fontsize(font.size)
+          font.size = scale(font.size)
           @rows += store.length * calculate_caps_height(font) * 1.7
         end
 
@@ -45,7 +45,7 @@ module Gruff
 
       def calculate_legend_width
         width = @legend_labels.map { |label| calculate_width(@legend_font, label) }.max
-        scale_fontsize(width + (40 * 1.7))
+        scale(width + (40 * 1.7))
       end
 
       ##
@@ -94,7 +94,7 @@ module Gruff
         truncated_label = label.to_s
 
         font = @legend_font.dup
-        font.size = scale_fontsize(font.size)
+        font.size = scale(font.size)
         max_width = @columns - scale(x_offset) - @right_margin
         while calculate_width(font, "#{truncated_label}...") > max_width && truncated_label.length > 1
           truncated_label = truncated_label[0..truncated_label.length - 2]
