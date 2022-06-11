@@ -55,9 +55,6 @@ module Gruff
     #   must be greater than 3).
     attr_writer :label_truncation_style
 
-    # Height of staggering between labels.
-    attr_writer :label_stagger_height
-
     # Set a label for the bottom of the graph.
     attr_writer :x_axis_label
 
@@ -192,7 +189,6 @@ module Gruff
       @no_data_message = 'No Data'
 
       @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = @legend_at_bottom = false
-      @label_stagger_height = 0
       @label_max_size = 0
       @label_truncation_style = :absolute
 
@@ -227,6 +223,12 @@ module Gruff
       end
 
       @labels = labels
+    end
+
+    # Height of staggering between labels.
+    # @deprecated
+    def label_stagger_height=(_value)
+      warn '#label_stagger_height= is deprecated. It is no longer effective.'
     end
 
     # Set the large title of the graph displayed at the top.
@@ -756,7 +758,6 @@ module Gruff
     def draw_label(x_offset, index, gravity = Magick::NorthGravity, &block)
       draw_unique_label(index) do
         y_offset = @graph_bottom + LABEL_MARGIN
-        y_offset += @label_stagger_height if index.odd?
 
         if x_offset >= @graph_left && x_offset <= @graph_right
           draw_label_at(1.0, 1.0, x_offset, y_offset, @labels[index], gravity: gravity)
@@ -929,7 +930,7 @@ module Gruff
       graph_bottom_margin += (calculate_legend_height + @legend_margin) if @legend_at_bottom
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 : marker_caps_height + (LABEL_MARGIN * 2)
-      @raw_rows - graph_bottom_margin - x_axis_label_height - @label_stagger_height
+      @raw_rows - graph_bottom_margin - x_axis_label_height
     end
 
     def truncate_label_text(text)
