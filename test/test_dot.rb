@@ -273,6 +273,21 @@ class TestGruffDot < GruffTestCase
     assert_same_image('test/expected/dot_empty_data.png', 'test/output/dot_empty_data.png')
   end
 
+  def test_marker_shadow_color
+    g = Gruff::Dot.new
+    g.title = 'Contained Empty Data'
+    g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88], '#113285'
+    g.data :Charles, [], '#86A697'
+    g.data :Julie, nil, '#E03C8A'
+    g.data :Jane, [95, 95, 95, 90, 85, 80, 88, 100], '#72636E'
+    g.data :Philip, [90, 34, 23, 12, 78, 89, 98, 88], '#86C166'
+    g.data :Arthur, [5, 10, 13, 11, 6, 16, 22, 32], '#60373E'
+    g.marker_shadow_color = '#444'
+
+    g.write('test/output/dot_marker_shadow_color.png')
+    assert_same_image('test/expected/dot_marker_shadow_color.png', 'test/output/dot_marker_shadow_color.png')
+  end
+
   def test_duck_typing
     g = Gruff::Dot.new
     g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88], '#113285'
