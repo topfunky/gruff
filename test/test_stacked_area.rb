@@ -62,6 +62,15 @@ class TestGruffStackedArea < GruffTestCase
     assert_same_image('test/expected/stacked_area_empty_data.png', 'test/output/stacked_area_empty_data.png')
   end
 
+  def test_last_series_goes_on_bottom
+    g = Gruff::StackedArea.new
+    g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88], '#113285'
+    g.last_series_goes_on_bottom = true
+
+    g.draw
+    pass
+  end
+
   def test_duck_typing
     g = Gruff::StackedArea.new
     g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88], '#113285'

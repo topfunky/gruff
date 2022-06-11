@@ -23,6 +23,16 @@ class TestCandlestick < GruffTestCase
     assert_same_image('test/expected/candlestick_show_vertical_markers.png', 'test/output/candlestick_show_vertical_markers.png')
   end
 
+  def test_sort
+    g = setup_basic_graph
+    assert_raises(RuntimeError) do
+      g.sort = true
+    end
+    assert_raises(RuntimeError) do
+      g.sorted_drawing = true
+    end
+  end
+
 private
 
   def setup_basic_graph(size = 800)

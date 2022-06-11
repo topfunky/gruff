@@ -193,4 +193,10 @@ class TestGruffBase < GruffTestCase
     g.data :bar, [6, 7, 8, 9, 10]
     assert_kind_of(Magick::Image, g.to_image)
   end
+
+  def test_to_blob
+    g = Gruff::Bar.new
+    g.data :bar, [6, 7, 8, 9, 10]
+    assert_kind_of(String, g.to_blob)
+  end
 end
