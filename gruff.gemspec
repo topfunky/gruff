@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake'
   s.add_development_dependency 'minitest-reporters'
   s.add_development_dependency 'simplecov'
-  s.add_development_dependency 'yard', '~> 0.9.25'
+  s.add_development_dependency 'yard', '~> 0.9.28'
 
   s.metadata['rubygems_mfa_required'] = 'true'
 end
