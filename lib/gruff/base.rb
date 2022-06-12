@@ -930,7 +930,7 @@ module Gruff
     end
 
     def extra_left_room_for_long_label
-      if !hide_bottom_label_area? && @center_labels_over_point
+      if require_extra_side_margin?
         width = calculate_width(@marker_font, truncate_label_text(@labels[0]), rotation: @label_rotation)
         case @label_rotation
         when 0
@@ -949,7 +949,7 @@ module Gruff
       # Make space for half the width of the rightmost column label.
       # Might be greater than the number of columns if between-style bar markers are used.
       last_label = @labels.keys.max.to_i
-      if last_label >= (column_count - 1) && !hide_bottom_label_area? && @center_labels_over_point
+      if last_label >= (column_count - 1) && require_extra_side_margin?
         width = calculate_width(@marker_font, truncate_label_text(@labels[last_label]), rotation: @label_rotation)
         case @label_rotation
         when 0
@@ -962,6 +962,10 @@ module Gruff
       else
         0
       end
+    end
+
+    def require_extra_side_margin?
+      !hide_bottom_label_area? && @center_labels_over_point
     end
 
     def setup_top_margin
