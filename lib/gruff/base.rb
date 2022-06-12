@@ -910,35 +910,19 @@ module Gruff
       end
       longest_left_label_width = calculate_width(@marker_font, truncate_label_text(text))
 
-      if !@has_left_labels && (@hide_line_markers || @hide_line_numbers)
-        label_width = extra_left_room_for_long_label
-        line_number_width = 0.0
-      else
-        label_width = 0.0
-        line_number_width = longest_left_label_width + LABEL_MARGIN
+      line_number_width = begin
+        if !@has_left_labels && (@hide_line_markers || @hide_line_numbers)
+          0.0
+        else
+          longest_left_label_width + LABEL_MARGIN
+        end
       end
       y_axis_label_width = @y_axis_label.nil? ? 0.0 : marker_caps_height + (LABEL_MARGIN * 2)
 
-      margin = @left_margin + label_width + line_number_width + y_axis_label_width
+      bottom_label_width = extra_left_room_for_long_label
 
-      if @center_labels_over_point
-        bottom_label_width = begin
-          width = calculate_width(@marker_font, truncate_label_text(@labels[0]), rotation: @label_rotation)
-          width = begin
-            case @label_rotation
-            when 0
-              width / 2.0
-            when 0..45
-              0
-            when -45..0
-              width
-            end
-          end
-          @left_margin + width
-        end
-        margin = bottom_label_width if margin < bottom_label_width
-      end
-      margin
+      margin = line_number_width + y_axis_label_width
+      @left_margin + (margin > bottom_label_width ? margin : bottom_label_width)
     end
 
     def setup_right_margin
@@ -946,8 +930,16 @@ module Gruff
     end
 
     def extra_left_room_for_long_label
-      if @center_labels_over_point
-        calculate_width(@marker_font, truncate_label_text(@labels[0].to_s)) / 2.0
+      if !hide_bottom_label_area? && @center_labels_over_point
+        width = calculate_width(@marker_font, truncate_label_text(@labels[0]), rotation: @label_rotation)
+        case @label_rotation
+        when 0
+          width / 2.0
+        when 0..45
+          0
+        when -45..0
+          width
+        end
       else
         0
       end
