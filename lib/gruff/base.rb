@@ -921,21 +921,24 @@ module Gruff
 
       margin = @left_margin + label_width + line_number_width + y_axis_label_width
 
-      bottom_label_width = begin
-        width = calculate_width(@marker_font, truncate_label_text(@labels[0]), rotation: @label_rotation)
-        width = begin
-          case @label_rotation
-          when 0
-            width / 2.0
-          when 0..45
-            0
-          when -45..0
-            width
+      if @center_labels_over_point
+        bottom_label_width = begin
+          width = calculate_width(@marker_font, truncate_label_text(@labels[0]), rotation: @label_rotation)
+          width = begin
+            case @label_rotation
+            when 0
+              width / 2.0
+            when 0..45
+              0
+            when -45..0
+              width
+            end
           end
+          @left_margin + width
         end
-        @left_margin + width
+        margin = bottom_label_width if margin < bottom_label_width
       end
-      margin < bottom_label_width ? bottom_label_width : margin
+      margin
     end
 
     def setup_right_margin
