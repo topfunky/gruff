@@ -1,5 +1,24 @@
 # Change Log
 
+## 0.17.0
+- Add Gruff::Base#label_rotation= method to rotate bottom label (#599)
+- Mark #label_stagger_height= as deprecated (#598)
+- Fixed truncation of long legends in mini graph (#597)
+- Fix error when input empty data in Gruff::Bezier (#596)
+- Fix error when input empty data in Gruff::StackedArea (#595)
+- Fix error when input empty data in Gruff::BoxPlot (#594)
+- Fix error when input empty data in Gruff::Spider (#593)
+- Fix error when input empty data in Gruff::Histogram (#592)
+- Fix error when input empty data in Gruff::Area (#591)
+- Stop adjusting the square radius in Gruff::Line (#589)
+- Add diamond dot stype in Gruff::Line (#588)
+- Allow title to be set as an array (#587)
+- Allow labels to be set as an array corresponding to the data values (#586)
+- Fixed a bug that breaks the colors in the theme when using the add_color method (#583)
+- Ensure to raise an exception if use sort feature in Candlestick
+- Fix column_count in BoxPlot/Candlestick (#581)
+- Fix left/right graph margin (#579)
+
 ## 0.16.0
 - Add Candlestick (#575)
 - Add BoxPlot (#574)
