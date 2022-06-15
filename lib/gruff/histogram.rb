@@ -40,7 +40,6 @@ private
     @minimum_bin = nil
     @maximum_bin = nil
   end
-  private :initialize_attributes
 
   def setup_data
     @data.each do |(name, data_points, color)|
