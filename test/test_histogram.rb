@@ -24,6 +24,18 @@ class TestGruffHistogram < GruffTestCase
     assert_same_image('test/expected/histogram_minmax.png', 'test/output/histogram_minmax.png')
   end
 
+  def test_bin_width_after_data_method
+    g = Gruff::Histogram.new
+    g.title = 'Histogram Graph'
+    g.minimum_bin = 10
+    g.maximum_bin = 90
+    g.data :A, [10, 10, 20, 30, 40, 40, 40, 40, 40, 40, 50, 10, 10, 10]
+    g.data :B, [100, 100, 100, 100, 90, 90, 80, 30, 30, 30, 30, 30]
+    g.bin_width = 20
+    g.write('test/output/histogram_bin_width_after_data_method.png')
+    assert_same_image('test/expected/histogram_bin_width_after_data_method.png', 'test/output/histogram_bin_width_after_data_method.png')
+  end
+
   def test_empty_data
     g = Gruff::Histogram.new
     g.title = 'Contained Empty Data'
