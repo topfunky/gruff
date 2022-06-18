@@ -831,10 +831,6 @@ module Gruff
       @theme_options = {}
     end
 
-    def scale(value)
-      value * @scale
-    end
-
     def clip_value_if_greater_than(value, max_value)
       value > max_value ? max_value : value
     end

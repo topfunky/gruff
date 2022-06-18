@@ -101,6 +101,10 @@ module Gruff
         end
         truncated_label + (truncated_label.length < label.to_s.length ? '...' : '')
       end
+
+      def scale(value)
+        value * @scale
+      end
     end
   end
 end
