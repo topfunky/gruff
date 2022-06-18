@@ -111,7 +111,7 @@ private
       minimum_value: minimum_value, maximum_value: maximum_value, spread: @spread
     )
 
-    group_spacing = @group_spacing * @scale
+    group_spacing = scale(@group_spacing)
     group_left_y = @graph_top
 
     normalized_group_bars.each_with_index do |group_bars, group_index|
@@ -176,7 +176,7 @@ private
   end
 
   def calculate_spacing
-    @scale * @group_spacing * (column_count - 1)
+    scale(@group_spacing * (column_count - 1))
   end
 
   def proc_text_metrics

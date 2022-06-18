@@ -98,7 +98,7 @@ private
   end
 
   def calculate_spacing
-    @scale * (column_count - 1)
+    scale(column_count - 1)
   end
 
   # @private
