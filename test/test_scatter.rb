@@ -38,7 +38,7 @@ class TestGruffScatter < Minitest::Test
     g.top_margin = 0
     g.hide_legend = true
     g.hide_title = true
-    g.marker_font_size = 10
+    g.marker_font_size = 9
     g.theme = {
       colors: ['#12a702', '#aedaa9'],
       marker_color: '#dddddd',
@@ -51,10 +51,11 @@ class TestGruffScatter < Minitest::Test
     g.stroke_width = 0.01
 
     # Axis labels
-    g.x_label_margin = 40
+    g.x_label_margin = 25
     g.bottom_margin = 60
     g.disable_significant_rounding_x_axis = true
     g.use_vertical_x_labels = true
+    g.label_rotation = -45
     g.enable_vertical_line_markers = true
     g.marker_x_count = 50 # One label every 2 days
     g.x_axis_label_format = lambda do |value|

@@ -33,13 +33,18 @@ class Gruff::Scatter < Gruff::Base
 
   # Allow using vertical labels in the X axis (and setting the label margin).
   attr_writer :x_label_margin
-  attr_writer :use_vertical_x_labels
 
   # Allow enabling vertical lines. When you have a lot of data, they can work great.
   # @deprecated Please use +show_vertical_markers+ attribute instead.
   def enable_vertical_line_markers=(value)
     warn '#enable_vertical_line_markers= is deprecated. Please use `show_vertical_markers` attribute instead'
     @show_vertical_markers = value
+  end
+
+  # Allow using vertical labels in the X axis.
+  # @deprecated Please use +Gruff::Base#label_rotation=+ instead.
+  def use_vertical_x_labels=(_value)
+    warn '#use_vertical_x_labels= is deprecated. It is no longer effective. Please use `#label_rotation=` instead'
   end
 
   # The first parameter is the name of the dataset.  The next two are the
@@ -180,13 +185,24 @@ private
 
       unless @hide_line_numbers
         marker_label = (BigDecimal(index.to_s) * BigDecimal(x_increment.to_s)) + BigDecimal(@minimum_x_value.to_s)
+        margin = @x_label_margin || LABEL_MARGIN
         x_offset = @graph_left + (increment_x_scaled * index)
-        y_offset = @graph_bottom + (@x_label_margin || LABEL_MARGIN)
+        y_offset = @graph_bottom
 
         label = x_axis_label(marker_label, x_increment)
-        rotation = -90.0 if @use_vertical_x_labels
-        text_renderer = Gruff::Renderer::Text.new(renderer, label, font: @marker_font, rotation: rotation)
-        text_renderer.add_to_render_queue(1.0, 1.0, x_offset, y_offset)
+        width = calculate_width(@marker_font, label, rotation: @label_rotation)
+        height = calculate_height(@marker_font, label, rotation: @label_rotation)
+        case @label_rotation
+        when 0
+          x_offset
+        when 0..45
+          x_offset += (width / 2.0)
+        when -45..0
+          x_offset -= (width / 2.0)
+        end
+        y_offset += (height / 2.0) > margin ? (height / 2.0) : margin
+
+        draw_label_at(1.0, 1.0, x_offset, y_offset, label, rotation: @label_rotation)
       end
     end
   end
