@@ -182,7 +182,7 @@ private
     (0..marker_x_count).each do |index|
       # TODO: Fix the vertical lines, and enable them by default. Not pretty when they don't match up with top y-axis line
       if @show_vertical_markers
-        draw_marker_vertical_line(@graph_left + @graph_width - (index * increment_x_scaled))
+        draw_marker_vertical_line(@graph_left + (index * increment_x_scaled))
       end
 
       unless @hide_line_numbers
