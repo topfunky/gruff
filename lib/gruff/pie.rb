@@ -38,7 +38,7 @@ class Gruff::Pie < Gruff::Base
 
   # Can be used to make the pie start cutting slices at the top (-90.0)
   # or at another angle. Default is +-90.0+, which starts at 3 o'clock.
-  # @deprecated Please use +start_degree+ attribute instead.
+  # @deprecated Please use {#start_degree=} instead.
   def zero_degree=(value)
     warn '#zero_degree= is deprecated. Please use `start_degree` attribute instead'
     @start_degree = value

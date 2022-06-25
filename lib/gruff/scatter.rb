@@ -28,14 +28,14 @@ class Gruff::Scatter < Gruff::Base
   attr_writer :show_vertical_markers
 
   # Allow enabling vertical lines. When you have a lot of data, they can work great.
-  # @deprecated Please use +show_vertical_markers+ attribute instead.
+  # @deprecated Please use {#show_vertical_markers=} instead.
   def enable_vertical_line_markers=(value)
     warn '#enable_vertical_line_markers= is deprecated. Please use `show_vertical_markers` attribute instead'
     @show_vertical_markers = value
   end
 
   # Allow using vertical labels in the X axis.
-  # @deprecated Please use +Gruff::Base#label_rotation=+ instead.
+  # @deprecated Please use {Gruff::Base#label_rotation=} instead.
   def use_vertical_x_labels=(_value)
     warn '#use_vertical_x_labels= is deprecated. It is no longer effective. Please use `#label_rotation=` instead'
   end
