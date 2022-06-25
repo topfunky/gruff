@@ -218,7 +218,7 @@ private
             # use the old method: equally spaced points along the x-axis
             @graph_left + (@x_increment * index)
           else
-            get_x_coord(x_data, @graph_width, @graph_left)
+            @graph_left + (x_data * @graph_width)
           end
         end
         draw_label_for_x_data(x_data, new_x, index)
@@ -309,10 +309,6 @@ private
         draw_label(@graph_left + (((label_pos - @minimum_x_value) * @graph_width) / (@maximum_x_value - @minimum_x_value)), label_pos)
       end
     end
-  end
-
-  def get_x_coord(x_data_point, width, offset)
-    (x_data_point * width) + offset
   end
 
   def contains_one_point_only?(data_row)

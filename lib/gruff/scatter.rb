@@ -141,11 +141,11 @@ private
       data_row.coordinates.each do |x_value, y_value|
         next if y_value.nil? || x_value.nil?
 
-        new_x = get_x_coord(x_value, @graph_width, @graph_left)
-        new_y = @graph_top + (@graph_height - (y_value * @graph_height))
+        new_x = @graph_left + (x_value * @graph_width)
+        new_y = @graph_bottom - (y_value * @graph_height)
 
         # Reset each time to avoid thin-line errors
-        stroke_width  = @stroke_width  || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4), 5.0)
+        stroke_width  = @stroke_width  || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4.0), 5.0)
         circle_radius = @circle_radius || clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 2.5), 5.0)
         Gruff::Renderer::Circle.new(renderer, color: data_row.color, width: stroke_width).render(new_x, new_y, new_x - circle_radius, new_y)
       end
@@ -180,8 +180,8 @@ private
 
       unless @hide_line_numbers
         marker_label = (BigDecimal(index.to_s) * BigDecimal(x_increment.to_s)) + BigDecimal(@minimum_x_value.to_s)
+        x_offset = @graph_left + (increment_x_scaled * index)
         y_offset = @graph_bottom + (@x_label_margin || LABEL_MARGIN)
-        x_offset = get_x_coord(index, increment_x_scaled, @graph_left)
 
         label = x_axis_label(marker_label, x_increment)
         rotation = -90.0 if @use_vertical_x_labels
@@ -189,10 +189,6 @@ private
         text_renderer.add_to_render_queue(1.0, 1.0, x_offset, y_offset)
       end
     end
-  end
-
-  def get_x_coord(x_data_point, width, offset)
-    (x_data_point * width) + offset
   end
 
   def marker_x_count
