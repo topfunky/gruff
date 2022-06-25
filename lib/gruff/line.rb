@@ -201,6 +201,7 @@ private
   def draw_graph
     # Check to see if more than one datapoint was given. NaN can result otherwise.
     @x_increment = column_count > 1 ? @graph_width / (column_count - 1) : @graph_width
+    @x_increment = @x_increment.to_f
 
     @reference_lines.each_value do |curr_reference_line|
       draw_horizontal_reference_line(curr_reference_line) if curr_reference_line.key?(:norm_value)

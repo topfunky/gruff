@@ -30,7 +30,7 @@ private
   end
 
   def draw_graph
-    x_increment = @graph_width / (column_count - 1)
+    x_increment = (@graph_width / (column_count - 1)).to_f
 
     store.norm_data.each do |data_row|
       next if data_row.points.empty?

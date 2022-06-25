@@ -157,7 +157,7 @@ private
   def calculate_spread
     super
     @x_spread = @maximum_x_value.to_f - @minimum_x_value.to_f
-    @x_spread = @x_spread > 0 ? @x_spread : 1
+    @x_spread = @x_spread > 0 ? @x_spread : 1.0
   end
 
   def normalize
@@ -171,7 +171,7 @@ private
     super
     return if @hide_line_markers
 
-    increment_x_scaled = @graph_width / (@x_spread / x_increment)
+    increment_x_scaled = (@graph_width / (@x_spread / x_increment)).to_f
 
     # Draw vertical line markers and annotate with numbers
     (0..marker_x_count).each do |index|
@@ -213,7 +213,7 @@ private
   def x_increment
     @x_increment ||= begin
       if @x_axis_increment.nil?
-        increment = @x_spread > 0 ? (@x_spread / marker_x_count) : 1
+        increment = @x_spread > 0 ? (@x_spread / marker_x_count) : 1.0
         unless @disable_significant_rounding_x_axis
           increment = significant(increment)
         end
@@ -221,7 +221,7 @@ private
         increment = @x_axis_increment
       end
 
-      increment
+      increment.to_f
     end
   end
 end

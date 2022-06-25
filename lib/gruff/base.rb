@@ -607,8 +607,8 @@ module Gruff
     end
 
     def calculate_spread
-      @spread = maximum_value - minimum_value
-      @spread = @spread > 0 ? @spread : 1
+      @spread = maximum_value.to_f - minimum_value.to_f
+      @spread = @spread > 0 ? @spread : 1.0
     end
 
     def hide_title?
@@ -663,7 +663,7 @@ module Gruff
     def draw_line_markers
       return if @hide_line_markers
 
-      increment_scaled = @graph_height / (@spread / @increment)
+      increment_scaled = (@graph_height / (@spread / @increment)).to_f
 
       # Draw horizontal line markers and annotate with numbers
       (0..marker_count).each do |index|
@@ -1108,11 +1108,11 @@ module Gruff
         # Try to use a number of horizontal lines that will come out even.
         #
         # TODO Do the same for larger numbers...100, 75, 50, 25
-        @increment = @spread > 0 && marker_count > 0 ? significant(@spread / marker_count) : 1
+        @increment = @spread > 0 && marker_count > 0 ? significant(@spread / marker_count) : 1.0
       else
         # TODO: Make this work for negative values
         self.marker_count = (@spread / @y_axis_increment).to_i
-        @increment = @y_axis_increment
+        @increment = @y_axis_increment.to_f
       end
     end
 
