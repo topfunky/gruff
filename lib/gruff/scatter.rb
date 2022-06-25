@@ -24,10 +24,6 @@ class Gruff::Scatter < Gruff::Base
   attr_writer :circle_radius
   attr_writer :stroke_width
 
-  # Allow disabling the significant rounding when labeling the X axis.
-  # This is useful when working with a small range of high values (for example, a date range of months, while seconds as units).
-  attr_writer :disable_significant_rounding_x_axis
-
   # Allow for vertical marker lines.
   attr_writer :show_vertical_markers
 
@@ -45,8 +41,16 @@ class Gruff::Scatter < Gruff::Base
   end
 
   # Allow using vertical labels in the X axis (and setting the label margin).
+  # @deprecated
   def x_label_margin=(_value)
     warn '#x_label_margin= is deprecated. It is no longer effective.'
+  end
+
+  # Allow disabling the significant rounding when labeling the X axis.
+  # This is useful when working with a small range of high values (for example, a date range of months, while seconds as units).
+  # @deprecated
+  def disable_significant_rounding_x_axis=(_value)
+    warn '#disable_significant_rounding_x_axis= is deprecated. It is no longer effective.'
   end
 
   # The first parameter is the name of the dataset.  The next two are the
@@ -213,15 +217,10 @@ private
   def x_increment
     @x_increment ||= begin
       if @x_axis_increment.nil?
-        increment = @x_spread > 0 ? (@x_spread / marker_x_count) : 1.0
-        unless @disable_significant_rounding_x_axis
-          increment = significant(increment)
-        end
+        @x_spread > 0 ? significant(@x_spread / marker_x_count) : 1.0
       else
-        increment = @x_axis_increment
+        @x_axis_increment.to_f
       end
-
-      increment.to_f
     end
   end
 end
