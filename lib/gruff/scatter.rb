@@ -88,7 +88,7 @@ class Gruff::Scatter < Gruff::Base
     raise ArgumentError, 'x_data_points.length != y_data_points.length!' if x_data_points.length != y_data_points.length
 
     # Call the existing data routine for the x/y axis data
-    store.add(name, y_data_points, color, x_data_points)
+    store.add(name, x_data_points, y_data_points, color)
   end
 
   alias dataxy data

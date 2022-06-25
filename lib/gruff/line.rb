@@ -81,6 +81,30 @@ class Gruff::Line < Gruff::Base
     @reference_lines[:baseline][:color] = new_value
   end
 
+  # Input the data in the graph.
+  #
+  # Parameters are an array where the first element is the name of the dataset
+  # and the value is an array of values to plot.
+  #
+  # Can be called multiple times with different datasets for a multi-valued
+  # graph.
+  #
+  # If the color argument is nil, the next color from the default theme will
+  # be used.
+  #
+  # @param name [String, Symbol] The name of the dataset.
+  # @param data_points [Array] The array of dataset.
+  # @param color [String] The color for drawing graph of dataset.
+  #
+  # @note
+  #   If you want to use a preset theme, you must set it before calling {#data}.
+  #
+  # @example
+  #   data("Bart S.", [95, 45, 78, 89, 88, 76], '#ffcc00')
+  def data(name, data_points = [], color = nil)
+    store.add(name, nil, data_points, color)
+  end
+
   # This method allows one to plot a dataset with both X and Y data.
   #
   # @overload dataxy(name, x_data_points = [], y_data_points = [], color = nil)
@@ -131,7 +155,7 @@ class Gruff::Line < Gruff::Base
     raise ArgumentError, 'x_data_points.length != y_data_points.length!' if x_data_points.length != y_data_points.length
 
     # call the existing data routine for the x/y data.
-    store.add(name, y_data_points, color, x_data_points)
+    store.add(name, x_data_points, y_data_points, color)
   end
 
 private

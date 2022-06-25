@@ -3,17 +3,15 @@
 module Gruff
   class Store
     # @private
-    class XYData < Struct.new(:label, :y_points, :color, :x_points)
-      def initialize(label, y_points, color, x_points = nil)
-        x_points = Array(x_points) if x_points
-        super(label.to_s, Array(y_points), color, x_points)
+    class XYData < Struct.new(:label, :x_points, :y_points, :color)
+      def initialize(label, x_points, y_points, color)
+        y_points = Array(y_points)
+        x_points = x_points ? Array(x_points) : Array.new(y_points.length)
+
+        super(label.to_s, x_points, y_points, color)
       end
 
       alias points y_points
-
-      def x_points
-        self[:x_points] || Array.new(y_points.length)
-      end
 
       def coordinates
         x_points.zip(y_points)
@@ -53,7 +51,7 @@ module Gruff
           y.nil? ? nil : (y.to_f - minimum_y.to_f) / spread_y
         end
 
-        self.class.new(label, norm_y_points, color, norm_x_points)
+        self.class.new(label, norm_x_points, norm_y_points, color)
       end
     end
   end
