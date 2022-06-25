@@ -114,7 +114,6 @@ private
     super
 
     @circle_radius = nil
-    @disable_significant_rounding_x_axis = false
     @show_vertical_markers = false
     @marker_x_count = nil
     @maximum_x_value = @minimum_x_value = nil
