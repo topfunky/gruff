@@ -39,7 +39,7 @@ build_imagemagick() {
   mkdir -p build-ImageMagick
 
   version=(${IMAGEMAGICK_VERSION//./ })
-  wget "https://imagemagick.org/download/releases/ImageMagick-${IMAGEMAGICK_VERSION}.tar.xz"
+  wget "https://imagemagick.org/archive/releases/ImageMagick-${IMAGEMAGICK_VERSION}.tar.xz"
   tar -xf "ImageMagick-${IMAGEMAGICK_VERSION}.tar.xz"
   rm "ImageMagick-${IMAGEMAGICK_VERSION}.tar.xz"
   mv "ImageMagick-${IMAGEMAGICK_VERSION}" "${build_dir}"
