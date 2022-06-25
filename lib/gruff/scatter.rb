@@ -185,24 +185,13 @@ private
 
       unless @hide_line_numbers
         marker_label = (BigDecimal(index.to_s) * BigDecimal(x_increment.to_s)) + BigDecimal(@minimum_x_value.to_s)
-        margin = @x_label_margin || LABEL_MARGIN
-        x_offset = @graph_left + (increment_x_scaled * index)
-        y_offset = @graph_bottom
-
         label = x_axis_label(marker_label, x_increment)
-        width = calculate_width(@marker_font, label, rotation: @label_rotation)
-        height = calculate_height(@marker_font, label, rotation: @label_rotation)
-        case @label_rotation
-        when 0
-          x_offset
-        when 0..45
-          x_offset += (width / 2.0)
-        when -45..0
-          x_offset -= (width / 2.0)
-        end
-        y_offset += (height / 2.0) > margin ? (height / 2.0) : margin
+        margin = @x_label_margin || LABEL_MARGIN
+        x = @graph_left + (increment_x_scaled * index)
+        y = @graph_bottom
+        x_offset, y_offset = calculate_label_offset(@marker_font, label, margin, @label_rotation)
 
-        draw_label_at(1.0, 1.0, x_offset, y_offset, label, rotation: @label_rotation)
+        draw_label_at(1.0, 1.0, x + x_offset, y + y_offset, label, rotation: @label_rotation)
       end
     end
   end

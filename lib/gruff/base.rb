@@ -766,25 +766,14 @@ module Gruff
       text_renderer.add_to_render_queue(@raw_columns, 1.0, 0, @top_margin)
     end
 
-    # Draws column labels below graph, centered over x_offset
-    def draw_label(x_offset, index, gravity = Magick::NorthGravity, &block)
+    # Draws column labels below graph, centered over x
+    def draw_label(x, index, gravity = Magick::NorthGravity, &block)
       draw_unique_label(index) do
-        y_offset = @graph_bottom
+        if x >= @graph_left && x <= @graph_right
+          y = @graph_bottom
+          x_offset, y_offset = calculate_label_offset(@marker_font, @labels[index], LABEL_MARGIN, @label_rotation)
 
-        if x_offset >= @graph_left && x_offset <= @graph_right
-          width = calculate_width(@marker_font, @labels[index], rotation: @label_rotation)
-          height = calculate_height(@marker_font, @labels[index], rotation: @label_rotation)
-          case @label_rotation
-          when 0
-            x_offset
-          when 0..45
-            x_offset += (width / 2.0)
-          when -45..0
-            x_offset -= (width / 2.0)
-          end
-          y_offset += (height / 2.0) > LABEL_MARGIN ? (height / 2.0) : LABEL_MARGIN
-
-          draw_label_at(1.0, 1.0, x_offset, y_offset, @labels[index], gravity: gravity, rotation: @label_rotation)
+          draw_label_at(1.0, 1.0, x + x_offset, y + y_offset, @labels[index], gravity: gravity, rotation: @label_rotation)
           yield if block
         end
       end
@@ -1125,6 +1114,24 @@ module Gruff
         self.marker_count = (@spread / @y_axis_increment).to_i
         @increment = @y_axis_increment
       end
+    end
+
+    def calculate_label_offset(font, label, margin, rotation)
+      width = calculate_width(font, label, rotation: rotation)
+      height = calculate_height(font, label, rotation: rotation)
+      x_offset = begin
+        case rotation
+        when 0
+          0
+        when 0..45
+          width / 2.0
+        when -45..0
+          -(width / 2.0)
+        end
+      end
+      y_offset = (height / 2.0) > margin ? (height / 2.0) : margin
+
+      [x_offset, y_offset]
     end
 
     # Used for degree <=> radian conversions
