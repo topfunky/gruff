@@ -107,15 +107,12 @@ private
   def initialize_attributes
     super
 
-    @baseline_x_color = @baseline_y_color = 'red'
-    @baseline_x_value = @baseline_y_value = nil
     @circle_radius = nil
     @disable_significant_rounding_x_axis = false
     @show_vertical_markers = false
     @marker_x_count = nil
     @maximum_x_value = @minimum_x_value = nil
     @stroke_width = nil
-    @use_vertical_x_labels = false
     @x_label_margin = nil
   end
 
