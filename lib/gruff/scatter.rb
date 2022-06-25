@@ -31,9 +31,6 @@ class Gruff::Scatter < Gruff::Base
   # Allow for vertical marker lines.
   attr_writer :show_vertical_markers
 
-  # Allow using vertical labels in the X axis (and setting the label margin).
-  attr_writer :x_label_margin
-
   # Allow enabling vertical lines. When you have a lot of data, they can work great.
   # @deprecated Please use +show_vertical_markers+ attribute instead.
   def enable_vertical_line_markers=(value)
@@ -45,6 +42,11 @@ class Gruff::Scatter < Gruff::Base
   # @deprecated Please use +Gruff::Base#label_rotation=+ instead.
   def use_vertical_x_labels=(_value)
     warn '#use_vertical_x_labels= is deprecated. It is no longer effective. Please use `#label_rotation=` instead'
+  end
+
+  # Allow using vertical labels in the X axis (and setting the label margin).
+  def x_label_margin=(_value)
+    warn '#x_label_margin= is deprecated. It is no longer effective.'
   end
 
   # The first parameter is the name of the dataset.  The next two are the
@@ -113,7 +115,6 @@ private
     @marker_x_count = nil
     @maximum_x_value = @minimum_x_value = nil
     @stroke_width = nil
-    @x_label_margin = nil
   end
 
   def setup_drawing
@@ -183,10 +184,9 @@ private
       unless @hide_line_numbers
         marker_label = (BigDecimal(index.to_s) * BigDecimal(x_increment.to_s)) + BigDecimal(@minimum_x_value.to_s)
         label = x_axis_label(marker_label, x_increment)
-        margin = @x_label_margin || LABEL_MARGIN
         x = @graph_left + (increment_x_scaled * index)
         y = @graph_bottom
-        x_offset, y_offset = calculate_label_offset(@marker_font, label, margin, @label_rotation)
+        x_offset, y_offset = calculate_label_offset(@marker_font, label, LABEL_MARGIN, @label_rotation)
 
         draw_label_at(1.0, 1.0, x + x_offset, y + y_offset, label, rotation: @label_rotation)
       end
