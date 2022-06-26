@@ -134,6 +134,10 @@ In progress!
 
 ![Candlestick](https://raw.github.com/topfunky/gruff/master/test/expected/candlestick.png)
 
+### Bubble chart
+
+![Bubble chart](https://raw.github.com/topfunky/gruff/master/test/expected/bubble.png)
+
 ## Documentation
 
 http://www.rubydoc.info/github/topfunky/gruff/frames

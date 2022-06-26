@@ -27,6 +27,7 @@ module Gruff
   autoload :Bar, Gruff.libpath('bar')
   autoload :Bezier, Gruff.libpath('bezier')
   autoload :Box, Gruff.libpath('box')
+  autoload :Bubble, Gruff.libpath('bubble')
   autoload :Bullet, Gruff.libpath('bullet')
   autoload :Candlestick, Gruff.libpath('candlestick')
   autoload :Dot, Gruff.libpath('dot')
@@ -60,6 +61,7 @@ module Gruff
   class Store
     autoload :BasicData, Gruff.libpath('store/basic_data')
     autoload :XYData, Gruff.libpath('store/xy_data')
+    autoload :XYPointsizeData, Gruff.libpath('store/xy_pointsizes_data')
   end
 
   module Mini
