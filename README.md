@@ -126,9 +126,9 @@ In progress!
 
 ![Histogram chart](https://raw.github.com/topfunky/gruff/master/test/expected/histogram.png)
 
-### Box plot
+### Box chart
 
-![Box plot](https://raw.github.com/topfunky/gruff/master/test/expected/box_plot.png)
+![Box chart](https://raw.github.com/topfunky/gruff/master/test/expected/box.png)
 
 ### Candlestick
 

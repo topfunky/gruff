@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 #
-# Here's how to set up a Gruff::BoxPlot.
+# Here's how to set up a Gruff::Box.
 #
-#   g = Gruff::BoxPlot.new
+#   g = Gruff::Box.new
 #   g.data "A", [2, 3, 5, 6, 8, 10, 11, 15, 17, 20, 28, 29, 33, 34, 45, 46, 49, 61]
 #   g.data "B", [3, 4, 34, 35, 38, 39, 45, 60, 61, 69, 80, 130]
 #   g.data "C", [4, 40, 41, 46, 57, 64, 77, 76, 79, 78, 99, 153]
 #   g.write("box_plot.png")
 #
-class Gruff::BoxPlot < Gruff::Base
+class Gruff::Box < Gruff::Base
   # Specifies the filling opacity in area graph. Default is +0.2+.
   attr_writer :fill_opacity
 
@@ -90,7 +90,7 @@ private
   end
 
   def normalized_boxes
-    @normalized_boxes ||= store.norm_data.map { |data| Gruff::BoxPlot::BoxData.new(data.label, data.points, data.color) }
+    @normalized_boxes ||= store.norm_data.map { |data| Gruff::Box::BoxData.new(data.label, data.points, data.color) }
   end
 
   def column_count
