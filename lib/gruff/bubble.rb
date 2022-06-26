@@ -16,7 +16,8 @@ class Gruff::Bubble < Gruff::Scatter
 
   # The first parameter is the name of the dataset.  The next two are the
   # x and y axis data points contain in their own array in that respective
-  # order.  The final parameter is the color.
+  # order. The 4th argument represents sizes of points.
+  # The final parameter is the color.
   #
   # Can be called multiple times with different datasets for a multi-valued
   # graph.
