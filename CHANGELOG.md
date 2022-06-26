@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.18.0
+- Add Gruff::Bubble (#604)
+- Rename Gruff::BoxPlot to Gruff::Box (#603)
+- Mark Gruff::Scatter#disable_significant_rounding_x_axis= as deprecated (#602)
+- Mark Gruff::Scatter#x_label_margin= as deprecated (#601)
+- Mark Gruff::Scatter#use_vertical_x_labels= as deprecated (#600)
+
 ## 0.17.0
 - Add Gruff::Base#label_rotation= method to rotate bottom label (#599)
 - Mark #label_stagger_height= as deprecated (#598)
