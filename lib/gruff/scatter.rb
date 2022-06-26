@@ -66,10 +66,9 @@ class Gruff::Scatter < Gruff::Base
   # @note If you want to use a preset theme, you must set it before calling {#data}.
   #
   # @param name [String, Symbol] containing the name of the dataset.
-  # @param x_data_points [Array] An Array of of x-axis data points.
-  # @param y_data_points [Array] An Array of of y-axis data points.
+  # @param x_data_points [Array] An Array of x-axis data points.
+  # @param y_data_points [Array] An Array of y-axis data points.
   # @param color [String] The hex string for the color of the dataset. Defaults to nil.
-  #
   #
   # @raise [ArgumentError] Data points contain nil values.
   #   This error will get raised if either the x or y axis data points array
