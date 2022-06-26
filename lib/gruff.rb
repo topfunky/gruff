@@ -26,7 +26,7 @@ module Gruff
   autoload :Area, Gruff.libpath('area')
   autoload :Bar, Gruff.libpath('bar')
   autoload :Bezier, Gruff.libpath('bezier')
-  autoload :BoxPlot, Gruff.libpath('box_plot')
+  autoload :Box, Gruff.libpath('box')
   autoload :Bullet, Gruff.libpath('bullet')
   autoload :Candlestick, Gruff.libpath('candlestick')
   autoload :Dot, Gruff.libpath('dot')
