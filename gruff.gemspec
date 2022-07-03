@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   else
     s.add_dependency 'rmagick', '>= 4.2'
     s.add_development_dependency 'rubocop', '~> 1.28.2'
-    s.add_development_dependency 'rubocop-performance', '~> 1.14.2'
+    s.add_development_dependency 'rubocop-performance', '~> 1.13.3'
     s.add_development_dependency 'rubocop-rake', '~> 0.6.0'
   end
   s.add_dependency 'histogram'
