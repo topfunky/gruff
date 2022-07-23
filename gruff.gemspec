@@ -17,7 +17,6 @@ Gem::Specification.new do |s|
   s.summary = 'Beautiful graphs for one or multiple datasets.'
   s.license = 'MIT'
   s.executables = s.files.grep(%r{^bin/}).map { |f| File.basename(f) }
-  s.specification_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
 
   if defined? JRUBY_VERSION
     s.platform = 'java'
