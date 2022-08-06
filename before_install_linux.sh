@@ -20,7 +20,7 @@ sudo apt-get update
 sudo apt-get autoremove -y imagemagick* libmagick* --purge
 
 # install build tools, ImageMagick delegates
-sudo apt-get install -y build-essential libx11-dev libxext-dev zlib1g-dev \
+sudo apt-get install -y build-essential libfontconfig1-dev libx11-dev libxext-dev zlib1g-dev \
   liblcms2-dev libpng-dev libjpeg-dev libfreetype6-dev libxml2-dev \
   libtiff5-dev libwebp-dev liblqr-1-0-dev gsfonts ghostscript wget
 
