@@ -237,8 +237,6 @@ class TestGruffLine < GruffTestCase
   end
 
   def test_dot_style_diamond
-    skip 'This spec fails on ARM platform' if arm_platform?
-
     g = Gruff::Line.new
     g.title = 'Diamond points'
     g.labels = {
