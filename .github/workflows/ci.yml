@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   lint:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 20
     name: Lint
     steps:
@@ -31,13 +31,13 @@ jobs:
       run: bundle exec rubocop
 
   test-ruby:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 20
     strategy:
       matrix:
         ruby-version: ['2.5', '2.6', '2.7', '3.0', '3.1']
         imagemagick-version:
-          - { full: 7.1.0-39, major-minor: '7.0' }
+          - { full: 7.1.0-45, major-minor: '7.0' }
     name: Ruby ${{ matrix.ruby-version }}
     steps:
     - uses: actions/checkout@v3
@@ -63,7 +63,7 @@ jobs:
       run: bundle exec rake
 
   test-jruby:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 20
     strategy:
       matrix:
