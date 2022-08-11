@@ -12,10 +12,10 @@ module Gruff
 
     def render(origin_x, origin_y, perim_x, perim_y)
       @renderer.draw.push
-      @renderer.draw.fill(@color)
-      @renderer.draw.fill_opacity(@opacity)
-      @renderer.draw.stroke(@color)
       @renderer.draw.stroke_width(@width)
+      @renderer.draw.stroke(@color)
+      @renderer.draw.fill_opacity(@opacity)
+      @renderer.draw.fill(@color)
       @renderer.draw.circle(origin_x, origin_y, perim_x, perim_y)
       @renderer.draw.pop
     end

@@ -15,8 +15,8 @@ module Gruff
       @renderer.draw.push
       @renderer.draw.stroke_width(@width)
       @renderer.draw.stroke(@color)
-      @renderer.draw.fill(@color)
       @renderer.draw.fill_opacity(@opacity)
+      @renderer.draw.fill(@color)
       case @style.to_sym
       when :square
         square(new_x, new_y, radius)

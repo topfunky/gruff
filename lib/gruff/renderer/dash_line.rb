@@ -13,9 +13,9 @@ module Gruff
     def render(start_x, start_y, end_x, end_y)
       @renderer.draw.push
       @renderer.draw.stroke_color(@color)
-      @renderer.draw.fill_opacity(0.0)
       @renderer.draw.stroke_dasharray(*@dasharray)
       @renderer.draw.stroke_width(@width)
+      @renderer.draw.fill_opacity(0.0)
       @renderer.draw.line(start_x, start_y, end_x, end_y)
       @renderer.draw.pop
     end

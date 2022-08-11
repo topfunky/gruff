@@ -11,8 +11,8 @@ module Gruff
 
     def render(points)
       @renderer.draw.push
-      @renderer.draw.stroke(@color)
       @renderer.draw.stroke_width(@width)
+      @renderer.draw.stroke(@color)
       @renderer.draw.fill_opacity(0.0)
       @renderer.draw.bezier(*points)
       @renderer.draw.pop

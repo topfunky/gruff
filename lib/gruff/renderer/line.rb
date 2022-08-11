@@ -30,9 +30,9 @@ module Gruff
       end
 
       @renderer.draw.push
+      @renderer.draw.stroke_width(@width) if @width
       @renderer.draw.stroke(color)
       @renderer.draw.fill(color)
-      @renderer.draw.stroke_width(@width) if @width
       @renderer.draw.line(start_x, start_y, end_x, end_y)
       @renderer.draw.pop
     end

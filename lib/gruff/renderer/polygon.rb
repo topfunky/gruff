@@ -14,8 +14,8 @@ module Gruff
       @renderer.draw.push
       @renderer.draw.stroke_width(@width)
       @renderer.draw.stroke(@color)
-      @renderer.draw.fill(@color)
       @renderer.draw.fill_opacity(@opacity)
+      @renderer.draw.fill(@color)
       @renderer.draw.polygon(*points)
       @renderer.draw.pop
     end
