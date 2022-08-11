@@ -3,7 +3,7 @@
 module Gruff
   # @private
   class Renderer::Polyline
-    def initialize(renderer, color:, width: 1.0, linejoin: 'round')
+    def initialize(renderer, color:, width: 1.0, linejoin: 'bevel')
       @renderer = renderer
       @color = color
       @width = width

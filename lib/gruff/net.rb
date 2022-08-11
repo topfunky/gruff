@@ -89,9 +89,7 @@ private
         end
       end
 
-      unless poly_points.empty?
-        Gruff::Renderer::Polyline.new(renderer, color: data_row.color, width: @stroke_width, linejoin: 'bevel').render(poly_points)
-      end
+      Gruff::Renderer::Polyline.new(renderer, color: data_row.color, width: @stroke_width).render(poly_points) unless poly_points.empty?
     end
   end
 
