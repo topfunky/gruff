@@ -163,14 +163,14 @@ class TestGruffBase < GruffTestCase
     g.maximum_value = 3
     g.data :bar, [6, 7, 8, 9, 10]
     g.data :foo, [1, 2, 3, 4, 5]
-    assert_equal(1, g.minimum_value)
+    assert_equal(0, g.minimum_value)
     assert_equal(3, g.maximum_value)
 
     g = Gruff::Bar.new
     g.data :bar, [6, 7, 8, 9, 10]
     g.data :foo, [1, 2, 3, 4, 5]
     g.maximum_value = 3
-    assert_equal(1, g.minimum_value)
+    assert_equal(0, g.minimum_value)
     assert_equal(3, g.maximum_value)
   end
 

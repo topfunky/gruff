@@ -469,7 +469,8 @@ module Gruff
     #
     # Set it after you have given all your data to the graph object.
     def minimum_value
-      (@minimum_value || store.min).to_f
+      min = [0.0, store.min.to_f].min
+      (@minimum_value || min).to_f
     end
     attr_writer :minimum_value
 
