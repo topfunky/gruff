@@ -60,6 +60,8 @@ private
 
   def draw_graph
     store.norm_data.each do |data_row|
+      poly_points = []
+
       data_row.points.each_with_index do |data_point, index|
         next if data_point.nil?
 
@@ -67,6 +69,10 @@ private
         point_distance = data_point * @radius
         start_x = @center_x + (Math.sin(rad_pos) * point_distance)
         start_y = @center_y - (Math.cos(rad_pos) * point_distance)
+        if poly_points.empty?
+          poly_points << start_x
+          poly_points << start_y
+        end
 
         next_index = index + 1 < data_row.points.length ? index + 1 : 0
 
@@ -74,13 +80,17 @@ private
         next_point_distance = data_row.points[next_index] * @radius
         end_x = @center_x + (Math.sin(next_rad_pos) * next_point_distance)
         end_y = @center_y - (Math.cos(next_rad_pos) * next_point_distance)
-
-        Gruff::Renderer::Line.new(renderer, color: data_row.color, width: @stroke_width).render(start_x, start_y, end_x, end_y)
+        poly_points << end_x
+        poly_points << end_y
 
         unless @hide_dots
           circle_renderer = Gruff::Renderer::Circle.new(renderer, color: data_row.color, width: @stroke_width)
           circle_renderer.render(start_x, start_y, start_x - @circle_radius, start_y)
         end
+      end
+
+      unless poly_points.empty?
+        Gruff::Renderer::Polyline.new(renderer, color: data_row.color, width: @stroke_width, linejoin: 'bevel').render(poly_points)
       end
     end
   end
