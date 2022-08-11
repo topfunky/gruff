@@ -1,6 +1,6 @@
 # Gruff Graphs
 
-[![Build Status](https://travis-ci.org/topfunky/gruff.svg?branch=master)](https://travis-ci.org/topfunky/gruff)
+[![CI](https://github.com/topfunky/gruff/actions/workflows/ci.yml/badge.svg)](https://github.com/topfunky/gruff/actions/workflows/ci.yml)
 [![Gem Version](https://badge.fury.io/rb/gruff.svg)](https://badge.fury.io/rb/gruff)
 
 A library for making beautiful graphs.
