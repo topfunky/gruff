@@ -29,7 +29,7 @@ private
 
     items_width = @graph_height / column_count
     item_width = items_width * spacing_factor / store.length
-    padding = (items_width * (1 - spacing_factor)) / 2
+    padding = (items_width * (1 - spacing_factor)) / 2.0
 
     store.norm_data.each_with_index do |data_row, row_index|
       data_row.points.each_with_index do |data_point, point_index|

@@ -78,7 +78,7 @@ private
     #
     # Columns sit stacked.
     bar_width = @graph_width / column_count
-    padding = (bar_width * (1 - @bar_spacing)) / 2
+    padding = (bar_width * (1 - @bar_spacing)) / 2.0
 
     # Setup the BarConversion Object
     conversion = Gruff::BarConversion.new(
