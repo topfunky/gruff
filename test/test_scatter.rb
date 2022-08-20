@@ -11,7 +11,6 @@ class TestGruffScatter < Minitest::Test
     ]
   end
 
-  # Done
   def test_scatter_graph
     g = setup_basic_graph
     g.title = 'Basic Scatter Plot Test'
@@ -19,7 +18,6 @@ class TestGruffScatter < Minitest::Test
     assert_same_image('test/expected/scatter_basic.png', 'test/output/scatter_basic.png')
   end
 
-  # Done
   def test_many_datapoints
     srand 135
     g = Gruff::Scatter.new
@@ -77,7 +75,6 @@ class TestGruffScatter < Minitest::Test
     assert_same_image('test/expected/scatter_custom_label_format.png', 'test/output/scatter_custom_label_format.png')
   end
 
-  # Done
   def test_no_data
     g = Gruff::Scatter.new(400)
     g.title = 'No Data'
@@ -92,7 +89,6 @@ class TestGruffScatter < Minitest::Test
     assert_same_image('test/expected/scatter_no_data_msg.png', 'test/output/scatter_no_data_msg.png')
   end
 
-  # Done
   def test_all_zeros
     g = Gruff::Scatter.new(400)
     g.title = 'All Zeros'
@@ -104,7 +100,6 @@ class TestGruffScatter < Minitest::Test
     assert_same_image('test/expected/scatter_no_data_other.png', 'test/output/scatter_no_data_other.png')
   end
 
-  # Done
   def test_some_nil_points
     g = Gruff::Scatter.new
     g.title = 'Some Nil Points'
@@ -120,7 +115,6 @@ class TestGruffScatter < Minitest::Test
     end
   end
 
-  # Done
   def test_unequal_number_of_x_and_y_values
     g = Gruff::Scatter.new
     g.title = 'Unequal number of X and Y values'
@@ -137,7 +131,6 @@ class TestGruffScatter < Minitest::Test
     end
   end
 
-  # Done
   def test_empty_set_of_axis_values
     g = Gruff::Scatter.new
     g.title = 'Missing Axis Values'
@@ -153,7 +146,6 @@ class TestGruffScatter < Minitest::Test
     end
   end
 
-  # Done
   def test_no_title
     g = Gruff::Scatter.new(400)
     g.data(:data1, [1, 2, 3, 4, 5], [1, 2, 3, 4, 5])
@@ -161,7 +153,6 @@ class TestGruffScatter < Minitest::Test
     assert_same_image('test/expected/scatter_no_title.png', 'test/output/scatter_no_title.png')
   end
 
-  # Done
   def test_no_line_markers
     g = setup_basic_graph(400)
     g.title = 'No Line Markers'
@@ -170,7 +161,6 @@ class TestGruffScatter < Minitest::Test
     assert_same_image('test/expected/scatter_no_line_markers.png', 'test/output/scatter_no_line_markers.png')
   end
 
-  # Done
   def test_no_legend
     g = setup_basic_graph(400)
     g.title = 'No Legend'
@@ -179,7 +169,6 @@ class TestGruffScatter < Minitest::Test
     assert_same_image('test/expected/scatter_no_legend.png', 'test/output/scatter_no_legend.png')
   end
 
-  # Done
   def test_nothing_but_the_graph
     g = setup_basic_graph(400)
     g.title = 'THIS TITLE SHOULD NOT DISPLAY!!!'
@@ -190,15 +179,6 @@ class TestGruffScatter < Minitest::Test
     assert_same_image('test/expected/scatter_nothing_but_the_graph.png', 'test/output/scatter_nothing_but_the_graph.png')
   end
 
-  # TODO: Implement baselines on x and y axis
-  # def test_baseline_larger_than_data
-  #   g = setup_basic_graph(400)
-  #   g.title = "Baseline Larger Than Data"
-  #   g.baseline_value = 150
-  #   g.write("test/output/scatter_large_baseline.png")
-  # end
-
-  # Done
   def test_wide_graph
     g = setup_basic_graph('800x400')
     g.title = 'Wide Graph'
@@ -211,7 +191,6 @@ class TestGruffScatter < Minitest::Test
     assert_same_image('test/expected/scatter_wide_graph_small.png', 'test/output/scatter_wide_graph_small.png')
   end
 
-  # Done
   def test_negative
     g = setup_pos_neg(800)
     g.write('test/output/scatter_pos_neg.png')
@@ -223,7 +202,6 @@ class TestGruffScatter < Minitest::Test
     assert_same_image('test/expected/scatter_pos_neg_400.png', 'test/output/scatter_pos_neg_400.png')
   end
 
-  # Done
   def test_all_negative
     g = setup_all_neg(800)
     g.write('test/output/scatter_all_neg.png')
@@ -235,7 +213,6 @@ class TestGruffScatter < Minitest::Test
     assert_same_image('test/expected/scatter_all_neg_400.png', 'test/output/scatter_all_neg_400.png')
   end
 
-  # Done
   def test_no_hide_line_no_labels
     g = Gruff::Scatter.new
     g.title = 'No Hide Line No Labels'

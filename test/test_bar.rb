@@ -272,7 +272,7 @@ class TestGruffBar < GruffTestCase
   def test_custom_spacing
     g = Gruff::Bar.new
     g.spacing_factor = 0
-    g.title = 'Zero spacing graff'
+    g.title = 'Zero spacing graph'
     g.labels = {
       0 => '5/6',
       1 => '5/15',

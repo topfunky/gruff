@@ -4,7 +4,6 @@ require_relative 'gruff_test_case'
 
 class TestMiniSideBar < GruffTestCase
   def test_one_color
-    # Use a single data set
     @datasets = [
       [:Jimmy, [25, 36, 86, 39]]
     ]

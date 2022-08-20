@@ -78,17 +78,6 @@ class TestGruffLine < GruffTestCase
     assert_same_image('test/expected/line_hang_value.png', 'test/output/line_hang_value.png')
   end
 
-  # TODO
-  # def test_fix_crash
-  #   g = Gruff::Line.new(370)
-  #   g.title = "Crash Test"
-  #   g.data "ichi", [5]
-  #   g.data "ni", [0]
-  #   g.data "san", [0]
-  #   g.data "shi", [0]
-  #   g.write("test/output/line_crash_fix_test.png")
-  # end
-
   def test_line_small_values
     @datasets = [
       [:small, [0.1, 0.14356, 0.0, 0.5674839, 0.456]],
@@ -157,15 +146,6 @@ class TestGruffLine < GruffTestCase
     assert_same_image('test/expected/line_large.png', 'test/output/line_large.png')
   end
 
-  # def test_long_title
-  #
-  # end
-  #
-  # def test_add_colors
-  #
-  # end
-  #
-
   def test_request_too_many_colors
     g = Gruff::Line.new
     g.title = 'More Sets Than in Color Array'
@@ -193,11 +173,6 @@ class TestGruffLine < GruffTestCase
     g.write('test/output/line_more_sets_than_colors.png')
     assert_same_image('test/expected/line_more_sets_than_colors.png', 'test/output/line_more_sets_than_colors.png')
   end
-
-  #
-  # def test_add_data
-  #
-  # end
 
   def test_many_datapoints
     g = Gruff::Line.new
