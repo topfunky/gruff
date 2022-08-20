@@ -20,7 +20,7 @@ class TestGruffAccumulatorBar < GruffTestCase
     g.marker_font_size = 18
 
     g.theme = {
-      colors: ['#aedaa9', '#12a702'],
+      colors: %w[#aedaa9 #12a702],
       marker_color: '#dddddd',
       font_color: 'black',
       background_colors: 'white'

@@ -40,7 +40,7 @@ class TestGruffScatter < Minitest::Test
     g.hide_title = true
     g.marker_font_size = 9
     g.theme = {
-      colors: ['#12a702', '#aedaa9'],
+      colors: %w[#12a702 #aedaa9],
       marker_color: '#dddddd',
       font_color: 'black',
       background_colors: 'white'
