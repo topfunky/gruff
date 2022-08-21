@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.19.0
+- Draw the graph starting from zero point by default (#609)
+- Improve joints in Gruff::Net using polyline method (#608)
+- Improve joints in Gruff::Line using polyline method (#607)
+- Adjust default font size in Gruff::Mini::{Bar, Pie}
+
 ## 0.18.0
 - Add Gruff::Bubble (#604)
 - Rename Gruff::BoxPlot to Gruff::Box (#603)
