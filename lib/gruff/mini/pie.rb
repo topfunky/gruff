@@ -11,34 +11,29 @@
 #   g.data 'Hamburgers', 50
 #   g.write("mini_pie_keynote.png")
 #
-module Gruff
-  module Mini
-    # A class for drawing a small pie graph.
-    class Pie < Gruff::Pie
-    private
+class Gruff::Mini::Pie < Gruff::Pie
+private
 
-      include Gruff::Mini::Legend
+  include Gruff::Mini::Legend
 
-      def initialize_attributes
-        super
+  def initialize_attributes
+    super
 
-        @hide_legend = true
-        @hide_title = true
-        @hide_line_numbers = true
+    @hide_legend = true
+    @hide_title = true
+    @hide_line_numbers = true
 
-        @marker_font.size = 50.0
-        @legend_font.size = 50.0
-      end
+    @marker_font.size = 50.0
+    @legend_font.size = 50.0
+  end
 
-      def setup_data
-        expand_canvas_for_vertical_legend
-        super
-      end
+  def setup_data
+    expand_canvas_for_vertical_legend
+    super
+  end
 
-      def draw_graph
-        super
-        draw_vertical_legend
-      end
-    end
+  def draw_graph
+    super
+    draw_vertical_legend
   end
 end
