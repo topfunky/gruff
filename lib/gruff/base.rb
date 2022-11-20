@@ -218,7 +218,7 @@ module Gruff
     #   g.labels = ['2005', nil, nil, '2006', nil, nil, '2007', nil, nil, '2008'] # same labels for columns
     def labels=(labels)
       if labels.is_a?(Array)
-        labels = labels.each_with_index.each_with_object({}) do |(label, index), hash|
+        labels = labels.each_with_index.with_object({}) do |(label, index), hash|
           hash[index] = label
         end
       end
