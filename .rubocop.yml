@@ -21,6 +21,9 @@ Gemspec/RequiredRubyVersion:
 Layout/AccessModifierIndentation:
   EnforcedStyle: outdent
 
+Layout/ClassStructure:
+  Enabled: false
+
 Layout/FirstMethodArgumentLineBreak:
   Enabled: false
 
