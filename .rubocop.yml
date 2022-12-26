@@ -1,5 +1,3 @@
-inherit_from: .rubocop_todo.yml
-
 require:
   - rubocop-performance
   - rubocop-rake
@@ -12,6 +10,9 @@ AllCops:
         - 'rails_generators/gruff/**/*'
 
 Metrics:
+  Enabled: false
+
+Gemspec/DependencyVersion:
   Enabled: false
 
 Gemspec/OrderedDependencies:
