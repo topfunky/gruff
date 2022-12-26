@@ -116,6 +116,9 @@ Style/OptionHash:
 Style/RedundantBegin:
   Enabled: false
 
+Style/RequireOrder:
+  Enabled: false
+
 Style/SingleLineBlockParams:
   Enabled: false
 
