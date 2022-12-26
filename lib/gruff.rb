@@ -45,6 +45,7 @@ module Gruff
   autoload :Layer, Gruff.libpath('scene')
   autoload :Themes, Gruff.libpath('themes')
 
+  # @private
   class Renderer
     autoload :Bezier, Gruff.libpath('renderer/bezier')
     autoload :Circle, Gruff.libpath('renderer/circle')
@@ -58,12 +59,14 @@ module Gruff
     autoload :Text, Gruff.libpath('renderer/text')
   end
 
+  # @private
   class Store
     autoload :BasicData, Gruff.libpath('store/basic_data')
     autoload :XYData, Gruff.libpath('store/xy_data')
     autoload :XYPointsizeData, Gruff.libpath('store/xy_pointsizes_data')
   end
 
+  # A module for small graphs
   module Mini
     autoload :Bar, Gruff.libpath('mini/bar')
     autoload :Legend, Gruff.libpath('mini/legend')

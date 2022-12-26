@@ -13,11 +13,3 @@
 Gemspec/DependencyVersion:
   Exclude:
     - 'gruff.gemspec'
-
-# Offense count: 3
-# Configuration parameters: AllowedConstants.
-Style/Documentation:
-  Exclude:
-    - 'spec/**/*'
-    - 'test/**/*'
-    - 'lib/gruff.rb'
