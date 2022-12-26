@@ -14,12 +14,6 @@ Gemspec/DependencyVersion:
   Exclude:
     - 'gruff.gemspec'
 
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Style/ConcatArrayLiterals:
-  Exclude:
-    - 'Rakefile'
-
 # Offense count: 3
 # Configuration parameters: AllowedConstants.
 Style/Documentation:
