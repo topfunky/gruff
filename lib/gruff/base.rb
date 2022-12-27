@@ -522,9 +522,8 @@ module Gruff
     # @deprecated Please use +to_image.to_blob+ instead.
     def to_blob(image_format = 'PNG')
       warn '#to_blob is deprecated. Please use `to_image.to_blob` instead'
-      to_image.to_blob do |image|
-        image.format = image_format
-      end
+      to_image.format = image_format
+      to_image.to_blob
     end
 
     # Draw a graph.
