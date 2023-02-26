@@ -33,9 +33,3 @@ Style/YodaExpression:
     - 'lib/gruff/box.rb'
     - 'lib/gruff/stacked_area.rb'
     - 'test/test_scatter.rb'
-
-# Offense count: 3
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Style/ZeroLengthPredicate:
-  Exclude:
-    - 'lib/gruff/box.rb'

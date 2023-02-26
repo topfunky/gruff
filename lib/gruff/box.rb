@@ -134,7 +134,7 @@ private
     end
 
     def median
-      if points.size.zero?
+      if points.empty?
         0
       elsif points.size.odd?
         points[points.size / 2]
@@ -144,7 +144,7 @@ private
     end
 
     def first_quartile
-      if points.size.zero?
+      if points.empty?
         0
       elsif points.size.odd?
         points[points.size / 4]
@@ -154,7 +154,7 @@ private
     end
 
     def third_quartile
-      if points.size.zero?
+      if points.empty?
         0
       elsif points.size.odd?
         points[(points.size * 3) / 4]
