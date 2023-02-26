@@ -23,14 +23,6 @@ Style/InvertibleUnlessCondition:
     - 'lib/gruff/box.rb'
     - 'lib/gruff/candlestick.rb'
 
-# Offense count: 7
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Style/MinMaxComparison:
-  Exclude:
-    - 'lib/gruff/base.rb'
-    - 'lib/gruff/candlestick.rb'
-    - 'lib/gruff/patch/rmagick.rb'
-
 # Offense count: 6
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: .

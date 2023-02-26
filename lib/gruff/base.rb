@@ -821,7 +821,7 @@ module Gruff
     end
 
     def clip_value_if_greater_than(value, max_value)
-      value > max_value ? max_value : value
+      [value, max_value].min
     end
 
     def significant(i)
@@ -907,7 +907,7 @@ module Gruff
       bottom_label_width = extra_left_room_for_long_label
 
       margin = line_number_width + y_axis_label_width
-      @left_margin + (margin > bottom_label_width ? margin : bottom_label_width)
+      @left_margin + [margin, bottom_label_width].max
     end
 
     def setup_right_margin
@@ -1129,7 +1129,7 @@ module Gruff
           -(width / 2.0)
         end
       end
-      y_offset = (height / 2.0) > margin ? (height / 2.0) : margin
+      y_offset = [(height / 2.0), margin].max
 
       [x_offset, y_offset]
     end

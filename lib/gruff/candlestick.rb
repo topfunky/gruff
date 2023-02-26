@@ -90,10 +90,10 @@ private
       Gruff::Renderer::Rectangle.new(renderer, color: color, opacity: @fill_opacity, width: @stroke_width).render(left_x, open_y, right_x, close_y)
 
       low_y, = conversion.get_top_bottom_scaled(candlestick.low)
-      y = open_y < close_y ? close_y : open_y
+      y = [open_y, close_y].max
       Gruff::Renderer::Line.new(renderer, color: color, width: @stroke_width).render(center_x, low_y, center_x, y)
       high_y, = conversion.get_top_bottom_scaled(candlestick.high)
-      y = open_y > close_y ? close_y : open_y
+      y = [open_y, close_y].min
       Gruff::Renderer::Line.new(renderer, color: color, width: @stroke_width).render(center_x, y, center_x, high_y)
     end
   end

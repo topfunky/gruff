@@ -7,8 +7,8 @@ module Magick
     refine Draw do
       # Additional method to scale annotation text since Draw.scale doesn't.
       def annotate_scaled(img, width, height, x, y, text, scale)
-        scaled_width = (width * scale) >= 1 ? (width * scale) : 1
-        scaled_height = (height * scale) >= 1 ? (height * scale) : 1
+        scaled_width = [(width * scale), 1].max
+        scaled_height = [(height * scale), 1].max
 
         annotate(img,
                  scaled_width, scaled_height,
