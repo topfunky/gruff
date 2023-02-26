@@ -17,6 +17,9 @@ Metrics:
 Gemspec/DependencyVersion:
   Enabled: false
 
+Gemspec/DevelopmentDependencies:
+  Enabled: false
+
 Gemspec/OrderedDependencies:
   Enabled: false
 
