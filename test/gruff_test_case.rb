@@ -91,10 +91,6 @@ class GruffTestCase < Minitest::Test
     @labels = { 0 => 'This Month' }
   end
 
-  def test_dummy
-    assert true
-  end
-
   def fixtures_dir
     File.join(File.dirname(__FILE__), 'fixtures')
   end
