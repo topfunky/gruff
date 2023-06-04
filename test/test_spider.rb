@@ -294,10 +294,11 @@ class TestGruffSpider < GruffTestCase
   end
 
   def test_less_many_args
+    g = Gruff::Spider.new(20)
+    g.data 'First', [1, 1, 1]
+    g.data 'Two', [1, 1, 1]
+
     assert_raises(Gruff::IncorrectNumberOfDatasetsException) do
-      g = Gruff::Spider.new(20)
-      g.data 'First', [1, 1, 1]
-      g.data 'Two', [1, 1, 1]
       g.write('test/output/_SHOULD_NOT_ACTUALLY_BE_WRITTEN.png')
     end
   end
