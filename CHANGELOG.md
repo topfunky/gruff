@@ -1,8 +1,11 @@
 # Change Log
 
+## 0.21.0
+- Fix legend color with empty label (#615)
+
 ## 0.20.0
 - Fix legend position when blank labels present (#614)
-- Fixed NoMethodError (undefined method `format=' for Gruff::Line (#612)
+- Fixed NoMethodError (undefined method `format=` for Gruff::Line (#612)
 - Drop Ruby 2.5 support (#611)
 - Fix deprecation warning for Base#to_blob (#610)
 
