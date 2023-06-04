@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.20.0
+- Fix legend position when blank labels present (#614)
+- Fixed NoMethodError (undefined method `format=' for Gruff::Line (#612)
+- Drop Ruby 2.5 support (#611)
+- Fix deprecation warning for Base#to_blob (#610)
+
 ## 0.19.0
 - Draw the graph starting from zero point by default (#609)
 - Improve joints in Gruff::Net using polyline method (#608)
