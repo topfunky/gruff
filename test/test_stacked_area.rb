@@ -29,6 +29,7 @@ class TestGruffStackedArea < GruffTestCase
       g.data(data[0], data[1])
     end
     g.write('test/output/stacked_area_keynote.png')
+
     assert_same_image('test/expected/stacked_area_keynote.png', 'test/output/stacked_area_keynote.png')
   end
 
@@ -45,6 +46,7 @@ class TestGruffStackedArea < GruffTestCase
       g.data(data[0], data[1])
     end
     g.write('test/output/stacked_area_keynote_small.png')
+
     assert_same_image('test/expected/stacked_area_keynote_small.png', 'test/output/stacked_area_keynote_small.png')
   end
 
@@ -59,6 +61,7 @@ class TestGruffStackedArea < GruffTestCase
     g.data :Arthur, [5, 10, 13, 11, 6, 16, 22, 32], '#60373E'
 
     g.write('test/output/stacked_area_empty_data.png')
+
     assert_same_image('test/expected/stacked_area_empty_data.png', 'test/output/stacked_area_empty_data.png')
   end
 
@@ -82,6 +85,7 @@ class TestGruffStackedArea < GruffTestCase
 
     g.data :Bob, GruffCustomData.new([50, 19, 31, 89, 20, 54, 37, 65]), '#33A6B8'
     g.write('test/output/stacked_area_duck_typing.png')
+
     assert_same_image('test/expected/stacked_area_duck_typing.png', 'test/output/stacked_area_duck_typing.png')
   end
 end

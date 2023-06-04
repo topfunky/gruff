@@ -6,6 +6,7 @@ class TestCandlestick < GruffTestCase
   def test_candlestick
     g = setup_basic_graph
     g.write('test/output/candlestick.png')
+
     assert_same_image('test/expected/candlestick.png', 'test/output/candlestick.png')
   end
 
@@ -13,6 +14,7 @@ class TestCandlestick < GruffTestCase
     g = setup_basic_graph
     g.spacing_factor = 0.25
     g.write('test/output/candlestick_spacing_factor.png')
+
     assert_same_image('test/expected/candlestick_spacing_factor.png', 'test/output/candlestick_spacing_factor.png')
   end
 
@@ -20,6 +22,7 @@ class TestCandlestick < GruffTestCase
     g = setup_basic_graph
     g.show_vertical_markers = true
     g.write('test/output/candlestick_show_vertical_markers.png')
+
     assert_same_image('test/expected/candlestick_show_vertical_markers.png', 'test/output/candlestick_show_vertical_markers.png')
   end
 

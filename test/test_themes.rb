@@ -13,6 +13,7 @@ class TestGruffThemes < GruffTestCase
     g.data(:Science, [2, 15, 8, 11])
 
     g.write('test/output/theme_keynote.png')
+
     assert_same_image('test/expected/theme_keynote.png', 'test/output/theme_keynote.png')
   end
 
@@ -26,6 +27,7 @@ class TestGruffThemes < GruffTestCase
     g.data(:Science, [2, 15, 8, 11])
 
     g.write('test/output/theme_37signals.png')
+
     assert_same_image('test/expected/theme_37signals.png', 'test/output/theme_37signals.png')
   end
 
@@ -39,6 +41,7 @@ class TestGruffThemes < GruffTestCase
     g.data(:Science, [2, 15, 8, 11])
 
     g.write('test/output/theme_rails_keynote.png')
+
     assert_same_image('test/expected/theme_rails_keynote.png', 'test/output/theme_rails_keynote.png')
   end
 
@@ -52,6 +55,7 @@ class TestGruffThemes < GruffTestCase
     g.data(:Science, [2, 15, 8, 11])
 
     g.write('test/output/theme_odeo.png')
+
     assert_same_image('test/expected/theme_odeo.png', 'test/output/theme_odeo.png')
   end
 
@@ -65,6 +69,7 @@ class TestGruffThemes < GruffTestCase
     g.data(:Science, [2, 15, 8, 11])
 
     g.write('test/output/theme_pastel.png')
+
     assert_same_image('test/expected/theme_pastel.png', 'test/output/theme_pastel.png')
   end
 
@@ -78,6 +83,7 @@ class TestGruffThemes < GruffTestCase
     g.data(:Science, [2, 15, 8, 11])
 
     g.write('test/output/theme_greyscale.png')
+
     assert_same_image('test/expected/theme_greyscale.png', 'test/output/theme_greyscale.png')
   end
 end

@@ -34,6 +34,7 @@ class TestGruffAccumulatorBar < GruffTestCase
     g.minimum_value = 0
 
     g.write('test/output/accum_bar.png')
+
     assert_same_image('test/expected/accum_bar.png', 'test/output/accum_bar.png')
   end
 
@@ -52,6 +53,7 @@ class TestGruffAccumulatorBar < GruffTestCase
     g.data :A, []
 
     g.write('test/output/accum_bar_empty_data.png')
+
     assert_same_image('test/expected/accum_bar_empty_data.png', 'test/output/accum_bar_empty_data.png')
 
     g = Gruff::AccumulatorBar.new
@@ -59,6 +61,7 @@ class TestGruffAccumulatorBar < GruffTestCase
     g.data :A, nil
 
     g.write('test/output/accum_bar_empty_data_nil.png')
+
     assert_same_image('test/expected/accum_bar_empty_data_nil.png', 'test/output/accum_bar_empty_data_nil.png')
   end
 
@@ -66,6 +69,7 @@ class TestGruffAccumulatorBar < GruffTestCase
     g = Gruff::AccumulatorBar.new
     g.data :Bob, GruffCustomData.new([50, 19, 31, 89, 20, 54, 37, 65]), '#33A6B8'
     g.write('test/output/accum_bar_duck_typing.png')
+
     assert_same_image('test/expected/accum_bar_duck_typing.png', 'test/output/accum_bar_duck_typing.png')
   end
 end

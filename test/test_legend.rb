@@ -46,6 +46,7 @@ class TestGruffLegend < GruffTestCase
         g.legend_font_size = font_size if font_size
         g.legend_at_bottom = legend_at_bottom
         g.write("test/output/#{name}_wrapped_legend_#{font_size}_#{width}.png")
+
         assert_same_image(
           "test/expected/#{name}_wrapped_legend_#{font_size}_#{width}.png",
           "test/output/#{name}_wrapped_legend_#{font_size}_#{width}.png"

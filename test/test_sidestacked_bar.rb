@@ -27,6 +27,7 @@ class TestGruffSideStackedBar < GruffTestCase
     g = setup_basic_graph
     g.title = 'Visual Stacked Bar Graph Test'
     g.write('test/output/side_stacked_bar_keynote.png')
+
     assert_same_image('test/expected/side_stacked_bar_keynote.png', 'test/output/side_stacked_bar_keynote.png')
   end
 
@@ -34,6 +35,7 @@ class TestGruffSideStackedBar < GruffTestCase
     g = setup_basic_graph(400)
     g.title = 'Visual Stacked Bar Graph Test'
     g.write('test/output/side_stacked_bar_keynote_small.png')
+
     assert_same_image('test/expected/side_stacked_bar_keynote_small.png', 'test/output/side_stacked_bar_keynote_small.png')
   end
 
@@ -46,6 +48,7 @@ class TestGruffSideStackedBar < GruffTestCase
     g = setup_basic_graph('800x400')
     g.title = 'Wide SSBar'
     g.write('test/output/side_stacked_bar_wide.png')
+
     assert_same_image('test/expected/side_stacked_bar_wide.png', 'test/output/side_stacked_bar_wide.png')
   end
 
@@ -54,6 +57,7 @@ class TestGruffSideStackedBar < GruffTestCase
     g = setup_basic_graph
     g.title = 'Stacked Bar Long Label'
     g.write('test/output/side_stacked_bar_long_label.png')
+
     assert_same_image('test/expected/side_stacked_bar_long_label.png', 'test/output/side_stacked_bar_long_label.png')
   end
 
@@ -63,6 +67,7 @@ class TestGruffSideStackedBar < GruffTestCase
     g.title = 'Stacked Bar Long Label'
     g.show_labels_for_bar_values = true
     g.write('test/output/side_stacked_bar_labels.png')
+
     assert_same_image('test/expected/side_stacked_bar_labels.png', 'test/output/side_stacked_bar_labels.png')
   end
 
@@ -78,6 +83,7 @@ class TestGruffSideStackedBar < GruffTestCase
     end
 
     g.write('test/output/side_stacked_bar_label_format.png')
+
     assert_same_image('test/expected/side_stacked_bar_label_format.png', 'test/output/side_stacked_bar_label_format.png')
   end
 
@@ -87,6 +93,7 @@ class TestGruffSideStackedBar < GruffTestCase
     g.title = 'No Labels'
     g.hide_labels = true
     g.write('test/output/side_stacked_bar_no_labels.png')
+
     assert_same_image('test/expected/side_stacked_bar_no_labels.png', 'test/output/side_stacked_bar_no_labels.png')
   end
 
@@ -97,6 +104,7 @@ class TestGruffSideStackedBar < GruffTestCase
     g.hide_labels = true
     g.hide_line_markers = true
     g.write('test/output/side_stacked_bar_no_line_markers_or_labels.png')
+
     assert_same_image('test/expected/side_stacked_bar_no_line_markers_or_labels.png', 'test/output/side_stacked_bar_no_line_markers_or_labels.png')
   end
 
@@ -106,6 +114,7 @@ class TestGruffSideStackedBar < GruffTestCase
     g.title = 'No Line Markers'
     g.hide_line_markers = true
     g.write('test/output/side_stacked_bar_no_line_markers.png')
+
     assert_same_image('test/expected/side_stacked_bar_no_line_markers.png', 'test/output/side_stacked_bar_no_line_markers.png')
   end
 
@@ -125,6 +134,7 @@ class TestGruffSideStackedBar < GruffTestCase
     g.data :B, [68, 70, 90, 95]
     g.data :C, [36, 40, 46, 57]
     g.write('test/output/side_stacked_bar_overlap_coordinate_axes.png')
+
     assert_same_image('test/expected/side_stacked_bar_overlap_coordinate_axes.png', 'test/output/side_stacked_bar_overlap_coordinate_axes.png')
   end
 
@@ -135,6 +145,7 @@ class TestGruffSideStackedBar < GruffTestCase
     g.x_axis_label = 'x_axis_label'
     g.y_axis_label = 'y_axis_label'
     g.write('test/output/side_stacked_bar_axis_label_with_hide_line_markers.png')
+
     assert_same_image('test/expected/side_stacked_bar_axis_label_with_hide_line_markers.png',
                       'test/output/side_stacked_bar_axis_label_with_hide_line_markers.png')
   end
@@ -146,6 +157,7 @@ class TestGruffSideStackedBar < GruffTestCase
     g.x_axis_label = 'x_axis_label'
     g.y_axis_label = 'y_axis_label'
     g.write('test/output/side_stacked_bar_axis_label_with_legend_at_bottom.png')
+
     assert_same_image('test/expected/side_stacked_bar_axis_label_with_legend_at_bottom.png',
                       'test/output/side_stacked_bar_axis_label_with_legend_at_bottom.png')
   end
@@ -161,6 +173,7 @@ class TestGruffSideStackedBar < GruffTestCase
     g.data :Arthur, [5, 10, 13, 11, 6, 16, 22, 32], '#60373E'
 
     g.write('test/output/side_stacked_bar_empty_data.png')
+
     assert_same_image('test/expected/side_stacked_bar_empty_data.png', 'test/output/side_stacked_bar_empty_data.png')
   end
 
@@ -175,6 +188,7 @@ class TestGruffSideStackedBar < GruffTestCase
 
     g.data :Bob, GruffCustomData.new([50, 19, 31, 89, 20, 54, 37, 65]), '#33A6B8'
     g.write('test/output/side_stacked_bar_duck_typing.png')
+
     assert_same_image('test/expected/side_stacked_bar_duck_typing.png', 'test/output/side_stacked_bar_duck_typing.png')
   end
 

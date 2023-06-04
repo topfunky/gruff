@@ -8,6 +8,7 @@ class TestMiniBar < GruffTestCase
     g = setup_basic_graph(Gruff::Mini::Bar, 200)
     g.hide_mini_legend = true
     write_test_file(g, 'mini_bar.png')
+
     assert_same_image('test/expected/mini_bar.png', 'test/output/mini_bar.png')
   end
 
@@ -16,6 +17,7 @@ class TestMiniBar < GruffTestCase
     g.data 'a' * 50, [25, 36, 86, 39, 25, 31, 79, 88], '#113285'
     g.data 'b' * 50, [80, 54, 67, 54, 68, 70, 90, 95], '#86A697'
     g.write('test/output/mini_bar_large_legend.png')
+
     assert_same_image('test/expected/mini_bar_large_legend.png', 'test/output/mini_bar_large_legend.png')
   end
 
@@ -30,6 +32,7 @@ class TestMiniBar < GruffTestCase
 
     g.data :Bob, GruffCustomData.new([50, 19, 31, 89, 20, 54, 37, 65]), '#33A6B8'
     g.write('test/output/mini_bar_duck_typing.png')
+
     assert_same_image('test/expected/mini_bar_duck_typing.png', 'test/output/mini_bar_duck_typing.png')
   end
 end

@@ -28,6 +28,7 @@ class TestGruffBase < GruffTestCase
     g.minimum_value = 0
 
     g.write('test/output/base_object_labels.png')
+
     assert_same_image('test/expected/base_object_labels.png', 'test/output/base_object_labels.png')
   end
 
@@ -38,6 +39,7 @@ class TestGruffBase < GruffTestCase
     g.title = 'Bar Graph With Manual Colors'
     g.data('Hello world!!!', [0, 5, 8, 15], '#990000')
     g.write('test/output/base_font.png')
+
     assert_same_image('test/expected/base_font.png', 'test/output/base_font.png')
   end
 
@@ -60,6 +62,7 @@ class TestGruffBase < GruffTestCase
     g.title = ['Bar Graph', 'With Manual Colors']
     g.data('foo', [0, 5, 8, 15])
     g.write('test/output/base_multi_line_title.png')
+
     assert_same_image('test/expected/base_multi_line_title.png', 'test/output/base_multi_line_title.png')
   end
 
@@ -69,6 +72,7 @@ class TestGruffBase < GruffTestCase
     g.bold_title = true
     g.data('foo', [0, 5, 8, 15])
     g.write('test/output/base_bold_title.png')
+
     assert_same_image('test/expected/base_bold_title.png', 'test/output/base_bold_title.png')
   end
 
@@ -77,6 +81,7 @@ class TestGruffBase < GruffTestCase
     g.title = 'Bar Graph With Manual Colors' * 2
     g.data('foo', [0, 5, 8, 15])
     g.write('test/output/base_title_font_size.png')
+
     assert_same_image('test/expected/base_title_font_size.png', 'test/output/base_title_font_size.png')
   end
 
@@ -86,6 +91,7 @@ class TestGruffBase < GruffTestCase
     g.data 'foo', [6, 7, 8, 9, 10]
     g.data '', [10, 5, 4, 7, 2]
     g.write('test/output/base_legend_with_no_name.png')
+
     assert_same_image('test/expected/base_legend_with_no_name.png', 'test/output/base_legend_with_no_name.png')
   end
 
@@ -102,6 +108,7 @@ class TestGruffBase < GruffTestCase
     g.data :Jake, [5, 10, 13, 11, 6, 16, 22, 32]
     g.data :Stephen, [5, 10, 13, 11, 6, 16, 22, 32]
     g.write('test/output/base_margins.png')
+
     assert_same_image('test/expected/base_margins.png', 'test/output/base_margins.png')
   end
 
@@ -118,27 +125,32 @@ class TestGruffBase < GruffTestCase
     g.data :Jake, [5, 10, 13, 11, 6, 16, 22, 32]
     g.data :Stephen, [5, 10, 13, 11, 6, 16, 22, 32]
     g.write('test/output/base_add_color.png')
+
     assert_same_image('test/expected/base_add_color.png', 'test/output/base_add_color.png')
   end
 
   def test_data_given
     graph = Gruff::Bar.new
+
     refute(graph.__send__(:data_given?))
 
     graph = Gruff::Bar.new
     graph.data :foo, [1, 2, 3]
+
     assert(graph.__send__(:data_given?))
 
     graph = Gruff::Bar.new
     graph.data :foo, [1, 2, 3]
     graph.minimum_value = 10
     graph.maximum_value = -10
+
     refute(graph.__send__(:data_given?))
 
     graph = Gruff::Bar.new
     graph.data :foo, [1, 2, 3]
     graph.minimum_value = 0
     graph.maximum_value = 5
+
     assert(graph.__send__(:data_given?))
   end
 
@@ -147,6 +159,7 @@ class TestGruffBase < GruffTestCase
     g.minimum_value = 3
     g.data :foo, [1, 2, 3, 4, 5]
     g.data :bar, [6, 7, 8, 9, 10]
+
     assert_equal(3, g.minimum_value)
     assert_equal(10, g.maximum_value)
 
@@ -154,6 +167,7 @@ class TestGruffBase < GruffTestCase
     g.data :foo, [1, 2, 3, 4, 5]
     g.data :bar, [6, 7, 8, 9, 10]
     g.minimum_value = 3
+
     assert_equal(3, g.minimum_value)
     assert_equal(10, g.maximum_value)
   end
@@ -163,6 +177,7 @@ class TestGruffBase < GruffTestCase
     g.maximum_value = 3
     g.data :bar, [6, 7, 8, 9, 10]
     g.data :foo, [1, 2, 3, 4, 5]
+
     assert_equal(0, g.minimum_value)
     assert_equal(3, g.maximum_value)
 
@@ -170,6 +185,7 @@ class TestGruffBase < GruffTestCase
     g.data :bar, [6, 7, 8, 9, 10]
     g.data :foo, [1, 2, 3, 4, 5]
     g.maximum_value = 3
+
     assert_equal(0, g.minimum_value)
     assert_equal(3, g.maximum_value)
   end
@@ -185,18 +201,21 @@ class TestGruffBase < GruffTestCase
       ''
     ]
     g.write('test/output/base_labels_with_array.png')
+
     assert_same_image('test/expected/base_labels_with_array.png', 'test/output/base_labels_with_array.png')
   end
 
   def test_to_image
     g = Gruff::Bar.new
     g.data :bar, [6, 7, 8, 9, 10]
+
     assert_kind_of(Magick::Image, g.to_image)
   end
 
   def test_to_blob
     g = Gruff::Bar.new
     g.data :bar, [6, 7, 8, 9, 10]
+
     assert_kind_of(String, g.to_blob)
   end
 
@@ -214,6 +233,7 @@ class TestGruffBase < GruffTestCase
     ]
     g.label_rotation = -30
     g.write('test/output/base_label_rotation_1.png')
+
     assert_same_image('test/expected/base_label_rotation_1.png', 'test/output/base_label_rotation_1.png')
   end
 
@@ -231,6 +251,7 @@ class TestGruffBase < GruffTestCase
     ]
     g.label_rotation = 30
     g.write('test/output/base_label_rotation_2.png')
+
     assert_same_image('test/expected/base_label_rotation_2.png', 'test/output/base_label_rotation_2.png')
   end
 
@@ -251,6 +272,7 @@ class TestGruffBase < GruffTestCase
     g.x_axis_label = 'a' * 20
     g.y_axis_label = 'b' * 20
     g.write('test/output/base_label_rotation_legend_at_bottom_xy_axis_label.png')
+
     assert_same_image('test/expected/base_label_rotation_legend_at_bottom_xy_axis_label.png',
                       'test/output/base_label_rotation_legend_at_bottom_xy_axis_label.png')
   end

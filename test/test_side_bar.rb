@@ -6,6 +6,7 @@ class TestGruffSideBar < GruffTestCase
   def test_bar_graph
     g = setup_basic_graph(Gruff::SideBar, 800)
     write_test_file(g, 'side_bar.png')
+
     assert_same_image('test/expected/side_bar.png', 'test/output/side_bar.png')
   end
 
@@ -14,18 +15,21 @@ class TestGruffSideBar < GruffTestCase
     g.bar_spacing = 0
     g.title = '100% spacing between bars'
     g.write('test/output/side_bar_spacing_full.png')
+
     assert_same_image('test/expected/side_bar_spacing_full.png', 'test/output/side_bar_spacing_full.png')
 
     g = setup_basic_graph(Gruff::SideBar, 800)
     g.bar_spacing = 0.5
     g.title = '50% spacing between bars'
     g.write('test/output/side_bar_spacing_half.png')
+
     assert_same_image('test/expected/side_bar_spacing_half.png', 'test/output/side_bar_spacing_half.png')
 
     g = setup_basic_graph(Gruff::SideBar, 800)
     g.bar_spacing = 1
     g.title = '0% spacing between bars'
     g.write('test/output/side_bar_spacing_none.png')
+
     assert_same_image('test/expected/side_bar_spacing_none.png', 'test/output/side_bar_spacing_none.png')
   end
 
@@ -34,6 +38,7 @@ class TestGruffSideBar < GruffTestCase
     g.group_spacing = 30
     g.title = 'Group spacing'
     g.write('test/output/side_bar_group_spacing.png')
+
     assert_same_image('test/expected/side_bar_group_spacing.png', 'test/output/side_bar_group_spacing.png')
   end
 
@@ -49,6 +54,7 @@ class TestGruffSideBar < GruffTestCase
     g.data('Peaches', [12])
     g.labels = { 0 => '2003', 2 => '2004', 4 => '2005' }
     g.write('test/output/side_bar_data_range.png')
+
     assert_same_image('test/expected/side_bar_data_range.png', 'test/output/side_bar_data_range.png')
   end
 
@@ -63,6 +69,7 @@ class TestGruffSideBar < GruffTestCase
     g.labels = { 0 => '2003', 2 => '2004', 4 => '2005' }
     g.show_labels_for_bar_values = true
     g.write('test/output/side_bar_labels.png')
+
     assert_same_image('test/expected/side_bar_labels.png', 'test/output/side_bar_labels.png')
   end
 
@@ -84,6 +91,7 @@ class TestGruffSideBar < GruffTestCase
     end
 
     g.write('test/output/side_bar_label_format.png')
+
     assert_same_image('test/expected/side_bar_label_format.png', 'test/output/side_bar_label_format.png')
   end
 
@@ -92,6 +100,7 @@ class TestGruffSideBar < GruffTestCase
     g.title = 'No Labels'
     g.hide_labels = true
     g.write('test/output/side_bar_no_labels.png')
+
     assert_same_image('test/expected/side_bar_no_labels.png', 'test/output/side_bar_no_labels.png')
   end
 
@@ -101,6 +110,7 @@ class TestGruffSideBar < GruffTestCase
     g.hide_labels = true
     g.hide_line_markers = true
     g.write('test/output/side_bar_no_line_markers_or_labels.png')
+
     assert_same_image('test/expected/side_bar_no_line_markers_or_labels.png', 'test/output/side_bar_no_line_markers_or_labels.png')
   end
 
@@ -109,6 +119,7 @@ class TestGruffSideBar < GruffTestCase
     g.title = 'No Line Markers'
     g.hide_line_markers = true
     g.write('test/output/side_bar_no_line_markers.png')
+
     assert_same_image('test/expected/side_bar_no_line_markers.png', 'test/output/side_bar_no_line_markers.png')
   end
 
@@ -141,6 +152,7 @@ class TestGruffSideBar < GruffTestCase
     g.data(:peaches, [10, 8, 6, 3])
     g.show_labels_for_bar_values = true
     g.write('test/output/side_bar_pos_neg.png')
+
     assert_same_image('test/expected/side_bar_pos_neg.png', 'test/output/side_bar_pos_neg.png')
   end
 
@@ -157,6 +169,7 @@ class TestGruffSideBar < GruffTestCase
     g.data(:peaches, [-10, -8, -6, -3])
     g.show_labels_for_bar_values = true
     g.write('test/output/side_bar_all_neg.png')
+
     assert_same_image('test/expected/side_bar_all_neg.png', 'test/output/side_bar_all_neg.png')
   end
 
@@ -174,6 +187,7 @@ class TestGruffSideBar < GruffTestCase
     g.data(:apples, [-1, 0, 4, -4])
     g.data(:peaches, [10, 8, 6, 3])
     g.write('test/output/side_bar_set_trailing_dots_trunc.png')
+
     assert_same_image('test/expected/side_bar_set_trailing_dots_trunc.png', 'test/output/side_bar_set_trailing_dots_trunc.png')
   end
 
@@ -184,6 +198,7 @@ class TestGruffSideBar < GruffTestCase
     g.x_axis_label = 'x_axis_label'
     g.y_axis_label = 'y_axis_label'
     g.write('test/output/side_bar_axis_label_with_hide_line_markers.png')
+
     assert_same_image('test/expected/side_bar_axis_label_with_hide_line_markers.png', 'test/output/side_bar_axis_label_with_hide_line_markers.png')
   end
 
@@ -194,6 +209,7 @@ class TestGruffSideBar < GruffTestCase
     g.x_axis_label = 'x_axis_label'
     g.y_axis_label = 'y_axis_label'
     g.write('test/output/side_bar_axis_label_with_legend_at_bottom.png')
+
     assert_same_image('test/expected/side_bar_axis_label_with_legend_at_bottom.png', 'test/output/side_bar_axis_label_with_legend_at_bottom.png')
   end
 
@@ -208,6 +224,7 @@ class TestGruffSideBar < GruffTestCase
     g.data :Arthur, [5, 10, 13, 11, 6, 16, 22, 32], '#60373E'
 
     g.write('test/output/side_bar_empty_data.png')
+
     assert_same_image('test/expected/side_bar_empty_data.png', 'test/output/side_bar_empty_data.png')
   end
 
@@ -222,6 +239,7 @@ class TestGruffSideBar < GruffTestCase
 
     g.data :Bob, GruffCustomData.new([50, 19, 31, 89, 20, 54, 37, 65]), '#33A6B8'
     g.write('test/output/side_bar_duck_typing.png')
+
     assert_same_image('test/expected/side_bar_duck_typing.png', 'test/output/side_bar_duck_typing.png')
   end
 end

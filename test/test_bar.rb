@@ -18,18 +18,21 @@ class TestGruffBar < GruffTestCase
     g = setup_basic_graph
     g.title = 'Bar Chart'
     g.write('test/output/bar_keynote.png')
+
     assert_same_image('test/expected/bar_keynote.png', 'test/output/bar_keynote.png')
 
     g = setup_basic_graph
     g.title = 'Visual Multi-Line Bar Graph Test'
     g.theme = Gruff::Themes::RAILS_KEYNOTE
     g.write('test/output/bar_rails_keynote.png')
+
     assert_same_image('test/expected/bar_rails_keynote.png', 'test/output/bar_rails_keynote.png')
 
     g = setup_basic_graph
     g.title = 'Visual Multi-Line Bar Graph Test'
     g.theme = Gruff::Themes::ODEO
     g.write('test/output/bar_odeo.png')
+
     assert_same_image('test/expected/bar_odeo.png', 'test/output/bar_odeo.png')
   end
 
@@ -38,6 +41,7 @@ class TestGruffBar < GruffTestCase
     g.title = 'Bar Graph with Title Margin = 100'
     g.title_margin = 100
     g.write('test/output/bar_title_margin.png')
+
     assert_same_image('test/expected/bar_title_margin.png', 'test/output/bar_title_margin.png')
   end
 
@@ -47,6 +51,7 @@ class TestGruffBar < GruffTestCase
     g.marker_count = 8
     g.data('data', [4025, 1024, 50_257, 703_672, 1_580_456])
     g.write('test/output/bar_formatted_numbers.png')
+
     assert_same_image('test/expected/bar_formatted_numbers.png', 'test/output/bar_formatted_numbers.png')
   end
 
@@ -67,6 +72,7 @@ class TestGruffBar < GruffTestCase
     g.minimum_value = 0
 
     g.write('test/output/bar_manual_colors.png')
+
     assert_same_image('test/expected/bar_manual_colors.png', 'test/output/bar_manual_colors.png')
   end
 
@@ -84,6 +90,7 @@ class TestGruffBar < GruffTestCase
     end
 
     g.write('test/output/bar_keynote_small.png')
+
     assert_same_image('test/expected/bar_keynote_small.png', 'test/output/bar_keynote_small.png')
   end
 
@@ -100,6 +107,7 @@ class TestGruffBar < GruffTestCase
     g.title = 'No Labels'
     g.hide_labels = true
     g.write('test/output/bar_no_labels.png')
+
     assert_same_image('test/expected/bar_no_labels.png', 'test/output/bar_no_labels.png')
   end
 
@@ -109,6 +117,7 @@ class TestGruffBar < GruffTestCase
     g.hide_labels = true
     g.hide_line_markers = true
     g.write('test/output/bar_no_line_markers_or_labels.png')
+
     assert_same_image('test/expected/bar_no_line_markers_or_labels.png', 'test/output/bar_no_line_markers_or_labels.png')
   end
 
@@ -117,6 +126,7 @@ class TestGruffBar < GruffTestCase
     g.title = 'No Line Markers'
     g.hide_line_markers = true
     g.write('test/output/bar_no_line_markers.png')
+
     assert_same_image('test/expected/bar_no_line_markers.png', 'test/output/bar_no_line_markers.png')
   end
 
@@ -125,6 +135,7 @@ class TestGruffBar < GruffTestCase
     g.title = 'No Legend'
     g.hide_legend = true
     g.write('test/output/bar_no_legend.png')
+
     assert_same_image('test/expected/bar_no_legend.png', 'test/output/bar_no_legend.png')
   end
 
@@ -133,6 +144,7 @@ class TestGruffBar < GruffTestCase
     g.title = 'No Title'
     g.hide_title = true
     g.write('test/output/bar_no_title.png')
+
     assert_same_image('test/expected/bar_no_title.png', 'test/output/bar_no_title.png')
   end
 
@@ -142,6 +154,7 @@ class TestGruffBar < GruffTestCase
     g.hide_legend = true
     g.hide_title = true
     g.write('test/output/bar_no_title_or_legend.png')
+
     assert_same_image('test/expected/bar_no_title_or_legend.png', 'test/output/bar_no_title_or_legend.png')
   end
 
@@ -150,6 +163,7 @@ class TestGruffBar < GruffTestCase
     g.title = 'Set marker'
     g.marker_count = 10
     g.write('test/output/bar_set_marker.png')
+
     assert_same_image('test/expected/bar_set_marker.png', 'test/output/bar_set_marker.png')
   end
 
@@ -158,12 +172,14 @@ class TestGruffBar < GruffTestCase
     g.title = 'Set Small Legend Box Size'
     g.legend_box_size = 10.0
     g.write('test/output/bar_set_legend_box_size_sm.png')
+
     assert_same_image('test/expected/bar_set_legend_box_size_sm.png', 'test/output/bar_set_legend_box_size_sm.png')
 
     g = setup_basic_graph(400)
     g.title = 'Set Large Legend Box Size'
     g.legend_box_size = 50.0
     g.write('test/output/bar_set_legend_box_size_lg.png')
+
     assert_same_image('test/expected/bar_set_legend_box_size_lg.png', 'test/output/bar_set_legend_box_size_lg.png')
   end
 
@@ -173,6 +189,7 @@ class TestGruffBar < GruffTestCase
     g.x_axis_label = 'Score (%)'
     g.y_axis_label = 'Students'
     g.write('test/output/bar_x_y_labels.png')
+
     assert_same_image('test/expected/bar_x_y_labels.png', 'test/output/bar_x_y_labels.png')
   end
 
@@ -180,11 +197,13 @@ class TestGruffBar < GruffTestCase
     g = setup_basic_graph('800x400')
     g.title = 'Wide Graph'
     g.write('test/output/bar_wide_graph.png')
+
     assert_same_image('test/expected/bar_wide_graph.png', 'test/output/bar_wide_graph.png')
 
     g = setup_basic_graph('400x200')
     g.title = 'Wide Graph Small'
     g.write('test/output/bar_wide_graph_small.png')
+
     assert_same_image('test/expected/bar_wide_graph_small.png', 'test/output/bar_wide_graph_small.png')
   end
 
@@ -192,11 +211,13 @@ class TestGruffBar < GruffTestCase
     g = setup_basic_graph('400x600')
     g.title = 'Tall Graph'
     g.write('test/output/bar_tall_graph.png')
+
     assert_same_image('test/expected/bar_tall_graph.png', 'test/output/bar_tall_graph.png')
 
     g = setup_basic_graph('200x400')
     g.title = 'Tall Graph Small'
     g.write('test/output/bar_tall_graph_small.png')
+
     assert_same_image('test/expected/bar_tall_graph_small.png', 'test/output/bar_tall_graph_small.png')
   end
 
@@ -210,6 +231,7 @@ class TestGruffBar < GruffTestCase
     g.data('one', [1, 1])
 
     g.write('test/output/bar_one_value.png')
+
     assert_same_image('test/expected/bar_one_value.png', 'test/output/bar_one_value.png')
   end
 
@@ -226,6 +248,7 @@ class TestGruffBar < GruffTestCase
     g.data(:peaches, [10, 8, 6, 3])
 
     g.write('test/output/bar_pos_neg.png')
+
     assert_same_image('test/expected/bar_pos_neg.png', 'test/output/bar_pos_neg.png')
   end
 
@@ -243,6 +266,7 @@ class TestGruffBar < GruffTestCase
     g.minimum_value = 0
     g.maximum_value = 10
     g.write('test/output/bar_nearly_zero_max_10.png')
+
     assert_same_image('test/expected/bar_nearly_zero_max_10.png', 'test/output/bar_nearly_zero_max_10.png')
   end
 
@@ -266,6 +290,7 @@ class TestGruffBar < GruffTestCase
     g.data(:apples, [1, 0.2, 0.5, 0.7])
     g.data(:peaches, [2.5, 2.3, 2, 6.1])
     g.write("test/output/bar_y_increment_#{increment}.png")
+
     assert_same_image("test/expected/bar_y_increment_#{increment}.png", "test/output/bar_y_increment_#{increment}.png")
   end
 
@@ -285,6 +310,7 @@ class TestGruffBar < GruffTestCase
     g.minimum_value = 0
     g.maximum_value = 10
     g.write('test/output/bar_zero_spacing.png')
+
     assert_same_image('test/expected/bar_zero_spacing.png', 'test/output/bar_zero_spacing.png')
   end
 
@@ -325,6 +351,7 @@ class TestGruffBar < GruffTestCase
     g.data(:victoria, [4, 3, 5, 7])
     g.minimum_value = 0
     g.write('test/output/bar_themed.png')
+
     assert_same_image('test/expected/bar_themed.png', 'test/output/bar_themed.png')
   end
 
@@ -341,6 +368,7 @@ class TestGruffBar < GruffTestCase
     end
     g.minimum_value = 0
     write_test_file(g, 'bar_background_gradient_top_bottom.png')
+
     assert_same_image('test/expected/bar_background_gradient_top_bottom.png', 'test/output/bar_background_gradient_top_bottom.png')
   end
 
@@ -357,6 +385,7 @@ class TestGruffBar < GruffTestCase
     end
     g.minimum_value = 0
     write_test_file(g, 'bar_background_gradient_bottom_top.png')
+
     assert_same_image('test/expected/bar_background_gradient_bottom_top.png', 'test/output/bar_background_gradient_bottom_top.png')
   end
 
@@ -373,6 +402,7 @@ class TestGruffBar < GruffTestCase
     end
     g.minimum_value = 0
     write_test_file(g, 'bar_background_gradient_left_right.png')
+
     assert_same_image('test/expected/bar_background_gradient_left_right.png', 'test/output/bar_background_gradient_left_right.png')
   end
 
@@ -389,6 +419,7 @@ class TestGruffBar < GruffTestCase
     end
     g.minimum_value = 0
     write_test_file(g, 'bar_background_gradient_right_left.png')
+
     assert_same_image('test/expected/bar_background_gradient_right_left.png', 'test/output/bar_background_gradient_right_left.png')
   end
 
@@ -405,6 +436,7 @@ class TestGruffBar < GruffTestCase
     end
     g.minimum_value = 0
     write_test_file(g, 'bar_background_gradient_topleft_bottomright.png')
+
     assert_same_image('test/expected/bar_background_gradient_topleft_bottomright.png', 'test/output/bar_background_gradient_topleft_bottomright.png')
   end
 
@@ -422,6 +454,7 @@ class TestGruffBar < GruffTestCase
     end
     g.minimum_value = 0
     write_test_file(g, 'bar_background_gradient_topright_bottomleft.png')
+
     assert_same_image('test/expected/bar_background_gradient_topright_bottomleft.png', 'test/output/bar_background_gradient_topright_bottomleft.png')
   end
 
@@ -435,6 +468,7 @@ class TestGruffBar < GruffTestCase
     g.data('Peaches', [9, 9, 10, 8, 7, 9])
     g.labels = { 0 => '2003', 2 => '2004', 4 => '2005' }
     g.write('test/output/bar_long_legend_text.png')
+
     assert_same_image('test/expected/bar_long_legend_text.png', 'test/output/bar_long_legend_text.png')
   end
 
@@ -448,6 +482,7 @@ class TestGruffBar < GruffTestCase
     g.x_axis_label = 'Score (%)'
     g.y_axis_label = 'Students'
     write_test_file(g, 'enhancements.png')
+
     assert_same_image('test/expected/enhancements.png', 'test/output/enhancements.png')
   end
 
@@ -456,18 +491,21 @@ class TestGruffBar < GruffTestCase
     g.bar_spacing = 0
     g.title = '100% spacing between bars'
     g.write('test/output/bar_spacing_full.png')
+
     assert_same_image('test/expected/bar_spacing_full.png', 'test/output/bar_spacing_full.png')
 
     g = setup_basic_graph
     g.bar_spacing = 0.5
     g.title = '50% spacing between bars'
     g.write('test/output/bar_spacing_half.png')
+
     assert_same_image('test/expected/bar_spacing_half.png', 'test/output/bar_spacing_half.png')
 
     g = setup_basic_graph
     g.bar_spacing = 1
     g.title = '0% spacing between bars'
     g.write('test/output/bar_spacing_none.png')
+
     assert_same_image('test/expected/bar_spacing_none.png', 'test/output/bar_spacing_none.png')
   end
 
@@ -476,6 +514,7 @@ class TestGruffBar < GruffTestCase
     g.title = 'Staggered labels'
     g.label_stagger_height = 30
     g.write('test/output/bar_set_label_stagger_height.png')
+
     assert_same_image('test/expected/bar_set_label_stagger_height.png', 'test/output/bar_set_label_stagger_height.png')
   end
 
@@ -486,6 +525,7 @@ class TestGruffBar < GruffTestCase
     g.label_max_size = 13
     g.label_truncation_style = :absolute
     g.write('test/output/bar_set_absolute_trunc.png')
+
     assert_same_image('test/expected/bar_set_absolute_trunc.png', 'test/output/bar_set_absolute_trunc.png')
 
     # Trailing Dots trunc
@@ -494,6 +534,7 @@ class TestGruffBar < GruffTestCase
     g.label_max_size = 6
     g.label_truncation_style = :trailing_dots
     g.write('test/output/bar_set_trailing_dots_trunc.png')
+
     assert_same_image('test/expected/bar_set_trailing_dots_trunc.png', 'test/output/bar_set_trailing_dots_trunc.png')
   end
 
@@ -501,6 +542,7 @@ class TestGruffBar < GruffTestCase
     g = setup_basic_graph
     g.show_labels_for_bar_values = true
     g.write('test/output/bar_value_labels.png')
+
     assert_same_image('test/expected/bar_value_labels.png', 'test/output/bar_value_labels.png')
   end
 
@@ -516,6 +558,7 @@ class TestGruffBar < GruffTestCase
     end
 
     g.write('test/output/bar_label_format.png')
+
     assert_same_image('test/expected/bar_label_format.png', 'test/output/bar_label_format.png')
   end
 
@@ -523,6 +566,7 @@ class TestGruffBar < GruffTestCase
     g = setup_basic_graph
     g.group_spacing = 100
     g.write('test/output/bar_group_spacing.png')
+
     assert_same_image('test/expected/bar_group_spacing.png', 'test/output/bar_group_spacing.png')
   end
 
@@ -531,6 +575,7 @@ class TestGruffBar < GruffTestCase
     g.data :foo, [7, 56, -31.25]
     g.show_labels_for_bar_values = true
     g.write('test/output/bar_negative_value_labels.png')
+
     assert_same_image('test/expected/bar_negative_value_labels.png', 'test/output/bar_negative_value_labels.png')
   end
 
@@ -538,6 +583,7 @@ class TestGruffBar < GruffTestCase
     g = setup_basic_graph
     g.marker_count = 0
     g.write('test/output/bar_zero_marker_count.png')
+
     assert_same_image('test/expected/bar_zero_marker_count.png', 'test/output/bar_zero_marker_count.png')
   end
 
@@ -546,6 +592,7 @@ class TestGruffBar < GruffTestCase
     g.title = 'Bar Chart with Marker Shadow'
     g.marker_shadow_color = '#888888'
     g.write('test/output/bar_marker_shadow.png')
+
     assert_same_image('test/expected/bar_marker_shadow.png', 'test/output/bar_marker_shadow.png')
   end
 
@@ -556,6 +603,7 @@ class TestGruffBar < GruffTestCase
     g.x_axis_label = 'x_axis_label'
     g.y_axis_label = 'y_axis_label'
     g.write('test/output/bar_axis_label_with_hide_line_markers.png')
+
     assert_same_image('test/expected/bar_axis_label_with_hide_line_markers.png', 'test/output/bar_axis_label_with_hide_line_markers.png')
   end
 
@@ -566,6 +614,7 @@ class TestGruffBar < GruffTestCase
     g.x_axis_label = 'x_axis_label'
     g.y_axis_label = 'y_axis_label'
     g.write('test/output/bar_axis_label_with_legend_at_bottom.png')
+
     assert_same_image('test/expected/bar_axis_label_with_legend_at_bottom.png', 'test/output/bar_axis_label_with_legend_at_bottom.png')
   end
 
@@ -589,6 +638,7 @@ class TestGruffBar < GruffTestCase
     g.data :Arthur, [5, 10, 13, 11, 6, 16, 22, 32], '#60373E'
 
     g.write('test/output/bar_empty_data.png')
+
     assert_same_image('test/expected/bar_empty_data.png', 'test/output/bar_empty_data.png')
   end
 
@@ -603,6 +653,7 @@ class TestGruffBar < GruffTestCase
 
     g.data :Bob, GruffCustomData.new([50, 19, 31, 89, 20, 54, 37, 65]), '#33A6B8'
     g.write('test/output/bar_duck_typing.png')
+
     assert_same_image('test/expected/bar_duck_typing.png', 'test/output/bar_duck_typing.png')
   end
 

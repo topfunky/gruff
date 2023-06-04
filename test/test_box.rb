@@ -15,6 +15,7 @@ class TestBox < GruffTestCase
     g.y_axis_label = 'Y Axis'
 
     g.write('test/output/box.png')
+
     assert_same_image('test/expected/box.png', 'test/output/box.png')
   end
 
@@ -31,6 +32,7 @@ class TestBox < GruffTestCase
     g.spacing_factor = 0.25
 
     g.write('test/output/box_spacing_factor.png')
+
     assert_same_image('test/expected/box_spacing_factor.png', 'test/output/box_spacing_factor.png')
   end
 
@@ -45,6 +47,7 @@ class TestBox < GruffTestCase
     g.data 'C', [41, 38, 47, 38, 50, 59, 56, 50, 62, 74, 41, 50, 59, 95, 50, 56, 47, 44, 65, 59, 50, 80]
     g.data 'D', [4, 40, 41, 46, 57, 64, 77, 76, 79, 78, 99, 153, 38, 47, 38, 50, 59, 56, 50, 62, 74, 41, 50, 59, 95, 50, 56, 47, 44, 65, 59, 50, 80]
     g.write('test/output/box_outliers.png')
+
     assert_same_image('test/expected/box_outliers.png', 'test/output/box_outliers.png')
   end
 
@@ -58,6 +61,7 @@ class TestBox < GruffTestCase
     g.data 'C', nil
 
     g.write('test/output/box_empty_data.png')
+
     assert_same_image('test/expected/box_empty_data.png', 'test/output/box_empty_data.png')
   end
 end

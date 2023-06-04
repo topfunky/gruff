@@ -23,6 +23,7 @@ class TestLabelsForNullData < GruffTestCase
     g.minimum_value = 0
 
     g.write('test/output/TestLabelsForNullData.png')
+
     assert_same_image('test/expected/TestLabelsForNullData.png', 'test/output/TestLabelsForNullData.png')
   end
 end

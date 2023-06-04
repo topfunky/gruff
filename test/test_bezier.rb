@@ -20,6 +20,7 @@ class TestBezier < GruffTestCase
     g.title = 'Bezier?'
     g.data 'Series 1', [0, 100]
     g.write('test/output/bezier.png')
+
     assert_same_image('test/expected/bezier.png', 'test/output/bezier.png')
   end
 
@@ -27,6 +28,7 @@ class TestBezier < GruffTestCase
     g = Gruff::Bezier.new
     g.data 'Series 2', [0, 127, 150]
     g.write('test/output/bezier_2.png')
+
     assert_same_image('test/expected/bezier_2.png', 'test/output/bezier_2.png')
   end
 
@@ -35,6 +37,7 @@ class TestBezier < GruffTestCase
     g.data 'Series 3', [100, 300, 200, 250]
     g.minimum_value = 0
     g.write('test/output/bezier_3.png')
+
     assert_same_image('test/expected/bezier_3.png', 'test/output/bezier_3.png')
   end
 
@@ -53,6 +56,7 @@ class TestBezier < GruffTestCase
       ]
     )
     g.write('test/output/bezier_4.png')
+
     assert_same_image('test/expected/bezier_4.png', 'test/output/bezier_4.png')
   end
 
@@ -64,6 +68,7 @@ class TestBezier < GruffTestCase
     g.data 'C', nil
 
     g.write('test/output/bezier_empty_data.png')
+
     assert_same_image('test/expected/bezier_empty_data.png', 'test/output/bezier_empty_data.png')
   end
 
@@ -71,6 +76,7 @@ class TestBezier < GruffTestCase
     g = Gruff::Bezier.new
     g.data :Bob, GruffCustomData.new([50, 19, 31, 89, 20, 54, 37, 65]), '#33A6B8'
     g.write('test/output/bezier_duck_typing.png')
+
     assert_same_image('test/expected/bezier_duck_typing.png', 'test/output/bezier_duck_typing.png')
   end
 end

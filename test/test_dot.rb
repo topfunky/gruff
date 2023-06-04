@@ -17,6 +17,7 @@ class TestGruffDot < GruffTestCase
     g = setup_basic_graph
     g.title = 'Dot Graph Test'
     g.write('test/output/dot.png')
+
     assert_same_image('test/expected/dot.png', 'test/output/dot.png')
   end
 
@@ -36,6 +37,7 @@ class TestGruffDot < GruffTestCase
     g.minimum_value = 0
 
     g.write('test/output/dot_manual_colors.png')
+
     assert_same_image('test/expected/dot_manual_colors.png', 'test/output/dot_manual_colors.png')
   end
 
@@ -43,6 +45,7 @@ class TestGruffDot < GruffTestCase
     g = setup_basic_graph(400)
     g.title = 'Visual Multi-Line Dot Graph Test'
     g.write('test/output/dot_small.png')
+
     assert_same_image('test/expected/dot_small.png', 'test/output/dot_small.png')
   end
 
@@ -51,6 +54,7 @@ class TestGruffDot < GruffTestCase
     g.title = 'No Line Markers'
     g.hide_line_markers = true
     g.write('test/output/dot_no_line_markers.png')
+
     assert_same_image('test/expected/dot_no_line_markers.png', 'test/output/dot_no_line_markers.png')
   end
 
@@ -59,6 +63,7 @@ class TestGruffDot < GruffTestCase
     g.title = 'No Legend'
     g.hide_legend = true
     g.write('test/output/dot_no_legend.png')
+
     assert_same_image('test/expected/dot_no_legend.png', 'test/output/dot_no_legend.png')
   end
 
@@ -67,6 +72,7 @@ class TestGruffDot < GruffTestCase
     g.title = 'No Title'
     g.hide_title = true
     g.write('test/output/dot_no_title.png')
+
     assert_same_image('test/expected/dot_no_title.png', 'test/output/dot_no_title.png')
   end
 
@@ -76,6 +82,7 @@ class TestGruffDot < GruffTestCase
     g.hide_legend = true
     g.hide_title = true
     g.write('test/output/dot_no_title_or_legend.png')
+
     assert_same_image('test/expected/dot_no_title_or_legend.png', 'test/output/dot_no_title_or_legend.png')
   end
 
@@ -84,6 +91,7 @@ class TestGruffDot < GruffTestCase
     g.title = 'Set marker'
     g.marker_count = 10
     g.write('test/output/dot_set_marker.png')
+
     assert_same_image('test/expected/dot_set_marker.png', 'test/output/dot_set_marker.png')
   end
 
@@ -92,12 +100,14 @@ class TestGruffDot < GruffTestCase
     g.title = 'Set Small Legend Box Size'
     g.legend_box_size = 10.0
     g.write('test/output/dot_set_legend_box_size_sm.png')
+
     assert_same_image('test/expected/dot_set_legend_box_size_sm.png', 'test/output/dot_set_legend_box_size_sm.png')
 
     g = setup_basic_graph(400)
     g.title = 'Set Large Legend Box Size'
     g.legend_box_size = 50.0
     g.write('test/output/dot_set_legend_box_size_lg.png')
+
     assert_same_image('test/expected/dot_set_legend_box_size_lg.png', 'test/output/dot_set_legend_box_size_lg.png')
   end
 
@@ -107,6 +117,7 @@ class TestGruffDot < GruffTestCase
     g.x_axis_label = 'Score (%)'
     g.y_axis_label = 'Students'
     g.write('test/output/dot_x_y_labels.png')
+
     assert_same_image('test/expected/dot_x_y_labels.png', 'test/output/dot_x_y_labels.png')
   end
 
@@ -114,11 +125,13 @@ class TestGruffDot < GruffTestCase
     g = setup_basic_graph('800x400')
     g.title = 'Wide Graph'
     g.write('test/output/dot_wide_graph.png')
+
     assert_same_image('test/expected/dot_wide_graph.png', 'test/output/dot_wide_graph.png')
 
     g = setup_basic_graph('400x200')
     g.title = 'Wide Graph Small'
     g.write('test/output/dot_wide_graph_small.png')
+
     assert_same_image('test/expected/dot_wide_graph_small.png', 'test/output/dot_wide_graph_small.png')
   end
 
@@ -126,11 +139,13 @@ class TestGruffDot < GruffTestCase
     g = setup_basic_graph('400x600')
     g.title = 'Tall Graph'
     g.write('test/output/dot_tall_graph.png')
+
     assert_same_image('test/expected/dot_tall_graph.png', 'test/output/dot_tall_graph.png')
 
     g = setup_basic_graph('200x400')
     g.title = 'Tall Graph Small'
     g.write('test/output/dot_tall_graph_small.png')
+
     assert_same_image('test/expected/dot_tall_graph_small.png', 'test/output/dot_tall_graph_small.png')
   end
 
@@ -144,6 +159,7 @@ class TestGruffDot < GruffTestCase
     g.data('one', [1, 1])
 
     g.write('test/output/dot_one_value.png')
+
     assert_same_image('test/expected/dot_one_value.png', 'test/output/dot_one_value.png')
   end
 
@@ -160,6 +176,7 @@ class TestGruffDot < GruffTestCase
     g.data(:peaches, [10, 8, 6, 3])
 
     g.write('test/output/dot_pos_neg.png')
+
     assert_same_image('test/expected/dot_pos_neg.png', 'test/output/dot_pos_neg.png')
   end
 
@@ -177,6 +194,7 @@ class TestGruffDot < GruffTestCase
     g.minimum_value = 0
     g.maximum_value = 10
     g.write('test/output/dot_nearly_zero_max_10.png')
+
     assert_same_image('test/expected/dot_nearly_zero_max_10.png', 'test/output/dot_nearly_zero_max_10.png')
   end
 
@@ -200,6 +218,7 @@ class TestGruffDot < GruffTestCase
     g.data(:apples, [1, 0.2, 0.5, 0.7])
     g.data(:peaches, [2.5, 2.3, 2, 6.1])
     g.write("test/output/dot_y_increment_#{increment}.png")
+
     assert_same_image("test/expected/dot_y_increment_#{increment}.png", "test/output/dot_y_increment_#{increment}.png")
   end
 
@@ -228,6 +247,7 @@ class TestGruffDot < GruffTestCase
     g.data(:victoria, [4, 3, 5, 7])
     g.minimum_value = 0
     g.write('test/output/dot_themed.png')
+
     assert_same_image('test/expected/dot_themed.png', 'test/output/dot_themed.png')
   end
 
@@ -241,6 +261,7 @@ class TestGruffDot < GruffTestCase
     g.x_axis_label = 'Score (%)'
     g.y_axis_label = 'Students'
     write_test_file(g, 'enhancements_dot.png')
+
     assert_same_image('test/expected/enhancements_dot.png', 'test/output/enhancements_dot.png')
   end
 
@@ -256,6 +277,7 @@ class TestGruffDot < GruffTestCase
     g.label_max_size = 6
     g.label_truncation_style = :trailing_dots
     g.write('test/output/dot_set_trailing_dots_trunc.png')
+
     assert_same_image('test/expected/dot_set_trailing_dots_trunc.png', 'test/output/dot_set_trailing_dots_trunc.png')
   end
 
@@ -270,6 +292,7 @@ class TestGruffDot < GruffTestCase
     g.data :Arthur, [5, 10, 13, 11, 6, 16, 22, 32], '#60373E'
 
     g.write('test/output/dot_empty_data.png')
+
     assert_same_image('test/expected/dot_empty_data.png', 'test/output/dot_empty_data.png')
   end
 
@@ -285,6 +308,7 @@ class TestGruffDot < GruffTestCase
     g.marker_shadow_color = '#444'
 
     g.write('test/output/dot_marker_shadow_color.png')
+
     assert_same_image('test/expected/dot_marker_shadow_color.png', 'test/output/dot_marker_shadow_color.png')
   end
 
@@ -299,6 +323,7 @@ class TestGruffDot < GruffTestCase
 
     g.data :Bob, GruffCustomData.new([50, 19, 31, 89, 20, 54, 37, 65]), '#33A6B8'
     g.write('test/output/dot_duck_typing.png')
+
     assert_same_image('test/expected/dot_duck_typing.png', 'test/output/dot_duck_typing.png')
   end
 

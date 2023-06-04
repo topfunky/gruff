@@ -36,6 +36,7 @@ class TestGruffBullet < GruffTestCase
       ]
     )
     g.write('test/output/bullet_greyscale.png')
+
     assert_same_image('test/expected/bullet_greyscale.png', 'test/output/bullet_greyscale.png')
   end
 
@@ -60,6 +61,7 @@ class TestGruffBullet < GruffTestCase
       ]
     )
     g.write('test/output/bullet_target_width.png')
+
     assert_same_image('test/expected/bullet_target_width.png', 'test/output/bullet_target_width.png')
   end
 
@@ -83,6 +85,7 @@ class TestGruffBullet < GruffTestCase
       ]
     )
     g.write('test/output/bullet_no_options.png')
+
     assert_same_image('test/expected/bullet_no_options.png', 'test/output/bullet_no_options.png')
   end
 end

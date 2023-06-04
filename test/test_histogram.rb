@@ -9,6 +9,7 @@ class TestGruffHistogram < GruffTestCase
     g.data :A, [10, 10, 20, 30, 40, 40, 40, 40, 40, 40, 50, 10, 10, 10]
     g.data :B, [100, 100, 100, 100, 90, 90, 80, 30, 30, 30, 30, 30]
     g.write('test/output/histogram.png')
+
     assert_same_image('test/expected/histogram.png', 'test/output/histogram.png')
   end
 
@@ -21,6 +22,7 @@ class TestGruffHistogram < GruffTestCase
     g.data :A, [10, 10, 20, 30, 40, 40, 40, 40, 40, 40, 50, 10, 10, 10]
     g.data :B, [100, 100, 100, 100, 90, 90, 80, 30, 30, 30, 30, 30]
     g.write('test/output/histogram_minmax.png')
+
     assert_same_image('test/expected/histogram_minmax.png', 'test/output/histogram_minmax.png')
   end
 
@@ -33,6 +35,7 @@ class TestGruffHistogram < GruffTestCase
     g.data :B, [100, 100, 100, 100, 90, 90, 80, 30, 30, 30, 30, 30]
     g.bin_width = 20
     g.write('test/output/histogram_bin_width_after_data_method.png')
+
     assert_same_image('test/expected/histogram_bin_width_after_data_method.png', 'test/output/histogram_bin_width_after_data_method.png')
   end
 
@@ -44,6 +47,7 @@ class TestGruffHistogram < GruffTestCase
     g.data :C, nil
 
     g.write('test/output/histogram_empty_data.png')
+
     assert_same_image('test/expected/histogram_empty_data.png', 'test/output/histogram_empty_data.png')
   end
 
@@ -58,6 +62,7 @@ class TestGruffHistogram < GruffTestCase
 
     g.data :Bob, GruffCustomData.new([50, 19, 31, 89, 20, 54, 37, 65]), '#33A6B8'
     g.write('test/output/histogram_duck_typing.png')
+
     assert_same_image('test/expected/histogram_duck_typing.png', 'test/output/histogram_duck_typing.png')
   end
 end

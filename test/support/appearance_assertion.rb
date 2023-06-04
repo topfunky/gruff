@@ -28,6 +28,7 @@ module MiniTest
 
       if @assert_same_image_retry_count < 1
         @assert_same_image_retry_count += 1
+
         assert_same_image(expected_image_path, output_image, delta)
       else
         raise e

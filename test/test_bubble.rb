@@ -17,6 +17,7 @@ class TestBubble < GruffTestCase
     g.fill_opacity = 0.6
     g.stroke_width = 2.0
     g.write('test/output/bubble.png')
+
     assert_same_image('test/expected/bubble.png', 'test/output/bubble.png')
   end
 end

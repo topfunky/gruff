@@ -40,6 +40,7 @@ class TestGruffArea < GruffTestCase
 
     # Default theme
     g.write('test/output/area_keynote.png')
+
     assert_same_image('test/expected/area_keynote.png', 'test/output/area_keynote.png')
   end
 
@@ -60,6 +61,7 @@ class TestGruffArea < GruffTestCase
 
     # Default theme
     g.write('test/output/area_fill_opacity.png')
+
     assert_same_image('test/expected/area_fill_opacity.png', 'test/output/area_fill_opacity.png')
   end
 
@@ -78,6 +80,7 @@ class TestGruffArea < GruffTestCase
 
     # Default theme
     g.write('test/output/area_keynote_small.png')
+
     assert_same_image('test/expected/area_keynote_small.png', 'test/output/area_keynote_small.png')
   end
 
@@ -94,6 +97,7 @@ class TestGruffArea < GruffTestCase
 
     # Default theme
     g.write('test/output/area_many.png')
+
     assert_same_image('test/expected/area_many.png', 'test/output/area_many.png')
   end
 
@@ -114,6 +118,7 @@ class TestGruffArea < GruffTestCase
 
     # Default theme
     g.write('test/output/area_many_areas_small.png')
+
     assert_same_image('test/expected/area_many_areas_small.png', 'test/output/area_many_areas_small.png')
   end
 
@@ -134,6 +139,7 @@ class TestGruffArea < GruffTestCase
 
     # Default theme
     g.write('test/output/area_tiny.png')
+
     assert_same_image('test/expected/area_tiny.png', 'test/output/area_tiny.png')
   end
 
@@ -152,6 +158,7 @@ class TestGruffArea < GruffTestCase
     g.data :Jane, [95, 95, 95, 90, 85, 80, 88, 100]
 
     g.write('test/output/area_empty_data.png')
+
     assert_same_image('test/expected/area_empty_data.png', 'test/output/area_empty_data.png')
   end
 
@@ -168,6 +175,7 @@ class TestGruffArea < GruffTestCase
 
     g.data :Bob, GruffCustomData.new([50, 19, 31, 89, 20, 54, 37, 65]), '#33A6B8'
     g.write('test/output/area_duck_typing.png')
+
     assert_same_image('test/expected/area_duck_typing.png', 'test/output/area_duck_typing.png')
   end
 
