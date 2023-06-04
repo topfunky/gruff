@@ -1035,7 +1035,7 @@ module Gruff
     def calculate_legend_label_widths_for_each_line(legend_labels, legend_square_width)
       label_widths = [[]]
       label_lines = [[]]
-      legend_labels = legend_labels.reject { |label| label&.length > 0 ? false : true }
+      legend_labels = legend_labels.select { |label| (label && !label.empty?) }
       legend_labels.each do |label|
         width = calculate_width(@legend_font, label)
         label_width = width + (legend_square_width * 2.7)
