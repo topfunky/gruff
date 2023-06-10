@@ -497,6 +497,8 @@ module Gruff
     # Return a rendered graph image.
     # This can use RMagick's methods to adjust the image before saving.
     #
+    # @param format [String] The output image format.
+    #
     # @return [Magick::Image] The rendered image.
     #
     # @example
@@ -507,22 +509,24 @@ module Gruff
     #   image = image.resize(400, 300).quantize(128, Magick::RGBColorspace)
     #   image.write('test.png')
     #
-    def to_image
+    def to_image(format = 'PNG')
       @to_image ||= begin
         draw
         renderer.finish
-        renderer.image
+        image = renderer.image
+        image.format = format
+        image
       end
     end
 
     # Return the graph as a rendered binary blob.
     #
-    # @param image_format [String] The image format of binary blob.
+    # @param format [String] The image format of binary blob.
     #
     # @deprecated Please use +to_image.to_blob+ instead.
-    def to_blob(image_format = 'PNG')
+    def to_blob(format = 'PNG')
       warn '#to_blob is deprecated. Please use `to_image.to_blob` instead'
-      to_image.format = image_format
+      to_image.format = format
       to_image.to_blob
     end
 
