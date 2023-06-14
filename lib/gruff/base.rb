@@ -27,6 +27,9 @@ module Gruff
 
     DEFAULT_TARGET_WIDTH = 800.0
 
+    # Blank space between graph and labels. Default is +15+.
+    attr_writer :label_margin
+
     # Blank space above the graph. Default is +20+.
     attr_writer :top_margin
 
@@ -180,6 +183,7 @@ module Gruff
       @marker_font = Gruff::Font.new(size: 21.0)
       @legend_font = Gruff::Font.new(size: 20.0)
 
+      @label_margin = LABEL_MARGIN
       @top_margin = @bottom_margin = @left_margin = @right_margin = DEFAULT_MARGIN
       @legend_margin = LEGEND_MARGIN
       @title_margin = TITLE_MARGIN
@@ -650,7 +654,7 @@ module Gruff
         # X Axis
         # Centered vertically and horizontally by setting the
         # height to 1.0 and the width to the width of the graph.
-        x_axis_label_y_coordinate = @graph_bottom + (LABEL_MARGIN * 2) + labels_caps_height
+        x_axis_label_y_coordinate = @graph_bottom + (@label_margin * 2) + labels_caps_height
 
         text_renderer = Gruff::Renderer::Text.new(renderer, @x_axis_label, font: @marker_font)
         text_renderer.add_to_render_queue(@raw_columns, 1.0, 0.0, x_axis_label_y_coordinate)
@@ -678,7 +682,7 @@ module Gruff
           marker_label = (BigDecimal(index.to_s) * BigDecimal(@increment.to_s)) + BigDecimal(minimum_value.to_s)
           label = y_axis_label(marker_label, @increment)
           text_renderer = Gruff::Renderer::Text.new(renderer, label, font: @marker_font)
-          text_renderer.add_to_render_queue(@graph_left - LABEL_MARGIN, 1.0, 0.0, y, Magick::EastGravity)
+          text_renderer.add_to_render_queue(@graph_left - @label_margin, 1.0, 0.0, y, Magick::EastGravity)
         end
       end
     end
@@ -719,7 +723,7 @@ module Gruff
 
       current_y_offset = begin
         if @legend_at_bottom
-          @graph_bottom + @legend_margin + labels_caps_height + LABEL_MARGIN + (@x_axis_label ? (LABEL_MARGIN * 2) + marker_caps_height : 0)
+          @graph_bottom + @legend_margin + labels_caps_height + @label_margin + (@x_axis_label ? (@label_margin * 2) + marker_caps_height : 0)
         else
           hide_title? ? @top_margin + @title_margin : @top_margin + @title_margin + title_caps_height
         end
@@ -775,7 +779,7 @@ module Gruff
       draw_unique_label(index) do
         if x >= @graph_left && x <= @graph_right
           y = @graph_bottom
-          x_offset, y_offset = calculate_label_offset(@marker_font, @labels[index], LABEL_MARGIN, @label_rotation)
+          x_offset, y_offset = calculate_label_offset(@marker_font, @labels[index], @label_margin, @label_rotation)
 
           draw_label_at(1.0, 1.0, x + x_offset, y + y_offset, @labels[index], gravity: gravity, rotation: @label_rotation)
           yield if block
@@ -903,10 +907,10 @@ module Gruff
         if !@has_left_labels && (@hide_line_markers || @hide_line_numbers)
           0.0
         else
-          longest_left_label_width + LABEL_MARGIN
+          longest_left_label_width + @label_margin
         end
       end
-      y_axis_label_width = @y_axis_label.nil? ? 0.0 : marker_caps_height + (LABEL_MARGIN * 2)
+      y_axis_label_width = @y_axis_label.nil? ? 0.0 : marker_caps_height + (@label_margin * 2)
 
       bottom_label_width = extra_left_room_for_long_label
 
@@ -966,10 +970,10 @@ module Gruff
     end
 
     def setup_bottom_margin
-      graph_bottom_margin = hide_bottom_label_area? ? @bottom_margin : @bottom_margin + labels_caps_height + LABEL_MARGIN
+      graph_bottom_margin = hide_bottom_label_area? ? @bottom_margin : @bottom_margin + labels_caps_height + @label_margin
       graph_bottom_margin += (calculate_legend_height + @legend_margin) if @legend_at_bottom
 
-      x_axis_label_height = @x_axis_label.nil? ? 0.0 : marker_caps_height + (LABEL_MARGIN * 2)
+      x_axis_label_height = @x_axis_label.nil? ? 0.0 : marker_caps_height + (@label_margin * 2)
       @raw_rows - graph_bottom_margin - x_axis_label_height
     end
 

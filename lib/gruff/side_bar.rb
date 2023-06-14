@@ -90,7 +90,7 @@ private
 
       if minimum_value < 0
         _, metrics = Gruff::BarValueLabel.metrics(minimum_value, @label_formatting, proc_text_metrics)
-        width = metrics.width + LABEL_MARGIN
+        width = metrics.width + @label_margin
         @graph_left += width - @graph_left if width > @graph_left
       end
 
@@ -160,7 +160,7 @@ private
         marker_label = (BigDecimal(diff.abs.to_s) * BigDecimal(increment.to_s)) + BigDecimal(minimum_value.to_s)
         label = x_axis_label(marker_label, @increment)
         text_renderer = Gruff::Renderer::Text.new(renderer, label, font: @marker_font)
-        text_renderer.add_to_render_queue(0, 0, x, @graph_bottom + LABEL_MARGIN, Magick::CenterGravity)
+        text_renderer.add_to_render_queue(0, 0, x, @graph_bottom + @label_margin, Magick::CenterGravity)
       end
     end
   end
@@ -170,7 +170,7 @@ private
 
   def draw_label(y_offset, index)
     draw_unique_label(index) do
-      draw_label_at(@graph_left - LABEL_MARGIN, 1.0, 0.0, y_offset, @labels[index], gravity: Magick::EastGravity)
+      draw_label_at(@graph_left - @label_margin, 1.0, 0.0, y_offset, @labels[index], gravity: Magick::EastGravity)
     end
   end
 

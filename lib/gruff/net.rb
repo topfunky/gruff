@@ -112,8 +112,8 @@ private
   def draw_label(center_x, center_y, angle, radius, amount)
     x_offset = center_x # + 15 # The label points need to be tweaked slightly
     y_offset = center_y # + 0  # This one doesn't though
-    x = x_offset + ((radius + LABEL_MARGIN) * Math.sin(deg2rad(angle)))
-    y = y_offset - ((radius + LABEL_MARGIN) * Math.cos(deg2rad(angle)))
+    x = x_offset + ((radius + @label_margin) * Math.sin(deg2rad(angle)))
+    y = y_offset - ((radius + @label_margin) * Math.cos(deg2rad(angle)))
 
     draw_label_at(1.0, 1.0, x, y, amount, gravity: Magick::CenterGravity)
   end

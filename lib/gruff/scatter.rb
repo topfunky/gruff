@@ -188,7 +188,7 @@ private
         label = x_axis_label(marker_label, x_increment)
         x = @graph_left + (increment_x_scaled * index)
         y = @graph_bottom
-        x_offset, y_offset = calculate_label_offset(@marker_font, label, LABEL_MARGIN, @label_rotation)
+        x_offset, y_offset = calculate_label_offset(@marker_font, label, @label_margin, @label_rotation)
 
         draw_label_at(1.0, 1.0, x + x_offset, y + y_offset, label, rotation: @label_rotation)
       end

@@ -54,10 +54,10 @@ private
   def setup_graph_measurements
     super
 
-    @graph_left += LABEL_MARGIN
-    @graph_top += LABEL_MARGIN
-    @graph_right -= LABEL_MARGIN
-    @graph_bottom -= LABEL_MARGIN
+    @graph_left += @label_margin
+    @graph_top += @label_margin
+    @graph_right -= @label_margin
+    @graph_bottom -= @label_margin
 
     @graph_width = @graph_right - @graph_left
     @graph_height = @graph_bottom - @graph_top
@@ -94,7 +94,7 @@ private
     degree = rad2deg(angle)
     metrics = text_metrics(@marker_font, amount)
 
-    r_offset = LABEL_MARGIN # The distance out from the center of the pie to get point
+    r_offset = @label_margin # The distance out from the center of the pie to get point
     x_offset = center_x # The label points need to be tweaked slightly
 
     x_offset -= begin
