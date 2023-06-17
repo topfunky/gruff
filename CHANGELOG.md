@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.22.0
+Fix Gruff::Bar and Gruff::SideBar in order to draw positive and negative mixed graph (#620)
+Allow to override label margin value (#618)
+Accept image format in Base#to_image in order to fix `no decode delegate for this image format` error (#619)
+
 ## 0.21.0
 - Fix legend color with empty label (#615)
 
