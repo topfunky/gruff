@@ -1,5 +1,8 @@
 # Change Log
 
+## 0.23.0
+- Update dependent RMagick version to 5.3.0 or later (#622)
+
 ## 0.22.0
 - Fix Gruff::Bar and Gruff::SideBar in order to draw positive and negative mixed graph (#620)
 - Allow to override label margin value (#618)
