@@ -67,7 +67,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        ruby-version: ['9.3.10.0', '9.4.2.0']
+        ruby-version: ['9.3.10.0', '9.4.3.0']
     name: JRuby ${{ matrix.ruby-version }}
     steps:
     - uses: actions/checkout@v3
