@@ -95,6 +95,22 @@ class TestGruffSideBar < GruffTestCase
     assert_same_image('test/expected/side_bar_label_format.png', 'test/output/side_bar_label_format.png')
   end
 
+  def test_labels_position
+    g = Gruff::SideBar.new
+    g.data :bar, [6, 7, 8, 9, 10]
+    g.data :foo, [1, 2, 3, 4, 5]
+    g.labels = [
+      'a' * 10,
+      'b' * 10,
+      '',
+      'f' * 10,
+      ''
+    ]
+    g.write('test/output/side_bar_labels_position.png')
+
+    assert_same_image('test/expected/side_bar_labels_position.png', 'test/output/side_bar_labels_position.png')
+  end
+
   def test_no_labels
     g = setup_basic_graph(Gruff::SideBar, 400)
     g.title = 'No Labels'

@@ -894,14 +894,14 @@ module Gruff
     def setup_left_margin
       return @left_margin if hide_left_label_area?
 
-      text = begin
+      longest_left_label_width = begin
         if @has_left_labels
-          @labels.values.reduce('') { |value, memo| value.to_s.length > memo.to_s.length ? value : memo }
+          @labels.values.map { |value| calculate_width(@marker_font, truncate_label_text(value.to_s)) }.max || 0
         else
-          y_axis_label(maximum_value, @increment)
+          label = y_axis_label(maximum_value, @increment)
+          calculate_width(@marker_font, truncate_label_text(label))
         end
       end
-      longest_left_label_width = calculate_width(@marker_font, truncate_label_text(text))
 
       line_number_width = begin
         if !@has_left_labels && (@hide_line_markers || @hide_line_numbers)
