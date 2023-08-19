@@ -14,6 +14,9 @@
 #   g.write('dot.png')
 #
 class Gruff::Dot < Gruff::Base
+  # Prevent drawing of column labels below a stacked bar graph.  Default is +false+.
+  attr_writer :hide_labels
+
   def initialize(*)
     super
     @has_left_labels = true
@@ -21,6 +24,23 @@ class Gruff::Dot < Gruff::Base
   end
 
 private
+
+  def initialize_attributes
+    super
+    @hide_labels = false
+  end
+
+  def hide_labels?
+    @hide_labels
+  end
+
+  def hide_left_label_area?
+    hide_labels? && @y_axis_label.nil?
+  end
+
+  def hide_bottom_label_area?
+    @hide_line_markers && @x_axis_label.nil? && @legend_at_bottom == false
+  end
 
   def draw_graph
     # Setup spacing.
