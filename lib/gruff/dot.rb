@@ -78,8 +78,9 @@ private
 
       unless @hide_line_numbers
         label = y_axis_label(marker_label, @increment)
+        y = @graph_bottom + @label_margin + (labels_caps_height / 2.0) + 5 # 5px offset for tick_mark_mode
         text_renderer = Gruff::Renderer::Text.new(renderer, label, font: @marker_font)
-        text_renderer.add_to_render_queue(0, 0, x, @graph_bottom + (@label_margin * 1.5), Magick::CenterGravity)
+        text_renderer.add_to_render_queue(0, 0, x, y, Magick::CenterGravity)
       end
     end
   end
