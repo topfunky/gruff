@@ -15,7 +15,7 @@ jobs:
     timeout-minutes: 20
     name: Lint
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         ref: ${{ github.event.pull_request.head.sha }}
     - name: Set up Ruby 2.6
@@ -40,7 +40,7 @@ jobs:
           - { full: 7.1.1-15, major-minor: '7.1' }
     name: Ruby ${{ matrix.ruby-version }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Cache ImageMagick
       uses: actions/cache@v3
       with:
@@ -70,7 +70,7 @@ jobs:
         ruby-version: ['9.3.10.0', '9.4.3.0']
     name: JRuby ${{ matrix.ruby-version }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Ruby
       uses: ruby/setup-ruby@master
       with:
