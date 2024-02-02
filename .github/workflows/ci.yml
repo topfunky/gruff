@@ -42,7 +42,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Cache ImageMagick
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ./build-ImageMagick
         key: v1-linux-imagemagick-${{ matrix.imagemagick-version.full }}
