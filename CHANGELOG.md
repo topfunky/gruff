@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.24.0
+- Add the way to make background transparent (#631)
+- Adjust line number position on side graph (#624)
+- Add hide_labels attribute in Gruff::Dot (#623)
+- Fix where SideBar's labels were sometimes missing by incorrect left margin
+
 ## 0.23.0
 - Update dependent RMagick version to 5.3.0 or later (#622)
 
