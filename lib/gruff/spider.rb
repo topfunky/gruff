@@ -24,10 +24,6 @@ class Gruff::Spider < Gruff::Base
     @max_value = max_value
   end
 
-  def transparent_background=(value)
-    renderer.transparent_background(@columns, @rows) if value
-  end
-
   def hide_text=(value)
     @hide_title = @hide_text = value
   end
