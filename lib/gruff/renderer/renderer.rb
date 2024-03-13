@@ -24,13 +24,15 @@ module Gruff
     end
 
     def background(columns, rows, scale, theme_options)
+      return image_background(scale, *theme_options[:background_image]) if theme_options[:background_image]
+
       case theme_options[:background_colors]
       when Array
         gradated_background(columns, rows, *theme_options[:background_colors][0..1], theme_options[:background_direction])
       when String
         solid_background(columns, rows, theme_options[:background_colors])
       else
-        image_background(scale, *theme_options[:background_image])
+        transparent_background(columns, rows)
       end
     end
 

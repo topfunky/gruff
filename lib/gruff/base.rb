@@ -367,6 +367,14 @@ module Gruff
       @colors = color_list
     end
 
+    # Set whether to make background transparent.
+    #
+    # @param value [Boolean] Specify whether to make background transparent.
+    #
+    def transparent_background=(value)
+      @renderer.transparent_background(@columns, @rows) if value
+    end
+
     # You can set a theme manually. Assign a hash to this method before you
     # send your data.
     #
@@ -378,7 +386,13 @@ module Gruff
     #     background_direction: :top_bottom
     #   }
     #
-    # +background_image: 'squirrel.png'+ is also possible.
+    # +background_colors+
+    # - Array<String> format value - background has gradation. (ex. +background_colors: ['black', 'grey']+)
+    # - String value - background has solid color. (ex. +background_colors: 'orange'+)
+    # - nil - background has transparent. (ex. +background_colors: nil+)
+    #
+    # +background_image+:
+    # - Specify the path to image file when it draw the image as background.
     #
     # +background_direction+ accepts one of following parameters.
     # - +:top_bottom+
@@ -400,7 +414,7 @@ module Gruff
         marker_color: 'white',
         marker_shadow_color: nil,
         font_color: 'black',
-        background_colors: nil,
+        background_colors: 'gray',
         background_image: nil
       }
       @theme_options = defaults.merge options
