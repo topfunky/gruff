@@ -14,9 +14,10 @@ ADD gruff.gemspec /tmp/gruff/gruff.gemspec
 ADD lib /tmp/gruff/lib/
 ADD before_install_linux.sh /tmp/gruff/before_install_linux.sh
 
-ENV IMAGEMAGICK_VERSION 7.1.1-15
+ENV IMAGEMAGICK_VERSION 7.1.1-29
 RUN bash /tmp/gruff/before_install_linux.sh && \
     rm -rf /var/lib/apt/lists/* && \
+    gem install bundler:2.4.22 && \
     bundle install
 
 WORKDIR /opt/gruff
