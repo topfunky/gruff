@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   else
     s.add_dependency 'rmagick', '~> 5.5'
   end
+  s.add_dependency 'bigdecimal', '~> 3.1'
   s.add_dependency 'histogram'
   s.required_ruby_version = '>= 3.0.0'
 
