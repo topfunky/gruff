@@ -53,7 +53,7 @@ class Gruff::Line < Gruff::Base
     if args.empty? || (!args.first.is_a?(Numeric) && !args.first.is_a?(String))
       super()
     else
-      super args.shift
+      super(args.shift)
     end
   end
 
@@ -308,7 +308,7 @@ private
     if x_data.nil?
       draw_label(new_x, index)
     else
-      @labels.each do |label_pos, _|
+      @labels.each_key do |label_pos|
         draw_label(@graph_left + (((label_pos - @minimum_x_value) * @graph_width) / (@maximum_x_value - @minimum_x_value)), label_pos)
       end
     end

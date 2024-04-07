@@ -13,13 +13,13 @@ AllCops:
 Metrics:
   Enabled: false
 
+Bundler/GemComment:
+  Enabled: false
+
+Bundler/GemVersion:
+  Enabled: false
+
 Gemspec/DependencyVersion:
-  Enabled: false
-
-Gemspec/DevelopmentDependencies:
-  Enabled: false
-
-Gemspec/OrderedDependencies:
   Enabled: false
 
 Gemspec/RequiredRubyVersion:
