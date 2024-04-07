@@ -2,10 +2,10 @@ FROM ubuntu:22.04
 
 RUN apt update && \
     apt install -y tzdata sudo && \
-    apt install -y make gcc git bzip2 wget zlib1g-dev libgdbm-dev libreadline-dev libffi-dev
+    apt install -y make build-essential git bzip2 wget zlib1g-dev libgdbm-dev libreadline-dev libffi-dev
 
 RUN git clone --depth 1 https://github.com/rbenv/ruby-build.git && \
-    cd ruby-build/bin && ./ruby-build 2.6.10 /usr/local
+    cd ruby-build/bin && ./ruby-build 3.0.6 /usr/local
 
 RUN mkdir /tmp/gruff
 WORKDIR /tmp/gruff
@@ -17,7 +17,7 @@ ADD before_install_linux.sh /tmp/gruff/before_install_linux.sh
 ENV IMAGEMAGICK_VERSION 7.1.1-29
 RUN bash /tmp/gruff/before_install_linux.sh && \
     rm -rf /var/lib/apt/lists/* && \
-    gem install bundler:2.4.22 && \
+    gem install bundler:2.5.7 && \
     bundle install
 
 WORKDIR /opt/gruff
