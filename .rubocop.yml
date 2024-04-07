@@ -67,6 +67,9 @@ Naming/VariableNumber:
 Style/AccessorGrouping:
   Enabled: false
 
+Style/ArrayFirstLast:
+  Enabled: false
+
 Style/ClassAndModuleChildren:
   Enabled: false
 
