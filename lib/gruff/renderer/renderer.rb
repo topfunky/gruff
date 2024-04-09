@@ -23,6 +23,12 @@ module Gruff
       end
     end
 
+    def transparent_background(columns, rows)
+      @image = render_transparent_background(columns, rows)
+    end
+
+  private
+
     def background(columns, rows, scale, theme_options)
       return image_background(scale, *theme_options[:background_image]) if theme_options[:background_image]
 
@@ -36,8 +42,13 @@ module Gruff
       end
     end
 
-    def transparent_background(columns, rows)
-      @image = render_transparent_background(columns, rows)
+    # Use with a theme to use an image (800x600 original) background.
+    def image_background(scale, image_path)
+      image = Magick::Image.read(image_path)
+      if scale != 1.0
+        image[0].resize!(scale) # TODO: Resize with new scale (crop if necessary for wide graph)
+      end
+      image[0]
     end
 
     # Make a new image at the current size with a solid +color+.
@@ -80,17 +91,6 @@ module Gruff
       else
         raise e
       end
-    end
-
-  private
-
-    # Use with a theme to use an image (800x600 original) background.
-    def image_background(scale, image_path)
-      image = Magick::Image.read(image_path)
-      if scale != 1.0
-        image[0].resize!(scale) # TODO: Resize with new scale (crop if necessary for wide graph)
-      end
-      image[0]
     end
 
     # Use with a theme to make a transparent background
