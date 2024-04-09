@@ -13,7 +13,7 @@ module Gruff
     def render(upper_left_x, upper_left_y, lower_right_x, lower_right_y)
       @renderer.draw.push
       @renderer.draw.stroke_width(@width)
-      @renderer.draw.stroke(@color) if @width > 1.0
+      @renderer.draw.stroke(@color) if @color && @width > 1.0
       @renderer.draw.fill_opacity(@opacity)
       @renderer.draw.fill(@color) if @color
       @renderer.draw.rectangle(upper_left_x, upper_left_y, lower_right_x, lower_right_y)
