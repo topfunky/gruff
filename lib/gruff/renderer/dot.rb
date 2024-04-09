@@ -5,7 +5,7 @@ module Gruff
   class Renderer::Dot
     def initialize(renderer, style, color:, width: 1.0, opacity: 1.0)
       @renderer = renderer
-      @style = style
+      @style = style.to_sym
       @color = color
       @width = width
       @opacity = opacity
@@ -17,7 +17,7 @@ module Gruff
       @renderer.draw.stroke(@color)
       @renderer.draw.fill_opacity(@opacity)
       @renderer.draw.fill(@color)
-      case @style.to_sym
+      case @style
       when :square
         square(new_x, new_y, radius)
       when :diamond
@@ -27,6 +27,8 @@ module Gruff
       end
       @renderer.draw.pop
     end
+
+  private
 
     def circle(new_x, new_y, radius)
       @renderer.draw.circle(new_x, new_y, new_x - radius, new_y)
