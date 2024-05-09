@@ -28,5 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'histogram'
   s.required_ruby_version = '>= 3.0.0'
 
+  s.metadata['bug_tracker_uri'] = 'https://github.com/topfunky/gruff/issues'
+  s.metadata['changelog_uri'] = 'https://github.com/topfunky/gruff/blob/master/CHANGELOG.md'
   s.metadata['rubygems_mfa_required'] = 'true'
 end
