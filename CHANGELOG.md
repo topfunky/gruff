@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.25.0
+- Add bigdecimal gem as dependency for Ruby 3.4
+- Update dependent RMagick version to 5.5.0 or later (#634)
+- Drop Ruby 2.6 and 2.7 support (#632)
+
 ## 0.24.0
 - Add the way to make background transparent (#631)
 - Adjust line number position on side graph (#624)
