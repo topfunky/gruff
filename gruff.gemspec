@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
     s.platform = 'java'
     s.add_dependency 'rmagick4j'
   else
-    s.add_dependency 'rmagick', '~> 5.5'
+    s.add_dependency 'rmagick', '>= 5.5'
   end
   s.add_dependency 'bigdecimal', '>= 3.0'
   s.add_dependency 'histogram'
