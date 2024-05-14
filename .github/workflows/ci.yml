@@ -13,15 +13,31 @@ jobs:
   lint:
     runs-on: ubuntu-22.04
     timeout-minutes: 20
-    name: Lint
+    strategy:
+      matrix:
+        ruby-version: ['3.0']
+        imagemagick-version:
+          - { full: 7.1.1-29, major-minor: '7.1' }
+    name: Lint (Ruby ${{ matrix.ruby-version }}, ImageMagick ${{ matrix.imagemagick-version.major-minor }})
     steps:
     - uses: actions/checkout@v4
       with:
         ref: ${{ github.event.pull_request.head.sha }}
-    - name: Set up Ruby 3.0
+    - name: Cache ImageMagick
+      uses: actions/cache@v4
+      with:
+        path: ./build-ImageMagick
+        key: v1-linux-imagemagick-${{ matrix.imagemagick-version.full }}
+        restore-keys: |
+          v1-linux-imagemagick-${{ matrix.imagemagick-version.full }}
+    - name: Install ImageMagick ${{ matrix.imagemagick-version.full }}
+      run: |
+        export IMAGEMAGICK_VERSION=${{ matrix.imagemagick-version.full }}
+        ./before_install_linux.sh
+    - name: Set up Ruby ${{ matrix.ruby-version }}
       uses: ruby/setup-ruby@master
       with:
-        ruby-version: '3.0'
+        ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true
     - name: Install dependencies
       run: bundle install --path=vendor/bundle --jobs 4 --retry 3

@@ -9,6 +9,7 @@ AllCops:
     Exclude:
         - 'vendor/bundle/**/*'
         - 'rails_generators/gruff/**/*'
+        - 'build-ImageMagick/**/*'
 
 Metrics:
   Enabled: false
