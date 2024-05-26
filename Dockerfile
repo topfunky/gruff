@@ -5,7 +5,7 @@ RUN apt update && \
     apt install -y make build-essential git bzip2 wget zlib1g-dev libgdbm-dev libreadline-dev libffi-dev
 
 RUN git clone --depth 1 https://github.com/rbenv/ruby-build.git && \
-    cd ruby-build/bin && ./ruby-build 3.0.6 /usr/local
+    cd ruby-build/bin && ./ruby-build 3.0.7 /usr/local
 
 RUN mkdir /tmp/gruff
 WORKDIR /tmp/gruff
