@@ -144,8 +144,8 @@ http://www.rubydoc.info/github/topfunky/gruff/frames
 
 ## Supported Ruby Versions
 
-- Ruby 2.6 or later
-- JRuby 9.3.x or later
+- Ruby 3.0 or later
+- JRuby 9.4.x or later
 
 ## Development
 1. Build docker image
