@@ -6,10 +6,10 @@ source 'https://rubygems.org'
 gemspec
 
 unless defined? JRUBY_VERSION
-  gem 'rubocop', '~> 1.63.4'
-  gem 'rubocop-minitest', '~> 0.35.0'
+  gem 'rubocop', '~> 1.66'
+  gem 'rubocop-minitest', '~> 0.36'
   gem 'rubocop-performance', '~> 1.21'
-  gem 'rubocop-rake', '~> 0.6.0'
+  gem 'rubocop-rake', '~> 0.6'
 end
 
 gem 'minitest-reporters'
