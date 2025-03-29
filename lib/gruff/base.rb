@@ -791,7 +791,7 @@ module Gruff
     # Draws column labels below graph, centered over x
     def draw_label(x, index, gravity = Magick::NorthGravity, &block)
       draw_unique_label(index) do
-        if x >= @graph_left && x <= @graph_right
+        if x.between?(@graph_left, @graph_right)
           y = @graph_bottom
           x_offset, y_offset = calculate_label_offset(@marker_font, @labels[index], @label_margin, @label_rotation)
 
