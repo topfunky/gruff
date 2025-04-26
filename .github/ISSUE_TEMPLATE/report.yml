@@ -1,0 +1,41 @@
+name: Report
+description: Create a report.
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A description of the bug or feature.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: |
+        List of steps, sample code, failing test or link to a project that reproduces the behavior.
+        Make sure you place a stack trace inside a code (```) block to avoid linking unrelated issues.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: System Configuration
+      description: Tell us about the environment where you are experiencing the bug.
+      value: |
+        - ImageMagick version:
+        - RMagick version:
+        - Gruff version:
+        - Ruby version:
+        - Environment (Operating system, version and so on):
+        - Additional information:
+      render: markdown
+    validations:
+      required: true
+  - type: textarea
+    id: addtional-context
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here.
+    validations:
+      required: false
