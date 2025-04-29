@@ -182,6 +182,7 @@ module Gruff
       @title_font = Gruff::Font.new(size: 36.0, bold: true)
       @marker_font = Gruff::Font.new(size: 21.0)
       @legend_font = Gruff::Font.new(size: 20.0)
+      @no_data_font = Gruff::Font.new(size: 80.0)
 
       @label_margin = LABEL_MARGIN
       @top_margin = @bottom_margin = @left_margin = @right_margin = DEFAULT_MARGIN
@@ -283,6 +284,7 @@ module Gruff
       @title_font.path = font_path unless @title_font.path
       @marker_font.path = font_path
       @legend_font.path = font_path
+      @no_data_font.path = font_path
     end
 
     # Same as {#font=} but for the title.
@@ -320,6 +322,14 @@ module Gruff
       @legend_font.size = value
     end
 
+    # Set the font size of the no data message. Default is +80+.
+    #
+    # @param value [Numeric] no data font size
+    #
+    def no_data_font_size=(value)
+      @no_data_font.size = value
+    end
+
     # Specifies whether to draw the title bolded or not. Default is +true+.
     #
     # @param value [Boolean] specifies whether to draw the title bolded or not.
@@ -336,6 +346,7 @@ module Gruff
       @title_font.color = value
       @marker_font.color = value
       @legend_font.color = value
+      @no_data_font.color = value
     end
 
     # Add a color to the list of available colors for lines.
@@ -826,9 +837,7 @@ module Gruff
 
     # Shows an error message because you have no data.
     def draw_no_data
-      font = @title_font.dup
-      font.size = 80
-      font.bold = false
+      font = @no_data_font
       text_renderer = Gruff::Renderer::Text.new(renderer, @no_data_message, font: font)
       text_renderer.render(@raw_columns, @raw_rows, 0, 0, Magick::CenterGravity)
     end
