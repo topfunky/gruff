@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.26.0
+
+- Allow customizing No Data font size (#642)
+
 ## 0.25.0
 - Add bigdecimal gem as dependency for Ruby 3.4
 - Update dependent RMagick version to 5.5.0 or later
