@@ -85,6 +85,16 @@ class TestGruffBase < GruffTestCase
     assert_same_image('test/expected/base_title_font_size.png', 'test/output/base_title_font_size.png')
   end
 
+  def test_no_data_font_size
+    g = Gruff::Bar.new
+    g.no_data_font_size = 15
+    g.no_data_message = 'No data reported for the selected period'
+    g.data('foo', [])
+    g.write('test/output/base_no_data_font_size.png')
+
+    assert_same_image('test/expected/base_no_data_font_size.png', 'test/output/base_no_data_font_size.png')
+  end
+
   def test_legend_with_no_name
     g = Gruff::Bar.new
     g.data nil, [1, 2, 3, 4, 5]
