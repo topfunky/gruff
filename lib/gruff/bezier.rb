@@ -25,7 +25,7 @@ private
     x_increment = (@graph_width / (column_count - 1)).to_f
 
     renderer_class = RUBY_PLATFORM == 'java' ? Gruff::Renderer::Polyline : Gruff::Renderer::Bezier
-    stroke_width = clip_value_if_greater_than(@columns / (store.norm_data.first[1].size * 4.0), 5.0)
+    stroke_width = clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 4.0), 5.0)
 
     store.norm_data.each do |data_row|
       next if data_row[1].empty?
