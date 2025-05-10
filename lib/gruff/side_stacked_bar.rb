@@ -85,7 +85,7 @@ private
 
       top_x = 0
       stacked_bars.each do |bar|
-        next if bar.point == 0
+        next if bar.point.nil? || bar.point == 0
 
         bottom_x, = conversion.get_top_bottom_scaled(total)
         bottom_x += @segment_spacing
