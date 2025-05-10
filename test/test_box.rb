@@ -57,7 +57,7 @@ class TestBox < GruffTestCase
     g = Gruff::Box.new
     g.title = 'Contained Empty Data'
     g.data 'A', []
-    g.data 'B', [41, 38, 47, 38, 50, 59, 56, 50, 62, 74, 41, 50, 59, 95, 50, 56, 47, 44, 65, 59, 50, 80]
+    g.data 'B', [nil, 38, 47, 38, 50, 59, 56, 50, 62, 74, 41, 50, 59, 95, 50, 56, 47, 44, 65, 59, 50, 80]
     g.data 'C', nil
 
     g.write('test/output/box_empty_data.png')
