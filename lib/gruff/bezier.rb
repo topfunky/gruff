@@ -28,11 +28,11 @@ private
     stroke_width = clip_value_if_greater_than(@columns / (store.norm_data.first.points.size * 4.0), 5.0)
 
     store.norm_data.each do |data_row|
-      next if data_row[1].empty?
+      next if data_row.points.empty?
 
       poly_points = []
 
-      data_row[1].each_with_index do |data_point, index|
+      data_row.points.each_with_index do |data_point, index|
         # Use incremented x and scaled y
         new_x = @graph_left + (x_increment * index)
         new_y = @graph_top + (@graph_height - (data_point * @graph_height))
