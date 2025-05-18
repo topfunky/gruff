@@ -6,7 +6,7 @@
 A library for making beautiful graphs.
 
 Built on top of [rmagick](https://github.com/rmagick/rmagick); see its web page
-for a list of the system-level prerequisities (ImageMagick etc) and how to install them.
+for a list of the system-level prerequisites (ImageMagick etc) and how to install them.
 
 ## Installation
 

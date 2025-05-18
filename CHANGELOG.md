@@ -56,7 +56,7 @@
 - Fix error when input empty data in Gruff::Histogram (#592)
 - Fix error when input empty data in Gruff::Area (#591)
 - Stop adjusting the square radius in Gruff::Line (#589)
-- Add diamond dot stype in Gruff::Line (#588)
+- Add diamond dot style in Gruff::Line (#588)
 - Allow title to be set as an array (#587)
 - Allow labels to be set as an array corresponding to the data values (#586)
 - Fixed a bug that breaks the colors in the theme when using the add_color method (#583)
