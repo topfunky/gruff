@@ -14,6 +14,8 @@ module Gruff
         @color = color
       end
 
+      alias x_points points
+
       def coordinates
         raise NotImplementedError, 'This method is not implemented for BasicData'
       end
