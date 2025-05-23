@@ -44,6 +44,7 @@ private
       data_points = []
 
       data_row.points.each_with_index do |data_point, index|
+        data_point = data_point.to_f
         # Use incremented x and scaled y
         new_x = @graph_left + (x_increment * index)
         new_y = @graph_top + (@graph_height - (data_point * @graph_height) - height[index])
