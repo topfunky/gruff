@@ -36,6 +36,19 @@ class TestCandlestick < GruffTestCase
     end
   end
 
+  def test_empty_data
+    g = Gruff::Candlestick.new
+    g.title = 'Contained Empty Data'
+    g.data low: nil, high: nil, open: nil, close: nil
+    g.data low: 89.14, high: 106.42, open:  91.28, close: 106.26
+    g.data low: 107.89, high: 131.00, open: 108.20, close: 129.04
+    g.data low: 103.10, high: 137.98, open: 132.76, close: 115.81
+
+    g.write('test/output/candlestick_empty_data.png')
+
+    assert_same_image('test/expected/candlestick_empty_data.png', 'test/output/candlestick_empty_data.png')
+  end
+
 private
 
   def setup_basic_graph(size = 800)
