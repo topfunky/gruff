@@ -39,7 +39,7 @@ class Gruff::Bullet < Gruff::Base
     @value = value.to_f
     self.maximum_value = maximum_value.to_f
     @options = options
-    @options.map { |k, v| @options[k] = v.to_f if v.is_a?(Numeric) }
+    @options.map { |k, v| @options[k] = v.to_f if v.respond_to?(:to_f) }
   end
 
   def draw
