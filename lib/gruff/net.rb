@@ -63,10 +63,8 @@ private
       poly_points = []
 
       data_row.points.each_with_index do |data_point, index|
-        next if data_point.nil?
-
         rad_pos = index * Math::PI * 2 / column_count
-        point_distance = data_point * @radius
+        point_distance = data_point.to_f * @radius
         start_x = @center_x + (Math.sin(rad_pos) * point_distance)
         start_y = @center_y - (Math.cos(rad_pos) * point_distance)
         if poly_points.empty?
@@ -77,7 +75,7 @@ private
         next_index = index + 1 < data_row.points.length ? index + 1 : 0
 
         next_rad_pos = next_index * Math::PI * 2 / column_count
-        next_point_distance = data_row.points[next_index] * @radius
+        next_point_distance = data_row.points[next_index].to_f * @radius
         end_x = @center_x + (Math.sin(next_rad_pos) * next_point_distance)
         end_y = @center_y - (Math.cos(next_rad_pos) * next_point_distance)
         poly_points << end_x
