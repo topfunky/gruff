@@ -53,12 +53,13 @@ private
 
     store.norm_data.each_with_index do |data_row, row_index|
       data_row.points.each_with_index do |data_point, point_index|
-        x_pos = @graph_left + (data_point * @graph_width)
+        x_pos = @graph_left + (data_point.to_f * @graph_width)
         y_pos = @graph_top + (items_width * point_index) + padding + (items_width / 2.0)
 
         if row_index == 0
           Gruff::Renderer::Line.new(renderer, color: @marker_color).render(@graph_left, y_pos, @graph_left + @graph_width, y_pos)
         end
+        next if data_point.nil?
 
         Gruff::Renderer::Dot.new(renderer, @dot_style, color: data_row.color).render(x_pos, y_pos, item_width / 3.0)
 

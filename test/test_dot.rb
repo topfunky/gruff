@@ -293,7 +293,7 @@ class TestGruffDot < GruffTestCase
   def test_empty_data
     g = Gruff::Dot.new
     g.title = 'Contained Empty Data'
-    g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88], '#113285'
+    g.data :Jimmy, [nil, 36, 86, 39, 25, 31, 79, 88], '#113285'
     g.data :Charles, [], '#86A697'
     g.data :Julie, nil, '#E03C8A'
     g.data :Jane, [95, 95, 95, 90, 85, 80, 88, 100], '#72636E'
