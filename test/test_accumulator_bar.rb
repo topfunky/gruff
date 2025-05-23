@@ -64,6 +64,14 @@ class TestGruffAccumulatorBar < GruffTestCase
     g.write('test/output/accum_bar_empty_data_nil.png')
 
     assert_same_image('test/expected/accum_bar_empty_data_nil.png', 'test/output/accum_bar_empty_data_nil.png')
+
+    g = Gruff::AccumulatorBar.new
+    g.title = 'Contained Nil Data 2'
+    g.data :A, [1, nil, 1]
+
+    g.write('test/output/accum_bar_empty_data_nil_2.png')
+
+    assert_same_image('test/expected/accum_bar_empty_data_nil_2.png', 'test/output/accum_bar_empty_data_nil_2.png')
   end
 
   def test_duck_typing
