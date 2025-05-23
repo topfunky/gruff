@@ -170,7 +170,7 @@ private
 
     def initialize(label, value, color)
       @label = label
-      @value = value
+      @value = value || 0
       @color = color
     end
 

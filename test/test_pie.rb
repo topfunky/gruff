@@ -218,6 +218,19 @@ class TestGruffPie < GruffTestCase
     assert_same_image('test/expected/pie_start_degree.png', 'test/output/pie_start_degree.png')
   end
 
+  def test_empty_data
+    g = Gruff::Pie.new
+    g.title = 'Contained Empty Data'
+    g.data 'A', 20
+    g.data 'B', 35
+    g.data 'C', nil
+    g.data 'D', 50
+
+    g.write('test/output/pie_empty_data.png')
+
+    assert_same_image('test/expected/pie_empty_data.png', 'test/output/pie_empty_data.png')
+  end
+
   def test_duck_typing
     g = Gruff::Pie.new
     g.data :A, GruffCustomData.new([25]), '#113285'
