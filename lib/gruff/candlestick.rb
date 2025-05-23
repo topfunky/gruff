@@ -122,10 +122,10 @@ private
     attr_accessor :close
 
     def initialize(low, high, open, close)
-      @low = low
-      @high = high
-      @open = open
-      @close = close
+      @low = low.to_f
+      @high = high.to_f
+      @open = open.to_f
+      @close = close.to_f
     end
   end
 end
