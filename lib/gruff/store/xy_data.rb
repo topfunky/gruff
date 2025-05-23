@@ -18,6 +18,10 @@ module Gruff
         x_points.zip(y_points)
       end
 
+      def coordinate_and_pointsizes
+        raise NotImplementedError, 'This method is not implemented for XYData'
+      end
+
       def empty?
         y_points.empty?
       end
