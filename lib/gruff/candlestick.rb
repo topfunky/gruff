@@ -115,6 +115,17 @@ private
   end
 
   # @private
-  class CandlestickData < Struct.new(:low, :high, :open, :close)
+  class CandlestickData
+    attr_accessor :low
+    attr_accessor :high
+    attr_accessor :open
+    attr_accessor :close
+
+    def initialize(low, high, open, close)
+      @low = low
+      @high = high
+      @open = open
+      @close = close
+    end
   end
 end

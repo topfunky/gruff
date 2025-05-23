@@ -3,9 +3,15 @@
 module Gruff
   class Store
     # @private
-    class BasicData < Struct.new(:label, :points, :color)
+    class BasicData
+      attr_accessor :label
+      attr_accessor :points
+      attr_accessor :color
+
       def initialize(label, points, color)
-        super(label.to_s, Array(points), color)
+        @label = label.to_s
+        @points = Array(points)
+        @color = color
       end
 
       def coordinates

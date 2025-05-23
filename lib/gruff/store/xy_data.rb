@@ -3,13 +3,21 @@
 module Gruff
   class Store
     # @private
-    class XYData < Struct.new(:label, :x_points, :y_points, :color)
+    class XYData
+      attr_accessor :label
+      attr_accessor :x_points
+      attr_accessor :y_points
+      attr_accessor :color
+
       def initialize(label, x_points, y_points, color)
         y_points = Array(y_points)
         x_points = x_points ? Array(x_points) : Array.new(y_points.length)
         raise ArgumentError, 'x_points.length != y_points.length!' if x_points.length != y_points.length
 
-        super(label.to_s, x_points, y_points, color)
+        @label = label.to_s
+        @x_points = x_points
+        @y_points = y_points
+        @color = color
       end
 
       alias points y_points
