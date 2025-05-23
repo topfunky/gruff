@@ -152,7 +152,7 @@ class TestGruffArea < GruffTestCase
   def test_empty_data
     g = Gruff::Area.new
     g.title = 'Contained Empty Data'
-    g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88]
+    g.data :Jimmy, [nil, 36, 86, 39, 25, 31, 79, 88]
     g.data :Charles, []
     g.data :Julie, nil
     g.data :Jane, [95, 95, 95, 90, 85, 80, 88, 100]
