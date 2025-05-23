@@ -46,7 +46,7 @@ private
       if data_points.empty?
         store.add(name, [], color)
       else
-        bins, freqs = HistogramArray.new(data_points).histogram(bin_width: @bin_width, min: @minimum_bin, max: @maximum_bin)
+        bins, freqs = HistogramArray.new(data_points.compact).histogram(bin_width: @bin_width, min: @minimum_bin, max: @maximum_bin)
         bins.each_with_index do |bin, index|
           @labels[index] = bin
         end
