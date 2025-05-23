@@ -20,6 +20,15 @@ module Gruff::Base::BarMixin
   end
 
   # @private
-  class BarData < Struct.new(:point, :value, :color)
+  class BarData
+    attr_accessor :point
+    attr_accessor :value
+    attr_accessor :color
+
+    def initialize(point, value, color)
+      @point = point
+      @value = value
+      @color = color
+    end
   end
 end

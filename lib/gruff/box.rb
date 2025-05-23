@@ -102,9 +102,15 @@ private
   end
 
   # @private
-  class BoxData < Struct.new(:label, :points, :color)
+  class BoxData
+    attr_accessor :label
+    attr_accessor :points
+    attr_accessor :color
+
     def initialize(label, points, color)
-      super(label, points.compact.sort, color)
+      @label = label
+      @points = points.compact.sort
+      @color = color
     end
 
     def min

@@ -162,8 +162,17 @@ private
   # Helper Classes
   #
   # @private
-  class PieSlice < Struct.new(:label, :value, :color)
+  class PieSlice
+    attr_accessor :label
+    attr_accessor :value
+    attr_accessor :color
     attr_accessor :total
+
+    def initialize(label, value, color)
+      @label = label
+      @value = value
+      @color = color
+    end
 
     def percentage
       (size * 100.0).round
