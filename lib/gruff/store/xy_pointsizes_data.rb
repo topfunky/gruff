@@ -15,6 +15,10 @@ module Gruff
 
       alias points y_points
 
+      def coordinates
+        raise NotImplementedError, 'This method is not implemented for XYPointsizeData'
+      end
+
       def coordinate_and_pointsizes
         x_points.zip(y_points, point_sizes)
       end

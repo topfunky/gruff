@@ -8,6 +8,14 @@ module Gruff
         super(label.to_s, Array(points), color)
       end
 
+      def coordinates
+        raise NotImplementedError, 'This method is not implemented for BasicData'
+      end
+
+      def coordinate_and_pointsizes
+        raise NotImplementedError, 'This method is not implemented for BasicData'
+      end
+
       def empty?
         points.empty?
       end
