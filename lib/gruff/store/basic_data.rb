@@ -16,6 +16,10 @@ module Gruff
 
       alias x_points points
 
+      def y_points
+        raise NotImplementedError, 'x_points is not implemented for BasicData'
+      end
+
       def coordinates
         raise NotImplementedError, 'This method is not implemented for BasicData'
       end
