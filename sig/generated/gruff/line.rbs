@@ -1,0 +1,165 @@
+# Generated from lib/gruff/line.rb with RBS::Inline
+
+#
+#  Here's how to make a Gruff::Line.
+#
+#    g = Gruff::Line.new
+#    g.title = "A Line Graph"
+#    g.data 'Fries', [20, 23, 19, 8]
+#    g.data 'Hamburgers', [50, 19, 99, 29]
+#    g.write("line.png")
+#
+#  There are also other options described below, such as {#baseline_value}, {#baseline_color},
+#  {#hide_dots=}, and {#hide_lines=}.
+class Gruff::Line < Gruff::Base
+  # Allow for reference lines ( which are like baseline ... just allowing for more & on both axes ).
+  attr_accessor reference_lines: Hash[Symbol, untyped]
+
+  attr_writer reference_line_default_color: String
+
+  attr_writer reference_line_default_width: Float | Integer
+
+  # Allow for vertical marker lines.
+  attr_writer show_vertical_markers: bool
+
+  # Dimensions of lines and dots; calculated based on dataset size if left unspecified.
+  attr_writer line_width: Float | Integer
+
+  attr_writer dot_radius: Float | Integer
+
+  # default is +'circle'+, other options include +square+ and +diamond+.
+  attr_writer dot_style: :square | :circle | :diamond | "square" | "circle" | "diamond"
+
+  # Hide parts of the graph to fit more data points, or for a different appearance.
+  attr_writer hide_dots: bool
+
+  attr_writer hide_lines: bool
+
+  # accessors for support of xy data.
+  attr_writer minimum_x_value: Float
+
+  # accessors for support of xy data.
+  attr_writer maximum_x_value: Float
+
+  # The number of vertical lines shown.
+  attr_writer marker_x_count: Integer
+
+  # Call with target pixel width of graph (+800+, +400+, +300+), and/or +false+ to omit lines (points only).
+  #
+  #   g = Gruff::Line.new(400) # 400px wide with lines
+  #   g = Gruff::Line.new(400, false) # 400px wide, no lines (for backwards compatibility)
+  #   g = Gruff::Line.new(false) # Defaults to 800px wide, no lines (for backwards compatibility)
+  #
+  # The preferred way is to call {#hide_dots=} or {#hide_lines=} instead.
+  #
+  # @rbs return: void
+  def initialize: (*untyped args) -> void
+
+  # Get the value if somebody has defined it.
+  #
+  # @rbs return: Float | Integer | nil
+  def baseline_value: () -> (Float | Integer | nil)
+
+  # Set a value for a baseline reference line..
+  #
+  # @rbs new_value: Float | Integer
+  def baseline_value=: (Float | Integer new_value) -> untyped
+
+  # @rbs return: Float | Integer | nil
+  def baseline_color: () -> (Float | Integer | nil)
+
+  # @rbs new_value: Float | Integer
+  def baseline_color=: (Float | Integer new_value) -> untyped
+
+  # Input the data in the graph.
+  #
+  # Parameters are an array where the first element is the name of the dataset
+  # and the value is an array of values to plot.
+  #
+  # Can be called multiple times with different datasets for a multi-valued
+  # graph.
+  #
+  # If the color argument is nil, the next color from the default theme will
+  # be used.
+  #
+  # @param name [String, Symbol] The name of the dataset.
+  # @rbs name: String | Symbol
+  # @param data_points [Array] The array of dataset.
+  # @rbs data_points: Array[nil | Float | Integer] | nil
+  # @param color [String] The color for drawing graph of dataset.
+  # @rbs color: String
+  #
+  # @note
+  #   If you want to use a preset theme, you must set it before calling {#data}.
+  #
+  # @example
+  #   data("Bart S.", [95, 45, 78, 89, 88, 76], '#ffcc00')
+  def data: (String | Symbol name, ?Array[nil | Float | Integer] | nil data_points, ?String color) -> untyped
+
+  # This method allows one to plot a dataset with both X and Y data.
+  #
+  # @overload dataxy(name, x_data_points = [], y_data_points = [], color = nil)
+  #   @param name [String] the title of the dataset.
+  #   @param x_data_points [Array] an array containing the x data points for the graph.
+  #   @param y_data_points [Array] an array containing the y data points for the graph.
+  #   @param color [String] hex number indicating the line color as an RGB triplet.
+  #
+  # @overload dataxy(name, xy_data_points = [], color = nil)
+  #   @param name [String] the title of the dataset.
+  #   @param xy_data_points [Array] an array containing both x and y data points for the graph.
+  #   @param color [String] hex number indicating the line color as an RGB triplet.
+  #
+  # @note
+  #   - if (x_data_points.length != y_data_points.length) an error is
+  #     returned.
+  #   - if the color argument is nil, the next color from the default theme will
+  #     be used.
+  #   - if you want to use a preset theme, you must set it before calling {#dataxy}.
+  #
+  # @example
+  #   g = Gruff::Line.new
+  #   g.title = "X/Y Dataset"
+  #   g.dataxy("Apples", [1,3,4,5,6,10], [1, 2, 3, 4, 4, 3])
+  #   g.dataxy("Bapples", [1,3,4,5,7,9], [1, 1, 2, 2, 3, 3])
+  #   g.dataxy("Capples", [[1,1],[2,3],[3,4],[4,5],[5,7],[6,9]])
+  #
+  #   # you can still use the old data method too if you want:
+  #   g.data("Capples", [1, 1, 2, 2, 3, 3])
+  #
+  #   # labels will be drawn at the x locations of the keys passed in.
+  #   In this example the labels are drawn at x positions 2, 4, and 6:
+  #   g.labels = {0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006'}
+  #   # The 0 => '2003' label will be ignored since it is outside the chart range.
+  #
+  # @rbs name: String | Symbol
+  # @rbs x_data_points: Array[nil | Float | Integer] | Array[[nil | Float | Integer, nil | Float | Integer]] | nil
+  # @rbs y_data_points: Array[nil | Float | Integer] | nil | String
+  # @rbs color: String
+  def dataxy: (String | Symbol name, ?Array[nil | Float | Integer] | Array[[ nil | Float | Integer, nil | Float | Integer ]] | nil x_data_points, ?Array[nil | Float | Integer] | nil | String y_data_points, ?String color) -> untyped
+
+  private
+
+  def initialize_store: () -> untyped
+
+  def initialize_attributes: () -> untyped
+
+  def draw_reference_line: (untyped reference_line, untyped left, untyped right, untyped top, untyped bottom) -> untyped
+
+  def draw_horizontal_reference_line: (untyped reference_line) -> untyped
+
+  def draw_vertical_reference_line: (untyped reference_line) -> untyped
+
+  def draw_graph: () -> untyped
+
+  def setup_data: () -> untyped
+
+  def setup_drawing: () -> untyped
+
+  def normalize: () -> untyped
+
+  def draw_line_markers: () -> untyped
+
+  def draw_label_for_x_data: (untyped x_data, untyped new_x, untyped index) -> untyped
+
+  def contains_one_point_only?: (untyped data_row) -> untyped
+end

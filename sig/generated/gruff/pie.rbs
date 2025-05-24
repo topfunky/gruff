@@ -1,0 +1,131 @@
+# Generated from lib/gruff/pie.rb with RBS::Inline
+
+#
+#  Here's how to make a Gruff::Pie.
+#
+#    g = Gruff::Pie.new
+#    g.title = "Visual Pie Graph Test"
+#    g.data 'Fries', 20
+#    g.data 'Hamburgers', 50
+#    g.write("pie_keynote.png")
+#
+#  To control where the pie chart starts creating slices, use {#start_degree=}.
+class Gruff::Pie < Gruff::Base
+  DEFAULT_TEXT_OFFSET_PERCENTAGE: ::Float
+
+  # Can be used to make the pie start cutting slices at the top (-90.0)
+  # or at another angle. Default is +-90.0+, which starts at 3 o'clock.
+  attr_writer start_degree: Float | Integer
+
+  # Set the number output format lambda.
+  attr_writer label_formatting: Proc
+
+  # Do not show labels for slices that are less than this percent. Use 0 to always show all labels.
+  # Defaults to +0+.
+  attr_writer hide_labels_less_than: Float | Integer
+
+  # Affect the distance between the percentages and the pie chart.
+  # Defaults to +0.1+.
+  attr_writer text_offset_percentage: Float | Integer
+
+  # # Use values instead of percentages.
+  attr_writer show_values_as_labels: bool
+
+  # Set to +true+ if you want the data sets sorted with largest avg values drawn
+  # first. Default is +true+.
+  attr_writer sort: bool
+
+  # Can be used to make the pie start cutting slices at the top (-90.0)
+  # or at another angle. Default is +-90.0+, which starts at 3 o'clock.
+  # @deprecated Please use {#start_degree=} instead.
+  def zero_degree=: (untyped value) -> untyped
+
+  private
+
+  def initialize_attributes: () -> untyped
+
+  def setup_drawing: () -> untyped
+
+  def draw_graph: () -> untyped
+
+  def slices: () -> untyped
+
+  # @rbs degree: Float | Integer
+  def update_chart_degrees_with: (untyped degrees) -> untyped
+
+  # @rbs return: Float | Integer
+  def chart_degrees: () -> (Float | Integer)
+
+  attr_reader graph_height: Float | Integer
+
+  attr_reader graph_width: Float | Integer
+
+  # @rbs return: Float | Integer
+  def half_width: () -> (Float | Integer)
+
+  # @rbs return: Float | Integer
+  def half_height: () -> (Float | Integer)
+
+  # @rbs return: Float | Integer
+  def radius: () -> (Float | Integer)
+
+  # @rbs return: Float | Integer
+  def center_x: () -> (Float | Integer)
+
+  # @rbs return: Float | Integer
+  def center_y: () -> (Float | Integer)
+
+  # @rbs return: Float | Integer
+  def distance_from_center: () -> (Float | Integer)
+
+  # @rbs return: Float | Integer | BigDecimal
+  def radius_offset: () -> (Float | Integer | BigDecimal)
+
+  # @rbs return: Float | Integer
+  def ellipse_factor: () -> (Float | Integer)
+
+  # @rbs slice: Gruff::Pie::PieSlice
+  def process_label_for: (Gruff::Pie::PieSlice slice) -> untyped
+
+  # @rbs slice: Gruff::Pie::PieSlice
+  # @rbs return: [Float | Integer, Float | Integer]
+  def label_coordinates_for: (Gruff::Pie::PieSlice slice) -> [ Float | Integer, Float | Integer ]
+
+  # @rbs angle: Float | Integer
+  # @rbs return: Float
+  def x_label_coordinate: (Float | Integer angle) -> Float
+
+  # @rbs angle: Float | Integer
+  # @rbs return: Float
+  def y_label_coordinate: (Float | Integer angle) -> Float
+
+  # Helper Classes
+  #
+  # @private
+  class PieSlice
+    attr_accessor label: String | Symbol
+
+    attr_accessor value: Float | Integer
+
+    attr_accessor color: String
+
+    attr_accessor total: Float | Integer
+
+    # @rbs label: String | Symbol
+    # @rbs value: nil | Float | Integer
+    # @rbs color: String
+    # @rbs return: void
+    def initialize: (String | Symbol label, nil | Float | Integer value, String color) -> void
+
+    # @rbs return: Float | Integer
+    def percentage: () -> (Float | Integer)
+
+    # @rbs return: Float
+    def degrees: () -> Float
+
+    private
+
+    # @rbs return: Float | Integer
+    def size: () -> (Float | Integer)
+  end
+end

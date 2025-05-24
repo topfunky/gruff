@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 #
 # Here's how to set up a Gruff::Bubble.
 #
@@ -9,10 +11,10 @@
 #
 class Gruff::Bubble < Gruff::Scatter
   # Specifies the filling opacity in area graph. Default is +0.6+.
-  attr_writer :fill_opacity
+  attr_writer :fill_opacity #: Float | Integer
 
   # Specifies the stroke width in line. Default is +1.0+.
-  attr_writer :stroke_width
+  attr_writer :stroke_width #: Float | Integer
 
   # The first parameter is the name of the dataset.  The next two are the
   # x and y axis data points contain in their own array in that respective
@@ -53,6 +55,11 @@ class Gruff::Bubble < Gruff::Scatter
   #   g.title = "Bubble Graph"
   #   g.data :A, [-1, 19, -4, -23], [-35, 21, 23, -4], [4.5, 1.0, 2.1, 0.9]
   #
+  # @rbs name: String | Symbol
+  # @rbs x_data_points: Array[nil | Float | Integer] | nil
+  # @rbs y_data_points: Array[nil | Float | Integer] | nil
+  # @rbs point_sizes: Array[nil | Float | Integer] | nil
+  # @rbs color: String
   def data(name, x_data_points = [], y_data_points = [], point_sizes = [], color = nil)
     # make sure it's an array
     x_data_points = Array(x_data_points)

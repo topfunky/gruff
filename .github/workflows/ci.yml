@@ -46,6 +46,43 @@ jobs:
     - name: Run tests
       run: bundle exec rubocop
 
+  RBS:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        ruby-version: ['3.4']
+        imagemagick-version:
+          - { full: 7.1.1-33, major-minor: '7.1' }
+    name: Check RBS (Ruby ${{ matrix.ruby-version }}, ImageMagick ${{ matrix.imagemagick-version.major-minor }})
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - name: Cache ImageMagick
+      uses: actions/cache@v4
+      with:
+        path: ./build-ImageMagick
+        key: v1-linux-imagemagick-${{ matrix.imagemagick-version.full }}
+        restore-keys: |
+          v1-linux-imagemagick-${{ matrix.imagemagick-version.full }}
+    - name: Install ImageMagick ${{ matrix.imagemagick-version.full }}
+      run: |
+        export IMAGEMAGICK_VERSION=${{ matrix.imagemagick-version.full }}
+        ./before_install_linux.sh
+    - name: Set up Ruby ${{ matrix.ruby-version }}
+      uses: ruby/setup-ruby@master
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true
+    - name: Install dependencies
+      run: bundle install --path=vendor/bundle --jobs 4 --retry 3
+    - name: Run tests
+      run: |
+        bundle exec rake rbs:update
+        git --no-pager diff --exit-code
+        bundle exec steep check
+
   test-ruby:
     runs-on: ubuntu-24.04
     timeout-minutes: 20

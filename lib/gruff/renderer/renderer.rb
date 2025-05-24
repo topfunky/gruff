@@ -1,11 +1,20 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 module Gruff
   # @private
   class Renderer
-    attr_accessor :text_renderers
-    attr_reader :draw, :image, :scale
+    attr_accessor :text_renderers #: Array[Gruff::Renderer::Text]
+    attr_reader :draw
+    attr_reader :image
+    attr_reader :scale #: real
 
+    # @rbs columns: Integer
+    # @rbs rows: Integer
+    # @rbs scale: Float | Integer
+    # @rbs theme_options: ::Hash[Symbol, untyped]
+    # @rbs return: void
     def initialize(columns, rows, scale, theme_options)
       @draw = Magick::Draw.new
       @text_renderers = []
@@ -23,6 +32,8 @@ module Gruff
       end
     end
 
+    # @rbs columns: Integer
+    # @rbs rows: Integer
     def transparent_background(columns, rows)
       @image = render_transparent_background(columns, rows)
     end
@@ -30,11 +41,11 @@ module Gruff
   private
 
     def background(columns, rows, scale, theme_options)
-      return image_background(scale, *theme_options[:background_image]) if theme_options[:background_image]
+      return image_background(scale, *theme_options[:background_image]) if theme_options[:background_image] # steep:ignore
 
       case theme_options[:background_colors]
       when Array
-        gradated_background(columns, rows, *theme_options[:background_colors][0..1], theme_options[:background_direction])
+        gradated_background(columns, rows, *theme_options[:background_colors][0..1], theme_options[:background_direction]) # steep:ignore
       when String
         solid_background(columns, rows, theme_options[:background_colors])
       else

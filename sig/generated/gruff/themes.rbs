@@ -1,0 +1,24 @@
+# Generated from lib/gruff/themes.rb with RBS::Inline
+
+module Gruff
+  module Themes
+    # A color scheme similar to the popular presentation software.
+    KEYNOTE: untyped
+
+    # A color scheme plucked from the colors on the popular usability blog.
+    THIRTYSEVEN_SIGNALS: untyped
+
+    # A color scheme from the colors used on the 2005 Rails keynote
+    # presentation at RubyConf.
+    RAILS_KEYNOTE: untyped
+
+    # A color scheme similar to that used on the popular podcast site.
+    ODEO: untyped
+
+    # A pastel theme
+    PASTEL: untyped
+
+    # A greyscale theme
+    GREYSCALE: untyped
+  end
+end

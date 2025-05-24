@@ -1,0 +1,53 @@
+# Generated from lib/gruff/store/store.rb with RBS::Inline
+
+module Gruff
+  # @private
+  class Store
+    attr_reader data: Array[Gruff::Store::BasicData | Gruff::Store::XYData | Gruff::Store::XYPointsizeData]
+
+    # @rbs return: void
+    def initialize: (untyped data_class) -> void
+
+    def add: (*untyped args) -> untyped
+
+    # @rbs return: Array[Gruff::Store::BasicData | Gruff::Store::XYData | Gruff::Store::XYPointsizeData]
+    def norm_data: () -> Array[Gruff::Store::BasicData | Gruff::Store::XYData | Gruff::Store::XYPointsizeData]
+
+    def normalize: (**untyped keywords) -> untyped
+
+    # @rbs return: bool
+    def empty?: () -> bool
+
+    # @rbs return: Integer
+    def length: () -> Integer
+
+    # @rbs return: Integer
+    def columns: () -> Integer
+
+    # @rbs return: Float | Integer
+    def min: () -> (Float | Integer)
+
+    alias min_y min
+
+    # @rbs return: Float | Integer
+    def max: () -> (Float | Integer)
+
+    alias max_y max
+
+    # @rbs return: Float | Integer
+    def min_x: () -> (Float | Integer)
+
+    # @rbs return: Float | Integer
+    def max_x: () -> (Float | Integer)
+
+    def sort_data!: () -> untyped
+
+    def sort_norm_data!: () -> untyped
+
+    # @rbs return: Array[Gruff::Store::BasicData | Gruff::Store::XYData | Gruff::Store::XYPointsizeData]
+    def reverse!: () -> Array[Gruff::Store::BasicData | Gruff::Store::XYData | Gruff::Store::XYPointsizeData]
+
+    # @rbs colors: Array[String]
+    def change_colors: (Array[String] colors) -> untyped
+  end
+end

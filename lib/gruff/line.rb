@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 #
 # Here's how to make a Gruff::Line.
 #
@@ -14,31 +16,32 @@
 #
 class Gruff::Line < Gruff::Base
   # Allow for reference lines ( which are like baseline ... just allowing for more & on both axes ).
-  attr_accessor :reference_lines
-  attr_writer :reference_line_default_color
-  attr_writer :reference_line_default_width
+  attr_accessor :reference_lines #: Hash[Symbol, untyped]
+  attr_writer :reference_line_default_color #: String
+  attr_writer :reference_line_default_width #: Float | Integer
 
   # Allow for vertical marker lines.
-  attr_writer :show_vertical_markers
+  attr_writer :show_vertical_markers #: bool
 
   # Dimensions of lines and dots; calculated based on dataset size if left unspecified.
-  attr_writer :line_width
-  attr_writer :dot_radius
+  attr_writer :line_width #: Float | Integer
+  attr_writer :dot_radius #: Float | Integer
 
   # default is +'circle'+, other options include +square+ and +diamond+.
-  attr_writer :dot_style
+  attr_writer :dot_style #: :square | :circle | :diamond | 'square' | 'circle' | 'diamond'
 
   # Hide parts of the graph to fit more data points, or for a different appearance.
-  attr_writer :hide_dots, :hide_lines
+  attr_writer :hide_dots #: bool
+  attr_writer :hide_lines #: bool
 
   # accessors for support of xy data.
-  attr_writer :minimum_x_value
+  attr_writer :minimum_x_value #: Float
 
   # accessors for support of xy data.
-  attr_writer :maximum_x_value
+  attr_writer :maximum_x_value #: Float
 
   # The number of vertical lines shown.
-  attr_writer :marker_x_count
+  attr_writer :marker_x_count #: Integer
 
   # Call with target pixel width of graph (+800+, +400+, +300+), and/or +false+ to omit lines (points only).
   #
@@ -47,6 +50,8 @@ class Gruff::Line < Gruff::Base
   #   g = Gruff::Line.new(false) # Defaults to 800px wide, no lines (for backwards compatibility)
   #
   # The preferred way is to call {#hide_dots=} or {#hide_lines=} instead.
+  #
+  # @rbs return: void
   def initialize(*args)
     raise ArgumentError, 'Wrong number of arguments' if args.length > 2
 
@@ -58,6 +63,8 @@ class Gruff::Line < Gruff::Base
   end
 
   # Get the value if somebody has defined it.
+  #
+  # @rbs return: Float | Integer | nil
   def baseline_value
     if @reference_lines.key?(:baseline)
       @reference_lines[:baseline][:value]
@@ -65,17 +72,21 @@ class Gruff::Line < Gruff::Base
   end
 
   # Set a value for a baseline reference line..
+  #
+  # @rbs new_value: Float | Integer
   def baseline_value=(new_value)
     @reference_lines[:baseline] ||= {}
     @reference_lines[:baseline][:value] = new_value
   end
 
+  # @rbs return: Float | Integer | nil
   def baseline_color
     if @reference_lines.key?(:baseline)
       @reference_lines[:baseline][:color]
     end
   end
 
+  # @rbs new_value: Float | Integer
   def baseline_color=(new_value)
     @reference_lines[:baseline] ||= {}
     @reference_lines[:baseline][:color] = new_value
@@ -93,8 +104,11 @@ class Gruff::Line < Gruff::Base
   # be used.
   #
   # @param name [String, Symbol] The name of the dataset.
+  # @rbs name: String | Symbol
   # @param data_points [Array] The array of dataset.
+  # @rbs data_points: Array[nil | Float | Integer] | nil
   # @param color [String] The color for drawing graph of dataset.
+  # @rbs color: String
   #
   # @note
   #   If you want to use a preset theme, you must set it before calling {#data}.
@@ -139,6 +153,11 @@ class Gruff::Line < Gruff::Base
   #   In this example the labels are drawn at x positions 2, 4, and 6:
   #   g.labels = {0 => '2003', 2 => '2004', 4 => '2005', 6 => '2006'}
   #   # The 0 => '2003' label will be ignored since it is outside the chart range.
+  #
+  # @rbs name: String | Symbol
+  # @rbs x_data_points: Array[nil | Float | Integer] | Array[[nil | Float | Integer, nil | Float | Integer]] | nil
+  # @rbs y_data_points: Array[nil | Float | Integer] | nil | String
+  # @rbs color: String
   def dataxy(name, x_data_points = [], y_data_points = [], color = nil)
     # make sure it's an array
     x_data_points = Array(x_data_points)
@@ -152,7 +171,7 @@ class Gruff::Line < Gruff::Base
       y_data_points = Array(y_data_points)
     end
 
-    raise ArgumentError, 'x_data_points.length != y_data_points.length!' if x_data_points.length != y_data_points.length
+    raise ArgumentError, 'x_data_points.length != y_data_points.length!' if x_data_points.length != y_data_points.length # steep:ignore
 
     # call the existing data routine for the x/y data.
     store.add(name, x_data_points, y_data_points, color)

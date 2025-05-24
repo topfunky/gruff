@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 #
 # Gruff::Area provides an area graph which displays graphically
 # quantitative data.
@@ -15,10 +17,10 @@
 #
 class Gruff::Area < Gruff::Base
   # Specifies the filling opacity in area graph. Default is +0.85+.
-  attr_writer :fill_opacity
+  attr_writer :fill_opacity #: Float | Integer
 
   # Specifies the stroke width in line around area graph. Default is +2.0+.
-  attr_writer :stroke_width
+  attr_writer :stroke_width #: Float | Integer
 
 private
 

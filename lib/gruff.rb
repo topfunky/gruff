@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 require 'rmagick'
 
 require_relative 'gruff/patch/rmagick'
@@ -16,7 +18,7 @@ require_relative 'gruff/version'
 module Gruff
   # @private
   def self.libpath(path)
-    File.join(__dir__, 'gruff', path)
+    File.join(__dir__, 'gruff', path) # steep:ignore
   end
 
   autoload :BarConversion, Gruff.libpath('helper/bar_conversion')

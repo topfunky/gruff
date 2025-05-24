@@ -1,0 +1,16 @@
+# Generated from lib/gruff/renderer/polyline.rb with RBS::Inline
+
+module Gruff
+  # @private
+  class Renderer::Polyline
+    # @rbs renderer: Gruff::Renderer
+    # @rbs color: String
+    # @rbs width: Float | Integer
+    # @rbs linejoin: String
+    # @rbs return: void
+    def initialize: (Gruff::Renderer renderer, color: String, ?width: Float | Integer, ?linejoin: String) -> void
+
+    # @rbs points: Array[Float | Integer]
+    def render: (Array[Float | Integer] points) -> untyped
+  end
+end

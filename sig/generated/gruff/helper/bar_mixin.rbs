@@ -1,0 +1,22 @@
+# Generated from lib/gruff/helper/bar_mixin.rb with RBS::Inline
+
+# @private
+module Gruff::Base::BarMixin
+  # @rbs return: Array[Array[Gruff::Base::BarMixin::BarData]]
+  def normalized_group_bars: () -> Array[Array[Gruff::Base::BarMixin::BarData]]
+
+  # @private
+  class BarData
+    attr_accessor point: Float | Integer
+
+    attr_accessor value: nil | Float | Integer
+
+    attr_accessor color: String
+
+    # @rbs point: Float | Integer
+    # @rbs value: nil | Float | Integer
+    # @rbs color: String
+    # @rbs return: void
+    def initialize: (Float | Integer point, nil | Float | Integer value, String color) -> void
+  end
+end

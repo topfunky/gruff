@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 require 'bigdecimal'
 
 ##
@@ -21,105 +23,106 @@ module Gruff
   # A common base class inherited from class of drawing a graph.
   class Base
     # Space around text elements. Mostly used for vertical spacing.
-    LEGEND_MARGIN = TITLE_MARGIN = 20.0
+    LEGEND_MARGIN = 20.0
+    TITLE_MARGIN = 20.0
     LABEL_MARGIN = 15.0
     DEFAULT_MARGIN = 20.0
 
     DEFAULT_TARGET_WIDTH = 800.0
 
     # Blank space between graph and labels. Default is +15+.
-    attr_writer :label_margin
+    attr_writer :label_margin #: Float | Integer
 
     # Blank space above the graph. Default is +20+.
-    attr_writer :top_margin
+    attr_writer :top_margin #: Float | Integer
 
     # Blank space below the graph. Default is +20+.
-    attr_writer :bottom_margin
+    attr_writer :bottom_margin #: Float | Integer
 
     # Blank space to the right of the graph. Default is +20+.
-    attr_writer :right_margin
+    attr_writer :right_margin #: Float | Integer
 
     # Blank space to the left of the graph. Default is +20+.
-    attr_writer :left_margin
+    attr_writer :left_margin #: Float | Integer
 
     # Blank space below the title. Default is +20+.
-    attr_writer :title_margin
+    attr_writer :title_margin #: Float | Integer
 
     # Blank space below the legend. Default is +20+.
-    attr_writer :legend_margin
+    attr_writer :legend_margin #: Float | Integer
 
     # Truncates labels if longer than max specified.
-    attr_writer :label_max_size
+    attr_writer :label_max_size #: Float | Integer
 
     # How truncated labels visually appear if they exceed {#label_max_size=}.
     #
     # - +:absolute+ - does not show trailing dots to indicate truncation. This is the default.
     # - +:trailing_dots+ - shows trailing dots to indicate truncation (note that {#label_max_size=}
     #   must be greater than 3).
-    attr_writer :label_truncation_style
+    attr_writer :label_truncation_style #: (:absolute | :trailing_dots)
 
     # Set a label for the bottom of the graph.
-    attr_writer :x_axis_label
+    attr_writer :x_axis_label #: String
 
     # Set a label for the left side of the graph.
-    attr_writer :y_axis_label
+    attr_writer :y_axis_label #: String
 
     # Allow passing lambda to format labels for x axis.
-    attr_writer :x_axis_label_format
+    attr_writer :x_axis_label_format #: Proc
 
     # Allow passing lambda to format labels for y axis.
-    attr_writer :y_axis_label_format
+    attr_writer :y_axis_label_format #: Proc
 
     # Set increment of the vertical marking lines.
-    attr_writer :x_axis_increment
+    attr_writer :x_axis_increment #: Float | Integer
 
     # Set increment of the horizontal marking lines.
-    attr_writer :y_axis_increment
+    attr_writer :y_axis_increment #: Float | Integer
 
     # Get or set the list of colors that will be used to draw the bars or lines.
-    attr_accessor :colors
+    attr_accessor :colors #: [String]
 
     # Prevent drawing of line markers. Default is +false+.
-    attr_writer :hide_line_markers
+    attr_writer :hide_line_markers #: bool
 
     # Prevent drawing of the legend. Default is +false+.
-    attr_writer :hide_legend
+    attr_writer :hide_legend #: bool
 
     # Prevent drawing of the title. Default is +false+.
-    attr_writer :hide_title
+    attr_writer :hide_title #: bool
 
     # Prevent drawing of line numbers. Default is +false+.
-    attr_writer :hide_line_numbers
+    attr_writer :hide_line_numbers #: bool
 
     # Set a message shown when there is no data. Fits up to 20 characters. Defaults
     # to +"No Data."+.
-    attr_writer :no_data_message
+    attr_writer :no_data_message #: String
 
     # Set the color of the auxiliary lines.
-    attr_writer :marker_color
+    attr_writer :marker_color #: String
 
     # Set the shadow color of the auxiliary lines.
-    attr_writer :marker_shadow_color
+    attr_writer :marker_shadow_color #: String
 
     # Set the number of horizontal lines shown for reference.
-    attr_writer :marker_count
+    attr_writer :marker_count #: Float | Integer
 
     # Set to +true+ if you want the data sets sorted with largest avg values drawn
     # first. Default is +false+.
-    attr_writer :sort
+    attr_writer :sort #: bool
 
     # Set to +true+ if you want the data sets drawn with largest avg values drawn
     # first. This does not affect the legend. Default is +false+.
-    attr_writer :sorted_drawing
+    attr_writer :sorted_drawing #: bool
 
     # Display the legend under the graph. Default is +false+.
-    attr_writer :legend_at_bottom
+    attr_writer :legend_at_bottom #: bool
 
     # Optionally set the size of the colored box by each item in the legend.
     # Default is +20.0+.
     #
     # Will be scaled down if graph is smaller than 800px wide.
-    attr_writer :legend_box_size
+    attr_writer :legend_box_size #: Float | Integer
 
     # If one numerical argument is given, the graph is drawn at 4/3 ratio
     # according to the given width (+800+ results in 800x600, +400+ gives 400x300,
@@ -129,6 +132,8 @@ module Gruff
     #
     # @param target_width [Numeric, String] The graph image width.
     #
+    # @rbs target_width: (String | Float | Integer)
+    # @rbs return: void
     def initialize(target_width = DEFAULT_TARGET_WIDTH)
       if target_width.is_a?(String)
         @columns, @rows = target_width.split('x').map(&:to_f)
@@ -214,13 +219,15 @@ module Gruff
     # Or, an array corresponding to the data values.
     #
     # @param labels [Hash, Array] the labels.
+    # @rbs labels: (Hash[Integer, String] | [String | nil])
     #
     # @example
     #   g = Gruff::Bar.new
-    #   g.labels = { 0 => 2005, 3 => 2006, 5 => 2007, 7 => 2008 }
+    #   g.labels = { 0 => '2005', 3 => '2006', 5 => '2007', 7 => '2008' }
     #
     #   g = Gruff::Bar.new
     #   g.labels = ['2005', nil, nil, '2006', nil, nil, '2007', nil, nil, '2008'] # same labels for columns
+    #
     def labels=(labels)
       if labels.is_a?(Array)
         labels = labels.each_with_index.with_object({}) do |(label, index), hash|
@@ -235,7 +242,7 @@ module Gruff
     # You can use a rotation between +0.0+ and +45.0+, or between +0.0+ and +-45.0+.
     #
     # @param rotation [Numeric] the rotation.
-    #
+    # @rbs rotation: Float | Integer
     def label_rotation=(rotation)
       raise ArgumentError, 'rotation must be between 0.0 and 45.0 or between 0.0 and -45.0' if rotation > 45.0 || rotation < -45.0
 
@@ -253,6 +260,7 @@ module Gruff
     # or by setting an array as argument.
     #
     # @param title [String, Array] the title.
+    # @rbs title: (String | Array[String])
     #
     # @example
     #   g = Gruff::Bar.new
@@ -260,6 +268,7 @@ module Gruff
     #
     #   g = Gruff::Bar.new
     #   g.title = ['The first line of title', 'The second line of title']
+    #
     def title=(title)
       if title.is_a?(Array)
         title = title.join("\n")
@@ -271,7 +280,7 @@ module Gruff
     # Sets the top, bottom, left and right margins to +margin+.
     #
     # @param margin [Numeric] The margin size.
-    #
+    # @rbs margin: Float | Integer
     def margins=(margin)
       @top_margin = @left_margin = @right_margin = @bottom_margin = margin
     end
@@ -279,7 +288,7 @@ module Gruff
     # Sets the font for graph text to the font at +font_path+.
     #
     # @param font_path [String] The path to font.
-    #
+    # @rbs font_path: String
     def font=(font_path)
       @title_font.path = font_path unless @title_font.path
       @marker_font.path = font_path
@@ -290,7 +299,7 @@ module Gruff
     # Same as {#font=} but for the title.
     #
     # @param font_path [String] The path to font.
-    #
+    # @rbs font_path: String
     def title_font=(font_path)
       @title_font.path = font_path
     end
@@ -298,7 +307,7 @@ module Gruff
     # Set the font size of the large title at the top of the graph. Default is +36+.
     #
     # @param value [Numeric] title font size
-    #
+    # @rbs value: Float | Integer
     def title_font_size=(value)
       @title_font.size = value
     end
@@ -306,7 +315,7 @@ module Gruff
     # The font size of the labels around the graph. Default is +21+.
     #
     # @param value [Numeric] marker font size
-    #
+    # @rbs value: Float | Integer
     def marker_font_size=(value)
       @marker_font.size = value
     end
@@ -317,7 +326,7 @@ module Gruff
     # Will be scaled down if the graph is smaller than 800px wide.
     #
     # @param value [Numeric] legend font size
-    #
+    # @rbs value: Float | Integer
     def legend_font_size=(value)
       @legend_font.size = value
     end
@@ -325,7 +334,7 @@ module Gruff
     # Set the font size of the no data message. Default is +80+.
     #
     # @param value [Numeric] no data font size
-    #
+    # @rbs value: Float | Integer
     def no_data_font_size=(value)
       @no_data_font.size = value
     end
@@ -333,7 +342,7 @@ module Gruff
     # Specifies whether to draw the title bolded or not. Default is +true+.
     #
     # @param value [Boolean] specifies whether to draw the title bolded or not.
-    #
+    # @rbs value: bool
     def bold_title=(value)
       @title_font.bold = value
     end
@@ -341,7 +350,7 @@ module Gruff
     # Specifies the text color.
     #
     # @param value [String] color
-    #
+    # @rbs value: String
     def font_color=(value)
       @title_font.color = value
       @marker_font.color = value
@@ -352,6 +361,7 @@ module Gruff
     # Add a color to the list of available colors for lines.
     #
     # @param colorname [String] The color.
+    # @rbs colorname: String
     #
     # @example
     #   add_color('#c0e9d3')
@@ -371,6 +381,7 @@ module Gruff
     # was in place at the time data was called.
     #
     # @param color_list [Array] The array of colors.
+    # @rbs color_list: Array[String]
     #
     # @example
     #   replace_colors ['#cc99cc', '#d9e043', '#34d8a2']
@@ -381,7 +392,7 @@ module Gruff
     # Set whether to make background transparent.
     #
     # @param value [Boolean] Specify whether to make background transparent.
-    #
+    # @rbs value: bool
     def transparent_background=(value)
       @renderer.transparent_background(@columns, @rows) if value
     end
@@ -416,7 +427,7 @@ module Gruff
     # (Or hopefully something better looking than that.)
     #
     # @param options [Hash] The optional setting for theme
-    #
+    # @rbs options: Hash[Symbol, untyped]
     def theme=(options)
       reset_themes
 
@@ -481,8 +492,11 @@ module Gruff
     # be used.
     #
     # @param name [String, Symbol] The name of the dataset.
+    # @rbs name: (String | Symbol)
     # @param data_points [Array] The array of dataset.
+    # @rbs data_points: Array[Float | Integer] | nil
     # @param color [String] The color for drawing graph of dataset.
+    # @rbs color: String
     #
     # @note
     #   If you want to use a preset theme, you must set it before calling {#data}.
@@ -497,25 +511,32 @@ module Gruff
     # guessed for you.
     #
     # Set it after you have given all your data to the graph object.
+    #
+    # @return [Float] The minimum value.
+    # @rbs return: Float
     def minimum_value
       min = [0.0, store.min.to_f].min
       (@minimum_value || min).to_f
     end
-    attr_writer :minimum_value
+    attr_writer :minimum_value #: Float | Integer
 
     # You can manually set a maximum value, such as a percentage-based graph
     # that always goes to 100.
     #
     # If you use this, you must set it after you have given all your data to
     # the graph object.
+    #
+    # @return [Float] The maximum value.
+    # @rbs return: Float
     def maximum_value
       (@maximum_value || store.max).to_f
     end
-    attr_writer :maximum_value
+    attr_writer :maximum_value #: Float | Integer
 
     # Writes the graph to a file. Defaults to +'graph.png'+
     #
     # @param file_name [String] The file name of output image.
+    # @rbs file_name: String
     #
     # @example
     #   write('graphs/my_pretty_graph.png')
@@ -527,8 +548,10 @@ module Gruff
     # This can use RMagick's methods to adjust the image before saving.
     #
     # @param format [String] The output image format.
+    # @rbs format: String
     #
     # @return [Magick::Image] The rendered image.
+    # TODO: RBS signature
     #
     # @example
     #   g = Gruff::Line.new
@@ -551,6 +574,10 @@ module Gruff
     # Return the graph as a rendered binary blob.
     #
     # @param format [String] The image format of binary blob.
+    # @rbs format: String
+    #
+    # @return [String] The binary string.
+    # @rbs return: String
     #
     # @deprecated Please use +to_image.to_blob+ instead.
     def to_blob(format = 'PNG')
@@ -580,7 +607,7 @@ module Gruff
 
   protected
 
-    attr_reader :renderer
+    attr_reader :renderer #: Gruff::Renderer
 
     # Perform data manipulation before calculating chart measurements
     def setup_data
@@ -606,8 +633,9 @@ module Gruff
       sort_norm_data if @sorted_drawing # Sort norm_data with avg largest values set first (for display)
     end
 
-    attr_reader :store
+    attr_reader :store #: Gruff::Store
 
+    # @rbs return: bool
     def data_given?
       @data_given ||= begin
         if store.empty?
@@ -618,10 +646,12 @@ module Gruff
       end
     end
 
+    # @rbs return: Integer
     def column_count
       store.columns
     end
 
+    # @rbs return: Integer
     def marker_count
       @marker_count ||= begin
         count = nil
@@ -635,6 +665,7 @@ module Gruff
     end
 
     # Make copy of data with values scaled between 0-100
+    # @rbs return: Array[Gruff::Store::BasicData | Gruff::Store::XYData | Gruff::Store::XYPointsizeData]
     def normalize
       store.normalize(minimum: minimum_value, spread: @spread)
     end
@@ -644,18 +675,22 @@ module Gruff
       @spread = @spread > 0 ? @spread : 1.0
     end
 
+    # @rbs return: bool
     def hide_title?
       @hide_title || @title.nil? || @title.empty?
     end
 
+    # @rbs return: bool
     def hide_labels?
       @hide_line_markers
     end
 
+    # @rbs return: bool
     def hide_left_label_area?
       @hide_line_markers && @y_axis_label.nil?
     end
 
+    # @rbs return: bool
     def hide_bottom_label_area?
       @hide_line_markers && @x_axis_label.nil?
     end
@@ -732,8 +767,10 @@ module Gruff
     end
 
     # Return a calculation of center
+    # @rbs size: Float | Integer
+    # @rbs return: Float
     def center(size)
-      (@raw_columns - size) / 2
+      (@raw_columns - size) / 2.0
     end
 
     # Draws a legend with the names of the datasets matched
@@ -800,6 +837,11 @@ module Gruff
     end
 
     # Draws column labels below graph, centered over x
+    #
+    # @rbs x: Float | Integer
+    # @rbs index: Integer
+    # @rbs gravity: untyped
+    # @rbs &: () -> void
     def draw_label(x, index, gravity = Magick::NorthGravity, &block)
       draw_unique_label(index) do
         if x.between?(@graph_left, @graph_right)
@@ -812,6 +854,8 @@ module Gruff
       end
     end
 
+    # @rbs index: Integer
+    # @rbs &: () -> void
     def draw_unique_label(index)
       return if hide_labels?
 
@@ -822,6 +866,13 @@ module Gruff
       end
     end
 
+    # @rbs width: Float | Integer
+    # @rbs height: Float | Integer
+    # @rbs x: Float | Integer
+    # @rbs y: Float | Integer
+    # @rbs text: String | _ToS
+    # @rbs gravity: untyped
+    # @rbs rotation: Float | Integer
     def draw_label_at(width, height, x, y, text, gravity: Magick::NorthGravity, rotation: 0)
       label_text = truncate_label_text(text)
       text_renderer = Gruff::Renderer::Text.new(renderer, label_text, font: @marker_font, rotation: rotation)
@@ -829,6 +880,13 @@ module Gruff
     end
 
     # Draws the data value over the data point in bar graphs
+    #
+    # @rbs width: Float | Integer
+    # @rbs height: Float | Integer
+    # @rbs x_offset: Float | Integer
+    # @rbs y_offset: Float | Integer
+    # @rbs data_point: String | _ToS
+    # @rbs gravity: untyped
     def draw_value_label(width, height, x_offset, y_offset, data_point, gravity: Magick::CenterGravity)
       return if @hide_line_markers
 
@@ -851,10 +909,16 @@ module Gruff
       @theme_options = {}
     end
 
+    # @rbs value: Float | Integer
+    # @rbs max_value: Float | Integer
+    # @rbs return: Float | Integer
     def clip_value_if_greater_than(value, max_value)
       [value, max_value].min
     end
 
+    # @rbs i: Integer
+    # @rbs return: Integer | Float | BigDecimal
+    # TODO: Fix return RBS signature
     def significant(i)
       return 1.0 if i == 0 # Keep from going into infinite loop
 
@@ -898,22 +962,27 @@ module Gruff
 
   private
 
+    # @rbs return: Float
     def marker_caps_height
-      hide_bottom_label_area? ? 0 : calculate_caps_height(@marker_font)
+      hide_bottom_label_area? ? 0.0 : calculate_caps_height(@marker_font)
     end
 
+    # @rbs return: Float
     def labels_caps_height
-      hide_bottom_label_area? ? 0 : calculate_labels_height(@marker_font)
+      hide_bottom_label_area? ? 0.0 : calculate_labels_height(@marker_font)
     end
 
+    # @rbs return: Float
     def title_caps_height
-      hide_title? ? 0 : calculate_caps_height(@title_font) * @title.lines.to_a.size
+      hide_title? ? 0.0 : Float(calculate_caps_height(@title_font) * @title.lines.to_a.size)
     end
 
+    # @rbs return: Float
     def legend_caps_height
-      @hide_legend ? 0 : calculate_caps_height(@legend_font)
+      @hide_legend ? 0.0 : calculate_caps_height(@legend_font)
     end
 
+    # @rbs return: Float | Integer
     def setup_left_margin
       return @left_margin if hide_left_label_area?
 
@@ -941,49 +1010,60 @@ module Gruff
       @left_margin + [margin, bottom_label_width].max
     end
 
+    # @rbs return: Float
     def setup_right_margin
       @raw_columns - (@hide_line_markers ? @right_margin : @right_margin + extra_right_room_for_long_label)
     end
 
+    # @rbs return: Float | Integer
     def extra_left_room_for_long_label
       if require_extra_side_margin?
         width = calculate_width(@marker_font, truncate_label_text(@labels[0]), rotation: @label_rotation)
-        case @label_rotation
-        when 0
-          width / 2.0
-        when 0..45
-          0
-        when -45..0
-          width
+        result = begin
+          case @label_rotation
+          when 0
+            width / 2.0
+          when 0..45
+            0
+          when -45..0
+            width
+          end
         end
+        result || 0
       else
         0
       end
     end
 
+    # @rbs return: Float | Integer
     def extra_right_room_for_long_label
       # Make space for half the width of the rightmost column label.
       # Might be greater than the number of columns if between-style bar markers are used.
       last_label = @labels.keys.max.to_i
       if last_label >= (column_count - 1) && require_extra_side_margin?
         width = calculate_width(@marker_font, truncate_label_text(@labels[last_label]), rotation: @label_rotation)
-        case @label_rotation
-        when 0
-          width / 2.0
-        when 0..45
-          width
-        when -45..0
-          0
+        result = begin
+          case @label_rotation
+          when 0
+            width / 2.0
+          when 0..45
+            width
+          when -45..0
+            0
+          end
         end
+        result || 0
       else
         0
       end
     end
 
+    # @rbs return: bool
     def require_extra_side_margin?
       !hide_bottom_label_area? && @center_labels_over_point
     end
 
+    # @rbs return: Float
     def setup_top_margin
       # When @hide title, leave a title_margin space for aesthetics.
       # Same with @hide_legend
@@ -992,6 +1072,7 @@ module Gruff
         (@hide_legend || @legend_at_bottom ? @legend_margin : calculate_legend_height + @legend_margin)
     end
 
+    # @rbs return: Float
     def setup_bottom_margin
       graph_bottom_margin = hide_bottom_label_area? ? @bottom_margin : @bottom_margin + labels_caps_height + @label_margin
       graph_bottom_margin += (calculate_legend_height + @legend_margin) if @legend_at_bottom
@@ -1000,6 +1081,8 @@ module Gruff
       @raw_rows - graph_bottom_margin - x_axis_label_height
     end
 
+    # @rbs text: String | _ToS
+    # @rbs return: String
     def truncate_label_text(text)
       text = text.to_s
       return text if text.size <= @label_max_size
@@ -1010,11 +1093,15 @@ module Gruff
       else
         text = text[0..(@label_max_size - 1)]
       end
-      text
+      text || ''
     end
 
     # Return a formatted string representing a number value that should be
     # printed as a label.
+    #
+    # @rbs value: Float | Integer | BigDecimal
+    # @rbs increment: Float | Integer | BigDecimal
+    # @rbs return: String
     def label(value, increment)
       label = begin
         if increment
@@ -1043,10 +1130,13 @@ module Gruff
       end
 
       parts = label.split('.')
-      parts[0] = parts[0].commify
+      parts[0] = parts[0].commify # steep:ignore
       parts.join('.')
     end
 
+    # @rbs value: Float | Integer | BigDecimal
+    # @rbs increment: Float | Integer | BigDecimal
+    # @rbs return: String
     def x_axis_label(value, increment)
       if @x_axis_label_format
         @x_axis_label_format.call(value)
@@ -1055,6 +1145,9 @@ module Gruff
       end
     end
 
+    # @rbs value: Float | Integer | BigDecimal
+    # @rbs increment: Float | Integer
+    # @rbs return: String
     def y_axis_label(value, increment)
       if @y_axis_label_format
         @y_axis_label_format.call(value)
@@ -1063,6 +1156,7 @@ module Gruff
       end
     end
 
+    # TODO: RBS signature
     def calculate_legend_label_widths_for_each_line(legend_labels, legend_square_width)
       label_widths = [[]]
       label_lines = [[]]
@@ -1085,6 +1179,7 @@ module Gruff
       label_widths.map(&:sum).zip(label_lines)
     end
 
+    # TODO: RBS signature
     def calculate_legend_height
       return 0.0 if @hide_legend
 
@@ -1100,10 +1195,15 @@ module Gruff
     #
     # Not scaled since it deals with dimensions that the regular scaling will
     # handle.
+    #
+    # @rbs font: Gruff::Font
+    # @rbs return: Float
     def calculate_caps_height(font)
       calculate_height(font, 'X')
     end
 
+    # @rbs font: Gruff::Font
+    # @rbs return: Float
     def calculate_labels_height(font)
       @labels.values.map { |label| calculate_height(font, label, rotation: @label_rotation) }.max || marker_caps_height
     end
@@ -1112,9 +1212,14 @@ module Gruff
     #
     # Not scaled since it deals with dimensions that the regular scaling will
     # handle.
+    #
+    # @rbs font: Gruff::Font
+    # @rbs text: String
+    # @rbs rotation: Float | Integer
+    # @rbs return: Float
     def calculate_height(font, text, rotation: 0)
       text = text.to_s
-      return 0 if text.empty?
+      return 0.0 if text.empty?
 
       metrics = text_metrics(font, text, rotation: rotation)
       # Calculate manually because it does not return the height after rotation.
@@ -1125,6 +1230,11 @@ module Gruff
     #
     # Not scaled since it deals with dimensions that the regular
     # scaling will handle.
+    #
+    # @rbs font: Gruff::Font
+    # @rbs text: String
+    # @rbs rotation: Float | Integer
+    # @rbs return: Float | Integer
     def calculate_width(font, text, rotation: 0)
       text = text.to_s
       return 0 if text.empty?
@@ -1134,10 +1244,15 @@ module Gruff
       (metrics.width * Math.cos(deg2rad(rotation))).abs - (metrics.height * Math.sin(deg2rad(rotation))).abs
     end
 
+    # @rbs font: Gruff::Font
+    # @rbs text: String
+    # @rbs rotation: Float | Integer
+    # @rbs return: untyped
     def text_metrics(font, text, rotation: 0)
       Gruff::Renderer::Text.new(renderer, text, font: font, rotation: rotation).metrics
     end
 
+    # @rbs return: Float | Integer | BigDecimal
     def calculate_increment
       if @y_axis_increment.nil?
         # Try to use a number of horizontal lines that will come out even.
@@ -1151,6 +1266,11 @@ module Gruff
       end
     end
 
+    # @rbs font: Gruff::Font
+    # @rbs label: String
+    # @rbs margin: Float | Integer
+    # @rbs rotation: Float | Integer
+    # @rbs return: [Float | Integer, Float | Integer]
     def calculate_label_offset(font, label, margin, rotation)
       width = calculate_width(font, label, rotation: rotation)
       height = calculate_height(font, label, rotation: rotation)
@@ -1164,16 +1284,21 @@ module Gruff
           -(width / 2.0)
         end
       end
+      x_offset ||= 0
       y_offset = [(height / 2.0), margin].max
 
       [x_offset, y_offset]
     end
 
     # Used for degree <=> radian conversions
+    # @rbs angle: Float | Integer
+    # @rbs return: Float
     def deg2rad(angle)
       (angle * Math::PI) / 180.0
     end
 
+    # @rbs angle: Float | Integer
+    # @rbs return: Float
     def rad2deg(angle)
       (angle / Math::PI) * 180.0
     end

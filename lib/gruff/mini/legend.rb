@@ -13,6 +13,8 @@ module Gruff::Mini::Legend
 
   # The canvas needs to be bigger so we can put the legend beneath it.
   def expand_canvas_for_vertical_legend
+    # steep:ignore:start
+
     return if @hide_mini_legend
 
     @legend_labels = store.data.map(&:label)
@@ -33,19 +35,23 @@ module Gruff::Mini::Legend
     end
 
     @renderer = Gruff::Renderer.new(@columns, @rows, @scale, @theme_options)
+    # steep:ignore:end
   end
 
   def calculate_line_height
-    calculate_caps_height(@legend_font) * 1.7
+    calculate_caps_height(@legend_font) * 1.7 # steep:ignore
   end
 
   def calculate_legend_width
+    # steep:ignore:start
     width = @legend_labels.map { |label| calculate_width(@legend_font, label) }.max
     scale(width + (40 * 1.7))
+    # steep:ignore:end
   end
 
   # Draw the legend beneath the existing graph.
   def draw_vertical_legend
+    # steep:ignore:start
     return if @hide_mini_legend
 
     legend_square_width = 40.0 # small square with color of this item
@@ -77,10 +83,12 @@ module Gruff::Mini::Legend
 
       current_y_offset += calculate_line_height
     end
+    # steep:ignore:end
   end
 
   # Shorten long labels so they will fit on the canvas.
   def truncate_legend_label(label, x_offset)
+    # steep:ignore:start
     truncated_label = label.to_s
 
     font = @legend_font.dup
@@ -90,6 +98,7 @@ module Gruff::Mini::Legend
       truncated_label = truncated_label[0..truncated_label.length - 2]
     end
     truncated_label + (truncated_label.length < label.to_s.length ? '...' : '')
+    # steep:ignore:end
   end
 
   def scale(value)

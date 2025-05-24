@@ -1,0 +1,27 @@
+# Generated from lib/gruff/helper/bar_conversion.rb with RBS::Inline
+
+# #
+#  Original Author: David Stokar
+#
+#    This class performs the y coordinates conversion for the bar class.
+#
+#    There are three cases:
+#
+#    1. Bars all go from zero in positive direction
+#    2. Bars all go from zero to negative direction
+#    3. Bars either go from zero to positive or from zero to negative
+#
+#  @private
+class Gruff::BarConversion
+  # @rbs top: Float | Integer
+  # @rbs bottom: Float | Integer
+  # @rbs minimum_value: Float | Integer
+  # @rbs maximum_value: Float | Integer
+  # @rbs spread: Float | Integer
+  # @rbs return: void
+  def initialize: (top: Float | Integer, bottom: Float | Integer, minimum_value: Float | Integer, maximum_value: Float | Integer, spread: Float | Integer) -> void
+
+  # @rbs data_point: Float | Integer
+  # @rbs return: [Float, Float]
+  def get_top_bottom_scaled: (Float | Integer data_point) -> [ Float, Float ]
+end

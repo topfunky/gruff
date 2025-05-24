@@ -1,0 +1,112 @@
+# Generated from lib/gruff/scatter.rb with RBS::Inline
+
+#
+#  Here's how to set up a Gruff::Scatter.
+#
+#    g = Gruff::Scatter.new(800)
+#    g.data :apples, [1,2,3,4], [4,3,2,1]
+#    g.data 'oranges', [5,7,8], [4,1,7]
+#    g.write('scatter.png')
+class Gruff::Scatter < Gruff::Base
+  # Maximum X Value. The value will get overwritten by the max in the
+  # datasets.
+  attr_writer maximum_x_value: Float | Integer
+
+  # Minimum X Value. The value will get overwritten by the min in the
+  # datasets.
+  attr_writer minimum_x_value: Float | Integer
+
+  # The number of vertical lines shown for reference.
+  attr_writer marker_x_count: Integer
+
+  # Attributes to allow customising the size of the points.
+  attr_writer circle_radius: Float | Integer
+
+  attr_writer stroke_width: Float | Integer
+
+  # Allow for vertical marker lines.
+  attr_writer show_vertical_markers: bool
+
+  # Allow enabling vertical lines. When you have a lot of data, they can work great.
+  # @deprecated Please use {#show_vertical_markers=} instead.
+  def enable_vertical_line_markers=: (untyped value) -> untyped
+
+  # Allow using vertical labels in the X axis.
+  # @deprecated Please use {Gruff::Base#label_rotation=} instead.
+  def use_vertical_x_labels=: (untyped _value) -> untyped
+
+  # Allow using vertical labels in the X axis (and setting the label margin).
+  # @deprecated
+  def x_label_margin=: (untyped _value) -> untyped
+
+  # Allow disabling the significant rounding when labeling the X axis.
+  # This is useful when working with a small range of high values (for example, a date range of months, while seconds as units).
+  # @deprecated
+  def disable_significant_rounding_x_axis=: (untyped _value) -> untyped
+
+  # The first parameter is the name of the dataset.  The next two are the
+  # x and y axis data points contain in their own array in that respective
+  # order.  The final parameter is the color.
+  #
+  # Can be called multiple times with different datasets for a multi-valued
+  # graph.
+  #
+  # If the color argument is nil, the next color from the default theme will
+  # be used.
+  #
+  # @note If you want to use a preset theme, you must set it before calling {#data}.
+  #
+  # @param name [String, Symbol] containing the name of the dataset.
+  # @param x_data_points [Array] An Array of x-axis data points.
+  # @param y_data_points [Array] An Array of y-axis data points.
+  # @param color [String] The hex string for the color of the dataset. Defaults to nil.
+  #
+  # @raise [ArgumentError] Data points contain nil values.
+  #   This error will get raised if either the x or y axis data points array
+  #   contains a +nil+ value.  The graph will not make an assumption
+  #   as how to graph +nil+.
+  # @raise [ArgumentError] +x_data_points+ is empty.
+  #   This error is raised when the array for the x-axis points are empty
+  # @raise [ArgumentError] +y_data_points+ is empty.
+  #   This error is raised when the array for the y-axis points are empty.
+  # @raise [ArgumentError] +x_data_points.length != y_data_points.length+.
+  #   Error means that the x and y axis point arrays do not match in length.
+  #
+  # @example
+  #   g = Gruff::Scatter.new
+  #   g.data(:apples, [1,2,3], [3,2,1])
+  #   g.data('oranges', [1,1,1], [2,3,4])
+  #   g.data('bitter_melon', [3,5,6], [6,7,8], '#000000')
+  #
+  # @rbs name: String | Symbol
+  # @rbs x_data_points: Array[nil | Float | Integer] | nil
+  # @rbs y_data_points: Array[nil | Float | Integer] | nil
+  # @rbs color: String
+  def data: (String | Symbol name, ?Array[nil | Float | Integer] | nil x_data_points, ?Array[nil | Float | Integer] | nil y_data_points, ?String color) -> untyped
+
+  alias dataxy data
+
+  private
+
+  def initialize_store: () -> untyped
+
+  def initialize_attributes: () -> untyped
+
+  def setup_drawing: () -> untyped
+
+  def setup_data: () -> untyped
+
+  def draw_graph: () -> untyped
+
+  def calculate_spread: () -> untyped
+
+  def normalize: () -> untyped
+
+  def draw_line_markers: () -> untyped
+
+  # @rbs return: Integer
+  def marker_x_count: () -> Integer
+
+  # @rbs return: Float | Integer | BigDecimal
+  def x_increment: () -> (Float | Integer | BigDecimal)
+end

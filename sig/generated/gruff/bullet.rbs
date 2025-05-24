@@ -1,0 +1,30 @@
+# Generated from lib/gruff/bullet.rb with RBS::Inline
+
+#
+#  A bullet graph is a variation of a bar graph.
+#  http://en.wikipedia.org/wiki/Bullet_graph
+#
+#  Here's how to set up a Gruff::Bullet.
+#
+#    g = Gruff::Bullet.new
+#    g.title = 'Monthly Revenue'
+#    g.data 75, 100, { target: 80, low: 50, high: 90 }
+#    g.write('bullet.png')
+class Gruff::Bullet < Gruff::Base
+  # @rbs target_width: String | Float | Integer
+  # @rbs return: void
+  def initialize: (?String | Float | Integer target_width) -> void
+
+  def initialize_attributes: () -> untyped
+
+  # @rbs value: Float | Integer
+  # @rbs maximum_value: Float | Integer
+  # @rbs options: Hash[Symbol, Float | Integer]
+  def data: (Float | Integer value, Float | Integer maximum_value, ?Hash[Symbol, Float | Integer] options) -> untyped
+
+  def draw: () -> untyped
+
+  private
+
+  def draw_title: () -> untyped
+end

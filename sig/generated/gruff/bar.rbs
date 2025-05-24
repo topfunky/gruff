@@ -1,0 +1,74 @@
+# Generated from lib/gruff/bar.rb with RBS::Inline
+
+#
+#  Gruff::Bar provide a bar graph that presents categorical data
+#  with rectangular bars.
+#
+#  Here's how to set up a Gruff::Bar.
+#
+#    g = Gruff::Bar.new
+#    g.title = 'Bar Graph With Manual Colors'
+#    g.spacing_factor = 0.1
+#    g.group_spacing = 20
+#    g.data :Art, [0, 5, 8, 15], '#990000'
+#    g.data :Philosophy, [10, 3, 2, 8], '#009900'
+#    g.data :Science, [2, 15, 8, 11], '#990099'
+#    g.write('bar.png')
+class Gruff::Bar < Gruff::Base
+  include Gruff::Base::BarMixin
+
+  # Spacing factor applied between bars.
+  attr_writer bar_spacing: Float | Integer
+
+  # Spacing factor applied between a group of bars belonging to the same label.
+  attr_writer group_spacing: Float | Integer
+
+  # Set the number output format string or lambda.
+  # Default is +"%.2f"+.
+  attr_writer label_formatting: nil | String | Proc
+
+  # Output the values for the bars on a bar graph.
+  # Default is +false+.
+  attr_writer show_labels_for_bar_values: bool
+
+  # Prevent drawing of column labels below a bar graph.  Default is +false+.
+  attr_writer hide_labels: bool
+
+  # Value to avoid completely overwriting the coordinate axis
+  AXIS_MARGIN: ::Float
+
+  # Can be used to adjust the spaces between the bars.
+  # Accepts values between 0.00 and 1.00 where 0.00 means no spacing at all
+  # and 1 means that each bars' width is nearly 0 (so each bar is a simple
+  # line with no x dimension).
+  #
+  # Default value is +0.9+.
+  #
+  # @rbs space_percent: Float | Integer
+  def spacing_factor=: (Float | Integer space_percent) -> untyped
+
+  private
+
+  def initialize_attributes: () -> untyped
+
+  def setup_drawing: () -> untyped
+
+  # @rbs return: bool
+  def hide_labels?: () -> bool
+
+  # @rbs return: bool
+  def hide_left_label_area?: () -> bool
+
+  # @rbs return: bool
+  def hide_bottom_label_area?: () -> bool
+
+  def setup_graph_measurements: () -> untyped
+
+  def draw_graph: () -> untyped
+
+  # @rbs return: Float | Integer
+  def calculate_spacing: () -> (Float | Integer)
+
+  # @rbs return: Proc
+  def proc_text_metrics: () -> Proc
+end

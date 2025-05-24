@@ -10,10 +10,12 @@ module Magick
         scaled_width = [(width * scale), 1].max
         scaled_height = [(height * scale), 1].max
 
+        # steep:ignore:start
         annotate(img,
                  scaled_width, scaled_height,
                  x * scale, y * scale,
                  text.gsub('%', '%%'))
+        # steep:ignore:end
       end
 
       if defined? JRUBY_VERSION

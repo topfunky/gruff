@@ -1,0 +1,38 @@
+# Generated from lib/gruff/renderer/text.rb with RBS::Inline
+
+module Gruff
+  # @private
+  class Renderer::Text
+    # @rbs renderer: Gruff::Renderer
+    # @rbs text: String
+    # @rbs font: Gruff::Font
+    # @rbs rotation: Float | Integer
+    def initialize: (Gruff::Renderer renderer, String text, font: Gruff::Font, ?rotation: Float | Integer) -> untyped
+
+    attr_reader width: Float | Integer
+
+    attr_reader height: Float | Integer
+
+    attr_reader x: Float | Integer
+
+    attr_reader y: Float | Integer
+
+    attr_reader gravity: untyped
+
+    # @rbs width: Float | Integer
+    # @rbs height: Float | Integer
+    # @rbs x: Float | Integer
+    # @rbs y: Float | Integer
+    # @rbs gravity: untyped
+    def add_to_render_queue: (Float | Integer width, Float | Integer height, Float | Integer x, Float | Integer y, ?untyped gravity) -> untyped
+
+    # @rbs width: Float | Integer
+    # @rbs height: Float | Integer
+    # @rbs x: Float | Integer
+    # @rbs y: Float | Integer
+    # @rbs gravity: untyped
+    def render: (Float | Integer width, Float | Integer height, Float | Integer x, Float | Integer y, ?untyped gravity) -> untyped
+
+    def metrics: () -> untyped
+  end
+end

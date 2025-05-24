@@ -1,0 +1,69 @@
+# Generated from lib/gruff/bubble.rb with RBS::Inline
+
+#
+#  Here's how to set up a Gruff::Bubble.
+#
+#    g = Gruff::Bubble.new
+#    g.title = 'Bubble plot'
+#    g.write('bubble.png')
+class Gruff::Bubble < Gruff::Scatter
+  # Specifies the filling opacity in area graph. Default is +0.6+.
+  attr_writer fill_opacity: Float | Integer
+
+  # Specifies the stroke width in line. Default is +1.0+.
+  attr_writer stroke_width: Float | Integer
+
+  # The first parameter is the name of the dataset.  The next two are the
+  # x and y axis data points contain in their own array in that respective
+  # order. The 4th argument represents sizes of points.
+  # The final parameter is the color.
+  #
+  # Can be called multiple times with different datasets for a multi-valued
+  # graph.
+  #
+  # If the color argument is nil, the next color from the default theme will
+  # be used.
+  #
+  # @note If you want to use a preset theme, you must set it before calling {#data}.
+  #
+  # @param name [String, Symbol] containing the name of the dataset.
+  # @param x_data_points [Array] An Array of x-axis data points.
+  # @param y_data_points [Array] An Array of y-axis data points.
+  # @param point_sizes   [Array] An Array of sizes for points.
+  # @param color [String] The hex string for the color of the dataset. Defaults to nil.
+  #
+  # @raise [ArgumentError] Data points contain nil values.
+  #   This error will get raised if either the x or y axis data points array
+  #   contains a +nil+ value.  The graph will not make an assumption
+  #   as how to graph +nil+.
+  # @raise [ArgumentError] +x_data_points+ is empty.
+  #   This error is raised when the array for the x-axis points are empty
+  # @raise [ArgumentError] +y_data_points+ is empty.
+  #   This error is raised when the array for the y-axis points are empty.
+  # @raise [ArgumentError] +point_sizes+ is empty.
+  #   This error is raised when the array for the point_sizes are empty
+  # @raise [ArgumentError] +x_data_points.length != y_data_points.length+.
+  #   Error means that the x and y axis point arrays do not match in length.
+  # @raise [ArgumentError] +x_data_points.length != point_sizes.length+.
+  #   Error means that the x and point_sizes arrays do not match in length.
+  #
+  # @example
+  #   g = Gruff::Bubble.new
+  #   g.title = "Bubble Graph"
+  #   g.data :A, [-1, 19, -4, -23], [-35, 21, 23, -4], [4.5, 1.0, 2.1, 0.9]
+  #
+  # @rbs name: String | Symbol
+  # @rbs x_data_points: Array[nil | Float | Integer] | nil
+  # @rbs y_data_points: Array[nil | Float | Integer] | nil
+  # @rbs point_sizes: Array[nil | Float | Integer] | nil
+  # @rbs color: String
+  def data: (String | Symbol name, ?Array[nil | Float | Integer] | nil x_data_points, ?Array[nil | Float | Integer] | nil y_data_points, ?Array[nil | Float | Integer] | nil point_sizes, ?String color) -> untyped
+
+  private
+
+  def initialize_store: () -> untyped
+
+  def initialize_attributes: () -> untyped
+
+  def draw_graph: () -> untyped
+end

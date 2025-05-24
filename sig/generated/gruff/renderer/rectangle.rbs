@@ -1,0 +1,19 @@
+# Generated from lib/gruff/renderer/rectangle.rb with RBS::Inline
+
+module Gruff
+  # @private
+  class Renderer::Rectangle
+    # @rbs renderer: Gruff::Renderer
+    # @rbs color: String
+    # @rbs width: Float | Integer
+    # @rbs opacity: Float | Integer
+    # @rbs return: void
+    def initialize: (Gruff::Renderer renderer, ?color: String, ?width: Float | Integer, ?opacity: Float | Integer) -> void
+
+    # @rbs upper_left_x: Float | Integer
+    # @rbs upper_left_y: Float | Integer
+    # @rbs lower_right_x: Float | Integer
+    # @rbs lower_right_y: Float | Integer
+    def render: (Float | Integer upper_left_x, Float | Integer upper_left_y, Float | Integer lower_right_x, Float | Integer lower_right_y) -> untyped
+  end
+end

@@ -1,0 +1,15 @@
+# Generated from lib/gruff/renderer/bezier.rb with RBS::Inline
+
+module Gruff
+  # @private
+  class Renderer::Bezier
+    # @rbs renderer: Gruff::Renderer
+    # @rbs color: String
+    # @rbs width: Float | Integer
+    # @rbs return: void
+    def initialize: (Gruff::Renderer renderer, color: String, ?width: Float | Integer) -> void
+
+    # @rbs points: Array[Float | Integer]
+    def render: (Array[Float | Integer] points) -> untyped
+  end
+end

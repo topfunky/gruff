@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 module Gruff
   module Themes
     # A color scheme similar to the popular presentation software.

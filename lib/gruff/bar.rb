@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 require_relative 'helper/bar_mixin'
 
 #
@@ -18,24 +20,24 @@ require_relative 'helper/bar_mixin'
 #   g.write('bar.png')
 #
 class Gruff::Bar < Gruff::Base
-  include BarMixin
+  include Gruff::Base::BarMixin
 
   # Spacing factor applied between bars.
-  attr_writer :bar_spacing
+  attr_writer :bar_spacing #: Float | Integer
 
   # Spacing factor applied between a group of bars belonging to the same label.
-  attr_writer :group_spacing
+  attr_writer :group_spacing #: Float | Integer
 
   # Set the number output format string or lambda.
   # Default is +"%.2f"+.
-  attr_writer :label_formatting
+  attr_writer :label_formatting #: nil | String | Proc
 
   # Output the values for the bars on a bar graph.
   # Default is +false+.
-  attr_writer :show_labels_for_bar_values
+  attr_writer :show_labels_for_bar_values #: bool
 
   # Prevent drawing of column labels below a bar graph.  Default is +false+.
-  attr_writer :hide_labels
+  attr_writer :hide_labels #: bool
 
   # Value to avoid completely overwriting the coordinate axis
   AXIS_MARGIN = 0.5
@@ -47,10 +49,12 @@ class Gruff::Bar < Gruff::Base
   # line with no x dimension).
   #
   # Default value is +0.9+.
+  #
+  # @rbs space_percent: Float | Integer
   def spacing_factor=(space_percent)
     raise ArgumentError, 'spacing_factor must be between 0.00 and 1.00' if (space_percent < 0) || (space_percent > 1)
 
-    @spacing_factor = (1 - space_percent)
+    @spacing_factor = (1.0 - space_percent)
   end
 
 private
@@ -73,14 +77,17 @@ private
     super
   end
 
+  # @rbs return: bool
   def hide_labels?
     @hide_labels
   end
 
+  # @rbs return: bool
   def hide_left_label_area?
     @hide_line_markers && @y_axis_label.nil?
   end
 
+  # @rbs return: bool
   def hide_bottom_label_area?
     hide_labels? && @x_axis_label.nil? && @legend_at_bottom == false
   end
@@ -106,7 +113,7 @@ private
     @bar_spacing ||= @spacing_factor # space between the bars
 
     bar_width = (@graph_width - calculate_spacing) / (column_count * store.length)
-    padding = (bar_width * (1 - @bar_spacing)) / 2.0
+    padding = (bar_width * (1.0 - @bar_spacing)) / 2.0
 
     # Setup the BarConversion Object
     conversion = Gruff::BarConversion.new(
@@ -117,7 +124,7 @@ private
     group_left_x = @graph_left
 
     normalized_group_bars.each_with_index do |group_bars, group_index|
-      right_x = 0
+      right_x = 0.0
       group_bars.each_with_index do |bar, index|
         left_x = group_left_x + (bar_width * index) + padding
         right_x = left_x + (bar_width * @bar_spacing)
@@ -146,10 +153,12 @@ private
     draw_label(@graph_right, column_count, Magick::NorthWestGravity) if @center_labels_over_point
   end
 
+  # @rbs return: Float | Integer
   def calculate_spacing
     @group_spacing * (column_count - 1)
   end
 
+  # @rbs return: Proc
   def proc_text_metrics
     ->(text) { text_metrics(@marker_font, text) }
   end

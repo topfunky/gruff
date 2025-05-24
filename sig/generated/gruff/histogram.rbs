@@ -1,0 +1,42 @@
+# Generated from lib/gruff/histogram.rb with RBS::Inline
+
+#
+#  Here's how to set up a Gruff::Histogram.
+#
+#    g = Gruff::Histogram.new
+#    g.title = 'Histogram Graph'
+#    g.minimum_bin = 10
+#    g.bin_width = 20
+#    g.data :A, [10, 10, 20, 30, 40, 40, 40, 40, 40, 40, 50, 10, 10, 10]
+#    g.data :B, [100, 100, 100, 100, 90, 90, 80, 30, 30, 30, 30, 30]
+#    g.write('histogram.png')
+class Gruff::Histogram < Gruff::Bar
+  # Specifies interpolation between the min and max of the set. Default is +10+.
+  attr_writer bin_width: Float | Integer
+
+  # Specifies minimum value for bin.
+  attr_writer minimum_bin: Float | Integer
+
+  # Specifies maximum value for bin.
+  attr_writer maximum_bin: Float | Integer
+
+  # @rbs target_width: (String | Float | Integer)
+  # @rbs return: void
+  def initialize: (?String | Float | Integer target_width) -> void
+
+  # @rbs name: String | Symbol
+  # @rbs data_points: Array[Float | Integer] | nil
+  # @rbs color: String
+  def data: (String | Symbol name, ?Array[Float | Integer] | nil data_points, ?String color) -> untyped
+
+  private
+
+  def initialize_attributes: () -> untyped
+
+  def setup_data: () -> untyped
+
+  # @private
+  # @rbs inherits Array[Float | Integer | nil]
+  class HistogramArray < Array[Float | Integer | nil]
+  end
+end

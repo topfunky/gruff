@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 require_relative 'helper/stacked_mixin'
 
 #
@@ -13,24 +15,24 @@ require_relative 'helper/stacked_mixin'
 #   g.write('stacked_bar.png')
 #
 class Gruff::StackedBar < Gruff::Base
-  include StackedMixin
+  include Gruff::Base::StackedMixin
 
   # Spacing factor applied between bars.
-  attr_writer :bar_spacing
+  attr_writer :bar_spacing #: Float | Integer
 
   # Number of pixels between bar segments.
-  attr_writer :segment_spacing
+  attr_writer :segment_spacing #: Float | Integer
 
   # Set the number output format string or lambda.
   # Default is +"%.2f"+.
-  attr_writer :label_formatting
+  attr_writer :label_formatting #: nil | String | Proc
 
   # Output the values for the bars on a bar graph.
   # Default is +false+.
-  attr_writer :show_labels_for_bar_values
+  attr_writer :show_labels_for_bar_values #: bool
 
   # Prevent drawing of column labels below a stacked bar graph.  Default is +false+.
-  attr_writer :hide_labels
+  attr_writer :hide_labels #: bool
 
 private
 
@@ -78,7 +80,7 @@ private
     #
     # Columns sit stacked.
     bar_width = @graph_width / column_count
-    padding = (bar_width * (1 - @bar_spacing)) / 2.0
+    padding = (bar_width * (1.0 - @bar_spacing)) / 2.0
 
     # Setup the BarConversion Object
     conversion = Gruff::BarConversion.new(
@@ -87,11 +89,11 @@ private
     )
 
     normalized_stacked_bars.each_with_index do |stacked_bars, stacked_index|
-      total = 0
+      total = 0.0
       left_x = @graph_left + (bar_width * stacked_index) + padding
       right_x = left_x + (bar_width * @bar_spacing)
 
-      top_y = 0
+      top_y = 0.0
       stacked_bars.each do |bar|
         next if bar.point.nil? || bar.point == 0
 
@@ -117,18 +119,22 @@ private
     end
   end
 
+  # @rbs return: bool
   def hide_labels?
     @hide_labels
   end
 
+  # @rbs return: bool
   def hide_left_label_area?
     @hide_line_markers && @y_axis_label.nil?
   end
 
+  # @rbs return: bool
   def hide_bottom_label_area?
     hide_labels? && @x_axis_label.nil? && @legend_at_bottom == false
   end
 
+  # @rbs return: Proc
   def proc_text_metrics
     ->(text) { text_metrics(@marker_font, text) }
   end

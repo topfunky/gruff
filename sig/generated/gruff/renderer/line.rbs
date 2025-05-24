@@ -1,0 +1,24 @@
+# Generated from lib/gruff/renderer/line.rb with RBS::Inline
+
+module Gruff
+  # @private
+  class Renderer::Line
+    EPSILON: ::Float
+
+    # @rbs renderer: Gruff::Renderer
+    # @rbs color: String
+    # @rbs width: Float | Integer
+    # @rbs return: void
+    def initialize: (Gruff::Renderer renderer, color: String, ?width: Float | Integer) -> void
+
+    # @rbs start_x: Float | Integer
+    # @rbs start_y: Float | Integer
+    # @rbs end_x: Float | Integer
+    # @rbs end_y: Float | Integer
+    def render: (Float | Integer start_x, Float | Integer start_y, Float | Integer end_x, Float | Integer end_y) -> untyped
+
+    private
+
+    def render_line: (untyped start_x, untyped start_y, untyped end_x, untyped end_y, untyped color) -> untyped
+  end
+end

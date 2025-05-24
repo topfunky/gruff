@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 require_relative 'helper/bar_mixin'
 
 # Graph with individual horizontal bars instead of vertical bars.
@@ -21,30 +23,32 @@ require_relative 'helper/bar_mixin'
 #   g.write('sidebar.png')
 #
 class Gruff::SideBar < Gruff::Base
-  include BarMixin
+  include Gruff::Base::BarMixin
 
   # Spacing factor applied between bars.
-  attr_writer :bar_spacing
+  attr_writer :bar_spacing #: Float | Integer
 
   # Spacing factor applied between a group of bars belonging to the same label.
-  attr_writer :group_spacing
+  attr_writer :group_spacing #: Float | Integer
 
   # Set the number output format string or lambda.
   # Default is +"%.2f"+.
-  attr_writer :label_formatting
+  attr_writer :label_formatting #: nil | String | Proc
 
   # Output the values for the bars on a bar graph.
   # Default is +false+.
-  attr_writer :show_labels_for_bar_values
+  attr_writer :show_labels_for_bar_values #: bool
 
   # Prevent drawing of column labels left of a side bar graph.  Default is +false+.
-  attr_writer :hide_labels
+  attr_writer :hide_labels #: bool
 
   # Value to avoid completely overwriting the coordinate axis
   AXIS_MARGIN = 0.5
   private_constant :AXIS_MARGIN
 
-  def initialize(*)
+  # @rbs target_width: (String | Float | Integer)
+  # @rbs return: void
+  def initialize(target_width = DEFAULT_TARGET_WIDTH)
     super
     @has_left_labels = true
   end
@@ -66,14 +70,17 @@ private
     @hide_labels = false
   end
 
+  # @rbs return: bool
   def hide_labels?
     @hide_labels
   end
 
+  # @rbs return: bool
   def hide_left_label_area?
     hide_labels? && @y_axis_label.nil?
   end
 
+  # @rbs return: bool
   def hide_bottom_label_area?
     @hide_line_markers && @x_axis_label.nil? && @legend_at_bottom == false
   end
@@ -103,7 +110,7 @@ private
     #
     bars_width = (@graph_height - calculate_spacing) / column_count
     bar_width = bars_width / store.length
-    padding = (bar_width * (1 - @bar_spacing)) / 2
+    padding = (bar_width * (1.0 - @bar_spacing)) / 2
 
     # Setup the BarConversion Object
     conversion = Gruff::BarConversion.new(
@@ -114,12 +121,12 @@ private
     group_left_y = @graph_top
 
     normalized_group_bars.each_with_index do |group_bars, group_index|
-      right_y = 0
+      right_y = 0.0
       group_bars.each_with_index do |bar, index|
         left_y = group_left_y + (bar_width * index) + padding
         right_y = left_y + (bar_width * @bar_spacing)
 
-        bottom_x, top_x = conversion.get_top_bottom_scaled(bar.point).sort
+        bottom_x, top_x = conversion.get_top_bottom_scaled(bar.point).sort #: [Float, Float]
         if bottom_x != top_x
           rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: bar.color)
           rect_renderer.render(bottom_x + AXIS_MARGIN, left_y, top_x, right_y)
@@ -175,10 +182,12 @@ private
     end
   end
 
+  # @rbs return: Float | Integer
   def calculate_spacing
     @group_spacing * (column_count - 1)
   end
 
+  # @rbs return: Proc
   def proc_text_metrics
     ->(text) { text_metrics(@marker_font, text) }
   end
