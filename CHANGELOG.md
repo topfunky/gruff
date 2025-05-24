@@ -1,5 +1,22 @@
 # Change Log
 
+## 0.27.0
+
+- Add RBS signatures (#661)
+- Fix Gruff::Bezier raises exception if data contains nil (#660)
+- Fix Gruff::Pie raises exception if data contains nil (#659)
+- Fix Gruff::Net raises exception if data contains nil (#658)
+- Fix Gruff::Histogram raises exception if data contains nil (#657)
+- Fix Gruff::Dot raises exception if data contains nil (#656)
+- Fix Gruff::Candlestick raises exception if data contains nil (#655)
+- Fix Gruff::AccumulatorBar raises exception if data contains nil (#654)
+- Fix Gruff::Area raises exception if data contains nil (#653)
+- Fix Gruff::StackedArea raises exception if data contains nil (#652)
+- Stop using Struct to make it easier to write type definitions (#651)
+- Fix Gruff::Box raises exception if data contains nil (#648)
+- Fix Gruff::SideStackedBar raises exception if data contains nil (#647)
+- Fix Gruff::StackedBar raises exception if data contains nil (#646)
+
 ## 0.26.0
 
 - Allow customizing No Data font size (#642)
