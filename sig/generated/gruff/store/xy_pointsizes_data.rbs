@@ -1,0 +1,61 @@
+# Generated from lib/gruff/store/xy_pointsizes_data.rb with RBS::Inline
+
+module Gruff
+  class Store
+    # @private
+    class XYPointsizeData
+      attr_accessor label: String
+
+      attr_accessor x_points: Array[nil | Float | Integer]
+
+      attr_accessor y_points: Array[nil | Float | Integer]
+
+      attr_accessor point_sizes: Array[nil | Float | Integer]
+
+      attr_accessor color: String
+
+      # @rbs label: String | Symbol
+      # @rbs x_points: Array[nil | Float | Integer] | nil
+      # @rbs y_points: Array[nil | Float | Integer] | nil
+      # @rbs point_sizes: Array[nil | Float | Integer]
+      # @rbs color: String
+      def initialize: (String | Symbol label, Array[nil | Float | Integer] | nil x_points, Array[nil | Float | Integer] | nil y_points, Array[nil | Float | Integer] point_sizes, String color) -> untyped
+
+      alias points y_points
+
+      def coordinates: () -> untyped
+
+      # @rbs return: Array[[Float | Integer | nil, Float | Integer | nil, Float | Integer]]
+      def coordinate_and_pointsizes: () -> Array[[ Float | Integer | nil, Float | Integer | nil, Float | Integer ]]
+
+      # @rbs return: bool
+      def empty?: () -> bool
+
+      # @rbs return: Integer
+      def columns: () -> Integer
+
+      # @rbs return: Float | Integer
+      def min: () -> (Float | Integer)
+
+      alias min_y min
+
+      # @rbs return: Float | Integer
+      def max: () -> (Float | Integer)
+
+      alias max_y max
+
+      # @rbs return: Float | Integer
+      def min_x: () -> (Float | Integer)
+
+      # @rbs return: Float | Integer
+      def max_x: () -> (Float | Integer)
+
+      # @rbs minimum_x: Float | Integer
+      # @rbs minimum_y: Float | Integer
+      # @rbs spread_x: Float | Integer
+      # @rbs spread_y: Float | Integer
+      # @rbs return: Gruff::Store::XYPointsizeData
+      def normalize: (minimum_x: Float | Integer, minimum_y: Float | Integer, spread_x: Float | Integer, spread_y: Float | Integer) -> Gruff::Store::XYPointsizeData
+    end
+  end
+end

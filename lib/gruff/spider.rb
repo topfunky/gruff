@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 # Experimental!!! See also the Net graph.
 #
 # Here's how to set up a Gruff::Spider.
@@ -16,14 +18,18 @@
 #
 class Gruff::Spider < Gruff::Base
   # Hide all text.
-  attr_writer :hide_axes
-  attr_writer :rotation
+  attr_writer :hide_axes #: bool
+  attr_writer :rotation #: Float | Integer
 
+  # @rbs max_value: Float | Integer
+  # @rbs target_width: (String | Float | Integer)
+  # @rbs return: void
   def initialize(max_value, target_width = 800)
     super(target_width)
     @max_value = max_value
   end
 
+  # @rbs value: bool
   def hide_text=(value)
     @hide_title = @hide_text = value
   end
@@ -82,6 +88,7 @@ private
     draw_polygon(center_x, center_y, additive_angle)
   end
 
+  # @rbs value: nil | Float | Integer
   def normalize_points(value)
     value.to_f * @unit_length
   end

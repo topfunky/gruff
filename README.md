@@ -169,6 +169,12 @@ If you have made changes that involve updating the expected image, you need to u
 $ bundle exec rake test:image:update
 ```
 
+If you change the method, you need to update RBS signatures.
+
+```
+$ rake rbs:update
+```
+
 ## Contributing
 
 ### Source

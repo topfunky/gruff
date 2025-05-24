@@ -1,0 +1,27 @@
+# Generated from lib/gruff/helper/stacked_mixin.rb with RBS::Inline
+
+# @private
+module Gruff::Base::StackedMixin
+  # Used by StackedBar and child classes.
+  #
+  # tsal: moved from Base 03 FEB 2007
+  def calculate_maximum_by_stack: () -> untyped
+
+  # @rbs return: Array[Array[Gruff::Base::StackedMixin::BarData]]
+  def normalized_stacked_bars: () -> Array[Array[Gruff::Base::StackedMixin::BarData]]
+
+  # @private
+  class BarData
+    attr_accessor point: Float | Integer
+
+    attr_accessor value: Float | Integer
+
+    attr_accessor color: String
+
+    # @rbs point: Float | Integer
+    # @rbs value: Float | Integer
+    # @rbs color: String
+    # @rbs return: void
+    def initialize: (Float | Integer point, Float | Integer value, String color) -> void
+  end
+end

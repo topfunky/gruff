@@ -1,0 +1,88 @@
+# Generated from lib/gruff/box.rb with RBS::Inline
+
+#
+#  Here's how to set up a Gruff::Box.
+#
+#    g = Gruff::Box.new
+#    g.data "A", [2, 3, 5, 6, 8, 10, 11, 15, 17, 20, 28, 29, 33, 34, 45, 46, 49, 61]
+#    g.data "B", [3, 4, 34, 35, 38, 39, 45, 60, 61, 69, 80, 130]
+#    g.data "C", [4, 40, 41, 46, 57, 64, 77, 76, 79, 78, 99, 153]
+#    g.write("box_plot.png")
+class Gruff::Box < Gruff::Base
+  # Specifies the filling opacity in area graph. Default is +0.2+.
+  attr_writer fill_opacity: Float | Integer
+
+  # Specifies the stroke width in line. Default is +3.0+.
+  attr_writer stroke_width: Float | Integer
+
+  # Can be used to adjust the spaces between the bars.
+  # Accepts values between 0.00 and 1.00 where 0.00 means no spacing at all
+  # and 1 means that each bars' width is nearly 0 (so each bar is a simple
+  # line with no x dimension).
+  #
+  # Default value is +0.8+.
+  #
+  # @rbs space_percent: Float | Integer
+  def spacing_factor=: (Float | Integer space_percent) -> untyped
+
+  private
+
+  def initialize_attributes: () -> untyped
+
+  def draw_graph: () -> untyped
+
+  def normalized_boxes: () -> untyped
+
+  # @rbs return: Integer
+  def column_count: () -> Integer
+
+  # @rbs return: Integer
+  def calculate_spacing: () -> Integer
+
+  # @private
+  class BoxData
+    attr_accessor label: String
+
+    attr_accessor points: Array[Float | Integer]
+
+    attr_accessor color: String
+
+    def initialize: (untyped label, untyped points, untyped color) -> untyped
+
+    # @rbs return: Float | Integer
+    def min: () -> (Float | Integer)
+
+    # @rbs return: Float | Integer
+    def max: () -> (Float | Integer)
+
+    # @rbs return: Float | Integer
+    def min_whisker: () -> (Float | Integer)
+
+    # @rbs return: Float | Integer
+    def max_whisker: () -> (Float | Integer)
+
+    # @rbs return: Float | Integer
+    def upper_whisker: () -> (Float | Integer)
+
+    # @rbs return: Float | Integer
+    def lower_whisker: () -> (Float | Integer)
+
+    # @rbs return: Float
+    def median: () -> Float
+
+    # @rbs return: Float
+    def first_quartile: () -> Float
+
+    # @rbs return: Float
+    def third_quartile: () -> Float
+
+    # @rbs return: Array[Float | Integer]
+    def lower_outliers: () -> Array[Float | Integer]
+
+    # @rbs return: Array[Float | Integer]
+    def upper_outliers: () -> Array[Float | Integer]
+
+    # @rbs return: Float | Integer
+    def interquartile_range: () -> (Float | Integer)
+  end
+end

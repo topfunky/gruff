@@ -1,0 +1,50 @@
+# Generated from lib/gruff/spider.rb with RBS::Inline
+
+# Experimental!!! See also the Net graph.
+#
+# Here's how to set up a Gruff::Spider.
+#
+#   g = Gruff::Spider.new(30)
+#   g.title = "Spider Graph"
+#   g.data :Strength, [10]
+#   g.data :Dexterity, [16]
+#   g.data :Constitution, [12]
+#   g.data :Intelligence, [12]
+#   g.data :Wisdom, [10]
+#   g.data 'Charisma', [16]
+#   g.write("spider.png")
+class Gruff::Spider < Gruff::Base
+  # Hide all text.
+  attr_writer hide_axes: bool
+
+  attr_writer rotation: Float | Integer
+
+  # @rbs max_value: Float | Integer
+  # @rbs target_width: (String | Float | Integer)
+  # @rbs return: void
+  def initialize: (Float | Integer max_value, ?String | Float | Integer target_width) -> void
+
+  # @rbs value: bool
+  def hide_text=: (bool value) -> untyped
+
+  private
+
+  def initialize_attributes: () -> untyped
+
+  def setup_drawing: () -> untyped
+
+  def setup_graph_measurements: () -> untyped
+
+  def setup_data: () -> untyped
+
+  def draw_graph: () -> untyped
+
+  # @rbs value: nil | Float | Integer
+  def normalize_points: (nil | Float | Integer value) -> untyped
+
+  def draw_label: (untyped center_x, untyped center_y, untyped angle, untyped radius, untyped amount) -> untyped
+
+  def draw_axes: (untyped center_x, untyped center_y, untyped radius, untyped additive_angle, ?untyped line_color) -> untyped
+
+  def draw_polygon: (untyped center_x, untyped center_y, untyped additive_angle, ?untyped color) -> untyped
+end

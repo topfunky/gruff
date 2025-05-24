@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 #
 # Graph with dots and labels along a vertical access.
 # see: 'Creating More Effective Graphs' by Robbins
@@ -15,9 +17,11 @@
 #
 class Gruff::Dot < Gruff::Base
   # Prevent drawing of column labels below a stacked bar graph.  Default is +false+.
-  attr_writer :hide_labels
+  attr_writer :hide_labels #: bool
 
-  def initialize(*)
+  # @rbs target_width: (String | Float | Integer)
+  # @rbs return: void
+  def initialize(target_width = DEFAULT_TARGET_WIDTH)
     super
     @has_left_labels = true
     @dot_style = 'circle'
@@ -30,14 +34,17 @@ private
     @hide_labels = false
   end
 
+  # @rbs return: bool
   def hide_labels?
     @hide_labels
   end
 
+  # @rbs return: bool
   def hide_left_label_area?
     hide_labels? && @y_axis_label.nil?
   end
 
+  # @rbs return: bool
   def hide_bottom_label_area?
     @hide_line_markers && @x_axis_label.nil? && @legend_at_bottom == false
   end
@@ -89,6 +96,8 @@ private
   ##
   # Draw on the Y axis instead of the X
 
+  # @rbs y_offset: Float | Integer
+  # @rbs index: Integer
   def draw_label(y_offset, index)
     draw_unique_label(index) do
       draw_label_at(@graph_left - @label_margin, 1.0, 0.0, y_offset, @labels[index], gravity: Magick::EastGravity)

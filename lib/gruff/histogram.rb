@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 require 'histogram'
 
 #
@@ -15,19 +17,24 @@ require 'histogram'
 #
 class Gruff::Histogram < Gruff::Bar
   # Specifies interpolation between the min and max of the set. Default is +10+.
-  attr_writer :bin_width
+  attr_writer :bin_width #: Float | Integer
 
   # Specifies minimum value for bin.
-  attr_writer :minimum_bin
+  attr_writer :minimum_bin #: Float | Integer
 
   # Specifies maximum value for bin.
-  attr_writer :maximum_bin
+  attr_writer :maximum_bin #: Float | Integer
 
-  def initialize(*)
+  # @rbs target_width: (String | Float | Integer)
+  # @rbs return: void
+  def initialize(target_width = DEFAULT_TARGET_WIDTH)
     super
     @data = []
   end
 
+  # @rbs name: String | Symbol
+  # @rbs data_points: Array[Float | Integer] | nil
+  # @rbs color: String
   def data(name, data_points = [], color = nil)
     @data << [name, Array(data_points), color]
   end
@@ -46,7 +53,7 @@ private
       if data_points.empty?
         store.add(name, [], color)
       else
-        bins, freqs = HistogramArray.new(data_points.compact).histogram(bin_width: @bin_width, min: @minimum_bin, max: @maximum_bin)
+        bins, freqs = HistogramArray.new(data_points.compact).histogram(bin_width: @bin_width, min: @minimum_bin, max: @maximum_bin) # steep:ignore
         bins.each_with_index do |bin, index|
           @labels[index] = bin
         end
@@ -58,7 +65,9 @@ private
   end
 
   # @private
+  # @rbs inherits Array[Float | Integer | nil]
   class HistogramArray < Array
+    # @rbs skip
     include ::Histogram
   end
 end

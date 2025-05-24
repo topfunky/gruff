@@ -12,6 +12,13 @@ task default: :test
 
 Rake::TestTask.new
 
+namespace :rbs do
+  desc 'Update RBS signatures'
+  task :update do
+    sh 'bundle exec rbs-inline --output lib'
+  end
+end
+
 namespace :test do
   desc 'Update expected image with output'
   task :'image:update' do

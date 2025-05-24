@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 # See also the Spider graph.
 #
 # Here's how to make a Gruff::Net.
@@ -24,11 +26,11 @@
 #
 class Gruff::Net < Gruff::Base
   # Hide parts of the graph to fit more data points, or for a different appearance.
-  attr_writer :hide_dots
+  attr_writer :hide_dots #: bool
 
   # Dimensions of lines and dots; calculated based on dataset size if left unspecified.
-  attr_writer :line_width
-  attr_writer :dot_radius
+  attr_writer :line_width #: Float | Integer
+  attr_writer :dot_radius #: Float | Integer
 
 private
 
@@ -107,6 +109,11 @@ private
     end
   end
 
+  # @rbs center_x: Float | Integer
+  # @rbs center_y: Float | Integer
+  # @rbs angle: Float | Integer
+  # @rbs radius: Float
+  # @rbs amount: String | Integer
   def draw_label(center_x, center_y, angle, radius, amount)
     x_offset = center_x # + 15 # The label points need to be tweaked slightly
     y_offset = center_y # + 0  # This one doesn't though

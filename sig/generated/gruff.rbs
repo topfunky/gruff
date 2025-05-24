@@ -1,0 +1,20 @@
+# Generated from lib/gruff.rb with RBS::Inline
+
+# #
+#  = Gruff. Graphs.
+module Gruff
+  # @private
+  def self.libpath: (untyped path) -> untyped
+
+  # @private
+  class Renderer
+  end
+
+  # @private
+  class Store
+  end
+
+  # A module for small graphs
+  module Mini
+  end
+end

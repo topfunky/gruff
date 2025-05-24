@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 require_relative 'helper/stacked_mixin'
 
 #
@@ -13,7 +15,7 @@ require_relative 'helper/stacked_mixin'
 #   g.write('stacked_area.png')
 #
 class Gruff::StackedArea < Gruff::Base
-  include StackedMixin
+  include Gruff::Base::StackedMixin
 
   # @deprecated
   def last_series_goes_on_bottom=(_value)
@@ -59,10 +61,12 @@ private
 
       poly_points = data_points.dup
       if prev_data_points
+        # steep:ignore:start
         ((prev_data_points.length / 2) - 1).downto(0) do |i|
           poly_points << prev_data_points[2 * i]
           poly_points << prev_data_points[(2 * i) + 1]
         end
+        # steep:ignore:end
       else
         poly_points << @graph_right
         poly_points << (@graph_bottom - 1)

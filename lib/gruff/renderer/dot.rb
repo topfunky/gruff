@@ -1,8 +1,16 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 module Gruff
   # @private
   class Renderer::Dot
+    # @rbs renderer: Gruff::Renderer
+    # @rbs style: :square | :circle | :diamond | 'square' | 'circle' | 'diamond'
+    # @rbs color: String
+    # @rbs width: Float | Integer
+    # @rbs opacity: Float | Integer
+    # @rbs return: void
     def initialize(renderer, style, color:, width: 1.0, opacity: 1.0)
       @renderer = renderer
       @style = style.to_sym
@@ -11,6 +19,9 @@ module Gruff
       @opacity = opacity
     end
 
+    # @rbs new_x: Float | Integer
+    # @rbs new_y: Float | Integer
+    # @rbs radius: Float | Integer
     def render(new_x, new_y, radius)
       @renderer.draw.push
       @renderer.draw.stroke_width(@width)

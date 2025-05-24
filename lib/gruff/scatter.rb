@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 #
 # Here's how to set up a Gruff::Scatter.
 #
@@ -11,21 +13,21 @@
 class Gruff::Scatter < Gruff::Base
   # Maximum X Value. The value will get overwritten by the max in the
   # datasets.
-  attr_writer :maximum_x_value
+  attr_writer :maximum_x_value #: Float | Integer
 
   # Minimum X Value. The value will get overwritten by the min in the
   # datasets.
-  attr_writer :minimum_x_value
+  attr_writer :minimum_x_value #: Float | Integer
 
   # The number of vertical lines shown for reference.
-  attr_writer :marker_x_count
+  attr_writer :marker_x_count #: Integer
 
   # Attributes to allow customising the size of the points.
-  attr_writer :circle_radius
-  attr_writer :stroke_width
+  attr_writer :circle_radius #: Float | Integer
+  attr_writer :stroke_width #: Float | Integer
 
   # Allow for vertical marker lines.
-  attr_writer :show_vertical_markers
+  attr_writer :show_vertical_markers #: bool
 
   # Allow enabling vertical lines. When you have a lot of data, they can work great.
   # @deprecated Please use {#show_vertical_markers=} instead.
@@ -87,6 +89,10 @@ class Gruff::Scatter < Gruff::Base
   #   g.data('oranges', [1,1,1], [2,3,4])
   #   g.data('bitter_melon', [3,5,6], [6,7,8], '#000000')
   #
+  # @rbs name: String | Symbol
+  # @rbs x_data_points: Array[nil | Float | Integer] | nil
+  # @rbs y_data_points: Array[nil | Float | Integer] | nil
+  # @rbs color: String
   def data(name, x_data_points = [], y_data_points = [], color = nil)
     # make sure it's an array
     x_data_points = Array(x_data_points)
@@ -195,6 +201,7 @@ private
     end
   end
 
+  # @rbs return: Integer
   def marker_x_count
     # TODO: Do the same for larger numbers...100, 75, 50, 25
     @marker_x_count ||= begin
@@ -212,6 +219,7 @@ private
     end
   end
 
+  # @rbs return: Float | Integer | BigDecimal
   def x_increment
     @x_increment ||= begin
       if @x_axis_increment.nil?

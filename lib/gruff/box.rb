@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 #
 # Here's how to set up a Gruff::Box.
 #
@@ -11,10 +13,10 @@
 #
 class Gruff::Box < Gruff::Base
   # Specifies the filling opacity in area graph. Default is +0.2+.
-  attr_writer :fill_opacity
+  attr_writer :fill_opacity #: Float | Integer
 
   # Specifies the stroke width in line. Default is +3.0+.
-  attr_writer :stroke_width
+  attr_writer :stroke_width #: Float | Integer
 
   # Can be used to adjust the spaces between the bars.
   # Accepts values between 0.00 and 1.00 where 0.00 means no spacing at all
@@ -22,10 +24,12 @@ class Gruff::Box < Gruff::Base
   # line with no x dimension).
   #
   # Default value is +0.8+.
+  #
+  # @rbs space_percent: Float | Integer
   def spacing_factor=(space_percent)
     raise ArgumentError, 'spacing_factor must be between 0.00 and 1.00' if (space_percent < 0) || (space_percent > 1)
 
-    @spacing_factor = (1 - space_percent)
+    @spacing_factor = (1.0 - space_percent)
   end
 
 private
@@ -93,19 +97,21 @@ private
     @normalized_boxes ||= store.norm_data.map { |data| Gruff::Box::BoxData.new(data.label, data.points, data.color) }
   end
 
+  # @rbs return: Integer
   def column_count
     normalized_boxes.size
   end
 
+  # @rbs return: Integer
   def calculate_spacing
     column_count - 1
   end
 
   # @private
   class BoxData
-    attr_accessor :label
-    attr_accessor :points
-    attr_accessor :color
+    attr_accessor :label #: String
+    attr_accessor :points #: Array[Float | Integer]
+    attr_accessor :color #: String
 
     def initialize(label, points, color)
       @label = label
@@ -113,72 +119,84 @@ private
       @color = color
     end
 
+    # @rbs return: Float | Integer
     def min
-      points.first || 0
+      points.first || 0.0
     end
 
+    # @rbs return: Float | Integer
     def max
-      points.last || 0
+      points.last || 0.0
     end
 
+    # @rbs return: Float | Integer
     def min_whisker
       [min, first_quartile - (1.5 * interquartile_range)].max
     end
 
+    # @rbs return: Float | Integer
     def max_whisker
       [max, third_quartile + (1.5 * interquartile_range)].min
     end
 
+    # @rbs return: Float | Integer
     def upper_whisker
       max = max_whisker
       points.select { |point| point <= max }.max
     end
 
+    # @rbs return: Float | Integer
     def lower_whisker
       min = min_whisker
       points.select { |point| point >= min }.min
     end
 
+    # @rbs return: Float
     def median
       if points.empty?
-        0
+        0.0
       elsif points.size.odd?
-        points[points.size / 2]
+        points[points.size / 2].to_f
       else
-        (points[points.size / 2] + points[(points.size / 2) - 1]) / 2.0
+        (points[points.size / 2].to_f + points[(points.size / 2) - 1].to_f) / 2.0
       end
     end
 
+    # @rbs return: Float
     def first_quartile
       if points.empty?
-        0
+        0.0
       elsif points.size.odd?
-        points[points.size / 4]
+        points[points.size / 4].to_f
       else
-        (points[points.size / 4] + points[(points.size / 4) - 1]) / 2.0
+        (points[points.size / 4].to_f + points[(points.size / 4) - 1].to_f) / 2.0
       end
     end
 
+    # @rbs return: Float
     def third_quartile
       if points.empty?
-        0
+        0.0
       elsif points.size.odd?
-        points[(points.size * 3) / 4]
+        points[(points.size * 3) / 4].to_f
       else
-        (points[(points.size * 3) / 4] + points[((points.size * 3) / 4) - 1]) / 2.0
+        (points[(points.size * 3) / 4].to_f + points[((points.size * 3) / 4) - 1].to_f) / 2.0
       end
     end
 
+    # @rbs return: Array[Float | Integer]
     def lower_outliers
       min = lower_whisker
       points.select { |point| point < min }
     end
 
+    # @rbs return: Array[Float | Integer]
     def upper_outliers
       max = upper_whisker
       points.select { |point| point > max }
     end
 
+    # @rbs return: Float | Integer
     def interquartile_range
       third_quartile - first_quartile
     end

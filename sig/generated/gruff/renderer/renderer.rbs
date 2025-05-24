@@ -1,0 +1,43 @@
+# Generated from lib/gruff/renderer/renderer.rb with RBS::Inline
+
+module Gruff
+  # @private
+  class Renderer
+    attr_accessor text_renderers: Array[Gruff::Renderer::Text]
+
+    attr_reader draw: untyped
+
+    attr_reader image: untyped
+
+    attr_reader scale: real
+
+    # @rbs columns: Integer
+    # @rbs rows: Integer
+    # @rbs scale: Float | Integer
+    # @rbs theme_options: ::Hash[Symbol, untyped]
+    # @rbs return: void
+    def initialize: (Integer columns, Integer rows, Float | Integer scale, ::Hash[Symbol, untyped] theme_options) -> void
+
+    def finish: () -> untyped
+
+    # @rbs columns: Integer
+    # @rbs rows: Integer
+    def transparent_background: (Integer columns, Integer rows) -> untyped
+
+    private
+
+    def background: (untyped columns, untyped rows, untyped scale, untyped theme_options) -> untyped
+
+    # Use with a theme to use an image (800x600 original) background.
+    def image_background: (untyped scale, untyped image_path) -> untyped
+
+    # Make a new image at the current size with a solid +color+.
+    def solid_background: (untyped columns, untyped rows, untyped color) -> untyped
+
+    # Use with a theme definition method to draw a gradated background.
+    def gradated_background: (untyped columns, untyped rows, untyped top_color, untyped bottom_color, ?untyped direct) -> untyped
+
+    # Use with a theme to make a transparent background
+    def render_transparent_background: (untyped columns, untyped rows) -> untyped
+  end
+end

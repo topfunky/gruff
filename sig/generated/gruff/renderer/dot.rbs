@@ -1,0 +1,27 @@
+# Generated from lib/gruff/renderer/dot.rb with RBS::Inline
+
+module Gruff
+  # @private
+  class Renderer::Dot
+    # @rbs renderer: Gruff::Renderer
+    # @rbs style: :square | :circle | :diamond | 'square' | 'circle' | 'diamond'
+    # @rbs color: String
+    # @rbs width: Float | Integer
+    # @rbs opacity: Float | Integer
+    # @rbs return: void
+    def initialize: (Gruff::Renderer renderer, :square | :circle | :diamond | "square" | "circle" | "diamond" style, color: String, ?width: Float | Integer, ?opacity: Float | Integer) -> void
+
+    # @rbs new_x: Float | Integer
+    # @rbs new_y: Float | Integer
+    # @rbs radius: Float | Integer
+    def render: (Float | Integer new_x, Float | Integer new_y, Float | Integer radius) -> untyped
+
+    private
+
+    def circle: (untyped new_x, untyped new_y, untyped radius) -> untyped
+
+    def square: (untyped new_x, untyped new_y, untyped radius) -> untyped
+
+    def diamond: (untyped new_x, untyped new_y, untyped radius) -> untyped
+  end
+end

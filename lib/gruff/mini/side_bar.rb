@@ -35,12 +35,12 @@ private
   end
 
   def setup_data
-    expand_canvas_for_vertical_legend
+    expand_canvas_for_vertical_legend # steep:ignore
     super
   end
 
   def draw_graph
     super
-    draw_vertical_legend
+    draw_vertical_legend # steep:ignore
   end
 end

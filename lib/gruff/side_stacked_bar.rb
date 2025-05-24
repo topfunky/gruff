@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 require_relative 'helper/stacked_mixin'
 
 #
@@ -22,26 +24,28 @@ require_relative 'helper/stacked_mixin'
 #   g.write('side_stacked_bar.png')
 #
 class Gruff::SideStackedBar < Gruff::SideBar
-  include StackedMixin
+  include Gruff::Base::StackedMixin
 
   # Spacing factor applied between bars.
-  attr_writer :bar_spacing
+  attr_writer :bar_spacing #: Float | Integer
 
   # Number of pixels between bar segments.
-  attr_writer :segment_spacing
+  attr_writer :segment_spacing #: Float | Integer
 
   # Set the number output format string or lambda.
   # Default is +"%.2f"+.
-  attr_writer :label_formatting
+  attr_writer :label_formatting #: nil | String | Proc
 
   # Output the values for the bars on a bar graph.
   # Default is +false+.
-  attr_writer :show_labels_for_bar_values
+  attr_writer :show_labels_for_bar_values #: bool
 
   # Prevent drawing of column labels left of a side stacked bar graph.  Default is +false+.
-  attr_writer :hide_labels
+  attr_writer :hide_labels #: bool
 
-  def initialize(*)
+  # @rbs target_width: (String | Float | Integer)
+  # @rbs return: void
+  def initialize(target_width = DEFAULT_TARGET_WIDTH)
     super
     @has_left_labels = true
   end
@@ -68,7 +72,7 @@ private
     #
     # Columns sit stacked.
     bar_width = @graph_height / column_count
-    padding = (bar_width * (1 - @bar_spacing)) / 2
+    padding = (bar_width * (1.0 - @bar_spacing)) / 2
 
     # Setup the BarConversion Object
     conversion = Gruff::BarConversion.new(
@@ -79,11 +83,11 @@ private
     proc_text_metrics = ->(text) { text_metrics(@marker_font, text) }
 
     normalized_stacked_bars.each_with_index do |stacked_bars, stacked_index|
-      total = 0
+      total = 0.0
       left_y = @graph_top + (bar_width * stacked_index) + padding
       right_y = left_y + (bar_width * @bar_spacing)
 
-      top_x = 0
+      top_x = 0.0
       stacked_bars.each do |bar|
         next if bar.point.nil? || bar.point == 0
 

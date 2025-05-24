@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 ##
 # Original Author: David Stokar
 #
@@ -13,6 +15,12 @@
 #
 # @private
 class Gruff::BarConversion
+  # @rbs top: Float | Integer
+  # @rbs bottom: Float | Integer
+  # @rbs minimum_value: Float | Integer
+  # @rbs maximum_value: Float | Integer
+  # @rbs spread: Float | Integer
+  # @rbs return: void
   def initialize(top:, bottom:, minimum_value:, maximum_value:, spread:)
     @graph_top = top
     @graph_height = bottom - top
@@ -33,6 +41,8 @@ class Gruff::BarConversion
     end
   end
 
+  # @rbs data_point: Float | Integer
+  # @rbs return: [Float, Float]
   def get_top_bottom_scaled(data_point)
     data_point = data_point.to_f
     result = []
@@ -53,6 +63,7 @@ class Gruff::BarConversion
       result[1] = @graph_top + (@graph_height * (1 - @zero))
     end
 
-    result
+    # TODO: Remove RBS type annotation
+    result #: [Float, Float]
   end
 end

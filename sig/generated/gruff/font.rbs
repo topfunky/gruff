@@ -1,0 +1,35 @@
+# Generated from lib/gruff/font.rb with RBS::Inline
+
+# Handle font setting to draw texts
+class Gruff::Font
+  BOLD_PATH: untyped
+
+  REGULAR_PATH: untyped
+
+  # Get/set font path.
+  attr_accessor path: String
+
+  # Get/set font size.
+  attr_accessor size: Float | Integer
+
+  # Get/set font setting whether render bold text.
+  attr_accessor bold: bool
+
+  # Get/set font color.
+  attr_accessor color: String
+
+  # @rbs path: String | nil
+  # @rbs size: Float | Integer
+  # @rbs bold: bool
+  # @rbs color: String
+  def initialize: (?path: String | nil, ?size: Float | Integer, ?bold: bool, ?color: String) -> untyped
+
+  # Get font weight.
+  # @return [Magick::WeightType] font weight
+  # TODO: type annotation of return value
+  def weight: () -> untyped
+
+  # @private
+  # @rbs return: String
+  def file_path: () -> String
+end

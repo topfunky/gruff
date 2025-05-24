@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 #
 # Here's how to set up a Gruff::Candlestick.
 #
@@ -12,19 +14,19 @@
 #
 class Gruff::Candlestick < Gruff::Base
   # Allow for vertical marker lines.
-  attr_writer :show_vertical_markers
+  attr_writer :show_vertical_markers #: bool
 
   # Specifies the filling opacity in area graph. Default is +0.4+.
-  attr_writer :fill_opacity
+  attr_writer :fill_opacity #: Float | Integer
 
   # Specifies the stroke width in line. Default is +2.0+.
-  attr_writer :stroke_width
+  attr_writer :stroke_width #: Float | Integer
 
   # Specifies the color with up bar. Default is +'#579773'+.
-  attr_writer :up_color
+  attr_writer :up_color #: String
 
   # Specifies the color with down bar. Default is +'#eb5242'+.
-  attr_writer :down_color
+  attr_writer :down_color #: String
 
   # Can be used to adjust the spaces between the bars.
   # Accepts values between 0.00 and 1.00 where 0.00 means no spacing at all
@@ -32,10 +34,12 @@ class Gruff::Candlestick < Gruff::Base
   # line with no x dimension).
   #
   # Default value is +0.9+.
+  #
+  # @rbs space_percent: Float | Integer
   def spacing_factor=(space_percent)
     raise ArgumentError, 'spacing_factor must be between 0.00 and 1.00' if (space_percent < 0) || (space_percent > 1)
 
-    @spacing_factor = (1 - space_percent)
+    @spacing_factor = (1.0 - space_percent)
   end
 
   # The sort feature is not supported in this graph.
@@ -48,6 +52,10 @@ class Gruff::Candlestick < Gruff::Base
     raise 'Not support #sorted_drawing= in Gruff::Candlestick'
   end
 
+  # @rbs low: Float | Integer
+  # @rbs high: Float | Integer
+  # @rbs open: Float | Integer
+  # @rbs close: Float | Integer
   def data(low:, high:, open:, close:)
     super('', [low, high, open, close])
   end
@@ -99,17 +107,20 @@ private
   end
 
   def normalized_candlesticks
-    @normalized_candlesticks ||= store.norm_data.map { |data| Gruff::Candlestick::CandlestickData.new(*data.points) }
+    @normalized_candlesticks ||= store.norm_data.map { |data| Gruff::Candlestick::CandlestickData.new(*data.points) } # steep:ignore
   end
 
+  # @rbs return: Integer
   def column_count
     normalized_candlesticks.size
   end
 
+  # @rbs return: Integer
   def calculate_spacing
     column_count - 1
   end
 
+  # @rbs return: bool
   def show_marker_vertical_line?
     !@hide_line_markers && @show_vertical_markers
   end

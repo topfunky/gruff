@@ -1,0 +1,58 @@
+# Generated from lib/gruff/store/xy_data.rb with RBS::Inline
+
+module Gruff
+  class Store
+    # @private
+    class XYData
+      attr_accessor label: String
+
+      attr_accessor x_points: Array[nil | Float | Integer]
+
+      attr_accessor y_points: Array[nil | Float | Integer]
+
+      attr_accessor color: String
+
+      # @rbs label: String | Symbol
+      # @rbs x_points: Array[nil | Float | Integer] | nil
+      # @rbs y_points: Array[nil | Float | Integer] | nil
+      # @rbs color: String
+      def initialize: (String | Symbol label, Array[nil | Float | Integer] | nil x_points, Array[nil | Float | Integer] | nil y_points, String color) -> untyped
+
+      alias points y_points
+
+      # @rbs return: Array[[Float | Integer | nil, Float | Integer | nil]]
+      def coordinates: () -> Array[[ Float | Integer | nil, Float | Integer | nil ]]
+
+      def coordinate_and_pointsizes: () -> untyped
+
+      # @rbs return: bool
+      def empty?: () -> bool
+
+      # @rbs return: Integer
+      def columns: () -> Integer
+
+      # @rbs return: Float | Integer
+      def min: () -> (Float | Integer)
+
+      alias min_y min
+
+      # @rbs return: Float | Integer
+      def max: () -> (Float | Integer)
+
+      alias max_y max
+
+      # @rbs return: Float | Integer
+      def min_x: () -> (Float | Integer)
+
+      # @rbs return: Float | Integer
+      def max_x: () -> (Float | Integer)
+
+      # @rbs minimum_x: Float | Integer
+      # @rbs minimum_y: Float | Integer
+      # @rbs spread_x: Float | Integer
+      # @rbs spread_y: Float | Integer
+      # @rbs return: Gruff::Store::XYData
+      def normalize: (minimum_x: Float | Integer, minimum_y: Float | Integer, spread_x: Float | Integer, spread_y: Float | Integer) -> Gruff::Store::XYData
+    end
+  end
+end

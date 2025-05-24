@@ -1,0 +1,24 @@
+# Generated from lib/gruff/bezier.rb with RBS::Inline
+
+#
+#  Gruff::Bezier is a special line graph that have
+#  the bezier curve.
+#
+#  Here's how to set up a Gruff::Bezier.
+#
+#    dataset = [
+#      +0.00, +0.09, +0.19, +0.29, +0.38, +0.47, +0.56, +0.64, +0.71, +0.78,
+#      +0.84, +0.89, +0.93, +0.96, +0.98, +0.99, +0.99, +0.99, +0.97, +0.94,
+#      +0.90, +0.86, +0.80, +0.74, +0.67, +0.59, +0.51, +0.42, +0.33, +0.23,
+#      +0.14, +0.04, -0.06, -0.16, -0.26, -0.36, -0.45, -0.53, -0.62, -0.69,
+#      -0.76, -0.82, -0.88, -0.92, -0.96, -0.98, -1.00, -1.00, -1.00, -0.99,
+#      -0.96, -0.93, -0.89, -0.84, -0.78, -0.71, -0.64, -0.56, -0.47, -0.38,
+#    ]
+#    g = Gruff::Bezier.new
+#    g.data 'sin', dataset
+#    g.write('bezier.png')
+class Gruff::Bezier < Gruff::Base
+  private
+
+  def draw_graph: () -> untyped
+end

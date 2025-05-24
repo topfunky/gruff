@@ -1,0 +1,5 @@
+# Generated from lib/gruff/version.rb with RBS::Inline
+
+module Gruff
+  VERSION: ::String
+end

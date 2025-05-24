@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 #
 # A bullet graph is a variation of a bar graph.
 # http://en.wikipedia.org/wiki/Bullet_graph
@@ -12,6 +14,8 @@
 #   g.write('bullet.png')
 #
 class Gruff::Bullet < Gruff::Base
+  # @rbs target_width: String | Float | Integer
+  # @rbs return: void
   def initialize(target_width = '400x40')
     super
 
@@ -35,6 +39,9 @@ class Gruff::Bullet < Gruff::Base
   end
   private :initialize_attributes
 
+  # @rbs value: Float | Integer
+  # @rbs maximum_value: Float | Integer
+  # @rbs options: Hash[Symbol, Float | Integer]
   def data(value, maximum_value, options = {})
     @value = value.to_f
     self.maximum_value = maximum_value.to_f

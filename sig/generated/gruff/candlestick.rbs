@@ -1,0 +1,79 @@
+# Generated from lib/gruff/candlestick.rb with RBS::Inline
+
+#
+#  Here's how to set up a Gruff::Candlestick.
+#
+#    g = Gruff::Candlestick.new
+#    g.data low:  79.30, high:  93.10, open:  79.44, close:  91.20
+#    g.data low:  89.14, high: 106.42, open:  91.28, close: 106.26
+#    g.data low: 107.89, high: 131.00, open: 108.20, close: 129.04
+#    g.data low: 103.10, high: 137.98, open: 132.76, close: 115.81
+#    g.write("candlestick.png")
+class Gruff::Candlestick < Gruff::Base
+  # Allow for vertical marker lines.
+  attr_writer show_vertical_markers: bool
+
+  # Specifies the filling opacity in area graph. Default is +0.4+.
+  attr_writer fill_opacity: Float | Integer
+
+  # Specifies the stroke width in line. Default is +2.0+.
+  attr_writer stroke_width: Float | Integer
+
+  # Specifies the color with up bar. Default is +'#579773'+.
+  attr_writer up_color: String
+
+  # Specifies the color with down bar. Default is +'#eb5242'+.
+  attr_writer down_color: String
+
+  # Can be used to adjust the spaces between the bars.
+  # Accepts values between 0.00 and 1.00 where 0.00 means no spacing at all
+  # and 1 means that each bars' width is nearly 0 (so each bar is a simple
+  # line with no x dimension).
+  #
+  # Default value is +0.9+.
+  #
+  # @rbs space_percent: Float | Integer
+  def spacing_factor=: (Float | Integer space_percent) -> untyped
+
+  # The sort feature is not supported in this graph.
+  def sort=: (untyped _value) -> untyped
+
+  # The sort feature is not supported in this graph.
+  def sorted_drawing=: (untyped _value) -> untyped
+
+  # @rbs low: Float | Integer
+  # @rbs high: Float | Integer
+  # @rbs open: Float | Integer
+  # @rbs close: Float | Integer
+  def data: (low: Float | Integer, high: Float | Integer, open: Float | Integer, close: Float | Integer) -> untyped
+
+  private
+
+  def initialize_attributes: () -> untyped
+
+  def draw_graph: () -> untyped
+
+  def normalized_candlesticks: () -> untyped
+
+  # @rbs return: Integer
+  def column_count: () -> Integer
+
+  # @rbs return: Integer
+  def calculate_spacing: () -> Integer
+
+  # @rbs return: bool
+  def show_marker_vertical_line?: () -> bool
+
+  # @private
+  class CandlestickData
+    attr_accessor low: untyped
+
+    attr_accessor high: untyped
+
+    attr_accessor open: untyped
+
+    attr_accessor close: untyped
+
+    def initialize: (untyped low, untyped high, untyped open, untyped close) -> untyped
+  end
+end

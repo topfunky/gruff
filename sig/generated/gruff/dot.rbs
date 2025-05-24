@@ -1,0 +1,44 @@
+# Generated from lib/gruff/dot.rb with RBS::Inline
+
+#
+#  Graph with dots and labels along a vertical access.
+#  see: 'Creating More Effective Graphs' by Robbins
+#
+#  Here's how to set up a Gruff::Dot.
+#
+#    g = Gruff::Dot.new
+#    g.title = 'Dot Graph'
+#    g.data :Art, [0, 5, 8, 15]
+#    g.data :Philosophy, [10, 3, 2, 8]
+#    g.data :Science, [2, 15, 8, 11]
+#    g.write('dot.png')
+class Gruff::Dot < Gruff::Base
+  # Prevent drawing of column labels below a stacked bar graph.  Default is +false+.
+  attr_writer hide_labels: bool
+
+  # @rbs target_width: (String | Float | Integer)
+  # @rbs return: void
+  def initialize: (?String | Float | Integer target_width) -> void
+
+  private
+
+  def initialize_attributes: () -> untyped
+
+  # @rbs return: bool
+  def hide_labels?: () -> bool
+
+  # @rbs return: bool
+  def hide_left_label_area?: () -> bool
+
+  # @rbs return: bool
+  def hide_bottom_label_area?: () -> bool
+
+  def draw_graph: () -> untyped
+
+  # Instead of base class version, draws vertical background lines and label
+  def draw_line_markers: () -> untyped
+
+  # @rbs y_offset: Float | Integer
+  # @rbs index: Integer
+  def draw_label: (Float | Integer y_offset, Integer index) -> untyped
+end
