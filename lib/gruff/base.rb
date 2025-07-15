@@ -855,7 +855,7 @@ module Gruff
     end
 
     # @rbs index: Integer
-    # @rbs &: () -> void
+    # @rbs yields: () -> void
     def draw_unique_label(index)
       return if hide_labels?
 

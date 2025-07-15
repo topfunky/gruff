@@ -15,7 +15,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        ruby-version: ['3.0']
+        ruby-version: ['3.4']
         imagemagick-version:
           - { full: 7.1.1-33, major-minor: '7.1' }
     name: Lint (Ruby ${{ matrix.ruby-version }}, ImageMagick ${{ matrix.imagemagick-version.major-minor }})

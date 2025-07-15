@@ -492,8 +492,8 @@ module Gruff
     def draw_label: (Float | Integer x, Integer index, ?untyped gravity) { () -> void } -> untyped
 
     # @rbs index: Integer
-    # @rbs &: () -> void
-    def draw_unique_label: (Integer index) { () -> void } -> untyped
+    # @rbs yields: () -> void
+    def draw_unique_label: (Integer index) -> untyped
 
     # @rbs width: Float | Integer
     # @rbs height: Float | Integer

@@ -2,6 +2,7 @@ plugins:
   - rubocop-minitest
   - rubocop-performance
   - rubocop-rake
+  - rubocop-rbs_inline
 
 AllCops:
     EnabledByDefault: true
