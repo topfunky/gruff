@@ -1,6 +1,6 @@
 # Change Log
 
-## develop
+## 0.27.1
 
 - RBS: Fix wrong type declarations (#662)
 
