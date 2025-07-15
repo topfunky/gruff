@@ -44,7 +44,7 @@ module Gruff::BarValueLabel
   class Bar < Base
     # @rbs format: nil | String | Proc
     # @rbs proc_text_metrics: Proc
-    # @rbs &: (Float | Integer, Float | Integer, String, Float, Float) -> void
+    # @rbs yields: (Float | Integer, Float | Integer, String, Float, Float) -> void
     def prepare_rendering(format, proc_text_metrics)
       left_x, left_y, _right_x, _right_y = @coordinate
       val, metrics = Gruff::BarValueLabel.metrics(@value, format, proc_text_metrics)
@@ -58,7 +58,7 @@ module Gruff::BarValueLabel
   class SideBar < Base
     # @rbs format: nil | String | Proc
     # @rbs proc_text_metrics: Proc
-    # @rbs &: (Float | Integer, Float | Integer, String, Float, Float) -> void
+    # @rbs yields: (Float | Integer, Float | Integer, String, Float, Float) -> void
     def prepare_rendering(format, proc_text_metrics)
       left_x, left_y, right_x, _right_y = @coordinate
       val, metrics = Gruff::BarValueLabel.metrics(@value, format, proc_text_metrics)

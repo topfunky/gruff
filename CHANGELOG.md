@@ -1,5 +1,9 @@
 # Change Log
 
+## develop
+
+- RBS: Fix wrong type declarations (#662)
+
 ## 0.27.0
 
 - Add RBS signatures (#661)

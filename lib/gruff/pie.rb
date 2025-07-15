@@ -92,7 +92,7 @@ private
 
   # General Helper Methods
 
-  # @rbs degree: Float | Integer
+  # @rbs degrees: Float | Integer
   def update_chart_degrees_with(degrees)
     @chart_degrees = chart_degrees + degrees
   end

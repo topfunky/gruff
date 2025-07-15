@@ -50,8 +50,8 @@ class Gruff::Pie < Gruff::Base
 
   def slices: () -> untyped
 
-  # @rbs degree: Float | Integer
-  def update_chart_degrees_with: (untyped degrees) -> untyped
+  # @rbs degrees: Float | Integer
+  def update_chart_degrees_with: (Float | Integer degrees) -> untyped
 
   # @rbs return: Float | Integer
   def chart_degrees: () -> (Float | Integer)

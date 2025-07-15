@@ -27,15 +27,15 @@ module Gruff::BarValueLabel
   class Bar < Base
     # @rbs format: nil | String | Proc
     # @rbs proc_text_metrics: Proc
-    # @rbs &: (Float | Integer, Float | Integer, String, Float, Float) -> void
-    def prepare_rendering: (nil | String | Proc format, Proc proc_text_metrics) { (Float | Integer, Float | Integer, String, Float, Float) -> void } -> untyped
+    # @rbs yields: (Float | Integer, Float | Integer, String, Float, Float) -> void
+    def prepare_rendering: (nil | String | Proc format, Proc proc_text_metrics) -> untyped
   end
 
   # @private
   class SideBar < Base
     # @rbs format: nil | String | Proc
     # @rbs proc_text_metrics: Proc
-    # @rbs &: (Float | Integer, Float | Integer, String, Float, Float) -> void
-    def prepare_rendering: (nil | String | Proc format, Proc proc_text_metrics) { (Float | Integer, Float | Integer, String, Float, Float) -> void } -> untyped
+    # @rbs yields: (Float | Integer, Float | Integer, String, Float, Float) -> void
+    def prepare_rendering: (nil | String | Proc format, Proc proc_text_metrics) -> untyped
   end
 end
