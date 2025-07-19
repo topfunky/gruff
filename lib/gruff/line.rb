@@ -229,13 +229,10 @@ private
 
     stroke_width  = @line_width || clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 4.0), 5.0)
     circle_radius = @dot_radius || clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 2.5), 5.0)
+    prev_x = prev_y = nil
 
     store.norm_data.each do |data_row|
-      poly_points_group = [[]]
-
       data_row.coordinates.each_with_index do |(x_data, y_data), index|
-        poly_points = poly_points_group.last
-
         new_x = begin
           if x_data.nil?
             # use the old method: equally spaced points along the x-axis
@@ -249,24 +246,24 @@ private
         unless y_data
           # we can't draw a line for a null data point, we can still label the axis though.
           # Split the polygonal line into separate groups of points for polyline.
-          poly_points_group << []
+          prev_x = prev_y = nil
           next
         end
 
         new_y = @graph_top + (@graph_height - (y_data * @graph_height))
 
-        poly_points << new_x
-        poly_points << new_y
-
         if contains_one_point_only?(data_row) || !@hide_dots
           Gruff::Renderer::Dot.new(renderer, @dot_style, color: data_row.color, width: stroke_width).render(new_x, new_y, circle_radius)
         end
-      end
-
-      unless @hide_lines
-        poly_points_group.each do |poly_points|
-          Gruff::Renderer::Polyline.new(renderer, color: data_row.color, width: stroke_width).render(poly_points) unless poly_points.empty?
+        if !@hide_lines && prev_x && prev_y
+          # Renderer::Polyline may cause unknown lines to be drawn with complex graphs.
+          # Probably it is related to ImageMagick behavior.
+          # To avoid this problem, we use the Renderer::Line instead.
+          Gruff::Renderer::Line.new(renderer, color: data_row.color, width: stroke_width)
+                               .render(prev_x, prev_y, new_x, new_y)
         end
+        prev_x = new_x
+        prev_y = new_y
       end
     end
   end
