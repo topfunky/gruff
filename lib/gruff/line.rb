@@ -232,6 +232,7 @@ private
     prev_x = prev_y = nil
 
     store.norm_data.each do |data_row|
+      prev_x = prev_y = nil
       data_row.coordinates.each_with_index do |(x_data, y_data), index|
         new_x = begin
           if x_data.nil?
