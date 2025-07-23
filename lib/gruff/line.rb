@@ -229,9 +229,9 @@ private
 
     stroke_width  = @line_width || clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 4.0), 5.0)
     circle_radius = @dot_radius || clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 2.5), 5.0)
-    prev_x = prev_y = nil
 
     store.norm_data.each do |data_row|
+      prev_x = prev_y = nil
       data_row.coordinates.each_with_index do |(x_data, y_data), index|
         new_x = begin
           if x_data.nil?
