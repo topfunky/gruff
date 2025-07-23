@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.29.0
+
+- Line graph: reset previous point between dataxy series to prevent unwanted poly‑line connection (#665)
+
 ## 0.28.0
 
 - Fix Gruff::Line to prevent unknown lines drawing (#664)
