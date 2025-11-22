@@ -95,7 +95,7 @@ module Gruff::Mini::Legend
     font.size = scale(font.size)
     max_width = @columns - scale(x_offset) - @right_margin
     while calculate_width(font, "#{truncated_label}...") > max_width && truncated_label.length > 1
-      truncated_label = truncated_label[0..truncated_label.length - 2]
+      truncated_label = truncated_label[0..(truncated_label.length - 2)]
     end
     truncated_label + (truncated_label.length < label.to_s.length ? '...' : '')
     # steep:ignore:end

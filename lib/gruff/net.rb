@@ -98,7 +98,7 @@ private
     return if @hide_line_markers
 
     # Draw horizontal line markers and annotate with numbers
-    (0..column_count - 1).each do |index|
+    (0..(column_count - 1)).each do |index|
       rad_pos = index * Math::PI * 2 / column_count
 
       Gruff::Renderer::Line.new(renderer, color: @marker_color)
