@@ -126,6 +126,9 @@ Style/NumericPredicate:
 Style/OptionHash:
   Enabled: false
 
+Style/CollectionQuerying:
+  Enabled: false
+
 Style/RedundantBegin:
   Enabled: false
 
