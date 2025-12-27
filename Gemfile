@@ -12,6 +12,7 @@ unless defined? JRUBY_VERSION
   gem 'rubocop-rake', '~> 0.6'
 end
 
+gem 'minitest', '~> 5.0'
 gem 'minitest-reporters'
 gem 'rake'
 gem 'simplecov'
