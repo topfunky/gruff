@@ -58,8 +58,8 @@ class Gruff::Candlestick < Gruff::Base
   # @rbs return: Integer
   def column_count: () -> Integer
 
-  # @rbs return: Integer
-  def calculate_spacing: () -> Integer
+  # @rbs return: Float
+  def calculate_spacing: () -> Float
 
   # @rbs return: bool
   def show_marker_vertical_line?: () -> bool

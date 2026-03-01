@@ -81,7 +81,7 @@ private
       minimum_value: minimum_value, maximum_value: maximum_value, spread: @spread
     )
 
-    width = (@graph_width - calculate_spacing) / column_count
+    width = @graph_width / calculate_spacing
     bar_width = width * @spacing_factor
     padding = width - bar_width
 
@@ -115,9 +115,9 @@ private
     normalized_candlesticks.size
   end
 
-  # @rbs return: Integer
+  # @rbs return: Float
   def calculate_spacing
-    column_count - 1
+    column_count.to_f
   end
 
   # @rbs return: bool
