@@ -1,0 +1,26 @@
+# Generated from lib/gruff/mini/legend.rb with RBS::Inline
+
+# A module to handle the small legend.
+# @private
+module Gruff::Mini::Legend
+  attr_accessor hide_mini_legend: untyped
+
+  attr_accessor legend_position: untyped
+
+  def initialize: (*untyped) -> untyped
+
+  # The canvas needs to be bigger so we can put the legend beneath it.
+  def expand_canvas_for_vertical_legend: () -> untyped
+
+  def calculate_line_height: () -> untyped
+
+  def calculate_legend_width: () -> untyped
+
+  # Draw the legend beneath the existing graph.
+  def draw_vertical_legend: () -> untyped
+
+  # Shorten long labels so they will fit on the canvas.
+  def truncate_legend_label: (untyped label, untyped x_offset) -> untyped
+
+  def scale: (untyped value) -> untyped
+end
