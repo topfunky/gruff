@@ -6,12 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 2
-# Configuration parameters: AllowedClasses.
-Style/OneClassPerFile:
-  Exclude:
-    - 'test/gruff_test_case.rb'
-
 # Offense count: 726
 # Configuration parameters: EnforcedStyle, Visibility.
 # SupportedStyles: method_type_signature, doc_style, doc_style_and_return_annotation

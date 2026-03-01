@@ -86,6 +86,9 @@ Style/ConstantVisibility:
 Style/Copyright:
   Enabled: false
 
+Style/OneClassPerFile:
+  Enabled: false
+
 Style/Documentation:
   Enabled: true
 
