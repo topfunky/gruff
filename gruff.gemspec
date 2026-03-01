@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rbs_inline: enabled
 
 lib = File.expand_path('lib')
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)

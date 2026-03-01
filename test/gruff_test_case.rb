@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rbs_inline: enabled
 
 $LOAD_PATH.unshift("#{File.dirname(__FILE__)}/../lib/")
 

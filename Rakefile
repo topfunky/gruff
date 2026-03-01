@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rbs_inline: enabled
 
 require 'bundler/gem_tasks'
 require 'rake/testtask'
