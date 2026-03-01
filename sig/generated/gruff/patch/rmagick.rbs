@@ -1,0 +1,15 @@
+# Generated from lib/gruff/patch/rmagick.rb with RBS::Inline
+
+# @private
+module Magick
+  # @private
+  module GruffAnnotate
+    # Additional method to scale annotation text since Draw.scale doesn't.
+    def annotate_scaled: (untyped img, untyped width, untyped height, untyped x, untyped y, untyped text, untyped scale) -> untyped
+
+    # FIXME(uwe):  We should NOT need to implement this method.
+    #              Remove this method as soon as RMagick4J Issue #16 is fixed.
+    #              https://github.com/Serabe/RMagick4J/issues/16
+    def fill=: (untyped fill) -> untyped
+  end
+end

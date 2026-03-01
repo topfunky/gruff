@@ -1,0 +1,9 @@
+# Generated from lib/gruff/patch/string.rb with RBS::Inline
+
+# @private
+module String::GruffCommify
+  THOUSAND_SEPARATOR: ::String
+
+  # Taken from http://codesnippets.joyent.com/posts/show/330
+  def commify: (?untyped delimiter) -> untyped
+end
