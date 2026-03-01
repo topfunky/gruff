@@ -119,6 +119,9 @@ Style/MethodCallWithArgsParentheses:
 Style/MissingElse:
   Enabled: false
 
+Style/NegativeArrayIndex:
+  Enabled: false
+
 Style/Next:
   Enabled: false
 

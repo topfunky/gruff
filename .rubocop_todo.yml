@@ -6,12 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/NegativeArrayIndex:
-  Exclude:
-    - 'lib/gruff/mini/legend.rb'
-
 # Offense count: 2
 # Configuration parameters: AllowedClasses.
 Style/OneClassPerFile:
