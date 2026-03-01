@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rbs_inline: enabled
 
 #
 # Makes a small side bar graph suitable for display at 200px or even smaller.
