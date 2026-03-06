@@ -10,12 +10,14 @@ module Gruff
       attr_accessor :x_points #: Array[nil | Float | Integer]
       attr_accessor :y_points #: Array[nil | Float | Integer]
       attr_accessor :color #: String
+      attr_accessor :line_width #: Integer
 
       # @rbs label: String | Symbol
       # @rbs x_points: Array[nil | Float | Integer] | nil
       # @rbs y_points: Array[nil | Float | Integer] | nil
       # @rbs color: String
-      def initialize(label, x_points, y_points, color)
+      # @rbs line_width: Integer
+      def initialize(label, x_points, y_points, color, line_width = nil)
         y_points = Array(y_points)
         x_points = x_points ? Array(x_points) : Array.new(y_points.length)
         raise ArgumentError, 'x_points.length != y_points.length!' if x_points.length != y_points.length
@@ -24,6 +26,7 @@ module Gruff
         @x_points = x_points
         @y_points = y_points
         @color = color
+        @line_width = line_width
       end
 
       alias points y_points
@@ -82,7 +85,7 @@ module Gruff
           y.nil? ? nil : (y.to_f - minimum_y.to_f) / spread_y
         end
 
-        self.class.new(label, norm_x_points, norm_y_points, color)
+        self.class.new(label, norm_x_points, norm_y_points, color, line_width)
       end
     end
   end
