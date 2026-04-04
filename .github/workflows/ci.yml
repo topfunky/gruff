@@ -35,7 +35,7 @@ jobs:
         export IMAGEMAGICK_VERSION=${{ matrix.imagemagick-version.full }}
         ./before_install_linux.sh
     - name: Set up Ruby ${{ matrix.ruby-version }}
-      uses: ruby/setup-ruby@master
+      uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true
@@ -69,7 +69,7 @@ jobs:
         export IMAGEMAGICK_VERSION=${{ matrix.imagemagick-version.full }}
         ./before_install_linux.sh
     - name: Set up Ruby ${{ matrix.ruby-version }}
-      uses: ruby/setup-ruby@master
+      uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true
@@ -103,7 +103,7 @@ jobs:
         export IMAGEMAGICK_VERSION=${{ matrix.imagemagick-version.full }}
         ./before_install_linux.sh
     - name: Set up Ruby
-      uses: ruby/setup-ruby@master
+      uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true
@@ -120,7 +120,7 @@ jobs:
     steps:
     - uses: actions/checkout@v6
     - name: Set up Ruby
-      uses: ruby/setup-ruby@master
+      uses: ruby/setup-ruby@v1
       with:
         ruby-version: jruby-${{ matrix.ruby-version }}
         bundler-cache: true
