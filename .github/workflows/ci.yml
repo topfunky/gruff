@@ -24,7 +24,7 @@ jobs:
       with:
         ref: ${{ github.event.pull_request.head.sha }}
     - name: Cache ImageMagick
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: ./build-ImageMagick
         key: v1-linux-imagemagick-${{ matrix.imagemagick-version.full }}
@@ -58,7 +58,7 @@ jobs:
       with:
         ref: ${{ github.event.pull_request.head.sha }}
     - name: Cache ImageMagick
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: ./build-ImageMagick
         key: v1-linux-imagemagick-${{ matrix.imagemagick-version.full }}
@@ -92,7 +92,7 @@ jobs:
     steps:
     - uses: actions/checkout@v6
     - name: Cache ImageMagick
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: ./build-ImageMagick
         key: v1-linux-imagemagick-${{ matrix.imagemagick-version.full }}
