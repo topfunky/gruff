@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.30.0
+
+- RBS: Add missing signatures (#674)
+- Candlestick: Fix graph width calculation (#671)
+
 ## 0.29.0
 
 - Line graph: reset previous point between dataxy series to prevent unwanted poly‑line connection (#665)
