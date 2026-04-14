@@ -17,7 +17,7 @@ ADD before_install_linux.sh /tmp/gruff/before_install_linux.sh
 ENV IMAGEMAGICK_VERSION=7.1.2-10
 RUN bash /tmp/gruff/before_install_linux.sh && \
     rm -rf /var/lib/apt/lists/* && \
-    gem install bundler:2.5.7 && \
+    gem install bundler && \
     bundle install
 
 WORKDIR /opt/gruff
