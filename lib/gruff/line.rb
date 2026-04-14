@@ -158,7 +158,7 @@ class Gruff::Line < Gruff::Base
   # @rbs x_data_points: Array[nil | Float | Integer] | Array[[nil | Float | Integer, nil | Float | Integer]] | nil
   # @rbs y_data_points: Array[nil | Float | Integer] | nil | String
   # @rbs color: String
-  def dataxy(name, x_data_points = [], y_data_points = [], color = nil)
+  def dataxy(name, x_data_points = [], y_data_points = [], color = nil, line_width = nil)
     # make sure it's an array
     x_data_points = Array(x_data_points)
 
@@ -174,7 +174,7 @@ class Gruff::Line < Gruff::Base
     raise ArgumentError, 'x_data_points.length != y_data_points.length!' if x_data_points.length != y_data_points.length # steep:ignore
 
     # call the existing data routine for the x/y data.
-    store.add(name, x_data_points, y_data_points, color)
+    store.add(name, x_data_points, y_data_points, color, line_width)
   end
 
 private
@@ -231,6 +231,8 @@ private
     circle_radius = @dot_radius || clip_value_if_greater_than(@columns / (store.norm_data.first.y_points.size * 2.5), 5.0)
 
     store.norm_data.each do |data_row|
+      data_row_stroke_width = stroke_width
+      data_row_stroke_width = data_row.line_width if data_row.respond_to?(:line_width) && data_row.line_width
       prev_x = prev_y = nil
       data_row.coordinates.each_with_index do |(x_data, y_data), index|
         new_x = begin
@@ -253,13 +255,13 @@ private
         new_y = @graph_top + (@graph_height - (y_data * @graph_height))
 
         if contains_one_point_only?(data_row) || !@hide_dots
-          Gruff::Renderer::Dot.new(renderer, @dot_style, color: data_row.color, width: stroke_width).render(new_x, new_y, circle_radius)
+          Gruff::Renderer::Dot.new(renderer, @dot_style, color: data_row.color, width: data_row_stroke_width).render(new_x, new_y, circle_radius)
         end
         if !@hide_lines && prev_x && prev_y
           # Renderer::Polyline may cause unknown lines to be drawn with complex graphs.
           # Probably it is related to ImageMagick behavior.
           # To avoid this problem, we use the Renderer::Line instead.
-          Gruff::Renderer::Line.new(renderer, color: data_row.color, width: stroke_width)
+          Gruff::Renderer::Line.new(renderer, color: data_row.color, width: data_row_stroke_width)
                                .render(prev_x, prev_y, new_x, new_y)
         end
         prev_x = new_x
