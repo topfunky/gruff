@@ -154,6 +154,7 @@ module Gruff
       self.theme = Themes::KEYNOTE
     end
 
+    # @rbs return: void
     def initialize_graph_scale
       @raw_columns = DEFAULT_TARGET_WIDTH
       @raw_rows = DEFAULT_TARGET_WIDTH * (@rows / @columns)
@@ -165,6 +166,7 @@ module Gruff
     end
     protected :initialize_graph_scale
 
+    # @rbs return: void
     def initialize_store
       @store = Gruff::Store.new(Gruff::Store::BasicData)
     end
@@ -176,6 +178,8 @@ module Gruff
     #
     # This makes it possible to set defaults in a subclass but still allow
     # developers to change this values in their program.
+    #
+    # @rbs return: void
     def initialize_attributes
       @marker_count = nil
       @maximum_value = @minimum_value = nil
@@ -228,6 +232,7 @@ module Gruff
     #   g = Gruff::Bar.new
     #   g.labels = ['2005', nil, nil, '2006', nil, nil, '2007', nil, nil, '2008'] # same labels for columns
     #
+    # @rbs return: void
     def labels=(labels)
       if labels.is_a?(Array)
         labels = labels.each_with_index.with_object({}) do |(label, index), hash|
@@ -243,6 +248,7 @@ module Gruff
     #
     # @param rotation [Numeric] the rotation.
     # @rbs rotation: Float | Integer
+    # @rbs return: void
     def label_rotation=(rotation)
       raise ArgumentError, 'rotation must be between 0.0 and 45.0 or between 0.0 and -45.0' if rotation > 45.0 || rotation < -45.0
 
@@ -251,6 +257,7 @@ module Gruff
 
     # Height of staggering between labels.
     # @deprecated
+    # @rbs return: void
     def label_stagger_height=(_value)
       warn '#label_stagger_height= is deprecated. It is no longer effective.'
     end
@@ -269,6 +276,7 @@ module Gruff
     #   g = Gruff::Bar.new
     #   g.title = ['The first line of title', 'The second line of title']
     #
+    # @rbs return: void
     def title=(title)
       if title.is_a?(Array)
         title = title.join("\n")
@@ -281,6 +289,7 @@ module Gruff
     #
     # @param margin [Numeric] The margin size.
     # @rbs margin: Float | Integer
+    # @rbs return: void
     def margins=(margin)
       @top_margin = @left_margin = @right_margin = @bottom_margin = margin
     end
@@ -289,6 +298,7 @@ module Gruff
     #
     # @param font_path [String] The path to font.
     # @rbs font_path: String
+    # @rbs return: void
     def font=(font_path)
       @title_font.path = font_path unless @title_font.path
       @marker_font.path = font_path
@@ -300,6 +310,7 @@ module Gruff
     #
     # @param font_path [String] The path to font.
     # @rbs font_path: String
+    # @rbs return: void
     def title_font=(font_path)
       @title_font.path = font_path
     end
@@ -308,6 +319,7 @@ module Gruff
     #
     # @param value [Numeric] title font size
     # @rbs value: Float | Integer
+    # @rbs return: void
     def title_font_size=(value)
       @title_font.size = value
     end
@@ -316,6 +328,7 @@ module Gruff
     #
     # @param value [Numeric] marker font size
     # @rbs value: Float | Integer
+    # @rbs return: void
     def marker_font_size=(value)
       @marker_font.size = value
     end
@@ -327,6 +340,7 @@ module Gruff
     #
     # @param value [Numeric] legend font size
     # @rbs value: Float | Integer
+    # @rbs return: void
     def legend_font_size=(value)
       @legend_font.size = value
     end
@@ -335,6 +349,7 @@ module Gruff
     #
     # @param value [Numeric] no data font size
     # @rbs value: Float | Integer
+    # @rbs return: void
     def no_data_font_size=(value)
       @no_data_font.size = value
     end
@@ -343,6 +358,7 @@ module Gruff
     #
     # @param value [Boolean] specifies whether to draw the title bolded or not.
     # @rbs value: bool
+    # @rbs return: void
     def bold_title=(value)
       @title_font.bold = value
     end
@@ -351,6 +367,7 @@ module Gruff
     #
     # @param value [String] color
     # @rbs value: String
+    # @rbs return: void
     def font_color=(value)
       @title_font.color = value
       @marker_font.color = value
@@ -365,6 +382,7 @@ module Gruff
     #
     # @example
     #   add_color('#c0e9d3')
+    # @rbs return: void
     def add_color(colorname)
       @colors << colorname
     end
@@ -385,6 +403,7 @@ module Gruff
     #
     # @example
     #   replace_colors ['#cc99cc', '#d9e043', '#34d8a2']
+    # @rbs return: void
     def replace_colors(color_list = [])
       @colors = color_list
     end
@@ -393,6 +412,7 @@ module Gruff
     #
     # @param value [Boolean] Specify whether to make background transparent.
     # @rbs value: bool
+    # @rbs return: void
     def transparent_background=(value)
       @renderer.transparent_background(@columns, @rows) if value
     end
@@ -428,6 +448,7 @@ module Gruff
     #
     # @param options [Hash] The optional setting for theme
     # @rbs options: Hash[Symbol, untyped]
+    # @rbs return: void
     def theme=(options)
       reset_themes
 
@@ -451,31 +472,37 @@ module Gruff
     end
 
     # Apply Apple's keynote theme.
+    # @rbs return: void
     def theme_keynote
       self.theme = Themes::KEYNOTE
     end
 
     # Apply 37signals theme.
+    # @rbs return: void
     def theme_37signals
       self.theme = Themes::THIRTYSEVEN_SIGNALS
     end
 
     # Apply Rails theme.
+    # @rbs return: void
     def theme_rails_keynote
       self.theme = Themes::RAILS_KEYNOTE
     end
 
     # Apply Odeo theme.
+    # @rbs return: void
     def theme_odeo
       self.theme = Themes::ODEO
     end
 
     # Apply pastel theme.
+    # @rbs return: void
     def theme_pastel
       self.theme = Themes::PASTEL
     end
 
     # Apply greyscale theme.
+    # @rbs return: void
     def theme_greyscale
       self.theme = Themes::GREYSCALE
     end
@@ -503,6 +530,7 @@ module Gruff
     #
     # @example
     #   data("Bart S.", [95, 45, 78, 89, 88, 76], '#ffcc00')
+    # @rbs return: void
     def data(name, data_points = [], color = nil)
       store.add(name, data_points, color)
     end
@@ -540,6 +568,7 @@ module Gruff
     #
     # @example
     #   write('graphs/my_pretty_graph.png')
+    # @rbs return: void
     def write(file_name = 'graph.png')
       to_image.write(file_name)
     end
@@ -561,6 +590,7 @@ module Gruff
     #   image = image.resize(400, 300).quantize(128, Magick::RGBColorspace)
     #   image.write('test.png')
     #
+    # @rbs return: untyped
     def to_image(format = 'PNG')
       @to_image ||= begin
         draw
@@ -587,6 +617,7 @@ module Gruff
     end
 
     # Draw a graph.
+    # @rbs return: void
     def draw
       setup_data
 
@@ -610,6 +641,7 @@ module Gruff
     attr_reader :renderer #: Gruff::Renderer
 
     # Perform data manipulation before calculating chart measurements
+    # @rbs return: void
     def setup_data
       if @y_axis_increment && !@hide_line_markers
         self.maximum_value = [@y_axis_increment, maximum_value, (maximum_value / @y_axis_increment).round * @y_axis_increment].max
@@ -624,6 +656,7 @@ module Gruff
     # * line markers
     # * legend
     # * title
+    # @rbs return: void
     def setup_drawing
       calculate_spread
       calculate_increment
@@ -666,10 +699,12 @@ module Gruff
 
     # Make copy of data with values scaled between 0-100
     # @rbs return: Array[Gruff::Store::BasicData | Gruff::Store::XYData | Gruff::Store::XYPointsizeData]
+    # @rbs return: void
     def normalize
       store.normalize(minimum: minimum_value, spread: @spread)
     end
 
+    # @rbs return: Float
     def calculate_spread
       @spread = maximum_value.to_f - minimum_value.to_f
       @spread = @spread > 0 ? @spread : 1.0
@@ -698,6 +733,7 @@ module Gruff
     ##
     # Calculates size of drawable area, general font dimensions, etc.
 
+    # @rbs return: void
     def setup_graph_measurements
       @graph_right = setup_right_margin
       @graph_left = setup_left_margin
@@ -709,6 +745,7 @@ module Gruff
     end
 
     # Draw the optional labels for the x axis and y axis.
+    # @rbs return: void
     def draw_axis_labels
       if @x_axis_label
         # X Axis
@@ -728,6 +765,7 @@ module Gruff
     end
 
     # Draws horizontal background lines and labels
+    # @rbs return: void
     def draw_line_markers
       return if @hide_line_markers
 
@@ -747,11 +785,16 @@ module Gruff
       end
     end
 
+    # @rbs y: Float | Integer
+    # @rbs return: void
     def draw_marker_horizontal_line(y)
       Gruff::Renderer::Line.new(renderer, color: @marker_color).render(@graph_left, y, @graph_right, y)
       Gruff::Renderer::Line.new(renderer, color: @marker_shadow_color).render(@graph_left, y + 1, @graph_right, y + 1) if @marker_shadow_color
     end
 
+    # @rbs x: Float | Integer
+    # @rbs tick_mark_mode: bool
+    # @rbs return: void
     def draw_marker_vertical_line(x, tick_mark_mode: false)
       if tick_mark_mode
         Gruff::Renderer::Line.new(renderer, color: @marker_color).render(x, @graph_bottom, x, @graph_bottom + 5)
@@ -775,6 +818,7 @@ module Gruff
 
     # Draws a legend with the names of the datasets matched
     # to the colors used to draw them.
+    # @rbs return: void
     def draw_legend
       return if @hide_legend
 
@@ -824,6 +868,7 @@ module Gruff
     end
 
     # Draws a title on the graph.
+    # @rbs return: void
     def draw_title
       return if hide_title?
 
@@ -842,6 +887,7 @@ module Gruff
     # @rbs index: Integer
     # @rbs gravity: untyped
     # @rbs &: () -> void
+    # @rbs return: void
     def draw_label(x, index, gravity = Magick::NorthGravity, &block)
       draw_unique_label(index) do
         if x.between?(@graph_left, @graph_right)
@@ -856,6 +902,7 @@ module Gruff
 
     # @rbs index: Integer
     # @rbs yields: () -> void
+    # @rbs return: void
     def draw_unique_label(index)
       return if hide_labels?
 
@@ -873,6 +920,7 @@ module Gruff
     # @rbs text: String | _ToS
     # @rbs gravity: untyped
     # @rbs rotation: Float | Integer
+    # @rbs return: void
     def draw_label_at(width, height, x, y, text, gravity: Magick::NorthGravity, rotation: 0)
       label_text = truncate_label_text(text)
       text_renderer = Gruff::Renderer::Text.new(renderer, label_text, font: @marker_font, rotation: rotation)
@@ -887,6 +935,7 @@ module Gruff
     # @rbs y_offset: Float | Integer
     # @rbs data_point: String | _ToS
     # @rbs gravity: untyped
+    # @rbs return: void
     def draw_value_label(width, height, x_offset, y_offset, data_point, gravity: Magick::CenterGravity)
       return if @hide_line_markers
 
@@ -894,17 +943,20 @@ module Gruff
     end
 
     # Shows an error message because you have no data.
+    # @rbs return: void
     def draw_no_data
       font = @no_data_font
       text_renderer = Gruff::Renderer::Text.new(renderer, @no_data_message, font: font)
       text_renderer.render(@raw_columns, @raw_rows, 0, 0, Magick::CenterGravity)
     end
 
+    # @rbs return: void
     def draw_graph
       raise 'Should implement this method at inherited class.'
     end
 
     # Resets everything to defaults (except data).
+    # @rbs return: void
     def reset_themes
       @theme_options = {}
     end
@@ -945,17 +997,20 @@ module Gruff
     end
 
     # Sort with largest overall summed value at front of array.
+    # @rbs return: void
     def sort_data
       store.sort_data!
     end
 
     # Set the color for each data set unless it was given in the data(...) call.
+    # @rbs return: void
     def set_colors
       store.change_colors(@colors)
     end
 
     # Sort with largest overall summed value at front of array so it shows up
     # correctly in the drawn graph.
+    # @rbs return: void
     def sort_norm_data
       store.sort_norm_data!
     end
@@ -1156,7 +1211,9 @@ module Gruff
       end
     end
 
-    # TODO: RBS signature
+    # @rbs legend_labels: Array[String]
+    # @rbs legend_square_width: Float | Integer
+    # @rbs return: Array[Array[Float | Integer]]
     def calculate_legend_label_widths_for_each_line(legend_labels, legend_square_width)
       label_widths = [[]]
       label_lines = [[]]
@@ -1179,7 +1236,7 @@ module Gruff
       label_widths.map(&:sum).zip(label_lines)
     end
 
-    # TODO: RBS signature
+    # @rbs return: Float
     def calculate_legend_height
       return 0.0 if @hide_legend
 

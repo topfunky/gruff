@@ -26,6 +26,7 @@ class Gruff::Font
   # @rbs size: Float | Integer
   # @rbs bold: bool
   # @rbs color: String
+  # @rbs return: void
   def initialize(path: nil, size: 20.0, bold: false, color: 'white')
     @path = path
     @bold = bold
@@ -36,6 +37,7 @@ class Gruff::Font
   # Get font weight.
   # @return [Magick::WeightType] font weight
   # TODO: type annotation of return value
+  # @rbs return: untyped
   def weight
     @bold ? Magick::BoldWeight : Magick::NormalWeight
   end

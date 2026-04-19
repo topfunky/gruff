@@ -6,9 +6,9 @@ module Gruff
   # @private
   class Renderer
     attr_accessor :text_renderers #: Array[Gruff::Renderer::Text]
-    attr_reader :draw
-    attr_reader :image
-    attr_reader :scale #: real
+    attr_reader :draw #: untyped
+    attr_reader :image #: untyped
+    attr_reader :scale #: Float | Integer
 
     # @rbs columns: Integer
     # @rbs rows: Integer
@@ -24,6 +24,7 @@ module Gruff
       @image = background(columns, rows, scale, theme_options)
     end
 
+    # @rbs return: void
     def finish
       @draw.draw(@image)
 
@@ -34,12 +35,18 @@ module Gruff
 
     # @rbs columns: Integer
     # @rbs rows: Integer
+    # @rbs return: void
     def transparent_background(columns, rows)
       @image = render_transparent_background(columns, rows)
     end
 
   private
 
+    # @rbs columns: Integer
+    # @rbs rows: Integer
+    # @rbs scale: Float | Integer
+    # @rbs theme_options: ::Hash[Symbol, untyped]
+    # @rbs return: void
     def background(columns, rows, scale, theme_options)
       return image_background(scale, *theme_options[:background_image]) if theme_options[:background_image] # steep:ignore
 
@@ -54,6 +61,9 @@ module Gruff
     end
 
     # Use with a theme to use an image (800x600 original) background.
+    # @rbs scale: Float | Integer
+    # @rbs image_path: String
+    # @rbs return: untyped
     def image_background(scale, image_path)
       image = Magick::Image.read(image_path)
       if scale != 1.0
@@ -63,6 +73,10 @@ module Gruff
     end
 
     # Make a new image at the current size with a solid +color+.
+    # @rbs columns: Integer
+    # @rbs rows: Integer
+    # @rbs color: String
+    # @rbs return: void
     def solid_background(columns, rows, color)
       Magick::Image.new(columns, rows) do |img|
         img.background_color = color
@@ -70,6 +84,12 @@ module Gruff
     end
 
     # Use with a theme definition method to draw a gradated background.
+    # @rbs columns: Integer
+    # @rbs rows: Integer
+    # @rbs top_color: String
+    # @rbs bottom_color: String
+    # @rbs direct: Symbol
+    # @rbs return: void
     def gradated_background(columns, rows, top_color, bottom_color, direct = :top_bottom)
       gradient_fill = begin
         case direct
@@ -105,6 +125,9 @@ module Gruff
     end
 
     # Use with a theme to make a transparent background
+    # @rbs columns: Integer
+    # @rbs rows: Integer
+    # @rbs return: void
     def render_transparent_background(columns, rows)
       Magick::Image.new(columns, rows) do |img|
         img.background_color = 'transparent'

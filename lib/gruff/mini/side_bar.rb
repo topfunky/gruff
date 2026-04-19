@@ -25,6 +25,7 @@ private
 
   include Gruff::Mini::Legend
 
+  # @rbs return: void
   def initialize_attributes
     super
     @hide_legend = true
@@ -35,11 +36,13 @@ private
     @legend_font.size = 50.0
   end
 
+  # @rbs return: void
   def setup_data
     expand_canvas_for_vertical_legend # steep:ignore
     super
   end
 
+  # @rbs return: void
   def draw_graph
     super
     draw_vertical_legend # steep:ignore

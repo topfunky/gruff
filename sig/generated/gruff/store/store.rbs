@@ -5,14 +5,19 @@ module Gruff
   class Store
     attr_reader data: Array[Gruff::Store::BasicData | Gruff::Store::XYData | Gruff::Store::XYPointsizeData]
 
+    # @rbs data_class: untyped
     # @rbs return: void
     def initialize: (untyped data_class) -> void
 
-    def add: (*untyped args) -> untyped
+    # @rbs *args: untyped
+    # @rbs return: void
+    def add: (*untyped args) -> void
 
     # @rbs return: Array[Gruff::Store::BasicData | Gruff::Store::XYData | Gruff::Store::XYPointsizeData]
     def norm_data: () -> Array[Gruff::Store::BasicData | Gruff::Store::XYData | Gruff::Store::XYPointsizeData]
 
+    # @rbs **keywords: untyped
+    # @rbs return: untyped
     def normalize: (**untyped keywords) -> untyped
 
     # @rbs return: bool
@@ -40,14 +45,17 @@ module Gruff
     # @rbs return: Float | Integer
     def max_x: () -> (Float | Integer)
 
-    def sort_data!: () -> untyped
+    # @rbs return: void
+    def sort_data!: () -> void
 
-    def sort_norm_data!: () -> untyped
+    # @rbs return: void
+    def sort_norm_data!: () -> void
 
     # @rbs return: Array[Gruff::Store::BasicData | Gruff::Store::XYData | Gruff::Store::XYPointsizeData]
     def reverse!: () -> Array[Gruff::Store::BasicData | Gruff::Store::XYData | Gruff::Store::XYPointsizeData]
 
     # @rbs colors: Array[String]
-    def change_colors: (Array[String] colors) -> untyped
+    # @rbs return: void
+    def change_colors: (Array[String] colors) -> void
   end
 end

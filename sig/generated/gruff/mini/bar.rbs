@@ -16,9 +16,12 @@ class Gruff::Mini::Bar < Gruff::Bar
 
   include Gruff::Mini::Legend
 
-  def initialize_attributes: () -> untyped
+  # @rbs return: void
+  def initialize_attributes: () -> void
 
-  def setup_data: () -> untyped
+  # @rbs return: void
+  def setup_data: () -> void
 
-  def draw_graph: () -> untyped
+  # @rbs return: void
+  def draw_graph: () -> void
 end

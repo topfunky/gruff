@@ -31,6 +31,8 @@ class Gruff::Scatter < Gruff::Base
 
   # Allow enabling vertical lines. When you have a lot of data, they can work great.
   # @deprecated Please use {#show_vertical_markers=} instead.
+  # @rbs value: bool
+  # @rbs return: void
   def enable_vertical_line_markers=(value)
     warn '#enable_vertical_line_markers= is deprecated. Please use `show_vertical_markers` attribute instead'
     @show_vertical_markers = value
@@ -38,12 +40,16 @@ class Gruff::Scatter < Gruff::Base
 
   # Allow using vertical labels in the X axis.
   # @deprecated Please use {Gruff::Base#label_rotation=} instead.
+  # @rbs _value: untyped
+  # @rbs return: void
   def use_vertical_x_labels=(_value)
     warn '#use_vertical_x_labels= is deprecated. It is no longer effective. Please use `#label_rotation=` instead'
   end
 
   # Allow using vertical labels in the X axis (and setting the label margin).
   # @deprecated
+  # @rbs _value: untyped
+  # @rbs return: void
   def x_label_margin=(_value)
     warn '#x_label_margin= is deprecated. It is no longer effective.'
   end
@@ -51,6 +57,8 @@ class Gruff::Scatter < Gruff::Base
   # Allow disabling the significant rounding when labeling the X axis.
   # This is useful when working with a small range of high values (for example, a date range of months, while seconds as units).
   # @deprecated
+  # @rbs _value: untyped
+  # @rbs return: void
   def disable_significant_rounding_x_axis=(_value)
     warn '#disable_significant_rounding_x_axis= is deprecated. It is no longer effective.'
   end
@@ -93,6 +101,7 @@ class Gruff::Scatter < Gruff::Base
   # @rbs x_data_points: Array[nil | Float | Integer] | nil
   # @rbs y_data_points: Array[nil | Float | Integer] | nil
   # @rbs color: String
+  # @rbs return: void
   def data(name, x_data_points = [], y_data_points = [], color = nil)
     # make sure it's an array
     x_data_points = Array(x_data_points)
@@ -111,10 +120,12 @@ class Gruff::Scatter < Gruff::Base
 
 private
 
+  # @rbs return: void
   def initialize_store
     @store = Gruff::Store.new(Gruff::Store::XYData)
   end
 
+  # @rbs return: void
   def initialize_attributes
     super
 
@@ -125,11 +136,13 @@ private
     @stroke_width = nil
   end
 
+  # @rbs return: void
   def setup_drawing
     @center_labels_over_point = false
     super
   end
 
+  # @rbs return: void
   def setup_data
     # TODO: Need to get x-axis labels working. Current behavior will be to not allow.
     @labels = {}
@@ -147,6 +160,7 @@ private
     super
   end
 
+  # @rbs return: void
   def draw_graph
     stroke_width  = @stroke_width  || clip_value_if_greater_than(@columns / (store.norm_data.first.x_points.size * 4.0), 5.0)
     circle_radius = @circle_radius || clip_value_if_greater_than(@columns / (store.norm_data.first.x_points.size * 2.5), 5.0)
@@ -163,18 +177,21 @@ private
     end
   end
 
+  # @rbs return: void
   def calculate_spread
     super
     @x_spread = @maximum_x_value.to_f - @minimum_x_value.to_f
     @x_spread = @x_spread > 0 ? @x_spread : 1.0
   end
 
+  # @rbs return: void
   def normalize
     return unless data_given?
 
     store.normalize(minimum_x: @minimum_x_value, spread_x: @x_spread, minimum_y: minimum_value, spread_y: @spread)
   end
 
+  # @rbs return: void
   def draw_line_markers
     # do all of the stuff for the horizontal lines on the y-axis
     super

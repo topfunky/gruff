@@ -15,6 +15,7 @@ module Gruff
       # @rbs x_points: Array[nil | Float | Integer] | nil
       # @rbs y_points: Array[nil | Float | Integer] | nil
       # @rbs color: String
+      # @rbs return: void
       def initialize(label, x_points, y_points, color)
         y_points = Array(y_points)
         x_points = x_points ? Array(x_points) : Array.new(y_points.length)
@@ -33,6 +34,7 @@ module Gruff
         x_points.zip(y_points)
       end
 
+      # @rbs return: void
       def coordinate_and_pointsizes
         raise NotImplementedError, 'This method is not implemented for XYData'
       end

@@ -7,7 +7,8 @@ module Gruff
     # @rbs text: String
     # @rbs font: Gruff::Font
     # @rbs rotation: Float | Integer
-    def initialize: (Gruff::Renderer renderer, String text, font: Gruff::Font, ?rotation: Float | Integer) -> untyped
+    # @rbs return: void
+    def initialize: (Gruff::Renderer renderer, String text, font: Gruff::Font, ?rotation: Float | Integer) -> void
 
     attr_reader width: Float | Integer
 
@@ -24,15 +25,18 @@ module Gruff
     # @rbs x: Float | Integer
     # @rbs y: Float | Integer
     # @rbs gravity: untyped
-    def add_to_render_queue: (Float | Integer width, Float | Integer height, Float | Integer x, Float | Integer y, ?untyped gravity) -> untyped
+    # @rbs return: void
+    def add_to_render_queue: (Float | Integer width, Float | Integer height, Float | Integer x, Float | Integer y, ?untyped gravity) -> void
 
     # @rbs width: Float | Integer
     # @rbs height: Float | Integer
     # @rbs x: Float | Integer
     # @rbs y: Float | Integer
     # @rbs gravity: untyped
-    def render: (Float | Integer width, Float | Integer height, Float | Integer x, Float | Integer y, ?untyped gravity) -> untyped
+    # @rbs return: void
+    def render: (Float | Integer width, Float | Integer height, Float | Integer x, Float | Integer y, ?untyped gravity) -> void
 
+    # @rbs return: untyped
     def metrics: () -> untyped
   end
 end

@@ -14,14 +14,27 @@ module Gruff
     # @rbs new_x: Float | Integer
     # @rbs new_y: Float | Integer
     # @rbs radius: Float | Integer
-    def render: (Float | Integer new_x, Float | Integer new_y, Float | Integer radius) -> untyped
+    # @rbs return: void
+    def render: (Float | Integer new_x, Float | Integer new_y, Float | Integer radius) -> void
 
     private
 
-    def circle: (untyped new_x, untyped new_y, untyped radius) -> untyped
+    # @rbs new_x: Float | Integer
+    # @rbs new_y: Float | Integer
+    # @rbs radius: Float | Integer
+    # @rbs return: void
+    def circle: (Float | Integer new_x, Float | Integer new_y, Float | Integer radius) -> void
 
-    def square: (untyped new_x, untyped new_y, untyped radius) -> untyped
+    # @rbs new_x: Float | Integer
+    # @rbs new_y: Float | Integer
+    # @rbs radius: Float | Integer
+    # @rbs return: void
+    def square: (Float | Integer new_x, Float | Integer new_y, Float | Integer radius) -> void
 
-    def diamond: (untyped new_x, untyped new_y, untyped radius) -> untyped
+    # @rbs new_x: Float | Integer
+    # @rbs new_y: Float | Integer
+    # @rbs radius: Float | Integer
+    # @rbs return: void
+    def diamond: (Float | Integer new_x, Float | Integer new_y, Float | Integer radius) -> void
   end
 end

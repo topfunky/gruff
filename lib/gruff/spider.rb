@@ -30,12 +30,14 @@ class Gruff::Spider < Gruff::Base
   end
 
   # @rbs value: bool
+  # @rbs return: void
   def hide_text=(value)
     @hide_title = @hide_text = value
   end
 
 private
 
+  # @rbs return: void
   def initialize_attributes
     super
     @hide_legend = true
@@ -48,11 +50,13 @@ private
     @hide_line_markers.freeze
   end
 
+  # @rbs return: void
   def setup_drawing
     @center_labels_over_point = false
     super
   end
 
+  # @rbs return: void
   def setup_graph_measurements
     super
 
@@ -65,12 +69,14 @@ private
     @graph_height = @graph_bottom - @graph_top
   end
 
+  # @rbs return: void
   def setup_data
     raise(Gruff::IncorrectNumberOfDatasetsException, 'Requires 3 or more data sets') if store.length < 3
 
     super
   end
 
+  # @rbs return: void
   def draw_graph
     # Setup basic positioning
     radius = @graph_height / 2.0
@@ -88,11 +94,18 @@ private
     draw_polygon(center_x, center_y, additive_angle)
   end
 
-  # @rbs value: nil | Float | Integer
+  # @rbs value: Float | Integer
+  # @rbs return: Float
   def normalize_points(value)
-    value.to_f * @unit_length
+    (value.to_f * @unit_length).to_f
   end
 
+  # @rbs center_x: Float | Integer
+  # @rbs center_y: Float | Integer
+  # @rbs angle: Float | Integer
+  # @rbs radius: Float | Integer
+  # @rbs amount: Float | Integer
+  # @rbs return: void
   def draw_label(center_x, center_y, angle, radius, amount)
     degree = rad2deg(angle)
     metrics = text_metrics(@marker_font, amount)
@@ -118,6 +131,12 @@ private
     draw_label_at(metrics.width, metrics.height, x, y, amount, gravity: Magick::CenterGravity)
   end
 
+  # @rbs center_x: Float | Integer
+  # @rbs center_y: Float | Integer
+  # @rbs radius: Float | Integer
+  # @rbs additive_angle: Float | Integer
+  # @rbs line_color: String | nil
+  # @rbs return: void
   def draw_axes(center_x, center_y, radius, additive_angle, line_color = nil)
     return if @hide_axes
 
@@ -136,6 +155,11 @@ private
     end
   end
 
+  # @rbs center_x: Float | Integer
+  # @rbs center_y: Float | Integer
+  # @rbs additive_angle: Float | Integer
+  # @rbs color: String | nil
+  # @rbs return: void
   def draw_polygon(center_x, center_y, additive_angle, color = nil)
     points = []
     current_angle = deg2rad(@rotation)

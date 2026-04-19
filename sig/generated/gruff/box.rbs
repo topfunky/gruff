@@ -23,15 +23,19 @@ class Gruff::Box < Gruff::Base
   # Default value is +0.8+.
   #
   # @rbs space_percent: Float | Integer
-  def spacing_factor=: (Float | Integer space_percent) -> untyped
+  # @rbs return: void
+  def spacing_factor=: (Float | Integer space_percent) -> void
 
   private
 
-  def initialize_attributes: () -> untyped
+  # @rbs return: void
+  def initialize_attributes: () -> void
 
-  def draw_graph: () -> untyped
+  # @rbs return: void
+  def draw_graph: () -> void
 
-  def normalized_boxes: () -> untyped
+  # @rbs return: Array[Gruff::Box::BoxData]
+  def normalized_boxes: () -> Array[Gruff::Box::BoxData]
 
   # @rbs return: Integer
   def column_count: () -> Integer
@@ -47,7 +51,11 @@ class Gruff::Box < Gruff::Base
 
     attr_accessor color: String
 
-    def initialize: (untyped label, untyped points, untyped color) -> untyped
+    # @rbs label: String
+    # @rbs points: Array[Float | Integer]
+    # @rbs color: String
+    # @rbs return: void
+    def initialize: (String label, Array[Float | Integer] points, String color) -> void
 
     # @rbs return: Float | Integer
     def min: () -> (Float | Integer)

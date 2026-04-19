@@ -21,6 +21,7 @@ module Gruff
     # @rbs upper_left_y: Float | Integer
     # @rbs lower_right_x: Float | Integer
     # @rbs lower_right_y: Float | Integer
+    # @rbs return: void
     def render(upper_left_x, upper_left_y, lower_right_x, lower_right_y)
       @renderer.draw.push
       @renderer.draw.stroke_width(@width)

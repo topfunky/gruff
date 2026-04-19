@@ -21,7 +21,9 @@ class Gruff::Area < Gruff::Base
 
   private
 
-  def initialize_attributes: () -> untyped
+  # @rbs return: void
+  def initialize_attributes: () -> void
 
-  def draw_graph: () -> untyped
+  # @rbs return: void
+  def draw_graph: () -> void
 end

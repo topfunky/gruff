@@ -45,13 +45,16 @@ class Gruff::Bar < Gruff::Base
   # Default value is +0.9+.
   #
   # @rbs space_percent: Float | Integer
-  def spacing_factor=: (Float | Integer space_percent) -> untyped
+  # @rbs return: void
+  def spacing_factor=: (Float | Integer space_percent) -> void
 
   private
 
-  def initialize_attributes: () -> untyped
+  # @rbs return: void
+  def initialize_attributes: () -> void
 
-  def setup_drawing: () -> untyped
+  # @rbs return: void
+  def setup_drawing: () -> void
 
   # @rbs return: bool
   def hide_labels?: () -> bool
@@ -62,9 +65,11 @@ class Gruff::Bar < Gruff::Base
   # @rbs return: bool
   def hide_bottom_label_area?: () -> bool
 
-  def setup_graph_measurements: () -> untyped
+  # @rbs return: void
+  def setup_graph_measurements: () -> void
 
-  def draw_graph: () -> untyped
+  # @rbs return: void
+  def draw_graph: () -> void
 
   # @rbs return: Float | Integer
   def calculate_spacing: () -> (Float | Integer)

@@ -32,21 +32,27 @@ class Gruff::Net < Gruff::Base
 
   private
 
-  def initialize_attributes: () -> untyped
+  # @rbs return: void
+  def initialize_attributes: () -> void
 
-  def setup_drawing: () -> untyped
+  # @rbs return: void
+  def setup_drawing: () -> void
 
-  def setup_graph_measurements: () -> untyped
+  # @rbs return: void
+  def setup_graph_measurements: () -> void
 
-  def draw_graph: () -> untyped
+  # @rbs return: void
+  def draw_graph: () -> void
 
   # the lines connecting in the center, with the first line vertical
-  def draw_line_markers: () -> untyped
+  # @rbs return: void
+  def draw_line_markers: () -> void
 
   # @rbs center_x: Float | Integer
   # @rbs center_y: Float | Integer
   # @rbs angle: Float | Integer
   # @rbs radius: Float
   # @rbs amount: String | Integer
-  def draw_label: (Float | Integer center_x, Float | Integer center_y, Float | Integer angle, Float radius, String | Integer amount) -> untyped
+  # @rbs return: void
+  def draw_label: (Float | Integer center_x, Float | Integer center_y, Float | Integer angle, Float radius, String | Integer amount) -> void
 end

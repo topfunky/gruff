@@ -57,13 +57,17 @@ class Gruff::Bubble < Gruff::Scatter
   # @rbs y_data_points: Array[nil | Float | Integer] | nil
   # @rbs point_sizes: Array[nil | Float | Integer] | nil
   # @rbs color: String
-  def data: (String | Symbol name, ?Array[nil | Float | Integer] | nil x_data_points, ?Array[nil | Float | Integer] | nil y_data_points, ?Array[nil | Float | Integer] | nil point_sizes, ?String color) -> untyped
+  # @rbs return: void
+  def data: (String | Symbol name, ?Array[nil | Float | Integer] | nil x_data_points, ?Array[nil | Float | Integer] | nil y_data_points, ?Array[nil | Float | Integer] | nil point_sizes, ?String color) -> void
 
   private
 
-  def initialize_store: () -> untyped
+  # @rbs return: void
+  def initialize_store: () -> void
 
-  def initialize_attributes: () -> untyped
+  # @rbs return: void
+  def initialize_attributes: () -> void
 
-  def draw_graph: () -> untyped
+  # @rbs return: void
+  def draw_graph: () -> void
 end

@@ -10,6 +10,7 @@ module Gruff
     def initialize: (Gruff::Renderer renderer, color: String, ?width: Float | Integer) -> void
 
     # @rbs points: Array[Float | Integer]
-    def render: (Array[Float | Integer] points) -> untyped
+    # @rbs return: void
+    def render: (Array[Float | Integer] points) -> void
   end
 end

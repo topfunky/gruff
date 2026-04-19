@@ -22,7 +22,8 @@ class Gruff::Dot < Gruff::Base
 
   private
 
-  def initialize_attributes: () -> untyped
+  # @rbs return: void
+  def initialize_attributes: () -> void
 
   # @rbs return: bool
   def hide_labels?: () -> bool
@@ -33,12 +34,15 @@ class Gruff::Dot < Gruff::Base
   # @rbs return: bool
   def hide_bottom_label_area?: () -> bool
 
-  def draw_graph: () -> untyped
+  # @rbs return: void
+  def draw_graph: () -> void
 
   # Instead of base class version, draws vertical background lines and label
-  def draw_line_markers: () -> untyped
+  # @rbs return: void
+  def draw_line_markers: () -> void
 
   # @rbs y_offset: Float | Integer
   # @rbs index: Integer
-  def draw_label: (Float | Integer y_offset, Integer index) -> untyped
+  # @rbs return: void
+  def draw_label: (Float | Integer y_offset, Integer index) -> void
 end

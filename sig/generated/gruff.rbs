@@ -4,7 +4,9 @@
 #  = Gruff. Graphs.
 module Gruff
   # @private
-  def self.libpath: (untyped path) -> untyped
+  # @rbs path: String
+  # @rbs return: String
+  def self.libpath: (String path) -> String
 
   # @private
   class Renderer

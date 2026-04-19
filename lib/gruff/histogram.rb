@@ -35,12 +35,14 @@ class Gruff::Histogram < Gruff::Bar
   # @rbs name: String | Symbol
   # @rbs data_points: Array[Float | Integer] | nil
   # @rbs color: String
+  # @rbs return: void
   def data(name, data_points = [], color = nil)
     @data << [name, Array(data_points), color]
   end
 
 private
 
+  # @rbs return: void
   def initialize_attributes
     super
     @bin_width = 10
@@ -48,6 +50,7 @@ private
     @maximum_bin = nil
   end
 
+  # @rbs return: void
   def setup_data
     @data.each do |(name, data_points, color)|
       if data_points.empty?

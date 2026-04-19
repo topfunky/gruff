@@ -26,6 +26,7 @@ class Gruff::Box < Gruff::Base
   # Default value is +0.8+.
   #
   # @rbs space_percent: Float | Integer
+  # @rbs return: void
   def spacing_factor=(space_percent)
     raise ArgumentError, 'spacing_factor must be between 0.00 and 1.00' if (space_percent < 0) || (space_percent > 1)
 
@@ -34,6 +35,7 @@ class Gruff::Box < Gruff::Base
 
 private
 
+  # @rbs return: void
   def initialize_attributes
     super
     @fill_opacity = 0.2
@@ -41,6 +43,7 @@ private
     @spacing_factor = 0.8
   end
 
+  # @rbs return: void
   def draw_graph
     # Setup the BarConversion Object
     conversion = Gruff::BarConversion.new(
@@ -93,6 +96,7 @@ private
     end
   end
 
+  # @rbs return: Array[Gruff::Box::BoxData]
   def normalized_boxes
     @normalized_boxes ||= store.norm_data.map { |data| Gruff::Box::BoxData.new(data.label, data.points, data.color) }
   end
@@ -113,6 +117,10 @@ private
     attr_accessor :points #: Array[Float | Integer]
     attr_accessor :color #: String
 
+    # @rbs label: String
+    # @rbs points: Array[Float | Integer]
+    # @rbs color: String
+    # @rbs return: void
     def initialize(label, points, color)
       @label = label
       @points = points.compact.sort

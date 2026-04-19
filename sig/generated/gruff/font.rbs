@@ -22,11 +22,13 @@ class Gruff::Font
   # @rbs size: Float | Integer
   # @rbs bold: bool
   # @rbs color: String
-  def initialize: (?path: String | nil, ?size: Float | Integer, ?bold: bool, ?color: String) -> untyped
+  # @rbs return: void
+  def initialize: (?path: String | nil, ?size: Float | Integer, ?bold: bool, ?color: String) -> void
 
   # Get font weight.
   # @return [Magick::WeightType] font weight
   # TODO: type annotation of return value
+  # @rbs return: untyped
   def weight: () -> untyped
 
   # @private

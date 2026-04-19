@@ -22,6 +22,7 @@ module Gruff
     # @rbs new_x: Float | Integer
     # @rbs new_y: Float | Integer
     # @rbs radius: Float | Integer
+    # @rbs return: void
     def render(new_x, new_y, radius)
       @renderer.draw.push
       @renderer.draw.stroke_width(@width)
@@ -41,10 +42,18 @@ module Gruff
 
   private
 
+    # @rbs new_x: Float | Integer
+    # @rbs new_y: Float | Integer
+    # @rbs radius: Float | Integer
+    # @rbs return: void
     def circle(new_x, new_y, radius)
       @renderer.draw.circle(new_x, new_y, new_x - radius, new_y)
     end
 
+    # @rbs new_x: Float | Integer
+    # @rbs new_y: Float | Integer
+    # @rbs radius: Float | Integer
+    # @rbs return: void
     def square(new_x, new_y, radius)
       corner1 = new_x - radius
       corner2 = new_y - radius
@@ -53,6 +62,10 @@ module Gruff
       @renderer.draw.rectangle(corner1, corner2, corner3, corner4)
     end
 
+    # @rbs new_x: Float | Integer
+    # @rbs new_y: Float | Integer
+    # @rbs radius: Float | Integer
+    # @rbs return: void
     def diamond(new_x, new_y, radius)
       polygon = []
       polygon += [new_x - radius, new_y]

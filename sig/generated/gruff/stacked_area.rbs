@@ -13,13 +13,18 @@ class Gruff::StackedArea < Gruff::Base
   include Gruff::Base::StackedMixin
 
   # @deprecated
-  def last_series_goes_on_bottom=: (untyped _value) -> untyped
+  # @rbs _value: untyped
+  # @rbs return: void
+  def last_series_goes_on_bottom=: (untyped _value) -> void
 
   private
 
-  def initialize_attributes: () -> untyped
+  # @rbs return: void
+  def initialize_attributes: () -> void
 
-  def setup_data: () -> untyped
+  # @rbs return: void
+  def setup_data: () -> void
 
-  def draw_graph: () -> untyped
+  # @rbs return: void
+  def draw_graph: () -> void
 end

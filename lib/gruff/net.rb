@@ -34,6 +34,7 @@ class Gruff::Net < Gruff::Base
 
 private
 
+  # @rbs return: void
   def initialize_attributes
     super
 
@@ -45,11 +46,13 @@ private
     @marker_font.bold = true
   end
 
+  # @rbs return: void
   def setup_drawing
     @center_labels_over_point = false
     super
   end
 
+  # @rbs return: void
   def setup_graph_measurements
     super
 
@@ -60,6 +63,7 @@ private
     @center_y = @graph_top + (@graph_height / 2.0) + 10
   end
 
+  # @rbs return: void
   def draw_graph
     store.norm_data.each do |data_row|
       poly_points = []
@@ -94,6 +98,7 @@ private
   end
 
   # the lines connecting in the center, with the first line vertical
+  # @rbs return: void
   def draw_line_markers
     return if @hide_line_markers
 
@@ -114,6 +119,7 @@ private
   # @rbs angle: Float | Integer
   # @rbs radius: Float
   # @rbs amount: String | Integer
+  # @rbs return: void
   def draw_label(center_x, center_y, angle, radius, amount)
     x_offset = center_x # + 15 # The label points need to be tweaked slightly
     y_offset = center_y # + 0  # This one doesn't though

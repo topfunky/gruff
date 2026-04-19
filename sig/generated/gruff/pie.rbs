@@ -38,20 +38,27 @@ class Gruff::Pie < Gruff::Base
   # Can be used to make the pie start cutting slices at the top (-90.0)
   # or at another angle. Default is +-90.0+, which starts at 3 o'clock.
   # @deprecated Please use {#start_degree=} instead.
-  def zero_degree=: (untyped value) -> untyped
+  # @rbs value: Float | Integer
+  # @rbs return: void
+  def zero_degree=: (Float | Integer value) -> void
 
   private
 
-  def initialize_attributes: () -> untyped
+  # @rbs return: void
+  def initialize_attributes: () -> void
 
-  def setup_drawing: () -> untyped
+  # @rbs return: void
+  def setup_drawing: () -> void
 
-  def draw_graph: () -> untyped
+  # @rbs return: void
+  def draw_graph: () -> void
 
-  def slices: () -> untyped
+  # @rbs return: Array[Gruff::Pie::PieSlice]
+  def slices: () -> Array[Gruff::Pie::PieSlice]
 
   # @rbs degrees: Float | Integer
-  def update_chart_degrees_with: (Float | Integer degrees) -> untyped
+  # @rbs return: void
+  def update_chart_degrees_with: (Float | Integer degrees) -> void
 
   # @rbs return: Float | Integer
   def chart_degrees: () -> (Float | Integer)
@@ -85,7 +92,8 @@ class Gruff::Pie < Gruff::Base
   def ellipse_factor: () -> (Float | Integer)
 
   # @rbs slice: Gruff::Pie::PieSlice
-  def process_label_for: (Gruff::Pie::PieSlice slice) -> untyped
+  # @rbs return: void
+  def process_label_for: (Gruff::Pie::PieSlice slice) -> void
 
   # @rbs slice: Gruff::Pie::PieSlice
   # @rbs return: [Float | Integer, Float | Integer]

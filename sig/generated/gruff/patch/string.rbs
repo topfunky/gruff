@@ -5,5 +5,7 @@ module String::GruffCommify
   THOUSAND_SEPARATOR: ::String
 
   # Taken from http://codesnippets.joyent.com/posts/show/330
-  def commify: (?untyped delimiter) -> untyped
+  # @rbs delimiter: String
+  # @rbs return: String
+  def commify: (?String delimiter) -> String
 end

@@ -4,8 +4,10 @@
 # A module to handle the small legend.
 # @private
 module Gruff::Mini::Legend
-  attr_accessor :hide_mini_legend, :legend_position
+  attr_accessor :hide_mini_legend #: bool
+  attr_accessor :legend_position  #: Symbol
 
+  # @rbs return: void
   def initialize(*)
     @hide_mini_legend = false
     @legend_position = nil
@@ -13,6 +15,7 @@ module Gruff::Mini::Legend
   end
 
   # The canvas needs to be bigger so we can put the legend beneath it.
+  # @rbs return: Gruff::Renderer
   def expand_canvas_for_vertical_legend
     # steep:ignore:start
 
@@ -39,10 +42,12 @@ module Gruff::Mini::Legend
     # steep:ignore:end
   end
 
+  # @rbs return: Float
   def calculate_line_height
     calculate_caps_height(@legend_font) * 1.7 # steep:ignore
   end
 
+  # @rbs return: Float
   def calculate_legend_width
     # steep:ignore:start
     width = @legend_labels.map { |label| calculate_width(@legend_font, label) }.max
@@ -51,6 +56,7 @@ module Gruff::Mini::Legend
   end
 
   # Draw the legend beneath the existing graph.
+  # @rbs return: void
   def draw_vertical_legend
     # steep:ignore:start
     return if @hide_mini_legend
@@ -88,6 +94,9 @@ module Gruff::Mini::Legend
   end
 
   # Shorten long labels so they will fit on the canvas.
+  # @rbs label: String | Symbol
+  # @rbs x_offset: Float | Integer
+  # @rbs return: String
   def truncate_legend_label(label, x_offset)
     # steep:ignore:start
     truncated_label = label.to_s
@@ -102,7 +111,9 @@ module Gruff::Mini::Legend
     # steep:ignore:end
   end
 
+  # @rbs value: Float | Integer
+  # @rbs return: Float
   def scale(value)
-    value * @scale
+    (value.to_f * @scale).to_f
   end
 end

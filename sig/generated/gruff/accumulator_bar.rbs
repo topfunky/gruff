@@ -15,5 +15,6 @@
 class Gruff::AccumulatorBar < Gruff::StackedBar
   private
 
-  def setup_data: () -> untyped
+  # @rbs return: void
+  def setup_data: () -> void
 end

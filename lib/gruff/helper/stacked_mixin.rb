@@ -7,6 +7,7 @@ module Gruff::Base::StackedMixin
   # Used by StackedBar and child classes.
   #
   # tsal: moved from Base 03 FEB 2007
+  # @rbs return: void
   def calculate_maximum_by_stack
     # steep:ignore:start
     # Get sum of each stack

@@ -3,24 +3,34 @@
 # A module to handle the small legend.
 # @private
 module Gruff::Mini::Legend
-  attr_accessor hide_mini_legend: untyped
+  attr_accessor hide_mini_legend: bool
 
-  attr_accessor legend_position: untyped
+  attr_accessor legend_position: Symbol
 
-  def initialize: (*untyped) -> untyped
+  # @rbs return: void
+  def initialize: (*untyped) -> void
 
   # The canvas needs to be bigger so we can put the legend beneath it.
-  def expand_canvas_for_vertical_legend: () -> untyped
+  # @rbs return: Gruff::Renderer
+  def expand_canvas_for_vertical_legend: () -> Gruff::Renderer
 
-  def calculate_line_height: () -> untyped
+  # @rbs return: Float
+  def calculate_line_height: () -> Float
 
-  def calculate_legend_width: () -> untyped
+  # @rbs return: Float
+  def calculate_legend_width: () -> Float
 
   # Draw the legend beneath the existing graph.
-  def draw_vertical_legend: () -> untyped
+  # @rbs return: void
+  def draw_vertical_legend: () -> void
 
   # Shorten long labels so they will fit on the canvas.
-  def truncate_legend_label: (untyped label, untyped x_offset) -> untyped
+  # @rbs label: String | Symbol
+  # @rbs x_offset: Float | Integer
+  # @rbs return: String
+  def truncate_legend_label: (String | Symbol label, Float | Integer x_offset) -> String
 
-  def scale: (untyped value) -> untyped
+  # @rbs value: Float | Integer
+  # @rbs return: Float
+  def scale: (Float | Integer value) -> Float
 end
