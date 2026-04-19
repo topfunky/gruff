@@ -17,6 +17,8 @@ require_relative 'gruff/version'
 #
 module Gruff
   # @private
+  # @rbs path: String
+  # @rbs return: String
   def self.libpath(path)
     File.join(__dir__, 'gruff', path) # steep:ignore
   end

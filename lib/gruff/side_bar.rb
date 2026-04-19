@@ -55,12 +55,15 @@ class Gruff::SideBar < Gruff::Base
 
   # With Side Bars use the data label for the marker value to the left of the bar.
   # @deprecated
+  # @rbs _value: untyped
+  # @rbs return: void
   def use_data_label=(_value)
     warn '#use_data_label is deprecated. It is no longer effective.'
   end
 
 private
 
+  # @rbs return: void
   def initialize_attributes
     super
     @bar_spacing = 0.9
@@ -85,6 +88,7 @@ private
     @hide_line_markers && @x_axis_label.nil? && @legend_at_bottom == false
   end
 
+  # @rbs return: void
   def setup_graph_measurements
     super
     return if @hide_line_markers
@@ -105,6 +109,7 @@ private
     end
   end
 
+  # @rbs return: void
   def draw_graph
     # Setup spacing.
     #
@@ -148,6 +153,7 @@ private
   end
 
   # Instead of base class version, draws vertical background lines and label
+  # @rbs return: void
   def draw_line_markers
     return if @hide_line_markers
 
@@ -176,6 +182,9 @@ private
   ##
   # Draw on the Y axis instead of the X
 
+  # @rbs y_offset: Float | Integer
+  # @rbs index: Integer
+  # @rbs return: void
   def draw_label(y_offset, index)
     draw_unique_label(index) do
       draw_label_at(@graph_left - @label_margin, 1.0, 0.0, y_offset, @labels[index], gravity: Magick::EastGravity)

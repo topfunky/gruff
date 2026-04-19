@@ -21,6 +21,7 @@ module Gruff
     # @rbs origin_y: Float | Integer
     # @rbs perim_x: Float | Integer
     # @rbs perim_y: Float | Integer
+    # @rbs return: void
     def render(origin_x, origin_y, perim_x, perim_y)
       @renderer.draw.push
       @renderer.draw.stroke_width(@width)

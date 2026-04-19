@@ -41,6 +41,8 @@ class Gruff::Pie < Gruff::Base
   # Can be used to make the pie start cutting slices at the top (-90.0)
   # or at another angle. Default is +-90.0+, which starts at 3 o'clock.
   # @deprecated Please use {#start_degree=} instead.
+  # @rbs value: Float | Integer
+  # @rbs return: void
   def zero_degree=(value)
     warn '#zero_degree= is deprecated. Please use `start_degree` attribute instead'
     @start_degree = value
@@ -48,6 +50,7 @@ class Gruff::Pie < Gruff::Base
 
 private
 
+  # @rbs return: void
   def initialize_attributes
     super
     @start_degree = -90.0
@@ -63,11 +66,13 @@ private
     @label_formatting = ->(value, percentage) { @show_values_as_labels ? value.to_s : "#{percentage}%" }
   end
 
+  # @rbs return: void
   def setup_drawing
     @center_labels_over_point = false
     super
   end
 
+  # @rbs return: void
   def draw_graph
     slices.each do |slice|
       if slice.value > 0
@@ -79,6 +84,7 @@ private
     end
   end
 
+  # @rbs return: Array[Gruff::Pie::PieSlice]
   def slices
     @slices ||= begin
       slices = store.data.map { |data| Gruff::Pie::PieSlice.new(data.label, data.points.first, data.color) }
@@ -93,6 +99,7 @@ private
   # General Helper Methods
 
   # @rbs degrees: Float | Integer
+  # @rbs return: void
   def update_chart_degrees_with(degrees)
     @chart_degrees = chart_degrees + degrees
   end
@@ -150,6 +157,7 @@ private
   # Label-Related Methods
 
   # @rbs slice: Gruff::Pie::PieSlice
+  # @rbs return: void
   def process_label_for(slice)
     if slice.percentage >= @hide_labels_less_than
       x, y = label_coordinates_for slice

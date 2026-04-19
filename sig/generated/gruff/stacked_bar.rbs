@@ -31,16 +31,21 @@ class Gruff::StackedBar < Gruff::Base
 
   private
 
-  def initialize_attributes: () -> untyped
+  # @rbs return: void
+  def initialize_attributes: () -> void
 
-  def setup_drawing: () -> untyped
+  # @rbs return: void
+  def setup_drawing: () -> void
 
-  def setup_data: () -> untyped
+  # @rbs return: void
+  def setup_data: () -> void
 
-  def setup_graph_measurements: () -> untyped
+  # @rbs return: void
+  def setup_graph_measurements: () -> void
 
   # Draws a bar graph, but multiple sets are stacked on top of each other.
-  def draw_graph: () -> untyped
+  # @rbs return: void
+  def draw_graph: () -> void
 
   # @rbs return: bool
   def hide_labels?: () -> bool

@@ -21,12 +21,19 @@ module Gruff
     # @rbs start_y: Float | Integer
     # @rbs end_x: Float | Integer
     # @rbs end_y: Float | Integer
+    # @rbs return: void
     def render(start_x, start_y, end_x, end_y)
       render_line(start_x, start_y, end_x, end_y, @color)
     end
 
   private
 
+    # @rbs start_x: Float | Integer
+    # @rbs start_y: Float | Integer
+    # @rbs end_x: Float | Integer
+    # @rbs end_y: Float | Integer
+    # @rbs color: String
+    # @rbs return: void
     def render_line(start_x, start_y, end_x, end_y, color)
       # FIXME(uwe): Workaround for Issue #66
       #             https://github.com/topfunky/gruff/issues/66

@@ -20,5 +20,6 @@
 class Gruff::Bezier < Gruff::Base
   private
 
-  def draw_graph: () -> untyped
+  # @rbs return: void
+  def draw_graph: () -> void
 end

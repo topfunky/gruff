@@ -23,6 +23,7 @@
 class Gruff::Bezier < Gruff::Base
 private
 
+  # @rbs return: void
   def draw_graph
     x_increment = (@graph_width / (column_count - 1)).to_f
 

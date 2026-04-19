@@ -21,6 +21,7 @@ module Gruff
     # @rbs height: Float | Integer
     # @rbs arc_start: Float | Integer
     # @rbs arc_end: Float | Integer
+    # @rbs return: void
     def render(origin_x, origin_y, width, height, arc_start, arc_end)
       @renderer.draw.push
       @renderer.draw.stroke_width(@width)

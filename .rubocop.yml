@@ -154,3 +154,7 @@ Style/YodaExpression:
 
 Performance/ChainArrayAllocation:
   Enabled: false
+
+Style/RbsInline/MissingTypeAnnotation:
+  Exclude:
+    - 'test/**/*'

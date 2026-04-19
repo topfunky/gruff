@@ -7,12 +7,15 @@ module Gruff
   class Store
     attr_reader :data #: Array[Gruff::Store::BasicData | Gruff::Store::XYData | Gruff::Store::XYPointsizeData]
 
+    # @rbs data_class: untyped
     # @rbs return: void
     def initialize(data_class)
       @data_class = data_class
       @data = []
     end
 
+    # @rbs *args: untyped
+    # @rbs return: void
     def add(*args)
       @data << @data_class.new(*args)
     end
@@ -22,6 +25,8 @@ module Gruff
       @norm_data || []
     end
 
+    # @rbs **keywords: untyped
+    # @rbs return: untyped
     def normalize(**keywords)
       @norm_data = @data.map { |data_row| data_row.normalize(**keywords) } # steep:ignore
     end
@@ -63,10 +68,12 @@ module Gruff
       @max_x ||= @data.filter_map(&:max_x).max
     end
 
+    # @rbs return: void
     def sort_data!
       @data = @data.sort_by { |a| -a.points.sum(&:to_f) }
     end
 
+    # @rbs return: void
     def sort_norm_data!
       @norm_data = @norm_data.sort_by { |a| -a.points.sum(&:to_f) }
     end
@@ -77,6 +84,7 @@ module Gruff
     end
 
     # @rbs colors: Array[String]
+    # @rbs return: void
     def change_colors(colors)
       index = 0
       @data.each do |data_row|

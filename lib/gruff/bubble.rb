@@ -60,6 +60,7 @@ class Gruff::Bubble < Gruff::Scatter
   # @rbs y_data_points: Array[nil | Float | Integer] | nil
   # @rbs point_sizes: Array[nil | Float | Integer] | nil
   # @rbs color: String
+  # @rbs return: void
   def data(name, x_data_points = [], y_data_points = [], point_sizes = [], color = nil)
     # make sure it's an array
     x_data_points = Array(x_data_points)
@@ -78,10 +79,12 @@ class Gruff::Bubble < Gruff::Scatter
 
 private
 
+  # @rbs return: void
   def initialize_store
     @store = Gruff::Store.new(Gruff::Store::XYPointsizeData)
   end
 
+  # @rbs return: void
   def initialize_attributes
     super
 
@@ -89,6 +92,7 @@ private
     @stroke_width = 1.0
   end
 
+  # @rbs return: void
   def draw_graph
     store.norm_data.each do |data_row|
       data_row.coordinate_and_pointsizes.each do |x_value, y_value, point_size|

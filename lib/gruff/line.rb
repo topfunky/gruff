@@ -51,6 +51,7 @@ class Gruff::Line < Gruff::Base
   #
   # The preferred way is to call {#hide_dots=} or {#hide_lines=} instead.
   #
+  # @rbs *args: untyped
   # @rbs return: void
   def initialize(*args)
     raise ArgumentError, 'Wrong number of arguments' if args.length > 2
@@ -74,6 +75,7 @@ class Gruff::Line < Gruff::Base
   # Set a value for a baseline reference line..
   #
   # @rbs new_value: Float | Integer
+  # @rbs return: Float | Integer
   def baseline_value=(new_value)
     @reference_lines[:baseline] ||= {}
     @reference_lines[:baseline][:value] = new_value
@@ -87,6 +89,7 @@ class Gruff::Line < Gruff::Base
   end
 
   # @rbs new_value: Float | Integer
+  # @rbs return: Float | Integer
   def baseline_color=(new_value)
     @reference_lines[:baseline] ||= {}
     @reference_lines[:baseline][:color] = new_value
@@ -115,6 +118,7 @@ class Gruff::Line < Gruff::Base
   #
   # @example
   #   data("Bart S.", [95, 45, 78, 89, 88, 76], '#ffcc00')
+  # @rbs return: void
   def data(name, data_points = [], color = nil)
     store.add(name, nil, data_points, color)
   end
@@ -158,6 +162,7 @@ class Gruff::Line < Gruff::Base
   # @rbs x_data_points: Array[nil | Float | Integer] | Array[[nil | Float | Integer, nil | Float | Integer]] | nil
   # @rbs y_data_points: Array[nil | Float | Integer] | nil | String
   # @rbs color: String
+  # @rbs return: void
   def dataxy(name, x_data_points = [], y_data_points = [], color = nil)
     # make sure it's an array
     x_data_points = Array(x_data_points)
@@ -179,10 +184,12 @@ class Gruff::Line < Gruff::Base
 
 private
 
+  # @rbs return: void
   def initialize_store
     @store = Gruff::Store.new(Gruff::Store::XYData)
   end
 
+  # @rbs return: void
   def initialize_attributes
     super
     @reference_lines = {}
@@ -201,22 +208,33 @@ private
     @show_vertical_markers = false
   end
 
+  # @rbs reference_line: Hash[Symbol, untyped]
+  # @rbs left: Float | Integer
+  # @rbs right: Float | Integer
+  # @rbs top: Float | Integer
+  # @rbs bottom: Float | Integer
+  # @rbs return: void
   def draw_reference_line(reference_line, left, right, top, bottom)
     color = reference_line[:color] || @reference_line_default_color
     width = reference_line[:width] || @reference_line_default_width
     Gruff::Renderer::DashLine.new(renderer, color: color, width: width).render(left, top, right, bottom)
   end
 
+  # @rbs reference_line: Hash[Symbol, untyped]
+  # @rbs return: void
   def draw_horizontal_reference_line(reference_line)
     level = @graph_top + (@graph_height - (reference_line[:norm_value] * @graph_height))
     draw_reference_line(reference_line, @graph_left, @graph_left + @graph_width, level, level)
   end
 
+  # @rbs reference_line: Hash[Symbol, untyped]
+  # @rbs return: void
   def draw_vertical_reference_line(reference_line)
     index = @graph_left + (@x_increment * reference_line[:index])
     draw_reference_line(reference_line, index, index, @graph_top, @graph_top + @graph_height)
   end
 
+  # @rbs return: void
   def draw_graph
     # Check to see if more than one datapoint was given. NaN can result otherwise.
     @x_increment = column_count > 1 ? @graph_width / (column_count - 1) : @graph_width
@@ -268,6 +286,7 @@ private
     end
   end
 
+  # @rbs return: void
   def setup_data
     # Update the global min/max values for the x data
     @maximum_x_value = (@maximum_x_value || store.max_x).to_f
@@ -290,11 +309,13 @@ private
     super
   end
 
+  # @rbs return: void
   def setup_drawing
     @marker_x_count ||= column_count - 1
     super
   end
 
+  # @rbs return: void
   def normalize
     return unless data_given?
 
@@ -309,6 +330,7 @@ private
     end
   end
 
+  # @rbs return: void
   def draw_line_markers
     # do all of the stuff for the horizontal lines on the y-axis
     super
@@ -320,6 +342,10 @@ private
     end
   end
 
+  # @rbs x_data: Float | Integer | nil
+  # @rbs new_x: Float | Integer
+  # @rbs index: Integer
+  # @rbs return: void
   def draw_label_for_x_data(x_data, new_x, index)
     if x_data.nil?
       draw_label(new_x, index)
@@ -330,6 +356,8 @@ private
     end
   end
 
+  # @rbs data_row: Gruff::Store::XYData
+  # @rbs return: bool
   def contains_one_point_only?(data_row)
     data_row.y_points.compact.count == 1
   end

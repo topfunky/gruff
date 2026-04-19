@@ -18,6 +18,7 @@
 class Gruff::AccumulatorBar < Gruff::StackedBar
 private
 
+  # @rbs return: void
   def setup_data
     raise(Gruff::IncorrectNumberOfDatasetsException) unless store.length == 1
 

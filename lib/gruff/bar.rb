@@ -51,6 +51,7 @@ class Gruff::Bar < Gruff::Base
   # Default value is +0.9+.
   #
   # @rbs space_percent: Float | Integer
+  # @rbs return: void
   def spacing_factor=(space_percent)
     raise ArgumentError, 'spacing_factor must be between 0.00 and 1.00' if (space_percent < 0) || (space_percent > 1)
 
@@ -59,6 +60,7 @@ class Gruff::Bar < Gruff::Base
 
 private
 
+  # @rbs return: void
   def initialize_attributes
     super
     @spacing_factor = 0.9
@@ -68,6 +70,7 @@ private
     @hide_labels = false
   end
 
+  # @rbs return: void
   def setup_drawing
     # Labels will be centered over the left of the bar if
     # there are more labels than columns. This is basically the same
@@ -92,6 +95,7 @@ private
     hide_labels? && @x_axis_label.nil? && @legend_at_bottom == false
   end
 
+  # @rbs return: void
   def setup_graph_measurements
     super
     return if @hide_line_markers
@@ -106,6 +110,7 @@ private
     end
   end
 
+  # @rbs return: void
   def draw_graph
     # Setup spacing.
     #

@@ -133,9 +133,11 @@ module Gruff
     # @rbs return: void
     def initialize: (?String | Float | Integer target_width) -> void
 
-    def initialize_graph_scale: () -> untyped
+    # @rbs return: void
+    def initialize_graph_scale: () -> void
 
-    def initialize_store: () -> untyped
+    # @rbs return: void
+    def initialize_store: () -> void
 
     # Initialize instance variable of attributes
     #
@@ -143,7 +145,9 @@ module Gruff
     #
     # This makes it possible to set defaults in a subclass but still allow
     # developers to change this values in their program.
-    def initialize_attributes: () -> untyped
+    #
+    # @rbs return: void
+    def initialize_attributes: () -> void
 
     # A hash of names for the individual columns, where the key is the array
     # index for the column this label represents.
@@ -160,18 +164,22 @@ module Gruff
     #
     #   g = Gruff::Bar.new
     #   g.labels = ['2005', nil, nil, '2006', nil, nil, '2007', nil, nil, '2008'] # same labels for columns
-    def labels=: (Hash[Integer, String] | [ String | nil ] labels) -> untyped
+    #
+    # @rbs return: void
+    def labels=: (Hash[Integer, String] | [ String | nil ] labels) -> void
 
     # Set a rotation for labels. You can use  Default is +0+.
     # You can use a rotation between +0.0+ and +45.0+, or between +0.0+ and +-45.0+.
     #
     # @param rotation [Numeric] the rotation.
     # @rbs rotation: Float | Integer
-    def label_rotation=: (Float | Integer rotation) -> untyped
+    # @rbs return: void
+    def label_rotation=: (Float | Integer rotation) -> void
 
     # Height of staggering between labels.
     # @deprecated
-    def label_stagger_height=: (untyped _value) -> untyped
+    # @rbs return: void
+    def label_stagger_height=: (untyped _value) -> void
 
     # Set the large title of the graph displayed at the top.
     # You can draw a multi-line title by putting a line break in the string
@@ -186,37 +194,44 @@ module Gruff
     #
     #   g = Gruff::Bar.new
     #   g.title = ['The first line of title', 'The second line of title']
-    def title=: (String | Array[String] title) -> untyped
+    #
+    # @rbs return: void
+    def title=: (String | Array[String] title) -> void
 
     # Sets the top, bottom, left and right margins to +margin+.
     #
     # @param margin [Numeric] The margin size.
     # @rbs margin: Float | Integer
-    def margins=: (Float | Integer margin) -> untyped
+    # @rbs return: void
+    def margins=: (Float | Integer margin) -> void
 
     # Sets the font for graph text to the font at +font_path+.
     #
     # @param font_path [String] The path to font.
     # @rbs font_path: String
-    def font=: (String font_path) -> untyped
+    # @rbs return: void
+    def font=: (String font_path) -> void
 
     # Same as {#font=} but for the title.
     #
     # @param font_path [String] The path to font.
     # @rbs font_path: String
-    def title_font=: (String font_path) -> untyped
+    # @rbs return: void
+    def title_font=: (String font_path) -> void
 
     # Set the font size of the large title at the top of the graph. Default is +36+.
     #
     # @param value [Numeric] title font size
     # @rbs value: Float | Integer
-    def title_font_size=: (Float | Integer value) -> untyped
+    # @rbs return: void
+    def title_font_size=: (Float | Integer value) -> void
 
     # The font size of the labels around the graph. Default is +21+.
     #
     # @param value [Numeric] marker font size
     # @rbs value: Float | Integer
-    def marker_font_size=: (Float | Integer value) -> untyped
+    # @rbs return: void
+    def marker_font_size=: (Float | Integer value) -> void
 
     # Optionally set the size of the font. Based on an 800x600px graph.
     # Default is +20+.
@@ -225,25 +240,29 @@ module Gruff
     #
     # @param value [Numeric] legend font size
     # @rbs value: Float | Integer
-    def legend_font_size=: (Float | Integer value) -> untyped
+    # @rbs return: void
+    def legend_font_size=: (Float | Integer value) -> void
 
     # Set the font size of the no data message. Default is +80+.
     #
     # @param value [Numeric] no data font size
     # @rbs value: Float | Integer
-    def no_data_font_size=: (Float | Integer value) -> untyped
+    # @rbs return: void
+    def no_data_font_size=: (Float | Integer value) -> void
 
     # Specifies whether to draw the title bolded or not. Default is +true+.
     #
     # @param value [Boolean] specifies whether to draw the title bolded or not.
     # @rbs value: bool
-    def bold_title=: (bool value) -> untyped
+    # @rbs return: void
+    def bold_title=: (bool value) -> void
 
     # Specifies the text color.
     #
     # @param value [String] color
     # @rbs value: String
-    def font_color=: (String value) -> untyped
+    # @rbs return: void
+    def font_color=: (String value) -> void
 
     # Add a color to the list of available colors for lines.
     #
@@ -252,7 +271,8 @@ module Gruff
     #
     # @example
     #   add_color('#c0e9d3')
-    def add_color: (String colorname) -> untyped
+    # @rbs return: void
+    def add_color: (String colorname) -> void
 
     # Replace the entire color list with a new array of colors. Also
     # aliased as the {#colors=} setter method.
@@ -270,13 +290,15 @@ module Gruff
     #
     # @example
     #   replace_colors ['#cc99cc', '#d9e043', '#34d8a2']
-    def replace_colors: (?Array[String] color_list) -> untyped
+    # @rbs return: void
+    def replace_colors: (?Array[String] color_list) -> void
 
     # Set whether to make background transparent.
     #
     # @param value [Boolean] Specify whether to make background transparent.
     # @rbs value: bool
-    def transparent_background=: (bool value) -> untyped
+    # @rbs return: void
+    def transparent_background=: (bool value) -> void
 
     # You can set a theme manually. Assign a hash to this method before you
     # send your data.
@@ -309,25 +331,32 @@ module Gruff
     #
     # @param options [Hash] The optional setting for theme
     # @rbs options: Hash[Symbol, untyped]
-    def theme=: (Hash[Symbol, untyped] options) -> untyped
+    # @rbs return: void
+    def theme=: (Hash[Symbol, untyped] options) -> void
 
     # Apply Apple's keynote theme.
-    def theme_keynote: () -> untyped
+    # @rbs return: void
+    def theme_keynote: () -> void
 
     # Apply 37signals theme.
-    def theme_37signals: () -> untyped
+    # @rbs return: void
+    def theme_37signals: () -> void
 
     # Apply Rails theme.
-    def theme_rails_keynote: () -> untyped
+    # @rbs return: void
+    def theme_rails_keynote: () -> void
 
     # Apply Odeo theme.
-    def theme_odeo: () -> untyped
+    # @rbs return: void
+    def theme_odeo: () -> void
 
     # Apply pastel theme.
-    def theme_pastel: () -> untyped
+    # @rbs return: void
+    def theme_pastel: () -> void
 
     # Apply greyscale theme.
-    def theme_greyscale: () -> untyped
+    # @rbs return: void
+    def theme_greyscale: () -> void
 
     # Input the data in the graph.
     #
@@ -352,7 +381,8 @@ module Gruff
     #
     # @example
     #   data("Bart S.", [95, 45, 78, 89, 88, 76], '#ffcc00')
-    def data: (String | Symbol name, ?Array[Float | Integer] | nil data_points, ?String color) -> untyped
+    # @rbs return: void
+    def data: (String | Symbol name, ?Array[Float | Integer] | nil data_points, ?String color) -> void
 
     # You can manually set a minimum value instead of having the values
     # guessed for you.
@@ -384,7 +414,8 @@ module Gruff
     #
     # @example
     #   write('graphs/my_pretty_graph.png')
-    def write: (?String file_name) -> untyped
+    # @rbs return: void
+    def write: (?String file_name) -> void
 
     # Return a rendered graph image.
     # This can use RMagick's methods to adjust the image before saving.
@@ -402,6 +433,8 @@ module Gruff
     #   image = g.to_image
     #   image = image.resize(400, 300).quantize(128, Magick::RGBColorspace)
     #   image.write('test.png')
+    #
+    # @rbs return: untyped
     def to_image: (?String format) -> untyped
 
     # Return the graph as a rendered binary blob.
@@ -416,19 +449,22 @@ module Gruff
     def to_blob: (?String format) -> String
 
     # Draw a graph.
-    def draw: () -> untyped
+    # @rbs return: void
+    def draw: () -> void
 
     attr_reader renderer: Gruff::Renderer
 
     # Perform data manipulation before calculating chart measurements
-    def setup_data: () -> untyped
+    # @rbs return: void
+    def setup_data: () -> void
 
     # Calculates size of drawable area and generates normalized data.
     #
     # * line markers
     # * legend
     # * title
-    def setup_drawing: () -> untyped
+    # @rbs return: void
+    def setup_drawing: () -> void
 
     attr_reader store: Gruff::Store
 
@@ -443,9 +479,11 @@ module Gruff
 
     # Make copy of data with values scaled between 0-100
     # @rbs return: Array[Gruff::Store::BasicData | Gruff::Store::XYData | Gruff::Store::XYPointsizeData]
+    # @rbs return: void
     def normalize: () -> Array[Gruff::Store::BasicData | Gruff::Store::XYData | Gruff::Store::XYPointsizeData]
 
-    def calculate_spread: () -> untyped
+    # @rbs return: Float
+    def calculate_spread: () -> Float
 
     # @rbs return: bool
     def hide_title?: () -> bool
@@ -459,17 +497,25 @@ module Gruff
     # @rbs return: bool
     def hide_bottom_label_area?: () -> bool
 
-    def setup_graph_measurements: () -> untyped
+    # @rbs return: void
+    def setup_graph_measurements: () -> void
 
     # Draw the optional labels for the x axis and y axis.
-    def draw_axis_labels: () -> untyped
+    # @rbs return: void
+    def draw_axis_labels: () -> void
 
     # Draws horizontal background lines and labels
-    def draw_line_markers: () -> untyped
+    # @rbs return: void
+    def draw_line_markers: () -> void
 
-    def draw_marker_horizontal_line: (untyped y) -> untyped
+    # @rbs y: Float | Integer
+    # @rbs return: void
+    def draw_marker_horizontal_line: (Float | Integer y) -> void
 
-    def draw_marker_vertical_line: (untyped x, ?tick_mark_mode: untyped) -> untyped
+    # @rbs x: Float | Integer
+    # @rbs tick_mark_mode: bool
+    # @rbs return: void
+    def draw_marker_vertical_line: (Float | Integer x, ?tick_mark_mode: bool) -> void
 
     # Return a calculation of center
     # @rbs size: Float | Integer
@@ -478,10 +524,12 @@ module Gruff
 
     # Draws a legend with the names of the datasets matched
     # to the colors used to draw them.
-    def draw_legend: () -> untyped
+    # @rbs return: void
+    def draw_legend: () -> void
 
     # Draws a title on the graph.
-    def draw_title: () -> untyped
+    # @rbs return: void
+    def draw_title: () -> void
 
     # Draws column labels below graph, centered over x
     #
@@ -489,11 +537,13 @@ module Gruff
     # @rbs index: Integer
     # @rbs gravity: untyped
     # @rbs &: () -> void
-    def draw_label: (Float | Integer x, Integer index, ?untyped gravity) { () -> void } -> untyped
+    # @rbs return: void
+    def draw_label: (Float | Integer x, Integer index, ?untyped gravity) { () -> void } -> void
 
     # @rbs index: Integer
     # @rbs yields: () -> void
-    def draw_unique_label: (Integer index) -> untyped
+    # @rbs return: void
+    def draw_unique_label: (Integer index) -> void
 
     # @rbs width: Float | Integer
     # @rbs height: Float | Integer
@@ -502,7 +552,8 @@ module Gruff
     # @rbs text: String | _ToS
     # @rbs gravity: untyped
     # @rbs rotation: Float | Integer
-    def draw_label_at: (Float | Integer width, Float | Integer height, Float | Integer x, Float | Integer y, String | _ToS text, ?gravity: untyped, ?rotation: Float | Integer) -> untyped
+    # @rbs return: void
+    def draw_label_at: (Float | Integer width, Float | Integer height, Float | Integer x, Float | Integer y, String | _ToS text, ?gravity: untyped, ?rotation: Float | Integer) -> void
 
     # Draws the data value over the data point in bar graphs
     #
@@ -512,15 +563,19 @@ module Gruff
     # @rbs y_offset: Float | Integer
     # @rbs data_point: String | _ToS
     # @rbs gravity: untyped
-    def draw_value_label: (Float | Integer width, Float | Integer height, Float | Integer x_offset, Float | Integer y_offset, String | _ToS data_point, ?gravity: untyped) -> untyped
+    # @rbs return: void
+    def draw_value_label: (Float | Integer width, Float | Integer height, Float | Integer x_offset, Float | Integer y_offset, String | _ToS data_point, ?gravity: untyped) -> void
 
     # Shows an error message because you have no data.
-    def draw_no_data: () -> untyped
+    # @rbs return: void
+    def draw_no_data: () -> void
 
-    def draw_graph: () -> untyped
+    # @rbs return: void
+    def draw_graph: () -> void
 
     # Resets everything to defaults (except data).
-    def reset_themes: () -> untyped
+    # @rbs return: void
+    def reset_themes: () -> void
 
     # @rbs value: Float | Integer
     # @rbs max_value: Float | Integer
@@ -533,14 +588,17 @@ module Gruff
     def significant: (Integer i) -> (Integer | Float | BigDecimal)
 
     # Sort with largest overall summed value at front of array.
-    def sort_data: () -> untyped
+    # @rbs return: void
+    def sort_data: () -> void
 
     # Set the color for each data set unless it was given in the data(...) call.
-    def set_colors: () -> untyped
+    # @rbs return: void
+    def set_colors: () -> void
 
     # Sort with largest overall summed value at front of array so it shows up
     # correctly in the drawn graph.
-    def sort_norm_data: () -> untyped
+    # @rbs return: void
+    def sort_norm_data: () -> void
 
     private
 
@@ -599,11 +657,13 @@ module Gruff
     # @rbs return: String
     def y_axis_label: (Float | Integer | BigDecimal value, Float | Integer increment) -> String
 
-    # TODO: RBS signature
-    def calculate_legend_label_widths_for_each_line: (untyped legend_labels, untyped legend_square_width) -> untyped
+    # @rbs legend_labels: Array[String]
+    # @rbs legend_square_width: Float | Integer
+    # @rbs return: Array[Array[Float | Integer]]
+    def calculate_legend_label_widths_for_each_line: (Array[String] legend_labels, Float | Integer legend_square_width) -> Array[Array[Float | Integer]]
 
-    # TODO: RBS signature
-    def calculate_legend_height: () -> untyped
+    # @rbs return: Float
+    def calculate_legend_height: () -> Float
 
     # Returns the height of the capital letter 'X' for the current font and
     # size.

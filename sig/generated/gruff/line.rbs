@@ -52,6 +52,7 @@ class Gruff::Line < Gruff::Base
   #
   # The preferred way is to call {#hide_dots=} or {#hide_lines=} instead.
   #
+  # @rbs *args: untyped
   # @rbs return: void
   def initialize: (*untyped args) -> void
 
@@ -63,13 +64,15 @@ class Gruff::Line < Gruff::Base
   # Set a value for a baseline reference line..
   #
   # @rbs new_value: Float | Integer
-  def baseline_value=: (Float | Integer new_value) -> untyped
+  # @rbs return: Float | Integer
+  def baseline_value=: (Float | Integer new_value) -> (Float | Integer)
 
   # @rbs return: Float | Integer | nil
   def baseline_color: () -> (Float | Integer | nil)
 
   # @rbs new_value: Float | Integer
-  def baseline_color=: (Float | Integer new_value) -> untyped
+  # @rbs return: Float | Integer
+  def baseline_color=: (Float | Integer new_value) -> (Float | Integer)
 
   # Input the data in the graph.
   #
@@ -94,7 +97,8 @@ class Gruff::Line < Gruff::Base
   #
   # @example
   #   data("Bart S.", [95, 45, 78, 89, 88, 76], '#ffcc00')
-  def data: (String | Symbol name, ?Array[nil | Float | Integer] | nil data_points, ?String color) -> untyped
+  # @rbs return: void
+  def data: (String | Symbol name, ?Array[nil | Float | Integer] | nil data_points, ?String color) -> void
 
   # This method allows one to plot a dataset with both X and Y data.
   #
@@ -135,31 +139,55 @@ class Gruff::Line < Gruff::Base
   # @rbs x_data_points: Array[nil | Float | Integer] | Array[[nil | Float | Integer, nil | Float | Integer]] | nil
   # @rbs y_data_points: Array[nil | Float | Integer] | nil | String
   # @rbs color: String
-  def dataxy: (String | Symbol name, ?Array[nil | Float | Integer] | Array[[ nil | Float | Integer, nil | Float | Integer ]] | nil x_data_points, ?Array[nil | Float | Integer] | nil | String y_data_points, ?String color) -> untyped
+  # @rbs return: void
+  def dataxy: (String | Symbol name, ?Array[nil | Float | Integer] | Array[[ nil | Float | Integer, nil | Float | Integer ]] | nil x_data_points, ?Array[nil | Float | Integer] | nil | String y_data_points, ?String color) -> void
 
   private
 
-  def initialize_store: () -> untyped
+  # @rbs return: void
+  def initialize_store: () -> void
 
-  def initialize_attributes: () -> untyped
+  # @rbs return: void
+  def initialize_attributes: () -> void
 
-  def draw_reference_line: (untyped reference_line, untyped left, untyped right, untyped top, untyped bottom) -> untyped
+  # @rbs reference_line: Hash[Symbol, untyped]
+  # @rbs left: Float | Integer
+  # @rbs right: Float | Integer
+  # @rbs top: Float | Integer
+  # @rbs bottom: Float | Integer
+  # @rbs return: void
+  def draw_reference_line: (Hash[Symbol, untyped] reference_line, Float | Integer left, Float | Integer right, Float | Integer top, Float | Integer bottom) -> void
 
-  def draw_horizontal_reference_line: (untyped reference_line) -> untyped
+  # @rbs reference_line: Hash[Symbol, untyped]
+  # @rbs return: void
+  def draw_horizontal_reference_line: (Hash[Symbol, untyped] reference_line) -> void
 
-  def draw_vertical_reference_line: (untyped reference_line) -> untyped
+  # @rbs reference_line: Hash[Symbol, untyped]
+  # @rbs return: void
+  def draw_vertical_reference_line: (Hash[Symbol, untyped] reference_line) -> void
 
-  def draw_graph: () -> untyped
+  # @rbs return: void
+  def draw_graph: () -> void
 
-  def setup_data: () -> untyped
+  # @rbs return: void
+  def setup_data: () -> void
 
-  def setup_drawing: () -> untyped
+  # @rbs return: void
+  def setup_drawing: () -> void
 
-  def normalize: () -> untyped
+  # @rbs return: void
+  def normalize: () -> void
 
-  def draw_line_markers: () -> untyped
+  # @rbs return: void
+  def draw_line_markers: () -> void
 
-  def draw_label_for_x_data: (untyped x_data, untyped new_x, untyped index) -> untyped
+  # @rbs x_data: Float | Integer | nil
+  # @rbs new_x: Float | Integer
+  # @rbs index: Integer
+  # @rbs return: void
+  def draw_label_for_x_data: (Float | Integer | nil x_data, Float | Integer new_x, Integer index) -> void
 
-  def contains_one_point_only?: (untyped data_row) -> untyped
+  # @rbs data_row: Gruff::Store::XYData
+  # @rbs return: bool
+  def contains_one_point_only?: (Gruff::Store::XYData data_row) -> bool
 end

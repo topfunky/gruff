@@ -14,6 +14,7 @@ module Gruff
     # @rbs origin_y: Float | Integer
     # @rbs perim_x: Float | Integer
     # @rbs perim_y: Float | Integer
-    def render: (Float | Integer origin_x, Float | Integer origin_y, Float | Integer perim_x, Float | Integer perim_y) -> untyped
+    # @rbs return: void
+    def render: (Float | Integer origin_x, Float | Integer origin_y, Float | Integer perim_x, Float | Integer perim_y) -> void
   end
 end

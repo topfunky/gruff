@@ -9,7 +9,7 @@ module Gruff
 
     attr_reader image: untyped
 
-    attr_reader scale: real
+    attr_reader scale: Float | Integer
 
     # @rbs columns: Integer
     # @rbs rows: Integer
@@ -18,26 +18,49 @@ module Gruff
     # @rbs return: void
     def initialize: (Integer columns, Integer rows, Float | Integer scale, ::Hash[Symbol, untyped] theme_options) -> void
 
-    def finish: () -> untyped
+    # @rbs return: void
+    def finish: () -> void
 
     # @rbs columns: Integer
     # @rbs rows: Integer
-    def transparent_background: (Integer columns, Integer rows) -> untyped
+    # @rbs return: void
+    def transparent_background: (Integer columns, Integer rows) -> void
 
     private
 
-    def background: (untyped columns, untyped rows, untyped scale, untyped theme_options) -> untyped
+    # @rbs columns: Integer
+    # @rbs rows: Integer
+    # @rbs scale: Float | Integer
+    # @rbs theme_options: ::Hash[Symbol, untyped]
+    # @rbs return: void
+    def background: (Integer columns, Integer rows, Float | Integer scale, ::Hash[Symbol, untyped] theme_options) -> void
 
     # Use with a theme to use an image (800x600 original) background.
-    def image_background: (untyped scale, untyped image_path) -> untyped
+    # @rbs scale: Float | Integer
+    # @rbs image_path: String
+    # @rbs return: untyped
+    def image_background: (Float | Integer scale, String image_path) -> untyped
 
     # Make a new image at the current size with a solid +color+.
-    def solid_background: (untyped columns, untyped rows, untyped color) -> untyped
+    # @rbs columns: Integer
+    # @rbs rows: Integer
+    # @rbs color: String
+    # @rbs return: void
+    def solid_background: (Integer columns, Integer rows, String color) -> void
 
     # Use with a theme definition method to draw a gradated background.
-    def gradated_background: (untyped columns, untyped rows, untyped top_color, untyped bottom_color, ?untyped direct) -> untyped
+    # @rbs columns: Integer
+    # @rbs rows: Integer
+    # @rbs top_color: String
+    # @rbs bottom_color: String
+    # @rbs direct: Symbol
+    # @rbs return: void
+    def gradated_background: (Integer columns, Integer rows, String top_color, String bottom_color, ?Symbol direct) -> void
 
     # Use with a theme to make a transparent background
-    def render_transparent_background: (untyped columns, untyped rows) -> untyped
+    # @rbs columns: Integer
+    # @rbs rows: Integer
+    # @rbs return: void
+    def render_transparent_background: (Integer columns, Integer rows) -> void
   end
 end

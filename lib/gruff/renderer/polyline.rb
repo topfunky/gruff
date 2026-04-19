@@ -18,6 +18,7 @@ module Gruff
     end
 
     # @rbs points: Array[Float | Integer]
+    # @rbs return: void
     def render(points)
       @renderer.draw.push
       @renderer.draw.stroke_linejoin(@linejoin)

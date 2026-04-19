@@ -16,14 +16,16 @@ module Gruff
       # @rbs x_points: Array[nil | Float | Integer] | nil
       # @rbs y_points: Array[nil | Float | Integer] | nil
       # @rbs color: String
-      def initialize: (String | Symbol label, Array[nil | Float | Integer] | nil x_points, Array[nil | Float | Integer] | nil y_points, String color) -> untyped
+      # @rbs return: void
+      def initialize: (String | Symbol label, Array[nil | Float | Integer] | nil x_points, Array[nil | Float | Integer] | nil y_points, String color) -> void
 
       alias points y_points
 
       # @rbs return: Array[[Float | Integer | nil, Float | Integer | nil]]
       def coordinates: () -> Array[[ Float | Integer | nil, Float | Integer | nil ]]
 
-      def coordinate_and_pointsizes: () -> untyped
+      # @rbs return: void
+      def coordinate_and_pointsizes: () -> void
 
       # @rbs return: bool
       def empty?: () -> bool

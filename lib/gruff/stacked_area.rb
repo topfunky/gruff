@@ -18,22 +18,27 @@ class Gruff::StackedArea < Gruff::Base
   include Gruff::Base::StackedMixin
 
   # @deprecated
+  # @rbs _value: untyped
+  # @rbs return: void
   def last_series_goes_on_bottom=(_value)
     warn '#last_series_goes_on_bottom is deprecated. It is no longer effective.'
   end
 
 private
 
+  # @rbs return: void
   def initialize_attributes
     super
     @minimum_value = 0.0
   end
 
+  # @rbs return: void
   def setup_data
     calculate_maximum_by_stack
     super
   end
 
+  # @rbs return: void
   def draw_graph
     x_increment = (@graph_width / (column_count - 1)).to_f
 

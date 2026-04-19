@@ -15,16 +15,20 @@ class Gruff::Bullet < Gruff::Base
   # @rbs return: void
   def initialize: (?String | Float | Integer target_width) -> void
 
-  def initialize_attributes: () -> untyped
+  # @rbs return: void
+  def initialize_attributes: () -> void
 
   # @rbs value: Float | Integer
   # @rbs maximum_value: Float | Integer
   # @rbs options: Hash[Symbol, Float | Integer]
-  def data: (Float | Integer value, Float | Integer maximum_value, ?Hash[Symbol, Float | Integer] options) -> untyped
+  # @rbs return: void
+  def data: (Float | Integer value, Float | Integer maximum_value, ?Hash[Symbol, Float | Integer] options) -> void
 
-  def draw: () -> untyped
+  # @rbs return: void
+  def draw: () -> void
 
   private
 
-  def draw_title: () -> untyped
+  # @rbs return: void
+  def draw_title: () -> void
 end

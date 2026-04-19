@@ -13,6 +13,7 @@ module Gruff
       # @rbs label: String | Symbol
       # @rbs points: Array[nil | Float | Integer] | nil
       # @rbs color: String
+      # @rbs return: void
       def initialize(label, points, color)
         @label = label.to_s
         @points = Array(points)
@@ -21,14 +22,17 @@ module Gruff
 
       alias x_points points
 
+      # @rbs return: void
       def y_points
         raise NotImplementedError, 'x_points is not implemented for BasicData'
       end
 
+      # @rbs return: void
       def coordinates
         raise NotImplementedError, 'This method is not implemented for BasicData'
       end
 
+      # @rbs return: void
       def coordinate_and_pointsizes
         raise NotImplementedError, 'This method is not implemented for BasicData'
       end

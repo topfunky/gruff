@@ -24,6 +24,7 @@ class Gruff::Area < Gruff::Base
 
 private
 
+  # @rbs return: void
   def initialize_attributes
     super
     @sorted_drawing = true
@@ -31,6 +32,7 @@ private
     @stroke_width = 2.0
   end
 
+  # @rbs return: void
   def draw_graph
     x_increment = (@graph_width / (column_count - 1)).to_f
 

@@ -36,6 +36,7 @@ class Gruff::StackedBar < Gruff::Base
 
 private
 
+  # @rbs return: void
   def initialize_attributes
     super
     @bar_spacing = 0.9
@@ -46,6 +47,7 @@ private
     @minimum_value = 0.0
   end
 
+  # @rbs return: void
   def setup_drawing
     # Labels will be centered over the left of the bar if
     # there are more labels than columns. This is basically the same
@@ -55,11 +57,13 @@ private
     super
   end
 
+  # @rbs return: void
   def setup_data
     calculate_maximum_by_stack
     super
   end
 
+  # @rbs return: void
   def setup_graph_measurements
     super
     return if @hide_line_markers
@@ -75,6 +79,7 @@ private
   end
 
   # Draws a bar graph, but multiple sets are stacked on top of each other.
+  # @rbs return: void
   def draw_graph
     # Setup spacing.
     #

@@ -11,6 +11,7 @@ module Gruff
     # @rbs text: String
     # @rbs font: Gruff::Font
     # @rbs rotation: Float | Integer
+    # @rbs return: void
     def initialize(renderer, text, font:, rotation: nil)
       @renderer = renderer
       @text = text.to_s
@@ -19,13 +20,14 @@ module Gruff
     end
 
     attr_reader :width, :height, :x, :y #: Float | Integer
-    attr_reader :gravity
+    attr_reader :gravity #: untyped
 
     # @rbs width: Float | Integer
     # @rbs height: Float | Integer
     # @rbs x: Float | Integer
     # @rbs y: Float | Integer
     # @rbs gravity: untyped
+    # @rbs return: void
     def add_to_render_queue(width, height, x, y, gravity = Magick::NorthGravity)
       @width = width
       @height = height
@@ -41,6 +43,7 @@ module Gruff
     # @rbs x: Float | Integer
     # @rbs y: Float | Integer
     # @rbs gravity: untyped
+    # @rbs return: void
     def render(width, height, x, y, gravity = Magick::NorthGravity)
       @renderer.draw.push
       @renderer.draw.rotation = @rotation if @rotation
@@ -58,6 +61,7 @@ module Gruff
       @renderer.draw.pop
     end
 
+    # @rbs return: untyped
     def metrics
       @renderer.draw.push
       @renderer.draw.font = @font.file_path

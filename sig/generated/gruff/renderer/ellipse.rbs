@@ -15,6 +15,7 @@ module Gruff
     # @rbs height: Float | Integer
     # @rbs arc_start: Float | Integer
     # @rbs arc_end: Float | Integer
-    def render: (Float | Integer origin_x, Float | Integer origin_y, Float | Integer width, Float | Integer height, Float | Integer arc_start, Float | Integer arc_end) -> untyped
+    # @rbs return: void
+    def render: (Float | Integer origin_x, Float | Integer origin_y, Float | Integer width, Float | Integer height, Float | Integer arc_start, Float | Integer arc_end) -> void
   end
 end

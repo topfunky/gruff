@@ -31,6 +31,7 @@ class Gruff::Bullet < Gruff::Base
     self.theme = Gruff::Themes::GREYSCALE
   end
 
+  # @rbs return: void
   def initialize_attributes
     super
 
@@ -42,6 +43,7 @@ class Gruff::Bullet < Gruff::Base
   # @rbs value: Float | Integer
   # @rbs maximum_value: Float | Integer
   # @rbs options: Hash[Symbol, Float | Integer]
+  # @rbs return: void
   def data(value, maximum_value, options = {})
     @value = value.to_f
     self.maximum_value = maximum_value.to_f
@@ -49,6 +51,7 @@ class Gruff::Bullet < Gruff::Base
     @options.map { |k, v| @options[k] = v.to_f if v.respond_to?(:to_f) }
   end
 
+  # @rbs return: void
   def draw
     # TODO: Left label
     # TODO Bottom labels and markers
@@ -95,6 +98,7 @@ class Gruff::Bullet < Gruff::Base
 
 private
 
+  # @rbs return: void
   def draw_title
     return if hide_title?
 

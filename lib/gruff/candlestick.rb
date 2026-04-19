@@ -36,6 +36,7 @@ class Gruff::Candlestick < Gruff::Base
   # Default value is +0.9+.
   #
   # @rbs space_percent: Float | Integer
+  # @rbs return: void
   def spacing_factor=(space_percent)
     raise ArgumentError, 'spacing_factor must be between 0.00 and 1.00' if (space_percent < 0) || (space_percent > 1)
 
@@ -43,11 +44,13 @@ class Gruff::Candlestick < Gruff::Base
   end
 
   # The sort feature is not supported in this graph.
+  # @rbs return: void
   def sort=(_value)
     raise 'Not support #sort= in Gruff::Candlestick'
   end
 
   # The sort feature is not supported in this graph.
+  # @rbs return: void
   def sorted_drawing=(_value)
     raise 'Not support #sorted_drawing= in Gruff::Candlestick'
   end
@@ -56,12 +59,14 @@ class Gruff::Candlestick < Gruff::Base
   # @rbs high: Float | Integer
   # @rbs open: Float | Integer
   # @rbs close: Float | Integer
+  # @rbs return: void
   def data(low:, high:, open:, close:)
     super('', [low, high, open, close])
   end
 
 private
 
+  # @rbs return: void
   def initialize_attributes
     super
     @show_vertical_markers = false
@@ -74,6 +79,7 @@ private
     @hide_legend = true
   end
 
+  # @rbs return: void
   def draw_graph
     # Setup the BarConversion Object
     conversion = Gruff::BarConversion.new(
@@ -106,6 +112,7 @@ private
     end
   end
 
+  # @rbs return: Array[Gruff::Candlestick::CandlestickData]
   def normalized_candlesticks
     @normalized_candlesticks ||= store.norm_data.map { |data| Gruff::Candlestick::CandlestickData.new(*data.points) } # steep:ignore
   end
@@ -127,11 +134,16 @@ private
 
   # @private
   class CandlestickData
-    attr_accessor :low
-    attr_accessor :high
-    attr_accessor :open
-    attr_accessor :close
+    attr_accessor :low #: Float | Integer
+    attr_accessor :high #: Float | Integer
+    attr_accessor :open #: Float | Integer
+    attr_accessor :close #: Float | Integer
 
+    # @rbs low: Float | Integer
+    # @rbs high: Float | Integer
+    # @rbs open: Float | Integer
+    # @rbs close: Float | Integer
+    # @rbs return: void
     def initialize(low, high, open, close)
       @low = low.to_f
       @high = high.to_f

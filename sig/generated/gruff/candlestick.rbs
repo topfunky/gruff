@@ -33,27 +33,34 @@ class Gruff::Candlestick < Gruff::Base
   # Default value is +0.9+.
   #
   # @rbs space_percent: Float | Integer
-  def spacing_factor=: (Float | Integer space_percent) -> untyped
+  # @rbs return: void
+  def spacing_factor=: (Float | Integer space_percent) -> void
 
   # The sort feature is not supported in this graph.
-  def sort=: (untyped _value) -> untyped
+  # @rbs return: void
+  def sort=: (untyped _value) -> void
 
   # The sort feature is not supported in this graph.
-  def sorted_drawing=: (untyped _value) -> untyped
+  # @rbs return: void
+  def sorted_drawing=: (untyped _value) -> void
 
   # @rbs low: Float | Integer
   # @rbs high: Float | Integer
   # @rbs open: Float | Integer
   # @rbs close: Float | Integer
-  def data: (low: Float | Integer, high: Float | Integer, open: Float | Integer, close: Float | Integer) -> untyped
+  # @rbs return: void
+  def data: (low: Float | Integer, high: Float | Integer, open: Float | Integer, close: Float | Integer) -> void
 
   private
 
-  def initialize_attributes: () -> untyped
+  # @rbs return: void
+  def initialize_attributes: () -> void
 
-  def draw_graph: () -> untyped
+  # @rbs return: void
+  def draw_graph: () -> void
 
-  def normalized_candlesticks: () -> untyped
+  # @rbs return: Array[Gruff::Candlestick::CandlestickData]
+  def normalized_candlesticks: () -> Array[Gruff::Candlestick::CandlestickData]
 
   # @rbs return: Integer
   def column_count: () -> Integer
@@ -66,14 +73,19 @@ class Gruff::Candlestick < Gruff::Base
 
   # @private
   class CandlestickData
-    attr_accessor low: untyped
+    attr_accessor low: Float | Integer
 
-    attr_accessor high: untyped
+    attr_accessor high: Float | Integer
 
-    attr_accessor open: untyped
+    attr_accessor open: Float | Integer
 
-    attr_accessor close: untyped
+    attr_accessor close: Float | Integer
 
-    def initialize: (untyped low, untyped high, untyped open, untyped close) -> untyped
+    # @rbs low: Float | Integer
+    # @rbs high: Float | Integer
+    # @rbs open: Float | Integer
+    # @rbs close: Float | Integer
+    # @rbs return: void
+    def initialize: (Float | Integer low, Float | Integer high, Float | Integer open, Float | Integer close) -> void
   end
 end

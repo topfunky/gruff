@@ -5,7 +5,8 @@ module Gruff::Base::StackedMixin
   # Used by StackedBar and child classes.
   #
   # tsal: moved from Base 03 FEB 2007
-  def calculate_maximum_by_stack: () -> untyped
+  # @rbs return: void
+  def calculate_maximum_by_stack: () -> void
 
   # @rbs return: Array[Array[Gruff::Base::StackedMixin::BarData]]
   def normalized_stacked_bars: () -> Array[Array[Gruff::Base::StackedMixin::BarData]]

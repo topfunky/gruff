@@ -29,6 +29,7 @@ class Gruff::Dot < Gruff::Base
 
 private
 
+  # @rbs return: void
   def initialize_attributes
     super
     @hide_labels = false
@@ -49,6 +50,7 @@ private
     @hide_line_markers && @x_axis_label.nil? && @legend_at_bottom == false
   end
 
+  # @rbs return: void
   def draw_graph
     # Setup spacing.
     #
@@ -76,6 +78,7 @@ private
   end
 
   # Instead of base class version, draws vertical background lines and label
+  # @rbs return: void
   def draw_line_markers
     return if @hide_line_markers
 
@@ -98,6 +101,7 @@ private
 
   # @rbs y_offset: Float | Integer
   # @rbs index: Integer
+  # @rbs return: void
   def draw_label(y_offset, index)
     draw_unique_label(index) do
       draw_label_at(@graph_left - @label_margin, 1.0, 0.0, y_offset, @labels[index], gravity: Magick::EastGravity)

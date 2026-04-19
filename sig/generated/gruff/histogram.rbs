@@ -27,13 +27,16 @@ class Gruff::Histogram < Gruff::Bar
   # @rbs name: String | Symbol
   # @rbs data_points: Array[Float | Integer] | nil
   # @rbs color: String
-  def data: (String | Symbol name, ?Array[Float | Integer] | nil data_points, ?String color) -> untyped
+  # @rbs return: void
+  def data: (String | Symbol name, ?Array[Float | Integer] | nil data_points, ?String color) -> void
 
   private
 
-  def initialize_attributes: () -> untyped
+  # @rbs return: void
+  def initialize_attributes: () -> void
 
-  def setup_data: () -> untyped
+  # @rbs return: void
+  def setup_data: () -> void
 
   # @private
   # @rbs inherits Array[Float | Integer | nil]

@@ -21,6 +21,7 @@ module Gruff
     # @rbs start_y: Float | Integer
     # @rbs end_x: Float | Integer
     # @rbs end_y: Float | Integer
+    # @rbs return: void
     def render(start_x, start_y, end_x, end_y)
       @renderer.draw.push
       @renderer.draw.stroke_color(@color)
