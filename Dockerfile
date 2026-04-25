@@ -1,6 +1,6 @@
 FROM ubuntu:24.04
 
-RUN apt update && \
+RUN apt update -y && \
     apt install -y tzdata sudo && \
     apt install -y make build-essential git bzip2 wget zlib1g-dev libgdbm-dev libreadline-dev libffi-dev
 
