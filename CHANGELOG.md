@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.31.0
+
+- RBS: Add missing RBS signatures (#677)
+
 ## 0.30.0
 
 - RBS: Add missing signatures (#674)
