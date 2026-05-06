@@ -1,0 +1,24 @@
+name: Release
+on:
+  push:
+    tags:
+      - "v*"
+jobs:
+  rubygems:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    environment: release
+    strategy:
+      matrix:
+        ruby: [ 'ruby', 'jruby' ]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - uses: rubygems/configure-rubygems-credentials@v1.0.0
+      - name: Publish gem
+        run: |
+          bundle exec rake release:rubygem_push
