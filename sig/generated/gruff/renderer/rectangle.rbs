@@ -7,8 +7,9 @@ module Gruff
     # @rbs color: String
     # @rbs width: Float | Integer
     # @rbs opacity: Float | Integer
+    # @rbs round: bool
     # @rbs return: void
-    def initialize: (Gruff::Renderer renderer, ?color: String, ?width: Float | Integer, ?opacity: Float | Integer) -> void
+    def initialize: (Gruff::Renderer renderer, ?color: String, ?width: Float | Integer, ?opacity: Float | Integer, ?round: bool) -> void
 
     # @rbs upper_left_x: Float | Integer
     # @rbs upper_left_y: Float | Integer

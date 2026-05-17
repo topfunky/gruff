@@ -61,9 +61,6 @@ class Gruff::SideBar < Gruff::Base
   # @rbs return: bool
   def hide_left_label_area?: () -> bool
 
-  # @rbs return: bool
-  def hide_bottom_label_area?: () -> bool
-
   # @rbs return: void
   def setup_graph_measurements: () -> void
 

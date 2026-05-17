@@ -49,6 +49,7 @@ class TestGruffBar < GruffTestCase
   def test_thousand_separators
     g = Gruff::Bar.new(600)
     g.title = 'Formatted numbers'
+    g.legend_position = :top_left
     g.marker_count = 8
     g.data('data', [4025, 1024, 50_257, 703_672, 1_580_456])
     g.write('test/output/bar_formatted_numbers.png')
@@ -606,17 +607,6 @@ class TestGruffBar < GruffTestCase
     g.write('test/output/bar_axis_label_with_hide_line_markers.png')
 
     assert_same_image('test/expected/bar_axis_label_with_hide_line_markers.png', 'test/output/bar_axis_label_with_hide_line_markers.png')
-  end
-
-  def test_axis_label_with_legend_at_bottom
-    g = setup_basic_graph
-    g.title = 'Axis Label with Legend at Bottom'
-    g.legend_at_bottom = true
-    g.x_axis_label = 'x_axis_label'
-    g.y_axis_label = 'y_axis_label'
-    g.write('test/output/bar_axis_label_with_legend_at_bottom.png')
-
-    assert_same_image('test/expected/bar_axis_label_with_legend_at_bottom.png', 'test/output/bar_axis_label_with_legend_at_bottom.png')
   end
 
   def test_draw_twice

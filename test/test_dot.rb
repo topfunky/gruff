@@ -17,6 +17,7 @@ class TestGruffDot < GruffTestCase
   def test_dot_graph
     g = setup_basic_graph
     g.title = 'Dot Graph Test'
+    g.legend_position = :bottom_right
     g.write('test/output/dot.png')
 
     assert_same_image('test/expected/dot.png', 'test/output/dot.png')

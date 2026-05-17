@@ -19,6 +19,7 @@ class TestBezier < GruffTestCase
   def test_bezier
     g = Gruff::Bezier.new
     g.title = 'Bezier?'
+    g.legend_position = :bottom_right
     g.data 'Series 1', [0, 100]
     g.write('test/output/bezier.png')
 
@@ -27,6 +28,7 @@ class TestBezier < GruffTestCase
 
   def test_bezier_2
     g = Gruff::Bezier.new
+    g.legend_position = :bottom_right
     g.data 'Series 2', [0, 127, 150]
     g.write('test/output/bezier_2.png')
 
@@ -35,6 +37,7 @@ class TestBezier < GruffTestCase
 
   def test_bezier_3
     g = Gruff::Bezier.new
+    g.legend_position = :bottom_right
     g.data 'Series 3', [100, 300, 200, 250]
     g.minimum_value = 0
     g.write('test/output/bezier_3.png')
@@ -45,6 +48,7 @@ class TestBezier < GruffTestCase
   def test_bezier_4
     # issue 87
     g = Gruff::Bezier.new
+    g.legend_position = :bottom_right
     g.data(
       'test',
       [
@@ -63,6 +67,7 @@ class TestBezier < GruffTestCase
 
   def test_empty_data
     g = Gruff::Bezier.new
+    g.legend_position = :bottom_right
     g.title = 'Contained Empty Data'
     g.data 'A', []
     g.data 'B', [nil, +0.09, +0.19, +0.29, +0.38, +0.47, +0.56, +0.64, +0.71, +0.78]

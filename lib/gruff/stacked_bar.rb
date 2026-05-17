@@ -134,11 +134,6 @@ private
     @hide_line_markers && @y_axis_label.nil?
   end
 
-  # @rbs return: bool
-  def hide_bottom_label_area?
-    hide_labels? && @x_axis_label.nil? && @legend_at_bottom == false
-  end
-
   # @rbs return: Proc
   def proc_text_metrics
     ->(text) { text_metrics(@marker_font, text) }

@@ -6,6 +6,7 @@ require_relative 'gruff_test_case'
 class TestBubble < GruffTestCase
   def test_bubble
     g = Gruff::Bubble.new
+    g.legend_position = :bottom_right
     g.theme_rails_keynote
     g.title = 'Bubble Graph'
     g.data :A, [1.1, 1.5, 1.6, 1.8, 2.0, 2.2], [1.0, 1.5, 2.0, 2.5, 4.0, 4.5], [0.1, 0.1, 0.2, 0.5, 0.2, 0.1]

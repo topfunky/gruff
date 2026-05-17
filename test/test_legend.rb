@@ -29,29 +29,32 @@ class TestGruffLegend < GruffTestCase
     }
   end
 
-  def full_suite_for(name, type, legend_at_bottom: false)
-    font_sizes = [nil, 4, 16, 30].freeze
+  def full_suite_for(name, type)
+    font_sizes = [nil, 4, 10].freeze
+    legend_position = %i[top_right top_left bottom_right bottom_left]
     [800, 400].each do |width|
       font_sizes.each do |font_size|
-        g = type.new(width)
-        g.title = "Wrapped Legend Bar Test #{font_size}pts #{width}px"
-        g.labels = @sample_labels
-        0xEFD250.step(0xFF0000, 60) do |num|
-          g.colors << sprintf('#%x', num)
+        legend_position.each do |position|
+          g = type.new(width)
+          g.title = "Wrapped Legend Bar Test #{font_size}pts #{width}px"
+          g.labels = @sample_labels
+          0xEFD250.step(0xFF0000, 60) do |num|
+            g.colors << sprintf('#%x', num)
+          end
+
+          @datasets.each do |data|
+            g.data(data[0], data[1])
+          end
+
+          g.legend_font_size = font_size if font_size
+          g.legend_position = position
+          g.write("test/output/#{name}_wrapped_legend_#{font_size}_#{width}_#{position}.png")
+
+          assert_same_image(
+            "test/expected/#{name}_wrapped_legend_#{font_size}_#{width}_#{position}.png",
+            "test/output/#{name}_wrapped_legend_#{font_size}_#{width}_#{position}.png"
+          )
         end
-
-        @datasets.each do |data|
-          g.data(data[0], data[1])
-        end
-
-        g.legend_font_size = font_size if font_size
-        g.legend_at_bottom = legend_at_bottom
-        g.write("test/output/#{name}_wrapped_legend_#{font_size}_#{width}.png")
-
-        assert_same_image(
-          "test/expected/#{name}_wrapped_legend_#{font_size}_#{width}.png",
-          "test/output/#{name}_wrapped_legend_#{font_size}_#{width}.png"
-        )
       end
     end
   end
@@ -76,19 +79,5 @@ class TestGruffLegend < GruffTestCase
     ]
     @datasets += data
     full_suite_for(:bar2, Gruff::Bar)
-  end
-
-  def test_more_than_two_lines_of_legends_at_bottom
-    data = [
-      [:Julie2, [22, 29, 35, 38, 36, 40, 46, 57]],
-      [:Jane2, [95, 95, 95, 90, 85, 80, 88, 100]],
-      [:Philip2, [90, 34, 23, 12, 78, 89, 98, 88]],
-      [:Arthur2, [5, 10, 13, 11, 6, 16, 22, 32]],
-      [:Vincent2, [5, 10, 13, 11, 6, 16, 22, 32]],
-      [:Jake2, [5, 10, 13, 11, 6, 16, 22, 32]],
-      [:Stephen2, [5, 10, 13, 11, 6, 16, 22, 32]]
-    ]
-    @datasets += data
-    full_suite_for(:bar_legend_at_bottom, Gruff::Bar, legend_at_bottom: true)
   end
 end

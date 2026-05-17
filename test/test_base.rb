@@ -20,7 +20,6 @@ class TestGruffBase < GruffTestCase
   def test_labels_can_be_any_object
     g = Gruff::Bar.new
     g.title = 'Bar Graph With Manual Colors'
-    g.legend_margin = 50
     g.labels = @sample_numeric_labels
     g.data(:Art, [0, 5, 8, 15], '#990000')
     g.data(:Philosophy, [10, 3, 2, 8], '#009900')
@@ -38,6 +37,7 @@ class TestGruffBase < GruffTestCase
     g.title_font = File.join(fixtures_dir, 'Pacifico-Regular.ttf')
     g.font = File.join(fixtures_dir, 'ComicNeue-Regular.ttf')
     g.title = 'Bar Graph With Manual Colors'
+    g.legend_position = :top_left
     g.data('Hello world!!!', [0, 5, 8, 15], '#990000')
     g.write('test/output/base_font.png')
 
@@ -61,6 +61,7 @@ class TestGruffBase < GruffTestCase
   def test_multi_line_title
     g = Gruff::Bar.new
     g.title = ['Bar Graph', 'With Manual Colors']
+    g.legend_position = :top_left
     g.data('foo', [0, 5, 8, 15])
     g.write('test/output/base_multi_line_title.png')
 
@@ -71,6 +72,7 @@ class TestGruffBase < GruffTestCase
     g = Gruff::Bar.new
     g.title = 'Bar Graph With Manual Colors'
     g.bold_title = true
+    g.legend_position = :top_left
     g.data('foo', [0, 5, 8, 15])
     g.write('test/output/base_bold_title.png')
 
@@ -80,6 +82,7 @@ class TestGruffBase < GruffTestCase
   def test_title_font_size
     g = Gruff::Bar.new
     g.title = 'Bar Graph With Manual Colors' * 2
+    g.legend_position = :top_left
     g.data('foo', [0, 5, 8, 15])
     g.write('test/output/base_title_font_size.png')
 
@@ -290,27 +293,5 @@ class TestGruffBase < GruffTestCase
     g.write('test/output/base_label_rotation_2.png')
 
     assert_same_image('test/expected/base_label_rotation_2.png', 'test/output/base_label_rotation_2.png')
-  end
-
-  def test_label_rotation_legend_at_bottom_xy_axis_label
-    g = Gruff::Line.new
-    g.data 'Apples', [1, 2, 3, 4]
-    g.data 'Oranges', [4, 8, 7, 9]
-    g.data 'Watermelon', [2, 3, 1, 5]
-    g.data 'Peaches', [9, 9, 10, 8]
-    g.labels = [
-      'a' * 10,
-      'b' * 10,
-      'c' * 10,
-      'd' * 10
-    ]
-    g.label_rotation = -30
-    g.legend_at_bottom = true
-    g.x_axis_label = 'a' * 20
-    g.y_axis_label = 'b' * 20
-    g.write('test/output/base_label_rotation_legend_at_bottom_xy_axis_label.png')
-
-    assert_same_image('test/expected/base_label_rotation_legend_at_bottom_xy_axis_label.png',
-                      'test/output/base_label_rotation_legend_at_bottom_xy_axis_label.png')
   end
 end

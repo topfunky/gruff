@@ -53,9 +53,6 @@ class Gruff::StackedBar < Gruff::Base
   # @rbs return: bool
   def hide_left_label_area?: () -> bool
 
-  # @rbs return: bool
-  def hide_bottom_label_area?: () -> bool
-
   # @rbs return: Proc
   def proc_text_metrics: () -> Proc
 end

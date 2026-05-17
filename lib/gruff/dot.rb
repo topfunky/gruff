@@ -45,11 +45,6 @@ private
     hide_labels? && @y_axis_label.nil?
   end
 
-  # @rbs return: bool
-  def hide_bottom_label_area?
-    @hide_line_markers && @x_axis_label.nil? && @legend_at_bottom == false
-  end
-
   # @rbs return: void
   def draw_graph
     # Setup spacing.
