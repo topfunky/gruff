@@ -158,6 +158,7 @@ class TestGruffSideBar < GruffTestCase
 
   def test_negative
     g = Gruff::SideBar.new(800)
+    g.legend_position = :top_left
     g.title = 'Pos/Neg SideBar Graph Test'
     g.labels = {
       0 => '5/6',
@@ -175,6 +176,7 @@ class TestGruffSideBar < GruffTestCase
 
   def test_all_negative
     g = Gruff::SideBar.new(800)
+    g.legend_position = :top_left
     g.title = 'All Neg SideBar Graph Test'
     g.labels = {
       0 => '5/6',
@@ -217,17 +219,6 @@ class TestGruffSideBar < GruffTestCase
     g.write('test/output/side_bar_axis_label_with_hide_line_markers.png')
 
     assert_same_image('test/expected/side_bar_axis_label_with_hide_line_markers.png', 'test/output/side_bar_axis_label_with_hide_line_markers.png')
-  end
-
-  def test_axis_label_with_legend_at_bottom
-    g = setup_basic_graph(Gruff::SideBar, 800)
-    g.title = 'Axis Label with Legend at Bottom'
-    g.legend_at_bottom = true
-    g.x_axis_label = 'x_axis_label'
-    g.y_axis_label = 'y_axis_label'
-    g.write('test/output/side_bar_axis_label_with_legend_at_bottom.png')
-
-    assert_same_image('test/expected/side_bar_axis_label_with_legend_at_bottom.png', 'test/output/side_bar_axis_label_with_legend_at_bottom.png')
   end
 
   def test_empty_data

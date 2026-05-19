@@ -402,25 +402,6 @@ class TestGruffLine < GruffTestCase
     assert_same_image('test/expected/line_nothing_but_the_graph.png', 'test/output/line_nothing_but_the_graph.png')
   end
 
-  def test_legend_below_the_chart
-    g = setup_basic_graph(400)
-    g.title = 'Legend below the chart'
-    g.legend_at_bottom = true
-    g.write('test/output/line_legend_at_bottom.png')
-
-    assert_same_image('test/expected/line_legend_at_bottom.png', 'test/output/line_legend_at_bottom.png')
-  end
-
-  def test_legend_below_the_chart_without_title
-    g = setup_basic_graph(400)
-    g.title = 'Legend below the chart'
-    g.hide_title = true
-    g.legend_at_bottom = true
-    g.write('test/output/line_legend_at_bottom_no_title.png')
-
-    assert_same_image('test/expected/line_legend_at_bottom_no_title.png', 'test/output/line_legend_at_bottom_no_title.png')
-  end
-
   def test_baseline_larger_than_data
     g = setup_basic_graph(400)
     g.title = 'Baseline Larger Than Data'
@@ -729,7 +710,7 @@ class TestGruffLine < GruffTestCase
   def test_baseline
     g = Gruff::Line.new
     g.title = 'Line Chart with Baseline = 5'
-
+    g.legend_position = :bottom_right
     g.data('Apples', [3, 2, 3, 4, 4, 3])
     g.data('Oranges', [4, 8, 7, 9, 8, 9])
     g.data('Watermelon', [2, 3, 4, 5, 6, 8])

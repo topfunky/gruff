@@ -90,11 +90,6 @@ private
     @hide_line_markers && @y_axis_label.nil?
   end
 
-  # @rbs return: bool
-  def hide_bottom_label_area?
-    hide_labels? && @x_axis_label.nil? && @legend_at_bottom == false
-  end
-
   # @rbs return: void
   def setup_graph_measurements
     super

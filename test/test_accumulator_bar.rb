@@ -68,6 +68,7 @@ class TestGruffAccumulatorBar < GruffTestCase
 
     g = Gruff::AccumulatorBar.new
     g.title = 'Contained Nil Data 2'
+    g.legend_position = :top_left
     g.data :A, [1, nil, 1]
 
     g.write('test/output/accum_bar_empty_data_nil_2.png')
@@ -77,6 +78,7 @@ class TestGruffAccumulatorBar < GruffTestCase
 
   def test_duck_typing
     g = Gruff::AccumulatorBar.new
+    g.legend_position = :top_left
     g.data :Bob, GruffCustomData.new([50, 19, 31, 89, 20, 54, 37, 65]), '#33A6B8'
     g.write('test/output/accum_bar_duck_typing.png')
 

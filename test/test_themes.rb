@@ -8,7 +8,6 @@ class TestGruffThemes < GruffTestCase
     g = Gruff::Bar.new
     g.theme_keynote
     g.title = 'Keynote'
-    g.legend_margin = 50
     g.data(:Art, [0, 5, 8, 15])
     g.data(:Philosophy, [10, 3, 2, 8])
     g.data(:Science, [2, 15, 8, 11])
@@ -22,7 +21,6 @@ class TestGruffThemes < GruffTestCase
     g = Gruff::Bar.new
     g.theme_37signals
     g.title = '37signals'
-    g.legend_margin = 50
     g.data(:Art, [0, 5, 8, 15])
     g.data(:Philosophy, [10, 3, 2, 8])
     g.data(:Science, [2, 15, 8, 11])
@@ -36,7 +34,6 @@ class TestGruffThemes < GruffTestCase
     g = Gruff::Bar.new
     g.theme_rails_keynote
     g.title = 'Rails Keynote'
-    g.legend_margin = 50
     g.data(:Art, [0, 5, 8, 15])
     g.data(:Philosophy, [10, 3, 2, 8])
     g.data(:Science, [2, 15, 8, 11])
@@ -50,7 +47,6 @@ class TestGruffThemes < GruffTestCase
     g = Gruff::Bar.new
     g.theme_odeo
     g.title = 'Odeo'
-    g.legend_margin = 50
     g.data(:Art, [0, 5, 8, 15])
     g.data(:Philosophy, [10, 3, 2, 8])
     g.data(:Science, [2, 15, 8, 11])
@@ -64,7 +60,6 @@ class TestGruffThemes < GruffTestCase
     g = Gruff::Bar.new
     g.theme_pastel
     g.title = 'Pastel'
-    g.legend_margin = 50
     g.data(:Art, [0, 5, 8, 15])
     g.data(:Philosophy, [10, 3, 2, 8])
     g.data(:Science, [2, 15, 8, 11])
@@ -78,7 +73,6 @@ class TestGruffThemes < GruffTestCase
     g = Gruff::Bar.new
     g.theme_greyscale
     g.title = 'Pastel'
-    g.legend_margin = 50
     g.data(:Art, [0, 5, 8, 15])
     g.data(:Philosophy, [10, 3, 2, 8])
     g.data(:Science, [2, 15, 8, 11])

@@ -23,7 +23,7 @@ module Gruff
   # A common base class inherited from class of drawing a graph.
   class Base
     # Space around text elements. Mostly used for vertical spacing.
-    LEGEND_MARGIN = 20.0
+    LEGEND_MARGIN = 10.0
     TITLE_MARGIN = 20.0
     LABEL_MARGIN = 15.0
     DEFAULT_MARGIN = 20.0
@@ -47,9 +47,6 @@ module Gruff
 
     # Blank space below the title. Default is +20+.
     attr_writer :title_margin #: Float | Integer
-
-    # Blank space below the legend. Default is +20+.
-    attr_writer :legend_margin #: Float | Integer
 
     # Truncates labels if longer than max specified.
     attr_writer :label_max_size #: Float | Integer
@@ -115,13 +112,16 @@ module Gruff
     # first. This does not affect the legend. Default is +false+.
     attr_writer :sorted_drawing #: bool
 
-    # Display the legend under the graph. Default is +false+.
-    attr_writer :legend_at_bottom #: bool
+    # Blank space below the legend. Default is +20+.
+    attr_writer :legend_margin #: Float | Integer
 
-    # Optionally set the size of the colored box by each item in the legend.
-    # Default is +20.0+.
-    #
-    # Will be scaled down if graph is smaller than 800px wide.
+    # Set the vertical spacing between individual legend items. Default is +5.0+.
+    attr_writer :legend_spacing #: Float | Integer
+
+    # Set the inner padding between the legend frame and its contents. Default is +7.0+.
+    attr_writer :legend_padding #: Float | Integer
+
+    # Optionally set the size of the colored box by each item in the legend. Default is +20.0+.
     attr_writer :legend_box_size #: Float | Integer
 
     # If one numerical argument is given, the graph is drawn at 4/3 ratio
@@ -190,19 +190,22 @@ module Gruff
 
       @title_font = Gruff::Font.new(size: 36.0, bold: true)
       @marker_font = Gruff::Font.new(size: 21.0)
-      @legend_font = Gruff::Font.new(size: 20.0)
+      @legend_font = Gruff::Font.new(size: 12.0)
       @no_data_font = Gruff::Font.new(size: 80.0)
 
       @label_margin = LABEL_MARGIN
       @top_margin = @bottom_margin = @left_margin = @right_margin = DEFAULT_MARGIN
-      @legend_margin = LEGEND_MARGIN
       @title_margin = TITLE_MARGIN
 
-      @legend_box_size = 20.0
+      @legend_margin = LEGEND_MARGIN
+      @legend_spacing = 5.0
+      @legend_padding = 7.0
+      @legend_box_size = 10.0
+      @legend_position = :top_right
 
       @no_data_message = 'No Data'
 
-      @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = @legend_at_bottom = false
+      @hide_line_markers = @hide_legend = @hide_title = @hide_line_numbers = false
       @label_max_size = 0
       @label_truncation_style = :absolute
       @label_rotation = 0
@@ -255,11 +258,32 @@ module Gruff
       @label_rotation = rotation.to_f
     end
 
+    # Set the corner position of the floating legend. Accepts +:top_right+ (default),
+    # +:top_left+, +:bottom_right+, or +:bottom_left+.
+    #
+    # @param position [Symbol] the position.
+    # @rbs position: Symbol
+    # @rbs return: void
+    def legend_position=(position)
+      unless %i[top_right top_left bottom_right bottom_left].include?(position)
+        raise ArgumentError, 'Invalid legend position. Must be :top_right, :top_left, :bottom_right, or :bottom_left.'
+      end
+
+      @legend_position = position
+    end
+
     # Height of staggering between labels.
     # @deprecated
     # @rbs return: void
     def label_stagger_height=(_value)
       warn '#label_stagger_height= is deprecated. It is no longer effective.'
+    end
+
+    # Set the legend position to the bottom of the graph.
+    # @deprecated
+    # @rbs return: void
+    def legend_at_bottom=(_value)
+      warn '#legend_at_bottom= is deprecated. It is no longer effective.'
     end
 
     # Set the large title of the graph displayed at the top.
@@ -629,11 +653,11 @@ module Gruff
 
       setup_drawing
 
-      draw_legend
       draw_line_markers
       draw_axis_labels
       draw_title
       draw_graph
+      draw_legend
     end
 
   protected
@@ -822,46 +846,57 @@ module Gruff
     def draw_legend
       return if @hide_legend
 
-      legend_labels = store.data.map(&:label)
-      legend_square_width = @legend_box_size # small square with color of this item
-      legend_label_lines = calculate_legend_label_widths_for_each_line(legend_labels, legend_square_width)
-      line_height = [legend_caps_height, legend_square_width].max + @legend_margin
+      legend_labels = store.data.map(&:label).reject(&:empty?)
+      return if legend_labels.empty?
 
-      current_y_offset = begin
-        if @legend_at_bottom
-          @graph_bottom + @legend_margin + labels_caps_height + @label_margin + (@x_axis_label ? (@label_margin * 2) + marker_caps_height : 0)
-        else
-          hide_title? ? @top_margin + @title_margin : @top_margin + @title_margin + title_caps_height
-        end
+      line_height = [legend_caps_height, @legend_box_size].max + @legend_spacing
+      max_legend_label_width = legend_labels.map { |l| calculate_width(@legend_font, l) }.max || 0.0
+
+      legend_content_width  = (@legend_box_size * 1.5) + max_legend_label_width
+      legend_content_height = (line_height * (legend_labels.size - 1)) + @legend_box_size
+
+      case @legend_position
+      when :top_left
+        current_x_offset = @graph_left + @legend_margin
+        current_y_offset = @graph_top  + @legend_margin + @legend_spacing
+      when :bottom_right
+        current_x_offset = @graph_right  - @legend_margin - legend_content_width
+        current_y_offset = @graph_bottom - @legend_margin - legend_content_height
+      when :bottom_left
+        current_x_offset = @graph_left + @legend_margin
+        current_y_offset = @graph_bottom - @legend_margin - legend_content_height
+      else # :top_right (default)
+        current_x_offset = @graph_right - @legend_margin - legend_content_width
+        current_y_offset = @graph_top + @legend_margin + @legend_spacing
       end
 
-      index = 0
-      legend_label_lines.each do |(legend_labels_width, legend_labels_line)|
-        current_x_offset = center(legend_labels_width)
+      legend_items_end_x = current_x_offset + legend_content_width
+      legend_items_end_y = current_y_offset + legend_content_height
 
-        legend_labels_line.each do |legend_label|
-          unless legend_label.empty?
-            legend_label_width = calculate_width(@legend_font, legend_label)
+      frame_renderer = Gruff::Renderer::Rectangle.new(renderer, color: @marker_color, width: 1.1, opacity: 0.2, round: true)
+      frame_renderer.render(current_x_offset - @legend_padding,
+                            current_y_offset - @legend_padding,
+                            legend_items_end_x + @legend_padding,
+                            legend_items_end_y + @legend_padding)
 
-            # Draw label
-            text_renderer = Gruff::Renderer::Text.new(renderer, legend_label, font: @legend_font)
-            text_renderer.add_to_render_queue(legend_label_width,
-                                              legend_square_width,
-                                              current_x_offset + (legend_square_width * 1.7),
-                                              current_y_offset,
-                                              Magick::CenterGravity)
+      store.data.each do |data_row|
+        legend_label = data_row.label
+        next if legend_label.empty?
 
-            # Now draw box with color of this dataset
-            rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: store.data[index].color)
-            rect_renderer.render(current_x_offset,
-                                 current_y_offset,
-                                 current_x_offset + legend_square_width,
-                                 current_y_offset + legend_square_width)
+        legend_label_width = calculate_width(@legend_font, legend_label)
 
-            current_x_offset += legend_label_width + (legend_square_width * 2.7)
-          end
-          index += 1
-        end
+        text_renderer = Gruff::Renderer::Text.new(renderer, legend_label, font: @legend_font)
+        text_renderer.add_to_render_queue(legend_label_width,
+                                          @legend_box_size,
+                                          current_x_offset + (@legend_box_size * 1.5),
+                                          current_y_offset,
+                                          Magick::CenterGravity)
+
+        rect_renderer = Gruff::Renderer::Rectangle.new(renderer, color: data_row.color)
+        rect_renderer.render(current_x_offset,
+                             current_y_offset,
+                             current_x_offset + @legend_box_size,
+                             current_y_offset + @legend_box_size)
 
         current_y_offset += line_height
       end
@@ -1123,14 +1158,12 @@ module Gruff
       # When @hide title, leave a title_margin space for aesthetics.
       # Same with @hide_legend
       @top_margin +
-        (hide_title? ? @title_margin : title_caps_height + @title_margin) +
-        (@hide_legend || @legend_at_bottom ? @legend_margin : calculate_legend_height + @legend_margin)
+        (hide_title? ? @title_margin : title_caps_height + @title_margin)
     end
 
     # @rbs return: Float
     def setup_bottom_margin
       graph_bottom_margin = hide_bottom_label_area? ? @bottom_margin : @bottom_margin + labels_caps_height + @label_margin
-      graph_bottom_margin += (calculate_legend_height + @legend_margin) if @legend_at_bottom
 
       x_axis_label_height = @x_axis_label.nil? ? 0.0 : marker_caps_height + (@label_margin * 2)
       @raw_rows - graph_bottom_margin - x_axis_label_height
@@ -1209,42 +1242,6 @@ module Gruff
       else
         label(value, increment)
       end
-    end
-
-    # @rbs legend_labels: Array[String]
-    # @rbs legend_square_width: Float | Integer
-    # @rbs return: Array[Array[Float | Integer]]
-    def calculate_legend_label_widths_for_each_line(legend_labels, legend_square_width)
-      label_widths = [[]]
-      label_lines = [[]]
-      legend_labels.each do |label|
-        if label.empty?
-          label_width = 0.0
-        else
-          width = calculate_width(@legend_font, label)
-          label_width = width + (legend_square_width * 2.7)
-        end
-        label_widths.last.push label_width
-        label_lines.last.push label
-
-        if label_widths.last.sum > (@raw_columns * 0.9)
-          label_widths.push [label_widths.last.pop]
-          label_lines.push [label_lines.last.pop]
-        end
-      end
-
-      label_widths.map(&:sum).zip(label_lines)
-    end
-
-    # @rbs return: Float
-    def calculate_legend_height
-      return 0.0 if @hide_legend
-
-      legend_labels = store.data.map(&:label)
-      legend_label_lines = calculate_legend_label_widths_for_each_line(legend_labels, @legend_box_size)
-      line_height = [legend_caps_height, @legend_box_size].max
-
-      (line_height * legend_label_lines.count) + (@legend_margin * (legend_label_lines.count - 1))
     end
 
     # Returns the height of the capital letter 'X' for the current font and

@@ -17,6 +17,7 @@ class TestGruffHistogram < GruffTestCase
   def test_histogram_minimum_maximum
     g = Gruff::Histogram.new
     g.title = 'Histogram Graph'
+    g.legend_position = :top_left
     g.minimum_bin = 10
     g.maximum_bin = 90
     g.bin_width = 20
@@ -30,6 +31,7 @@ class TestGruffHistogram < GruffTestCase
   def test_bin_width_after_data_method
     g = Gruff::Histogram.new
     g.title = 'Histogram Graph'
+    g.legend_position = :top_left
     g.minimum_bin = 10
     g.maximum_bin = 90
     g.data :A, [10, 10, 20, 30, 40, 40, 40, 40, 40, 40, 50, 10, 10, 10]
@@ -54,6 +56,7 @@ class TestGruffHistogram < GruffTestCase
 
   def test_duck_typing
     g = Gruff::Histogram.new
+    g.legend_position = :top_left
     g.data :Jimmy, [25, 36, 86, 39, 25, 31, 79, 88], '#113285'
     g.data :Charles, [80, 54, 67, 54, 68, 70, 90, 95], '#86A697'
     g.data :Julie, [22, 29, 35, 38, 36, 40, 46, 57], '#E03C8A'
