@@ -1,5 +1,22 @@
 # Change Log
 
+## 0.32.0
+### Added
+* Add floating legend support (#679)
+  * The legend is now rendered as a modern floating box over the graph area by default.
+  * `legend_position=`
+    * Allows setting the corner position of the floating legend. Accepts `:top_right` (default), `:top_left`, `:bottom_right`, or `:bottom_left`.
+  * `legend_spacing=`
+    * Sets the vertical spacing between individual legend items (default: `5.0`).
+  * `legend_padding=`
+    * Sets the inner padding between the legend frame and its contents (default: `7.0`).
+  * Tweaked default sizes for a cleaner look
+    * `legend_font` size reduced to `12.0`, `legend_box_size` to `10.0`, and `legend_margin` to `10.0`.
+
+### Deprecated
+* `legend_at_bottom=`
+  * This attribute is deprecated and no longer has any effect. Use `legend_position = :bottom_left` or `:bottom_right` instead.
+
 ## 0.31.0
 
 - RBS: Add missing RBS signatures (#677)
