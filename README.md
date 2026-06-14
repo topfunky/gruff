@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/topfunky/gruff/actions/workflows/ci.yml/badge.svg)](https://github.com/topfunky/gruff/actions/workflows/ci.yml)
 [![Gem Version](https://badge.fury.io/rb/gruff.svg)](https://badge.fury.io/rb/gruff)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/topfunky/gruff)
 
 A library for making beautiful graphs.
 
