@@ -20,7 +20,7 @@ jobs:
           - { full: 7.1.2-22, major-minor: '7.1' }
     name: Lint (Ruby ${{ matrix.ruby-version }}, ImageMagick ${{ matrix.imagemagick-version.major-minor }})
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha }}
     - name: Cache ImageMagick
@@ -54,7 +54,7 @@ jobs:
           - { full: 7.1.2-22, major-minor: '7.1' }
     name: Check RBS (Ruby ${{ matrix.ruby-version }}, ImageMagick ${{ matrix.imagemagick-version.major-minor }})
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha }}
     - name: Cache ImageMagick
@@ -90,7 +90,7 @@ jobs:
           - { full: 7.1.2-22, major-minor: '7.1' }
     name: Ruby ${{ matrix.ruby-version }}
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Cache ImageMagick
       uses: actions/cache@v5
       with:
@@ -118,7 +118,7 @@ jobs:
         ruby-version: ['9.4.7.0']
     name: JRuby ${{ matrix.ruby-version }}
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
