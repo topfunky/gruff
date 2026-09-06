@@ -19,7 +19,7 @@ gem 'rake'
 gem 'simplecov'
 gem 'yard', '~> 0.9.28'
 
-if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('3.1') && !RUBY_PLATFORM.include?('java')
+if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('3.3') && !RUBY_PLATFORM.include?('java')
   gem 'rbs-inline', '~> 0.11'
   gem 'rubocop-rbs_inline', '~> 2.0'
   gem 'steep', '~> 2.0'
